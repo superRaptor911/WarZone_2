@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://controls/JoyStick.gd" type="Script" id=1]
+[ext_resource path="res://controls/big_circle.png" type="Texture" id=2]
+[ext_resource path="res://controls/small_circle.png" type="Texture" id=3]
+
+[node name="joy" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="big" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="small" type="Sprite" parent="."]
+texture = ExtResource( 3 )
