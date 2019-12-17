@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Menus/Settings/Settings.gd" type="Script" id=1]
+[ext_resource path="res://font.tres" type="DynamicFont" id=2]
+
+[node name="Settings" type="CanvasLayer"]
+scale = Vector2( 1.4, 1.4 )
+transform = Transform2D( 1.4, 0, 0, 1.4, 0, 0 )
+script = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 269.33
+margin_top = 71.5029
+margin_right = 707.33
+margin_bottom = 428.503
+custom_constants/separation = 50
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="cntrl" type="Button" parent="VBoxContainer"]
+margin_right = 438.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 2 )
+text = "Controls"
+
+[node name="display" type="Button" parent="VBoxContainer"]
+margin_top = 80.0
+margin_right = 438.0
+margin_bottom = 110.0
+custom_fonts/font = ExtResource( 2 )
+text = "Display"
+
+[node name="sound" type="Button" parent="VBoxContainer"]
+margin_top = 160.0
+margin_right = 438.0
+margin_bottom = 190.0
+custom_fonts/font = ExtResource( 2 )
+text = "Sound"
+
+[node name="avatar" type="Button" parent="VBoxContainer"]
+margin_top = 240.0
+margin_right = 438.0
+margin_bottom = 270.0
+custom_fonts/font = ExtResource( 2 )
+text = "Avatar"
+
+[node name="Button" type="Button" parent="."]
+margin_left = 64.1933
+margin_top = 458.823
+margin_right = 156.193
+margin_bottom = 498.823
+custom_fonts/font = ExtResource( 2 )
+text = "Back"
+[connection signal="pressed" from="VBoxContainer/cntrl" to="." method="_on_cntrl_pressed"]
+[connection signal="pressed" from="VBoxContainer/avatar" to="." method="_on_avatar_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

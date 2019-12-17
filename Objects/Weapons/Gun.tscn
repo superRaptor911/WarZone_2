@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/Weapons/Gun.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Weapons/pistol_1.png" type="Texture" id=2]
+[ext_resource path="res://Sfx/weapons/handgun/usp.wav" type="AudioStream" id=3]
+[ext_resource path="res://Sfx/weapons/handgun/pis_clipout.wav" type="AudioStream" id=4]
+
+[node name="Gun" type="Node2D"]
+position = Vector2( 213.783, 186.488 )
+z_index = 1
+script = ExtResource( 1 )
+projectile_velocity = 500.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Muzzle" type="Node2D" parent="."]
+position = Vector2( 0, -11.3392 )
+
+[node name="Reload_time" type="Timer" parent="."]
+one_shot = true
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -0.648891, -2.56607 )
+scale = Vector2( 0.512586, 0.261017 )
+texture = ExtResource( 2 )
+
+[node name="fire" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+
+[node name="clipOut" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="recoil_cool" type="Timer" parent="."]
+one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, -350 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Reload_time" to="." method="_on_Reload_time_timeout"]
+[connection signal="timeout" from="recoil_cool" to="." method="_on_recoil_cool_timeout"]

@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Menus/store/store_main_menu.gd" type="Script" id=1]
+[ext_resource path="res://font.tres" type="DynamicFont" id=2]
+
+[node name="store_main_menu" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="skin" type="Button" parent="."]
+margin_left = 493.0
+margin_top = 143.0
+margin_right = 799.0
+margin_bottom = 240.0
+custom_fonts/font = ExtResource( 2 )
+text = "Skin"
+
+[node name="wpn" type="Button" parent="."]
+margin_left = 497.522
+margin_top = 412.814
+margin_right = 803.522
+margin_bottom = 509.814
+custom_fonts/font = ExtResource( 2 )
+text = "Weapons"
+
+[node name="back" type="Button" parent="."]
+margin_left = 1086.2
+margin_top = 615.832
+margin_right = 1225.2
+margin_bottom = 680.832
+custom_fonts/font = ExtResource( 2 )
+text = "Back"
+[connection signal="pressed" from="wpn" to="." method="_on_wpn_pressed"]
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

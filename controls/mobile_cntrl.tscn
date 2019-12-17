@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://CanvasLayer.gd" type="Script" id=1]
+[ext_resource path="res://controls/up.gd" type="Script" id=2]
+[ext_resource path="res://Textures/ui/arrow.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32.5095, 33.9442 )
+
+[node name="mobile_cntrl" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="up" type="Area2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="up"]
+position = Vector2( 866.202, 428.259 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="up/CollisionShape2D"]
+position = Vector2( 0.205231, 0.802521 )
+rotation = 1.5708
+scale = Vector2( 0.135107, 0.133844 )
+texture = ExtResource( 3 )
+
+[node name="down" type="Area2D" parent="."]
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="down"]
+position = Vector2( 864.91, 535.524 )
+rotation = -3.14159
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="down/CollisionShape2D4"]
+position = Vector2( 0.205231, 0.802521 )
+rotation = 1.5708
+scale = Vector2( 0.135107, 0.133844 )
+texture = ExtResource( 3 )
+
+[node name="right" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="right"]
+position = Vector2( 242.35, 479.82 )
+rotation = 1.5708
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="right/CollisionShape2D2"]
+position = Vector2( 0.205231, 0.802521 )
+rotation = 1.5708
+scale = Vector2( 0.135107, 0.133844 )
+texture = ExtResource( 3 )
+
+[node name="left" type="Area2D" parent="."]
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="left"]
+position = Vector2( 69.5441, 480.157 )
+rotation = -1.5708
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="left/CollisionShape2D3"]
+position = Vector2( 0.205231, 0.802521 )
+rotation = 1.5708
+scale = Vector2( 0.135107, 0.133844 )
+texture = ExtResource( 3 )

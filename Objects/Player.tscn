@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Objects/Character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Player.gd" type="Script" id=2]
+[ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=3]
+
+[node name="Player" groups=[
+"User",
+] instance=ExtResource( 1 )]
+position = Vector2( 309.931, 268.593 )
+script = ExtResource( 2 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." index="0"]
+
+[node name="Gun" parent="." index="2" instance=ExtResource( 3 )]
+position = Vector2( -1.47835, -15.9435 )
+
+[node name="hand" type="Node2D" parent="." index="3"]
+position = Vector2( -1.5094, -15.0941 )
+
+[node name="Camera2D" type="Camera2D" parent="." index="5"]
+z_index = -2
+zoom = Vector2( 0.75, 0.75 )
+smoothing_enabled = true
+
+[node name="Timer" type="Timer" parent="." index="6"]
+one_shot = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
