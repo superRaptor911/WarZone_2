@@ -1,0 +1,16 @@
+#WarZone II 15-12-2019
+
++Multiplayer
++2D
++shooting
++zombies
++FFA
+-TDM
+-CTF
+
+#Game Info
+
+#Dev Notes
+--Need to fix performance issue
+--Serious performance issue in Android
+--Need better Zombie A.I 
