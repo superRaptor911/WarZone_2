@@ -81,8 +81,9 @@ func takeDamage(damage : float,weapon,attacker):
 	if not get_tree().is_network_server():
 		return
 	if not (game_states.GAME_MODE == game_states.GAME_MODES.FFA):
-		if team == attacker.team:
-			return
+		if attacker:
+			if team == attacker.team:
+				return
 	if not alive:
 		return
 	if AP > 0:
@@ -94,9 +95,9 @@ func takeDamage(damage : float,weapon,attacker):
 	_blood_splash(attacker.position,position)
 	rpc("sync_health",HP,AP)
 	if HP == 0:
-		
-		if attacker.is_in_group("User"):
-			attacker.kills += 1
+		if attacker:
+			if attacker.is_in_group("User"):
+				attacker.kills += 1
 		if self.is_in_group("User"):
 			hide()
 			self.deaths += 1

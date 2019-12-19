@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Objects/Weapons/fireball.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Weapons/fireball.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/particles/Trail.tres" type="Material" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 6.80637
+height = 12.1355
+
+[sub_resource type="Animation" id=2]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 4, 6, 8, 1, 3, 5, 7, 9 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "fire_end"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 4, 2, 0 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.0447724, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 7, 9, 10 ]
+}
+
+[node name="fireball" type="Area2D"]
+position = Vector2( 27.5565, 16.0858 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 12.1525, 0.138886 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.495283, 0.538381 )
+texture = ExtResource( 2 )
+vframes = 6
+hframes = 2
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fire_beg = SubResource( 2 )
+anims/fire_end = SubResource( 4 )
+anims/firebal = SubResource( 3 )
+
+[node name="Trail" type="Particles2D" parent="." groups=[
+"Particle",
+]]
+amount = 84
+lifetime = 1.5
+local_coords = false
+process_material = ExtResource( 3 )
+[connection signal="body_entered" from="." to="." method="_on_fireball_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

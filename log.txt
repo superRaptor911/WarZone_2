@@ -1,3 +1,27 @@
+
+#WarZone II 17-12-2019
+
+*Updates
+--Optimised Zombie A.I
+--Fixed Zombie Target selection bug
+--Integrated with github
+--Made Google Drive backup
+--New Monster type "hunter"
+--New Monster attack "plasma attack"
+----hunter is slow but is able to perform ranged attacks.
+----if target is in range ,it is able to fire plasma balls.
+
+*Dev Notes
+--Need better A.I code (must implement F.S.M)
+--Need to fix performance issue
+--Serious performance issue in Android
+-+Need better Zombie A.I
+-+Need more Zombie types
+--Need inventory management system
+--Need buymenu
+--Need code doc
+
+----------------------------------------------------------------------
 #WarZone II 15-12-2019
 
 +Multiplayer
@@ -8,9 +32,13 @@
 -TDM
 -CTF
 
-#Game Info
+*Game Info
 
-#Dev Notes
+*Dev Notes
 --Need to fix performance issue
 --Serious performance issue in Android
---Need better Zombie A.I 
+--Need better Zombie A.I
+--Need more Zombie types
+--Need inventory management system
+--Need buymenu
+--Need code doc

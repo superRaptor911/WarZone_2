@@ -1,45 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Objects/Character.gd" type="Script" id=1]
 [ext_resource path="res://Models/Model.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Sprites/particles/blood.png" type="Texture" id=3]
-
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.703704, 0.992593, 1 )
-colors = PoolColorArray( 0.445313, 0.0487061, 0.0487061, 1, 1, 0, 0, 1, 1, 0.270588, 0.270588, 0, 1, 0.905882, 0.905882, 0 )
-
-[sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
-
-[sub_resource type="ParticlesMaterial" id=3]
-emission_shape = 2
-emission_box_extents = Vector3( 15, 15, 1 )
-flag_disable_z = true
-gravity = Vector3( 0, 0, 0 )
-angular_velocity_random = 1.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 0.25
-color_ramp = SubResource( 2 )
-
-[sub_resource type="Curve" id=4]
-_data = [ Vector2( 0.0105601, 0.2624 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
-
-[sub_resource type="ParticlesMaterial" id=6]
-flag_disable_z = true
-spread = 15.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 30.0
-initial_velocity_random = 1.0
-angular_velocity = 100.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 4.0
-scale_curve = SubResource( 5 )
-color = Color( 0.784314, 0.0627451, 0.0627451, 1 )
+[ext_resource path="res://Sprites/particles/bloodSpot.tres" type="Material" id=3]
+[ext_resource path="res://Sprites/particles/blood.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/particles/bloodSplash.tres" type="Material" id=5]
 
 [node name="Character" type="KinematicBody2D" groups=[
 "Actor",
@@ -58,7 +23,9 @@ speed = 100.0
 wait_time = 4.0
 one_shot = true
 
-[node name="bloodSpot" type="Particles2D" parent="."]
+[node name="bloodSpot" type="Particles2D" parent="." groups=[
+"Particle",
+]]
 show_behind_parent = true
 z_index = -1
 z_as_relative = false
@@ -66,10 +33,12 @@ emitting = false
 amount = 16
 lifetime = 5.0
 local_coords = false
-process_material = SubResource( 3 )
-texture = ExtResource( 3 )
+process_material = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="bloodSplash" type="Particles2D" parent="."]
+[node name="bloodSplash" type="Particles2D" parent="." groups=[
+"Particle",
+]]
 emitting = false
 amount = 64
 lifetime = 3.0
@@ -77,6 +46,6 @@ one_shot = true
 speed_scale = 5.0
 explosiveness = 0.25
 local_coords = false
-process_material = SubResource( 6 )
+process_material = ExtResource( 5 )
 [connection signal="char_took_damage" from="." to="." method="_on_Character_char_took_damage"]
 [connection signal="timeout" from="free_timer" to="." method="_on_free_timer_timeout"]

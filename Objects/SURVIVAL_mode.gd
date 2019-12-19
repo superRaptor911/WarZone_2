@@ -3,9 +3,9 @@ extends Node
 var level : int = 0
 var lvl
 var zm_spawn_index : int = 0
-var number_of_zm : int = 10
+var number_of_zm : int = 2
 var zm_spawn_points
-var zombie = preload("res://Objects/Monsters/Necron.tscn")
+var zombie = preload("res://Objects/Monsters/hunter.tscn")
 var zm_id : int = 0
 signal Zombies_killed
 var time : float = 0
