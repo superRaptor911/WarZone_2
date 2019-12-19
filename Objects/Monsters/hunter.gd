@@ -31,15 +31,20 @@ func _process(delta):
 			follow_path(delta)
 	rpc("_sync_position",position,rotation)
 
+#update Target
+#gets nearest target
 func _on_target_update_timeout():
 	_get_nearest_player()
 	$target_update.start()
 
-
+#update vision
+#checks if target is visible or not
 func _on_vision_update_timeout():
 	target_lost = not _is_target_visible()
 	$vision_update.start()
 
+#Attack behaviour
+#its very shity
 func attack(delta : float):
 	if not target.alive:
 		at_dest = true
