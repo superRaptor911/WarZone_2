@@ -1,7 +1,7 @@
 extends "res://Objects/Monsters/Monster.gd"
 class_name Necron
 
-var target_lost : bool =true
+
 var last_state : bool = false
 
 
@@ -37,18 +37,10 @@ func condition_roam():
 				if result.collider.is_in_group("User"):
 					target = o
 
-func _is_target_visible() ->bool:
-	var space_state = get_world_2d().direct_space_state
-	var result = space_state.intersect_ray(global_position, target.global_position,[self], collision_mask)
-	if result:
-		if result.collider.is_in_group("User"):
-			return true
-		return false
-	return false
 
 func attack(delta : float):
 	if not target.alive:
-		_get_nearest_player()
+		#_get_nearest_player()
 		at_dest = true
 		return
 	destination = target.position
@@ -76,13 +68,8 @@ func _process(delta):
 				follow_path(delta)
 	rpc("_sync_position",position,rotation)
 
-remote func _sync_position(pos,rot):
-	position = pos
-	rotation = rot
 
 
-func _on_free_timer2_timeout():
-	queue_free()
 
 
 func _on_vision_update_timeout():

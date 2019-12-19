@@ -17,6 +17,7 @@ var at_dest : bool = true
 var char_array : Array
 var nav_ready : bool = false
 var target = null
+var target_lost : bool =true
 
 func _ready():
 	var navs = get_tree().get_nodes_in_group("Nav")
@@ -69,6 +70,15 @@ func _get_nearest_player() :
 			min_distance = dist
 			target = pl
 
+#checks visibility of player/target
+func _is_target_visible() ->bool:
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(global_position, target.global_position,[self], collision_mask)
+	if result:
+		if result.collider.is_in_group("User"):
+			return true
+		return false
+	return false
 
 #This Function Rotates Bot with a constatant Rotational speed
 func handle_rotation(delta : float):
@@ -111,3 +121,7 @@ func _on_Vision_body_entered(body):
 func _on_Vision_body_exited(body):
 	if body.is_in_group("Actor"):
 		char_array.erase(body)
+		
+remote func _sync_position(pos,rot):
+	position = pos
+	rotation = rot

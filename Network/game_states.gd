@@ -31,7 +31,8 @@ var control_types = {
 
 var modelResource = {
 	default_model = preload("res://Models/Model.tscn"),
-	zombie_model = preload("res://Models/Zombie.tscn")
+	zombie_model = preload("res://Models/Zombie.tscn"),
+	zombie_hunter = preload("res://Models/Hunter.tscn")
 }
 
 var classResource = {
