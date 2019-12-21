@@ -17,7 +17,7 @@ one_shot = true
 one_shot = true
 
 [node name="attk_dl" type="Timer" parent="." index="7"]
-wait_time = 2.0
+wait_time = 1.5
 one_shot = true
 
 [node name="hand" type="Node2D" parent="." index="8"]

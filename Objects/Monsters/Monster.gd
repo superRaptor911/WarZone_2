@@ -54,7 +54,7 @@ func set_path(dest :Vector2) :
 	if not nav_ready:
 		return
 	
-	path_array = nav.get_simple_path(position,dest,false)
+	path_array = nav.get_simple_path(position,dest)
 	current_node = 0
 	at_dest = false
 	
