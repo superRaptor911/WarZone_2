@@ -1,4 +1,20 @@
+#WarZone II 21-12-2019
 
+*Updates
+--New Survival mode spawning system
+--Explosion effects
+
+*Dev Notes
+--Need better A.I code (must implement F.S.M)
+--Need to fix performance issue
+--Serious performance issue in Android
+-+Need better Zombie A.I
+-+Need more Zombie types
+--Need inventory management system
+--Need buymenu
+--Need code doc
+
+----------------------------------------------------------------------
 #WarZone II 17-12-2019
 
 *Updates

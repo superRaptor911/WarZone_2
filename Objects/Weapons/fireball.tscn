@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [ 2, 4, 6, 8, 1, 3, 5, 7, 9 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "fire_end"
 length = 0.4
 tracks/0/type = "value"
@@ -38,7 +38,7 @@ tracks/0/keys = {
 "values": [ 6, 4, 2, 0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -75,8 +75,8 @@ frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/fire_beg = SubResource( 2 )
-anims/fire_end = SubResource( 4 )
-anims/firebal = SubResource( 3 )
+anims/fire_end = SubResource( 3 )
+anims/firebal = SubResource( 4 )
 
 [node name="Trail" type="Particles2D" parent="." groups=[
 "Particle",

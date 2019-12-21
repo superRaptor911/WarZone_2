@@ -11,6 +11,7 @@ var movement_vector : Vector2	#
 var speed_multiplier : float = 1 	#speed multiplier 
 var team : bool = true
 
+#last attacked entity
 var last_attacker
 var skin : Model
 signal char_killed
@@ -37,7 +38,13 @@ func _process(delta):
 		if skin:
 			skin.is_walking = false
 
-
+func _emit_blood():
+	if HP < 40:
+		if $bloodSpot:
+			$bloodSpot.emitting = true
+	else:
+		if $bloodSpot:
+			$bloodSpot.emitting = false
 #This function handles character movement
 #movement is done by manuplulating movement_vector
 func _movement(delta : float):
@@ -105,15 +112,21 @@ func takeDamage(damage : float,weapon,attacker):
 		emit_signal("char_killed")
 		rpc("sync_killStats")
 
+#emit blood when injured
+#server function
 func _blood_splash(p1,p2):
 	var angle = (p2-p1).angle()
-	$bloodSplash.global_rotation = angle
-	$bloodSplash.emitting = true
+	#if enabled then emit
+	if $bloodSplash:
+		$bloodSplash.global_rotation = angle
+		$bloodSplash.emitting = true
 	rpc_unreliable("_sync_blood_splash",angle)
 
+#peer function for emission of blood when injured
 remote func _sync_blood_splash(angle):
-	$bloodSplash.global_rotation = angle
-	$bloodSplash.emitting = true
+	if $bloodSplash:
+		$bloodSplash.global_rotation = angle
+		$bloodSplash.emitting = true
 
 remote func sync_health(hp,ap):
 	HP = hp
