@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Objects/Weapons/Bomb.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Weapons/explosion.png" type="Texture" id=2]
+[ext_resource path="res://Sfx/weapons/explode3.wav" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "explode"
@@ -27,7 +28,7 @@ colors = PoolColorArray( 1, 1, 1, 1, 0.965265, 0.972656, 0.0265961, 1, 0, 0, 0, 
 gradient = SubResource( 2 )
 
 [sub_resource type="Curve" id=4]
-_data = [ Vector2( 0.173707, 0.2074 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0.0544842, 0.0875 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=5]
 curve = SubResource( 4 )
@@ -37,11 +38,11 @@ flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 50.0
-angular_velocity = 80.0
+angular_velocity = 300.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 2.0
-scale = 3.0
+scale = 10.0
 scale_curve = SubResource( 5 )
 color_ramp = SubResource( 3 )
 
@@ -64,10 +65,20 @@ anims/explode = SubResource( 1 )
 [node name="Particles2D" type="Particles2D" parent="." groups=[
 "Particle",
 ]]
+emitting = false
 amount = 128
 lifetime = 2.0
+one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="explode" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

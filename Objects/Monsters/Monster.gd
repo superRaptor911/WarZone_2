@@ -99,24 +99,9 @@ func handle_rotation(delta : float):
 	else:
 		rotation += -sign(aba) * rotational_speed * delta
 
-
-#func _on_Monster_at_dest():
-	#if is_in_combat:
-	#	set_path(enemy_position)
-	#else:
-		#if main_destination.x == -1 and main_destination.y == -1:
-		#	return
-		#if position == main_destination:
-		#	set_path(initial_position)
-		#	return
-		#set_path(main_destination)
-
-
 func _on_Vision_body_entered(body):
 	if body.is_in_group("Actor"):
 		char_array.push_back(body)
-		
-
 
 func _on_Vision_body_exited(body):
 	if body.is_in_group("Actor"):

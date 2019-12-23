@@ -135,12 +135,12 @@ func _on_chk_zm_count_timeout():
 #LEVELS
 
 func _level_1():
-	_init_zombie_spawn_q("necron",5)
+	_init_zombie_spawn_q("necron",20)
 	$zm_spawn_dl.start()
 
 
 func _level_2():
-	_init_zombie_spawn_q("hunter",5)
+	_init_zombie_spawn_q("hunter",25)
 	$zm_spawn_dl.start()
 	
 func _level_3():

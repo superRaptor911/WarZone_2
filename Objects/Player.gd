@@ -7,6 +7,7 @@ var primary_gun = null
 var sec_gun = null
 var selected_gun : Gun
 
+
 var kills : int = 0
 var deaths : int = 0
 var pname : String
@@ -15,6 +16,10 @@ var pname : String
 var frames : float = 0
 var timer_time : float = 0
 var hud
+
+var grenade = preload("res://Objects/Weapons/grenade.tscn")
+var grenade_count = 3
+
 func _ready():
 	$Gun.queue_free()
 	skin.get_node("anim").current_animation = selected_gun.gun_type
@@ -34,28 +39,30 @@ func _ready():
 
 
 func _on_player_killed():
+	#show respawn percentage
 	hud.get_node("respawn").visible = true
+	position = Vector2(-100,-100)
+	$Camera2D.current = false
 	$free_timer.start()
 
 
 
 func load_guns(nam : String , nam2 : String):
 	var g = game_states.weaponResource[nam].instance()
-	var g2 = game_states.weaponResource[nam].instance()
+	var g2 = game_states.weaponResource[nam2].instance()
 	if primary_gun:
 		primary_gun.queue_free()
 	primary_gun = g
 	if sec_gun:
 		sec_gun.queue_free()
 	sec_gun = g2
-	
+
 	remove_child(selected_gun)
 	selected_gun = primary_gun
 	add_child(selected_gun)
 	selected_gun.position = $hand.position
 
-	
-	
+
 
 func _process(delta):
 	HP = min(100,HP + regen_rate * delta)
@@ -85,7 +92,11 @@ func _get_inputs():
 		movement_vector.x += 1
 	if Input.is_action_pressed("ui_sprint"):
 		useSprint()
-
+	if Input.is_action_just_pressed("ui_spl"):
+		throwGrenade()
+	if Input.is_action_just_pressed("ui_next_item"):
+		switchGun()
+	
 	rotation = (get_global_mouse_position()  - global_position).angle() + 1.57
 	rpc("sync_vars",movement_vector,rotation,position)
 
@@ -96,7 +107,30 @@ func _on_cntrl_move(val):
 	rpc("sync_vars",movement_vector,rotation,position)
 	
 
+remote func throwGrenade():
+	if get_tree().is_network_server():
+		var g = grenade.instance()
+		var nam = "g" + String(randi()%1000)
+		g.set_name(nam)
+		get_tree().root.add_child(g)
+		var dir = ($hand.global_position - global_position).normalized()
+		g.position = position + (Vector2(-1.509,-50.226)).rotated(rotation)
+		g.user = self
+		g.throwGrenade(dir)
+		rpc("_sync_throwGrenade",nam)
+	else:
+		rpc_id(1,"throwGrenade")
 
+remote func _sync_throwGrenade(nam):
+	var g = grenade.instance()
+	g.set_name(nam)
+	get_tree().root.add_child(g)
+	var dir = ($hand.global_position - global_position).normalized()
+	g.position = position + (Vector2(-1.509,-50.226)).rotated(rotation)
+	g.user = self
+	g.throwGrenade(dir)
+
+#sync 
 sync func sync_vars(vct,rot,pos):
 	movement_vector = vct
 	rotation = rot
@@ -117,12 +151,15 @@ func switchGun():
 		if sec_gun != null:
 			remove_child(selected_gun)
 			selected_gun = sec_gun
+			add_child(selected_gun)
 			skin.get_node("anim").current_animation = selected_gun.gun_type
+			selected_gun.position = $hand.position
 	else:
 		remove_child(selected_gun)
 		selected_gun = primary_gun
 		add_child(selected_gun)
 		skin.get_node("anim").current_animation = selected_gun.gun_type
+		selected_gun.position = $hand.position
 
 
 
@@ -145,5 +182,5 @@ func _on_free_timer_timeout():
 	AP = 100
 	position = spawn_points[id].position
 	load_guns(game_states.player_info.primary_gun_name,game_states.player_info.sec_gun_name)
+	$Camera2D.current = true
 	rpc("respawn_player",spawn_points[id].position,game_states.player_info.net_id)
-	

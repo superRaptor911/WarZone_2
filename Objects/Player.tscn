@@ -4,10 +4,10 @@
 [ext_resource path="res://Objects/Player.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=3]
 
-[node name="Player" groups=[
+[node name="Player" index="0" groups=[
 "User",
 ] instance=ExtResource( 1 )]
-position = Vector2( 309.931, 268.593 )
+position = Vector2( 325.496, 291.54 )
 script = ExtResource( 2 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="0"]

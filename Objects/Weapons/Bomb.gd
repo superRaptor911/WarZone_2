@@ -1,19 +1,35 @@
 extends Node2D
 export var damage : float = 100
+export var radius : float = 100
+export var SCALE : float = 1
 var usr
+signal exploded
 
+#set explosion size scale
+func _ready():
+	scale = Vector2(SCALE,SCALE)
 
-
+#explode 
 func explode():
+	$explode.play()
+	$Timer.start()
 	$AnimationPlayer.play("explode")
 	$Tween.interpolate_property($Sprite,"scale",Vector2(1,1),Vector2(2,2),1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
+	#emit blast particles
 	if $Particles2D:
 		$Particles2D.emitting = true
+	var chars = get_tree().get_nodes_in_group("Actor")
+	for c in chars:
+		if (c.position - position).length() < radius * SCALE:
+			c.takeDamage(damage,self,usr)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "explode":
-		var chars = get_tree().get_nodes_in_group("Actor")
-		for c in chars:
-			c.takeDamage(damage,self,usr)
-		queue_free()
+		$Sprite.hide()
+
+
+
+func _on_Timer_timeout():
+	emit_signal("exploded")
+	queue_free()
