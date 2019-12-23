@@ -1,18 +1,44 @@
 #WarZone II 21-12-2019
 
 *Updates
---New Survival mode spawning system
---Explosion effects
+--Fixed switch weapon bug
+--Fixed Lobby bugs (game mode/level selection bug)
+--Fixed player death collision bug
+
+*Plan/New Ideas
+--New types of bullets like AP,HE.. etc
+--Turret system
+--Reduce recoil
 
 *Dev Notes
 --Need better A.I code (must implement F.S.M)
 --Need to fix performance issue
 --Serious performance issue in Android
--+Need better Zombie A.I
--+Need more Zombie types
 --Need inventory management system
 --Need buymenu
---Need code doc
+--Need spawn indicator
+
+----------------------------------------------------------------------
+#WarZone II 21-12-2019
+
+*Updates
+--New Survival mode spawning system
+--HE grenade added
+--Explosion effects
+
+*Plan/New Ideas
+--New types of bullets like AP,HE.. etc
+--Turret system
+--Reduce recoil
+
+*Dev Notes
+--Need better A.I code (must implement F.S.M)
+--Need to fix performance issue
+--Serious performance issue in Android
+--Need inventory management system
+--Need buymenu
+--Need spawn indicator
+
 
 ----------------------------------------------------------------------
 #WarZone II 17-12-2019

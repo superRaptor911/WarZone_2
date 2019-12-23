@@ -48,7 +48,7 @@ var weaponResource = {
 var player_data = {
 	name = "player",
 	kills = 0,
-	guns = "AK47 default_gun ",
+	guns = "AK47 default_gun MP5",
 	skins = "default_model ",
 	selected_guns = "MP5 AK47 ",
 	selected_model = "default_model"
@@ -69,8 +69,8 @@ func _init_setup():
 	player_info.model_name = player_data.selected_model
 	
 	var selected_guns = player_data.selected_guns.split(" ")
-	player_info.primary_gun_name =selected_guns[0]
-	player_info.sec_gun_name =selected_guns[1]
+	player_info.primary_gun_name = selected_guns[0]
+	player_info.sec_gun_name = selected_guns[1]
 
 func save_settings():
 	save_data("user://settings.dat",game_settings)

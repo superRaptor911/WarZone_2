@@ -41,7 +41,7 @@ remote func spawn_players(pinfo, spawn_index):
 		spawn_points = sp.get_children()
 		
 	nactor.position = spawn_points[spawn_index].position
-	nactor.load_guns(pinfo.primary_gun_name,pinfo.primary_gun_name)
+	nactor.load_guns(pinfo.primary_gun_name,pinfo.sec_gun_name)
 	# If this actor does not belong to the server, change the node name and network master accordingly
 	if (pinfo.net_id != 1):
 		nactor.set_network_master(pinfo.net_id)
@@ -61,7 +61,7 @@ remote func despawn_player(pinfo):
 	
 	var player_node = get_node(str(pinfo.net_id))
 	if (!player_node):
-		print("Cannoot remove invalid node from tree")
+		print("Cannot remove invalid node from tree")
 		return
 	player_node.queue_free()
 	
