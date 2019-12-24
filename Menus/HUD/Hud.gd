@@ -88,3 +88,6 @@ func _on_zoom_pressed():
 	else:
 		user.selected_gun.current_zoom = min(user.selected_gun.current_zoom + 0.25, user.selected_gun.max_zoom)
 	user.get_node("Camera2D").zoom = Vector2(user.selected_gun.current_zoom,user.selected_gun.current_zoom)
+
+func _on_HE_pressed():
+	user.throwGrenade()

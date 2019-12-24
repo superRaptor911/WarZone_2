@@ -30,20 +30,16 @@ func _process(delta):
 	if alive:
 		_movement(delta)
 		_regain_stamina()
-		if HP < 40:
-			$bloodSpot.emitting = true
-		else:
-			$bloodSpot.emitting = false
+		_emit_blood_marks()
 	else:
 		if skin:
 			skin.is_walking = false
 
-func _emit_blood():
-	if HP < 40:
-		if $bloodSpot:
+func _emit_blood_marks():
+	if game_states.game_settings.particle_effects:
+		if HP < 40:
 			$bloodSpot.emitting = true
-	else:
-		if $bloodSpot:
+		else:
 			$bloodSpot.emitting = false
 #This function handles character movement
 #movement is done by manuplulating movement_vector
@@ -117,14 +113,14 @@ func takeDamage(damage : float,weapon,attacker):
 func _blood_splash(p1,p2):
 	var angle = (p2-p1).angle()
 	#if enabled then emit
-	if $bloodSplash:
+	if game_states.game_settings.particle_effects:
 		$bloodSplash.global_rotation = angle
 		$bloodSplash.emitting = true
 	rpc_unreliable("_sync_blood_splash",angle)
 
 #peer function for emission of blood when injured
 remote func _sync_blood_splash(angle):
-	if $bloodSplash:
+	if game_states.game_settings.particle_effects:
 		$bloodSplash.global_rotation = angle
 		$bloodSplash.emitting = true
 
@@ -143,12 +139,11 @@ remote func sync_killStats():
 	emit_signal("char_killed")
 
 
-
-
 func _on_free_timer_timeout():
 	queue_free()
 
 
 func _on_Character_char_took_damage():
-	if HP < 40:
-		$bloodSpot.emitting = true
+	if game_states.game_settings.particle_effects:
+		if HP < 40:
+			$bloodSpot.emitting = true

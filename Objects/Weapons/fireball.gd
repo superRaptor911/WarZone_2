@@ -25,6 +25,8 @@ func create_fire_ball(pos,rot,sen):
 	position = pos
 	rotation = rot - 1.57
 	sender = sen
+	if game_states.game_settings.particle_effects:
+		$Trail.emitting = true
 	
 
 func _on_fireball_body_entered(body):

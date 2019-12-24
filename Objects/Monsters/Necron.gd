@@ -46,7 +46,7 @@ func attack(delta : float):
 	destination = target.position
 	movement_vector = (destination - position).normalized()
 	if (destination - position).length() <= attack_radius:
-		target.takeDamage(damage ,null,self)
+		target.takeDamage(damage * delta,null,self)
 
 
 

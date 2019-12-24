@@ -81,6 +81,7 @@ anims/firebal = SubResource( 4 )
 [node name="Trail" type="Particles2D" parent="." groups=[
 "Particle",
 ]]
+emitting = false
 amount = 84
 lifetime = 1.5
 local_coords = false

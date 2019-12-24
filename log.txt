@@ -1,14 +1,18 @@
-#WarZone II 21-12-2019
+#WarZone II 24-12-2019
 
 *Updates
---Fixed switch weapon bug
---Fixed Lobby bugs (game mode/level selection bug)
---Fixed player death collision bug
+--Added light turret system
+--Fixed quit option in multiplayer
+--Lighting on/off option
+--Laser targeting on/off option
 
 *Plan/New Ideas
 --New types of bullets like AP,HE.. etc
 --Turret system
---Reduce recoil
+--Zombie mod similar to Critical Strike
+----you can place items like turrets/planks/barrels.. etc
+----you get money by killing zombies
+----build base.. etc
 
 *Dev Notes
 --Need better A.I code (must implement F.S.M)
@@ -17,6 +21,34 @@
 --Need inventory management system
 --Need buymenu
 --Need spawn indicator
+--Need to fix bloodspot Z index
+
+----------------------------------------------------------------------
+#WarZone II 23-12-2019
+
+*Updates
+--Particle effects on/off option
+--Fixed switch weapon bug
+--Fixed Lobby bugs (game mode/level selection bug)
+--Fixed player death collision bug
+--Reduced weapon recoil
+--Reduced necron damage (600 -> 30)
+--Reduced AP of necron (100 -> 0)
+
+*Plan/New Ideas
+--New types of bullets like AP,HE.. etc
+--Turret system
+--Zombie mod similar to C.O.D
+-+Reduce recoil
+
+*Dev Notes
+--Need better A.I code (must implement F.S.M)
+--Need to fix performance issue
+--Serious performance issue in Android
+--Need inventory management system
+--Need buymenu
+--Need spawn indicator
+--Need to fix bloodspot Z index
 
 ----------------------------------------------------------------------
 #WarZone II 21-12-2019
@@ -38,7 +70,7 @@
 --Need inventory management system
 --Need buymenu
 --Need spawn indicator
-
+-+Need code doc
 
 ----------------------------------------------------------------------
 #WarZone II 17-12-2019

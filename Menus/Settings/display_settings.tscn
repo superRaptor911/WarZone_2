@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Menus/Settings/display_settings.gd" type="Script" id=1]
+[ext_resource path="res://font.tres" type="DynamicFont" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 1276.0
+margin_bottom = 717.0
+
+[node name="Panel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1269.0
+margin_bottom = 710.0
+
+[node name="particles" type="CheckBox" parent="PanelContainer/Panel"]
+margin_left = 697.373
+margin_top = 158.949
+margin_right = 721.373
+margin_bottom = 182.949
+rect_scale = Vector2( 2, 2 )
+
+[node name="Label" type="Label" parent="PanelContainer/Panel/particles"]
+margin_left = -191.885
+margin_top = -1.43196
+margin_right = -42.8849
+margin_bottom = 22.568
+custom_fonts/font = ExtResource( 2 )
+text = "Particle Effects"
+
+[node name="lights" type="CheckBox" parent="PanelContainer/Panel"]
+margin_left = 694.509
+margin_top = 284.963
+margin_right = 718.509
+margin_bottom = 308.963
+rect_scale = Vector2( 2, 2 )
+
+[node name="Label" type="Label" parent="PanelContainer/Panel/lights"]
+margin_left = -191.885
+margin_top = -1.43196
+margin_right = -42.8849
+margin_bottom = 22.568
+custom_fonts/font = ExtResource( 2 )
+text = "Lighting Effects"
+
+[node name="laser" type="CheckBox" parent="PanelContainer/Panel"]
+margin_left = 694.509
+margin_top = 397.398
+margin_right = 718.509
+margin_bottom = 421.398
+rect_scale = Vector2( 2, 2 )
+
+[node name="Label" type="Label" parent="PanelContainer/Panel/laser"]
+margin_left = -191.885
+margin_top = -1.43196
+margin_right = -42.8849
+margin_bottom = 22.568
+custom_fonts/font = ExtResource( 2 )
+text = "Laser Targeting"
+
+[node name="back" type="Button" parent="PanelContainer/Panel"]
+margin_left = 1004.36
+margin_top = 566.927
+margin_right = 1137.36
+margin_bottom = 627.927
+custom_fonts/font = ExtResource( 2 )
+text = "BACK"
+[connection signal="toggled" from="PanelContainer/Panel/particles" to="." method="_on_particles_toggled"]
+[connection signal="toggled" from="PanelContainer/Panel/lights" to="." method="_on_lights_toggled"]
+[connection signal="toggled" from="PanelContainer/Panel/laser" to="." method="_on_laser_toggled"]
+[connection signal="pressed" from="PanelContainer/Panel/back" to="." method="_on_back_pressed"]

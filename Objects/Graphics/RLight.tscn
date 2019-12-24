@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Sprites/Lights/angryimg.png" type="Texture" id=1]
+[ext_resource path="res://Objects/Graphics/RLight.gd" type="Script" id=2]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -19,3 +20,4 @@ shader_param/energy = 0.4
 material = SubResource( 2 )
 position = Vector2( 391.55, 200.645 )
 texture = ExtResource( 1 )
+script = ExtResource( 2 )
