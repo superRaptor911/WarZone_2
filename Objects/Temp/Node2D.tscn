@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Objects/Temp/Node2D.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Temp/TestMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Weapons/light_turret.tscn" type="PackedScene" id=3]
 
 [node name="node" type="Node2D"]
 script = ExtResource( 1 )
@@ -22,3 +23,12 @@ margin_bottom = 50.0
 
 [node name="Node2D2" type="Node2D" parent="."]
 position = Vector2( 1213, 487 )
+
+[node name="light_turret" parent="." instance=ExtResource( 3 )]
+position = Vector2( 656.481, 687.649 )
+
+[node name="light_turret2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 675.961, 1114.26 )
+
+[node name="light_turret3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 672.065, 198.698 )

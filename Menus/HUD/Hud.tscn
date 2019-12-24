@@ -163,6 +163,7 @@ custom_fonts/font = ExtResource( 7 )
 text = "Respawning"
 [connection signal="pressed" from="reload" to="." method="_on_reload_pressed"]
 [connection signal="pressed" from="zoom" to="." method="_on_zoom_pressed"]
+[connection signal="pressed" from="HE" to="." method="_on_HE_pressed"]
 [connection signal="pressed" from="pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="Panel2/score" to="." method="_on_score_pressed"]
 [connection signal="pressed" from="Panel2/quit" to="." method="_on_quit_pressed"]

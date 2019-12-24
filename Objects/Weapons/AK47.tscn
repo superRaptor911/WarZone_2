@@ -6,7 +6,7 @@
 [ext_resource path="res://Sfx/weapons/rifle/ak47.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sfx/weapons/rifle/ak47_clipout.wav" type="AudioStream" id=5]
 
-[node name="AK47" instance=ExtResource( 1 )]
+[node name="AK47" index="0" instance=ExtResource( 1 )]
 position = Vector2( 218.31, 213.063 )
 script = ExtResource( 2 )
 gun_type = "rifle"
@@ -16,7 +16,7 @@ rounds_in_clip = 30
 clips = 99
 rate_of_fire = 9.0
 spread = 0.01
-recoil_factor = 1.0
+recoil_factor = 0.5
 max_zoom = 1.5
 
 [node name="Muzzle" parent="." index="1"]

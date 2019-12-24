@@ -6,6 +6,8 @@
 [node name="Necron" instance=ExtResource( 1 )]
 show_behind_parent = false
 script = ExtResource( 2 )
+AP = 0.0
+damage = 50.0
 attack_radius = 35.0
 
 [node name="bloodSpot" parent="." index="3"]

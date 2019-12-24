@@ -53,5 +53,6 @@ margin_bottom = 498.823
 custom_fonts/font = ExtResource( 2 )
 text = "Back"
 [connection signal="pressed" from="VBoxContainer/cntrl" to="." method="_on_cntrl_pressed"]
+[connection signal="pressed" from="VBoxContainer/display" to="." method="_on_display_pressed"]
 [connection signal="pressed" from="VBoxContainer/avatar" to="." method="_on_avatar_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

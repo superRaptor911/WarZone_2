@@ -17,7 +17,7 @@ func explode():
 	$Tween.interpolate_property($Sprite,"scale",Vector2(1,1),Vector2(2,2),1,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
 	#emit blast particles
-	if $Particles2D:
+	if game_states.game_settings.particle_effects:
 		$Particles2D.emitting = true
 	var chars = get_tree().get_nodes_in_group("Actor")
 	for c in chars:

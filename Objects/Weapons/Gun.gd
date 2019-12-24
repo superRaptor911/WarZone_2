@@ -27,23 +27,28 @@ var laser_sight : bool = true
 func _ready():
 	rounds_left = rounds_in_clip
 	gun_user = get_parent()
+	laser_sight = game_states.game_settings.laser_targeting
 
-##server only
+
+#Try to fire gun
 func fireGun():
+	#ammo check
 	if clips <= 0 and rounds_left <= 0:
+		#No ammo
+		#play clipout sound
 		if ready_to_fire:
 			$clipOut.play()
 			ready_to_fire = false
 			$Timer.start(1 / rate_of_fire)
-		return
-	if ready_to_fire and rounds_left > 0:
+	elif ready_to_fire and rounds_left > 0:
 		_shoot()
 	elif rounds_left <= 0:
+		#auto reload
 		if not reloading:
 			reload()
 			reloading = true
 
-
+#create projectile
 remote func _create_bullet(pos,rot):
 	var bullet = projectile.instance()
 	bullet.create_bullet(pos,rot,projectile_velocity,damage,self,gun_user)
@@ -52,16 +57,20 @@ remote func _create_bullet(pos,rot):
 	if get_tree().is_network_server():
 		rpc("_create_bullet",pos,rot)
 
+#shoot weapon
 func _shoot():
+	#increase recoil
 	recoil += recoil_factor
 	var angular_spread : float = rand_range(-spread,spread) * ( 1 + recoil)
 	if get_tree().is_network_server():
 		_create_bullet($Muzzle.global_position,global_rotation + angular_spread)
 	else:
+		#call server to create projectiles
 		rpc_id(1,"_create_bullet",$Muzzle.global_position,global_rotation + angular_spread)
 	ready_to_fire = false
 	$Timer.start(1 / rate_of_fire)
 	rounds_left -= 1
+	#restart recoil cool timer
 	$recoil_cool.start()
 
 
@@ -69,11 +78,13 @@ func _shoot():
 func _on_Timer_timeout():
 	ready_to_fire = true
 
+#do reloading
 func reload():
 	if clips > 0 and not reloading:
 		$Reload_time.start()
 		reloading = true
 
+#reload weapon
 func _on_Reload_time_timeout():
 	clips -= 1
 	rounds_left = rounds_in_clip
@@ -93,15 +104,17 @@ func _process(delta):
 	if $RayCast2D.is_colliding():
 		ray_dest = $RayCast2D.get_collision_point()
 		target = true
+	#update _draw()
 	update()
 
 
 
 
 func _draw():
-	if not target:
-		draw_line($Muzzle.position, ray_dest, Color.red)
-		draw_circle(ray_dest, 3, Color.red)
-	else:
-		draw_line($Muzzle.position, (ray_dest - $RayCast2D.global_position).rotated(-global_rotation), Color.red)
-		draw_circle((ray_dest - $RayCast2D.global_position).rotated(-global_rotation), 3, Color.red)
+	if laser_sight:
+		if not target:
+			draw_line($Muzzle.position, ray_dest, Color.red)
+			draw_circle(ray_dest, 3, Color.red)
+		else:
+			draw_line($Muzzle.position, (ray_dest - $RayCast2D.global_position).rotated(-global_rotation), Color.red)
+			draw_circle((ray_dest - $RayCast2D.global_position).rotated(-global_rotation), 3, Color.red)

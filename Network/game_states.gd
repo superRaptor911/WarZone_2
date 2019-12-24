@@ -1,10 +1,12 @@
 extends Node
 
+#is exporting for android or not
 var is_android : bool = false
+#game modes available
 enum GAME_MODES { TDM,FFA,SURVIVAL}
 var GAME_MODE = GAME_MODES.FFA
 
-
+#player info (pinfo) used to send info about player in multiplayer
 var player_info = {
 	name = "Player",
 	net_id = 1,                 
@@ -15,20 +17,26 @@ var player_info = {
 
 
 var game_status = {
-	game_version = "1.0"
+	game_v = "1.0"
 }
 
+#game settings
 var game_settings = {
 	control_type = "default",
 	static_dpad = false,
-	dpad_transparency = 128
+	dpad_transparency = 128,
+	particle_effects = true,
+	lighting_effects = true,
+	laser_targeting = true
 }
 
+#control types available
 var control_types = {
 	default = "res://controls/controllers/default_controller.tscn",
 	simple = "res://controls/controllers/simple_controller.tscn"
 }
 
+#models available
 var modelResource = {
 	default_model = preload("res://Models/Model.tscn"),
 	zombie_model = preload("res://Models/Zombie.tscn"),
@@ -39,15 +47,18 @@ var classResource = {
 	player = preload("res://Objects/Player.tscn")
 }
 
+#weapons
 var weaponResource = {
 	default_gun = preload("res://Objects/Weapons/Gun.tscn"),
 	AK47 = preload("res://Objects/Weapons/AK47.tscn"),
 	MP5 = preload("res://Objects/Weapons/MP5.tscn")
 }
 
+#player data/stats
 var player_data = {
 	name = "player",
 	kills = 0,
+	deaths = 0,
 	guns = "AK47 default_gun MP5",
 	skins = "default_model ",
 	selected_guns = "MP5 AK47 ",
@@ -55,8 +66,8 @@ var player_data = {
 }
 
 func _ready():
-	if not load_data("user://status.dat").has("game_version"):
-		save_settings() 
+	if not load_data("user://status.dat").has("game_v"):
+		save_settings()
 		save_data("user://status.dat",game_status)
 		save_data("user://pinfo.dat",player_data)
 	else:
@@ -64,6 +75,7 @@ func _ready():
 		player_data = load_data("user://pinfo.dat")
 		_init_setup()
 
+#setup player info
 func _init_setup():
 	player_info.name = player_data.name
 	player_info.model_name = player_data.selected_model
@@ -101,6 +113,8 @@ func load_data(save_path : String = "user://game.dat"):
     var data : Dictionary = parse_json(json)
     file.close()
     return data
+################################################################
+
 
 
 ################################################################
