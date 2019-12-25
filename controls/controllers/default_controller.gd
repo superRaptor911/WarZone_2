@@ -3,6 +3,8 @@ extends CanvasLayer
 var user = null
 const JOYSTICK_DEADZONE = 0.4;
 var counter : bool = false
+var enabled : bool = true
+
 func _ready():
 	if not game_states.is_android:
 		self.queue_free()
@@ -17,7 +19,7 @@ func _ready():
 
 
 func _process(delta):
-	if not user.alive:
+	if not (user.alive and enabled):
 		return
 	if $mov_joy.joystick_vector.length() > JOYSTICK_DEADZONE/2 :
 		user.movement_vector = - $mov_joy.joystick_vector

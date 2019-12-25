@@ -1,0 +1,10 @@
+#WarZone II
+
+***************GROUPS*****************
+
+GROUP  			
+.Actor ------------------- "Movable entities that can move around the map"
+.User  ------------------- "Actor that can be controlled by user" 
+.Monster ----------------- "Actor that is controlled by cpu and is hostile towards User"
+.Level ------------------- "The map"
+.Particle ---------------- "particle Visual effects"
