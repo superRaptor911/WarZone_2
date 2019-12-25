@@ -29,6 +29,7 @@ position = Vector2( 656.481, 687.649 )
 
 [node name="light_turret2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 675.961, 1114.26 )
+gun_name = "MP5"
 
 [node name="light_turret3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 672.065, 198.698 )

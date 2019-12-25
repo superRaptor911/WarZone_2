@@ -19,6 +19,7 @@ var hud
 
 var grenade = preload("res://Objects/Weapons/grenade.tscn")
 var grenade_count = 3
+var _pause_cntrl : bool = false
 
 func _ready():
 	$Gun.queue_free()
@@ -29,6 +30,7 @@ func _ready():
 		$Timer.start()
 		var cnt_path = game_states.control_types.get(game_states.game_settings.control_type)
 		var controller = load(cnt_path).instance()
+		controller.set_name("controller")
 		add_child(controller)
 		controller.user = self
 		connect("char_killed",self,"_on_player_killed")
@@ -77,7 +79,7 @@ func _get_inputs():
 	if not is_network_master():
 		return
 	frames += 1
-	if game_states.is_android:
+	if game_states.is_android or _pause_cntrl:
 		return
 	if Input.is_action_pressed("ui_fire"):
 		selected_gun.fireGun()
@@ -96,6 +98,10 @@ func _get_inputs():
 		throwGrenade()
 	if Input.is_action_just_pressed("ui_next_item"):
 		switchGun()
+	if Input.is_action_just_pressed("ui_inv"):
+		pause_controls(true)
+		var inv_menu = load("res://Menus/Inventory/inventory_menu.tscn").instance()
+		get_tree().root.add_child(inv_menu)
 	
 	rotation = (get_global_mouse_position()  - global_position).angle() + 1.57
 	rpc("sync_vars",movement_vector,rotation,position)
@@ -162,7 +168,11 @@ func switchGun():
 		selected_gun.position = $hand.position
 
 
-
+func pause_controls(val : bool):
+	_pause_cntrl = val
+	if game_states.is_android:
+		get_node("controller").enabled = !val
+	
 
 func _on_Timer_timeout():
 	get_parent().get_node("CanvasLayer/Label").text = String(frames)

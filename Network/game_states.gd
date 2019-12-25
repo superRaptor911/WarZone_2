@@ -23,7 +23,7 @@ var game_status = {
 #game settings
 var game_settings = {
 	control_type = "default",
-	static_dpad = false,
+	static_dpad = true,
 	dpad_transparency = 128,
 	particle_effects = true,
 	lighting_effects = true,

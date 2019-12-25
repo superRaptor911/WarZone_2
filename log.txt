@@ -1,3 +1,29 @@
+#WarZone II 25-12-2019
+
+*Updates
+--Added build option
+----Added turret build option
+--Added new gui scheme
+
+*Plan/New Ideas
+--New types of bullets like AP,HE.. etc
+--Turret system
+--Zombie mod similar to Critical Strike
+----you can place items like turrets/planks/barrels.. etc
+----you get money by killing zombies
+----build base.. etc
+
+*Dev Notes
+--sync turret rpc
+--Need better A.I code (must implement F.S.M)
+--Need to fix performance issue
+--Serious performance issue in Android
+--Need inventory management system
+--Need buymenu
+--Need spawn indicator
+--Need to fix bloodspot Z index
+
+----------------------------------------------------------------------
 #WarZone II 24-12-2019
 
 *Updates
@@ -15,6 +41,7 @@
 ----build base.. etc
 
 *Dev Notes
+--sync turret rpc
 --Need better A.I code (must implement F.S.M)
 --Need to fix performance issue
 --Serious performance issue in Android
