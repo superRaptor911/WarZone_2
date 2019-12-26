@@ -72,6 +72,8 @@ func _get_nearest_player() :
 
 #checks visibility of player/target
 func _is_target_visible() ->bool:
+	if not target:
+		return false
 	var space_state = get_world_2d().direct_space_state
 	var result = space_state.intersect_ray(global_position, target.global_position,[self], collision_mask)
 	if result:

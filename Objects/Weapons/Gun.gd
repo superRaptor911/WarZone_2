@@ -15,7 +15,7 @@ export var max_zoom : float = 1.0
 var current_zoom : float = 0.75
 var projectile = preload("res://Objects/Weapons/Projectile.tscn")
 var ready_to_fire : bool = true
-var gun_user 
+var gun_user = null
 var rounds_left : int
 var recoil : float = 0
 var reloading : bool = false
@@ -26,7 +26,9 @@ var laser_sight : bool = true
 
 func _ready():
 	rounds_left = rounds_in_clip
-	gun_user = get_parent()
+	#if it does not have parent/user then force get parent
+	if not gun_user:
+		gun_user = get_parent()
 	laser_sight = game_states.game_settings.laser_targeting
 
 

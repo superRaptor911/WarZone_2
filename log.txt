@@ -1,13 +1,43 @@
-#WarZone II 25-12-2019
+
+
+#WarZone II 26-12-2019
 
 *Updates
---Added build option
-----Added turret build option
---Added new gui scheme
+--Fixed major bugs
+----Fixed lobby bug (peer crash on joining)
+----Fixed server bugs (server stops when peer disconnects the server)
+----Fixed Turret sync bugs
+--Optimised Turret menu
+--Synced plasma attacks
+
 
 *Plan/New Ideas
 --New types of bullets like AP,HE.. etc
---Turret system
+--Zombie mod similar to Critical Strike
+----you can place items like turrets/planks/barrels.. etc
+----you get money by killing zombies
+----build base.. etc
+
+*Dev Notes
+--Need better A.I code (must implement F.S.M)
+--Need to fix performance issue
+--Serious performance issue in Android
+--Need inventory management system
+--Need buymenu
+--Need spawn indicator
+--Need to fix bloodspot Z index
+--Need to implement finance system
+
+----------------------------------------------------------------------
+#WarZone II 25-12-2019
+
+*Updates
+--Added build option (players can construct items in zombie mode)
+----Added turret build option
+--Added new gui scheme (inspired by cs source)
+
+*Plan/New Ideas
+--New types of bullets like AP,HE.. etc
 --Zombie mod similar to Critical Strike
 ----you can place items like turrets/planks/barrels.. etc
 ----you get money by killing zombies
@@ -22,6 +52,7 @@
 --Need buymenu
 --Need spawn indicator
 --Need to fix bloodspot Z index
+--Need to implement finance system
 
 ----------------------------------------------------------------------
 #WarZone II 24-12-2019
@@ -34,7 +65,7 @@
 
 *Plan/New Ideas
 --New types of bullets like AP,HE.. etc
---Turret system
+-+Turret system
 --Zombie mod similar to Critical Strike
 ----you can place items like turrets/planks/barrels.. etc
 ----you get money by killing zombies

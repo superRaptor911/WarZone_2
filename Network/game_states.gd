@@ -51,7 +51,8 @@ var classResource = {
 var weaponResource = {
 	default_gun = preload("res://Objects/Weapons/Gun.tscn"),
 	AK47 = preload("res://Objects/Weapons/AK47.tscn"),
-	MP5 = preload("res://Objects/Weapons/MP5.tscn")
+	MP5 = preload("res://Objects/Weapons/MP5.tscn"),
+	Turret = preload("res://Objects/Weapons/light_turret.tscn")
 }
 
 #player data/stats

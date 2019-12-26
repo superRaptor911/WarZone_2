@@ -17,13 +17,9 @@ export var gun_name : String = \"AK47\"
 export var portrait_img : Texture
 var main_gun = null
 
-var turret_info = {
-	name = \"Not set\",
-	type = \"Not_set\",
-	damage = 0,
-	ammo = 0,
-	cost = 0
-}
+#player who created this turret
+var maker = null
+
 
 #only server controls the turret
 #initiate  turret systems
@@ -33,19 +29,13 @@ func _ready():
 		$target_update.start()
 		$update.start()
 
-func _setup_turret_info():
-	turret_info.name = gun_name + \" turret\"
-	turret_info.type = main_gun.gun_type + \" turret\"
-	turret_info.damage = String(main_gun.damage)
-	turret_info.ammo = String(350)
-	turret_info.cost = String(1000)
-
 func setup_main_gun():
 	if not main_gun:
 		main_gun = game_states.weaponResource[gun_name].instance()
 		main_gun.position = Vector2(0,0)
+		main_gun.gun_user = maker
 		add_child(main_gun)
-		_setup_turret_info()
+
 
 #get collect monsters entered the detector
 func _on_detector_body_entered(body):

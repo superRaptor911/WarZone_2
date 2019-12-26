@@ -56,8 +56,14 @@ func attack(delta : float):
 			var plasma_attack = fire_ball.instance()
 			plasma_attack.create_fire_ball($hand.global_position,rotation,self)
 			get_tree().root.add_child(plasma_attack)
+			rpc("_create_fire_ball")
 			$attk_dl.start()
 			
+
+remote func _create_fire_ball():
+	var plasma_attack = fire_ball.instance()
+	plasma_attack.create_fire_ball($hand.global_position,rotation,self)
+	get_tree().root.add_child(plasma_attack)
 
 
 func _on_attk_dl_timeout():

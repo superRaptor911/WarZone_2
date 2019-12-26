@@ -8,3 +8,10 @@ GROUP
 .Monster ----------------- "Actor that is controlled by cpu and is hostile towards User"
 .Level ------------------- "The map"
 .Particle ---------------- "particle Visual effects"
+
+**************MISNOMERS***************
+.Inventory_menu ------------- "It's actualy build menu"
+
+
+***************TO-DO**************
+*handle player disconnection
