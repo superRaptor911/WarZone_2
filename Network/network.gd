@@ -91,11 +91,14 @@ remote func unregister_player(id):
 	emit_signal("player_list_changed")
 	
 
-master func kick_player(net_id, reason):
-	rpc_id(net_id,"kicked", reason)
-	get_tree().network_peer.disconnect_peer(net_id)
+remote func kick_player(net_id, reason):
 	if get_tree().is_network_server():
-		_close_server()
+		if net_id == 1:
+			_close_server()
+		else:
+			rpc_id(net_id,"kicked", reason)
+			get_tree().network_peer.disconnect_peer(net_id)
+
 
 remote func kicked(reason):
 	print("You have been kicked from the server, reason: ", reason)
@@ -109,6 +112,3 @@ func _close_server():
 	#Terminate server
 	get_tree().set_network_peer(null)
 	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
-		
-
-

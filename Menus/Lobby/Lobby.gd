@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-var _selected_game_mode
-var _selected_level
+var _selected_game_mode = -1
+var _selected_level = -1
 
 func _ready():
 	network.connect("player_list_changed", self, "_on_player_list_changed")

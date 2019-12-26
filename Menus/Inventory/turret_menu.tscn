@@ -33,6 +33,8 @@ margin_right = 210.145
 margin_bottom = 246.011
 texture_normal = ExtResource( 4 )
 script = ExtResource( 5 )
+main_gun_name = "AK47"
+turret_desc = "Cheap and reliable home made turret system"
 
 [node name="Label" type="Label" parent="TextureRect/AKTurret"]
 margin_left = 8.42108
@@ -44,4 +46,3 @@ custom_fonts/font = ExtResource( 6 )
 text = "AK 47"
 [connection signal="pressed" from="TextureRect/quit" to="." method="_on_quit_pressed"]
 [connection signal="close_this" from="TextureRect/AKTurret" to="." method="_on_AKTurret_close_this"]
-[connection signal="pressed" from="TextureRect/AKTurret" to="TextureRect/AKTurret" method="_on_AKTurret_pressed"]

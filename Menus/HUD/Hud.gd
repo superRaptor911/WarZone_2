@@ -23,7 +23,10 @@ func _on_reload_pressed():
 
 
 func _on_quit_pressed():
-	network.rpc("kick_player",game_states.player_info.net_id,"Disconnected From Server")
+	if get_tree().is_network_server():
+		network.kick_player(game_states.player_info.net_id,"Disconnected From Server")
+	else:
+		network.rpc_id(1,"kick_player",game_states.player_info.net_id,"Disconnected From Server")
 	
 var pause_counter : bool = false
 
