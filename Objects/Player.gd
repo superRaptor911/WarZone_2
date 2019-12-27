@@ -97,7 +97,7 @@ func _get_inputs():
 	if Input.is_action_just_pressed("ui_spl"):
 		throwGrenade()
 	if Input.is_action_just_pressed("ui_next_item"):
-		switchGun()
+		rpc("switchGun")
 	if Input.is_action_just_pressed("ui_inv"):
 		pause_controls(true)
 		var inv_menu = load("res://Menus/Inventory/inventory_menu.tscn").instance()
@@ -152,7 +152,7 @@ sync func respawn_player(pos,id):
 	position = pos
 	load_guns(network.players[id].primary_gun_name,network.players[id].sec_gun_name)
 
-func switchGun():
+remotesync func switchGun():
 	if selected_gun == primary_gun:
 		if sec_gun != null:
 			remove_child(selected_gun)
@@ -166,6 +166,7 @@ func switchGun():
 		add_child(selected_gun)
 		skin.get_node("anim").current_animation = selected_gun.gun_type
 		selected_gun.position = $hand.position
+
 
 
 func pause_controls(val : bool):

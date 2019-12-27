@@ -1,5 +1,3 @@
-
-
 #WarZone II 26-12-2019
 
 *Updates
@@ -7,9 +5,13 @@
 ----Fixed lobby bug (peer crash on joining)
 ----Fixed server bugs (server stops when peer disconnects the server)
 ----Fixed Turret sync bugs
+----Fixed lobby bug (Player list was not cleared,this caused major glitch while hosting server for second time)
+----Fixed lobby bug (default game mode/level changes to previously selected)
+----Freed memory on level exit
+------Frees Node2D
+------Frees entire map
 --Optimised Turret menu
 --Synced plasma attacks
-
 
 *Plan/New Ideas
 --New types of bullets like AP,HE.. etc

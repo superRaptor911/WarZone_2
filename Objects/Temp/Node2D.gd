@@ -16,6 +16,7 @@ func _ready():
 func _on_player_removed(pinfo):
 	despawn_player(pinfo)
 
+
 var arr = Array()
 
 remote func spawn_players(pinfo, spawn_index):
@@ -67,6 +68,7 @@ remote func despawn_player(pinfo):
 	
 func _on_disconnected():
 	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
+	queue_free()
 
 func _init_game():
 	if game_states.GAME_MODE == game_states.GAME_MODES.SURVIVAL:

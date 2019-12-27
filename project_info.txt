@@ -11,7 +11,3 @@ GROUP
 
 **************MISNOMERS***************
 .Inventory_menu ------------- "It's actualy build menu"
-
-
-***************TO-DO**************
-*handle player disconnection
