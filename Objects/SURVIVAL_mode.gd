@@ -30,8 +30,10 @@ signal zm_spawn_complete
 
 #ready
 func _ready():
+	#potential bug
 	lvl = get_parent()
 	if get_tree().is_network_server():
+		network.connect("server_stopped",self,"_on_server_stopped")
 		$chk_zm_count.start()
 		#get zm spawn points
 		zm_spawn_points = get_tree().get_nodes_in_group("zombie_spawn")[0].get_children()
@@ -130,7 +132,10 @@ func _on_level_complete():
 func _on_chk_zm_count_timeout():
 	_check_zombie_count()
 	$chk_zm_count.start()
-	
+
+func _on_server_stopped():
+	queue_free()
+
 #----------------------------------------------------------------
 #LEVELS
 
