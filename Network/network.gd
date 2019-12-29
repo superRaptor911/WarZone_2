@@ -13,7 +13,8 @@ signal join_success                            # When the peer successfully join
 signal join_fail                               # Failed to join a server
 signal player_list_changed                     # List of players has been changed
 signal player_removed(pinfo)
-signal disconnected 
+signal disconnected
+signal server_stopped
 
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_on_player_connected")
@@ -101,6 +102,7 @@ remote func kick_player(net_id, reason):
 
 
 remote func kicked(reason):
+	get_tree().network_peer.disconnect_peer(game_states.player_info.net_id)
 	print("You have been kicked from the server, reason: ", reason)
 
 func _close_server():
@@ -109,6 +111,19 @@ func _close_server():
 		print(i)
 		rpc_id(i,"kicked", "Server Closed")
 		get_tree().network_peer.disconnect_peer(i)
+	players.clear()
 	#Terminate server
 	get_tree().set_network_peer(null)
+	emit_signal("server_stopped")
 	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
+
+remote func request_server(func_name,node,args = null):
+	if get_tree().is_network_server():
+		if args:
+			get_tree().root.get_node(node).call(func_name,args)
+			get_tree().root.get_node(node).rpc(func_name,args)
+		else:
+			get_tree().root.get_node(node).call(func_name)
+			get_tree().root.get_node(node).rpc(func_name)
+	else:
+		rpc_id(1,"request_server",func_name,node,args)
