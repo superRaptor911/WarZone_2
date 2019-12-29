@@ -1,4 +1,20 @@
 extends Node
+
+var update_rate = 25 setget set_update_rate
+var update_delta = 1.0 / update_rate setget no_set, get_update_delta
+
+func set_update_rate(r):
+	update_rate = r
+	update_delta = 1.0 / update_rate
+
+func get_update_delta():
+	return update_delta
+
+func no_set(r):
+	pass
+
+#################BUILDINGs##############
+
 #holds index of turret 
 #it acts as an unique id
 var _turret_index : int  = 0

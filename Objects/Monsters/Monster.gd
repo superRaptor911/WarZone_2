@@ -108,7 +108,3 @@ func _on_Vision_body_entered(body):
 func _on_Vision_body_exited(body):
 	if body.is_in_group("Actor"):
 		char_array.erase(body)
-		
-remote func _sync_position(pos,rot):
-	position = pos
-	rotation = rot

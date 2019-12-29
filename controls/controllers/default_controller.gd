@@ -30,8 +30,6 @@ func _process(delta):
 		user.selected_gun.fireGun()
 	if counter:
 		counter = false
-		user.rpc("sync_vars",user.movement_vector,user.rotation,user.position)
-		
 
 	
 func _on_joy2_move(val):

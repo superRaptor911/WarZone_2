@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-var _selected_game_mode = -1
-var _selected_level = -1
+var _selected_game_mode = 0
+var _selected_level = 0
 
 func _ready():
 	network.connect("player_list_changed", self, "_on_player_list_changed")
@@ -29,6 +29,8 @@ func _ready():
 	$PanelContainer2/Panel/game_mode.add_item("Free For All")
 	$PanelContainer2/Panel/game_mode.add_item("TDM")
 	$PanelContainer2/Panel/game_mode.add_item("Survival")
+	_on_game_mode_item_selected(_selected_game_mode)
+	_on_level_item_selected(_selected_level)
 
 
 #refresh player list
@@ -57,6 +59,7 @@ remote func _select_level(ID):
 
 remote func _start_game():
 	get_tree().change_scene("res://Objects/Temp/Node2D.tscn")
+	queue_free()
 
 func _on_start_pressed():
 	rpc("_start_game")

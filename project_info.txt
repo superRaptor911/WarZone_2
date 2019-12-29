@@ -12,6 +12,17 @@ GROUP
 **************MISNOMERS***************
 .Inventory_menu ------------- "It's actualy build menu"
 
+**************REMOTE STANDARDS********
 
-***************TO-DO**************
-*handle player disconnection
+DEFINITION OF VARS
+.var should be dictionary
+.var shoudl start with _&name_packet eg _Health_packet, _Position_packet
+
+IF NOT USING NETWORK FUNCTION ( request_server() )
+.func definition 
+..to call server _server_&func_name
+..to call peers sync_&func_name
+
+***********Bugs found*****************
+.Lobby bug
+.A.I bugs only in multiplayer
