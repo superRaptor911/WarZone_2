@@ -15,7 +15,11 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+HP = null
+AP = null
+alive = null
 speed = 100.0
+stamina = null
 
 [node name="Model" parent="." instance=ExtResource( 2 )]
 

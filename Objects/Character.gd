@@ -153,6 +153,7 @@ remotesync func sync_vectors(pos,rot,speed_mul,is_moving,mov_vct,input_id):
 		return
 	$ptween.interpolate_property(self,"position",position,pos,game_server.update_delta,Tween.TRANS_LINEAR,Tween.EASE_OUT)
 	$ptween.start()
+	#rotation = rot
 	$rtween.interpolate_property(self,"rotation",rotation,rot,game_server.update_delta,Tween.TRANS_LINEAR,Tween.EASE_OUT)
 	$rtween.start()
 	skin.is_walking = is_moving
@@ -165,7 +166,7 @@ remote func _server_process_vectors(mov_vct,rot,speed_mul,input_id):
 			var last_state = null
 			if state_vector_array.size():
 				last_state = state_vector_array[state_vector_array.size() - 1]
-				rpc("sync_vectors",last_state.position,rotation,speed_multiplier,skin.is_walking,mov_vct,input_id)
+				rpc("sync_vectors",last_state.position,last_state.rotation,speed_multiplier,skin.is_walking,mov_vct,input_id)
 		else:
 			var last_state = null
 			if state_vector_array.size():
@@ -227,6 +228,23 @@ remotesync func sync_death():
 func _on_free_timer_timeout():
 	queue_free()
 
+#This Function Rotates Bot with a constatant Rotational speed
+func interpolate_rotation(_dest_angle : float,_Time_ : float):
+	if abs(_dest_angle - rotation) <= 0.1:
+		return
+	#make angles in range (0,2pi)
+	if dest_angle < 0 :
+		dest_angle += 6.28
+	if rotation < 0:
+		rotation += 6.28
+	if rotation > 6.28:
+		rotation -= 6.28
+		
+	var aba : float = dest_angle - rotation
+	if abs(aba) <= 6.28 - abs(aba) :
+		rotation += sign(aba) * rotational_speed * delta
+	else:
+		rotation += -sign(aba) * rotational_speed * delta
 
 func _on_Character_char_took_damage():
 	if game_states.game_settings.particle_effects:
