@@ -102,7 +102,7 @@ remote func kick_player(net_id, reason):
 
 
 remote func kicked(reason):
-	get_tree().network_peer.disconnect_peer(game_states.player_info.net_id)
+	#get_tree().network_peer.disconnect_peer(game_states.player_info.net_id)
 	print("You have been kicked from the server, reason: ", reason)
 
 func _close_server():
