@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Sprites/particles/bloodSplash.tres" type="Material" id=1]
+
+[node name="bloodSplash" type="Particles2D" groups=[
+"Particle",
+]]
+emitting = false
+amount = 64
+lifetime = 3.0
+one_shot = true
+speed_scale = 5.0
+explosiveness = 0.25
+local_coords = false
+process_material = ExtResource( 1 )

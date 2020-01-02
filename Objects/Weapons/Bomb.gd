@@ -18,7 +18,7 @@ func explode():
 	$Tween.start()
 	#emit blast particles
 	if game_states.game_settings.particle_effects:
-		$Particles2D.emitting = true
+		$explosion_cloud.emitting = true
 	var chars = get_tree().get_nodes_in_group("Actor")
 	for c in chars:
 		if (c.position - position).length() < radius * SCALE:

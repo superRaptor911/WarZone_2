@@ -51,13 +51,13 @@ func fireGun():
 			reloading = true
 
 #create projectile
-remote func _create_bullet(pos,rot):
+remote func _create_bullet(sprd):
 	var bullet = projectile.instance()
-	bullet.create_bullet(pos,rot,projectile_velocity,damage,self,gun_user)
+	bullet.create_bullet($Muzzle.global_position,global_rotation + sprd,projectile_velocity,damage,self,gun_user)
 	get_tree().root.add_child(bullet)
 	$fire.play()
 	if get_tree().is_network_server():
-		rpc("_create_bullet",pos,rot)
+		rpc("_create_bullet",sprd)
 
 #shoot weapon
 func _shoot():
@@ -65,10 +65,10 @@ func _shoot():
 	recoil += recoil_factor
 	var angular_spread : float = rand_range(-spread,spread) * ( 1 + recoil)
 	if get_tree().is_network_server():
-		_create_bullet($Muzzle.global_position,global_rotation + angular_spread)
+		_create_bullet(angular_spread)
 	else:
 		#call server to create projectiles
-		rpc_id(1,"_create_bullet",$Muzzle.global_position,global_rotation + angular_spread)
+		rpc_id(1,"_create_bullet",angular_spread)
 	ready_to_fire = false
 	$Timer.start(1 / rate_of_fire)
 	rounds_left -= 1

@@ -66,7 +66,6 @@ func _process(delta):
 				set_path(target.position)
 			else:
 				follow_path(delta)
-	rpc("_sync_position",position,rotation)
 
 
 
