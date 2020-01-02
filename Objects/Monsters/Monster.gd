@@ -85,9 +85,10 @@ func _is_target_visible() ->bool:
 #This Function Rotates Bot with a constatant Rotational speed
 func handle_rotation(delta : float):
 	var dest_angle : float = (destination - position).angle() + 1.57
+	#Tolerance
 	if abs(dest_angle - rotation) <= 0.1:
 		return
-		
+	#make angles in range (0,2pi)
 	if dest_angle < 0 :
 		dest_angle += 6.28
 	if rotation < 0:
@@ -108,7 +109,3 @@ func _on_Vision_body_entered(body):
 func _on_Vision_body_exited(body):
 	if body.is_in_group("Actor"):
 		char_array.erase(body)
-		
-remote func _sync_position(pos,rot):
-	position = pos
-	rotation = rot

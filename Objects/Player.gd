@@ -21,6 +21,9 @@ var grenade = preload("res://Objects/Weapons/grenade.tscn")
 var grenade_count = 3
 var _pause_cntrl : bool = false
 
+###################################################
+
+
 func _ready():
 	$Gun.queue_free()
 	skin.get_node("anim").current_animation = selected_gun.gun_type
@@ -104,14 +107,6 @@ func _get_inputs():
 		get_tree().root.add_child(inv_menu)
 	
 	rotation = (get_global_mouse_position()  - global_position).angle() + 1.57
-	rpc("sync_vars",movement_vector,rotation,position)
-
-func _on_cntrl_move(val):
-	val *= 1/max(abs(val.x),abs(val.y))
-	movement_vector = val
-	rotation = val.angle() + 1.57
-	rpc("sync_vars",movement_vector,rotation,position)
-	
 
 remote func throwGrenade():
 	if get_tree().is_network_server():
@@ -137,10 +132,7 @@ remote func _sync_throwGrenade(nam):
 	g.throwGrenade(dir)
 
 #sync 
-sync func sync_vars(vct,rot,pos):
-	movement_vector = vct
-	rotation = rot
-	position = pos
+
 
 
 
@@ -149,7 +141,8 @@ sync func respawn_player(pos,id):
 	alive = true
 	HP = 100
 	AP = 100
-	position = pos
+	_input_id += 1
+	teleportCharacter(pos,_input_id)
 	load_guns(network.players[id].primary_gun_name,network.players[id].sec_gun_name)
 
 remotesync func switchGun():

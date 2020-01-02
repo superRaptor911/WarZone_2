@@ -3,7 +3,7 @@
 [ext_resource path="res://Objects/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Monsters/Monster.gd" type="Script" id=2]
 
-[node name="Monster" groups=[
+[node name="Monster" index="0" groups=[
 "Monster",
 ] instance=ExtResource( 1 )]
 position = Vector2( 243.472, 268.036 )
