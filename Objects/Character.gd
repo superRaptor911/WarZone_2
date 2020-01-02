@@ -17,9 +17,14 @@ var skin : Model
 signal char_killed
 signal char_took_damage
 
+#ID of input
 var _input_id : int = 0
+#old_rot variable is used for custom rotation interpolation
 var old_rot : float = 0
+#rot_speed variable is used for custom rotation interpolation
+var rot_speed : float = 0
 ###################################################
+#State of character
 class state_vector:
 	var position : Vector2
 	var rotation : float
@@ -27,13 +32,16 @@ class state_vector:
 	var movement_vector : Vector2
 	var speed_multiplier : int
 	
+	#Constructor
 	func _init(Pos : Vector2,MV : Vector2,R : float,SM : int,ID : int):
 		rotation = R
 		input_id = ID
 		movement_vector = MV
 		speed_multiplier = SM
 		position = Pos
+	
 
+#Array of previous states
 var state_vector_array = Array()
 ###################################################
 
@@ -42,16 +50,19 @@ func _ready():
 	remove_child($Model)
 	add_child(skin)
 
+#process Character
 func _process(delta):
 	if alive:
+		#handele movement
 		_movement(delta)
-		_regain_stamina()
-		_emit_blood_marks()
+		#if character is injured emit blood
+		_isInjured()
 	else:
 		if skin:
 			skin.is_walking = false
 
-func _emit_blood_marks():
+func _isInjured():
+	#emit blood only if pratricle effect is enabled
 	if game_states.game_settings.particle_effects:
 		if HP < 40:
 			$bloodSpot.emitting = true
@@ -59,31 +70,37 @@ func _emit_blood_marks():
 			$bloodSpot.emitting = false
 
 #This function handles character movement
-#movement is done by manuplulating movement_vector
+#movement is done by using movement_vector
 func _movement(delta : float):
+	
+	#if Character is other peer interpolate its rotation
+	#This is used because Tween node failed
 	if not is_network_master():
 		interpolate_rotation(delta)
+	#use server update rate (default 25 Hz)
+	#game update rate is default 60 Hz 
 	current_time += delta
 	if (current_time < game_server.update_delta):
 		return
 	current_time -= game_server.update_delta
-	#handle movement if this is master
+
+	#handle movement locally if this is master
 	if is_network_master():
+		#detect change in inputs
 		if movement_vector.length() or (old_rot != rotation):
 			old_rot = rotation
+			#update input ID
 			_input_id += 1
+			#locally update position (Client side prediction)
 			_client_process_vectors()
+			#Send input data to Server
 			if get_tree().is_network_server():
 				_server_process_vectors(movement_vector,rotation,speed_multiplier,_input_id)
 			else:
 				rpc_id(1,"_server_process_vectors",movement_vector,rotation,speed_multiplier,_input_id)
+	#reset input vectors
 	movement_vector = Vector2(0,0)
 	speed_multiplier = 1
-
-func _regain_stamina():
-	if stamina != 1:
-		stamina += 0.01
-		stamina = min(1,stamina)
 
 
 #This function sets model
@@ -96,29 +113,37 @@ func setSkin(s):
 	skin = s
 	add_child(skin)
 	
-
+#increases movement speed
 func useSprint():
-	if stamina > 0:
-		stamina -= 0.01
-		speed_multiplier = 1.75
-		
+	speed_multiplier = 1.75
 
+#Take damage from some weapon used by someone
 func takeDamage(damage : float,weapon,attacker):
+	#Do not take damage if dead
+	if not alive:
+		return
+	#Register last attacker
 	last_attacker = attacker
+	#Rest of the code is only handled by server
 	if not get_tree().is_network_server():
 		return
+	#disable friendly fire in moded other than FFA
+	#will be replaced by something better in future
 	if not (game_states.GAME_MODE == game_states.GAME_MODES.FFA):
 		if attacker:
 			if team == attacker.team:
 				return
-	if not alive:
-		return
+	#Damage distribution
 	if AP > 0:
 		AP = max(0,AP - 0.75 * damage)
 		HP = max(0,HP - 0.25 * damage)
 	else:
 		HP = max(0,HP - damage)
+		
 	emit_signal("char_took_damage")
+	#emit blood splash
+	#works well with projectiles but fails with explosion
+	#will be fixed
 	_blood_splash(attacker.position,position)
 	#sync with peers
 	rpc("sync_health",HP,AP)
@@ -142,22 +167,30 @@ remote func sync_health(hp,ap):
 	HP = hp
 	AP = ap
 
-var rot_speed : float = 0
-
-remotesync func sync_vectors(pos,rot,speed_mul,is_moving,mov_vct,input_id):
+#sync vectors 
+remotesync func sync_vectors(pos,rot,speed_mul,is_moving,input_id):
+	#Do reconsilation if Character is master
 	if is_network_master():
+		#get stateVector from movement history (stateVector_array)
 		var S_VT = getStateVector(input_id)
 		if S_VT:
-			if (S_VT.position - pos).length() < 1.25: # tolerance error could occur
+			#if no error remove previous stateVectors from movement history 
+			if (S_VT.position - pos).length() < 1.25:
 				removePreviousStateVectors(input_id)
+			#if error correct error
 			else:
+				#used for debug will be removed soon
 				print(S_VT.position,pos)
 				removePreviousStateVectors(input_id)
 				computeStates(pos)
 		return
+	#if Character is not master interpolate vectors
 	$ptween.interpolate_property(self,"position",position,pos,game_server.update_delta,Tween.TRANS_LINEAR,Tween.EASE_OUT)
 	$ptween.start()
-	rotation = rot
+	
+	#Custom rotation interpolation
+	#Tween node failed to produce desirable output So, Custom interpolation is used
+	
 	if rot < 0 :
 		rot += 6.28
 	elif rot > 6.28:
@@ -168,32 +201,35 @@ remotesync func sync_vectors(pos,rot,speed_mul,is_moving,mov_vct,input_id):
 		rotation -= 6.28
 	rot_speed = abs(rot - rotation) / game_server.update_delta
 	
-	#$rtween.interpolate_property(self,"rotation",rotation,rot,game_server.update_delta,Tween.TRANS_LINEAR,Tween.EASE_OUT)
-	#$rtween.start()
 	skin.is_walking = is_moving
 	skin.multiplier = speed_mul
+	if not get_tree().is_network_server():
+		state_vector_array.append(state_vector.new(Vector2(),Vector2(),rot,0,0))
 
 
+#Server side Input data processor
 remote func _server_process_vectors(mov_vct,rot,speed_mul,input_id):
+	#safety check is it really server or not
 	if get_tree().is_network_server():
+		#if it is server's Character no need to recompute vectors
 		if is_network_master():
 			var last_state = null
 			if state_vector_array.size():
 				last_state = state_vector_array.back()
-				rpc("sync_vectors",last_state.position,last_state.rotation,speed_multiplier,skin.is_walking,mov_vct,input_id)
+				rpc("sync_vectors",last_state.position,last_state.rotation,speed_multiplier,skin.is_walking,input_id)
+		#Compute Input data
 		else:
 			var last_state = null
 			if state_vector_array.size():
 				last_state = state_vector_array.back()
 			changeState(last_state,mov_vct,rot,speed_mul,input_id)
-			if mov_vct.length():
-				skin.multiplier = speed_mul
-				skin.is_walking = true
-			else:
-				skin.is_walking = false
 			if state_vector_array.size():
-				rpc("sync_vectors",state_vector_array[state_vector_array.size() - 1].position,rot,speed_mul,skin.is_walking,mov_vct,input_id)
+				rpc("sync_vectors",state_vector_array[state_vector_array.size() - 1].position,rot,speed_mul,skin.is_walking,input_id)
+	#oops Error
+	else:
+		print("Func (_server_process_vectors) called on peer")
 
+#Client side Input processor
 func _client_process_vectors():
 	var last_state = null
 	if state_vector_array.size():
@@ -208,6 +244,7 @@ func _client_process_vectors():
 	else:
 		skin.is_walking = false
 
+#state changer
 func changeState(initial_state : state_vector, mov_vct : Vector2, rot : float,speed_mul : float,input_id : int):
 	#if no initial state compute as it is
 	if not initial_state:
@@ -242,13 +279,15 @@ remotesync func sync_death():
 func _on_free_timer_timeout():
 	queue_free()
 
+#custom rotation interpolator
 #This Function Rotates Bot with a constatant Rotational speed
 func interpolate_rotation(delta : float):
 	if not state_vector_array.size():
 		return
 	var _dest_angle : float = state_vector_array.back().rotation
-	if abs(_dest_angle - rotation) <= 0.1:
+	if abs(_dest_angle - rotation) <= 0.04:
 		return
+
 	#make angles in range (0,2pi)
 	if _dest_angle < 0 :
 		_dest_angle += 6.28
@@ -256,7 +295,10 @@ func interpolate_rotation(delta : float):
 		rotation += 6.28
 	if rotation > 6.28:
 		rotation -= 6.28
-		
+	if abs(_dest_angle - rotation) <= rot_speed * delta or abs(6.28 - abs(_dest_angle - rotation) ) <= rot_speed * delta:
+		rotation = _dest_angle
+		return
+
 	var aba : float = _dest_angle - rotation
 	if abs(aba) <= 6.28 - abs(aba) :
 		rotation += sign(aba) * rot_speed * delta
@@ -282,10 +324,14 @@ func getStateVector(ID : int) -> state_vector:
 		if v.input_id == ID:
 			return v
 	return null
-	
+
+#reconsile algorithm
 func computeStates(pos):
 	position = pos
 	for v in state_vector_array:
 		v.position = position
 		move_and_collide(v.movement_vector * speed * v.speed_multiplier * game_server.update_delta)
-		
+
+func teleportCharacter(pos,input_id):
+	position = pos
+	state_vector_array.append(state_vector.new(position,Vector2(0,0),0,1,input_id))

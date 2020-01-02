@@ -9,6 +9,11 @@
 --Need to standardize code
 --Need to fix multiple bugs and inconsistency
 --Need to fix error while colliding with objects (May need to increase error epsilon)
+--Need to fix particles2D dynamic load delay (May need to preload)
+
+*problems
+--"_blood_splash" needs to be fixed while explosion damage
+--New to write new respawn code current one is obsolete
 
 ----------------------------------------------------------------------
 #WarZone II 29-12-2019 (UNSTABLE) (Remove this after stabalising)
