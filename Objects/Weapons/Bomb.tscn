@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Objects/Weapons/Bomb.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Weapons/explosion.png" type="Texture" id=2]
-[ext_resource path="res://Sfx/weapons/explode3.wav" type="AudioStream" id=3]
+[ext_resource path="res://Sprites/particles/explosion_cloud.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sfx/weapons/explode3.wav" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "explode"
@@ -20,32 +21,6 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22 ]
 }
 
-[sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.392593, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 0.965265, 0.972656, 0.0265961, 1, 0, 0, 0, 0 )
-
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
-
-[sub_resource type="Curve" id=4]
-_data = [ Vector2( 0.0544842, 0.0875 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
-
-[sub_resource type="ParticlesMaterial" id=6]
-flag_disable_z = true
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 50.0
-angular_velocity = 300.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-linear_accel = 2.0
-scale = 10.0
-scale_curve = SubResource( 5 )
-color_ramp = SubResource( 3 )
-
 [node name="Bomb" type="Node2D"]
 position = Vector2( 508.781, 288.4 )
 script = ExtResource( 1 )
@@ -62,15 +37,7 @@ frame = 22
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/explode = SubResource( 1 )
 
-[node name="Particles2D" type="Particles2D" parent="." groups=[
-"Particle",
-]]
-emitting = false
-amount = 128
-lifetime = 2.0
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource( 6 )
+[node name="explosion_cloud" parent="." instance=ExtResource( 3 )]
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -79,6 +46,6 @@ wait_time = 2.0
 one_shot = true
 
 [node name="explode" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 3 )
+stream = ExtResource( 4 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

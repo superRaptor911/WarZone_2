@@ -42,3 +42,20 @@ remote func build_turret(type,pos,pl_name):
 		rpc("_build_turret",type,pos,pl_name,turret_name)
 	else:
 		rpc_id(1,"build_turret",type,pos,pl_name) 
+
+##############Loadings##############################
+
+func _init_Particle(particle_name):
+	var pos : Vector2 = Vector2(-9999,-9999)
+	var a = load("res://Sprites/particles/" + particle_name + ".tscn").instance()
+	a.position = pos
+	get_tree().root.add_child(a)
+	a.emitting = true
+
+func preloadParticles():
+	_init_Particle("bloodSplash")
+	_init_Particle("bloodSpot")
+	_init_Particle("explosion_cloud")
+	
+	
+	

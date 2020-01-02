@@ -72,7 +72,6 @@ func _isInjured():
 #This function handles character movement
 #movement is done by using movement_vector
 func _movement(delta : float):
-	
 	#if Character is other peer interpolate its rotation
 	#This is used because Tween node failed
 	if not is_network_master():
@@ -335,3 +334,4 @@ func computeStates(pos):
 func teleportCharacter(pos,input_id):
 	position = pos
 	state_vector_array.append(state_vector.new(position,Vector2(0,0),0,1,input_id))
+

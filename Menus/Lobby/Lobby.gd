@@ -29,8 +29,7 @@ func _ready():
 	$PanelContainer2/Panel/game_mode.add_item("Free For All")
 	$PanelContainer2/Panel/game_mode.add_item("TDM")
 	$PanelContainer2/Panel/game_mode.add_item("Survival")
-	_on_game_mode_item_selected(_selected_game_mode)
-	_on_level_item_selected(_selected_level)
+	game_server.preloadParticles()
 
 
 #refresh player list
@@ -47,6 +46,7 @@ func _on_player_list_changed():
 	if get_tree().is_network_server():
 		rpc("_select_level",_selected_level)
 		rpc("_select_mode",_selected_game_mode)
+		print(_selected_game_mode)
 
 #level is selected
 func _on_level_item_selected(ID):
@@ -57,15 +57,14 @@ remote func _select_level(ID):
 	$PanelContainer2/Panel/level.select(ID)
 
 
-remote func _start_game():
+remotesync func _start_game():
 	get_tree().change_scene("res://Objects/Temp/Node2D.tscn")
 	queue_free()
 
 func _on_start_pressed():
 	rpc("_start_game")
-	_start_game()
 
-remote func _select_mode(ID):
+remotesync func _select_mode(ID):
 	$PanelContainer2/Panel/game_mode.select(ID)
 	var mode = $PanelContainer2/Panel/game_mode.get_item_text(ID)
 	if mode == "Free For All":
