@@ -61,6 +61,8 @@ func _emit_blood_marks():
 #This function handles character movement
 #movement is done by manuplulating movement_vector
 func _movement(delta : float):
+	if not is_network_master():
+		interpolate_rotation(delta)
 	current_time += delta
 	if (current_time < game_server.update_delta):
 		return
@@ -139,7 +141,9 @@ remotesync func _sync_blood_splash(angle):
 remote func sync_health(hp,ap):
 	HP = hp
 	AP = ap
-	
+
+var rot_speed : float = 0
+
 remotesync func sync_vectors(pos,rot,speed_mul,is_moving,mov_vct,input_id):
 	if is_network_master():
 		var S_VT = getStateVector(input_id)
@@ -153,9 +157,19 @@ remotesync func sync_vectors(pos,rot,speed_mul,is_moving,mov_vct,input_id):
 		return
 	$ptween.interpolate_property(self,"position",position,pos,game_server.update_delta,Tween.TRANS_LINEAR,Tween.EASE_OUT)
 	$ptween.start()
-	#rotation = rot
-	$rtween.interpolate_property(self,"rotation",rotation,rot,game_server.update_delta,Tween.TRANS_LINEAR,Tween.EASE_OUT)
-	$rtween.start()
+	rotation = rot
+	if rot < 0 :
+		rot += 6.28
+	elif rot > 6.28:
+		rot -= 6.28
+	if rotation < 0:
+		rotation += 6.28
+	elif rotation > 6.28:
+		rotation -= 6.28
+	rot_speed = abs(rot - rotation) / game_server.update_delta
+	
+	#$rtween.interpolate_property(self,"rotation",rotation,rot,game_server.update_delta,Tween.TRANS_LINEAR,Tween.EASE_OUT)
+	#$rtween.start()
 	skin.is_walking = is_moving
 	skin.multiplier = speed_mul
 
@@ -165,12 +179,12 @@ remote func _server_process_vectors(mov_vct,rot,speed_mul,input_id):
 		if is_network_master():
 			var last_state = null
 			if state_vector_array.size():
-				last_state = state_vector_array[state_vector_array.size() - 1]
+				last_state = state_vector_array.back()
 				rpc("sync_vectors",last_state.position,last_state.rotation,speed_multiplier,skin.is_walking,mov_vct,input_id)
 		else:
 			var last_state = null
 			if state_vector_array.size():
-				last_state = state_vector_array[state_vector_array.size() - 1]
+				last_state = state_vector_array.back()
 			changeState(last_state,mov_vct,rot,speed_mul,input_id)
 			if mov_vct.length():
 				skin.multiplier = speed_mul
@@ -181,12 +195,12 @@ remote func _server_process_vectors(mov_vct,rot,speed_mul,input_id):
 				rpc("sync_vectors",state_vector_array[state_vector_array.size() - 1].position,rot,speed_mul,skin.is_walking,mov_vct,input_id)
 
 func _client_process_vectors():
+	var last_state = null
+	if state_vector_array.size():
+		last_state = state_vector_array.back()
+	changeState(last_state,movement_vector,rotation,speed_multiplier,_input_id)
 	#if movement update position and animation
 	if movement_vector.length():
-		var last_state = null
-		if state_vector_array.size():
-			last_state = state_vector_array[state_vector_array.size() - 1]
-		changeState(last_state,movement_vector,rotation,speed_multiplier,_input_id)
 		$ptween.interpolate_property(self,"position",position,state_vector_array[state_vector_array.size() - 1].position,game_server.update_delta,Tween.TRANS_LINEAR,Tween.EASE_OUT)
 		$ptween.start()
 		skin.multiplier = speed_multiplier
@@ -229,22 +243,26 @@ func _on_free_timer_timeout():
 	queue_free()
 
 #This Function Rotates Bot with a constatant Rotational speed
-func interpolate_rotation(_dest_angle : float,_Time_ : float):
+func interpolate_rotation(delta : float):
+	if not state_vector_array.size():
+		return
+	var _dest_angle : float = state_vector_array.back().rotation
 	if abs(_dest_angle - rotation) <= 0.1:
 		return
 	#make angles in range (0,2pi)
-	if dest_angle < 0 :
-		dest_angle += 6.28
+	if _dest_angle < 0 :
+		_dest_angle += 6.28
 	if rotation < 0:
 		rotation += 6.28
 	if rotation > 6.28:
 		rotation -= 6.28
 		
-	var aba : float = dest_angle - rotation
+	var aba : float = _dest_angle - rotation
 	if abs(aba) <= 6.28 - abs(aba) :
-		rotation += sign(aba) * rotational_speed * delta
+		rotation += sign(aba) * rot_speed * delta
 	else:
-		rotation += -sign(aba) * rotational_speed * delta
+		rotation += -sign(aba) * rot_speed * delta
+
 
 func _on_Character_char_took_damage():
 	if game_states.game_settings.particle_effects:
