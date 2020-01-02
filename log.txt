@@ -1,3 +1,16 @@
+#WarZone II 2-1-2020 (UNSTABLE) (Remove this after stabalising)
+
+*Updates
+--Rotation Interpolation bug fixed
+----Implemented custom rotation interpolation
+
+*Dev Notes
+--Need to profile code
+--Need to standardize code
+--Need to fix multiple bugs and inconsistency
+--Need to fix error while colliding with objects (May need to increase error epsilon)
+
+----------------------------------------------------------------------
 #WarZone II 29-12-2019 (UNSTABLE) (Remove this after stabalising)
 
 *Updates
