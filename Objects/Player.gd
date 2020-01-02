@@ -141,7 +141,8 @@ sync func respawn_player(pos,id):
 	alive = true
 	HP = 100
 	AP = 100
-	position = pos
+	_input_id += 1
+	teleportCharacter(pos,_input_id)
 	load_guns(network.players[id].primary_gun_name,network.players[id].sec_gun_name)
 
 remotesync func switchGun():

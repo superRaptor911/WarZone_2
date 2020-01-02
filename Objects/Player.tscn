@@ -4,7 +4,7 @@
 [ext_resource path="res://Objects/Player.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=3]
 
-[node name="Player" groups=[
+[node name="Player" index="0" groups=[
 "User",
 ] instance=ExtResource( 1 )]
 position = Vector2( 325.496, 291.54 )
