@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Objects/Character.gd" type="Script" id=1]
 [ext_resource path="res://Models/Model.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Sprites/particles/bloodSpot.tres" type="Material" id=3]
-[ext_resource path="res://Sprites/particles/blood.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/particles/bloodSplash.tres" type="Material" id=5]
+[ext_resource path="res://Sprites/particles/bloodSpot.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sprites/particles/bloodSplash.tscn" type="PackedScene" id=4]
 
 [node name="Character" type="KinematicBody2D" groups=[
 "Actor",
@@ -23,30 +22,9 @@ speed = 100.0
 wait_time = 4.0
 one_shot = true
 
-[node name="bloodSpot" type="Particles2D" parent="." groups=[
-"Particle",
-]]
-show_behind_parent = true
-z_index = -2
-z_as_relative = false
-emitting = false
-amount = 16
-lifetime = 5.0
-local_coords = false
-process_material = ExtResource( 3 )
-texture = ExtResource( 4 )
+[node name="bloodSpot" parent="." instance=ExtResource( 3 )]
 
-[node name="bloodSplash" type="Particles2D" parent="." groups=[
-"Particle",
-]]
-emitting = false
-amount = 64
-lifetime = 3.0
-one_shot = true
-speed_scale = 5.0
-explosiveness = 0.25
-local_coords = false
-process_material = ExtResource( 5 )
+[node name="bloodSplash" parent="." instance=ExtResource( 4 )]
 
 [node name="ptween" type="Tween" parent="."]
 [connection signal="char_took_damage" from="." to="." method="_on_Character_char_took_damage"]
