@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "BOT_FSM_STATE",
+"language": "GDScript",
+"path": "res://Objects/custom_scripts/fsm_bot.gd"
+}, {
 "base": "Node2D",
 "class": "Gun",
 "language": "GDScript",
@@ -35,6 +40,7 @@ _global_script_classes=[ {
 "path": "res://Objects/Player.gd"
 } ]
 _global_script_class_icons={
+"BOT_FSM_STATE": "",
 "Gun": "",
 "Model": "",
 "Monster": "",

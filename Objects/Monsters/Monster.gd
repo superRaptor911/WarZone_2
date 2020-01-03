@@ -17,7 +17,9 @@ var at_dest : bool = true
 var char_array : Array
 var nav_ready : bool = false
 var target = null
-var target_lost : bool =true
+var target_lost : bool = true
+
+
 
 func _ready():
 	var navs = get_tree().get_nodes_in_group("Nav")
@@ -46,22 +48,23 @@ func follow_path(delt):
 	destination = path_array[current_node]
 	
 
-func set_path(dest :Vector2) :
+func set_path(dest :Vector2) -> bool :
 	if not nav :
 		print("error nov not set")
-		return
+		return false
 	nav_ready = game_states.is_Astar_ready()
 	if not nav_ready:
-		return
+		return false
 	
 	path_array = nav.get_simple_path(position,dest)
 	current_node = 0
 	at_dest = false
+	return true
 	
 func _get_nearest_player() :
+	target = null
 	var pls = get_tree().get_nodes_in_group("User")
 	if pls.size() == 0:
-		target = null
 		return
 	var min_distance : int = 99999
 	for pl in pls:

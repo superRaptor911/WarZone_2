@@ -1,39 +1,25 @@
-#WarZone II 3-1-2020 (UNSTABLE) (Remove this after stabalising)
+
+#WarZone II 4-1-2020
 
 *Updates
---Rotation Interpolation bug fixed
---Fixed minor bugs
---"Character.gd" is now fully documented
---Fixed respawn code
---Fixed lobby bug (peer was able to change selected modes)
---Fixed particles2D initial lag
+--FSM implemented
+--FSM modulde for necron
+--Better A.I
 
 *Dev Notes
---Need to fix Hunter A.I
---Need to profile code
---Need to standardize code
---Need to fix error while colliding with objects (May need to increase tolerance)
---Need to fix particles2D dynamic load delay (May need to preload)
---"_blood_splash" needs to be fixed while explosion damage
+--Linking states in FSM is cumbersome
+--Need to fix performance issue
+--Serious performance issue in Android
+--Need inventory management system
+--Need buymenu
+--Need spawn indicator
+--Need to fix bloodspot Z index
+--Need to implement finance system
+
 
 ----------------------------------------------------------------------
-#WarZone II 2-1-2020 (UNSTABLE) (Remove this after stabalising)
 
-*Updates
---Rotation Interpolation bug fixed
-----Implemented custom rotation interpolation
-
-*Dev Notes
---Need to profile code
---Need to standardize code
---Need to fix multiple bugs and inconsistency
---Need to fix error while colliding with objects (May need to increase error epsilon)
---Need to fix particles2D dynamic load delay (May need to preload)
---"_blood_splash" needs to be fixed while explosion damage
---New to write new respawn code current one is obsolete
-
-----------------------------------------------------------------------
-#WarZone II 29-12-2019 (UNSTABLE) (Remove this after stabalising)
+#WarZone II 3-1-2020
 
 *Updates
 --New Server model
@@ -44,10 +30,15 @@
 --Current update rate = 25 Hz
 
 *Dev Notes
---Observed very good network performance at 25 Hz compared to previous model at 60 Hz
---Need to profile code
---Need to standardize code
---Need to fix multiple bugs and inconsistency
+--Need better A.I code (must implement F.S.M)
+--Need to fix performance issue
+--Serious performance issue in Android
+--Need inventory management system
+--Need buymenu
+--Need spawn indicator
+--Need to fix bloodspot Z index
+--Need to implement finance system
+
 
 ----------------------------------------------------------------------
 

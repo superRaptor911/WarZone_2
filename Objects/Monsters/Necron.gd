@@ -10,8 +10,9 @@ func _ready():
 	setSkin(game_states.modelResource.zombie_model.instance())
 	connect("char_killed",self,"_on_necron_killed")
 	if get_tree().is_network_server():
-		$vision_update.start()
-		$target_update.start()
+		add_child(load("res://Objects/custom_scripts/necron_fsm.gd").new())
+		#$vision_update.start()
+		#$target_update.start()
 	
 func _on_necron_killed():
 	$bloodSpot.emitting = false
@@ -19,53 +20,11 @@ func _on_necron_killed():
 	skin = null
 	$free_timer.start()
 
-func roam(delta : float):
-	follow_path(delta)
-	if at_dest:
-		if position == main_destination:
-			set_path(initial_position)
-		else:
-			set_path(main_destination)
-		at_dest = false
-		
-func condition_roam():
-	for o in char_array:
-		if o.is_in_group("User"):
-			var space_state = get_world_2d().direct_space_state
-			var result = space_state.intersect_ray(global_position, o.global_position,[self], collision_mask)
-			if result:
-				if result.collider.is_in_group("User"):
-					target = o
-
-
 func attack(delta : float):
-	if not target.alive:
-		#_get_nearest_player()
-		at_dest = true
-		return
-	destination = target.position
-	movement_vector = (destination - position).normalized()
 	if (destination - position).length() <= attack_radius:
 		target.takeDamage(damage * delta,null,self)
 
 
-
-func _process(delta):
-	if not get_tree().is_network_server() or not alive:
-		return
-	if target == null:
-		return
-	if not nav_ready:
-		set_path(target.position)
-	else:
-		if not target_lost:
-			at_dest = true
-			attack(delta)
-		else:
-			if at_dest:
-				set_path(target.position)
-			else:
-				follow_path(delta)
 
 
 
