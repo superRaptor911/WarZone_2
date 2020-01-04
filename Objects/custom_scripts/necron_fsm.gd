@@ -50,6 +50,7 @@ func _on_player_killed():
 func _on_bot_killed():
 	_get_player.queue_free()
 	_goto_player.queue_free()
+	_attack_player.queue_free()
 	queue_free()
 
 #swith state to attck when player is visible

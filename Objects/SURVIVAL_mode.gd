@@ -140,15 +140,17 @@ func _on_server_stopped():
 #LEVELS
 
 func _level_1():
-	_init_zombie_spawn_q("necron",20)
+	_init_zombie_spawn_q("necron",12)
+	_init_zombie_spawn_q("hunter",4)
 	$zm_spawn_dl.start()
 
 
 func _level_2():
-	_init_zombie_spawn_q("hunter",25)
+	_init_zombie_spawn_q("necron",16)
+	_init_zombie_spawn_q("hunter",4)
 	$zm_spawn_dl.start()
 	
 func _level_3():
-	_init_zombie_spawn_q("necron",10)
-	_init_zombie_spawn_q("hunter",10)
+	_init_zombie_spawn_q("necron",16)
+	_init_zombie_spawn_q("hunter",6)
 	$zm_spawn_dl.start()
