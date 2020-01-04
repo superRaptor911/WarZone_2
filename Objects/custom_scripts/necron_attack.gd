@@ -18,7 +18,7 @@ func _ready():
 
 func _process(delta):
 	if is_active:
-		if bot.target and bot.alive:
+		if bot.target and bot.target.alive:
 			bot.destination = bot.target.position
 			if (bot.position - bot.target.position).length() > bot.attack_radius:
 				_charge_towards_player()
@@ -33,7 +33,6 @@ func _charge_towards_player():
 
 func _on_visibility_src_interval():
 	if not bot._is_target_visible():
-		print("player not visible")
 		emit_signal("player_not_visible")
 		
 

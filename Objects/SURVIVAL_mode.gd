@@ -140,7 +140,7 @@ func _on_server_stopped():
 #LEVELS
 
 func _level_1():
-	_init_zombie_spawn_q("necron",20)
+	_init_zombie_spawn_q("necron",1)
 	$zm_spawn_dl.start()
 
 
