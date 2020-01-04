@@ -1,3 +1,22 @@
+#WarZone II 5-1-2020
+
+*Updates
+--FSM minor bug fix
+--FSM for hunter using necron module
+
+*Dev Notes
+--New hunter module is required
+--Linking states in FSM is cumbersome
+--Need to fix performance issue
+--Serious performance issue in Android
+--Need inventory management system
+--Need buymenu
+--Need spawn indicator
+--Need to fix bloodspot Z index
+--Need to implement finance system
+
+
+----------------------------------------------------------------------
 
 #WarZone II 4-1-2020
 
