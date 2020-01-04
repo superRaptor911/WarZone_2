@@ -64,7 +64,6 @@ func _process(delta):
 			_chkPlayerPos()
 			bot.follow_path(delta)
 		else:
-			print("player is dead")
 			emit_signal("player_dead")
 	pass
 	

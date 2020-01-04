@@ -7,6 +7,7 @@
 "Monster",
 ] instance=ExtResource( 1 )]
 position = Vector2( 243.472, 268.036 )
+collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="Vision" type="Area2D" parent="." index="1"]

@@ -17,7 +17,6 @@ func _on_search_interval():
 	#if target is found
 	if bot.target:
 		emit_signal("player_found")
-		print("got player")
 	#else research after some time
 	else:
 		search_interval.start()
