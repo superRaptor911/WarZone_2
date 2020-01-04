@@ -4,6 +4,7 @@ var _selected_game_mode = 0
 var _selected_level = 0
 
 func _ready():
+	game_states.GAME_MODE = game_states.GAME_MODES.FFA
 	network.connect("player_list_changed", self, "_on_player_list_changed")
 	#Connected players list
 	var nlabel = Label.new()
