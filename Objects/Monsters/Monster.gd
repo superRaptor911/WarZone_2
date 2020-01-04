@@ -64,14 +64,13 @@ func set_path(dest :Vector2) -> bool :
 func _get_nearest_player() :
 	target = null
 	var pls = get_tree().get_nodes_in_group("User")
-	if pls.size() == 0:
-		return
 	var min_distance : int = 99999
 	for pl in pls:
-		var dist = (position - pl.position).length()
-		if dist < min_distance:
-			min_distance = dist
-			target = pl
+		if pl.alive:
+			var dist = (position - pl.position).length()
+			if dist < min_distance:
+				min_distance = dist
+				target = pl
 
 #checks visibility of player/target
 func _is_target_visible() ->bool:
