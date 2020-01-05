@@ -9,6 +9,7 @@ var zm_spawn_points
 #unique zombie id
 var zm_id : int = 0
 var spawn_texture = preload("res://Sprites/Character/spawn_point.png")
+var max_zombie : int = 14
 
 #stores the time elapsed.
 var time_elapsed  : float = 0
@@ -51,11 +52,6 @@ func _spawn_zombies(zm_type):
 	zm.position = zm_spawn_points[rand_index].position
 	zm.set_name("bot" + String(zm_id))
 	lvl.add_child(zm)
-	zm.target = _get_nearest_player(zm.position)
-	#$zm_spawn_dl.start()
-	var zms = get_tree().get_nodes_in_group("Monster")
-	for z in zms:
-		zm.add_collision_exception_with(z)
 	rpc("_sync_spawn_zombie",zm_type,zm.position,zm_id)
 	zm_id += 1
 	
@@ -74,23 +70,6 @@ func _check_zombie_count():
 	if zm_count <= 0:
 		emit_signal("zombies_wiped_out")
 
-
-#function to get nearest player
-func _get_nearest_player(pos) -> Player:
-	var pls = get_tree().get_nodes_in_group("User")
-	if pls.size() == 0:
-		return null
-	var p
-	var min_distance : int = 99999
-	for pl in pls:
-		var dist = (pos - pl.position).length()
-		if dist < min_distance:
-			min_distance = dist
-			p = pl
-	return p
-
-
-
 #Updates time elapsed
 func _on_update2_timeout():
 	time_elapsed += 1
@@ -106,6 +85,7 @@ remotesync func _sync_msg_panel(val):
 func _init_zombie_spawn_q(type,count):
 	for i in range(0,count):
 		zm_spawn_queue.append(type)
+	zm_spawn_queue.shuffle()
 
 
 #Spawn delay after spawning a zombie
@@ -114,7 +94,9 @@ func _on_zm_spawn_dl_timeout():
 	#if there's something in queue spawn that and again
 	#call this function
 	if zm_spawn_queue.size() > 0:
-		_spawn_zombies(zm_spawn_queue.pop_front())
+		var zm_count = get_tree().get_nodes_in_group("Monster").size()
+		if zm_count < max_zombie:
+			_spawn_zombies(zm_spawn_queue.pop_front())
 		$zm_spawn_dl.start()
 	else:
 		emit_signal("zm_spawn_complete")
@@ -140,17 +122,17 @@ func _on_server_stopped():
 #LEVELS
 
 func _level_1():
-	_init_zombie_spawn_q("necron",12)
-	_init_zombie_spawn_q("hunter",4)
+	_init_zombie_spawn_q("necron",2)
+	#_init_zombie_spawn_q("hunter",8)
 	$zm_spawn_dl.start()
 
 
 func _level_2():
-	_init_zombie_spawn_q("necron",16)
-	_init_zombie_spawn_q("hunter",4)
+	_init_zombie_spawn_q("necron",80)
+	_init_zombie_spawn_q("hunter",12)
 	$zm_spawn_dl.start()
 	
 func _level_3():
-	_init_zombie_spawn_q("necron",16)
-	_init_zombie_spawn_q("hunter",6)
+	_init_zombie_spawn_q("necron",100)
+	_init_zombie_spawn_q("hunter",10)
 	$zm_spawn_dl.start()

@@ -147,6 +147,7 @@ func takeDamage(damage : float,weapon,attacker):
 	#sync with peers
 	rpc("sync_health",HP,AP)
 	if HP == 0:
+		game_server.handleKills(self,attacker,weapon)
 		#sync with everyone
 		rpc("sync_death")
 
@@ -265,12 +266,6 @@ func changeState(initial_state : state_vector, mov_vct : Vector2, rot : float,sp
 
 remotesync func sync_death():
 	hide()
-	#potential bug (server's last_attacker may differ from peer's)
-	if last_attacker != null:
-		if last_attacker.is_in_group("User"):
-			last_attacker.kills += 1
-	if self.is_in_group("User"):
-		self.deaths += 1
 	alive = false
 	emit_signal("char_killed")
 

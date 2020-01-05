@@ -14,8 +14,8 @@ func _join_lobby():
 
 
 func _on_create_pressed():
-	var port = int($PanelContainer/Panel/port.text)
-	var max_p = int($PanelContainer/Panel/max_pl.text)
+	var port = int($PanelContainer/Panel/container/port.text)
+	var max_p = int($PanelContainer/Panel/container/max_pl.text)
 	network.create_server(port,max_p)
 
 

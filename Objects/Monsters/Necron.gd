@@ -4,8 +4,6 @@ class_name Necron
 
 var last_state : bool = false
 
-
-
 func _ready():
 	setSkin(game_states.modelResource.zombie_model.instance())
 	connect("char_killed",self,"_on_necron_killed")
@@ -25,16 +23,3 @@ func attack(delta : float):
 		target.takeDamage(damage * delta,null,self)
 
 
-
-
-
-
-
-func _on_vision_update_timeout():
-	target_lost = not _is_target_visible()
-	$vision_update.start()
-
-
-func _on_target_update_timeout():
-	_get_nearest_player()
-	$target_update.start()

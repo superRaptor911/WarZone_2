@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Menus/HUD/Hud.gd" type="Script" id=1]
 [ext_resource path="res://Menus/HUD/reloadfinal.png" type="Texture" id=2]
@@ -8,8 +8,18 @@
 [ext_resource path="res://Menus/HUD/grenedefinal.png" type="Texture" id=6]
 [ext_resource path="res://font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Menus/HUD/pause3.png" type="Texture" id=8]
+[ext_resource path="res://Menus/Inventory/label_bg.png" type="Texture" id=9]
+[ext_resource path="res://Menus/Inventory/label2.png" type="Texture" id=10]
+[ext_resource path="res://Antaro.ttf" type="DynamicFontData" id=11]
 
-[node name="Hud" type="CanvasLayer"]
+[sub_resource type="DynamicFont" id=1]
+size = 24
+use_filter = true
+font_data = ExtResource( 11 )
+
+[node name="Hud" type="CanvasLayer" groups=[
+"Hud",
+]]
 script = ExtResource( 1 )
 
 [node name="reload" type="TextureButton" parent="."]
@@ -112,15 +122,26 @@ margin_bottom = 24.0
 custom_fonts/font = ExtResource( 7 )
 text = "Deaths"
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="Panel2" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.705882 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -198.0
-margin_top = -209.0
-margin_right = 198.0
-margin_bottom = 209.0
+margin_left = -362.5
+margin_top = -232.0
+margin_right = 362.5
+margin_bottom = 232.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="Panel2"]
+margin_left = 16.0
+margin_top = 17.0
+margin_right = 710.0
+margin_bottom = 451.0
+texture = ExtResource( 10 )
+expand = true
 
 [node name="score" type="Button" parent="Panel2"]
 anchor_left = 0.5
@@ -136,10 +157,10 @@ custom_fonts/font = ExtResource( 7 )
 text = "Score Board"
 
 [node name="quit" type="Button" parent="Panel2"]
-margin_left = 84.8913
-margin_top = 239.079
-margin_right = 249.891
-margin_bottom = 281.079
+margin_left = 246.177
+margin_top = 269.226
+margin_right = 411.176
+margin_bottom = 311.226
 rect_scale = Vector2( 1.5, 1.5 )
 custom_fonts/font = ExtResource( 7 )
 text = "QUIT"
@@ -161,6 +182,79 @@ margin_right = -30.1271
 margin_bottom = 36.2161
 custom_fonts/font = ExtResource( 7 )
 text = "Respawning"
+
+[node name="kill_msg" type="VBoxContainer" parent="."]
+margin_left = 19.9276
+margin_top = 261.608
+margin_right = 319.928
+margin_bottom = 509.608
+custom_constants/separation = 8
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="1" type="Label" parent="kill_msg"]
+margin_right = 300.0
+margin_bottom = 24.0
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.882353, 0.278431, 0.137255, 1 )
+
+[node name="2" type="Label" parent="kill_msg"]
+margin_top = 32.0
+margin_right = 300.0
+margin_bottom = 56.0
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.882353, 0.278431, 0.137255, 1 )
+
+[node name="3" type="Label" parent="kill_msg"]
+margin_top = 64.0
+margin_right = 300.0
+margin_bottom = 88.0
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.882353, 0.278431, 0.137255, 1 )
+
+[node name="4" type="Label" parent="kill_msg"]
+margin_top = 96.0
+margin_right = 300.0
+margin_bottom = 120.0
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.882353, 0.278431, 0.137255, 1 )
+
+[node name="5" type="Label" parent="kill_msg"]
+margin_top = 128.0
+margin_right = 300.0
+margin_bottom = 152.0
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.882353, 0.278431, 0.137255, 1 )
+
+[node name="6" type="Label" parent="kill_msg"]
+margin_top = 160.0
+margin_right = 300.0
+margin_bottom = 184.0
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.882353, 0.278431, 0.137255, 1 )
+
+[node name="7" type="Label" parent="kill_msg"]
+margin_top = 192.0
+margin_right = 300.0
+margin_bottom = 216.0
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.882353, 0.278431, 0.137255, 1 )
+
+[node name="8" type="Label" parent="kill_msg"]
+margin_top = 224.0
+margin_right = 300.0
+margin_bottom = 248.0
+rect_clip_content = true
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.882353, 0.278431, 0.137255, 1 )
 [connection signal="pressed" from="reload" to="." method="_on_reload_pressed"]
 [connection signal="pressed" from="zoom" to="." method="_on_zoom_pressed"]
 [connection signal="pressed" from="HE" to="." method="_on_HE_pressed"]

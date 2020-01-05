@@ -37,6 +37,7 @@ one_shot = true
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, -350 )
+collision_mask = 3
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Reload_time" to="." method="_on_Reload_time_timeout"]
 [connection signal="timeout" from="recoil_cool" to="." method="_on_recoil_cool_timeout"]

@@ -118,13 +118,3 @@ func _close_server():
 	emit_signal("server_stopped")
 	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
 
-remote func request_server(func_name,node,args = null):
-	if get_tree().is_network_server():
-		if args:
-			get_tree().root.get_node(node).call(func_name,args)
-			get_tree().root.get_node(node).rpc(func_name,args)
-		else:
-			get_tree().root.get_node(node).call(func_name)
-			get_tree().root.get_node(node).rpc(func_name)
-	else:
-		rpc_id(1,"request_server",func_name,node,args)

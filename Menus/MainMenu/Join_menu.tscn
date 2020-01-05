@@ -1,90 +1,154 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Menus/MainMenu/Join_menu.gd" type="Script" id=1]
-[ext_resource path="res://font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Menus/Inventory/label_bg.png" type="Texture" id=2]
+[ext_resource path="res://Menus/Inventory/label2.png" type="Texture" id=3]
+[ext_resource path="res://Menus/Inventory/label3.png" type="Texture" id=4]
+[ext_resource path="res://Menus/resources/btn_texture3.png" type="Texture" id=5]
+[ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://calibrib.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+use_filter = true
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+use_filter = true
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 64
+use_filter = true
+font_data = ExtResource( 7 )
 
 [node name="Join_menu" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="TextureRect" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -348.5
-margin_top = -245.0
-margin_right = 348.5
-margin_bottom = 245.0
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+texture = ExtResource( 2 )
+expand = true
 
-[node name="Panel" type="Panel" parent="PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 690.0
-margin_bottom = 483.0
+[node name="Panel" type="TextureRect" parent="PanelContainer"]
+margin_left = 32.0
+margin_top = 28.0
+margin_right = 1252.0
+margin_bottom = 688.0
+texture = ExtResource( 3 )
+expand = true
 
-[node name="join_button" type="Button" parent="PanelContainer/Panel"]
-margin_left = 565.748
-margin_top = 425.375
-margin_right = 639.748
-margin_bottom = 455.375
-custom_fonts/font = ExtResource( 2 )
+[node name="join_button" type="TextureButton" parent="PanelContainer/Panel"]
+margin_left = 986.0
+margin_top = 535.0
+margin_right = 1160.0
+margin_bottom = 617.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="Label" type="Label" parent="PanelContainer/Panel/join_button"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -32.0
+margin_right = 48.5
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 6 )
 text = "Join"
 
-[node name="back_button" type="Button" parent="PanelContainer/Panel"]
-margin_left = 37.1332
-margin_top = 423.746
-margin_right = 111.133
-margin_bottom = 453.746
-custom_fonts/font = ExtResource( 2 )
+[node name="back_button" type="TextureButton" parent="PanelContainer/Panel"]
+margin_left = 72.207
+margin_top = 535.0
+margin_right = 246.207
+margin_bottom = 617.0
+texture_normal = ExtResource( 5 )
+expand = true
+
+[node name="Label" type="Label" parent="PanelContainer/Panel/back_button"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.5
+margin_top = -32.0
+margin_right = 64.5
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 6 )
 text = "Back"
 
-[node name="ip" type="LineEdit" parent="PanelContainer/Panel"]
-margin_left = 257.7
-margin_top = 129.75
-margin_right = 468.7
-margin_bottom = 163.75
-custom_fonts/font = ExtResource( 2 )
-text = "127.0.0.1"
+[node name="container" type="VBoxContainer" parent="PanelContainer/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -161.517
+margin_top = -135.369
+margin_right = 397.483
+margin_bottom = 100.631
+custom_constants/separation = 60
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Label" type="Label" parent="PanelContainer/Panel/ip"]
-margin_left = -184.1
-margin_top = 2.69998
-margin_right = -57.1
-margin_bottom = 35.7
-custom_fonts/font = ExtResource( 2 )
+[node name="ip" type="LineEdit" parent="PanelContainer/Panel/container"]
+margin_right = 559.0
+margin_bottom = 74.0
+custom_fonts/font = SubResource( 1 )
+text = "127.0.0.1"
+
+[node name="Label" type="Label" parent="PanelContainer/Panel/container/ip"]
+margin_left = -262.934
+margin_top = 6.07321
+margin_right = -25.9338
+margin_bottom = 70.0732
+custom_fonts/font = ExtResource( 6 )
 text = "Server IP"
 
-[node name="port" type="LineEdit" parent="PanelContainer/Panel"]
-margin_left = 257.7
-margin_top = 230.45
-margin_right = 468.7
-margin_bottom = 264.45
-custom_fonts/font = ExtResource( 2 )
+[node name="port" type="LineEdit" parent="PanelContainer/Panel/container"]
+margin_top = 134.0
+margin_right = 559.0
+margin_bottom = 208.0
+custom_fonts/font = SubResource( 2 )
 text = "6969"
-__meta__ = {
-"_edit_group_": true
-}
 
-[node name="Label" type="Label" parent="PanelContainer/Panel/port"]
-margin_left = -184.1
-margin_top = 2.69998
-margin_right = -57.1
-margin_bottom = 35.7
-custom_fonts/font = ExtResource( 2 )
+[node name="Label" type="Label" parent="PanelContainer/Panel/container/port"]
+margin_left = -329.672
+margin_top = -1.15833
+margin_right = -29.6718
+margin_bottom = 62.8417
+custom_fonts/font = ExtResource( 6 )
 text = "Server Port"
+
+[node name="Header" type="Label" parent="PanelContainer/Panel"]
+margin_left = 431.024
+margin_top = 35.0793
+margin_right = 777.024
+margin_bottom = 115.079
+custom_fonts/font = ExtResource( 8 )
+text = "Join Game"
 
 [node name="con" type="Label" parent="PanelContainer/Panel"]
 visible = false
-margin_left = 221.975
-margin_top = 322.568
-margin_right = 362.975
-margin_bottom = 357.568
-rect_scale = Vector2( 1.25, 1.25 )
-custom_fonts/font = ExtResource( 2 )
-text = "Connecting"
+margin_left = 438.719
+margin_top = 541.253
+margin_right = 800.719
+margin_bottom = 605.253
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.0392157, 0.0823529, 0.027451, 1 )
+custom_colors/font_color_shadow = Color( 0.807843, 0.52549, 0.52549, 1 )
+text = "Connecting ..."
 
 [node name="pop" type="AcceptDialog" parent="."]
 margin_left = 238.0
