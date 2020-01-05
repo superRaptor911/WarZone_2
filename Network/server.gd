@@ -1,5 +1,6 @@
 extends Node
 
+#####################Update rate######################
 var update_rate = 25 setget set_update_rate
 var update_delta = 1.0 / update_rate setget no_set, get_update_delta
 
@@ -57,5 +58,68 @@ func preloadParticles():
 	_init_Particle("bloodSpot")
 	_init_Particle("explosion_cloud")
 	
+
+
+#######################Score board##############
+
+#holds info of player that is to be shown on scoreboard
+var _player_data = {
+	pname = "no_name",
+	kills = 0,
+	deaths = 0,
+	ping = 0,
+}
+
+var _player_data_list = Array()
+var _kill_msg_list = Array()
+
+func init_scoreBoard():
+	_player_data_list.clear()
+	_kill_msg_list.clear()
+	var players = get_tree().get_nodes_in_group("User")
+	for p in players:
+		var pd = _player_data.duplicate(true)
+		pd.pname = p.pname
+		_player_data_list.append(pd)
+
+func handleKills(victim,killer,weapon_used):
+	var victim_name = "someone"
+	var killer_name = "someone"
+	var kill_msg = ""
+	#safe checks
+	if victim:
+		victim_name = victim.pname
+		if victim.is_in_group("User"):
+			var victim_data = _get_player_data_by_name(victim_name)
+			victim_data.deaths += 1
+	if killer:
+		killer_name = killer.pname
+		if killer.is_in_group("User"):
+			var killer_data = _get_player_data_by_name(killer_name)
+			killer_data.kills += 1
+	if weapon_used:
+		if weapon_used.gun_name == "plasma":
+			kill_msg = victim_name + " was burned alive by hot plasma"
+		elif weapon_used.gun_name == "explosive":
+			kill_msg = killer_name + " exploded " + victim_name
+		else:
+			kill_msg = killer_name + " killed " + victim_name + " with " + weapon_used.gun_name
+	else:
+		kill_msg = killer_name + " killed " + victim_name
+	
+	if _kill_msg_list.size() > 15:
+		_kill_msg_list.pop_front()
+	_kill_msg_list.append(kill_msg)
+	rpc_unreliable("sync_kill_msg",kill_msg)
+
+remotesync func sync_kill_msg(kill_msg):
+	var hud = get_tree().get_nodes_in_group("Hud")[0]
+	hud.addKillMessage(kill_msg)
 	
 	
+
+func _get_player_data_by_name(pname):
+	for p in _player_data_list:
+		if p.pname == pname:
+			return p
+	print("Server/Scoreboard : fatal error unable to find ",pname)

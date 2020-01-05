@@ -12,7 +12,7 @@ var state_name : String = "nothing"
 func _ready():
 	bot = get_parent()
 	if bot:
-		if not bot.is_in_group("Bot"):
+		if not bot.is_in_group("Monster"):
 			print("BOT_FSM_STATE/Error : parent not a bot")
 	else:
 		print("BOT_FSM_STATE/Error : parent not found")

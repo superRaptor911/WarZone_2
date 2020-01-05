@@ -71,6 +71,7 @@ func _on_disconnected():
 	queue_free()
 
 func _init_game():
+	game_server.init_scoreBoard()
 	if game_states.GAME_MODE == game_states.GAME_MODES.SURVIVAL:
 		var mode = load("res://Objects/SURVIVAL_mode.tscn")
 		add_child(mode.instance())

@@ -2,6 +2,7 @@ extends Node2D
 export var damage : float = 100
 export var radius : float = 100
 export var SCALE : float = 1
+var gun_name = "explosive"
 var usr
 signal exploded
 

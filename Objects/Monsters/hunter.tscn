@@ -8,6 +8,7 @@ script = ExtResource( 2 )
 HP = 300.0
 speed = 60.0
 attack_radius = 400.0
+pname = "hunter"
 
 [node name="target_update" type="Timer" parent="." index="5"]
 wait_time = 2.0

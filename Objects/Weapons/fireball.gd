@@ -1,7 +1,7 @@
 extends Area2D
 export var damage : float = 30
 export var speed : float = 200
-
+var gun_name = "plasma"
 var sender
 
 #play fire spwaning animation

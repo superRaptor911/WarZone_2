@@ -25,6 +25,6 @@ func _on_back_button_pressed():
 
 func _on_join_button_pressed():
 	$PanelContainer/Panel/con.show()
-	var port = int( $PanelContainer/Panel/port.text)
-	var ip = $PanelContainer/Panel/ip.text
+	var port = int( $PanelContainer/Panel/container/port.text)
+	var ip = $PanelContainer/Panel/container/ip.text
 	network.join_server(ip,port)

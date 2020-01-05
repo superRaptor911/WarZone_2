@@ -14,20 +14,6 @@ func _on_hunter_killed():
 	skin.queue_free()
 	skin = null
 	$free_timer.start()
-	
-
-
-#update Target
-#gets nearest target
-func _on_target_update_timeout():
-	_get_nearest_player()
-	$target_update.start()
-
-#update vision
-#checks if target is visible or not
-func _on_vision_update_timeout():
-	target_lost = not _is_target_visible()
-	$vision_update.start()
 
 #Attack behaviour
 #its very shity

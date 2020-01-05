@@ -6,6 +6,7 @@ export var rotational_speed : float = 2
 export var main_destination : Vector2
 export var damage : float = 10
 export var attack_radius : float = 10
+export var pname : String = "monster"
 
 var path_array : PoolVector2Array 
 var nav : Navigation2D

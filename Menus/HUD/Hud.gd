@@ -2,10 +2,12 @@ extends CanvasLayer
 
 var user
 var ini_pause_posi : Vector2
+var kill_msg_slots : Kill_Message_slots
 
 func _ready():
 	ini_pause_posi = $Panel2.rect_global_position
 	$Panel2.rect_global_position = Vector2(-500,-500)
+	kill_msg_slots = Kill_Message_slots.new(self,8)
 	if not game_states.is_android:
 		$melee.queue_free()
 		$reload.queue_free()
@@ -94,3 +96,78 @@ func _on_zoom_pressed():
 
 func _on_HE_pressed():
 	user.throwGrenade()
+
+class Message_slot:
+	var is_free : bool
+	var msg : String
+	
+	func _init():
+		is_free = true
+		
+	func clear_slot():
+		msg = ""
+		is_free = true
+	
+	func addMessage(_msg):
+		msg = _msg
+		is_free = false
+	
+
+class Kill_Message_slots:
+	var msg_slots : Array
+	var timer : Timer
+	var active_slots : int
+	var max_slots
+	var hud
+	
+	func _init(usr,num = 8):
+		hud = usr
+		active_slots = 0
+		max_slots = num
+		for i in range(0,num):
+			msg_slots.append(Message_slot.new())
+		timer = Timer.new()
+		timer.wait_time = 3.0
+		timer.one_shot = true
+		timer.connect("timeout",self,"_on_timeout")
+		usr.add_child(timer)
+	
+	func _on_timeout():
+		if active_slots:
+			active_slots -= 1
+			for i in range(active_slots):
+				msg_slots[i].addMessage(msg_slots[i + 1].msg)
+				msg_slots[i + 1].clear_slot()
+			timer.start()
+			showKillMsg()
+	
+	func forceRemove():
+		active_slots -= 1
+		for i in range(active_slots):
+			msg_slots[i].addMessage(msg_slots[i + 1].msg)
+			msg_slots[i + 1].clear_slot()
+		
+
+	func addKillMessage(msg):
+		if not active_slots:
+			timer.start()
+			
+		active_slots += 1
+		if active_slots > max_slots:
+			active_slots = max_slots
+			forceRemove()
+			active_slots += 1
+		
+		msg_slots[active_slots - 1].addMessage(msg)
+		showKillMsg()
+	
+	func showKillMsg():
+		var labels = hud.get_node("kill_msg")
+		for i in range(active_slots):
+			labels.get_node(String(i + 1)).text = msg_slots[i].msg
+		for i in range(active_slots,max_slots):
+			labels.get_node(String(i + 1)).text = ""
+		
+
+func addKillMessage(msg):
+	kill_msg_slots.addKillMessage(msg)
