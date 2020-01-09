@@ -28,6 +28,7 @@ margin_right = 491.0
 margin_bottom = 89.0
 custom_fonts/font = ExtResource( 2 )
 text = "Get ready Zombies will be spawning soon"
+readonly = true
 
 [node name="timer" type="PanelContainer" parent="."]
 anchor_left = 0.5

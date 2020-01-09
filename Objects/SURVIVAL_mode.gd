@@ -29,6 +29,8 @@ signal change_level
 #this signal is emitted when spawning process is complete
 signal zm_spawn_complete
 
+var hud_message_timer : Timer
+
 #ready
 func _ready():
 	#potential bug
@@ -41,7 +43,11 @@ func _ready():
 		connect("change_level",self,"_on_level_complete")
 		connect("zombies_wiped_out",self,"_on_zm_wiped_out")
 		emit_signal("change_level")
-		
+		hud_message_timer = Timer.new()
+		hud_message_timer.wait_time = 5.0
+		hud_message_timer.one_shot = true
+		hud_message_timer.connect("timeout",self,"_on_hud_timeout")
+		add_child(hud_message_timer)
 
 
 #spawn zombies 
@@ -100,9 +106,14 @@ func _on_zm_spawn_dl_timeout():
 		$zm_spawn_dl.start()
 	else:
 		emit_signal("zm_spawn_complete")
-		rpc("_sync_msg_panel",false)
+		
+
+
+func _on_hud_timeout():
+	rpc("_sync_msg_panel",false)
 
 func _on_zm_wiped_out():
+	hud_message_timer.start()
 	rpc("_sync_msg_panel",true)
 	emit_signal("change_level")
 

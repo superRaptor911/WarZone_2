@@ -8,7 +8,7 @@ void fragment()
 {
 	vec4 clr = vec4(1) - texture(TEXTURE, UV).rgba;
 	
-	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;// * clr.r ;
+	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb * clr.r ;
 	//COLOR.a = texture(TEXTURE, UV).a;
 }"
 
