@@ -17,7 +17,7 @@ var player_info = {
 
 
 var game_status = {
-	game_v = "1.0"
+	game = "1.0"
 }
 
 #game settings
@@ -67,7 +67,7 @@ var player_data = {
 }
 
 func _ready():
-	if not load_data("user://status.dat").has("game_v"):
+	if not load_data("user://status.dat").has("game"):
 		save_settings()
 		save_data("user://status.dat",game_status)
 		save_data("user://pinfo.dat",player_data)
