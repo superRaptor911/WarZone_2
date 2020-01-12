@@ -14,8 +14,12 @@ var current_time : float = 0
 #last attacked entity
 var last_attacker
 var skin : Model
+
+#This signal is emitted when char is killed
+#it's better naming should be char_dead 
 signal char_killed
 signal char_took_damage
+signal char_killed_someone
 
 #ID of input
 var _input_id : int = 0
@@ -147,6 +151,7 @@ func takeDamage(damage : float,weapon,attacker):
 	#sync with peers
 	rpc("sync_health",HP,AP)
 	if HP == 0:
+		attacker.emit_signal("char_killed_someone")
 		game_server.handleKills(self,attacker,weapon)
 		#sync with everyone
 		rpc("sync_death")

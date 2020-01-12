@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Sprites/Tilesets/Vantage.tres" type="TileSet" id=1]
 [ext_resource path="res://Sprites/Tilesets/shadows.tres" type="TileSet" id=2]
 [ext_resource path="res://Objects/Temp/TileMap.gd" type="Script" id=3]
-[ext_resource path="res://Sprites/Lights/angryimg.png" type="Texture" id=4]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 1264, 48, 1264, 1264, 1232, 688, 1232, 624, 1072, 1104, 720, 1104, 784, 1040, 912, 944, 784, 336, 912, 368, 688, 368, 528, 336, 368, 688, 368, 880, 336, 784, 336, 528, 1168, 208, 1168, 144, 1168, 1168, 1168, 1104, 48, 48, 720, 144, 48, 1264, 720, 1168, 624, 1168, 144, 1168, 400, 368, 240, 208, 592, 208, 528, 272, 720, 208, 1072, 208, 784, 272, 528, 1040, 624, 1104, 784, 976, 688, 944, 528, 976, 976, 912, 1040, 784, 944, 400, 1040, 528, 624, 208, 624, 144, 144, 144, 432, 624, 432, 432, 624, 432, 688, 432, 880, 432, 880, 624, 1040, 624, 976, 528, 944, 624, 976, 784, 1040, 688, 944, 912, 944, 688, 880, 688, 880, 880, 688, 880, 272, 1104, 400, 944, 624, 944, 624, 880, 432, 880, 432, 688, 144, 208, 272, 528, 272, 624, 80, 624, 80, 688, 272, 688, 272, 784, 176, 1104, 144, 1104, 624, 368, 176, 208, 368, 432, 368, 624 )
@@ -94,8 +93,3 @@ position = Vector2( 208, 592 )
 
 [node name="8" type="Node2D" parent="zSpawn"]
 position = Vector2( 208, 720 )
-
-[node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 661.873, 655.46 )
-scale = Vector2( 1.77895, 1.77895 )
-texture = ExtResource( 4 )

@@ -73,5 +73,8 @@ func _on_disconnected():
 func _init_game():
 	game_server.init_scoreBoard()
 	if game_states.GAME_MODE == game_states.GAME_MODES.SURVIVAL:
-		var mode = load("res://Objects/SURVIVAL_mode.tscn")
+		var mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn")
+		add_child(mode.instance())
+	elif game_states.GAME_MODE == game_states.GAME_MODES.FFA:
+		var mode = load("res://Objects/Game_modes/FFA_mode.tscn")
 		add_child(mode.instance())

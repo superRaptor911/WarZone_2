@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 func _ready():
 	$PanelContainer/Panel/particles.pressed = game_states.game_settings.particle_effects
