@@ -75,5 +75,13 @@ stream = ExtResource( 7 )
 
 [node name="rampage" type="AudioStreamPlayer" parent="quake_sounds"]
 stream = ExtResource( 8 )
+
+[node name="dominatiing" type="AudioStreamPlayer" parent="quake_sounds"]
+
+[node name="unstoppable" type="AudioStreamPlayer" parent="quake_sounds"]
+
+[node name="mega_kill" type="AudioStreamPlayer" parent="quake_sounds"]
+
+[node name="ultra_kill" type="AudioStreamPlayer" parent="quake_sounds"]
 [connection signal="timeout" from="Time_container/uptime" to="." method="_on_uptime_timeout"]
 [connection signal="timeout" from="Label/Timer" to="." method="_on_Timer_timeout"]

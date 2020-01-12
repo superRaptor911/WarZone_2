@@ -1,23 +1,34 @@
 extends CanvasLayer
 
 
+#Quake sound class holds message that is to be displayed
+#and name of the sound that is to be played
 class quake_sound:
 	var sound_name : String
 	var msg : String
 	
+	#constuctor
 	func _init(_msg,_sound_name):
 		msg = _msg
 		sound_name = _sound_name
 
+#queue of quake_sounds
 var quake_sound_queue  = Array()
 
 #Holds player kill stats for quake sounds
 class Player_stats:
+	#name of player
 	var pname : String
 	var kill_streak : int = 0
 	var time_since_death : int = 0
+	
+	#reference variable of quake_sound_queue
+	#reference is used because sub class cannot use global variable
+	#in parent class
 	var quake_sound_q_ref
 	
+	#Quake sound message format
+	#%s will be replaced by player name
 	var quake_sounds_format = {
 		k3 = "%s did triple kill",
 		k5 = "%s is on multi kill",
@@ -28,23 +39,28 @@ class Player_stats:
 		k15 = "%s did ultra kill"
 	}
 	
+	#constuctor
 	func _init(Pname : String,qs):
 		pname = Pname
 		quake_sound_q_ref = qs
 	
+	#on player killed someone
 	func _player_killed_someone():
 		kill_streak += 1
 		_check_quake_status()
 	
+	#reset kill streak
 	func _player_got_killed():
 		kill_streak = 0
 	
+	#check if player is eligible for quake sounds
 	func _check_quake_status():
 		if quake_sounds_format.has("k" + String(kill_streak)):
 			var msg = quake_sounds_format.get("k" + String(kill_streak)) %pname
 			var sound_name = _get_sound_name()
 			quake_sound_q_ref.push_back(quake_sound.new(msg,sound_name))
 	
+	#get quake sound name w.r.t kill streak
 	func _get_sound_name() -> String:
 		if kill_streak == 3:
 			return "triple_kill"
@@ -52,6 +68,14 @@ class Player_stats:
 			return "multi_kill"
 		if kill_streak == 6:
 			return "rampage"
+		if kill_streak == 9:
+			return "dominating"
+		if kill_streak == 11:
+			return "unstoppable"
+		if kill_streak == 13:
+			return "mega_kill"
+		if kill_streak == 15:
+			return "ulta_kill"
 		return ""
 
 #list of player stats
@@ -69,6 +93,7 @@ func _on_uptime_timeout():
 
 
 func _ready():
+	#only server handles quake events and sound
 	if get_tree().is_network_server():
 		var plz = get_tree().get_nodes_in_group("User")
 		for plr in plz:
