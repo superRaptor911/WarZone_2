@@ -1,55 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
-[ext_resource path="res://Menus/resources/btn_texture.png" type="Texture" id=2]
-[ext_resource path="res://Menus/resources/btn_texture2.png" type="Texture" id=3]
-[ext_resource path="res://new_font.tres" type="DynamicFont" id=4]
-[ext_resource path="res://font.tres" type="DynamicFont" id=5]
-
-[sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="StyleBoxTexture" id=2]
-texture = ExtResource( 3 )
-region_rect = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="StyleBoxTexture" id=3]
-texture = ExtResource( 3 )
-region_rect = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="Theme" id=4]
-default_font = ExtResource( 4 )
-Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
-Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
-Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
-Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
-Button/constants/hseparation = 2
-Button/fonts/font = null
-Button/styles/disabled = null
-Button/styles/focus = null
-Button/styles/hover = null
-Button/styles/normal = SubResource( 1 )
-Button/styles/pressed = null
-Tabs/colors/font_color_bg = Color( 0.690196, 0.690196, 0.690196, 1 )
-Tabs/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
-Tabs/colors/font_color_fg = Color( 0.941176, 0.941176, 0.941176, 1 )
-Tabs/constants/hseparation = 4
-Tabs/constants/label_valign_bg = 2
-Tabs/constants/label_valign_fg = 0
-Tabs/constants/top_margin = 24
-Tabs/fonts/font = null
-Tabs/icons/close = null
-Tabs/icons/decrement = null
-Tabs/icons/decrement_highlight = null
-Tabs/icons/increment = null
-Tabs/icons/increment_highlight = null
-Tabs/styles/button = SubResource( 2 )
-Tabs/styles/button_pressed = null
-Tabs/styles/panel = SubResource( 3 )
-Tabs/styles/tab_bg = null
-Tabs/styles/tab_disabled = null
-Tabs/styles/tab_fg = null
+[ext_resource path="res://font.tres" type="DynamicFont" id=2]
 
 [node name="Lobby" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -63,7 +15,6 @@ margin_left = 32.5186
 margin_top = -323.22
 margin_right = 501.518
 margin_bottom = 199.78
-theme = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -90,7 +41,7 @@ anchor_right = 0.5
 margin_left = -72.0
 margin_right = 72.0
 margin_bottom = 36.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 text = "Lobby"
 
 [node name="start" type="Button" parent="PanelContainer/Panel"]
@@ -98,7 +49,7 @@ margin_left = 328.0
 margin_top = 450.0
 margin_right = 425.0
 margin_bottom = 486.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 text = "Start"
 
 [node name="PanelContainer2" type="PanelContainer" parent="."]
@@ -122,14 +73,14 @@ margin_left = 175.0
 margin_top = 40.0
 margin_right = 391.0
 margin_bottom = 79.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="PanelContainer2/Panel/level"]
 margin_left = -130.65
 margin_top = 0.149994
 margin_right = -79.65
 margin_bottom = 24.15
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 text = "Level"
 
 [node name="game_mode" type="OptionButton" parent="PanelContainer2/Panel"]
@@ -137,14 +88,14 @@ margin_left = 175.0
 margin_top = 122.811
 margin_right = 391.0
 margin_bottom = 161.811
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="PanelContainer2/Panel/game_mode"]
 margin_left = -149.312
 margin_top = 8.31445
 margin_right = -26.3116
 margin_bottom = 32.3145
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 text = "Game Mode"
 
 [node name="Label" type="Label" parent="."]
@@ -153,7 +104,7 @@ margin_top = 55.0
 margin_right = 385.0
 margin_bottom = 82.0
 rect_scale = Vector2( 1.25, 1.25 )
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 2 )
 [connection signal="pressed" from="PanelContainer/Panel/start" to="." method="_on_start_pressed"]
 [connection signal="item_selected" from="PanelContainer2/Panel/level" to="." method="_on_level_item_selected"]
 [connection signal="item_selected" from="PanelContainer2/Panel/game_mode" to="." method="_on_game_mode_item_selected"]
