@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Menus/MainMenu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Menus/Inventory/label_bg.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Menus/resources/btn_texture2.png" type="Texture" id=5]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Sfx/menus/btn_hvr.wav" type="AudioStream" id=8]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -138,6 +139,13 @@ margin_right = 811.457
 margin_bottom = 142.524
 custom_fonts/font = ExtResource( 7 )
 text = "WarZone II"
+
+[node name="btn_hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="btn_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
+[connection signal="finished" from="btn_click" to="." method="_on_btn_click_finished"]

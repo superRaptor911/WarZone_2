@@ -17,6 +17,7 @@ shape = SubResource( 1 )
 [node name="Time_to_live" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+autostart = true
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.0126243, -8.61429 )

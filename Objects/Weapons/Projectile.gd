@@ -18,7 +18,7 @@ func create_bullet(var pos : Vector2,var rot : float, var v : float,dam : float,
 	velocity_vector.x = velocity*cos(rot-1.57)
 	velocity_vector.y = velocity*sin(rot - 1.57)
 	damage = dam
-	$Time_to_live.start()
+	#$Time_to_live.start()
 	sender = sen
 	weapon = wpn
 

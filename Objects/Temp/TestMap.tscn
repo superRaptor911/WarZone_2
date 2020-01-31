@@ -20,7 +20,6 @@ tile_data = PoolIntArray( 0, 17, 0, 1, 17, 0, 2, 17, 0, 3, 17, 0, 4, 17, 0, 5, 1
 [node name="spwan" type="Node" parent="." groups=[
 "spawn_points",
 ]]
-editor/display_folded = true
 
 [node name="Node2D" type="Node2D" parent="spwan"]
 position = Vector2( 657.685, 242.031 )

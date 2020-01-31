@@ -40,10 +40,10 @@ func _on_pause_pressed():
 		$Panel2.rect_global_position = Vector2(-500,-500)
 
 class MyPlayerSorter:
-    static func sort(a, b):
-        if a["kills"] < b["kills"]:
-            return false
-        return true
+	static func sort(a, b):
+		if a["kills"] < b["kills"]:
+			return false
+		return true
 
 
 
