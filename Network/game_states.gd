@@ -92,28 +92,28 @@ func save_player_info():
 	save_data("user://pinfo.dat",player_info)
 
 func save_data(save_path : String, data : Dictionary) -> void:
-    var data_string = JSON.print(data)
-    var file = File.new()
-    var json_error = validate_json(data_string)
-    if json_error:
-        print_debug("JSON IS NOT VALID FOR: " + data_string)
-        print_debug("error: " + json_error)
-        return
-    file.open(save_path, file.WRITE)
-    file.store_string(data_string)
-    file.close()
+	var data_string = JSON.print(data)
+	var file = File.new()
+	var json_error = validate_json(data_string)
+	if json_error:
+		print_debug("JSON IS NOT VALID FOR: " + data_string)
+		print_debug("error: " + json_error)
+		return
+	file.open(save_path, file.WRITE)
+	file.store_string(data_string)
+	file.close()
 
 
 func load_data(save_path : String = "user://game.dat"):
-    var file : File = File.new()
-    if not file.file_exists(save_path):
-        print_debug('file [%s] does not exist; creating' % save_path)
-        save_data(save_path, {})
-    file.open(save_path, file.READ)
-    var json : String = file.get_as_text()
-    var data : Dictionary = parse_json(json)
-    file.close()
-    return data
+	var file : File = File.new()
+	if not file.file_exists(save_path):
+		print_debug('file [%s] does not exist; creating' % save_path)
+		save_data(save_path, {})
+	file.open(save_path, file.READ)
+	var json : String = file.get_as_text()
+	var data : Dictionary = parse_json(json)
+	file.close()
+	return data
 ################################################################
 
 
