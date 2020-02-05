@@ -21,10 +21,6 @@ signal char_killed
 signal char_took_damage
 signal char_killed_someone
 
-
-var myObj = preload("res://bin/charMovement.gdns").new()
-
-
 	
 func _ready():
 	skin = $Model
