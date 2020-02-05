@@ -46,8 +46,6 @@ func _ready():
 func _on_player_killed():
 	#show respawn percentage
 	hud.get_node("respawn").visible = true
-	_input_id += 1
-	teleportCharacter(Vector2(-500,-500),_input_id)
 	$Camera2D.current = false
 	$free_timer.start()
 	pause_controls(true)
@@ -143,9 +141,8 @@ sync func respawn_player(pos,id):
 	alive = true
 	HP = 100
 	AP = 100
-	_input_id += 1
 	pause_controls(false)
-	teleportCharacter(pos,_input_id)
+	#teleportCharacter(pos,_input_id)
 	load_guns(network.players[id].primary_gun_name,network.players[id].sec_gun_name)
 
 remotesync func switchGun():
