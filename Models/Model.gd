@@ -1,8 +1,11 @@
 extends CollisionShape2D
 class_name Model
+
 export var model_name : String = "Model"
+
 var is_walking : bool = false
 var multiplier : float = 1
+
 var wait_time : float
 var l1 : int = 1
 var l2 : int = 4
