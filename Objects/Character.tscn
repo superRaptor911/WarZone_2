@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Objects/Character.gd" type="Script" id=1]
 [ext_resource path="res://Models/Model.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/particles/bloodSpot.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Sprites/particles/bloodSplash.tscn" type="PackedScene" id=4]
+[ext_resource path="res://bin/charMovement.gdns" type="Script" id=5]
 
 [node name="Character" type="KinematicBody2D" groups=[
 "Actor",
@@ -27,5 +28,11 @@ one_shot = true
 [node name="bloodSplash" parent="." instance=ExtResource( 4 )]
 
 [node name="ptween" type="Tween" parent="."]
+
+[node name="movmtCPP" type="Node" parent="."]
+script = ExtResource( 5 )
+__meta__ = {
+"_editor_description_": "CPP code for character movement"
+}
 [connection signal="char_took_damage" from="." to="." method="_on_Character_char_took_damage"]
 [connection signal="timeout" from="free_timer" to="." method="_on_free_timer_timeout"]
