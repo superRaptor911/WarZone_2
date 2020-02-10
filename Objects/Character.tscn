@@ -10,7 +10,6 @@
 "Actor",
 ]]
 show_behind_parent = true
-position = Vector2( 235.281, 117.461 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true

@@ -6,7 +6,7 @@
 [ext_resource path="res://Sfx/weapons/rifle/ak47.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sfx/weapons/rifle/ak47_clipout.wav" type="AudioStream" id=5]
 
-[node name="AK47" index="0" instance=ExtResource( 1 )]
+[node name="AK47" instance=ExtResource( 1 )]
 position = Vector2( 218.31, 213.063 )
 script = ExtResource( 2 )
 gun_type = "rifle"
@@ -20,13 +20,13 @@ recoil_factor = 0.5
 max_zoom = 1.5
 
 [node name="Muzzle" parent="." index="1"]
-position = Vector2( 3.47466, -17.7657 )
+position = Vector2( 0.0936937, -20.1523 )
 
 [node name="Reload_time" parent="." index="2"]
 wait_time = 2.0
 
 [node name="Sprite" parent="." index="3"]
-position = Vector2( 5.08607, -9.19809 )
+position = Vector2( 1.44342, -14.4161 )
 scale = Vector2( 1.35344, 1.50763 )
 texture = ExtResource( 3 )
 
@@ -37,4 +37,4 @@ stream = ExtResource( 4 )
 stream = ExtResource( 5 )
 
 [node name="RayCast2D" parent="." index="7"]
-position = Vector2( 3.54764, -17.7382 )
+position = Vector2( 0.0672321, -20.2242 )

@@ -24,6 +24,8 @@ var max_ray_distance : float = 200
 var ray_dest : Vector2
 var laser_sight : bool = true
 
+signal gun_fired
+
 func _ready():
 	rounds_left = rounds_in_clip
 	#if it does not have parent/user then force get parent
@@ -56,6 +58,7 @@ remote func _create_bullet(sprd):
 	bullet.create_bullet($Muzzle.global_position,global_rotation + sprd,projectile_velocity,damage,self,gun_user)
 	get_tree().root.add_child(bullet)
 	$fire.play()
+	emit_signal("gun_fired")
 	if get_tree().is_network_server():
 		rpc("_create_bullet",sprd)
 

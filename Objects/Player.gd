@@ -26,7 +26,6 @@ var _pause_cntrl : bool = false
 
 func _ready():
 	$Gun.queue_free()
-	skin.get_node("anim").current_animation = selected_gun.gun_type
 	if is_network_master():
 		pname = game_states.player_info.name
 		$Camera2D.current = true
@@ -61,11 +60,15 @@ func load_guns(nam : String , nam2 : String):
 	if sec_gun:
 		sec_gun.queue_free()
 	sec_gun = g2
-
-	remove_child(selected_gun)
+	
+	if not skin:
+		selected_gun = primary_gun
+		return
+	skin.get_node("Skeleton2D/boneBody/armr/hand/fist").remove_child(selected_gun)
 	selected_gun = primary_gun
-	add_child(selected_gun)
-	selected_gun.position = $hand.position
+	skin.get_node("Skeleton2D/boneBody/armr/hand/fist").add_child(selected_gun)
+	selected_gun.connect("gun_fired",skin,"_on_gun_fired")
+	#selected_gun.position = $Model.get("fist").position
 
 
 
@@ -114,7 +117,7 @@ remote func throwGrenade():
 		var nam = "g" + String(randi()%1000)
 		g.set_name(nam)
 		get_tree().root.add_child(g)
-		var dir = ($hand.global_position - global_position).normalized()
+		var dir = (skin.get_node("Skeleton2D/boneBody/armr/hand/fist").global_position - global_position).normalized()
 		g.position = position + (Vector2(-1.509,-50.226)).rotated(rotation)
 		g.user = self
 		g.throwGrenade(dir)
@@ -126,7 +129,7 @@ remote func _sync_throwGrenade(nam):
 	var g = grenade.instance()
 	g.set_name(nam)
 	get_tree().root.add_child(g)
-	var dir = ($hand.global_position - global_position).normalized()
+	var dir = (skin.get("fist").global_position - global_position).normalized()
 	g.position = position + (Vector2(-1.509,-50.226)).rotated(rotation)
 	g.user = self
 	g.throwGrenade(dir)
@@ -146,19 +149,19 @@ sync func respawn_player(pos,id):
 	load_guns(network.players[id].primary_gun_name,network.players[id].sec_gun_name)
 
 remotesync func switchGun():
+	skin.switchGun(selected_gun.gun_type)
 	if selected_gun == primary_gun:
 		if sec_gun != null:
-			remove_child(selected_gun)
+			skin.get_node("Skeleton2D/boneBody/armr/hand/fist").remove_child(selected_gun)
 			selected_gun = sec_gun
-			add_child(selected_gun)
-			skin.get_node("anim").current_animation = selected_gun.gun_type
-			selected_gun.position = $hand.position
+			skin.get_node("Skeleton2D/boneBody/armr/hand/fist").add_child(selected_gun)
 	else:
-		remove_child(selected_gun)
+		skin.get_node("Skeleton2D/boneBody/armr/hand/fist").remove_child(selected_gun)
 		selected_gun = primary_gun
-		add_child(selected_gun)
-		skin.get_node("anim").current_animation = selected_gun.gun_type
-		selected_gun.position = $hand.position
+		skin.get_node("Skeleton2D/boneBody/armr/hand/fist").add_child(selected_gun)
+	
+	selected_gun.connect("gun_fired",skin,"_on_gun_fired")
+	selected_gun.position = Vector2(0,0)
 
 
 

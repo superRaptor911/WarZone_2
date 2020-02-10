@@ -15,14 +15,11 @@ script = ExtResource( 2 )
 [node name="Gun" parent="." index="2" instance=ExtResource( 3 )]
 position = Vector2( -1.47835, -15.9435 )
 
-[node name="hand" type="Node2D" parent="." index="3"]
-position = Vector2( -1.5094, -15.0941 )
-
-[node name="Camera2D" type="Camera2D" parent="." index="5"]
+[node name="Camera2D" type="Camera2D" parent="." index="4"]
 z_index = -2
 zoom = Vector2( 0.75, 0.75 )
 smoothing_enabled = true
 
-[node name="Timer" type="Timer" parent="." index="6"]
+[node name="Timer" type="Timer" parent="." index="5"]
 one_shot = true
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
