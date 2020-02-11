@@ -14,8 +14,8 @@ func _ready():
 	
 func _on_necron_killed():
 	$bloodSpot.emitting = false
-	skin.queue_free()
-	skin = null
+	#skin.queue_free()
+	#skin = null
 	$free_timer.start()
 
 func attack(delta : float):

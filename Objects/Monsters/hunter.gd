@@ -11,8 +11,6 @@ func _ready():
 #Custom death handler 
 func _on_hunter_killed():
 	$bloodSpot.emitting = false
-	skin.queue_free()
-	skin = null
 	$free_timer.start()
 
 #Attack behaviour

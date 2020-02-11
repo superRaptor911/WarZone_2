@@ -23,10 +23,11 @@ signal char_killed_someone
 
 	
 func _ready():
-	skin = $Model
+	#skin = $Model
 	remove_child($Model)
-	skin.set_name("skin")
-	add_child(skin)
+	setSkin(game_states.modelResource.zombie_model.instance())
+	#skin.set_name("skin")
+	#add_child(skin)
 	
 
 #process Character
@@ -55,8 +56,11 @@ func setSkin(s):
 		print("Fucking error")
 		return
 	if skin != null:
+		print("freeing")
+		skin.set_name("x")
 		skin.queue_free()
 	skin = s
+	skin.set_name("skin")
 	add_child(skin)
 	
 #increases movement speed
@@ -116,8 +120,10 @@ remote func sync_health(hp,ap):
 	AP = ap
 
 remotesync func sync_death():
-	hide()
 	alive = false
+	#skin.disabled = true
+	#$dtween.interpolate_property(self,"modulate",Color8(255,255,255,255),Color8(255,255,255,0),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	#$dtween.start()
 	emit_signal("char_killed")
 
 func _on_free_timer_timeout():

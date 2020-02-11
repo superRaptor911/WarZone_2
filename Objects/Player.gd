@@ -140,14 +140,16 @@ remote func _sync_throwGrenade(nam):
 
 
 
-sync func respawn_player(pos,id):
+sync func sync_respawn(pos,id):
 	show()
+	#modulate = Color8(255,255,255,255)
 	alive = true
+	#skin.disabled = false
 	HP = 100
 	AP = 100
-	pause_controls(false)
-	#teleportCharacter(pos,_input_id)
+	$movmtCPP._teleportCharacter(pos)
 	load_guns(network.players[id].primary_gun_name,network.players[id].sec_gun_name)
+	switchGun()
 
 remotesync func switchGun():
 	skin.switchGun(selected_gun.gun_type)
@@ -180,16 +182,22 @@ func _on_Timer_timeout():
 
 
 func _on_free_timer_timeout():
+	respawn_player()
+
+func respawn_player():
 	hud.get_node("respawn").value = 0
 	hud.get_node("respawn").visible = false
 	var spawn_points
 	for sp in get_tree().get_nodes_in_group("spawn_points"):
 		spawn_points = sp.get_children()
 	var id = randi() % spawn_points.size()
-	alive = true
+	#modulate = Color8(255,255,255,255)
+	#alive = true
+	#skin.disabled = false
 	HP = 100
 	AP = 100
 	position = spawn_points[id].position
-	load_guns(game_states.player_info.primary_gun_name,game_states.player_info.sec_gun_name)
+	#load_guns(game_states.player_info.primary_gun_name,game_states.player_info.sec_gun_name)
 	$Camera2D.current = true
-	rpc("respawn_player",spawn_points[id].position,game_states.player_info.net_id)
+	pause_controls(false)
+	rpc("sync_respawn",spawn_points[id].position,game_states.player_info.net_id)

@@ -22,8 +22,4 @@ smoothing_enabled = true
 
 [node name="Timer" type="Timer" parent="." index="5"]
 one_shot = true
-
-[node name="movmtCPP" parent="." index="9"]
-_current_input_id = null
-_rotational_speed = null
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

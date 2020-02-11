@@ -19,6 +19,7 @@ void CharMovement::_register_methods()
 	register_method("_server_process_vectors", &CharMovement::_server_process_vectors,GODOT_METHOD_RPC_MODE_REMOTE);
 	register_method("_syncVectors", &CharMovement::_syncVectors,GODOT_METHOD_RPC_MODE_REMOTESYNC);
 	register_method("_computeStates", &CharMovement::_computeStates);
+	register_method("_teleportCharacter", &CharMovement::_teleportCharacter);
 	//register_property<GDExample, float>("amplitude", &GDExample::amplitude, 10.0);
 	
 	register_property<CharMovement, int>("_current_input_id", &CharMovement::_current_input_id, 0);
@@ -328,9 +329,23 @@ void CharMovement::_syncVectors(Vector2 pos,float rot, float speed_mul,bool is_w
 
 	_rotational_speed = abs(rot - rotation) / _update_delta;
 	
-	_parent->get_node("skin")->set("multiplier",speed_mul);
-	_parent->get_node("skin")->set("is_walking",is_walking);
+	Node2D *skin = static_cast<Node2D *>(_parent->get_node("skin"));
+	if (skin)
+	{
+		skin->set("multiplier",speed_mul);
+		skin->set("is_walking",is_walking);
+		Godot::print("Error skin not set");
+	}
 	
+	//do not add if network server because state is already added
 	if (!get_tree()->is_network_server())
 		_stateVectors.push_back(stateVector(Vector2(),Vector2(),rot,0,0));
+}
+
+
+void CharMovement::_teleportCharacter(Vector2 pos)
+{
+	_parent->set_position(pos);
+	_current_input_id += 1;
+	_stateVectors.push_back(stateVector(pos,Vector2(0,0),0,1,_current_input_id));
 }
