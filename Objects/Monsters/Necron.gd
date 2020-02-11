@@ -11,7 +11,7 @@ func _ready():
 		add_child(load("res://Objects/custom_scripts/necron_fsm.gd").new())
 		#$vision_update.start()
 		#$target_update.start()
-	
+
 func _on_necron_killed():
 	$bloodSpot.emitting = false
 	#skin.queue_free()

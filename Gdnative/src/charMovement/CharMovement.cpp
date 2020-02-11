@@ -329,13 +329,8 @@ void CharMovement::_syncVectors(Vector2 pos,float rot, float speed_mul,bool is_w
 
 	_rotational_speed = abs(rot - rotation) / _update_delta;
 	
-	Node2D *skin = static_cast<Node2D *>(_parent->get_node("skin"));
-	if (skin)
-	{
-		skin->set("multiplier",speed_mul);
-		skin->set("is_walking",is_walking);
-		Godot::print("Error skin not set");
-	}
+	_parent->get_node("skin")->set("multiplier",speed_mul);
+	_parent->get_node("skin")->set("is_walking",is_walking);
 	
 	//do not add if network server because state is already added
 	if (!get_tree()->is_network_server())
