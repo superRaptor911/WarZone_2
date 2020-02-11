@@ -4,6 +4,7 @@ class_name Model
 export var model_name : String = "Model"
 
 var is_walking : bool = false
+var playing : bool = false
 var multiplier : float = 1
 var movement_count = 0
 var current_anim = ""
@@ -18,18 +19,18 @@ func _process(delta):
 	$Skeleton2D/boneBody/armr/hand/fist.rotation = -1 * $Skeleton2D/boneBody/armr/hand.rotation + 1.57
 
 func walking():
-	if parent.movement_vector.length():
+	if parent.movement_vector.length() or is_walking:
 		movement_count = 0
 		if not $walk.playing:
 		
 			$walk.play()
-		if not is_walking:
+		if not playing:
 			$walking.play("walking")
-			is_walking = true
+			playing = true
 	else:
 		if movement_count > 3:
 			$walking.play("idle")
-		is_walking = false
+		playing = false
 		movement_count += 1
 
 func switchGun(gun_type):

@@ -5,10 +5,10 @@
 [ext_resource path="res://Sprites/Character/legs.png" type="Texture" id=3]
 [ext_resource path="res://Sfx/walk1.wav" type="AudioStream" id=4]
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=1]
 radius = 14.0
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "smg"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Skeleton2D/boneBody:position")
@@ -131,7 +131,7 @@ tracks/9/keys = {
 "values": [ 36.0086, 36.0086 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 resource_name = "smg_firing"
 length = 0.5
 tracks/0/type = "value"
@@ -378,7 +378,7 @@ tracks/9/keys = {
 "values": [ 36.0086, 68.2602, 15.043 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/path = NodePath("leg2:position")
@@ -429,7 +429,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 resource_name = "walking"
 loop = true
 tracks/0/type = "value"
@@ -506,7 +506,7 @@ tracks/5/keys = {
 }
 
 [node name="Model" type="CollisionShape2D"]
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 script = ExtResource( 1 )
 
 [node name="body" type="Polygon2D" parent="."]
@@ -594,13 +594,13 @@ __meta__ = {
 }
 
 [node name="anim" type="AnimationPlayer" parent="."]
-anims/smg = SubResource( 5 )
-anims/smg_firing = SubResource( 8 )
+anims/smg = SubResource( 2 )
+anims/smg_firing = SubResource( 3 )
 anims/smg_trans = SubResource( 4 )
 
 [node name="walking" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 6 )
-anims/walking = SubResource( 7 )
+anims/idle = SubResource( 5 )
+anims/walking = SubResource( 6 )
 
 [node name="leg1" type="Sprite" parent="."]
 position = Vector2( 4.48426, -2.9895 )

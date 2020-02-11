@@ -19,7 +19,6 @@ uv = PoolVector2Array( 34.5155, 31.5833, 37.8488, 30.25, 40.6821, 32.25, 39.6821
 [node name="arml" parent="Skeleton2D/boneBody" index="0"]
 position = Vector2( 10.3632, -6.98973 )
 rotation = 0.564999
-scale = Vector2( 1, 1 )
 
 [node name="hand" parent="Skeleton2D/boneBody/arml" index="0"]
 position = Vector2( 8.80861, 0.0502892 )
@@ -32,7 +31,6 @@ rotation = 0.223301
 [node name="hand" parent="Skeleton2D/boneBody/armr" index="0"]
 position = Vector2( 8.71867, 0.238079 )
 rotation = 0.00824104
-scale = Vector2( 1, 1 )
 
 [node name="armr" parent="." index="4"]
 texture = ExtResource( 3 )

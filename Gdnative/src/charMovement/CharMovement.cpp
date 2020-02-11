@@ -110,7 +110,7 @@ void CharMovement::movement(float delta)
 	//handle movement locally if this is master
 	if (_parent->is_network_master())
 	{	
-		float rotation = static_cast<Node2D *>(_parent->get("skin"))->get_rotation();
+		float rotation = _parent->get_rotation();//static_cast<Node2D *>(_parent->get("skin"))->get_rotation();
 		Vector2 movement_vector = _parent->get("movement_vector");
 		
 		//detect change in inputs
@@ -202,6 +202,7 @@ void CharMovement::_server_process_vectors(Vector2 mov_vct,float rot,float speed
 	//safety check is it really server or not
 	if (get_tree()->is_network_server())
 	{
+		bool is_walking = mov_vct.length();
 		//if it is server's Character no need to recompute vectors
 		if (_parent->is_network_master())
 		{
@@ -216,7 +217,7 @@ void CharMovement::_server_process_vectors(Vector2 mov_vct,float rot,float speed
 				float speed_multiplier = get("speed_multiplier");
 
 				rpc("_syncVectors",last_state->position,last_state->rotation,speed_multiplier,
-					input_id);
+					is_walking,input_id);
 			}
 		}
 		//Compute Input data
@@ -230,7 +231,8 @@ void CharMovement::_server_process_vectors(Vector2 mov_vct,float rot,float speed
 			_changeState(last_state,mov_vct,rot,speed_mul,input_id);
 			if (_stateVectors.size())
 			{
-				rpc("_syncVectors",_stateVectors.back().position,rot,speed_mul,input_id);
+				rpc("_syncVectors",_stateVectors.back().position,rot,speed_mul,
+					 is_walking,input_id);
 			}
 		}
 	}
@@ -280,7 +282,7 @@ void CharMovement::_computeStates(Vector2 pos)
 
 //sync vectors 
 //remotesync
-void CharMovement::_syncVectors(Vector2 pos,float rot, float speed_mul,int input_id)
+void CharMovement::_syncVectors(Vector2 pos,float rot, float speed_mul,bool is_walking,int input_id)
 {
 	//Do reconsilation if Character is master
 	if (_parent->is_network_master())
@@ -327,7 +329,8 @@ void CharMovement::_syncVectors(Vector2 pos,float rot, float speed_mul,int input
 	_rotational_speed = abs(rot - rotation) / _update_delta;
 	
 	_parent->get_node("skin")->set("multiplier",speed_mul);
+	_parent->get_node("skin")->set("is_walking",is_walking);
 	
 	if (!get_tree()->is_network_server())
-		_stateVectors.push_back(stateVector());
+		_stateVectors.push_back(stateVector(Vector2(),Vector2(),rot,0,0));
 }

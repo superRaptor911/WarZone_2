@@ -15,5 +15,9 @@ script = ExtResource( 2 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Vision" index="0"]
 position = Vector2( -13.2258, -9.87967 )
 polygon = PoolVector2Array( 12.9394, -13.7198, 334.174, -222.557, -265.827, -222.557 )
+
+[node name="movmtCPP" parent="." index="6"]
+_current_input_id = null
+_rotational_speed = null
 [connection signal="body_entered" from="Vision" to="." method="_on_Vision_body_entered"]
 [connection signal="body_exited" from="Vision" to="." method="_on_Vision_body_exited"]

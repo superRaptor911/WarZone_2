@@ -82,7 +82,7 @@ namespace godot
 		void _changeState(stateVector *initial_state, Vector2 mov_vct, float rot,float speed_mul,int input_id);
 		void _client_process_vectors();
 		void _server_process_vectors(Vector2 mov_vct,float rot,float speed_mul,int input_id);
-		void _syncVectors(Vector2 pos,float rot, float speed_mul,int input_id);
+		void _syncVectors(Vector2 pos,float rot, float speed_mul,bool is_walking,int input_id);
 		void _computeStates(Vector2 pos);
 
 	public:
