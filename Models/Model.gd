@@ -17,7 +17,6 @@ func _process(delta):
 	walking()
 	$Skeleton2D/boneBody/armr/hand/fist.rotation = -1 * $Skeleton2D/boneBody/armr/hand.rotation + 1.57
 
-
 func walking():
 	if parent.movement_vector.length():
 		movement_count = 0
@@ -32,19 +31,9 @@ func walking():
 			$walking.play("idle")
 		is_walking = false
 		movement_count += 1
-		
 
 func switchGun(gun_type):
 	$anim.play("smg_trans")
-
-func _on_AnimationPlayer_animation_started(anim_name):
-	if current_anim == anim_name:
-		return
-		
-	if anim_name == "smg":
-		$anim.play("smg_trans")
-		
-		
 
 func _on_gun_fired():
 	if current_anim == "smg":

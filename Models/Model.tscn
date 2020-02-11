@@ -180,7 +180,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.2, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ -66.2745, -80.5523, -66.2745 ]
+"values": [ -66.2745, -78.3701, -66.2745 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Skeleton2D/boneBody/arml:position")
@@ -228,7 +228,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0, 0.2, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 21.3289, 30.8415, 21.3289 ]
+"values": [ 21.3289, 21.3, 21.3289 ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("Skeleton2D/boneBody/arml/hand:position")
@@ -381,7 +381,7 @@ tracks/9/keys = {
 [sub_resource type="Animation" id=6]
 resource_name = "idle"
 tracks/0/type = "value"
-tracks/0/path = NodePath("leg1:position")
+tracks/0/path = NodePath("leg2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -390,10 +390,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -0.780632, 3.3096 ) ]
+"values": [ Vector2( -1.92285, 4.82449 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("leg1:rotation_degrees")
+tracks/1/path = NodePath("leg2:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -405,7 +405,7 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("leg2:position")
+tracks/2/path = NodePath("leg1:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -414,10 +414,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -1.22908, 3.09015 ) ]
+"values": [ Vector2( -0.942424, 2.81537 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("leg2:rotation_degrees")
+tracks/3/path = NodePath("leg1:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -502,7 +502,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 0.2, 0.5, 0.7, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 10.0, 0.0, -10.0, 0.0 ]
+"values": [ 0.0, 7.0, 0.0, -7.0, 0.0 ]
 }
 
 [node name="Model" type="CollisionShape2D"]
@@ -554,25 +554,25 @@ rest = Transform2D( -0.405279, -0.914193, 0.914193, -0.405279, 42.8826, 21.5089 
 
 [node name="arml" type="Bone2D" parent="Skeleton2D/boneBody"]
 position = Vector2( 10.954, -6.40109 )
-rotation = 0.409923
+rotation = 0.515621
 rest = Transform2D( 0.844589, 0.535415, -0.535415, 0.844589, 10.3632, -6.98973 )
 default_length = 10.0
 
 [node name="hand" type="Bone2D" parent="Skeleton2D/boneBody/arml"]
 position = Vector2( 12.0654, 1.4041 )
-rotation = 0.628469
+rotation = 1.0041
 rest = Transform2D( 0.99974, 0.0228174, -0.0228174, 0.99974, 8.80861, 0.0502892 )
 default_length = 8.0
 
 [node name="armr" type="Bone2D" parent="Skeleton2D/boneBody"]
 position = Vector2( 3.67185, 11.1772 )
-rotation = 0.372259
+rotation = 0.371755
 rest = Transform2D( 0.975172, 0.22145, -0.22145, 0.975172, 2.86293, 11.4787 )
 default_length = 8.0
 
 [node name="hand" type="Bone2D" parent="Skeleton2D/boneBody/armr"]
 position = Vector2( 9.55052, 1.14219 )
-rotation = -1.15671
+rotation = -1.36782
 rest = Transform2D( 0.999966, 0.00824095, -0.00824095, 0.999966, 8.71867, 0.238079 )
 default_length = 8.0
 
@@ -603,12 +603,12 @@ anims/idle = SubResource( 6 )
 anims/walking = SubResource( 7 )
 
 [node name="leg1" type="Sprite" parent="."]
-position = Vector2( 4.98252, 11.2937 )
+position = Vector2( 4.48426, -2.9895 )
 z_index = -1
 texture = ExtResource( 3 )
 
 [node name="leg2" type="Sprite" parent="."]
-position = Vector2( -5.14859, -3.48777 )
+position = Vector2( -6.1451, 10.4633 )
 z_index = -1
 texture = ExtResource( 3 )
 [connection signal="animation_finished" from="anim" to="." method="_on_AnimationPlayer_animation_finished"]

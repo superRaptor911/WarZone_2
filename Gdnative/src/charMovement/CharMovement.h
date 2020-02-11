@@ -12,9 +12,10 @@ namespace godot
 {
 	class stateVector :public Reference
 	{
+		
 
 		GODOT_CLASS(stateVector, Reference)
-		public:
+	public:
 		Vector2 position;
 		float rotation;
 		int input_id;
@@ -79,7 +80,7 @@ namespace godot
 		void _changeState(stateVector *initial_state, Vector2 mov_vct, float rot,float speed_mul,int input_id);
 		void _client_process_vectors();
 		void _server_process_vectors(Vector2 mov_vct,float rot,float speed_mul,int input_id);
-		void _syncVectors(Vector2 pos,float rot, float speed_mul, bool is_moving,int input_id);
+		void _syncVectors(Vector2 pos,float rot, float speed_mul,int input_id);
 		void _computeStates(Vector2 pos);
 
 	public:

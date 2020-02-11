@@ -195,10 +195,7 @@ void CharMovement::_client_process_vectors()
 		ptween->start();
 
 		//_parent->get_node("skin")->set("multiplier",speed_multiplier);
-		//_parent->get_node("skin")->set("is_walking",true);
-	}		
-	//else
-		//_parent->get_node("skin")->set("is_walking",false);
+	}
 }
 
 //Server side Input data processor
@@ -218,11 +215,10 @@ void CharMovement::_server_process_vectors(Vector2 mov_vct,float rot,float speed
 				{
 					Godot::print("Error at  aserver");
 				}
-				bool is_walking = true;//get_node("skin")->get("is_walking");
 				float speed_multiplier = get("speed_multiplier");
 
 				rpc("_syncVectors",last_state->position,last_state->rotation,speed_multiplier,
-					is_walking,input_id);
+					input_id);
 			}
 		}
 		//Compute Input data
@@ -236,8 +232,7 @@ void CharMovement::_server_process_vectors(Vector2 mov_vct,float rot,float speed
 			_changeState(last_state,mov_vct,rot,speed_mul,input_id);
 			if (_stateVectors.size())
 			{
-				bool is_walking = true;//get_node("skin")->get("is_walking");
-				rpc("_syncVectors",_stateVectors.back().position,rot,speed_mul,is_walking,input_id);
+				rpc("_syncVectors",_stateVectors.back().position,rot,speed_mul,input_id);
 			}
 		}
 	}
@@ -287,7 +282,7 @@ void CharMovement::_computeStates(Vector2 pos)
 
 //sync vectors 
 //remotesync
-void CharMovement::_syncVectors(Vector2 pos,float rot, float speed_mul, bool is_moving,int input_id)
+void CharMovement::_syncVectors(Vector2 pos,float rot, float speed_mul,int input_id)
 {
 	//Do reconsilation if Character is master
 	if (_parent->is_network_master())
@@ -334,7 +329,6 @@ void CharMovement::_syncVectors(Vector2 pos,float rot, float speed_mul, bool is_
 	_rotational_speed = abs(rot - rotation) / _update_delta;
 	
 	_parent->get_node("skin")->set("multiplier",speed_mul);
-	_parent->get_node("skin")->set("is_walking",is_moving);
 	
 	if (!get_tree()->is_network_server())
 		_stateVectors.push_back(stateVector());
