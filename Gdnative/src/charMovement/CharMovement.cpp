@@ -1,7 +1,5 @@
 #include "CharMovement.h"
 #include <SceneTree.hpp>
-#include <KinematicCollision2D.hpp>
-#include <CollisionShape2D.hpp>
 #include <Tween.hpp>
 #include <math.h>
 
@@ -112,7 +110,7 @@ void CharMovement::movement(float delta)
 	//handle movement locally if this is master
 	if (_parent->is_network_master())
 	{	
-		float rotation = _parent->get_rotation();
+		float rotation = static_cast<Node2D *>(_parent->get("skin"))->get_rotation();
 		Vector2 movement_vector = _parent->get("movement_vector");
 		
 		//detect change in inputs

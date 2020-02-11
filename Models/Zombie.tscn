@@ -5,7 +5,6 @@
 [ext_resource path="res://Sprites/Character/zombie.png" type="Texture" id=3]
 
 [node name="Zombie" instance=ExtResource( 1 )]
-rotation = 0.0
 script = ExtResource( 2 )
 
 [node name="body" parent="." index="0"]
@@ -38,9 +37,3 @@ scale = Vector2( 1, 1 )
 [node name="armr" parent="." index="4"]
 texture = ExtResource( 3 )
 uv = PoolVector2Array( 47.8272, 29.2339, 53.5845, 29.854, 58.1904, 45.6201, 57.9247, 51.2889, 54.736, 53.8575, 49.333, 50.4917, 48.0929, 44.9115, 52.7778, 43.8704, 52.2377, 40.9383 )
-
-[node name="leg1" parent="." index="7"]
-position = Vector2( 4.48426, -2.9895 )
-
-[node name="leg2" parent="." index="8"]
-position = Vector2( -6.1451, 10.4633 )
