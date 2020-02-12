@@ -8,7 +8,7 @@ var playing : bool = false
 var multiplier : float = 1
 var movement_count = 0
 var current_anim = ""
-var parent
+var parent = null
 
 func _ready():
 	$anim.play("smg")

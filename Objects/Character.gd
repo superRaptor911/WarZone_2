@@ -13,7 +13,7 @@ var team : bool = true
 var current_time : float = 0
 #last attacked entity
 var last_attacker
-var skin : Model
+var skin : Model = null
 
 #This signal is emitted when char is killed
 #it's better naming should be char_dead 
@@ -55,9 +55,17 @@ func setSkin(s):
 	if s == null:
 		print("Fucking error")
 		return
+	
 	if skin != null:
+		#if same skin return
+		if skin.model_name == s.model_name:
+			return
+		
+		#did for no good reason
 		skin.set_name("x")
+		#free previous skin
 		skin.queue_free()
+	#set new skin
 	skin = s
 	skin.set_name("skin")
 	add_child(skin)

@@ -131,6 +131,7 @@ tracks/9/keys = {
 
 [node name="Zombie" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+model_name = "Zombie"
 
 [node name="body" parent="." index="0"]
 texture = ExtResource( 3 )
@@ -163,3 +164,7 @@ uv = PoolVector2Array( 47.8272, 29.2339, 53.5845, 29.854, 58.1904, 45.6201, 57.9
 
 [node name="anim" parent="." index="5"]
 anims/zombie_walk = SubResource( 1 )
+
+[node name="free_timer" type="Timer" parent="." index="9"]
+wait_time = 2.0
+one_shot = true
