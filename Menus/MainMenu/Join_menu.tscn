@@ -107,6 +107,7 @@ margin_right = 559.0
 margin_bottom = 74.0
 custom_fonts/font = SubResource( 1 )
 text = "127.0.0.1"
+max_length = 64
 
 [node name="Label" type="Label" parent="PanelContainer/Panel/container/ip"]
 margin_left = -262.934
@@ -122,6 +123,7 @@ margin_right = 559.0
 margin_bottom = 208.0
 custom_fonts/font = SubResource( 2 )
 text = "6969"
+max_length = 64
 
 [node name="Label" type="Label" parent="PanelContainer/Panel/container/port"]
 margin_left = -329.672

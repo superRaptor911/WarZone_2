@@ -2,6 +2,11 @@ extends Node2D
 
 var _game
 
+#counts number of players spawned
+#no_players_spwaned should be same as nuber of players
+#in player table
+var no_players_spwaned = 0
+
 func _ready():
 	network.connect("player_list_changed", self, "_on_player_list_changed")
 	network.connect("disconnected", self, "_on_disconnected")
@@ -11,7 +16,7 @@ func _ready():
 		rpc_id(1, "spawn_players", game_states.player_info, -1)
 	if (get_tree().is_network_server()):
 		network.connect("player_removed", self, "_on_player_removed")
-	_init_game()
+
 
 func _on_player_removed(pinfo):
 	despawn_player(pinfo)
@@ -49,7 +54,11 @@ remote func spawn_players(pinfo, spawn_index):
 		nactor.set_name(str(pinfo.net_id))
 	
 	nactor.pname = pinfo.name
+	print("spawned ",nactor.pname)
 	add_child(nactor)
+	no_players_spwaned += 1
+	if no_players_spwaned == network.players.size():
+		_init_game()
 
 
 

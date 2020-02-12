@@ -42,6 +42,10 @@ margin_right = 504.0
 margin_bottom = 118.0
 custom_fonts/font = ExtResource( 2 )
 text = "Player"
+max_length = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="PanelContainer/Panel/pname"]
 margin_left = -172.673

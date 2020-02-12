@@ -102,6 +102,7 @@ margin_right = 660.0
 margin_bottom = 74.0
 custom_fonts/font = SubResource( 1 )
 text = "6969"
+max_length = 64
 
 [node name="Label" type="Label" parent="PanelContainer/Panel/container/port"]
 margin_left = -334.208
@@ -117,6 +118,7 @@ margin_right = 660.0
 margin_bottom = 198.0
 custom_fonts/font = SubResource( 2 )
 text = "4"
+max_length = 64
 
 [node name="Label" type="Label" parent="PanelContainer/Panel/container/max_pl"]
 margin_left = -352.823
@@ -125,6 +127,9 @@ margin_right = -30.8234
 margin_bottom = 66.6892
 custom_fonts/font = ExtResource( 6 )
 text = "Max Players"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="PanelContainer/Panel"]
 anchor_left = 0.5

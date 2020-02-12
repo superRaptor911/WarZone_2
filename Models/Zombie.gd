@@ -31,17 +31,23 @@ func _process(delta):
 
 func _on_damaged():
 	if parent.HP < 65 and not lhand_detached:
-		parent.speed *= 0.6
-		lhand_detached = true
-		lhand_pos = $arml.global_position
-		lhand_rot = $arml.global_rotation
-		$arml.skeleton = NodePath("")
+		rpc_unreliable("_detachLeftArm")
 	if parent.HP < 35 and not rhand_detached:
+		rpc_unreliable("_detachRightArm")
+
+
+
+remotesync func _detachLeftArm():
+	parent.speed *= 0.6
+	lhand_detached = true
+	lhand_pos = $arml.global_position
+	lhand_rot = $arml.global_rotation
+	$arml.skeleton = NodePath("")
+	
+
+remotesync func _detachRightArm():
 		parent.speed *= 0.5
 		rhand_detached = true
 		rhand_pos = $armr.global_position
 		rhand_rot = $armr.global_rotation
 		$armr.skeleton = NodePath("")
-
-
-
