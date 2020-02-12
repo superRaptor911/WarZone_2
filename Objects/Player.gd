@@ -142,7 +142,8 @@ remote func _sync_throwGrenade(nam):
 
 sync func sync_respawn(pos,id):
 	show()
-	#modulate = Color8(255,255,255,255)
+	$dtween.interpolate_property(skin,"modulate",Color8(50,50,200,255),Color8(255,255,255,255),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	$dtween.start()
 	alive = true
 	#skin.disabled = false
 	HP = 100

@@ -56,7 +56,6 @@ func setSkin(s):
 		print("Fucking error")
 		return
 	if skin != null:
-		print("freeing")
 		skin.set_name("x")
 		skin.queue_free()
 	skin = s
@@ -122,8 +121,8 @@ remote func sync_health(hp,ap):
 remotesync func sync_death():
 	alive = false
 	#skin.disabled = true
-	#$dtween.interpolate_property(self,"modulate",Color8(255,255,255,255),Color8(255,255,255,0),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
-	#$dtween.start()
+	$dtween.interpolate_property(skin,"modulate",Color8(255,255,255,255),Color8(255,255,255,0),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	$dtween.start()
 	emit_signal("char_killed")
 
 func _on_free_timer_timeout():

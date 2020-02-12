@@ -132,41 +132,34 @@ tracks/9/keys = {
 [node name="Zombie" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="armr" parent="." index="0"]
+[node name="body" parent="." index="0"]
 texture = ExtResource( 3 )
-uv = PoolVector2Array( 47.8272, 29.2339, 53.5845, 29.854, 58.1904, 45.6201, 57.9247, 51.2889, 54.736, 53.8575, 49.333, 50.4917, 48.0929, 44.9115, 52.7778, 43.8704, 52.2377, 40.9383 )
+polygon = PoolVector2Array( 10.0401, 44.7209, 17.3526, 44.2209, 20.8526, 47.5959, 21.5401, 53.7834, 26.8526, 56.0334, 26.7276, 60.9084, 21.4776, 63.3459, 16.3526, 62.9709, 10.1026, 62.0334, 4.79012, 59.0334, 7.66512, 53.2834, 11.1883, 56.2932, 11.4969, 59.1482, 18.1327, 55.8303, 17.9784, 59.534 )
+uv = PoolVector2Array( 10.108, 37.6204, 16.9753, 35.6914, 21.9907, 38.7778, 23.3025, 46.8025, 26.9298, 49.4748, 26.8048, 54.3498, 21.5548, 56.7873, 16.2809, 56.8333, 10.1798, 55.4748, 4.86728, 52.4748, 6.94444, 45.4136, 11.2654, 49.7346, 11.5741, 52.5895, 18.2099, 49.2716, 18.0556, 52.9753 )
 
 [node name="arml" parent="." index="1"]
 texture = ExtResource( 3 )
 uv = PoolVector2Array( 34.5155, 31.5833, 37.8488, 30.25, 40.6821, 32.25, 39.6821, 43.25, 38.8488, 44.9167, 38.8488, 49.5833, 36.0155, 55.75, 31.0155, 51.5833, 31.0155, 44.4167 )
 
-[node name="body" parent="." index="2"]
-texture = ExtResource( 3 )
-polygon = PoolVector2Array( 10.0401, 44.7209, 17.3526, 44.2209, 20.8526, 47.5959, 21.5401, 53.7834, 26.8526, 56.0334, 26.7276, 60.9084, 21.4776, 63.3459, 16.3526, 62.9709, 10.1026, 62.0334, 4.79012, 59.0334, 7.66512, 53.2834, 11.1883, 56.2932, 11.4969, 59.1482, 18.1327, 55.8303, 17.9784, 59.534 )
-uv = PoolVector2Array( 10.108, 37.6204, 16.9753, 35.6914, 21.9907, 38.7778, 23.3025, 46.8025, 26.9298, 49.4748, 26.8048, 54.3498, 21.5548, 56.7873, 16.2809, 56.8333, 10.1798, 55.4748, 4.86728, 52.4748, 6.94444, 45.4136, 11.2654, 49.7346, 11.5741, 52.5895, 18.2099, 49.2716, 18.0556, 52.9753 )
-
-[node name="boneBody" parent="Skeleton2D" index="0"]
-scale = Vector2( 1, 1 )
-
 [node name="arml" parent="Skeleton2D/boneBody" index="0"]
 position = Vector2( 10.3632, -6.98973 )
 rotation = 0.52752
-scale = Vector2( 1, 1 )
 
 [node name="hand" parent="Skeleton2D/boneBody/arml" index="0"]
 position = Vector2( 8.80861, 0.0502892 )
 rotation = 0.399947
-scale = Vector2( 1, 1 )
 
 [node name="armr" parent="Skeleton2D/boneBody" index="1"]
 position = Vector2( 2.86293, 11.4787 )
 rotation = 0.378165
-scale = Vector2( 1, 1 )
 
 [node name="hand" parent="Skeleton2D/boneBody/armr" index="0"]
 position = Vector2( 8.71867, 0.238079 )
 rotation = -0.618969
-scale = Vector2( 1, 1 )
+
+[node name="armr" parent="." index="4"]
+texture = ExtResource( 3 )
+uv = PoolVector2Array( 47.8272, 29.2339, 53.5845, 29.854, 58.1904, 45.6201, 57.9247, 51.2889, 54.736, 53.8575, 49.333, 50.4917, 48.0929, 44.9115, 52.7778, 43.8704, 52.2377, 40.9383 )
 
 [node name="anim" parent="." index="5"]
 anims/zombie_walk = SubResource( 1 )
