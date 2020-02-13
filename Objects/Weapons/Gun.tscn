@@ -7,6 +7,7 @@
 
 [node name="Gun" type="Node2D"]
 position = Vector2( 213.783, 186.488 )
+rotation = -1.5708
 z_index = 1
 script = ExtResource( 1 )
 projectile_velocity = 500.0

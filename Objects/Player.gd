@@ -64,9 +64,9 @@ func load_guns(nam : String , nam2 : String):
 	if not skin:
 		selected_gun = primary_gun
 		return
-	skin.get_node("Skeleton2D/boneBody/armr/hand/fist").remove_child(selected_gun)
+	skin.get_node("body/r_shoulder/arm/joint/hand/fist").remove_child(selected_gun)
 	selected_gun = primary_gun
-	skin.get_node("Skeleton2D/boneBody/armr/hand/fist").add_child(selected_gun)
+	skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
 	selected_gun.connect("gun_fired",skin,"_on_gun_fired")
 	selected_gun.gun_user = self
 	#selected_gun.position = $Model.get("fist").position
@@ -118,7 +118,7 @@ remote func throwGrenade():
 		var nam = "g" + String(randi()%1000)
 		g.set_name(nam)
 		get_tree().root.add_child(g)
-		var dir = (skin.get_node("Skeleton2D/boneBody/armr/hand/fist").global_position - global_position).normalized()
+		var dir = (skin.get_node("body/r_shoulder/arm/joint/hand/fist").global_position - global_position).normalized()
 		g.position = position + (Vector2(-1.509,-50.226)).rotated(rotation)
 		g.user = self
 		g.throwGrenade(dir)
@@ -156,13 +156,13 @@ remotesync func switchGun():
 	skin.switchGun(selected_gun.gun_type)
 	if selected_gun == primary_gun:
 		if sec_gun != null:
-			skin.get_node("Skeleton2D/boneBody/armr/hand/fist").remove_child(selected_gun)
+			skin.get_node("body/r_shoulder/arm/joint/hand/fist").remove_child(selected_gun)
 			selected_gun = sec_gun
-			skin.get_node("Skeleton2D/boneBody/armr/hand/fist").add_child(selected_gun)
+			skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
 	else:
-		skin.get_node("Skeleton2D/boneBody/armr/hand/fist").remove_child(selected_gun)
+		skin.get_node("body/r_shoulder/arm/joint/hand/fist").remove_child(selected_gun)
 		selected_gun = primary_gun
-		skin.get_node("Skeleton2D/boneBody/armr/hand/fist").add_child(selected_gun)
+		skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
 	
 	selected_gun.connect("gun_fired",skin,"_on_gun_fired")
 	selected_gun.gun_user = self

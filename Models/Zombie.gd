@@ -22,11 +22,11 @@ func _process(delta):
 			$anim.play("zombie_walk")
 			current_anim = "zm_w"
 		if lhand_detached:
-			$arml.global_position = lhand_pos
-			$arml.global_rotation = lhand_rot
+			$body/l_shoulder/arm.global_position = lhand_pos
+			$body/l_shoulder/arm.global_rotation = lhand_rot
 		if rhand_detached:
-			$armr.global_position = rhand_pos
-			$armr.global_rotation = rhand_rot
+			$body/r_shoulder/arm.global_position = rhand_pos
+			$body/r_shoulder/arm.global_rotation = rhand_rot
 
 
 func _on_damaged():
@@ -40,14 +40,12 @@ func _on_damaged():
 remotesync func _detachLeftArm():
 	parent.speed *= 0.6
 	lhand_detached = true
-	lhand_pos = $arml.global_position
-	lhand_rot = $arml.global_rotation
-	$arml.skeleton = NodePath("")
-	
+	lhand_pos = $body/l_shoulder/arm.global_position
+	lhand_rot = $body/l_shoulder/arm.global_rotation
+
 
 remotesync func _detachRightArm():
 		parent.speed *= 0.5
 		rhand_detached = true
-		rhand_pos = $armr.global_position
-		rhand_rot = $armr.global_rotation
-		$armr.skeleton = NodePath("")
+		rhand_pos = $body/r_shoulder/arm.global_position
+		rhand_rot = $body/r_shoulder/arm.global_rotation
