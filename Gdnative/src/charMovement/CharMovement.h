@@ -101,6 +101,7 @@ namespace godot
 		void movement(float delta);
 
 		void interpolate_rotation(float delta);
+
 		
 	};
 }
