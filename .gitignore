@@ -1,5 +1,7 @@
 *.import
 *.so
 *.a
+*.o
+*.dll
 Output/
 *.os
