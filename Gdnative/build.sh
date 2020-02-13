@@ -1,7 +1,7 @@
 #!/bin/bash
 start_time=`date +%s`
 
-copy_dest="/home/raptor/Documents/softwares/godot/projects/WarZone_2"
+copy_dest=".."
 build_result=0
 
 #build arguments
@@ -11,7 +11,12 @@ args[2]="platform=android android_arch=arm64v8 target_name=charMovement src_path
 args[3]="platform=android android_arch=x86 target_name=charMovement src_path=src/charMovement android_stl=yes"
 args[4]="platform=android android_arch=x86_64 target_name=charMovement src_path=src/charMovement android_stl=yes"
 
-
+#platforms
+plats[0]="LINUX"
+plats[1]="Android armv7"
+plats[2]="Android arm64v8"
+plats[3]="Android x86"
+plats[4]="Android x86_64"
 
 result=()
 
@@ -19,11 +24,11 @@ build_targets()
 {
 	scons $1 -j4
 	if [ $? -eq 0 ]; then
-		result+="operation $2 completed successfully\n"
+		result+="operation $2 completed successfully ( ${plats[i]} )\n"
 		build_result+=1
 	else
-	    result+="operation $2 failed\n"
-	    exit 1
+	    result+="operation $2 failed ( ${plats[i]} )\n"
+	    #exit 1
 	fi
 }
 
