@@ -10,7 +10,6 @@ position = Vector2( 213.783, 186.488 )
 rotation = -1.5708
 z_index = 1
 script = ExtResource( 1 )
-projectile_velocity = 500.0
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

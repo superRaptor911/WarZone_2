@@ -14,3 +14,7 @@ pname = "Necron"
 [node name="bloodSpot" parent="." index="3"]
 z_index = 0
 z_as_relative = true
+
+[node name="Timer" type="Timer" parent="." index="8"]
+wait_time = 0.7
+one_shot = true

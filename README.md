@@ -19,6 +19,7 @@ To build plugins there are a few prerequisites you’ll need:
 * [SCons](https://scons.org/) as a build tool.
 * C++ compiler
 * Android NDK (optional, only needed if you are building for android)
+* Copy of the godot-cpp repository (Already included(Godot 3.2) in Gdnative folder).
 
 After downloading the prerequisites, It's time to run build script present in  ``` Gdnative ``` folder to do that
 ```
@@ -35,3 +36,4 @@ Then import as Godot project.
 
 ## Build With
 * [Godot](https://godotengine.org/) - open source game engine
+* [SCons](https://scons.org/) - build tool

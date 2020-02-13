@@ -19,7 +19,10 @@ func _on_necron_killed():
 	$free_timer.start()
 
 func attack(delta : float):
-	if (destination - position).length() <= attack_radius:
-		target.takeDamage(damage * delta,null,self)
+	if (destination - position).length() <= attack_radius and $Timer.is_stopped():
+		target.takeDamage(damage,null,self)
+		$Timer.start()
+		skin.get_node("anim").play("zombie_attack")
+		skin.current_anim = "zm_attk"
 
 

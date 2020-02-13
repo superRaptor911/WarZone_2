@@ -40,6 +40,7 @@ func _ready():
 		hud.setUser(self)
 		add_child(hud)
 		hud.get_node("respawn").max_value = 4.0
+		switchGun()
 
 
 func _on_player_killed():
@@ -145,7 +146,7 @@ sync func sync_respawn(pos,id):
 	$dtween.interpolate_property(skin,"modulate",Color8(50,50,200,255),Color8(255,255,255,255),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
 	$dtween.start()
 	alive = true
-	#skin.disabled = false
+	skin.set_deferred("disabled",false)
 	HP = 100
 	AP = 100
 	$movmtCPP._teleportCharacter(pos)

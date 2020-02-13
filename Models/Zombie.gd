@@ -18,7 +18,7 @@ func _ready():
 
 func _process(delta):
 	if is_monster:
-		if parent.movement_vector.length() and current_anim != "zm_w":
+		if parent.movement_vector.length() and current_anim != "zm_w" and not $anim.is_playing():
 			$anim.play("zombie_walk")
 			current_anim = "zm_w"
 		if lhand_detached:
@@ -30,9 +30,9 @@ func _process(delta):
 
 
 func _on_damaged():
-	if parent.HP < 65 and not lhand_detached:
+	if parent.HP < 55 and not lhand_detached:
 		rpc_unreliable("_detachLeftArm")
-	if parent.HP < 35 and not rhand_detached:
+	if parent.HP < 25 and not rhand_detached:
 		rpc_unreliable("_detachRightArm")
 
 

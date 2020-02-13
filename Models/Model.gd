@@ -9,16 +9,19 @@ var multiplier : float = 1
 var movement_count = 0
 var current_anim = ""
 var parent = null
+var fist
 
 
 func _ready():
+	fist = $body/r_shoulder/arm/joint/hand/fist
 	$anim.play("smg")
 	parent = get_parent()
-	$body/r_shoulder/arm/joint/hand/fist.global_scale = Vector2(1,1)
+	fist.global_scale = Vector2(1,1)
+	fist.rotation = rotation
 
 func _process(delta):
 	walking()
-	#$body/r_shoulder/arm/joint/hand/fist.rotation = rotation - 1.57
+	#fist.rotation = rotation - 1.57
 
 func walking():
 	if parent.movement_vector.length() or is_walking:

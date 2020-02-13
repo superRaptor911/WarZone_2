@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Models/Model.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Character/default/head.png" type="Texture" id=2]
@@ -10,8 +10,8 @@
 [ext_resource path="res://Sprites/Character/default/hand.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Character/default/arm.png" type="Texture" id=9]
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 16.9827, 6.96864 )
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16.1368, 5.77634 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "smg"
@@ -37,7 +37,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 111.779, 111.8 ]
+"values": [ 101.928, 101.9 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("body/r_shoulder/arm/joint:position")
@@ -85,7 +85,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -22.6443, -22.6443 ]
+"values": [ -12.2649, -12.3 ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("body/l_shoulder/arm/joint:position")
@@ -308,6 +308,9 @@ tracks/11/keys = {
 "values": [ 17.9929, 20.6814, 17.9929 ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "smg_reload"
+
 [sub_resource type="Animation" id=4]
 resource_name = "smg_trans"
 
@@ -441,7 +444,7 @@ tracks/5/keys = {
 [node name="Model" type="CollisionShape2D"]
 z_index = 2
 z_as_relative = false
-shape = SubResource( 7 )
+shape = SubResource( 1 )
 script = ExtResource( 1 )
 
 [node name="walk" type="AudioStreamPlayer2D" parent="."]
@@ -453,6 +456,7 @@ attenuation = 1.27456
 [node name="anim" type="AnimationPlayer" parent="."]
 anims/smg = SubResource( 2 )
 anims/smg_firing = SubResource( 3 )
+anims/smg_reload = SubResource( 7 )
 anims/smg_trans = SubResource( 4 )
 
 [node name="walking" type="AnimationPlayer" parent="."]
@@ -481,12 +485,11 @@ texture = ExtResource( 2 )
 
 [node name="l_shoulder" type="Sprite" parent="body"]
 position = Vector2( -49.9201, -10.9435 )
-scale = Vector2( 1.3, 1 )
 texture = ExtResource( 6 )
 
 [node name="arm" type="Sprite" parent="body/l_shoulder"]
 position = Vector2( -0.576889, -0.302248 )
-rotation = 0.495243
+rotation = 0.449227
 z_index = -1
 texture = ExtResource( 9 )
 offset = Vector2( 2.34541, -23.8781 )
@@ -497,19 +500,19 @@ texture = ExtResource( 5 )
 
 [node name="hand" type="Sprite" parent="body/l_shoulder/arm/joint"]
 position = Vector2( 0.950844, -0.271236 )
-rotation = 0.360958
+rotation = 0.314035
 z_index = -1
 texture = ExtResource( 8 )
 offset = Vector2( 3, -21 )
 
 [node name="r_shoulder" type="Sprite" parent="body"]
 position = Vector2( 48.0181, -12.964 )
-scale = Vector2( -1.3, 1 )
+scale = Vector2( -1, 1 )
 texture = ExtResource( 6 )
 
 [node name="arm" type="Sprite" parent="body/r_shoulder"]
 position = Vector2( -0.576889, -0.302248 )
-rotation = -0.573581
+rotation = -0.214064
 z_index = -1
 texture = ExtResource( 9 )
 offset = Vector2( 2.34541, -23.8781 )
@@ -520,7 +523,7 @@ texture = ExtResource( 5 )
 
 [node name="hand" type="Sprite" parent="body/r_shoulder/arm/joint"]
 position = Vector2( 0.950844, -0.271236 )
-rotation = 2.13981
+rotation = 1.77898
 z_index = -1
 texture = ExtResource( 8 )
 offset = Vector2( 3, -21 )

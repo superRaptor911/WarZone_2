@@ -6,10 +6,10 @@ uniform float energy = 0.4;
 
 void fragment()
 {
-	vec4 clr = vec4(1) - texture(TEXTURE, UV).rgba;
 	
-	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb * clr.r ;
-	//COLOR.a = texture(TEXTURE, UV).a;
+	//COLOR.rgba = vec4(1.0) ;
+	COLOR.rgb = vec3(0.0);
+	COLOR.a = texture(TEXTURE, UV).r;
 }"
 
 [resource]
