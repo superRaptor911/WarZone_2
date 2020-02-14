@@ -25,6 +25,7 @@ var ray_dest : Vector2
 var laser_sight : bool = true
 
 signal gun_fired
+signal reloading_gun
 
 func _ready():
 	rounds_left = rounds_in_clip
@@ -88,6 +89,7 @@ func reload():
 	if clips > 0 and not reloading:
 		$Reload_time.start()
 		reloading = true
+		emit_signal("reloading_gun")
 
 #reload weapon
 func _on_Reload_time_timeout():

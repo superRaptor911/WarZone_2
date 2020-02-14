@@ -1,23 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Sprites/Lights/angryimg.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Graphics/RLight.gd" type="Script" id=2]
 
-[sub_resource type="Shader" id=1]
-code = "shader_type canvas_item;
-uniform float energy = 0.4;
-
-void fragment()
-{
-	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgba + texture(TEXTURE, UV)*energy;
-}"
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
-shader_param/energy = 0.4
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
 
 [node name="RLight" type="Sprite"]
-material = SubResource( 2 )
+material = SubResource( 1 )
 position = Vector2( 391.55, 200.645 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )

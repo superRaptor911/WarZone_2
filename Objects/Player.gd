@@ -69,6 +69,7 @@ func load_guns(nam : String , nam2 : String):
 	selected_gun = primary_gun
 	skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
 	selected_gun.connect("gun_fired",skin,"_on_gun_fired")
+	selected_gun.connect("reloading_gun",skin,"_on_gun_reload")
 	selected_gun.gun_user = self
 	#selected_gun.position = $Model.get("fist").position
 
@@ -166,6 +167,7 @@ remotesync func switchGun():
 		skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
 	
 	selected_gun.connect("gun_fired",skin,"_on_gun_fired")
+	selected_gun.connect("reloading_gun",skin,"_on_gun_reload")
 	selected_gun.gun_user = self
 	selected_gun.position = Vector2(0,0)
 

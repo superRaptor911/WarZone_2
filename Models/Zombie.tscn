@@ -6,7 +6,7 @@
 [ext_resource path="res://Sprites/Character/default_zombie/arm.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Character/default_zombie/hand.png" type="Texture" id=5]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "zombie_attack"
 length = 0.7
 tracks/0/type = "value"
@@ -154,8 +154,7 @@ tracks/11/keys = {
 "values": [ 0.0, 0.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "zombie_walk"
+[sub_resource type="Animation" id=2]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -308,8 +307,8 @@ script = ExtResource( 2 )
 model_name = "Zombie"
 
 [node name="anim" parent="." index="1"]
-anims/zombie_attack = SubResource( 2 )
-anims/zombie_walk = SubResource( 1 )
+anims/zombie_attack = SubResource( 1 )
+anims/zombie_walk = SubResource( 2 )
 
 [node name="leg1" parent="." index="3"]
 position = Vector2( -0.942424, 2.81537 )

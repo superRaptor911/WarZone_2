@@ -1,7 +1,7 @@
 extends Node
 
 #is exporting for android or not
-var is_android : bool = true
+var is_android : bool = false
 #game modes available
 enum GAME_MODES { TDM,FFA,SURVIVAL}
 var GAME_MODE = GAME_MODES.FFA
