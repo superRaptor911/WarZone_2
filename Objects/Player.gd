@@ -26,6 +26,7 @@ var _pause_cntrl : bool = false
 
 func _ready():
 	$Gun.queue_free()
+	$name_tag.text = pname
 	if is_network_master():
 		pname = game_states.player_info.name
 		$Camera2D.current = true
@@ -41,6 +42,8 @@ func _ready():
 		add_child(hud)
 		hud.get_node("respawn").max_value = 4.0
 		rpc("switchGun")
+		
+
 
 
 func _on_player_killed():
@@ -83,6 +86,8 @@ func _process(delta):
 			hud.get_node("respawn").value += delta
 		$CanvasModulate.color = Color8(255,2.55 * HP,2.55 * HP)
 
+
+	
 
 func _get_inputs():
 	if not is_network_master():

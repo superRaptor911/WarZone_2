@@ -12,7 +12,9 @@ margin_top = 442.47
 margin_right = 293.631
 margin_bottom = 635.47
 radius = 90.0
+use_screen_rectangle = false
 screen_rectangle = Rect2( 0, 125, 500, 600 )
+editor_color = Color( 1, 0, 0, 1 )
 
 [node name="aim_joy" parent="." instance=ExtResource( 2 )]
 margin_left = 953.495
@@ -20,4 +22,6 @@ margin_top = 445.204
 margin_right = 1149.5
 margin_bottom = 654.204
 radius = 90.0
+use_screen_rectangle = false
 screen_rectangle = Rect2( 700, 125, 500, 600 )
+editor_color = Color( 1, 0, 0, 1 )

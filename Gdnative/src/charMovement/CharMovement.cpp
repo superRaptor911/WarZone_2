@@ -4,7 +4,9 @@
 #include <math.h>
 
 
+
 using namespace godot;
+#define SQUARE_LENGTH(v) v.x * v.x + v.y*v.y
 
 
 
@@ -163,7 +165,10 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 	//set position as initial state pos
 	_parent->set_position(initial_state->position);
 	//update
-	_parent->move_and_collide(mov_vct.normalized() * speed_mul * speed * _update_delta);
+	
+	Vector2 velocity = mov_vct.normalized() * speed_mul * speed * _update_delta;
+	_parent->move_and_collide(velocity);
+	
 	Vector2 new_position = _parent->get_position();
 	//append new state
 	_stateVectors.push_back(stateVector(new_position,mov_vct,rot,speed_mul,input_id));
@@ -189,7 +194,7 @@ void CharMovement::_client_process_vectors()
 		Tween *ptween = static_cast<Tween *> (_parent->get_node("ptween"));
 
 		ptween->interpolate_property(_parent, "position", _parent->get_position(), _stateVectors.back().position,
-				_update_delta, Tween::TRANS_LINEAR,Tween::EASE_OUT);
+				_update_delta, Tween::TRANS_LINEAR,Tween::EASE_OUT_IN);
 		
 		ptween->start();
 

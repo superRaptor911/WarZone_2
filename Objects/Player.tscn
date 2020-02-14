@@ -1,14 +1,31 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Player.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://calibrib.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=2]
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Label
+
+
+onready var par = get_parent()
+
+func _process(delta):
+	rect_global_position = par.position - Vector2(10,60)
+	set_rotation(-par.rotation)
+"
 
 [node name="Player" groups=[
 "User",
 ] instance=ExtResource( 1 )]
-position = Vector2( 325.496, 291.54 )
+position = Vector2( 478.288, 270.546 )
 script = ExtResource( 2 )
+speed = 150.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="0"]
 
@@ -22,4 +39,16 @@ smoothing_enabled = true
 
 [node name="Timer" type="Timer" parent="." index="5"]
 one_shot = true
+
+[node name="name_tag" type="Label" parent="." index="11"]
+margin_left = -33.0
+margin_top = -55.0
+margin_right = 48.0
+margin_bottom = -39.0
+custom_fonts/font = SubResource( 2 )
+text = "Raptor"
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -28,7 +28,7 @@ build_targets()
 		build_result+=1
 	else
 	    result+="operation $2 failed ( ${plats[i]} )\n"
-	    #exit 1
+	    exit 1
 	fi
 }
 
