@@ -40,7 +40,7 @@ func _ready():
 		hud.setUser(self)
 		add_child(hud)
 		hud.get_node("respawn").max_value = 4.0
-		switchGun()
+		rpc("switchGun")
 
 
 func _on_player_killed():

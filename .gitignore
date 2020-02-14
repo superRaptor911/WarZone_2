@@ -3,5 +3,9 @@
 *.a
 *.o
 *.dll
+*.exe
+*.apk
+*.pck
+*.x86_64
 Output/
 *.os
