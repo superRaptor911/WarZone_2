@@ -68,6 +68,7 @@ func setSkin(s):
 	#set new skin
 	skin = s
 	skin.set_name("skin")
+	connect("char_killed",skin,"_on_killed")
 	add_child(skin)
 	
 #increases movement speed
@@ -129,7 +130,7 @@ remote func sync_health(hp,ap):
 remotesync func sync_death():
 	alive = false
 	skin.set_deferred("disabled",true)
-	$dtween.interpolate_property(skin,"modulate",Color8(255,255,255,255),Color8(255,255,255,0),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	$dtween.interpolate_property(skin,"modulate",null,Color8(255,255,255,0),6,Tween.TRANS_LINEAR,Tween.EASE_IN,3)
 	$dtween.start()
 	emit_signal("char_killed")
 

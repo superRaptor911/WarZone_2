@@ -149,6 +149,7 @@ remote func _sync_throwGrenade(nam):
 
 sync func sync_respawn(pos,id):
 	show()
+	$dtween.stop(skin)
 	$dtween.interpolate_property(skin,"modulate",Color8(50,50,200,255),Color8(255,255,255,255),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
 	$dtween.start()
 	alive = true
@@ -158,6 +159,7 @@ sync func sync_respawn(pos,id):
 	$movmtCPP._teleportCharacter(pos)
 	load_guns(network.players[id].primary_gun_name,network.players[id].sec_gun_name)
 	switchGun()
+	skin.revive()
 
 remotesync func switchGun():
 	skin.switchGun(selected_gun.gun_type)

@@ -87,6 +87,7 @@ func _on_Timer_timeout():
 #do reloading
 func reload():
 	if clips > 0 and not reloading:
+		$reload.play()
 		$Reload_time.start()
 		reloading = true
 		emit_signal("reloading_gun")

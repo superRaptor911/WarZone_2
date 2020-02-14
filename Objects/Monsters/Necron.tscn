@@ -11,6 +11,9 @@ damage = 50.0
 attack_radius = 35.0
 pname = "Necron"
 
+[node name="free_timer" parent="." index="2"]
+wait_time = 4.0
+
 [node name="bloodSpot" parent="." index="3"]
 z_index = 0
 z_as_relative = true

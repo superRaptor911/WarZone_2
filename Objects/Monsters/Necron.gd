@@ -16,7 +16,7 @@ func _on_necron_killed():
 	$bloodSpot.emitting = false
 	#skin.queue_free()
 	#skin = null
-	$free_timer.start()
+	$free_timer.start(8)
 
 func attack(delta : float):
 	if (destination - position).length() <= attack_radius and $Timer.is_stopped():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Models/Model.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Character/default/head.png" type="Texture" id=2]
@@ -9,9 +9,10 @@
 [ext_resource path="res://Sprites/Character/default/body.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/Character/default/hand.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Character/default/arm.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/particles/blood_scat1.png" type="Texture" id=10]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16.1368, 5.77634 )
+[sub_resource type="CircleShape2D" id=8]
+radius = 11.8113
 
 [sub_resource type="Animation" id=2]
 resource_name = "smg"
@@ -537,7 +538,7 @@ tracks/5/keys = {
 [node name="Model" type="CollisionShape2D"]
 z_index = 2
 z_as_relative = false
-shape = SubResource( 1 )
+shape = SubResource( 8 )
 script = ExtResource( 1 )
 
 [node name="walk" type="AudioStreamPlayer2D" parent="."]
@@ -593,7 +594,7 @@ texture = ExtResource( 5 )
 
 [node name="hand" type="Sprite" parent="body/l_shoulder/arm/joint"]
 position = Vector2( 0.950844, -0.271236 )
-rotation = 0.887293
+rotation = 0.314035
 z_index = -1
 texture = ExtResource( 8 )
 offset = Vector2( 3, -21 )
@@ -624,4 +625,15 @@ offset = Vector2( 3, -21 )
 [node name="fist" type="Node2D" parent="body/r_shoulder/arm/joint/hand"]
 position = Vector2( 0.670029, -38.5377 )
 rotation = -0.596428
+
+[node name="blood_scat" type="Sprite" parent="."]
+visible = false
+position = Vector2( 7.61944, -3.84794 )
+scale = Vector2( 0.372423, 0.331879 )
+z_index = -1
+texture = ExtResource( 10 )
+
+[node name="Sprite" type="Sprite" parent="blood_scat"]
+position = Vector2( -38.9172, -40.4954 )
+texture = ExtResource( 2 )
 [connection signal="animation_finished" from="anim" to="." method="_on_AnimationPlayer_animation_finished"]

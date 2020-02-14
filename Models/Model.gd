@@ -20,7 +20,8 @@ func _ready():
 	fist.rotation = rotation
 
 func _process(delta):
-	walking()
+	if parent.alive:
+		walking()
 	#fist.rotation = rotation - 1.57
 
 func walking():
@@ -59,3 +60,14 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "smg_reload":
 		$anim.play("smg")
 		current_anim = "smg"
+
+func _on_killed():
+	$blood_scat.show()
+	$body.hide()
+	$anim.stop()
+	$walking.stop()
+	
+func revive():
+	$blood_scat.hide()
+	$body.show()
+

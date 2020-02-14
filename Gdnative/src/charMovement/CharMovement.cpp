@@ -166,8 +166,8 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 	_parent->set_position(initial_state->position);
 	//update
 	
-	Vector2 velocity = mov_vct.normalized() * speed_mul * speed * _update_delta;
-	_parent->move_and_collide(velocity);
+
+	_parent->move_and_collide(mov_vct.normalized() * speed_mul * speed * _update_delta);
 	
 	Vector2 new_position = _parent->get_position();
 	//append new state

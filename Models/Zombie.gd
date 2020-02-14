@@ -17,7 +17,7 @@ func _ready():
 		parent.connect("char_took_damage",self,"_on_damaged")
 
 func _process(delta):
-	if is_monster:
+	if is_monster and parent.alive:
 		if parent.movement_vector.length() and current_anim != "zm_w" and not $anim.is_playing():
 			$anim.play("zombie_walk")
 			current_anim = "zm_w"
