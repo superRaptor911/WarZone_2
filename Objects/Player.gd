@@ -27,6 +27,7 @@ var _pause_cntrl : bool = false
 func _ready():
 	$Gun.queue_free()
 	$name_tag.text = pname
+	switchGun()
 	if is_network_master():
 		pname = game_states.player_info.name
 		$Camera2D.current = true
@@ -41,7 +42,7 @@ func _ready():
 		hud.setUser(self)
 		add_child(hud)
 		hud.get_node("respawn").max_value = 4.0
-		rpc("switchGun")
+		#rpc("switchGun")
 		
 
 

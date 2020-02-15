@@ -59,6 +59,9 @@ margin_top = 145.871
 margin_right = 773.226
 margin_bottom = 177.871
 custom_fonts/font = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Timer" type="Timer" parent="Label"]
 wait_time = 0.75

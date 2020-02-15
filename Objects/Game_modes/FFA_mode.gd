@@ -104,21 +104,20 @@ func _ready():
 		$Label/Timer.start()
 
 func _process(delta):
-	showQuakeKills()
+	if get_tree().is_network_server():
+		showQuakeKills()
 
 func showQuakeKills():
 	if quake_sound_queue.size():
-		$Label.modulate = Color8(255,255,255,255)
-		$Label.text = quake_sound_queue[0].msg
-		$quake_sounds.get_node(quake_sound_queue[0].sound_name).play()
+		var is_last_msg :bool = false
+		if quake_sound_queue.size() == 1:
+			is_last_msg = true
+		rpc("syncQuakeKills",quake_sound_queue[0].msg, quake_sound_queue[0].sound_name, is_last_msg)
 		quake_sound_queue.erase(quake_sound_queue[0])
-		if not quake_sound_queue.size():
-			$Tween.interpolate_property($Label,"modulate",Color8(255,255,255,255),Color8(255,255,255,0),5,Tween.TRANS_LINEAR,Tween.EASE_OUT)
-			$Tween.start()
-		rpc_unreliable("syncQuakeKills",$Label.text,not quake_sound_queue.size())
 
-
-remote func syncQuakeKills(msg,sound_name,is_last_msg : bool):
+remotesync func syncQuakeKills(msg,sound_name,is_last_msg : bool):
+	print("called")
+	$Label.modulate = Color8(255,255,255,255)
 	$Label.text = msg
 	$quake_sounds.get_node(sound_name).play()
 	if is_last_msg:
