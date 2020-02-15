@@ -2,7 +2,7 @@ extends "res://Objects/Character.gd"
 
 class_name Player
 
-export var regen_rate : float = 10
+export var regen_rate : float = 5
 var primary_gun = null
 var sec_gun = null
 var selected_gun : Gun

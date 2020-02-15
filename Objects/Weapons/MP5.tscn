@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Weapons/MP5.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Weapons/mp5.png" type="Texture" id=3]
 [ext_resource path="res://Sfx/weapons/smg/mp5.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sprites/Weapons/mp5_p.png" type="Texture" id=5]
 
 [node name="MP5" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -12,11 +13,12 @@ gun_name = "MP5"
 damage = 12.0
 rounds_in_clip = 30
 clips = 99
-projectile_velocity = 700
+projectile_velocity = 700.0
 rate_of_fire = 12.0
 spread = 0.01
 recoil_factor = 0.25
 max_zoom = 1.25
+gun_portrait = ExtResource( 5 )
 
 [node name="Muzzle" parent="." index="1"]
 position = Vector2( 3.57564, -22.1728 )

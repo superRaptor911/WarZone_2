@@ -1,8 +1,7 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Menus/HUD/Hud.gd" type="Script" id=1]
-[ext_resource path="res://Menus/HUD/reloadfinal.png" type="Texture" id=2]
-[ext_resource path="res://Menus/HUD/reloadPressed.png" type="Texture" id=3]
+[ext_resource path="res://Menus/resources/wpn_icon_base.png" type="Texture" id=2]
 [ext_resource path="res://Menus/HUD/fistfinal.png" type="Texture" id=4]
 [ext_resource path="res://Menus/HUD/scope3.png" type="Texture" id=5]
 [ext_resource path="res://Menus/HUD/grenedefinal.png" type="Texture" id=6]
@@ -12,6 +11,7 @@
 [ext_resource path="res://Menus/Inventory/label_bg.png" type="Texture" id=10]
 [ext_resource path="res://Menus/Inventory/label2.png" type="Texture" id=11]
 [ext_resource path="res://Antaro.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://Menus/resources/next_gun.png" type="Texture" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -24,15 +24,21 @@ font_data = ExtResource( 12 )
 script = ExtResource( 1 )
 
 [node name="reload" type="TextureButton" parent="."]
-margin_left = 1166.15
-margin_top = 15.5954
-margin_right = 1257.15
-margin_bottom = 94.5954
-rect_rotation = -1.35874
+modulate = Color( 1, 1, 1, 0.494118 )
+margin_left = 1092.0
+margin_top = 7.0
+margin_right = 1189.0
+margin_bottom = 53.0
+rect_scale = Vector2( 1.70963, 1.78606 )
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 2 )
-texture_pressed = ExtResource( 3 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gun_s" type="Sprite" parent="reload"]
+position = Vector2( 49.3343, 20.9947 )
 
 [node name="melee" type="TextureButton" parent="."]
 margin_left = 715.197
@@ -64,10 +70,10 @@ texture_normal = ExtResource( 6 )
 expand = true
 
 [node name="Panel" type="Panel" parent="."]
-margin_left = 1169.94
-margin_top = 109.237
-margin_right = 1262.93
-margin_bottom = 153.237
+margin_left = 1121.88
+margin_top = 104.363
+margin_right = 1214.87
+margin_bottom = 148.363
 __meta__ = {
 "_edit_group_": true
 }
@@ -258,9 +264,22 @@ margin_bottom = 248.0
 rect_clip_content = true
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
+
+[node name="nextGun" type="TextureButton" parent="."]
+margin_left = 1088.55
+margin_top = 9.98502
+margin_right = 1128.55
+margin_bottom = 49.985
+rect_scale = Vector2( -1.8, 1.8 )
+texture_normal = ExtResource( 13 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="reload" to="." method="_on_reload_pressed"]
 [connection signal="pressed" from="zoom" to="." method="_on_zoom_pressed"]
 [connection signal="pressed" from="HE" to="." method="_on_HE_pressed"]
 [connection signal="pressed" from="pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="Panel2/score" to="." method="_on_score_pressed"]
 [connection signal="pressed" from="Panel2/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="nextGun" to="." method="_on_nextGun_pressed"]

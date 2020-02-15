@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Weapons/Gun.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Weapons/pistol_1.png" type="Texture" id=2]
 [ext_resource path="res://Sfx/weapons/handgun/usp.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sfx/weapons/handgun/pis_clipout.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sfx/weapons/rifle/ak47_reload.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sprites/Weapons/gun_p.png" type="Texture" id=6]
 
 [node name="Gun" type="Node2D"]
 position = Vector2( 213.783, 186.488 )
@@ -12,6 +13,7 @@ rotation = -1.5708
 z_index = 1
 script = ExtResource( 1 )
 projectile_velocity = 1200.0
+gun_portrait = ExtResource( 6 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

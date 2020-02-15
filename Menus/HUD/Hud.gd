@@ -8,14 +8,11 @@ func _ready():
 	ini_pause_posi = $Panel2.rect_global_position
 	$Panel2.rect_global_position = Vector2(-500,-500)
 	kill_msg_slots = Kill_Message_slots.new(self,8)
-	if not game_states.is_android:
-		$melee.queue_free()
-		$reload.queue_free()
-		$HE.queue_free()
 
 func setUser(u):
 	user = u
 	$Panel/ammo.text = String( user.selected_gun.rounds_left) + "|" + String(user.selected_gun.clips)
+	$reload/gun_s.texture = user.selected_gun.gun_portrait
 
 func _process(delta):
 	$Panel/ammo.text = String( user.selected_gun.rounds_left) + "|" + String(user.selected_gun.clips)
@@ -171,3 +168,8 @@ class Kill_Message_slots:
 
 func addKillMessage(msg):
 	kill_msg_slots.addKillMessage(msg)
+
+
+func _on_nextGun_pressed():
+	user.rpc("switchGun")
+	$reload/gun_s.texture = user.selected_gun.gun_portrait
