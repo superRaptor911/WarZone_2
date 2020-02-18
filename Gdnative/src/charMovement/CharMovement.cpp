@@ -153,7 +153,22 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 	float speed = _parent->get("speed");
 	if (!initial_state)
 	{
-		_parent->move_and_collide(mov_vct.normalized() * speed_mul * speed * _update_delta);
+		//velocity of character
+		Vector2 velocity =mov_vct.normalized() * speed_mul * speed * _update_delta;
+		
+		Ref<KinematicCollision2D> collision = _parent->move_and_collide(velocity);
+		//test collision
+		if (*collision)
+		{
+			velocity.slide(collision->get_normal());
+
+			//if able to move then move
+			if (!_parent->test_move(_parent->get_transform(), velocity))
+			{
+				Vector2 slide_pos = _parent->get_position();
+				_parent->set_position(slide_pos + velocity);
+			}
+		}
 		_stateVectors.push_back(stateVector(_parent->get_position(), mov_vct, rot, speed_mul, input_id));
 		return;
 	}
@@ -166,9 +181,20 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 	_parent->set_position(initial_state->position);
 	//update
 	
+	//velocity of character
+	Vector2 velocity =mov_vct.normalized() * speed_mul * speed * _update_delta;
+		
+	Ref<KinematicCollision2D> collision = _parent->move_and_collide(velocity);
+	//test collision
+	if (collision.ptr())
+	{
+		velocity.slide(collision->get_normal());
 
-	_parent->move_and_collide(mov_vct.normalized() * speed_mul * speed * _update_delta);
-	
+			Godot::print("moving");
+			Vector2 slide_pos = _parent->get_position();
+			_parent->set_position(slide_pos + velocity);
+	}
+
 	Vector2 new_position = _parent->get_position();
 	//append new state
 	_stateVectors.push_back(stateVector(new_position,mov_vct,rot,speed_mul,input_id));
