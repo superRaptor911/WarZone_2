@@ -11,10 +11,11 @@ func _join_lobby():
 
 
 func _on_create_pressed():
-	var port = int($PanelContainer/Panel/container/port.text)
-	var max_p = int($PanelContainer/Panel/container/max_pl.text)
+	var port = int($panel/contatiner/e3.text)
+	var max_p = int($panel/contatiner/e2.text)
+	var sever_name = $panel/contatiner/e1.text
 	$btn_click.play()
-	network.create_server(port,max_p)
+	network.create_server(sever_name,port,max_p)
 	
 
 

@@ -1,28 +1,45 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Menus/MainMenu/Join_menu.gd" type="Script" id=1]
-[ext_resource path="res://Menus/Inventory/label_bg.png" type="Texture" id=2]
-[ext_resource path="res://Menus/Inventory/label2.png" type="Texture" id=3]
-[ext_resource path="res://Menus/Inventory/label3.png" type="Texture" id=4]
+[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
+[ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Menus/resources/light_b.png" type="Texture" id=4]
 [ext_resource path="res://Menus/resources/btn_texture3.png" type="Texture" id=5]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://calibrib.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Menus/resources/dark_w.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=1]
-size = 64
-use_filter = true
-font_data = ExtResource( 7 )
+size = 24
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
+size = 34
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 34
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
 size = 64
 use_filter = true
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 64
+[sub_resource type="Gradient" id=5]
+colors = PoolColorArray( 0.113725, 0.00784314, 0.00784314, 0.337255, 1, 1, 1, 0.682353 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+width = 128
+
+[sub_resource type="DynamicFont" id=7]
+size = 24
 use_filter = true
-font_data = ExtResource( 7 )
+font_data = ExtResource( 3 )
 
 [node name="Join_menu" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -38,119 +55,20 @@ margin_right = 640.0
 margin_bottom = 360.0
 texture = ExtResource( 2 )
 expand = true
-
-[node name="Panel" type="TextureRect" parent="PanelContainer"]
-margin_left = 32.0
-margin_top = 28.0
-margin_right = 1252.0
-margin_bottom = 688.0
-texture = ExtResource( 3 )
-expand = true
-
-[node name="join_button" type="TextureButton" parent="PanelContainer/Panel"]
-margin_left = 986.0
-margin_top = 535.0
-margin_right = 1160.0
-margin_bottom = 617.0
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 5 )
-expand = true
-
-[node name="Label" type="Label" parent="PanelContainer/Panel/join_button"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -48.5
-margin_top = -32.0
-margin_right = 48.5
-margin_bottom = 32.0
-custom_fonts/font = ExtResource( 6 )
-text = "Join"
-
-[node name="back_button" type="TextureButton" parent="PanelContainer/Panel"]
-margin_left = 72.207
-margin_top = 535.0
-margin_right = 246.207
-margin_bottom = 617.0
-texture_normal = ExtResource( 5 )
-expand = true
-
-[node name="Label" type="Label" parent="PanelContainer/Panel/back_button"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -64.5
-margin_top = -32.0
-margin_right = 64.5
-margin_bottom = 32.0
-custom_fonts/font = ExtResource( 6 )
-text = "Back"
-
-[node name="container" type="VBoxContainer" parent="PanelContainer/Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -161.517
-margin_top = -135.369
-margin_right = 397.483
-margin_bottom = 100.631
-custom_constants/separation = 60
 __meta__ = {
-"_edit_group_": true
+"_edit_use_anchors_": false
 }
 
-[node name="ip" type="LineEdit" parent="PanelContainer/Panel/container"]
-margin_right = 559.0
-margin_bottom = 74.0
-custom_fonts/font = SubResource( 1 )
-text = "127.0.0.1"
-max_length = 64
-
-[node name="Label" type="Label" parent="PanelContainer/Panel/container/ip"]
-margin_left = -262.934
-margin_top = 6.07321
-margin_right = -25.9338
-margin_bottom = 70.0732
-custom_fonts/font = ExtResource( 6 )
-text = "Server IP"
-
-[node name="port" type="LineEdit" parent="PanelContainer/Panel/container"]
-margin_top = 134.0
-margin_right = 559.0
-margin_bottom = 208.0
-custom_fonts/font = SubResource( 2 )
-text = "6969"
-max_length = 64
-
-[node name="Label" type="Label" parent="PanelContainer/Panel/container/port"]
-margin_left = -329.672
-margin_top = -1.15833
-margin_right = -29.6718
-margin_bottom = 62.8417
-custom_fonts/font = ExtResource( 6 )
-text = "Server Port"
-
-[node name="Header" type="Label" parent="PanelContainer/Panel"]
-margin_left = 431.024
-margin_top = 35.0793
-margin_right = 777.024
-margin_bottom = 115.079
+[node name="Header" type="Label" parent="."]
+margin_left = 466.197
+margin_top = 26.5857
+margin_right = 812.197
+margin_bottom = 106.586
 custom_fonts/font = ExtResource( 8 )
 text = "Join Game"
-
-[node name="con" type="Label" parent="PanelContainer/Panel"]
-visible = false
-margin_left = 438.719
-margin_top = 541.253
-margin_right = 800.719
-margin_bottom = 605.253
-custom_fonts/font = SubResource( 3 )
-custom_colors/font_color = Color( 0.0392157, 0.0823529, 0.027451, 1 )
-custom_colors/font_color_shadow = Color( 0.807843, 0.52549, 0.52549, 1 )
-text = "Connecting ..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="pop" type="AcceptDialog" parent="."]
 margin_left = 238.0
@@ -161,5 +79,256 @@ window_title = "Error"
 dialog_text = "
 
 Unable to join server."
-[connection signal="pressed" from="PanelContainer/Panel/join_button" to="." method="_on_join_button_pressed"]
-[connection signal="pressed" from="PanelContainer/Panel/back_button" to="." method="_on_back_button_pressed"]
+
+[node name="join_button" type="TextureButton" parent="."]
+margin_left = 1004.7
+margin_top = 601.664
+margin_right = 1178.7
+margin_bottom = 683.664
+expand = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="join_button"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0125
+margin_top = -53.0527
+margin_right = 69.9875
+margin_bottom = 30.9473
+custom_fonts/font = ExtResource( 6 )
+text = "Join"
+
+[node name="back_button" type="TextureButton" parent="."]
+margin_left = 61.0
+margin_top = 657.0
+margin_right = 186.0
+margin_bottom = 702.0
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="back_button"]
+margin_left = 21.5789
+margin_top = 3.63153
+margin_right = 98.5789
+margin_bottom = 35.6315
+custom_fonts/font = SubResource( 1 )
+text = "BACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="VBoxContainer" parent="."]
+anchor_left = 0.555
+anchor_top = 0.5
+anchor_right = 0.555
+anchor_bottom = 0.5
+margin_left = 80.4305
+margin_top = -131.661
+margin_right = 548.431
+margin_bottom = 116.339
+custom_constants/separation = 60
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ip" type="LineEdit" parent="container"]
+margin_right = 468.0
+margin_bottom = 94.0
+custom_fonts/font = ExtResource( 6 )
+text = "127.0.0.1"
+max_length = 64
+
+[node name="Label" type="Label" parent="container/ip"]
+margin_left = -257.0
+margin_top = 23.6312
+margin_right = -60.7675
+margin_bottom = 75.6312
+custom_fonts/font = SubResource( 2 )
+text = "Server IP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="port" type="LineEdit" parent="container"]
+margin_top = 154.0
+margin_right = 468.0
+margin_bottom = 248.0
+custom_fonts/font = ExtResource( 6 )
+text = "6969"
+max_length = 64
+
+[node name="Label" type="Label" parent="container/port"]
+margin_left = -257.937
+margin_top = 23.4618
+margin_right = -16.937
+margin_bottom = 74.4618
+custom_fonts/font = SubResource( 3 )
+text = "Server Port"
+
+[node name="con" type="Label" parent="."]
+visible = false
+margin_left = 470.719
+margin_top = 569.253
+margin_right = 832.719
+margin_bottom = 633.253
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.0392157, 0.0823529, 0.027451, 1 )
+custom_colors/font_color_shadow = Color( 0.807843, 0.52549, 0.52549, 1 )
+text = "Connecting ..."
+
+[node name="serverList" type="TextureRect" parent="."]
+margin_left = 18.1122
+margin_top = 239.153
+margin_right = 484.112
+margin_bottom = 634.153
+texture = SubResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="serverList" type="VBoxContainer" parent="serverList"]
+margin_left = 16.4618
+margin_top = 34.2458
+margin_right = 449.462
+margin_bottom = 84.2458
+custom_constants/separation = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="b1" type="TextureButton" parent="serverList/serverList"]
+visible = false
+margin_right = 433.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 0, 42 )
+texture_normal = ExtResource( 9 )
+expand = true
+
+[node name="label" type="Label" parent="serverList/serverList/b1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -211.5
+margin_top = -16.0
+margin_right = 221.5
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 7 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "best server"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="b2" type="TextureButton" parent="serverList/serverList"]
+visible = false
+margin_right = 433.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 0, 42 )
+texture_normal = ExtResource( 4 )
+expand = true
+
+[node name="label" type="Label" parent="serverList/serverList/b2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -212.5
+margin_top = -21.0
+margin_right = 220.5
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 7 )
+text = "my server"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="b3" type="TextureButton" parent="serverList/serverList"]
+visible = false
+margin_right = 433.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 0, 42 )
+texture_normal = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="serverList/serverList/b3"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -211.5
+margin_top = -16.0
+margin_right = 221.5
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 7 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "best server"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="b4" type="TextureButton" parent="serverList/serverList"]
+visible = false
+margin_top = 47.0
+margin_right = 433.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 0, 42 )
+texture_normal = ExtResource( 4 )
+expand = true
+
+[node name="label" type="Label" parent="serverList/serverList/b4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -212.5
+margin_top = -21.0
+margin_right = 220.5
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 7 )
+text = "my server"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="b5" type="TextureButton" parent="serverList/serverList"]
+visible = false
+margin_right = 433.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 0, 42 )
+texture_normal = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="serverList/serverList/b5"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -211.5
+margin_top = -16.0
+margin_right = 221.5
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 7 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "best server"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="join_button" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="back_button" to="." method="_on_back_button_pressed"]

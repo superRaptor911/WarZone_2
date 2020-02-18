@@ -59,7 +59,8 @@ margin_right = 481.85
 margin_bottom = 615.841
 rect_scale = Vector2( 1.25, 1.3 )
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_use_anchors_": false
 }
 
 [node name="Panel" type="Panel" parent="PanelContainer2"]

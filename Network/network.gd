@@ -1,5 +1,8 @@
 extends Node2D
 
+var serverAvertiser = null
+
+
 var players = {}
 
 var server_info = {
@@ -15,6 +18,7 @@ signal player_list_changed                     # List of players has been change
 signal player_removed(pinfo)
 signal disconnected
 signal server_stopped
+
 
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_on_player_connected")
@@ -55,7 +59,7 @@ func _on_disconnected_from_server():
 	# Reset the player info network ID
 	game_states.player_info.net_id = 1
 	
-func create_server(port,max_players):
+func create_server(server_name,port,max_players):
 	var net = NetworkedMultiplayerENet.new()
 	if (net.create_server(port,max_players) != OK):
 		print("Failed to create server")
@@ -65,6 +69,12 @@ func create_server(port,max_players):
 	server_info.port = port
 	server_info.max_players = max_players
 	register_player(game_states.player_info)
+	serverAvertiser = preload("res://Network/ServerAdvertiser.gd").new()
+	add_child(serverAvertiser)
+	serverAvertiser.serverInfo.port = String(port)
+	serverAvertiser.serverInfo.max_players = String(max_players)
+	serverAvertiser.serverInfo.name = server_name
+	
 	
 func join_server(ip, port):
 	var net = NetworkedMultiplayerENet.new()
@@ -116,5 +126,7 @@ func _close_server():
 	#Terminate server
 	get_tree().set_network_peer(null)
 	emit_signal("server_stopped")
+	serverAvertiser.queue_free()
 	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
+	
 

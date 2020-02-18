@@ -1,137 +1,93 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Menus/MainMenu/host_menu.gd" type="Script" id=1]
-[ext_resource path="res://Menus/Inventory/label_bg.png" type="Texture" id=2]
-[ext_resource path="res://Menus/Inventory/label2.png" type="Texture" id=3]
-[ext_resource path="res://Menus/Inventory/label3.png" type="Texture" id=4]
+[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
+[ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Menus/resources/btn_texture3.png" type="Texture" id=5]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
-[ext_resource path="res://calibrib.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Sfx/menus/btn_hvr.wav" type="AudioStream" id=9]
 
-[sub_resource type="DynamicFont" id=1]
-size = 64
+[sub_resource type="DynamicFont" id=7]
+size = 36
 use_filter = true
-font_data = ExtResource( 7 )
+font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 64
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 0.101685, 0.185144, 0.382812, 0.462745, 0.236069, 0.746094, 0.255992, 0.792157 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
 use_filter = true
-font_data = ExtResource( 7 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+use_filter = true
+font_data = ExtResource( 3 )
 
 [node name="host_menu" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="PanelContainer" type="TextureRect" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -640.0
-margin_top = -360.0
-margin_right = 640.0
-margin_bottom = 360.0
+[node name="Panel" type="TextureRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
 texture = ExtResource( 2 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="TextureRect" parent="PanelContainer"]
-margin_left = 32.0
-margin_top = 28.0
-margin_right = 1252.0
-margin_bottom = 688.0
-texture = ExtResource( 3 )
+[node name="create" type="TextureButton" parent="Panel"]
+margin_left = 1063.81
+margin_top = 615.711
+margin_right = 1237.8
+margin_bottom = 697.711
 expand = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
 
-[node name="create" type="TextureButton" parent="PanelContainer/Panel"]
-margin_left = 977.134
-margin_top = 537.449
-margin_right = 1151.13
-margin_bottom = 619.449
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 5 )
-expand = true
-
-[node name="Label" type="Label" parent="PanelContainer/Panel/create"]
+[node name="Label" type="Label" parent="Panel/create"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -66.0
-margin_top = -32.0
-margin_right = 66.0
-margin_bottom = 32.0
+margin_left = -86.8716
+margin_top = -41.822
+margin_right = 93.1284
+margin_bottom = 42.178
 custom_fonts/font = ExtResource( 6 )
 text = "Start"
 
-[node name="back" type="TextureButton" parent="PanelContainer/Panel"]
-margin_left = 63.4605
-margin_top = 558.282
-margin_right = 237.461
-margin_bottom = 640.282
+[node name="back" type="TextureButton" parent="Panel"]
+margin_left = 61.0
+margin_top = 657.0
+margin_right = 186.0
+margin_bottom = 702.0
 texture_normal = ExtResource( 5 )
 expand = true
-
-[node name="Label" type="Label" parent="PanelContainer/Panel/back"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -64.5
-margin_top = -32.0
-margin_right = 64.5
-margin_bottom = 32.0
-custom_fonts/font = ExtResource( 6 )
-text = "Back"
-
-[node name="container" type="VBoxContainer" parent="PanelContainer/Panel"]
-margin_left = 456.797
-margin_top = 218.405
-margin_right = 1116.8
-margin_bottom = 416.405
-custom_constants/separation = 50
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="port" type="LineEdit" parent="PanelContainer/Panel/container"]
-margin_right = 660.0
-margin_bottom = 74.0
-custom_fonts/font = SubResource( 1 )
-text = "6969"
-max_length = 64
+[node name="Label" type="Label" parent="Panel/back"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -49.5007
+margin_top = -27.8337
+margin_right = 117.499
+margin_bottom = 56.1663
+custom_fonts/font = SubResource( 7 )
+text = "Back"
 
-[node name="Label" type="Label" parent="PanelContainer/Panel/container/port"]
-margin_left = -334.208
-margin_top = 8.41709
-margin_right = -34.2077
-margin_bottom = 72.4171
-custom_fonts/font = ExtResource( 6 )
-text = "Server Port"
-
-[node name="max_pl" type="LineEdit" parent="PanelContainer/Panel/container"]
-margin_top = 124.0
-margin_right = 660.0
-margin_bottom = 198.0
-custom_fonts/font = SubResource( 2 )
-text = "4"
-max_length = 64
-
-[node name="Label" type="Label" parent="PanelContainer/Panel/container/max_pl"]
-margin_left = -352.823
-margin_top = 2.68918
-margin_right = -30.8234
-margin_bottom = 66.6892
-custom_fonts/font = ExtResource( 6 )
-text = "Max Players"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="PanelContainer/Panel"]
+[node name="Label" type="Label" parent="Panel"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -191.5
@@ -143,6 +99,88 @@ text = "Host Server"
 
 [node name="btn_click" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
-[connection signal="pressed" from="PanelContainer/Panel/create" to="." method="_on_create_pressed"]
-[connection signal="pressed" from="PanelContainer/Panel/back" to="." method="_on_back_pressed"]
+
+[node name="panel" type="TextureRect" parent="."]
+margin_left = 240.888
+margin_top = 151.797
+margin_right = 984.888
+margin_bottom = 605.797
+texture = SubResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="contatiner" type="VBoxContainer" parent="panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.8264
+margin_top = -143.844
+margin_right = 315.174
+margin_bottom = 95.1564
+custom_constants/separation = 40
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="e1" type="LineEdit" parent="panel/contatiner"]
+margin_right = 364.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 5 )
+text = "My Server"
+max_length = 64
+
+[node name="Label" type="Label" parent="panel/contatiner/e1"]
+margin_left = -266.225
+margin_top = 5.1694
+margin_right = -50.2255
+margin_bottom = 48.1694
+custom_fonts/font = SubResource( 6 )
+text = "Server Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="e2" type="LineEdit" parent="panel/contatiner"]
+margin_top = 93.0
+margin_right = 364.0
+margin_bottom = 146.0
+custom_fonts/font = SubResource( 5 )
+text = "8"
+max_length = 64
+
+[node name="Label" type="Label" parent="panel/contatiner/e2"]
+margin_left = -266.225
+margin_top = 5.1694
+margin_right = -50.2255
+margin_bottom = 48.1694
+custom_fonts/font = SubResource( 6 )
+text = "Max Players"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="e3" type="LineEdit" parent="panel/contatiner"]
+margin_top = 186.0
+margin_right = 364.0
+margin_bottom = 239.0
+custom_fonts/font = SubResource( 5 )
+text = "6569"
+max_length = 64
+
+[node name="Label" type="Label" parent="panel/contatiner/e3"]
+margin_left = -266.225
+margin_top = 5.1694
+margin_right = -50.2255
+margin_bottom = 48.1694
+custom_fonts/font = SubResource( 6 )
+text = "Port"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Panel/create" to="." method="_on_create_pressed"]
+[connection signal="pressed" from="Panel/back" to="." method="_on_back_pressed"]
 [connection signal="finished" from="btn_click" to="." method="_on_btn_click_finished"]

@@ -11,7 +11,7 @@
 [ext_resource path="res://Sprites/Character/default/arm.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/particles/blood_scat1.png" type="Texture" id=10]
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=1]
 radius = 11.8113
 
 [sub_resource type="Animation" id=2]
@@ -538,7 +538,7 @@ tracks/5/keys = {
 [node name="Model" type="CollisionShape2D"]
 z_index = 2
 z_as_relative = false
-shape = SubResource( 8 )
+shape = SubResource( 1 )
 script = ExtResource( 1 )
 
 [node name="walk" type="AudioStreamPlayer2D" parent="."]

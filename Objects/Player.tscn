@@ -5,11 +5,11 @@
 [ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=3]
 [ext_resource path="res://calibrib.ttf" type="DynamicFontData" id=4]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 use_filter = true
 font_data = ExtResource( 4 )
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=2]
 script/source = "extends Label
 
 
@@ -45,9 +45,9 @@ margin_left = -33.0
 margin_top = -55.0
 margin_right = 48.0
 margin_bottom = -39.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Raptor"
-script = SubResource( 1 )
+script = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

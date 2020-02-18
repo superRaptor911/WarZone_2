@@ -38,6 +38,16 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://Objects/Player.gd"
+}, {
+"base": "Node",
+"class": "ServerAdvertiser",
+"language": "GDScript",
+"path": "res://Network/ServerAdvertiser.gd"
+}, {
+"base": "Node",
+"class": "ServerListener",
+"language": "GDScript",
+"path": "res://Network/ServerListener.gd"
 } ]
 _global_script_class_icons={
 "BOT_FSM_STATE": "",
@@ -45,7 +55,9 @@ _global_script_class_icons={
 "Model": "",
 "Monster": "",
 "Necron": "",
-"Player": ""
+"Player": "",
+"ServerAdvertiser": "",
+"ServerListener": ""
 }
 
 [application]
