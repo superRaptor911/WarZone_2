@@ -155,19 +155,14 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 	{
 		//velocity of character
 		Vector2 velocity =mov_vct.normalized() * speed_mul * speed * _update_delta;
-		
+			
 		Ref<KinematicCollision2D> collision = _parent->move_and_collide(velocity);
 		//test collision
-		if (*collision)
+		if (collision.ptr())
 		{
 			velocity.slide(collision->get_normal());
-
-			//if able to move then move
-			if (!_parent->test_move(_parent->get_transform(), velocity))
-			{
-				Vector2 slide_pos = _parent->get_position();
-				_parent->set_position(slide_pos + velocity);
-			}
+			Vector2 slide_pos = _parent->get_position();
+			_parent->set_position(slide_pos + velocity);
 		}
 		_stateVectors.push_back(stateVector(_parent->get_position(), mov_vct, rot, speed_mul, input_id));
 		return;
@@ -189,10 +184,8 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 	if (collision.ptr())
 	{
 		velocity.slide(collision->get_normal());
-
-			Godot::print("moving");
-			Vector2 slide_pos = _parent->get_position();
-			_parent->set_position(slide_pos + velocity);
+		Vector2 slide_pos = _parent->get_position();
+		_parent->set_position(slide_pos + velocity);
 	}
 
 	Vector2 new_position = _parent->get_position();
@@ -307,7 +300,19 @@ void CharMovement::_computeStates(Vector2 pos)
 	for (auto it = _stateVectors.begin(); it != _stateVectors.end(); it++)
 	{
 		it->position = _parent->get_position();
-		_parent->move_and_collide(it->movement_vector * static_cast<float>(_parent->get("speed")) * it->speed_multiplier * _update_delta);
+
+		Vector2 velocity = it->movement_vector * static_cast<float>(_parent->get("speed")) 
+							* it->speed_multiplier * _update_delta;
+		
+		_parent->move_and_collide(velocity);
+		Ref<KinematicCollision2D> collision = _parent->move_and_collide(velocity);
+		//test collision
+		if (collision.ptr())
+		{
+			velocity.slide(collision->get_normal());
+			Vector2 slide_pos = _parent->get_position();
+			_parent->set_position(slide_pos + velocity);
+		}
 	}
 }
 

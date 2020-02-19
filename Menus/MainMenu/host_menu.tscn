@@ -8,23 +8,23 @@
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Sfx/menus/btn_hvr.wav" type="AudioStream" id=9]
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=1]
 size = 36
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=2]
 colors = PoolColorArray( 0.101685, 0.185144, 0.382812, 0.462745, 0.236069, 0.746094, 0.255992, 0.792157 )
 
-[sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 3 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=5]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
@@ -84,7 +84,7 @@ margin_left = -49.5007
 margin_top = -27.8337
 margin_right = 117.499
 margin_bottom = 56.1663
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 1 )
 text = "Back"
 
 [node name="Label" type="Label" parent="Panel"]
@@ -105,7 +105,7 @@ margin_left = 240.888
 margin_top = 151.797
 margin_right = 984.888
 margin_bottom = 605.797
-texture = SubResource( 4 )
+texture = SubResource( 3 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -129,7 +129,7 @@ __meta__ = {
 [node name="e1" type="LineEdit" parent="panel/contatiner"]
 margin_right = 364.0
 margin_bottom = 53.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "My Server"
 max_length = 64
 
@@ -138,7 +138,7 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "Server Name"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -148,7 +148,7 @@ __meta__ = {
 margin_top = 93.0
 margin_right = 364.0
 margin_bottom = 146.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "8"
 max_length = 64
 
@@ -157,7 +157,7 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "Max Players"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -167,7 +167,7 @@ __meta__ = {
 margin_top = 186.0
 margin_right = 364.0
 margin_bottom = 239.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "6569"
 max_length = 64
 
@@ -176,7 +176,7 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "Port"
 __meta__ = {
 "_edit_use_anchors_": false

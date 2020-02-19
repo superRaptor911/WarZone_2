@@ -73,7 +73,7 @@ func setSkin(s):
 	
 #increases movement speed
 func useSprint():
-	speed_multiplier = 1.75
+	speed_multiplier = 1.3
 
 #Take damage from some weapon used by someone
 func takeDamage(damage : float,weapon,attacker):
