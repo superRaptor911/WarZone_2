@@ -18,6 +18,9 @@ wait_time = 4.0
 z_index = 0
 z_as_relative = true
 
+[node name="bloodSplash" parent="." index="4"]
+lifetime = 3.0
+
 [node name="Timer" type="Timer" parent="." index="8"]
 wait_time = 0.7
 one_shot = true

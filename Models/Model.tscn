@@ -630,7 +630,7 @@ rotation = -0.596428
 visible = false
 position = Vector2( 7.61944, -3.84794 )
 scale = Vector2( 0.372423, 0.331879 )
-z_index = -1
+z_index = -2
 texture = ExtResource( 10 )
 
 [node name="Sprite" type="Sprite" parent="blood_scat"]

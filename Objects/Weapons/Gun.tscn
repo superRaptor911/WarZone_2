@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/Weapons/Gun.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Weapons/pistol_1.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sfx/weapons/handgun/pis_clipout.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sfx/weapons/rifle/ak47_reload.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sprites/Weapons/gun_p.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/particles/muzzle.png" type="Texture" id=7]
 
 [node name="Gun" type="Node2D"]
 position = Vector2( 213.783, 186.488 )
@@ -20,6 +21,13 @@ one_shot = true
 
 [node name="Muzzle" type="Node2D" parent="."]
 position = Vector2( 0, -11.3392 )
+
+[node name="muzzle" type="Sprite" parent="Muzzle"]
+visible = false
+position = Vector2( 1.58228, -9.22607 )
+rotation = -1.5708
+scale = Vector2( 0.0632557, 0.0609472 )
+texture = ExtResource( 7 )
 
 [node name="Reload_time" type="Timer" parent="."]
 one_shot = true
@@ -40,7 +48,7 @@ one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, -350 )
+cast_to = Vector2( 0, -500 )
 collision_mask = 3
 
 [node name="reload" type="AudioStreamPlayer2D" parent="."]

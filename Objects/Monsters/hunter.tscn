@@ -13,6 +13,9 @@ pname = "hunter"
 [node name="free_timer" parent="." index="2"]
 wait_time = 4.0
 
+[node name="bloodSplash" parent="." index="4"]
+lifetime = 3.0
+
 [node name="target_update" type="Timer" parent="." index="5"]
 wait_time = 2.0
 one_shot = true

@@ -24,6 +24,8 @@ var reloading : bool = false
 var max_ray_distance : float = 200
 var ray_dest : Vector2
 var laser_sight : bool = true
+var target : bool = false
+var muzzle_frames = 0
 
 signal gun_fired
 signal reloading_gun
@@ -55,25 +57,29 @@ func fireGun():
 			reloading = true
 
 #create projectile
-remote func _create_bullet(sprd):
-	var bullet = projectile.instance()
-	bullet.create_bullet($Muzzle.global_position,global_rotation + sprd,projectile_velocity,damage,self,gun_user)
-	get_tree().root.add_child(bullet)
+remote func _create_bullet():
+	#var bullet = projectile.instance()
+	#bullet.create_bullet($Muzzle.global_position,global_rotation + sprd,projectile_velocity,damage,self,gun_user)
+	#get_tree().root.add_child(bullet)
+	$Muzzle/muzzle.show()
+	muzzle_frames = 5
+	if target:
+		var body = $RayCast2D.get_collider()
+		if body and body.is_in_group("Actor"):
+			body.takeDamage(damage,self,gun_user)
 	$fire.play()
 	emit_signal("gun_fired")
 	if get_tree().is_network_server():
-		rpc("_create_bullet",sprd)
+		rpc("_create_bullet")
 
 #shoot weapon
 func _shoot():
 	#increase recoil
-	recoil += recoil_factor
-	var angular_spread : float = rand_range(-spread,spread) * ( 1 + recoil)
 	if get_tree().is_network_server():
-		_create_bullet(angular_spread)
+		_create_bullet()
 	else:
 		#call server to create projectiles
-		rpc_id(1,"_create_bullet",angular_spread)
+		rpc_id(1,"_create_bullet")
 	ready_to_fire = false
 	$Timer.start(1 / rate_of_fire)
 	rounds_left -= 1
@@ -103,9 +109,12 @@ func _on_Reload_time_timeout():
 func _on_recoil_cool_timeout():
 	recoil = 0
 
-var target : bool = false
+
 
 func _process(delta):
+	muzzle_frames = max(muzzle_frames - 1,0)
+	if muzzle_frames == 1:
+		$Muzzle/muzzle.hide()
 	if not laser_sight:
 		return
 	target = false

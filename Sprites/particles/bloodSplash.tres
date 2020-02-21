@@ -1,14 +1,14 @@
 [gd_resource type="ParticlesMaterial" load_steps=3 format=2]
 
 [sub_resource type="Curve" id=1]
-_data = [ Vector2( 0.0105601, 0.2624 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0.025974, 0.157955 ), 0.0, 0.0, 0, 0, Vector2( 0.993506, 0.597727 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=2]
 curve = SubResource( 1 )
 
 [resource]
 flag_disable_z = true
-spread = 15.0
+spread = 10.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 30.0
 initial_velocity_random = 1.0
