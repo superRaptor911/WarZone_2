@@ -57,9 +57,10 @@ func createShadows():
 	
 	#place shadow blocks in x dir
 	for i in xEndingTiles:
-		if yStartingTiles.has(i)  and height_tileset.get_cell(i.x + 1,i.y + 1) == -1:
+		if yStartingTiles.has(i):
 			shadow_tileset.set_cell(i.x+1,i.y,0,false,false,false,Vector2(0,4))
-			shadow_tileset.set_cell(i.x+1,i.y + 1,0,false,false,false,Vector2(0,2))
+			if  height_tileset.get_cell(i.x + 1,i.y + 1) == -1:
+				shadow_tileset.set_cell(i.x+1,i.y + 1,0,false,false,false,Vector2(0,2))
 		else:
 			shadow_tileset.set_cell(i.x+1,i.y,0,false,false,false,Vector2(0,3))
 		if yEndingTiles.has(i) and height_tileset.get_cell(i.x + 1,i.y + 1) == -1:
@@ -69,7 +70,7 @@ func createShadows():
 	for i in yEndingTiles:
 		if shadow_tileset.get_cell(i.x,i.y + 1) != -1:
 			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(0,5))
-		elif xStartingTiles.has(i):
+		elif xStartingTiles.has(i) and height_tileset.get_cell(i.x ,i.y + 1) == -1:
 			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(0,1))
-		else:
+		elif height_tileset.get_cell(i.x,i.y + 1) == -1:
 			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(2,5))
