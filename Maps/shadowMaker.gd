@@ -1,3 +1,4 @@
+tool
 extends TileMap
 
 var xStartingTiles = Array()
@@ -6,10 +7,26 @@ var yStartingTiles = Array()
 var xEndingTiles = Array()
 var yEndingTiles = Array()
 
+var timer = Timer.new()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if Engine.editor_hint:
+		add_child(timer)
+		timer.connect("timeout",self,"_on_timer_timeout")
+		timer.one_shot = false
+		timer.start(5)
+
+func _on_timer_timeout():
+	clearShadows()
 	getWalls()
 	createShadows()
+	print("updated shadow map")
+
+func clearShadows():
+	var used_tiles = $shadow.get_used_cells()
+	for i in used_tiles:
+		$shadow.set_cell(i.x,i.y,-1,false,false,false,Vector2(-1,-1))
 
 class TileYsort:
 	static func compare(a : Vector2,b : Vector2) -> bool:
@@ -22,6 +39,12 @@ class TileYsort:
 
 #function to get walls that cast shadow
 func getWalls():
+	#clear arrays
+	xEndingTiles.clear()
+	xStartingTiles.clear()
+	yStartingTiles.clear()
+	yEndingTiles.clear()
+	
 	var used_tiles = $height.get_used_cells()
 	
 	#Vector2(-999,-999) is taken randomly and it is assumed that
