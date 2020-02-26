@@ -62,7 +62,7 @@ remote func _create_bullet():
 	#bullet.create_bullet($Muzzle.global_position,global_rotation + sprd,projectile_velocity,damage,self,gun_user)
 	#get_tree().root.add_child(bullet)
 	$Muzzle/muzzle.show()
-	muzzle_frames = 5
+	muzzle_frames = 3
 	if target:
 		var body = $RayCast2D.get_collider()
 		if body and body.is_in_group("Actor"):

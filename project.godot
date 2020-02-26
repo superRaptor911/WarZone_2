@@ -48,6 +48,11 @@ _global_script_classes=[ {
 "class": "ServerListener",
 "language": "GDScript",
 "path": "res://Network/ServerListener.gd"
+}, {
+"base": "Node",
+"class": "Team",
+"language": "GDScript",
+"path": "res://Objects/scripts/Team.gd"
 } ]
 _global_script_class_icons={
 "BOT_FSM_STATE": "",
@@ -57,7 +62,8 @@ _global_script_class_icons={
 "Necron": "",
 "Player": "",
 "ServerAdvertiser": "",
-"ServerListener": ""
+"ServerListener": "",
+"Team": ""
 }
 
 [application]

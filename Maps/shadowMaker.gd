@@ -9,6 +9,8 @@ var yEndingTiles = Array()
 
 var timer = Timer.new()
 
+var old_height_array = Array()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Engine.editor_hint:
@@ -18,10 +20,12 @@ func _ready():
 		timer.start(5)
 
 func _on_timer_timeout():
-	clearShadows()
-	getWalls()
-	createShadows()
-	print("updated shadow map")
+	if $height.get_used_cells() != old_height_array:
+		old_height_array = $height.get_used_cells()
+		clearShadows()
+		getWalls()
+		createShadows()
+		print("updated shadow map")
 
 func clearShadows():
 	var used_tiles = $shadow.get_used_cells()

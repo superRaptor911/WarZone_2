@@ -1,5 +1,12 @@
 extends Node2D
 
+export var Level_Name = "no_name"
+
+export var team1_name = "A"
+var team1 = preload("res://Objects/scripts/Team.gd").new()
+export var team2_name = "B"
+var team2 = preload("res://Objects/scripts/Team.gd").new()
+
 var _game
 
 #counts number of players spawned
@@ -8,6 +15,9 @@ var _game
 var no_players_spwaned = 0
 
 func _ready():
+	add_child(team1)
+	add_child(team2)
+	#add_child(load("res://Maps/" + game_states.CURRENT_LEVEL + ".tscn").instance())
 	network.connect("player_list_changed", self, "_on_player_list_changed")
 	network.connect("disconnected", self, "_on_disconnected")
 	if (get_tree().is_network_server()):
@@ -54,6 +64,7 @@ remote func spawn_players(pinfo, spawn_index):
 		nactor.set_name(str(pinfo.net_id))
 	
 	nactor.pname = pinfo.name
+	team1.addPlayer(nactor)
 	print("spawned ",nactor.pname)
 	add_child(nactor)
 	no_players_spwaned += 1

@@ -28,7 +28,6 @@ func _ready():
 		nav = n
 	initial_position = position
 	current_destination = main_destination
-	team = false
 
 
 func _process(delta):

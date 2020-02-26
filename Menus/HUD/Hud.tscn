@@ -110,24 +110,24 @@ rect_scale = Vector2( 1.25, 1.25 )
 columns = 3
 
 [node name="1" type="Label" parent="GridContainer"]
-margin_right = 195.0
-margin_bottom = 64.0
+margin_right = 252.0
+margin_bottom = 84.0
 custom_fonts/font = ExtResource( 9 )
 text = "Players"
 
 [node name="2" type="Label" parent="GridContainer"]
-margin_left = 199.0
-margin_top = 20.0
-margin_right = 284.0
-margin_bottom = 44.0
+margin_left = 256.0
+margin_top = 30.0
+margin_right = 341.0
+margin_bottom = 54.0
 custom_fonts/font = ExtResource( 7 )
 text = "kills         "
 
 [node name="3" type="Label" parent="GridContainer"]
-margin_left = 288.0
-margin_top = 20.0
-margin_right = 358.0
-margin_bottom = 44.0
+margin_left = 345.0
+margin_top = 30.0
+margin_right = 415.0
+margin_bottom = 54.0
 custom_fonts/font = ExtResource( 7 )
 text = "Deaths"
 

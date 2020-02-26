@@ -12,7 +12,7 @@
 [ext_resource path="res://Sprites/particles/blood_scat1.png" type="Texture" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 11.8113
+radius = 17.793
 
 [sub_resource type="Animation" id=2]
 resource_name = "smg"

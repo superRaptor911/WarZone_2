@@ -5,6 +5,7 @@ var is_android : bool = false
 #game modes available
 enum GAME_MODES { TDM,FFA,SURVIVAL}
 var GAME_MODE = GAME_MODES.FFA
+var CURRENT_LEVEL = "factory"
 
 #player info (pinfo) used to send info about player in multiplayer
 var player_info = {

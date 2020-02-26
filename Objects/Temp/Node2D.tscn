@@ -1,16 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Objects/Temp/Node2D.gd" type="Script" id=1]
-[ext_resource path="res://Objects/Temp/TestMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/Tilesets/shadows.tres" type="TileSet" id=2]
+[ext_resource path="res://Sprites/Tilesets/fear.tres" type="TileSet" id=3]
+[ext_resource path="res://Maps/shadowMaker.gd" type="Script" id=4]
 
-[node name="node" type="Node2D"]
+[node name="Level" type="Node2D"]
 script = ExtResource( 1 )
-
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2( 520.655, 1400 )
-
-[node name="TestMap" parent="." instance=ExtResource( 2 )]
-z_index = -2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -19,6 +15,34 @@ margin_left = 97.0
 margin_top = 27.0
 margin_right = 181.0
 margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Node2D2" type="Node2D" parent="."]
-position = Vector2( 1213, 487 )
+[node name="BaseMap" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+format = 1
+script = ExtResource( 4 )
+
+[node name="height" type="TileMap" parent="BaseMap"]
+z_index = 4
+tile_set = ExtResource( 3 )
+format = 1
+tile_data = PoolIntArray( 327688, 11, 0, 393224, 11, 0 )
+
+[node name="shadow" type="TileMap" parent="BaseMap"]
+scale = Vector2( 2, 2 )
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 327689, 0, 262144, 393225, 0, 196608, 458760, 0, 65536, 458761, 0, 131072 )
+
+[node name="spawn" type="Node" parent="." groups=[
+"spawn_points",
+]]
+
+[node name="1" type="Node2D" parent="spawn"]
+position = Vector2( 172.246, 260.42 )
+
+[node name="2" type="Node2D" parent="spawn"]
+position = Vector2( 939.152, 311.684 )

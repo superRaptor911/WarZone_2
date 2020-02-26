@@ -68,6 +68,7 @@ var _player_data = {
 	kills = 0,
 	deaths = 0,
 	ping = 0,
+	score = 0
 }
 
 var _player_data_list = Array()
@@ -92,11 +93,13 @@ func handleKills(victim,killer,weapon_used):
 		if victim.is_in_group("User"):
 			var victim_data = _get_player_data_by_name(victim_name)
 			victim_data.deaths += 1
+			victim.team.updateTeam(victim_data)
 	if killer:
 		killer_name = killer.pname
 		if killer.is_in_group("User"):
 			var killer_data = _get_player_data_by_name(killer_name)
 			killer_data.kills += 1
+			killer.team.updateTeam(killer_data)
 	if weapon_used:
 		if weapon_used.gun_name == "plasma":
 			kill_msg = victim_name + " was burned alive by hot plasma"

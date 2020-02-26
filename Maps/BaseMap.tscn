@@ -1,22 +1,22 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Sprites/Tilesets/fear.tres" type="TileSet" id=1]
-[ext_resource path="res://Sprites/Tilesets/shadows.tres" type="TileSet" id=2]
+[ext_resource path="res://Sprites/Tilesets/shadows.tres" type="TileSet" id=1]
+[ext_resource path="res://Sprites/Tilesets/fear.tres" type="TileSet" id=2]
 [ext_resource path="res://Maps/shadowMaker.gd" type="Script" id=3]
 
 [node name="BaseMap" type="TileMap"]
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 2 )
 format = 1
 script = ExtResource( 3 )
 
 [node name="height" type="TileMap" parent="."]
 z_index = 5
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 2 )
 format = 1
 
 [node name="shadow" type="TileMap" parent="."]
 scale = Vector2( 2, 2 )
-tile_set = ExtResource( 2 )
+tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( -65405926, 0, 196608, -65340391, 0, 327682, -65340390, 0, 131072 )
