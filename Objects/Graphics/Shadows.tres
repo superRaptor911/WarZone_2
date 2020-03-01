@@ -2,7 +2,6 @@
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
-uniform float energy = 0.4;
 
 void fragment()
 {
@@ -14,4 +13,3 @@ void fragment()
 
 [resource]
 shader = SubResource( 1 )
-shader_param/energy = 0.4

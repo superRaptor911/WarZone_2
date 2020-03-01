@@ -27,6 +27,12 @@ func _on_timer_timeout():
 		createShadows()
 		print("updated shadow map")
 
+
+func testTiles():
+	for i in range(0,2):
+		for j in range(0,9):
+			$shadow.set_cell(i,j,0,false,false,false,Vector2(i,j))
+			
 func clearShadows():
 	var used_tiles = $shadow.get_used_cells()
 	for i in used_tiles:
@@ -89,15 +95,15 @@ func createShadows():
 			if  height_tileset.get_cell(i.x + 1,i.y + 1) == -1:
 				shadow_tileset.set_cell(i.x+1,i.y + 1,0,false,false,false,Vector2(0,2))
 		else:
-			shadow_tileset.set_cell(i.x+1,i.y,0,false,false,false,Vector2(0,3))
+			shadow_tileset.set_cell(i.x+1,i.y,0,false,false,false,Vector2(1,3))
 		if yEndingTiles.has(i) and height_tileset.get_cell(i.x + 1,i.y + 1) == -1:
 			shadow_tileset.set_cell(i.x+1,i.y + 1,0,false,false,false,Vector2(0,2))
 	
 	#place shadow blocks in y dir
 	for i in yEndingTiles:
 		if shadow_tileset.get_cell(i.x,i.y + 1) != -1:
-			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(0,5))
+			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(1,5))
 		elif xStartingTiles.has(i) and height_tileset.get_cell(i.x ,i.y + 1) == -1:
-			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(0,1))
+			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(1,1))
 		elif height_tileset.get_cell(i.x,i.y + 1) == -1:
-			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(2,5))
+			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(0,0))

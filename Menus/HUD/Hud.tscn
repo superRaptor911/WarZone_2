@@ -99,15 +99,21 @@ margin_right = -539.453
 margin_bottom = 92.24
 texture_normal = ExtResource( 8 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="GridContainer" type="GridContainer" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = 317.748
-margin_top = 43.0474
-margin_right = 593.748
-margin_bottom = 355.047
+margin_left = 1731.48
+margin_top = 120.795
+margin_right = 2146.48
+margin_bottom = 432.794
 rect_scale = Vector2( 1.25, 1.25 )
 columns = 3
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
 
 [node name="1" type="Label" parent="GridContainer"]
 margin_right = 252.0

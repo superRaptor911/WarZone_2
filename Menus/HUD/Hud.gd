@@ -3,11 +3,15 @@ extends CanvasLayer
 var user
 var ini_pause_posi : Vector2
 var kill_msg_slots : Kill_Message_slots
+var score_board = preload("res://Menus/HUD/ScoreBoard.tscn").instance()
 
 func _ready():
 	ini_pause_posi = $Panel2.rect_global_position
 	$Panel2.rect_global_position = Vector2(-500,-500)
 	kill_msg_slots = Kill_Message_slots.new(self,8)
+	score_board.hide()
+	game_server.connect("player_data_synced",self,"updateScoreBoard")
+	add_child(score_board)
 
 func setUser(u):
 	user = u
@@ -51,6 +55,15 @@ func _on_score_pressed():
 	else:
 		$Panel2.rect_global_position = Vector2(-500,-500)
 	
+	if not get_tree().is_network_server():
+		game_server.rpc_id(1,"ServerSyncPlayerDataList",game_states.player_info.net_id)
+	else:
+		updateScoreBoard()
+	score_board.show()
+	$Tween.interpolate_property(score_board, "modulate", Color8(255,255,255,255),Color8(255,255,255,0), 4.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
+	return
+	
 	var players = get_tree().get_nodes_in_group("User")
 	var player_array = Array()
 	for p in players:
@@ -83,6 +96,9 @@ func _on_score_pressed():
 		$GridContainer.add_child(l2)
 	$Tween.interpolate_property($GridContainer, "modulate", Color8(255,255,255,255),Color8(255,255,255,0), 4.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
+
+func updateScoreBoard():
+	score_board.setBoardData(game_server._player_data_list)
 
 func _on_zoom_pressed():
 	if user.selected_gun.current_zoom == user.selected_gun.max_zoom:

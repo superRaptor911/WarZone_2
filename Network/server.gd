@@ -64,24 +64,39 @@ func preloadParticles():
 
 #holds info of player that is to be shown on scoreboard
 var _player_data = {
+	id = 0,
 	pname = "no_name",
 	kills = 0,
 	deaths = 0,
 	ping = 0,
-	score = 0
+	score = 0,
+	team_id = "A"
 }
+
+signal player_data_synced
+
+
 
 var _player_data_list = Array()
 var _kill_msg_list = Array()
 
 func init_scoreBoard():
-	_player_data_list.clear()
 	_kill_msg_list.clear()
-	var players = get_tree().get_nodes_in_group("User")
-	for p in players:
-		var pd = _player_data.duplicate(true)
-		pd.pname = p.pname
-		_player_data_list.append(pd)
+
+func addPlayer(pname,pid,team_id):
+	print("ading ",pname)
+	var pd = _player_data.duplicate(true)
+	pd.pname = pname
+	pd.team_id = team_id
+	pd.id = pid
+	_player_data_list.append(pd)
+	
+func removePlayer(pid):
+	var new_list = Array()
+	for i in _player_data_list:
+		if i.id != pid:
+			new_list.append(i)
+	_player_data_list = new_list
 
 func handleKills(victim,killer,weapon_used):
 	var victim_name = "someone"
@@ -91,15 +106,13 @@ func handleKills(victim,killer,weapon_used):
 	if victim:
 		victim_name = victim.pname
 		if victim.is_in_group("User"):
-			var victim_data = _get_player_data_by_name(victim_name)
+			var victim_data = _get_player_data_by_id(victim.id)
 			victim_data.deaths += 1
-			victim.team.updateTeam(victim_data)
 	if killer:
 		killer_name = killer.pname
 		if killer.is_in_group("User"):
-			var killer_data = _get_player_data_by_name(killer_name)
+			var killer_data = _get_player_data_by_id(killer.id)
 			killer_data.kills += 1
-			killer.team.updateTeam(killer_data)
 	if weapon_used:
 		if weapon_used.gun_name == "plasma":
 			kill_msg = victim_name + " was burned alive by hot plasma"
@@ -119,10 +132,15 @@ remotesync func sync_kill_msg(kill_msg):
 	var hud = get_tree().get_nodes_in_group("Hud")[0]
 	hud.addKillMessage(kill_msg)
 	
-	
+remote func ServerSyncPlayerDataList(requestPeerId : int):
+	rpc_id(requestPeerId,"sync_player_data",_player_data_list)
 
-func _get_player_data_by_name(pname):
+remote func sync_player_data(player_data_list):
+	_player_data_list = player_data_list
+	emit_signal("player_data_synced")
+
+func _get_player_data_by_id(id):
 	for p in _player_data_list:
-		if p.pname == pname:
+		if p.id == id:
 			return p
-	print("Server/Scoreboard : fatal error unable to find ",pname)
+	print("Server/Scoreboard : fatal error unable to find ",id)

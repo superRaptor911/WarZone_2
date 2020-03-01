@@ -27,20 +27,7 @@ position = Vector2( 478.288, 270.546 )
 script = ExtResource( 2 )
 speed = 150.0
 
-[node name="CanvasModulate" type="CanvasModulate" parent="." index="0"]
-
-[node name="Gun" parent="." index="2" instance=ExtResource( 3 )]
-position = Vector2( -1.47835, -15.9435 )
-
-[node name="Camera2D" type="Camera2D" parent="." index="4"]
-z_index = -2
-zoom = Vector2( 0.75, 0.75 )
-smoothing_enabled = true
-
-[node name="Timer" type="Timer" parent="." index="5"]
-one_shot = true
-
-[node name="name_tag" type="Label" parent="." index="11"]
+[node name="name_tag" type="Label" parent="." index="0"]
 margin_left = -33.0
 margin_top = -55.0
 margin_right = 48.0
@@ -51,4 +38,17 @@ script = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." index="1"]
+
+[node name="Gun" parent="." index="3" instance=ExtResource( 3 )]
+position = Vector2( -1.47835, -15.9435 )
+
+[node name="Camera2D" type="Camera2D" parent="." index="5"]
+z_index = -2
+zoom = Vector2( 0.75, 0.75 )
+smoothing_enabled = true
+
+[node name="Timer" type="Timer" parent="." index="6"]
+one_shot = true
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

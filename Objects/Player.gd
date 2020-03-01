@@ -11,6 +11,7 @@ var selected_gun : Gun
 var kills : int = 0
 var deaths : int = 0
 var pname : String
+var id : int
 
 
 var frames : float = 0

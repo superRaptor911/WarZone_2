@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://new_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Maps/red.png" type="Texture" id=2]
+[ext_resource path="res://Maps/blu.png" type="Texture" id=3]
+[ext_resource path="res://Menus/Lobby/TeamSelect.gd" type="Script" id=4]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 0.041153, 0.136785, 0.363281, 0.717647, 0.137177, 0.144494, 0.605469, 0.658824 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[node name="TeamSelect" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="panel" type="TextureRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A" type="TextureButton" parent="panel"]
+margin_left = 64.4995
+margin_top = 173.96
+margin_right = 568.5
+margin_bottom = 674.96
+texture_normal = ExtResource( 3 )
+expand = true
+
+[node name="B" type="TextureButton" parent="panel"]
+margin_left = 732.345
+margin_top = 175.389
+margin_right = 1236.34
+margin_bottom = 679.389
+texture_normal = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="panel"]
+margin_left = 370.907
+margin_top = 29.7243
+margin_right = 967.907
+margin_bottom = 113.724
+custom_fonts/font = ExtResource( 1 )
+text = "Choose Your Side"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="panel/A" to="." method="_on_A_pressed"]
+[connection signal="pressed" from="panel/B" to="." method="_on_B_pressed"]
