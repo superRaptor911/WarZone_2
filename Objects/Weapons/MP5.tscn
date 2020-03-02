@@ -10,7 +10,7 @@
 script = ExtResource( 2 )
 gun_type = "smg"
 gun_name = "MP5"
-damage = 12.0
+damage = 20.0
 rounds_in_clip = 30
 clips = 99
 projectile_velocity = 700.0

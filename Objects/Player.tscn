@@ -25,6 +25,7 @@ func _process(delta):
 ] instance=ExtResource( 1 )]
 position = Vector2( 478.288, 270.546 )
 script = ExtResource( 2 )
+AP = 20.0
 speed = 150.0
 
 [node name="name_tag" type="Label" parent="." index="0"]

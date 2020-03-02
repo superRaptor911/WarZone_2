@@ -33,6 +33,8 @@ func _process(delta):
 
 	
 func _on_joy2_move(val):
+	if not (user.alive and enabled):
+		return
 	user.rotation = val.angle() + 1.57
 	counter = true
 	#user.rpc("sync_vars",user.movement_vector,user.rotation,user.position)

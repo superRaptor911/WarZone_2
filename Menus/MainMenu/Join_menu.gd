@@ -9,6 +9,7 @@ func _ready():
 	network.connect("join_success", self, "_join_lobby")
 	add_child(serverListener)
 	serverListener.connect("new_server",self,"on_server_found")
+	serverListener.connect("remove_server", self, "on_server_closed")
 
 
 
@@ -31,8 +32,16 @@ func on_server_found(server_info):
 		servers.append(server_info)
 		print("found")
 		updateServerList()
-	
-	
+
+func on_server_closed(ip):
+	var old_server = null
+	for i in servers:
+		if i.ip == ip:
+			servers.erase(i)
+			print("removing ",ip)
+			updateServerList()
+			break
+
 func updateServerList():
 	var slots = $serverList/serverList.get_children()
 	var index = 0
