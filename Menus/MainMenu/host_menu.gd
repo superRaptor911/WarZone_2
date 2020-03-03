@@ -7,7 +7,7 @@ func _ready():
 	network.connect("server_created",self,"_join_lobby")
 
 func _join_lobby():
-	next_scene = "res://Menus/Lobby/Lobby.tscn"
+	next_scene = "res://Menus/Lobby/GameModes.tscn"
 
 
 func _on_create_pressed():

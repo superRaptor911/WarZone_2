@@ -130,3 +130,14 @@ func _close_server():
 	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
 	
 
+func stopServer():
+	#kick players
+	for i in players:
+		print(i)
+		rpc_id(i,"kicked", "Server Closed")
+		get_tree().network_peer.disconnect_peer(i)
+	players.clear()
+	#Terminate server
+	get_tree().set_network_peer(null)
+	emit_signal("server_stopped")
+	serverAvertiser.queue_free()

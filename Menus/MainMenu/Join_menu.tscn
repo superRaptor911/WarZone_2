@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Menus/MainMenu/Join_menu.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
@@ -9,6 +9,17 @@
 [ext_resource path="res://calibrib.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Menus/resources/dark_w.png" type="Texture" id=9]
+
+[sub_resource type="Gradient" id=8]
+colors = PoolColorArray( 0.760784, 0.0666667, 0.0666667, 0.752941, 0.737255, 0.964706, 0.180392, 0.533333 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 20
+use_filter = true
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -55,6 +66,31 @@ margin_right = 640.0
 margin_bottom = 360.0
 texture = ExtResource( 2 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="serverInfo" type="TextureRect" parent="PanelContainer"]
+margin_left = 17.7722
+margin_top = 31.6832
+margin_right = 434.772
+margin_bottom = 227.683
+texture = SubResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PanelContainer/serverInfo"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -198.5
+margin_top = -90.5
+margin_right = 198.5
+margin_bottom = 90.5
+custom_fonts/font = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -282,9 +318,8 @@ __meta__ = {
 
 [node name="b4" type="TextureButton" parent="serverList/serverList"]
 visible = false
-margin_top = 47.0
 margin_right = 433.0
-margin_bottom = 89.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 0, 42 )
 texture_normal = ExtResource( 4 )
 expand = true
@@ -332,3 +367,8 @@ __meta__ = {
 }
 [connection signal="pressed" from="join_button" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="serverList/serverList/b1" to="." method="_on_b1_pressed"]
+[connection signal="pressed" from="serverList/serverList/b2" to="." method="_on_b2_pressed"]
+[connection signal="pressed" from="serverList/serverList/b3" to="." method="_on_b3_pressed"]
+[connection signal="pressed" from="serverList/serverList/b4" to="." method="_on_b4_pressed"]
+[connection signal="pressed" from="serverList/serverList/b5" to="." method="_on_b5_pressed"]

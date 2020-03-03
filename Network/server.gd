@@ -1,5 +1,15 @@
 extends Node
 
+var serverInfo := {
+	"name": "Raptors LAN Game",
+	"ip" : "127.0.0.1",
+	"port" : "6969",
+	"game_mode" : "FFA",
+	"max_p" : "6",
+	"map" : "",
+}
+
+
 #####################Update rate######################
 var update_rate = 25 setget set_update_rate
 var update_delta = 1.0 / update_rate setget no_set, get_update_delta

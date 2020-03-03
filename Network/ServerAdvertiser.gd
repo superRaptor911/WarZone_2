@@ -4,12 +4,15 @@ class_name ServerAdvertiser
 const DEFAULT_PORT := 3111
 
 export (float) var broadcast_interval: float = 1.0
-var serverInfo := {"name": "Raptors LAN Game",
-					"ip" : "127.0.0.1",
-					"port" : "6969",
-					"game" : "FFA",
-					"max_p" : "6"
-					}
+
+var serverInfo := {
+	"name": "Raptors LAN Game",
+	"ip" : "127.0.0.1",
+	"port" : "6969",
+	"game_mode" : "FFA",
+	"max_p" : "6",
+	"map" : "",
+}
 
 var socketUDP: PacketPeerUDP
 var broadcastTimer := Timer.new()

@@ -71,7 +71,6 @@ remote func peerSpawnPlayers(player_dict):
 
 #spawn an individual player
 func spawnPlayer(char_data):
-	print("fucj")
 	if arr.has(int(char_data.name)):
 		print("Fatal network spawn error")
 		return
@@ -106,7 +105,6 @@ func spawnPlayer(char_data):
 
 
 remotesync func spawn_player(pinfo, spawn_index, team):
-	print("nactor.namehi im")
 	if (spawn_index == -1):
 		spawn_index = network.players.size()
 	
@@ -124,7 +122,7 @@ remotesync func spawn_player(pinfo, spawn_index, team):
 		nactor.set_network_master(pinfo.net_id)
 	nactor.set_name(str(pinfo.net_id))
 	
-	
+	print(nactor.name)
 	nactor.pname = pinfo.name
 	nactor.id = pinfo.net_id
 	game_server.addPlayer(pinfo.name, pinfo.net_id,team)
@@ -153,11 +151,12 @@ func _on_disconnected():
 	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
 	queue_free()
 
+
 func _init_game():
 	game_server.init_scoreBoard()
-	if game_states.GAME_MODE == "survival":
+	if game_server.serverInfo.game_mode == "SURVIVAL":
 		var mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn")
 		add_child(mode.instance())
-	elif game_states.GAME_MODE == "FFA":
+	elif game_server.serverInfo.game_mode == "FFA":
 		var mode = load("res://Objects/Game_modes/FFA_mode.tscn")
 		add_child(mode.instance())

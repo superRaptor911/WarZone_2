@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Menus/MainMenu/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://Menus/resources/light_b.png" type="Texture" id=2]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=3]
+[ext_resource path="res://Menus/resources/dark_w.png" type="Texture" id=4]
 [ext_resource path="res://Menus/resources/btn_texture2.png" type="Texture" id=5]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=7]
@@ -38,10 +40,12 @@ __meta__ = {
 }
 
 [node name="Button" type="TextureButton" parent="VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_right = 649.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 200, 75 )
 rect_clip_content = true
+texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
 expand = true
 __meta__ = {
@@ -64,10 +68,12 @@ __meta__ = {
 }
 
 [node name="Button2" type="TextureButton" parent="VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_top = 125.0
 margin_right = 649.0
 margin_bottom = 195.0
 rect_min_size = Vector2( 0, 70 )
+texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 5 )
 expand = true
 
@@ -87,10 +93,12 @@ __meta__ = {
 }
 
 [node name="Button3" type="TextureButton" parent="VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_top = 245.0
 margin_right = 649.0
 margin_bottom = 315.0
 rect_min_size = Vector2( 0, 70 )
+texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
 expand = true
 
@@ -110,10 +118,12 @@ __meta__ = {
 }
 
 [node name="store" type="TextureButton" parent="VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_top = 365.0
 margin_right = 649.0
 margin_bottom = 435.0
 rect_min_size = Vector2( 0, 70 )
+texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 5 )
 expand = true
 

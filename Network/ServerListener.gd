@@ -37,6 +37,8 @@ func _process(delta):
 			if not knownServers.has(serverIp):
 				var serverMessage = array_bytes.get_string_from_ascii()
 				var gameInfo = parse_json(serverMessage)
+				if gameInfo.map == "":
+					return
 				gameInfo.ip = serverIp
 				gameInfo.lastSeen = OS.get_unix_time()
 				knownServers[serverIp] = gameInfo

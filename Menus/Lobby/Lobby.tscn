@@ -1,103 +1,54 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+use_filter = true
+font_data = ExtResource( 3 )
 
 [node name="Lobby" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 32.5186
-margin_top = -323.22
-margin_right = 501.518
-margin_bottom = 199.78
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Panel" type="Panel" parent="PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 461.999
-margin_bottom = 516.0
-
-[node name="players" type="VBoxContainer" parent="PanelContainer/Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -168.176
-margin_top = -201.489
-margin_right = 124.824
-margin_bottom = -161.489
-
-[node name="Label" type="Label" parent="PanelContainer/Panel"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -72.0
-margin_right = 72.0
-margin_bottom = 36.0
-custom_fonts/font = ExtResource( 2 )
-text = "Lobby"
-
-[node name="start" type="Button" parent="PanelContainer/Panel"]
-margin_left = 328.0
-margin_top = 450.0
-margin_right = 425.0
-margin_bottom = 486.0
-custom_fonts/font = ExtResource( 2 )
-text = "Start"
-
 [node name="PanelContainer2" type="PanelContainer" parent="."]
-margin_left = 24.85
-margin_top = 325.841
-margin_right = 481.85
-margin_bottom = 615.841
-rect_scale = Vector2( 1.25, 1.3 )
+margin_left = 30.0
+margin_top = 115.0
+margin_right = 1040.0
+margin_bottom = 711.0
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Panel" type="Panel" parent="PanelContainer2"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 450.0
-margin_bottom = 283.0
+margin_right = 1003.0
+margin_bottom = 589.0
 
 [node name="level" type="OptionButton" parent="PanelContainer2/Panel"]
-margin_left = 175.0
-margin_top = 40.0
-margin_right = 391.0
-margin_bottom = 79.0
-custom_fonts/font = ExtResource( 2 )
+margin_left = 316.362
+margin_top = 80.8523
+margin_right = 559.362
+margin_bottom = 129.852
+custom_fonts/font = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="PanelContainer2/Panel/level"]
-margin_left = -130.65
-margin_top = 0.149994
-margin_right = -79.65
-margin_bottom = 24.15
-custom_fonts/font = ExtResource( 2 )
+margin_left = -244.379
+margin_top = -8.96414
+margin_right = -95.3792
+margin_bottom = 38.0359
+custom_fonts/font = SubResource( 4 )
 text = "Level"
-
-[node name="game_mode" type="OptionButton" parent="PanelContainer2/Panel"]
-margin_left = 175.0
-margin_top = 122.811
-margin_right = 391.0
-margin_bottom = 161.811
-custom_fonts/font = ExtResource( 2 )
-
-[node name="Label" type="Label" parent="PanelContainer2/Panel/game_mode"]
-margin_left = -149.312
-margin_top = 8.31445
-margin_right = -26.3116
-margin_bottom = 32.3145
-custom_fonts/font = ExtResource( 2 )
-text = "Game Mode"
 
 [node name="Label" type="Label" parent="."]
 margin_left = 34.0
@@ -106,6 +57,16 @@ margin_right = 385.0
 margin_bottom = 82.0
 rect_scale = Vector2( 1.25, 1.25 )
 custom_fonts/font = ExtResource( 2 )
-[connection signal="pressed" from="PanelContainer/Panel/start" to="." method="_on_start_pressed"]
+
+[node name="start" type="Button" parent="."]
+margin_left = 1117.98
+margin_top = 422.061
+margin_right = 1249.98
+margin_bottom = 458.061
+custom_fonts/font = ExtResource( 2 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="item_selected" from="PanelContainer2/Panel/level" to="." method="_on_level_item_selected"]
-[connection signal="item_selected" from="PanelContainer2/Panel/game_mode" to="." method="_on_game_mode_item_selected"]
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
