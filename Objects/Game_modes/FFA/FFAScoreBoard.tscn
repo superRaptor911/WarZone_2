@@ -1,0 +1,209 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Menus/resources/light_b.png" type="Texture" id=1]
+[ext_resource path="res://Menus/resources/btn_texture2.png" type="Texture" id=2]
+[ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Menus/resources/dark_w.png" type="Texture" id=4]
+[ext_resource path="res://Menus/Inventory/label2.png" type="Texture" id=5]
+[ext_resource path="res://Objects/Game_modes/FFA/FFAScoreBoard.gd" type="Script" id=6]
+[ext_resource path="res://Menus/resources/dark_wD.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 24
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 28
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="ScoreBoard" type="TextureRect"]
+self_modulate = Color( 1, 1, 1, 0.588235 )
+margin_left = 230.086
+margin_top = 131.543
+margin_right = 993.086
+margin_bottom = 633.543
+texture = ExtResource( 7 )
+expand = true
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A" type="VBoxContainer" parent="."]
+margin_left = 82.0
+margin_top = 77.0
+margin_right = 633.0
+margin_bottom = 469.0
+custom_constants/separation = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="TextureRect" parent="A"]
+margin_right = 551.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+texture = ExtResource( 1 )
+expand = true
+
+[node name="name" type="Label" parent="A/1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 35.0
+margin_top = -4.0
+margin_right = -316.0
+margin_bottom = -4.0
+custom_fonts/font = SubResource( 3 )
+text = "Killer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="kills" type="Label" parent="A/1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 183.203
+margin_top = -2.31213
+margin_right = -167.797
+margin_bottom = -2.31213
+custom_fonts/font = SubResource( 3 )
+text = "10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Label" parent="A/1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 313.969
+margin_top = -0.170777
+margin_right = -37.0302
+margin_bottom = -0.170776
+custom_fonts/font = SubResource( 3 )
+text = "10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="A/1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 449.052
+margin_top = 3.08725
+margin_right = 98.0523
+margin_bottom = 3.08725
+custom_fonts/font = SubResource( 3 )
+text = "10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="TextureRect" parent="A"]
+margin_top = 35.0
+margin_right = 551.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 30 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="name" type="Label" parent="A/2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 35.0
+margin_top = -4.0
+margin_right = -316.0
+margin_bottom = -4.0
+custom_fonts/font = SubResource( 3 )
+text = "Killer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="kills" type="Label" parent="A/2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 183.203
+margin_top = -2.31213
+margin_right = -167.797
+margin_bottom = -2.31213
+custom_fonts/font = SubResource( 3 )
+text = "10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Label" parent="A/2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 313.969
+margin_top = -2.61429
+margin_right = -37.0302
+margin_bottom = -2.61429
+custom_fonts/font = SubResource( 3 )
+text = "10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="A/2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 449.052
+margin_top = -0.170792
+margin_right = 98.0524
+margin_bottom = -0.170792
+custom_fonts/font = SubResource( 3 )
+text = "10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VScrollBar" type="VScrollBar" parent="."]
+margin_left = 651.0
+margin_top = 82.629
+margin_right = 684.0
+margin_bottom = 376.629
+
+[node name="Label" type="Label" parent="."]
+margin_left = 93.4518
+margin_top = 5.83926
+margin_right = 609.452
+margin_bottom = 38.8393
+custom_fonts/font = SubResource( 4 )
+text = "Name            Kills        Deaths      Score"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ok" type="TextureButton" parent="."]
+self_modulate = Color( 1, 1, 1, 0.588235 )
+margin_left = 307.0
+margin_top = 512.0
+margin_right = 442.0
+margin_bottom = 559.0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ok"]
+margin_left = 40.5804
+margin_top = 3.74194
+margin_right = 87.5804
+margin_bottom = 40.7419
+custom_fonts/font = SubResource( 5 )
+text = "OK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="visibility_changed" from="." to="." method="_on_ScoreBoard_visibility_changed"]
+[connection signal="pressed" from="ok" to="." method="_on_ok_pressed"]

@@ -1,5 +1,8 @@
 extends TextureRect
 
+#normal team based scoreboard
+
+
 var dark_panel# = $A/1
 var light_panel
 
@@ -11,6 +14,7 @@ func _ready():
 	get_node("A/2").queue_free()
 
 func setBoardData(data : Array):
+	print("")
 	var old_panels = $A.get_children()
 	for i in old_panels:
 		i.queue_free()

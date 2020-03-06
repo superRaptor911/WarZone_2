@@ -11,6 +11,14 @@ func _ready():
 	kill_msg_slots = Kill_Message_slots.new(self,8)
 	score_board.hide()
 	game_server.connect("player_data_synced",self,"updateScoreBoard")
+	var GameMode = get_tree().get_nodes_in_group("GameMode")[0]
+	if GameMode:
+		if GameMode.get("scoreBoard"):
+			score_board.queue_free()
+			score_board = GameMode.scoreBoard
+	else:
+		print("GameMode not loaded")
+	
 	add_child(score_board)
 
 func setUser(u):
@@ -21,8 +29,6 @@ func setUser(u):
 func _process(delta):
 	$Panel/ammo.text = String( user.selected_gun.rounds_left) + "|" + String(user.selected_gun.clips)
 
-func _on_reload_pressed():
-	user.selected_gun.reload()
 
 
 func _on_quit_pressed():
@@ -60,42 +66,6 @@ func _on_score_pressed():
 	else:
 		updateScoreBoard()
 	score_board.show()
-	$Tween.interpolate_property(score_board, "modulate", Color8(255,255,255,255),Color8(255,255,255,0), 4.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
-	$Tween.start()
-	return
-	
-	var players = get_tree().get_nodes_in_group("User")
-	var player_array = Array()
-	for p in players:
-		player_array.append({"name" : p.pname,"kills" : p.kills,"deaths" : p.deaths})
-	player_array.sort_custom(MyPlayerSorter,"sort")
-	
-	var font = load("res://font.tres")
-	
-	#clean up previous chart
-	var childs = $GridContainer.get_children()
-	var cu : int = 0
-	for c in childs:
-		if cu >= 3:
-			$GridContainer.remove_child(c)
-			c.queue_free()
-		cu += 1
-	
-	for p in player_array:
-		var l = Label.new()
-		l.add_font_override("font",font)
-		l.text = p["name"]
-		var l1 = Label.new()
-		l1.add_font_override("font",font)
-		l1.text = String(p["kills"])
-		var l2 = Label.new()
-		l2.add_font_override("font",font)
-		l2.text = String(p["deaths"])
-		$GridContainer.add_child(l)
-		$GridContainer.add_child(l1)
-		$GridContainer.add_child(l2)
-	$Tween.interpolate_property($GridContainer, "modulate", Color8(255,255,255,255),Color8(255,255,255,0), 4.0, Tween.TRANS_LINEAR, Tween.EASE_IN)
-	$Tween.start()
 
 func updateScoreBoard():
 	score_board.setBoardData(game_server._player_data_list)
@@ -189,3 +159,7 @@ func addKillMessage(msg):
 func _on_nextGun_pressed():
 	user.rpc("switchGun")
 	$reload/gun_s.texture = user.selected_gun.gun_portrait
+
+
+func _on_btn_pressed():
+	user.selected_gun.reload()

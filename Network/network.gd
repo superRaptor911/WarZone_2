@@ -74,6 +74,7 @@ func create_server(server_name,port,max_players):
 	serverAvertiser.serverInfo.port = String(port)
 	serverAvertiser.serverInfo.max_players = String(max_players)
 	serverAvertiser.serverInfo.name = server_name
+	serverAvertiser.serverInfo.plrs = String(players.size())
 	
 	
 func join_server(ip, port):
@@ -87,6 +88,8 @@ func join_server(ip, port):
 
 remote func register_player(pinfo):
 	if (get_tree().is_network_server()):
+		if serverAvertiser:
+			serverAvertiser.serverInfo.plrs = String(players.size() + 1)
 		for id in players:
 			rpc_id(pinfo.net_id, "register_player", players[id])
 			if (id != 1):
@@ -119,23 +122,26 @@ remote func kicked(reason):
 func _close_server():
 	#kick players
 	for i in players:
-		print(i)
-		rpc_id(i,"kicked", "Server Closed")
-		get_tree().network_peer.disconnect_peer(i)
+		if i != 1:
+			print(i)
+			rpc_id(i,"kicked", "Server Closed")
+			get_tree().network_peer.disconnect_peer(i)
 	players.clear()
 	#Terminate server
 	get_tree().set_network_peer(null)
 	emit_signal("server_stopped")
 	serverAvertiser.queue_free()
+	serverAvertiser = null
 	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
 	
 
 func stopServer():
 	#kick players
 	for i in players:
-		print(i)
-		rpc_id(i,"kicked", "Server Closed")
-		get_tree().network_peer.disconnect_peer(i)
+		if i != 1:
+			print(i)
+			rpc_id(i,"kicked", "Server Closed")
+			get_tree().network_peer.disconnect_peer(i)
 	players.clear()
 	#Terminate server
 	get_tree().set_network_peer(null)

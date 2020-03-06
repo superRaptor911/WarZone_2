@@ -23,6 +23,7 @@ var char_data_dict = {
 }
 
 func _ready():
+	game_server._player_data_list.clear()
 	max_spawn_pts = $spawn.get_child_count()
 	#add_child(load("res://Maps/" + game_states.CURRENT_LEVEL + ".tscn").instance())
 	network.connect("player_list_changed", self, "_on_player_list_changed")
@@ -33,12 +34,13 @@ func _ready():
 		network.connect("player_removed", self, "_on_player_removed")
 
 func _on_player_selected_team(selected_team):
+	_init_game()
 	if not get_tree().is_network_server():
 		rpc_id(1,"serverGetPlayers", game_states.player_info.net_id)
 		
 	rpc("spawn_player", game_states.player_info, randi() % max_spawn_pts, selected_team)
 	teamSelector.queue_free()
-	_init_game()
+	
 
 func _on_player_removed(pinfo):
 	despawn_player(pinfo)
@@ -98,9 +100,6 @@ func spawnPlayer(char_data):
 		team2.addPlayer(nactor)
 	else:
 		print("Fatal Error: invalid team id for player ", char_data.pname)
-		
-	#spawn player
-	print("spawned ",nactor.pname," ", nactor.id)
 	add_child(nactor)
 
 
@@ -122,7 +121,6 @@ remotesync func spawn_player(pinfo, spawn_index, team):
 		nactor.set_network_master(pinfo.net_id)
 	nactor.set_name(str(pinfo.net_id))
 	
-	print(nactor.name)
 	nactor.pname = pinfo.name
 	nactor.id = pinfo.net_id
 	game_server.addPlayer(pinfo.name, pinfo.net_id,team)
@@ -154,9 +152,13 @@ func _on_disconnected():
 
 func _init_game():
 	game_server.init_scoreBoard()
+	var game_mode = null
+	#load appropriate game mode
 	if game_server.serverInfo.game_mode == "SURVIVAL":
-		var mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn")
-		add_child(mode.instance())
+		game_mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn").instance()
 	elif game_server.serverInfo.game_mode == "FFA":
-		var mode = load("res://Objects/Game_modes/FFA_mode.tscn")
-		add_child(mode.instance())
+		game_mode = load("res://Objects/Game_modes/FFA_mode.tscn").instance()
+	#add game mode
+	if game_mode:
+		game_mode.add_to_group("GameMode")
+		add_child(game_mode)

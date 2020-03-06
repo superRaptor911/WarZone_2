@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+var scoreBoard = preload("res://Objects/Game_modes/FFA/FFAScoreBoard.tscn").instance()
 
 #Quake sound class holds message that is to be displayed
 #and name of the sound that is to be played

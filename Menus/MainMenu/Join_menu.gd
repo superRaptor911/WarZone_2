@@ -3,7 +3,7 @@ extends CanvasLayer
 var servers = Array()
 var serverListener = preload("res://Network/ServerListener.gd").new()
 var current_server
-var serverInfoFormatStr = "Server Name : %s\nGame Mode : %s\nMap : %s"
+var serverInfoFormatStr = "Server Name : %s\nGame Mode : %s\nMap : %s\nPlayers : %s"
 
 func _ready():
 	network.connect("join_fail", self, "_on_join_fail")
@@ -98,5 +98,5 @@ func _on_b5_pressed():
 
 func updateServerInfo():
 	var serverInfoStr = serverInfoFormatStr % [current_server.name,current_server.game_mode,
-											current_server.map]
+						current_server.map, current_server.plrs + "/" + current_server.max_p]
 	$PanelContainer/serverInfo/Label.text = serverInfoStr

@@ -94,7 +94,6 @@ func init_scoreBoard():
 	_kill_msg_list.clear()
 
 func addPlayer(pname,pid,team_id):
-	print("ading ",pname)
 	var pd = _player_data.duplicate(true)
 	pd.pname = pname
 	pd.team_id = team_id

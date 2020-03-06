@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Menus/HUD/Hud.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/wpn_icon_base.png" type="Texture" id=2]
@@ -12,6 +12,15 @@
 [ext_resource path="res://Menus/Inventory/label2.png" type="Texture" id=11]
 [ext_resource path="res://Antaro.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://Menus/resources/next_gun.png" type="Texture" id=13]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 80, 40 )
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 40.0
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 45.0
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -40,6 +49,11 @@ __meta__ = {
 [node name="gun_s" type="Sprite" parent="reload"]
 position = Vector2( 49.3343, 20.9947 )
 
+[node name="btn" type="TouchScreenButton" parent="reload"]
+position = Vector2( 0, 4.76837e-07 )
+scale = Vector2( 0.584922, 0.559892 )
+shape = SubResource( 2 )
+
 [node name="melee" type="TextureButton" parent="."]
 margin_left = 715.197
 margin_top = 596.27
@@ -58,6 +72,13 @@ margin_bottom = 189.491
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 5 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="zoom" type="TouchScreenButton" parent="zoom"]
+position = Vector2( 1.1376, -4.55041 )
+shape = SubResource( 4 )
 
 [node name="HE" type="TextureButton" parent="."]
 margin_left = 375.67
@@ -68,6 +89,13 @@ rect_rotation = 8.39806
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 6 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HE" type="TouchScreenButton" parent="HE"]
+position = Vector2( 5.62723, 2.88458 )
+shape = SubResource( 3 )
 
 [node name="Panel" type="Panel" parent="."]
 margin_left = 1121.88
@@ -75,7 +103,8 @@ margin_top = 104.363
 margin_right = 1214.87
 margin_bottom = 148.363
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_use_anchors_": false
 }
 
 [node name="ammo" type="Label" parent="Panel"]
@@ -157,6 +186,9 @@ margin_right = 710.0
 margin_bottom = 451.0
 texture = ExtResource( 11 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="score" type="Button" parent="Panel2"]
 anchor_left = 0.5
@@ -282,9 +314,9 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="reload" to="." method="_on_reload_pressed"]
-[connection signal="pressed" from="zoom" to="." method="_on_zoom_pressed"]
-[connection signal="pressed" from="HE" to="." method="_on_HE_pressed"]
+[connection signal="pressed" from="reload/btn" to="." method="_on_btn_pressed"]
+[connection signal="pressed" from="zoom/zoom" to="." method="_on_zoom_pressed"]
+[connection signal="pressed" from="HE/HE" to="." method="_on_HE_pressed"]
 [connection signal="pressed" from="pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="Panel2/score" to="." method="_on_score_pressed"]
 [connection signal="pressed" from="Panel2/quit" to="." method="_on_quit_pressed"]

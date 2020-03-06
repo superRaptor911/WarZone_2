@@ -10,44 +10,44 @@
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Menus/resources/dark_w.png" type="Texture" id=9]
 
-[sub_resource type="Gradient" id=8]
+[sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.760784, 0.0666667, 0.0666667, 0.752941, 0.737255, 0.964706, 0.180392, 0.533333 )
 
-[sub_resource type="GradientTexture" id=9]
-gradient = SubResource( 8 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=3]
 size = 20
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=4]
 size = 24
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=5]
 size = 34
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=6]
 size = 34
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=7]
 size = 64
 use_filter = true
 font_data = ExtResource( 7 )
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=8]
 colors = PoolColorArray( 0.113725, 0.00784314, 0.00784314, 0.337255, 1, 1, 1, 0.682353 )
 
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
 width = 128
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=10]
 size = 24
 use_filter = true
 font_data = ExtResource( 3 )
@@ -75,7 +75,7 @@ margin_left = 17.7722
 margin_top = 31.6832
 margin_right = 434.772
 margin_bottom = 227.683
-texture = SubResource( 9 )
+texture = SubResource( 2 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -90,7 +90,7 @@ margin_left = -198.5
 margin_top = -90.5
 margin_right = 198.5
 margin_bottom = 90.5
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -155,7 +155,7 @@ margin_left = 21.5789
 margin_top = 3.63153
 margin_right = 98.5789
 margin_bottom = 35.6315
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 4 )
 text = "BACK"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -188,7 +188,7 @@ margin_left = -257.0
 margin_top = 23.6312
 margin_right = -60.7675
 margin_bottom = 75.6312
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 5 )
 text = "Server IP"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -207,7 +207,7 @@ margin_left = -257.937
 margin_top = 23.4618
 margin_right = -16.937
 margin_bottom = 74.4618
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
 text = "Server Port"
 
 [node name="con" type="Label" parent="."]
@@ -216,7 +216,7 @@ margin_left = 470.719
 margin_top = 569.253
 margin_right = 832.719
 margin_bottom = 633.253
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.0392157, 0.0823529, 0.027451, 1 )
 custom_colors/font_color_shadow = Color( 0.807843, 0.52549, 0.52549, 1 )
 text = "Connecting ..."
@@ -226,7 +226,7 @@ margin_left = 18.1122
 margin_top = 239.153
 margin_right = 484.112
 margin_bottom = 634.153
-texture = SubResource( 6 )
+texture = SubResource( 9 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -259,7 +259,7 @@ margin_left = -211.5
 margin_top = -16.0
 margin_right = 221.5
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "best server"
 __meta__ = {
@@ -283,7 +283,7 @@ margin_left = -212.5
 margin_top = -21.0
 margin_right = 220.5
 margin_bottom = 11.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 10 )
 text = "my server"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -309,7 +309,7 @@ margin_left = -211.5
 margin_top = -16.0
 margin_right = 221.5
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "best server"
 __meta__ = {
@@ -333,7 +333,7 @@ margin_left = -212.5
 margin_top = -21.0
 margin_right = 220.5
 margin_bottom = 11.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 10 )
 text = "my server"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -359,7 +359,7 @@ margin_left = -211.5
 margin_top = -16.0
 margin_right = 221.5
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "best server"
 __meta__ = {

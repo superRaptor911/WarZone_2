@@ -11,6 +11,7 @@ var serverInfo := {
 	"port" : "6969",
 	"game_mode" : "FFA",
 	"max_p" : "6",
+	"plrs" : "0",
 	"map" : "",
 }
 

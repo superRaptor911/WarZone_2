@@ -4,12 +4,12 @@
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
@@ -37,7 +37,7 @@ margin_left = 316.362
 margin_top = 80.8523
 margin_right = 559.362
 margin_bottom = 129.852
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -47,7 +47,7 @@ margin_left = -244.379
 margin_top = -8.96414
 margin_right = -95.3792
 margin_bottom = 38.0359
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "Level"
 
 [node name="Label" type="Label" parent="."]
