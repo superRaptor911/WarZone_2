@@ -2,9 +2,6 @@ extends Node
 
 #is exporting for android or not
 var is_android : bool = true
-#game modes available
-var GAME_MODE = "FFA"
-var CURRENT_LEVEL = "factory"
 
 #player info (pinfo) used to send info about player in multiplayer
 var player_info = {

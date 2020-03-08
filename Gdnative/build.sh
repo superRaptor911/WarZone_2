@@ -2,16 +2,18 @@
 start_time=`date +%s`
 
 copy_dest=".."
+source="bot"
 build_result=0
 no_patforms=6
+exit_on_error=1
 
 #build arguments
-args[0]="platform=linux target_name=charMovement src_path=src/charMovement target=release"
-args[1]="platform=android android_arch=armv7 target_name=charMovement src_path=src/charMovement android_stl=yes"
-args[2]="platform=android android_arch=arm64v8 target_name=charMovement src_path=src/charMovement android_stl=yes"
-args[3]="platform=android android_arch=x86 target_name=charMovement src_path=src/charMovement android_stl=yes"
-args[4]="platform=android android_arch=x86_64 target_name=charMovement src_path=src/charMovement android_stl=yes"
-args[5]="platform=windows target_name=charMovement src_path=src/charMovement target=release"
+args[0]="platform=linux target_name=${source} src_path=src/${source} target=release"
+args[1]="platform=android android_arch=armv7 target_name=${source} src_path=src/${source} android_stl=yes"
+args[2]="platform=android android_arch=arm64v8 target_name=${source} src_path=src/${source} android_stl=yes"
+args[3]="platform=android android_arch=x86 target_name=${source} src_path=src/${source} android_stl=yes"
+args[4]="platform=android android_arch=x86_64 target_name=${source} src_path=src/${source} android_stl=yes"
+args[5]="platform=windows target_name=${source} src_path=src/${source} target=release"
 
 #platforms
 plats[0]="LINUX"
@@ -31,9 +33,16 @@ build_targets()
 		build_result+=1
 	else
 	    result+="operation $2 failed ( ${plats[i]} )\n"
-	    #exit 1
+	    #exit on failure
+	    if [ $exit_on_error -eq 1 ] && [ "${plats[i]}" != "windows" ]; then
+	    	exit 1
+	    fi
+	    
 	fi
 }
+
+##############################Starts here#######################
+clear
 
 for (( i = 0; i < 6; i++ )); do
 	build_targets "${args[i]}" "${i}"

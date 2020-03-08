@@ -89,7 +89,7 @@ func takeDamage(damage : float,weapon,attacker):
 	#will be replaced by something better in future
 	if team and not (game_states.GAME_MODE == "FFA"):
 		if attacker:
-			if team == attacker.team:
+			if team.team_id == attacker.team.team_id:
 				return
 	#Damage distribution
 	if AP > 0:

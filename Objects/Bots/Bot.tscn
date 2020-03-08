@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/Character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Bots/Bot.gd" type="Script" id=2]
+[ext_resource path="res://bin/Bot.gdns" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 250.0
+
+[node name="Bot" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+speed = 80.0
+
+[node name="Brain" type="Node" parent="." index="7"]
+script = ExtResource( 3 )
+
+[node name="vision" type="Area2D" parent="." index="8"]
+
+[node name="shape" type="CollisionShape2D" parent="vision" index="0"]
+shape = SubResource( 1 )
+
+[node name="VisionTimer" type="Timer" parent="." index="9"]
+[connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]
+[connection signal="timeout" from="VisionTimer" to="." method="_on_VisionTimer_timeout"]
