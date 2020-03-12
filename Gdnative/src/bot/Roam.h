@@ -4,25 +4,30 @@
 #include <State.h>
 #include <Array.hpp>
 
-class Roam : public State
-{
-private:
+namespace godot
+{	
+	class Roam : public State
+	{
+		
+	private:
 
-	bool _on_dest = true;
-	int _current_dest_id = 0;
+		bool _on_dest = true;
+		int _current_dest_id = 0;
 
-	godot::Array _path_to_dest;
+		godot::Array _path_to_dest;
 
+	private:
 
+		void headToDest();
 
-private:
+	public:
+		
+		static void _register_methods(){}
 
-	void headToDest();
+		virtual void runState();
+		virtual bool isStateReady();
+		virtual void startState();
 
-public:
-
-	virtual void runState();
-
-};
-
+	};
+}
 #endif

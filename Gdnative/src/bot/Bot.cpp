@@ -7,6 +7,7 @@
 #include <string>
 
 #include <Roam.h>
+#include <Attack.h>
 
 using namespace godot;
 
@@ -31,11 +32,19 @@ void Bot::_register_methods()
 void Bot::_loadStates()
 {
 	Roam *roam = new Roam;
-	roam->setParentAndBot(_parent, this);
 	_all_the_states.push_back(roam);
 
+	Attack *attack = new Attack;
+	_all_the_states.push_back(attack);
+	roam->connect(attack);
+
+	for(auto &i : _all_the_states)
+	{
+		i->setParentAndBot(_parent, this);
+	}
 
 	_current_state = roam;
+	_current_state->startState();
 }
 
 void Bot::_ready()
@@ -91,7 +100,13 @@ void Bot::_process(float delta)
 		State *new_state = _current_state->chkForStateChange();
 		
 		if (new_state)
+		{	
+			_current_state->stopState();
+			new_state->prev_state = _current_state;
 			_current_state = new_state;
+			_current_state->startState();
+			Godot::print("State changed");
+		}
 
 		interpolate_rotation(delta);
 	}
@@ -101,7 +116,13 @@ void Bot::_process(float delta)
 void Bot::interpolate_rotation(float delta)
 {
 	float rotation = _parent->get_rotation();
-	float new_rotation = (static_cast<Vector2>(_parent->get("movement_vector"))).angle() + 1.57;
+	float new_rotation;
+	
+	if (use_mov_vct_for_rotation)
+		new_rotation = (static_cast<Vector2>(_parent->get("movement_vector"))).angle() + 1.57f;
+	else
+		new_rotation = (point_to_position - _parent->get_position()).angle() + 1.57f;
+
 
 	if (abs(rotation - new_rotation) <= 0.1f)
 		return;

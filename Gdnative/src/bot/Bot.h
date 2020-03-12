@@ -29,6 +29,9 @@ namespace godot
 		Array visible_enemies;
 		Array visible_friends;
 
+		bool use_mov_vct_for_rotation = true;
+		Vector2 point_to_position;
+
 	public:
 
 		Bot();

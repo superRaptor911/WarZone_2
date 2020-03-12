@@ -14,7 +14,16 @@ void Roam::runState()
 	headToDest();
 }
 
+void Roam::startState()
+{
+	_bot->use_mov_vct_for_rotation = true;
+}
 
+
+bool Roam::isStateReady()
+{
+	return true;
+}
 
 void Roam::headToDest()
 {

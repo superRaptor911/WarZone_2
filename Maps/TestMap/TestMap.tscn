@@ -56,12 +56,13 @@ position = Vector2( 2514.49, 222.612 )
 [node name="12" type="Node2D" parent="spawn" index="11"]
 position = Vector2( 2226.8, 1270.6 )
 
-[node name="Bot" parent="." index="3" instance=ExtResource( 2 )]
-position = Vector2( 611.335, 340.983 )
+[node name="Bot5" parent="." index="3" instance=ExtResource( 2 )]
+position = Vector2( 1542.83, 781.553 )
 
 [node name="Navigation2D" type="Navigation2D" parent="." index="4" groups=[
 "Nav",
 ]]
+visible = false
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D" index="0"]
 navpoly = SubResource( 1 )
