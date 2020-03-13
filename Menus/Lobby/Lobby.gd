@@ -31,3 +31,11 @@ func _start_game():
 
 func _on_start_pressed():
 	_start_game()
+
+func _on_bot_no_value_changed(value):
+	game_server.bot_settings.bot_count = value
+	$PanelContainer2/Panel/bot_no/label2.text = String(value)
+
+func _on_bot_difficulty_value_changed(value):
+	game_server.bot_settings.bot_difficulty = value
+	$PanelContainer2/Panel/bot_difficulty/label2.text = String(value)

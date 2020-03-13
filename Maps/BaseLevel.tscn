@@ -54,3 +54,9 @@ position = Vector2( 337.228, 593.505 )
 
 [node name="4" type="Node2D" parent="spawn"]
 position = Vector2( 886.993, 675.034 )
+
+[node name="zombie_spawn" type="Node" parent="." groups=[
+"zombie_spawn",
+]]
+
+[node name="1" type="Node2D" parent="zombie_spawn"]

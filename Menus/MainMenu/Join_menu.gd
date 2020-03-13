@@ -21,6 +21,7 @@ func _on_join_fail():
 
 func _join_game():
 	$con.hide()
+	game_server.serverInfo = current_server
 	var level_path = "res://Maps/" + current_server.map + "/" + current_server.map + ".tscn"
 	get_tree().change_scene(level_path)
 

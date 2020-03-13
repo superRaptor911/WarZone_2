@@ -19,7 +19,8 @@ var char_data_dict = {
 	team_id = "A",
 	pos = Vector2(0,0),
 	g1 = "",
-	g2 = ""
+	g2 = "",
+	is_bot = false
 }
 
 func _ready():
@@ -32,6 +33,7 @@ func _ready():
 	teamSelector.connect("teamSelected",self,"_on_player_selected_team")
 	if (get_tree().is_network_server()):
 		network.connect("player_removed", self, "_on_player_removed")
+		spawnBots()
 
 func _on_player_selected_team(selected_team):
 	_init_game()
@@ -48,12 +50,11 @@ func _on_player_removed(pinfo):
 
 var arr = Array()
 
-#get 
+#get player data from server
 remote func serverGetPlayers(peer_id):
 	#get spawned players
 	var spawned_chars = get_tree().get_nodes_in_group("User")
 	var char_data_list = Array()
-
 	#fillup data of players
 	for i in spawned_chars:
 		var char_data = char_data_dict.duplicate(true)
@@ -62,6 +63,19 @@ remote func serverGetPlayers(peer_id):
 		char_data.pos = i.position
 		char_data.g1 = i.primary_gun.gun_name
 		char_data.g2 = i.sec_gun.gun_name
+		char_data.is_bot = false
+		char_data_list.append(char_data)
+		
+	spawned_chars = get_tree().get_nodes_in_group("Bot")
+	#fillup data of Bots
+	for i in spawned_chars:
+		var char_data = char_data_dict.duplicate(true)
+		char_data.name = i.name
+		char_data.team_id = i.team.team_id
+		char_data.pos = i.position
+		char_data.g1 = i.primary_gun.gun_name
+		char_data.g2 = i.sec_gun.gun_name
+		char_data.is_bot = true
 		char_data_list.append(char_data)
 	#send data to peer
 	rpc_id(peer_id,"peerSpawnPlayers", char_data_list)
@@ -76,7 +90,11 @@ func spawnPlayer(char_data):
 	if arr.has(int(char_data.name)):
 		print("Fatal network spawn error")
 		return
-	var nactor = game_states.classResource.player.instance()
+	var nactor
+	if char_data.is_bot:
+		nactor = game_states.classResource.bot.instance()
+	else:
+		nactor = game_states.classResource.player.instance()
 	nactor.position = char_data.pos
 	nactor.set_name(char_data.name)
 	nactor.load_guns(char_data.g1, char_data.g2)
@@ -130,8 +148,32 @@ remotesync func spawn_player(pinfo, spawn_index, team):
 		team2.addPlayer(nactor)
 	add_child(nactor)
 
+func spawnBots():
+	var index : int = 0
+	var spawn_points = get_tree().get_nodes_in_group("spawn_points")[0].get_children()
+	var bots : Array
+	
+	for i in game_states.bot_profiles.bot:
+		if index == game_server.bot_settings.bot_count:
+			break
+		print("spawning " + i.bot_name)
+		var char_data = char_data_dict.duplicate(true)
+		char_data.pname = "bot_" + i.bot_name
+		char_data.g1 = i.bot_primary_gun
+		char_data.g2 = i.bot_sec_gun
+		char_data.is_bot = true
+		char_data.team_id = "A"
+		char_data.pos = spawn_points[randi() % max_spawn_pts].position
+		#giving unique integer name
+		char_data.name = String(69 + index)
+		bots.append(char_data)
+		index += 1
 
-
+		
+	for i in bots:
+		spawnPlayer(i)
+	
+	
 remote func despawn_player(pinfo):
 	if (get_tree().is_network_server()):
 		for id in network.players:
@@ -156,6 +198,7 @@ func _init_game():
 	#load appropriate game mode
 	if game_server.serverInfo.game_mode == "SURVIVAL":
 		game_mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn").instance()
+		print("Survival Mode")
 	elif game_server.serverInfo.game_mode == "FFA":
 		game_mode = load("res://Objects/Game_modes/FFA_mode.tscn").instance()
 	#add game mode

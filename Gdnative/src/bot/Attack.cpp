@@ -41,7 +41,7 @@ void Attack::runState()
 	_getCurrentEnemy();
 
 	//chk if node was freed or not
-	if (!_bot->get_tree()->get_root()->has_node(_current_enemy_path))
+	if (_current_enemy && !_bot->get_tree()->get_root()->has_node(_current_enemy_path))
 	{
 		_current_enemy = nullptr;
 		return;
@@ -60,6 +60,8 @@ bool Attack::isStateReady()
 
 void Attack::_getCurrentEnemy()
 {
+	_current_enemy = nullptr;
+	_current_enemy_path = "invalid";
 	if (EGetMode::NEAREST == enemy_get_mode)
 	{
 		float min_dist = 99999.f;
@@ -120,5 +122,7 @@ void Attack::on_no_target_Timer_Timeout()
 
 void Attack:: _attack_enemy()
 {
+	if (!_current_enemy)
+		return;
 	_bot->point_to_position = _current_enemy->get_position();
 }

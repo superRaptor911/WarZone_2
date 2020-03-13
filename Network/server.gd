@@ -153,3 +153,11 @@ func _get_player_data_by_id(id):
 		if p.id == id:
 			return p
 	print("Server/Scoreboard : fatal error unable to find ",id)
+
+###############################################################################
+######BOT################BOT#############BOT##################################
+
+var bot_settings = {
+	bot_count = 0,
+	bot_difficuty = 1
+}

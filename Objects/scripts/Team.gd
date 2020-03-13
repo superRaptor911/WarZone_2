@@ -13,9 +13,5 @@ func _init(id):
 func _ready():
 	add_to_group("Team")
 
-
 func addPlayer(P):
 	P.team = self
-	
-
-
