@@ -104,7 +104,8 @@ func spawnPlayer(char_data):
 	
 	# If this actor does not belong to the server, change the node name and network master accordingly
 	if (int(char_data.name) != 1):
-		nactor.set_network_master(int(char_data.name))
+		if not char_data.is_bot:
+			nactor.set_network_master(int(char_data.name))
 		game_server.addPlayer(char_data.pname, int(char_data.name), char_data.team_id)
 		arr.push_back(int(char_data.name))
 	else:
