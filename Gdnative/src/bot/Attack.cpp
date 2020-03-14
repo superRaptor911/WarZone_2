@@ -124,5 +124,6 @@ void Attack:: _attack_enemy()
 {
 	if (!_current_enemy)
 		return;
+	
 	_bot->point_to_position = _current_enemy->get_position();
 }

@@ -17,6 +17,7 @@ void Roam::runState()
 void Roam::startState()
 {
 	_bot->use_mov_vct_for_rotation = true;
+	_on_dest = true;
 }
 
 

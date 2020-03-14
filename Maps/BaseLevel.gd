@@ -93,6 +93,8 @@ func spawnPlayer(char_data):
 	var nactor
 	if char_data.is_bot:
 		nactor = game_states.classResource.bot.instance()
+		nactor.bot_data.bot_g1 = char_data.g1
+		nactor.bot_data.bot_g2 = char_data.g2
 	else:
 		nactor = game_states.classResource.player.instance()
 	nactor.position = char_data.pos

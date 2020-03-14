@@ -123,10 +123,6 @@ void Bot::interpolate_rotation(float delta)
 	else
 		new_rotation = (point_to_position - _parent->get_position()).angle() + 1.57f;
 
-
-	if (abs(rotation - new_rotation) <= 0.1f)
-		return;
-
 	//setting domain [0 - 2pi]
 	if (new_rotation < 0.f)
 		new_rotation += 6.28f;
@@ -137,8 +133,8 @@ void Bot::interpolate_rotation(float delta)
 	if (rotation > 6.28f)
 		rotation -= 6.28f;
 
-	if (abs(new_rotation - rotation) <= _rotational_speed * delta ||
-		abs(6.28f - abs(new_rotation - rotation)) <= _rotational_speed * delta)
+	if (fabs(new_rotation - rotation) <= _rotational_speed * delta ||
+		fabs(6.28f - fabs(new_rotation - rotation)) <= _rotational_speed * delta)
 	{	
 		rotation = new_rotation;
 		_parent->set_rotation(rotation);
@@ -146,7 +142,7 @@ void Bot::interpolate_rotation(float delta)
 	}
 
 	float aba = new_rotation - rotation;
-	if (abs(aba) <= 6.28f - abs(aba))
+	if (fabs(aba) <= 6.28f - fabs(aba))
 		rotation += sign(aba) * _rotational_speed * delta;
 	else
 		rotation += -sign(aba) * _rotational_speed * delta;

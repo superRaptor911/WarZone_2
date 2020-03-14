@@ -8,11 +8,18 @@ var primary_gun = null
 var sec_gun = null
 var selected_gun = null
 
+var bot_data : Dictionary = {
+	bot_g1 = "",
+	bot_g2 = ""
+}
+
 
 func _ready():
+	switchGun()
 	if get_tree().is_network_server():
-		$VisionTimer.wait_time = $VisionTimer.wait_time * (1 + rand_range(-0.5,0.5))
+		$VisionTimer.wait_time = $VisionTimer.wait_time * (1.0 + rand_range(-0.5,0.5))
 		$VisionTimer.start()
+		connect("char_killed",self,"_on_bot_killed")
 	else:
 		$Brain.queue_free()
 
@@ -55,6 +62,34 @@ remotesync func switchGun():
 	selected_gun.position = Vector2(0,0)
 
 
+func respawnBot():
+	var spawn_points
+	for sp in get_tree().get_nodes_in_group("spawn_points"):
+		spawn_points = sp.get_children()
+	var id = randi() % spawn_points.size()
+	rpc("sync_respawn",spawn_points[id].position)
+
+remotesync func sync_respawn(pos):
+	show()
+	$dtween.stop(skin)
+	$dtween.interpolate_property(skin,"modulate",Color8(50,50,200,255),Color8(255,255,255,255),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	$dtween.start()
+	alive = true
+	skin.set_deferred("disabled",false)
+	HP = 100
+	AP = 100
+	position = pos
+	$movmtCPP._teleportCharacter(pos)
+	load_guns(bot_data.bot_g1, bot_data.bot_g2)
+	switchGun()
+	skin.revive()
+
+func _on_free_timer_timeout():
+	respawnBot()
+
+func _on_bot_killed():
+	$free_timer.start()
+
 ########################bot vision####################
 
 func _on_vision_body_entered(body):
@@ -83,4 +118,3 @@ func _on_VisionTimer_timeout():
 						$Brain.visible_enemies.append(i)
 					else:
 						$Brain.visible_friends.append(i)
-
