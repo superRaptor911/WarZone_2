@@ -114,12 +114,12 @@ func handleKills(victim,killer,weapon_used):
 	#safe checks
 	if victim:
 		victim_name = victim.pname
-		if victim.is_in_group("User"):
+		if victim.is_in_group("User") or victim.is_in_group("Bot"):
 			var victim_data = _get_player_data_by_id(victim.id)
 			victim_data.deaths += 1
 	if killer:
 		killer_name = killer.pname
-		if killer.is_in_group("User"):
+		if killer.is_in_group("User") or killer.is_in_group("Bot"):
 			var killer_data = _get_player_data_by_id(killer.id)
 			killer_data.kills += 1
 	if weapon_used:

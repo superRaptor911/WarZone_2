@@ -1,7 +1,10 @@
 extends "res://Objects/Character.gd"
 
+var kills : int = 0
+var deaths : int = 0
 var pname : String = "xxx"
 var id = 0
+
 var _near_bodies = Array()
 var visible_bodies = Array()
 var primary_gun = null
@@ -56,8 +59,11 @@ remotesync func switchGun():
 		selected_gun = primary_gun
 		skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
 	
-	selected_gun.connect("gun_fired",skin,"_on_gun_fired")
-	selected_gun.connect("reloading_gun",skin,"_on_gun_reload")
+	if not selected_gun.is_connected("gun_fired",skin,"_on_gun_fired"):
+		selected_gun.connect("gun_fired",skin,"_on_gun_fired")
+	if not selected_gun.is_connected("reloading_gun",skin,"_on_gun_reload"):
+		selected_gun.connect("reloading_gun",skin,"_on_gun_reload")
+	
 	selected_gun.gun_user = self
 	selected_gun.position = Vector2(0,0)
 

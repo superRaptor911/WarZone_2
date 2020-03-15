@@ -510,30 +510,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [ 0.0, 0.0 ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath(".:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5, 0.7, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath(".:rotation_degrees")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.2, 0.5, 0.7, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 7.0, 0.0, -7.0, 0.0 ]
-}
 
 [node name="Model" type="CollisionShape2D"]
 z_index = 2
@@ -558,12 +534,12 @@ anims/idle = SubResource( 6 )
 anims/walking = SubResource( 7 )
 
 [node name="leg1" type="Sprite" parent="."]
-position = Vector2( -0.942424, 2.81537 )
+position = Vector2( 4.48426, -2.9895 )
 z_index = -1
 texture = ExtResource( 3 )
 
 [node name="leg2" type="Sprite" parent="."]
-position = Vector2( -1.92285, 4.82449 )
+position = Vector2( -6.1451, 10.4633 )
 z_index = -1
 texture = ExtResource( 3 )
 
@@ -606,7 +582,7 @@ texture = ExtResource( 6 )
 
 [node name="arm" type="Sprite" parent="body/r_shoulder"]
 position = Vector2( -0.576889, -0.302248 )
-rotation = -0.21443
+rotation = -0.214063
 z_index = -1
 texture = ExtResource( 9 )
 offset = Vector2( 2.34541, -23.8781 )
@@ -617,7 +593,7 @@ texture = ExtResource( 5 )
 
 [node name="hand" type="Sprite" parent="body/r_shoulder/arm/joint"]
 position = Vector2( 0.950844, -0.271236 )
-rotation = 1.77869
+rotation = 1.77898
 z_index = -1
 texture = ExtResource( 8 )
 offset = Vector2( 3, -21 )

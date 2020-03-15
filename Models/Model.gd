@@ -31,7 +31,7 @@ func walking():
 		
 			$walk.play()
 		if not playing:
-			#$walking.play("walking")
+			$walking.play("walking")
 			playing = true
 	else:
 		if movement_count > 3:

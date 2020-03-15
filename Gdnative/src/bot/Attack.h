@@ -15,6 +15,8 @@ namespace godot
 		godot::Timer *_attack_pause_timer = nullptr;
 		godot::Timer *_attack_timer = nullptr;
 
+		Vector2 _old_enemy_position;
+
 	private:
 
 		void _getCurrentEnemy();
