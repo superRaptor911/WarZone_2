@@ -6,10 +6,8 @@ export var gun_name : String = "null"
 export var damage : float = 18
 export var rounds_in_clip : int = 10
 export var clips : int = 4
-export var projectile_velocity : float = 700
+export var gun_rating : int = 0
 export var rate_of_fire : float = 4
-export var spread : float = 0.1
-export var recoil_factor : float = 0.05
 export var max_zoom : float = 1.0
 export var gun_portrait : Texture
 
@@ -18,7 +16,6 @@ var projectile = preload("res://Objects/Weapons/Projectile.tscn")
 var ready_to_fire : bool = true
 var gun_user = null
 var rounds_left : int
-var recoil : float = 0
 var reloading : bool = false
 
 var max_ray_distance : float = 200
@@ -58,9 +55,11 @@ func fireGun():
 
 #create projectile
 remote func _create_bullet():
-	#var bullet = projectile.instance()
-	#bullet.create_bullet($Muzzle.global_position,global_rotation + sprd,projectile_velocity,damage,self,gun_user)
-	#get_tree().root.add_child(bullet)
+	if game_states.game_settings.particle_effects:
+		var bullet = projectile.instance()
+		bullet.create_bullet($Muzzle.global_position,global_rotation,1500,ray_dest)
+		get_tree().root.add_child(bullet)
+	
 	$Muzzle/muzzle.show()
 	muzzle_frames = 3
 	if target:
@@ -83,8 +82,6 @@ func _shoot():
 	ready_to_fire = false
 	$Timer.start(1 / rate_of_fire)
 	rounds_left -= 1
-	#restart recoil cool timer
-	$recoil_cool.start()
 
 
 
@@ -105,18 +102,10 @@ func _on_Reload_time_timeout():
 	rounds_left = rounds_in_clip
 	reloading = false
 
-
-func _on_recoil_cool_timeout():
-	recoil = 0
-
-
-
 func _process(delta):
 	muzzle_frames = max(muzzle_frames - 1,0)
 	if muzzle_frames == 1:
 		$Muzzle/muzzle.hide()
-	if not laser_sight:
-		return
 	target = false
 	ray_dest = $RayCast2D.cast_to
 	if $RayCast2D.is_colliding():
@@ -124,8 +113,6 @@ func _process(delta):
 		target = true
 	#update _draw()
 	update()
-
-
 
 
 func _draw():

@@ -5,6 +5,7 @@
 #include <vector>
 #include <Navigation2D.hpp>
 #include <State.h>
+#include <BotAttrib.h>
 
 namespace godot
 {
@@ -16,6 +17,8 @@ namespace godot
 		State *_current_state = nullptr;
 		Node2D *_parent = nullptr;
 		std::vector<State *> _all_the_states;
+
+		bool _was_dead = false;
 
 	private:
 
@@ -31,6 +34,8 @@ namespace godot
 
 		bool use_mov_vct_for_rotation = true;
 		Vector2 point_to_position;
+		float angle_left_to_rotate = 0;
+		BotAttrib bot_attribute;
 
 	public:
 

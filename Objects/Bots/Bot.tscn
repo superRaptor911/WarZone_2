@@ -5,7 +5,7 @@
 [ext_resource path="res://bin/Bot.gdns" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 250.0
+radius = 750.0
 
 [node name="Bot" groups=[
 "Bot",

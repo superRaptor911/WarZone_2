@@ -61,6 +61,9 @@ remotesync func switchGun():
 	selected_gun.gun_user = self
 	selected_gun.position = Vector2(0,0)
 
+func switchToPrimaryGun():
+	if selected_gun != primary_gun:
+		rpc("switchGun")
 
 func respawnBot():
 	var spawn_points

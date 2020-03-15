@@ -94,8 +94,14 @@ void Bot::_init()
 
 void Bot::_process(float delta)
 {
-	if (_current_state)
+	if (_current_state && static_cast<bool>(_parent->get("alive")) )
 	{
+		if (_was_dead)
+		{
+			_current_state->startState();
+			_was_dead = false;
+		}
+
 		_current_state->runState();
 		State *new_state = _current_state->chkForStateChange();
 		
@@ -110,6 +116,9 @@ void Bot::_process(float delta)
 
 		interpolate_rotation(delta);
 	}
+	else
+		_was_dead = true;
+
 }
 
 //rotate the bot smoothly
@@ -138,6 +147,7 @@ void Bot::interpolate_rotation(float delta)
 	{	
 		rotation = new_rotation;
 		_parent->set_rotation(rotation);
+		angle_left_to_rotate = 0.f;
 		return;
 	}
 
@@ -147,6 +157,7 @@ void Bot::interpolate_rotation(float delta)
 	else
 		rotation += -sign(aba) * _rotational_speed * delta;
 
+	angle_left_to_rotate = fabs(new_rotation - rotation);
 	_parent->set_rotation(rotation);
 }
 

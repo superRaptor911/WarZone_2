@@ -7,33 +7,35 @@ using namespace godot;
  
 Attack::Attack()
 {
-	//_no_target_Timer.set_one_shot(true);
-	//_no_target_Timer.set_wait_time(2.f);
-	//_no_target_Timer.connect("timeout", this, "on_no_target_Timer_Timeout");
+	//_attack_pause_timer.set_one_shot(true);
+	//_attack_pause_timer.set_wait_time(2.f);
+	//_attack_pause_timer.connect("timeout", this, "on_attack_pause_timer_Timeout");
 }
 
 void Attack::startState()
 {
 	_bot->use_mov_vct_for_rotation = false;
 
-	_no_target_Timer = Timer()._new();
-	_no_target_Timer->set_one_shot(true);
-	_no_target_Timer->set_wait_time(2.f);
-	_bot->add_child(_no_target_Timer);
-	_no_target_Timer->start();
+	_attack_pause_timer = Timer()._new();
+	_attack_pause_timer->set_one_shot(true);
+	_attack_pause_timer->set_wait_time(0.2f);
+	_bot->add_child(_attack_pause_timer);
 
-	_attack_delay_timer = Timer()._new();
-	_attack_delay_timer->set_one_shot(true);
-	_attack_delay_timer->set_wait_time(0.05);
-	_bot->add_child(_attack_delay_timer);
+	_attack_timer = Timer()._new();
+	_attack_timer->set_one_shot(true);
+	_attack_timer->set_wait_time(0.4f);
+	_bot->add_child(_attack_timer);
 
 	_block_state_change = true;
+
+	_parent->call("switchToPrimaryGun");
+	
 }
 
 void Attack::stopState()
 {
-	_no_target_Timer->queue_free();
-	_no_target_Timer = nullptr;
+	_attack_pause_timer->queue_free();
+	_attack_pause_timer = nullptr;
 }
 
 void Attack::runState()
@@ -49,7 +51,7 @@ void Attack::runState()
 
 	_attack_enemy();
 
-	on_no_target_Timer_Timeout();
+	on_attack_pause_timer_Timeout();
 }
 
 
@@ -62,7 +64,7 @@ void Attack::_getCurrentEnemy()
 {
 	_current_enemy = nullptr;
 	_current_enemy_path = "invalid";
-	if (EGetMode::NEAREST == enemy_get_mode)
+	if (BotAttrib::EGetMode::NEAREST == _bot->bot_attribute.enemy_get_mode)
 	{
 		float min_dist = 99999.f;
 		int sz = _bot->visible_enemies.size();
@@ -80,7 +82,7 @@ void Attack::_getCurrentEnemy()
 			}
 		}
 	}
-	else if (EGetMode::FARTHEST == enemy_get_mode)
+	else if (BotAttrib::EGetMode::FARTHEST == _bot->bot_attribute.enemy_get_mode)
 	{
 		float max_dist = 0.f;
 		int sz = _bot->visible_enemies.size();
@@ -106,15 +108,10 @@ void Attack::_getCurrentEnemy()
 		_current_enemy = static_cast<Node2D *>(_bot->visible_enemies[rand_id]);
 		_current_enemy_path = _current_enemy->get_path();
 	}
-
-	/*if (!_current_enemy)
-		_no_target_Timer->start();
-	else
-		_no_target_Timer->stop();*/
 }
 
 
-void Attack::on_no_target_Timer_Timeout()
+void Attack::on_attack_pause_timer_Timeout()
 {
 	if (!_current_enemy)
 		_block_state_change = false;
@@ -124,6 +121,20 @@ void Attack:: _attack_enemy()
 {
 	if (!_current_enemy)
 		return;
-	
+
 	_bot->point_to_position = _current_enemy->get_position();
+
+	if ( _bot->angle_left_to_rotate < _bot->bot_attribute.accuracy)
+	{
+		if (!_attack_timer->is_stopped())
+		{
+			static_cast<Node *>(_parent->get("selected_gun"))->call("fireGun");
+			_attack_pause_timer->start();
+		}
+		else
+		{
+			if (_attack_pause_timer->is_stopped())
+				_attack_timer->start();
+		}
+	}
 }

@@ -558,12 +558,12 @@ anims/idle = SubResource( 6 )
 anims/walking = SubResource( 7 )
 
 [node name="leg1" type="Sprite" parent="."]
-position = Vector2( 4.48426, -2.9895 )
+position = Vector2( -0.942424, 2.81537 )
 z_index = -1
 texture = ExtResource( 3 )
 
 [node name="leg2" type="Sprite" parent="."]
-position = Vector2( -6.1451, 10.4633 )
+position = Vector2( -1.92285, 4.82449 )
 z_index = -1
 texture = ExtResource( 3 )
 
@@ -606,7 +606,7 @@ texture = ExtResource( 6 )
 
 [node name="arm" type="Sprite" parent="body/r_shoulder"]
 position = Vector2( -0.576889, -0.302248 )
-rotation = -0.214063
+rotation = -0.21443
 z_index = -1
 texture = ExtResource( 9 )
 offset = Vector2( 2.34541, -23.8781 )
@@ -617,14 +617,13 @@ texture = ExtResource( 5 )
 
 [node name="hand" type="Sprite" parent="body/r_shoulder/arm/joint"]
 position = Vector2( 0.950844, -0.271236 )
-rotation = 1.77898
+rotation = 1.77869
 z_index = -1
 texture = ExtResource( 8 )
 offset = Vector2( 3, -21 )
 
 [node name="fist" type="Node2D" parent="body/r_shoulder/arm/joint/hand"]
 position = Vector2( 0.670029, -38.5377 )
-rotation = -0.596428
 
 [node name="blood_scat" type="Sprite" parent="."]
 visible = false

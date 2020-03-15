@@ -1,7 +1,7 @@
 extends Node
 
 #is exporting for android or not
-var is_android : bool = true
+var is_android : bool = false
 var current_game_version = 1.0
 
 #player info (pinfo) used to send info about player in multiplayer
@@ -103,6 +103,9 @@ func saveDefaultData():
 	
 func portGameToCurrentVersion():
 	pass
+	
+func saveSettings():
+	save_data("user://settings.dat",game_settings)
 
 #setup player info
 func _init_setup():

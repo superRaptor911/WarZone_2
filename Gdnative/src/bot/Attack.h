@@ -12,28 +12,13 @@ namespace godot
 		godot::Node2D *_current_enemy = nullptr;
 		godot::NodePath _current_enemy_path;
 
-		godot::Timer *_no_target_Timer = nullptr;
-		godot::Timer *_attack_delay_timer = nullptr;
+		godot::Timer *_attack_pause_timer = nullptr;
+		godot::Timer *_attack_timer = nullptr;
 
 	private:
 
 		void _getCurrentEnemy();
 		void _attack_enemy();
-
-	public:
-
-		enum EGetMode
-		{
-			NEAREST = 0, RANDOM, FARTHEST
-		};
-
-		enum EAttackMode
-		{
-			SPRAY = 0, BURST, SINGLE
-		};
-
-		EGetMode enemy_get_mode = EGetMode::NEAREST;
-		EAttackMode attack_mode = EAttackMode::BURST;
 
 	public:
 
@@ -45,7 +30,7 @@ namespace godot
 		virtual void startState();
 		virtual void stopState();
 
-		void on_no_target_Timer_Timeout();
+		void on_attack_pause_timer_Timeout();
 	};
 }
 #endif

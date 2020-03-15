@@ -13,23 +13,21 @@ gun_name = "MP5"
 damage = 20.0
 rounds_in_clip = 30
 clips = 99
-projectile_velocity = 700.0
+gun_rating = 3
 rate_of_fire = 12.0
-spread = 0.01
-recoil_factor = 0.25
 max_zoom = 1.25
 gun_portrait = ExtResource( 5 )
 
 [node name="Muzzle" parent="." index="1"]
-position = Vector2( 3.57564, -22.1728 )
+position = Vector2( 0.785326, -24.5339 )
 
 [node name="Sprite" parent="." index="3"]
-position = Vector2( 3.70248, -4.77531 )
+position = Vector2( 0.104774, -7.23394 )
 scale = Vector2( 1.93398, 2.02605 )
 texture = ExtResource( 3 )
 
 [node name="fire" parent="." index="4"]
 stream = ExtResource( 4 )
 
-[node name="RayCast2D" parent="." index="7"]
-position = Vector2( 3.87825, -23.1317 )
+[node name="RayCast2D" parent="." index="6"]
+position = Vector2( 0.22937, -22.4878 )

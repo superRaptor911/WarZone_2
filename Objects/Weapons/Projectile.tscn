@@ -1,18 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Objects/Weapons/Projectile.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Weapons/fire.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1.93128, 8.84848 )
-
-[node name="Projectile" type="Area2D"]
-collision_mask = 3
+[node name="Projectile" type="Node2D"]
 script = ExtResource( 1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.418697, -8.58874 )
-shape = SubResource( 1 )
 
 [node name="Time_to_live" type="Timer" parent="."]
 wait_time = 2.0
@@ -20,8 +12,7 @@ one_shot = true
 autostart = true
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0.0126243, -8.61429 )
-scale = Vector2( 0.816162, 0.512311 )
+position = Vector2( -0.115264, -12.2804 )
+scale = Vector2( 0.778862, 0.837356 )
 texture = ExtResource( 2 )
-[connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]
 [connection signal="timeout" from="Time_to_live" to="." method="_on_Time_to_live_timeout"]

@@ -10,7 +10,7 @@ func _on_particles_toggled(button_pressed):
 
 
 func _on_back_pressed():
-	game_states.save_settings()
+	game_states.saveSettings()
 	get_tree().change_scene("res://Menus/Settings/Settings.tscn")
 
 
