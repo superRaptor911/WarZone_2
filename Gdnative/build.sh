@@ -9,10 +9,10 @@ exit_on_error=1
 
 #build arguments
 args[0]="platform=linux target_name=${source} src_path=src/${source} target=release"
-args[1]="platform=android android_arch=armv7 target_name=${source} src_path=src/${source} android_stl=yes"
-args[2]="platform=android android_arch=arm64v8 target_name=${source} src_path=src/${source} android_stl=yes"
-args[3]="platform=android android_arch=x86 target_name=${source} src_path=src/${source} android_stl=yes"
-args[4]="platform=android android_arch=x86_64 target_name=${source} src_path=src/${source} android_stl=yes"
+args[1]="platform=android android_arch=armv7 target_name=${source} src_path=src/${source} android_stl=yes target=release"
+args[2]="platform=android android_arch=arm64v8 target_name=${source} src_path=src/${source} android_stl=yes target=release"
+args[3]="platform=android android_arch=x86 target_name=${source} src_path=src/${source} android_stl=yes target=release"
+args[4]="platform=android android_arch=x86_64 target_name=${source} src_path=src/${source} android_stl=yes target=release"
 args[5]="platform=windows target_name=${source} src_path=src/${source} target=release"
 
 #platforms
@@ -43,6 +43,7 @@ build_targets()
 
 ##############################Starts here#######################
 clear
+mkdir -p output/bin
 
 for (( i = 0; i < 6; i++ )); do
 	build_targets "${args[i]}" "${i}"
