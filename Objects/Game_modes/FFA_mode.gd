@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var scoreBoard = preload("res://Objects/Game_modes/FFA/FFAScoreBoard.tscn").instance()
-
+var current_level = null
 #Quake sound class holds message that is to be displayed
 #and name of the sound that is to be played
 class quake_sound:
@@ -96,17 +96,30 @@ func _on_uptime_timeout():
 func _ready():
 	#only server handles quake events and sound
 	if get_tree().is_network_server():
-		var plz = get_tree().get_nodes_in_group("User")
-		for plr in plz:
-			var p = Player_stats.new(plr.name,quake_sound_queue)
-			plr.connect("char_killed",p,"_player_got_killed")
-			plr.connect("char_killed_someone",p,"_player_killed_someone")
-			Players.push_back(p)
+		_setupQuakeSounds()
+		current_level = get_tree().get_nodes_in_group("Level")[0]
+		current_level.connect("player_spawned", self, "_on_new_player_spawned")
 		$Label/Timer.start()
 
 func _process(delta):
 	if get_tree().is_network_server():
 		showQuakeKills()
+
+func _setupQuakeSounds():
+	var plz = get_tree().get_nodes_in_group("User")
+	for plr in plz:
+		var p = Player_stats.new(plr.pname,quake_sound_queue)
+		plr.connect("char_killed",p,"_player_got_killed")
+		plr.connect("char_killed_someone",p,"_player_killed_someone")
+		Players.push_back(p)
+	plz = get_tree().get_nodes_in_group("Bot")
+	for plr in plz:
+		var p = Player_stats.new(plr.pname,quake_sound_queue)
+		print("coonecting with ",plr.pname)
+		plr.connect("char_killed",p,"_player_got_killed")
+		plr.connect("char_killed_someone",p,"_player_killed_someone")
+		Players.push_back(p)
+
 
 func showQuakeKills():
 	if quake_sound_queue.size():
@@ -123,9 +136,17 @@ remotesync func syncQuakeKills(msg,sound_name,is_last_msg : bool):
 	$quake_sounds.get_node(sound_name).play()
 	if is_last_msg:
 		$Tween.interpolate_property($Label,"modulate",Color8(255,255,255,255),Color8(255,255,255,0),5,Tween.TRANS_LINEAR,Tween.EASE_OUT)
-		$Tween.start()   
+		$Tween.start()  
 	
 
 func _on_Timer_timeout():
 	pass
 	#showQuakeKills()
+
+#add new player to quake sounds
+func _on_new_player_spawned(plr):
+	print("called")
+	var p = Player_stats.new(plr.pname,quake_sound_queue)
+	plr.connect("char_killed",p,"_player_got_killed")
+	plr.connect("char_killed_someone",p,"_player_killed_someone")
+	Players.push_back(p)

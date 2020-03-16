@@ -14,12 +14,17 @@ func _ready():
 	get_node("A/1").queue_free()
 	get_node("A/2").queue_free()
 
+class custom_sorter:
+	static func sort(a,b) -> bool:
+		return a.kills > b.kills
+
 func setBoardData(data : Array):
 	print("")
 	var old_panels = $A.get_children()
 	for i in old_panels:
 		i.queue_free()
-
+		
+	data.sort_custom(custom_sorter,"sort")
 	var teamA_cur_p_clr = "dark"
 	for i in data:
 		var new_panel

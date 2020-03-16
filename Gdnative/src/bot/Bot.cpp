@@ -111,7 +111,7 @@ void Bot::_process(float delta)
 			new_state->prev_state = _current_state;
 			_current_state = new_state;
 			_current_state->startState();
-			Godot::print("State changed");
+			//Godot::print("State changed");
 		}
 
 		interpolate_rotation(delta);

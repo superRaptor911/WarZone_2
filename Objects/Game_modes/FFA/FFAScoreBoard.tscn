@@ -8,17 +8,17 @@
 [ext_resource path="res://Objects/Game_modes/FFA/FFAScoreBoard.gd" type="Script" id=6]
 [ext_resource path="res://Menus/resources/dark_wD.png" type="Texture" id=7]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 20
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 size = 24
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=3]
 size = 28
 use_filter = true
 font_data = ExtResource( 3 )
@@ -41,7 +41,7 @@ margin_left = 82.0
 margin_top = 77.0
 margin_right = 633.0
 margin_bottom = 469.0
-custom_constants/separation = 5
+custom_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -60,7 +60,7 @@ margin_left = 35.0
 margin_top = -4.0
 margin_right = -316.0
 margin_bottom = -4.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "Killer"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -73,7 +73,7 @@ margin_left = 183.203
 margin_top = -2.31213
 margin_right = -167.797
 margin_bottom = -2.31213
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "10"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -86,7 +86,7 @@ margin_left = 313.969
 margin_top = -0.170777
 margin_right = -37.0302
 margin_bottom = -0.170776
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "10"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -99,16 +99,16 @@ margin_left = 449.052
 margin_top = 3.08725
 margin_right = 98.0523
 margin_bottom = 3.08725
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "10"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="2" type="TextureRect" parent="A"]
-margin_top = 35.0
+margin_top = 30.0
 margin_right = 551.0
-margin_bottom = 65.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 0, 30 )
 texture = ExtResource( 4 )
 expand = true
@@ -120,7 +120,7 @@ margin_left = 35.0
 margin_top = -4.0
 margin_right = -316.0
 margin_bottom = -4.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "Killer"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -133,7 +133,7 @@ margin_left = 183.203
 margin_top = -2.31213
 margin_right = -167.797
 margin_bottom = -2.31213
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "10"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -146,7 +146,7 @@ margin_left = 313.969
 margin_top = -2.61429
 margin_right = -37.0302
 margin_bottom = -2.61429
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "10"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -159,7 +159,7 @@ margin_left = 449.052
 margin_top = -0.170792
 margin_right = 98.0524
 margin_bottom = -0.170792
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "10"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -176,7 +176,7 @@ margin_left = 93.4518
 margin_top = 5.83926
 margin_right = 609.452
 margin_bottom = 38.8393
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 text = "Name            Kills        Deaths      Score"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -200,7 +200,7 @@ margin_left = 40.5804
 margin_top = 3.74194
 margin_right = 87.5804
 margin_bottom = 40.7419
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "OK"
 __meta__ = {
 "_edit_use_anchors_": false

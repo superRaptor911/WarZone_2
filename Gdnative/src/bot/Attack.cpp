@@ -124,7 +124,7 @@ void Attack:: _attack_enemy()
 
 	//apply inaccuracy 
 	//do not apply if already applied
-	if (_old_enemy_position != _current_enemy->get_position())
+	/*if (_old_enemy_position != _current_enemy->get_position())
 	{
 		_old_enemy_position = _current_enemy->get_position();
 		_bot->point_to_position = _current_enemy->get_position();
@@ -134,8 +134,9 @@ void Attack:: _attack_enemy()
 		float error_y = 2.f * (static_cast<float>(rand() % 100) / 100.f - 0.5f) * (1.f - _bot->bot_attribute.accuracy);
 		
 		_bot->point_to_position += Vector2(error_x, error_y) * (_parent->get_position() - _bot->point_to_position).length();
-	}
+	}*/
 
+	_bot->point_to_position = _current_enemy->get_position();
 
 	if ( _bot->angle_left_to_rotate < _bot->bot_attribute.accuracy)
 	{

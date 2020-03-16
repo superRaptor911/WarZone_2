@@ -1,8 +1,9 @@
 extends Node2D
 
+signal player_spawned(player)
 export var Level_Name = "no_name"
-
 export var team1_name = "A"
+
 var team1 = preload("res://Objects/scripts/Team.gd").new("A")
 export var team2_name = "B"
 var team2 = preload("res://Objects/scripts/Team.gd").new("B")
@@ -25,7 +26,7 @@ var char_data_dict = {
 
 func _ready():
 	game_server._player_data_list.clear()
-	max_spawn_pts = $spawn.get_child_count()
+	max_spawn_pts = $spawn_points.get_child_count()
 	#add_child(load("res://Maps/" + game_states.CURRENT_LEVEL + ".tscn").instance())
 	network.connect("player_list_changed", self, "_on_player_list_changed")
 	network.connect("disconnected", self, "_on_disconnected")
@@ -122,6 +123,8 @@ func spawnPlayer(char_data):
 	else:
 		print("Fatal Error: invalid team id for player ", char_data.pname)
 	add_child(nactor)
+	if not char_data.is_bot:
+		emit_signal("player_spawned",nactor)
 
 
 remotesync func spawn_player(pinfo, spawn_index, team):
@@ -150,10 +153,11 @@ remotesync func spawn_player(pinfo, spawn_index, team):
 	elif team == "B":
 		team2.addPlayer(nactor)
 	add_child(nactor)
+	emit_signal("player_spawned",nactor)
 
 func spawnBots():
 	var index : int = 0
-	var spawn_points = get_tree().get_nodes_in_group("spawn_points")[0].get_children()
+	var spawn_manager = get_tree().get_nodes_in_group("spawn_points")[0]
 	var bots : Array
 	
 	for i in game_states.bot_profiles.bot:
@@ -166,7 +170,7 @@ func spawnBots():
 		char_data.g2 = i.bot_sec_gun
 		char_data.is_bot = true
 		char_data.team_id = "A"
-		char_data.pos = spawn_points[randi() % max_spawn_pts].position
+		char_data.pos = spawn_manager.getSpawnPoint()
 		#giving unique integer name
 		char_data.name = String(69 + index)
 		bots.append(char_data)
