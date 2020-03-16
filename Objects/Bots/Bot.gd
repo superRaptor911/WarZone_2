@@ -11,11 +11,17 @@ var primary_gun = null
 var sec_gun = null
 var selected_gun = null
 
+signal bot_killed(bot)
+
 var bot_data : Dictionary = {
 	bot_g1 = "",
 	bot_g2 = ""
 }
 
+###################################################
+#Note: free_timer is overridden to perform respawn
+#
+###################################################
 
 func _ready():
 	switchGun()
@@ -97,7 +103,8 @@ func _on_free_timer_timeout():
 	respawnBot()
 
 func _on_bot_killed():
-	$free_timer.start()
+	emit_signal("bot_killed",self)
+	#$free_timer.start()
 
 ########################bot vision####################
 

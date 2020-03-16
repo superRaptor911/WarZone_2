@@ -60,6 +60,7 @@ func _on_disconnected_from_server():
 	game_states.player_info.net_id = 1
 	
 func create_server(server_name,port,max_players):
+	print("called cs")
 	var net = NetworkedMultiplayerENet.new()
 	if (net.create_server(port,max_players) != OK):
 		print("Failed to create server")
@@ -68,9 +69,9 @@ func create_server(server_name,port,max_players):
 	emit_signal("server_created")
 	server_info.port = port
 	server_info.max_players = max_players
-	register_player(game_states.player_info)
 	serverAvertiser = preload("res://Network/ServerAdvertiser.gd").new()
 	add_child(serverAvertiser)
+	register_player(game_states.player_info)
 	serverAvertiser.serverInfo.port = String(port)
 	serverAvertiser.serverInfo.max_players = String(max_players)
 	serverAvertiser.serverInfo.name = server_name

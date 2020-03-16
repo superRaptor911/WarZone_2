@@ -22,9 +22,13 @@ var grenade = preload("res://Objects/Weapons/grenade.tscn")
 var grenade_count = 3
 var _pause_cntrl : bool = false
 
+signal player_killed(player)
+
 
 ###################################################
-
+#Note: free_timer is overridden to perform respawn
+#
+###################################################
 
 func _ready():
 	$Gun.queue_free()
@@ -51,8 +55,8 @@ func _on_player_killed():
 	#show respawn percentage
 	hud.get_node("respawn").visible = true
 	$Camera2D.current = false
-	$free_timer.start()
 	pause_controls(true)
+	emit_signal("player_killed",self)
 
 
 
