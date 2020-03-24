@@ -23,14 +23,13 @@ namespace godot
 		State *prev_state = nullptr;
 
 	public:
-
-		static void _register_methods(){}
 		
+		virtual void initState();	
 		virtual void runState();
 		virtual bool isStateReady();
 		virtual void startState();
 		virtual void stopState();
-		State *chkForStateChange();
+		virtual State *chkForStateChange();
 
 		void setParentAndBot(godot::Node2D *parent, godot::Bot *bot) {_parent = parent; _bot = bot;}
 		void connect(State *state) {_connected_states.push_back(state);}

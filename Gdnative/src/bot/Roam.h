@@ -21,13 +21,10 @@ namespace godot
 		void headToDest();
 
 	public:
-		
-		static void _register_methods(){}
 
 		virtual void runState();
 		virtual bool isStateReady();
 		virtual void startState();
-
 	};
 }
 #endif

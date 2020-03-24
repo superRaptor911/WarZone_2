@@ -46,15 +46,6 @@ void Roam::headToDest()
 	Vector2 position = _parent->get_position();
 	_parent->set("movement_vector", dest - position);
 
-	//rotational code here
-	//
-	//
-	//////////////////////
-	
-	
 	if ((dest - position).length() < 1.f)
 		_on_dest = (++ _current_dest_id >= _path_to_dest.size());
 }
-
-
-

@@ -65,6 +65,7 @@ func _on_killed():
 	$blood_scat.show()
 	$body.hide()
 	$anim.stop()
+	$anim.play("smg_reload")
 	$walking.stop()
 	
 func revive():

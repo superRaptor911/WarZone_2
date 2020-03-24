@@ -1,11 +1,44 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=4]
+[ext_resource path="res://new_font.tres" type="DynamicFont" id=5]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id=8]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 6
+
+[sub_resource type="DynamicFont" id=5]
+size = 30
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=6]
 size = 32
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 24
 use_filter = true
 font_data = ExtResource( 3 )
 
@@ -14,113 +47,69 @@ size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=3]
+size = 32
+use_filter = true
+font_data = ExtResource( 3 )
+
 [node name="Lobby" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -314.0
-margin_top = -296.5
-margin_right = 314.0
-margin_bottom = 296.5
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+texture = ExtResource( 4 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="PanelContainer2"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 621.0
-margin_bottom = 586.0
-
-[node name="level" type="OptionButton" parent="PanelContainer2/Panel"]
-margin_left = 315.0
-margin_top = 80.852
-margin_right = 558.0
-margin_bottom = 129.852
-custom_fonts/font = SubResource( 1 )
+[node name="Panel" type="Panel" parent="."]
+margin_left = 44.0
+margin_top = 83.0
+margin_right = 659.0
+margin_bottom = 662.0
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="PanelContainer2/Panel/level"]
-margin_left = -244.379
-margin_top = -8.96414
-margin_right = -95.3792
-margin_bottom = 38.0359
-custom_fonts/font = SubResource( 2 )
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+margin_left = 53.0
+margin_top = 58.0
+margin_right = 551.0
+margin_bottom = 459.0
+custom_constants/separation = 40
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="level" type="Button" parent="Panel/VBoxContainer"]
+margin_right = 498.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 400, 50 )
+custom_styles/normal = SubResource( 8 )
+custom_fonts/font = ExtResource( 5 )
 text = "Level"
 
-[node name="bot_no" type="HScrollBar" parent="PanelContainer2/Panel"]
-margin_left = 315.0
-margin_top = 200.0
-margin_right = 481.0
-margin_bottom = 240.0
-max_value = 24.0
-step = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="GameMode" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 124.0
+margin_right = 498.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 400, 50 )
+custom_styles/normal = SubResource( 8 )
+custom_fonts/font = ExtResource( 5 )
+text = "GameMode"
 
-[node name="label" type="Label" parent="PanelContainer2/Panel/bot_no"]
-margin_left = -250.26
-margin_top = -6.82199
-margin_right = -80.2597
-margin_bottom = 40.178
-custom_fonts/font = SubResource( 2 )
-text = "Bot Count"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="label2" type="Label" parent="PanelContainer2/Panel/bot_no"]
-margin_left = 199.907
-margin_top = -5.52982
-margin_right = 269.907
-margin_bottom = 40.4702
-custom_fonts/font = SubResource( 2 )
-text = "0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bot_difficulty" type="HScrollBar" parent="PanelContainer2/Panel"]
-margin_left = 315.735
-margin_top = 297.032
-margin_right = 481.735
-margin_bottom = 337.032
-min_value = 1.0
-max_value = 4.0
-step = 1.0
-value = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="label" type="Label" parent="PanelContainer2/Panel/bot_difficulty"]
-margin_left = -250.26
-margin_top = -6.82199
-margin_right = -80.2597
-margin_bottom = 40.178
-custom_fonts/font = SubResource( 2 )
-text = "Bot Difficulty"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="label2" type="Label" parent="PanelContainer2/Panel/bot_difficulty"]
-margin_left = 200.0
-margin_top = -6.0
-margin_right = 267.0
-margin_bottom = 37.0
-custom_fonts/font = SubResource( 2 )
-text = "1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="bots" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 248.0
+margin_right = 498.0
+margin_bottom = 332.0
+rect_min_size = Vector2( 400, 50 )
+custom_styles/normal = SubResource( 8 )
+custom_fonts/font = ExtResource( 5 )
+text = "Bots"
 
 [node name="Label" type="Label" parent="."]
 margin_left = 56.4023
@@ -129,6 +118,9 @@ margin_right = 407.402
 margin_bottom = 43.384
 rect_scale = Vector2( 1.25, 1.25 )
 custom_fonts/font = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="start" type="Button" parent="."]
 margin_left = 1110.05
@@ -140,7 +132,232 @@ text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="item_selected" from="PanelContainer2/Panel/level" to="." method="_on_level_item_selected"]
-[connection signal="value_changed" from="PanelContainer2/Panel/bot_no" to="." method="_on_bot_no_value_changed"]
-[connection signal="value_changed" from="PanelContainer2/Panel/bot_difficulty" to="." method="_on_bot_difficulty_value_changed"]
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="bots" type="Panel" parent="."]
+margin_left = 1496.63
+margin_top = 211.072
+margin_right = 1996.63
+margin_bottom = 526.072
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="header" type="Panel" parent="bots"]
+margin_left = 4.69263
+margin_top = 4.7836
+margin_right = 495.693
+margin_bottom = 44.7836
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="bots/header"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -55.0
+margin_top = -19.5
+margin_right = 55.0
+margin_bottom = 19.5
+custom_fonts/font = SubResource( 5 )
+text = "Bots"
+
+[node name="bot_no" type="Label" parent="bots"]
+margin_left = 38.007
+margin_top = 65.8757
+margin_right = 208.007
+margin_bottom = 108.876
+custom_fonts/font = SubResource( 6 )
+text = "Bot Count"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSlider" type="HSlider" parent="bots/bot_no"]
+margin_left = 203.717
+margin_top = 10.4252
+margin_right = 279.717
+margin_bottom = 26.4252
+rect_scale = Vector2( 2, 2 )
+max_value = 24.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="bots/bot_no"]
+margin_left = 382.0
+margin_top = 10.0
+margin_right = 432.0
+margin_bottom = 37.0
+
+[node name="count" type="Label" parent="bots/bot_no/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -16.0
+margin_right = 22.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 7 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bot_difficulty" type="Label" parent="bots"]
+margin_left = 9.13086
+margin_top = 148.289
+margin_right = 232.131
+margin_bottom = 191.289
+custom_fonts/font = SubResource( 6 )
+text = "Bot Difficulty"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bot_diff" type="HSlider" parent="bots/bot_difficulty"]
+margin_left = 236.139
+margin_top = 9.85641
+margin_right = 312.139
+margin_bottom = 25.8564
+rect_scale = Vector2( 2, 2 )
+min_value = 1.0
+max_value = 4.0
+value = 1.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="bots/bot_difficulty"]
+margin_left = 412.715
+margin_top = 11.7064
+margin_right = 462.715
+margin_bottom = 38.7064
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="count" type="Label" parent="bots/bot_difficulty/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -16.0
+margin_right = 22.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 7 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="level" type="Panel" parent="."]
+margin_left = 737.751
+margin_top = 218.416
+margin_right = 1237.75
+margin_bottom = 533.416
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="header" type="Panel" parent="level"]
+margin_left = 4.69263
+margin_top = 4.7836
+margin_right = 495.693
+margin_bottom = 44.7836
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="level/header"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.5
+margin_top = -19.5
+margin_right = 90.5
+margin_bottom = 19.5
+custom_fonts/font = SubResource( 5 )
+text = "Level Select"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="level" type="OptionButton" parent="level"]
+margin_left = 225.025
+margin_top = 79.2488
+margin_right = 468.025
+margin_bottom = 128.249
+custom_fonts/font = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="level/level"]
+margin_left = -209.642
+margin_top = -1.5957
+margin_right = -60.6422
+margin_bottom = 45.4043
+custom_fonts/font = SubResource( 3 )
+text = "Level"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gameMode" type="Panel" parent="."]
+margin_left = 1514.83
+margin_top = 592.89
+margin_right = 2014.83
+margin_bottom = 907.89
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="header" type="Panel" parent="gameMode"]
+margin_left = 4.69263
+margin_top = 4.7836
+margin_right = 495.693
+margin_bottom = 44.7836
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="gameMode/header"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.5
+margin_top = -19.5
+margin_right = 90.5
+margin_bottom = 19.5
+custom_fonts/font = SubResource( 5 )
+text = "Game Mode"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Panel/VBoxContainer/level" to="." method="_on_level_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GameMode" to="." method="_on_GameMode_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/bots" to="." method="_on_bots_pressed"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="value_changed" from="bots/bot_no/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="bots/bot_difficulty/bot_diff" to="." method="_on_bot_diff_value_changed"]
+[connection signal="item_selected" from="level/level" to="." method="_on_level_item_selected"]

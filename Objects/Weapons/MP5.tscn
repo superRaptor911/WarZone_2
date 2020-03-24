@@ -19,7 +19,7 @@ max_zoom = 1.25
 gun_portrait = ExtResource( 5 )
 
 [node name="Muzzle" parent="." index="1"]
-position = Vector2( 0.785326, -24.5339 )
+position = Vector2( 0.246706, -22.3794 )
 
 [node name="Sprite" parent="." index="3"]
 position = Vector2( 0.104774, -7.23394 )

@@ -13,7 +13,7 @@ using namespace godot;
 
 Bot::Bot()
 {
- 
+	//pass 
 }
 
 
@@ -21,8 +21,8 @@ void Bot::_register_methods()
 {
 	register_method("_process", &Bot::_process);
 	register_method("_ready", &Bot::_ready);
-	
-	register_property<Bot, float> ("_rotational_speed", &Bot::_rotational_speed, 2.f);
+	register_method("setBotDifficulty", &Bot::setBotDifficulty);
+
 	register_property<Bot, Array> ("visible_enemies", &Bot::visible_enemies, Array());
 	register_property<Bot, Array> ("visible_friends", &Bot::visible_friends, Array());
 }
@@ -41,6 +41,7 @@ void Bot::_loadStates()
 	for(auto &i : _all_the_states)
 	{
 		i->setParentAndBot(_parent, this);
+		i->initState();
 	}
 
 	_current_state = roam;
@@ -58,7 +59,7 @@ void Bot::_ready()
 	if (!arr.empty())
 		nav = arr[0];
 	else
-		Godot::print("Error::Unable_to_getnavigation2D");
+		Godot::print("Error::Unable_to_get_navigation2D");
 
 	//get point of interests
 	Array arr2 = get_tree()->get_nodes_in_group("POI");
@@ -84,7 +85,7 @@ void Bot::_ready()
 	}
 	else
 		Godot::print("Error::There_are_no_POIs");
-
+	_parent->call("switchToPrimaryGun");
 }
 
 void Bot::_init()
@@ -142,8 +143,8 @@ void Bot::interpolate_rotation(float delta)
 	if (rotation > 6.28f)
 		rotation -= 6.28f;
 
-	if (fabs(new_rotation - rotation) <= _rotational_speed * delta ||
-		fabs(6.28f - fabs(new_rotation - rotation)) <= _rotational_speed * delta)
+	if (fabs(new_rotation - rotation) <= bot_attribute.rotational_speed * delta ||
+		fabs(6.28f - fabs(new_rotation - rotation)) <= bot_attribute.rotational_speed * delta)
 	{	
 		rotation = new_rotation;
 		_parent->set_rotation(rotation);
@@ -153,12 +154,45 @@ void Bot::interpolate_rotation(float delta)
 
 	float aba = new_rotation - rotation;
 	if (fabs(aba) <= 6.28f - fabs(aba))
-		rotation += sign(aba) * _rotational_speed * delta;
+		rotation += sign(aba) * bot_attribute.rotational_speed * delta;
 	else
-		rotation += -sign(aba) * _rotational_speed * delta;
+		rotation += -sign(aba) * bot_attribute.rotational_speed * delta;
 
 	angle_left_to_rotate = fabs(new_rotation - rotation);
 	_parent->set_rotation(rotation);
+}
+
+
+void Bot::setBotDifficulty(int difficulty)
+{
+	if (difficulty == 1)
+	{
+		bot_attribute.rotational_speed = 1.5f;
+		bot_attribute.reaction_time = 1.5f;
+		bot_attribute.spray_time = 0.5f;
+		bot_attribute.accuracy = 1.f;
+	}
+	else if (difficulty == 2)
+	{
+		bot_attribute.rotational_speed = 2.f;
+		bot_attribute.reaction_time = 1.f;
+		bot_attribute.spray_time = 0.4f;
+		bot_attribute.accuracy = 0.7f;
+	}
+	else if (difficulty == 3)
+	{
+		bot_attribute.rotational_speed = 3.f;
+		bot_attribute.reaction_time = 0.8f;
+		bot_attribute.spray_time = 0.4f;
+		bot_attribute.accuracy = 0.5f;
+	}
+	else if (difficulty == 4)
+	{
+		bot_attribute.rotational_speed = 5.f;
+		bot_attribute.reaction_time = 0.2f;
+		bot_attribute.spray_time = 0.4f;
+		bot_attribute.accuracy = 0.3f;
+	}
 }
 
 

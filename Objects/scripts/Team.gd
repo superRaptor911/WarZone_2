@@ -2,7 +2,7 @@ extends Node
 
 class_name Team
 
-var team_id : String = "A"
+var team_id : int = 0
 var team_name : String = ""
 var score : int = 0
 

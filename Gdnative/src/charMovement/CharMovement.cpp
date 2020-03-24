@@ -2,6 +2,7 @@
 #include <SceneTree.hpp>
 #include <Tween.hpp>
 #include <math.h>
+#include <string>
 
 
 
@@ -36,6 +37,7 @@ CharMovement::CharMovement()
 	_update_delta = 1.f / 25.f;
 	_old_rot = 0.f;
 	_stateVectors.reserve(20);
+	_current_time = 0.f;
 }
 
 CharMovement::~CharMovement() 
@@ -51,6 +53,7 @@ void CharMovement::_ready()
 void CharMovement::_init() 
 {
 	_Input = Input::get_singleton();
+	_update_delta = 1.f / 25.f;
 }
 
 void CharMovement::_process(float delta) 
@@ -155,7 +158,7 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 	{
 		//velocity of character
 		Vector2 velocity =mov_vct.normalized() * speed_mul * speed * _update_delta;
-			
+					
 		Ref<KinematicCollision2D> collision = _parent->move_and_collide(velocity);
 		//test collision
 		if (collision.ptr())
@@ -178,7 +181,7 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 	
 	//velocity of character
 	Vector2 velocity =mov_vct.normalized() * speed_mul * speed * _update_delta;
-		
+
 	Ref<KinematicCollision2D> collision = _parent->move_and_collide(velocity);
 	//test collision
 	if (collision.ptr())

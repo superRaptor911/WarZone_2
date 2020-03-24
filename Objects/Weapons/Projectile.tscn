@@ -1,9 +1,41 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Objects/Weapons/Projectile.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Weapons/fire.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/particles/smoke1.png" type="Texture" id=3]
 
-[node name="Projectile" type="Node2D"]
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.770992, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0.538961, 0.290909 ), 0.0, -0.124658, 0, 0, Vector2( 1, 0.890909 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+flag_disable_z = true
+spread = 30.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 30.0
+initial_velocity_random = 0.6
+angular_velocity = 10.0
+angular_velocity_random = 0.54
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = -15.0
+scale = 0.4
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 2.6081, 11.6156 )
+
+[node name="Projectile" type="Area2D"]
 script = ExtResource( 1 )
 
 [node name="Time_to_live" type="Timer" parent="."]
@@ -15,4 +47,21 @@ autostart = true
 position = Vector2( -0.115264, -12.2804 )
 scale = Vector2( 0.778862, 0.837356 )
 texture = ExtResource( 2 )
+
+[node name="impact" type="Particles2D" parent="."]
+position = Vector2( -0.150078, -0.842316 )
+rotation = 1.5708
+emitting = false
+amount = 20
+lifetime = 1.5
+one_shot = true
+speed_scale = 2.5
+explosiveness = 1.0
+process_material = SubResource( 5 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.0237961, -13.8901 )
+shape = SubResource( 6 )
+[connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]
 [connection signal="timeout" from="Time_to_live" to="." method="_on_Time_to_live_timeout"]

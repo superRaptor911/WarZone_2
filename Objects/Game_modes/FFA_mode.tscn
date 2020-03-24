@@ -25,6 +25,9 @@ margin_right = 54.5
 margin_bottom = 54.0
 texture = ExtResource( 2 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="panel" type="TextureRect" parent="Time_container"]
 anchor_left = 0.5

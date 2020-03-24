@@ -1,30 +1,34 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Menus/MainMenu/host_menu.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://Menus/resources/btn_texture3.png" type="Texture" id=5]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=8]
-[ext_resource path="res://Sfx/menus/btn_hvr.wav" type="AudioStream" id=9]
 
-[sub_resource type="DynamicFont" id=1]
-size = 36
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.141176, 0.12549, 0.447059, 1 )
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 0.0313726, 0.0313726, 1 )
+shadow_size = 6
+
+[sub_resource type="DynamicFont" id=3]
+size = 28
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="Gradient" id=2]
-colors = PoolColorArray( 0.101685, 0.185144, 0.382812, 0.462745, 0.236069, 0.746094, 0.255992, 0.792157 )
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0.686275 )
+shadow_size = 6
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
-
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
@@ -41,51 +45,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="create" type="TextureButton" parent="Panel"]
-margin_left = 1063.81
-margin_top = 615.711
-margin_right = 1237.8
-margin_bottom = 697.711
-expand = true
+[node name="create" type="Button" parent="Panel"]
+margin_left = 1017.0
+margin_top = 598.0
+margin_right = 1256.0
+margin_bottom = 697.0
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 6 )
+text = "Create"
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Panel/create"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -86.8716
-margin_top = -41.822
-margin_right = 93.1284
-margin_bottom = 42.178
-custom_fonts/font = ExtResource( 6 )
-text = "Start"
-
-[node name="back" type="TextureButton" parent="Panel"]
-margin_left = 61.0
-margin_top = 657.0
-margin_right = 186.0
-margin_bottom = 702.0
-texture_normal = ExtResource( 5 )
-expand = true
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Label" type="Label" parent="Panel/back"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -49.5007
-margin_top = -27.8337
-margin_right = 117.499
-margin_bottom = 56.1663
-custom_fonts/font = SubResource( 1 )
+[node name="back" type="Button" parent="Panel"]
+margin_left = 63.1053
+margin_top = 652.789
+margin_right = 188.105
+margin_bottom = 697.789
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Panel"]
 anchor_left = 0.5
@@ -97,16 +79,12 @@ margin_bottom = 101.053
 custom_fonts/font = ExtResource( 8 )
 text = "Host Server"
 
-[node name="btn_click" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
-
-[node name="panel" type="TextureRect" parent="."]
+[node name="panel" type="Panel" parent="."]
 margin_left = 240.888
 margin_top = 151.797
 margin_right = 984.888
 margin_bottom = 605.797
-texture = SubResource( 3 )
-expand = true
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -129,7 +107,7 @@ __meta__ = {
 [node name="e1" type="LineEdit" parent="panel/contatiner"]
 margin_right = 364.0
 margin_bottom = 53.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "My Server"
 max_length = 64
 
@@ -138,7 +116,7 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Server Name"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -148,7 +126,7 @@ __meta__ = {
 margin_top = 93.0
 margin_right = 364.0
 margin_bottom = 146.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "8"
 max_length = 64
 
@@ -157,7 +135,7 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Max Players"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -167,7 +145,7 @@ __meta__ = {
 margin_top = 186.0
 margin_right = 364.0
 margin_bottom = 239.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "6569"
 max_length = 64
 
@@ -176,11 +154,12 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Port"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="pressed" from="Panel/create" to="." method="_on_create_pressed"]
 [connection signal="pressed" from="Panel/back" to="." method="_on_back_pressed"]
-[connection signal="finished" from="btn_click" to="." method="_on_btn_click_finished"]

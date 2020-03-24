@@ -107,19 +107,17 @@ func _process(delta):
 	if muzzle_frames == 1:
 		$Muzzle/muzzle.hide()
 	target = false
-	ray_dest = $RayCast2D.cast_to
+	ray_dest = $RayCast2D.cast_to.rotated(global_rotation) + $RayCast2D.global_position
 	if $RayCast2D.is_colliding():
 		ray_dest = $RayCast2D.get_collision_point()
 		target = true
 	#update _draw()
-	update()
-
+	if laser_sight:
+		update()
 
 func _draw():
 	if laser_sight:
-		if not target:
-			draw_line($Muzzle.position, ray_dest, Color.red)
-			draw_circle(ray_dest, 3, Color.red)
-		else:
-			draw_line($Muzzle.position, (ray_dest - $RayCast2D.global_position).rotated(-global_rotation), Color.red)
-			draw_circle((ray_dest - $RayCast2D.global_position).rotated(-global_rotation), 3, Color.red)
+		draw_line($Muzzle.position, (ray_dest - $RayCast2D.global_position).rotated(-global_rotation)
+		+ $RayCast2D.position , Color.red)
+		draw_circle((ray_dest - $RayCast2D.global_position).rotated(-global_rotation) + $RayCast2D.position 
+		, 3, Color.red)

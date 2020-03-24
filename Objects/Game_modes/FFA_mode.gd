@@ -2,6 +2,8 @@ extends CanvasLayer
 
 var scoreBoard = preload("res://Objects/Game_modes/FFA/FFAScoreBoard.tscn").instance()
 var current_level = null
+var world_size : Vector2
+
 #Quake sound class holds message that is to be displayed
 #and name of the sound that is to be played
 class quake_sound:
@@ -148,6 +150,7 @@ func _on_new_player_spawned(plr):
 	plr.connect("player_killed",self,"_on_player_killed")
 
 func _on_player_killed(plr):
+	print("called")
 	plr.get_node("free_timer").start()
 	
 func _on_bot_killed(bot):

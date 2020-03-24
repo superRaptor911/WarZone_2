@@ -4,8 +4,8 @@
 [ext_resource path="res://Objects/Bots/Bot.gd" type="Script" id=2]
 [ext_resource path="res://bin/Bot.gdns" type="Script" id=3]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 750.0
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 636.278, 356.822 )
 
 [node name="Bot" groups=[
 "Bot",

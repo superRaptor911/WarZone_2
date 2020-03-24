@@ -80,7 +80,7 @@ var _player_data = {
 	deaths = 0,
 	ping = 0,
 	score = 0,
-	team_id = "A"
+	team_id = 0
 }
 
 signal player_data_synced
@@ -138,8 +138,9 @@ func handleKills(victim,killer,weapon_used):
 	rpc_unreliable("sync_kill_msg",kill_msg)
 
 remotesync func sync_kill_msg(kill_msg):
-	var hud = get_tree().get_nodes_in_group("Hud")[0]
-	hud.addKillMessage(kill_msg)
+	var hud = get_tree().get_nodes_in_group("Hud")
+	if !hud.empty():
+		hud[0].addKillMessage(kill_msg)
 	
 remote func ServerSyncPlayerDataList(requestPeerId : int):
 	rpc_id(requestPeerId,"sync_player_data",_player_data_list)
@@ -159,5 +160,5 @@ func _get_player_data_by_id(id):
 
 var bot_settings = {
 	bot_count = 0,
-	bot_difficuty = 1
+	bot_difficulty = 1
 }

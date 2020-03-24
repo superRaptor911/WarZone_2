@@ -28,7 +28,7 @@ func setBoardData(data : Array):
 	
 	for i in data:
 		print(i.pname)
-		if i.team_id == "A":
+		if i.team_id == 1:
 			var new_panel
 			#use alternate colored panel 
 			if teamA_cur_p_clr == "dark":

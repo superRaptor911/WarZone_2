@@ -28,7 +28,6 @@ namespace godot
 
 		Navigation2D *nav = nullptr;
 		std::vector<Vector2> points_of_interest;
-		float _rotational_speed = 2.f;
 		Array visible_enemies;
 		Array visible_friends;
 
@@ -46,6 +45,8 @@ namespace godot
 		void _ready();
 		void _process(float delta);
 		void interpolate_rotation(float delta);
+
+		void setBotDifficulty(int difficulty);
 
 	};
 

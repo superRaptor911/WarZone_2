@@ -3,6 +3,7 @@ extends Node
 #is exporting for android or not
 var is_android : bool = false
 var current_game_version = 1.0
+const invalid_position = Vector2(-999,-999)
 
 #player info (pinfo) used to send info about player in multiplayer
 var player_info = {
@@ -179,6 +180,14 @@ func generateBotProfiles():
 	bot_names.append("Hunter")
 	bot_names.append("gladiator")
 	bot_names.append("joe")
+	bot_names.append("Saitama")
+	bot_names.append("John")
+	bot_names.append("Linus")
+	bot_names.append("Diablo")
+	bot_names.append("Korn")
+	bot_names.append("47")
+	bot_names.append("noooob")
+	bot_names.append("Taask")
 	
 	var bot_primary_weapons : Array
 	bot_primary_weapons.append("MP5")

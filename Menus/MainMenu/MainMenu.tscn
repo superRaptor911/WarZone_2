@@ -22,13 +22,13 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchor_left = 0.5
+anchor_left = 0.495
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 0.495
 anchor_bottom = 0.5
-margin_left = -331.181
+margin_left = -324.781
 margin_top = -185.926
-margin_right = 317.819
+margin_right = 324.219
 margin_bottom = 256.074
 rect_min_size = Vector2( 0, 30 )
 rect_clip_content = true
@@ -36,7 +36,7 @@ size_flags_vertical = 0
 custom_constants/separation = 50
 __meta__ = {
 "_edit_group_": true,
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="Button" type="TextureButton" parent="VBoxContainer"]
@@ -156,7 +156,12 @@ stream = ExtResource( 8 )
 
 [node name="btn_click" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
-[connection signal="finished" from="btn_click" to="." method="_on_btn_click_finished"]

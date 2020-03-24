@@ -7,35 +7,34 @@ using namespace godot;
  
 Attack::Attack()
 {
-	//_attack_pause_timer.set_one_shot(true);
-	//_attack_pause_timer.set_wait_time(2.f);
-	//_attack_pause_timer.connect("timeout", this, "on_attack_pause_timer_Timeout");
+
+}
+
+void Attack::initState()
+{
+	_attack_pause_timer = Timer()._new();
+	_attack_pause_timer->set_one_shot(true);
+	_bot->add_child(_attack_pause_timer);
+
+	_can_attack_timer = Timer()._new();
+	_can_attack_timer->set_one_shot(true);
+	_can_attack_timer->set_wait_time(_bot->bot_attribute.spray_time);
+	_bot->add_child(_can_attack_timer);
 }
 
 void Attack::startState()
 {
 	_bot->use_mov_vct_for_rotation = false;
-
-	_attack_pause_timer = Timer()._new();
-	_attack_pause_timer->set_one_shot(true);
-	_attack_pause_timer->set_wait_time(0.2f);
-	_bot->add_child(_attack_pause_timer);
-
-	_attack_timer = Timer()._new();
-	_attack_timer->set_one_shot(true);
-	_attack_timer->set_wait_time(0.4f);
-	_bot->add_child(_attack_timer);
-
 	_block_state_change = true;
-
-	_parent->call("switchToPrimaryGun");
-	
 }
 
 void Attack::stopState()
 {
-	_attack_pause_timer->queue_free();
-	_attack_pause_timer = nullptr;
+	_attack_pause_timer->stop();
+	_can_attack_timer->stop();
+	_old_enemy = nullptr;
+	_old_dest = Vector2(-9999,-9999);
+	_parent->call("switchToPrimaryGun");
 }
 
 void Attack::runState()
@@ -49,9 +48,18 @@ void Attack::runState()
 		return;
 	}
 
+	_handleWeapons();
 	_attack_enemy();
 
-	on_attack_pause_timer_Timeout();
+	if (!_current_enemy)
+	{
+		if (_headToPosition(_bot->point_to_position))
+		{
+			/* code */
+		}
+		else
+			_block_state_change = false;
+	}
 }
 
 
@@ -111,44 +119,76 @@ void Attack::_getCurrentEnemy()
 }
 
 
-void Attack::on_attack_pause_timer_Timeout()
-{
-	if (!_current_enemy)
-		_block_state_change = false;
-}
 
-void Attack:: _attack_enemy()
+
+void Attack::_attack_enemy()
 {
 	if (!_current_enemy)
 		return;
-
-	//apply inaccuracy 
-	//do not apply if already applied
-	/*if (_old_enemy_position != _current_enemy->get_position())
-	{
-		_old_enemy_position = _current_enemy->get_position();
-		_bot->point_to_position = _current_enemy->get_position();
-		
-		//generate number between -1 and 1 and multiply with (in)accuracy.
-		float error_x = 2.f * (static_cast<float>(rand() % 100) / 100.f - 0.5f) * (1.f - _bot->bot_attribute.accuracy);
-		float error_y = 2.f * (static_cast<float>(rand() % 100) / 100.f - 0.5f) * (1.f - _bot->bot_attribute.accuracy);
-		
-		_bot->point_to_position += Vector2(error_x, error_y) * (_parent->get_position() - _bot->point_to_position).length();
-	}*/
 
 	_bot->point_to_position = _current_enemy->get_position();
 
 	if ( _bot->angle_left_to_rotate < _bot->bot_attribute.accuracy)
 	{
-		if (!_attack_timer->is_stopped())
+		if (_old_enemy != _current_enemy)
+		{
+			_can_attack_timer->stop();
+			_attack_pause_timer->start(_bot->bot_attribute.reaction_time);
+			_old_enemy = _current_enemy;
+		}
+
+		//if can attack timer active, Bot can fire weapon
+		if (!_can_attack_timer->is_stopped())
 		{
 			static_cast<Node *>(_parent->get("selected_gun"))->call("fireGun");
-			_attack_pause_timer->start();
+			_attack_pause_timer->start(_bot->bot_attribute.spray_delay);
 		}
 		else
 		{
 			if (_attack_pause_timer->is_stopped())
-				_attack_timer->start();
+				_can_attack_timer->start();
+		}
+	}
+}
+
+
+bool Attack::_headToPosition(const Vector2 &pos)
+{
+	Vector2 position = _parent->get_position();
+	
+	if (_old_dest != pos)
+	{
+		if(_bot->get_tree()->get_root()->get_node("game_states")->call("is_Astar_ready"))
+		{
+			_old_dest = pos;
+			_current_dest_id = 0;
+			_path_to_dest = _bot->nav->get_simple_path(_parent->get_position(), pos, false);
+			
+			if (_path_to_dest.size() == 0)
+				return false;
+		}
+		else
+			return true;
+	}
+
+	Vector2 dest = _path_to_dest[_current_dest_id];
+	_parent->set("movement_vector", dest - position);
+
+	bool _on_dest;
+	if ((dest - position).length() < 1.f)
+		_on_dest = (++ _current_dest_id >= _path_to_dest.size());
+
+	return !_on_dest;
+}
+
+void Attack::_handleWeapons()
+{
+	//swith gun in fire fight
+	if (static_cast<bool>(static_cast<Node *>(_parent->get("selected_gun"))->get("reloading")))
+	{
+		if ( static_cast<int>(static_cast<Node *>(_parent->get("unselected_gun"))->get("rounds_left")) > 0)
+		{
+			_parent->rpc("switchGun");
 		}
 	}
 }

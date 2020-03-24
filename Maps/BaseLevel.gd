@@ -1,23 +1,26 @@
 extends Node2D
 
 signal player_spawned(player)
+signal player_despawned(player)
+
 export var Level_Name = "no_name"
 export var team1_name = "A"
 
-var team1 = preload("res://Objects/scripts/Team.gd").new("A")
+var team1 = preload("res://Objects/scripts/Team.gd").new(0)
 export var team2_name = "B"
-var team2 = preload("res://Objects/scripts/Team.gd").new("B")
+var team2 = preload("res://Objects/scripts/Team.gd").new(1)
 
 var teamSelector = preload("res://Menus/Lobby/TeamSelect.tscn").instance()
 
 var _game
-var max_spawn_pts = 0
+var arr = Array()
+var spawn_ponts = Array()
 
 #character data dictionary for holding spawn information 
 var char_data_dict = {
 	pname = "player",
 	name = "null",
-	team_id = "A",
+	team_id = 0,
 	pos = Vector2(0,0),
 	g1 = "",
 	g2 = "",
@@ -26,9 +29,8 @@ var char_data_dict = {
 
 func _ready():
 	game_server._player_data_list.clear()
-	max_spawn_pts = $spawn_points.get_child_count()
-	#add_child(load("res://Maps/" + game_states.CURRENT_LEVEL + ".tscn").instance())
-	network.connect("player_list_changed", self, "_on_player_list_changed")
+	spawn_ponts = get_tree().get_nodes_in_group("SpawnPoint")
+	#network.connect("player_list_changed", self, "_on_player_list_changed")
 	network.connect("disconnected", self, "_on_disconnected")
 	add_child(teamSelector)
 	teamSelector.connect("teamSelected",self,"_on_player_selected_team")
@@ -41,17 +43,35 @@ func _on_player_selected_team(selected_team):
 	if not get_tree().is_network_server():
 		rpc_id(1,"serverGetPlayers", game_states.player_info.net_id)
 		
-	rpc("spawn_player", game_states.player_info, randi() % max_spawn_pts, selected_team)
+	rpc("spawn_player", game_states.player_info, getSpawnPosition(selected_team), selected_team)
 	teamSelector.queue_free()
-	
 
 func _on_player_removed(pinfo):
 	despawn_player(pinfo)
 
 
-var arr = Array()
+func getSpawnPosition(team_id : int) -> Vector2:
+	if spawn_ponts.empty():
+		print("Error : No spawn points available")
+	else:
+		var best_spawn_point = null
+		var min_value = 999
+		
+		for i in spawn_ponts:
+			if (game_server.serverInfo.game_mode == "FFA" or i.team_id == -1
+			or i.team_id == team_id) and i.entity_count < min_value:
+				min_value = i.entity_count
+				best_spawn_point = i
+		
+		if best_spawn_point != null:
+			return best_spawn_point.getPoint()
+		else:
+			print("Error : No spawn point for selected team")
+	return game_states.invalid_position
+
 
 #get player data from server
+#server only function
 remote func serverGetPlayers(peer_id):
 	#get spawned players
 	var spawned_chars = get_tree().get_nodes_in_group("User")
@@ -88,7 +108,7 @@ remote func peerSpawnPlayers(player_dict):
 
 #spawn an individual player
 func spawnPlayer(char_data):
-	if arr.has(int(char_data.name)):
+	if arr.has(int(char_data.name)) or char_data.pos == game_states.invalid_position:
 		print("Fatal network spawn error")
 		return
 	var nactor
@@ -116,9 +136,9 @@ func spawnPlayer(char_data):
 		arr.push_back(1)
 	
 	#assign player a team
-	if char_data.team_id == "A":
+	if char_data.team_id == team1.team_id:
 		team1.addPlayer(nactor)
-	elif char_data.team_id == "B":
+	elif char_data.team_id == team2.team_id:
 		team2.addPlayer(nactor)
 	else:
 		print("Fatal Error: invalid team id for player ", char_data.pname)
@@ -126,19 +146,13 @@ func spawnPlayer(char_data):
 	if not char_data.is_bot:
 		emit_signal("player_spawned",nactor)
 
-
-remotesync func spawn_player(pinfo, spawn_index, team):
-	if (spawn_index == -1):
-		spawn_index = network.players.size()
-	
-	if arr.has(pinfo.net_id):
+remotesync func spawn_player(pinfo, pos : Vector2, team : int):
+	if arr.has(pinfo.net_id) or pos == game_states.invalid_position:
 		print("Fatal network spawn error")
 		return
 	arr.push_back(pinfo.net_id)
-	
 	var nactor = game_states.classResource.player.instance()
-	var spawn_points = get_tree().get_nodes_in_group("spawn_points")[0].get_children()
-	nactor.position = spawn_points[spawn_index].position
+	nactor.position = pos
 	nactor.load_guns(pinfo.primary_gun_name,pinfo.sec_gun_name)
 	# If this actor does not belong to the server, change the node name and network master accordingly
 	if (pinfo.net_id != 1):
@@ -148,16 +162,15 @@ remotesync func spawn_player(pinfo, spawn_index, team):
 	nactor.pname = pinfo.name
 	nactor.id = pinfo.net_id
 	game_server.addPlayer(pinfo.name, pinfo.net_id,team)
-	if team == "A":
+	if team == team1.team_id:
 		team1.addPlayer(nactor)
-	elif team == "B":
+	elif team == team2.team_id:
 		team2.addPlayer(nactor)
 	add_child(nactor)
 	emit_signal("player_spawned",nactor)
 
 func spawnBots():
 	var index : int = 0
-	var spawn_manager = get_tree().get_nodes_in_group("spawn_points")[0]
 	var bots : Array
 	
 	for i in game_states.bot_profiles.bot:
@@ -169,18 +182,17 @@ func spawnBots():
 		char_data.g1 = i.bot_primary_gun
 		char_data.g2 = i.bot_sec_gun
 		char_data.is_bot = true
-		char_data.team_id = "A"
-		char_data.pos = spawn_manager.getSpawnPoint()
+		char_data.team_id = 0
+		char_data.pos = getSpawnPosition(char_data.team_id)
 		#giving unique integer name
 		char_data.name = String(69 + index)
 		bots.append(char_data)
 		index += 1
-
-		
 	for i in bots:
 		spawnPlayer(i)
-	
-	
+
+
+
 remote func despawn_player(pinfo):
 	if (get_tree().is_network_server()):
 		for id in network.players:
@@ -192,7 +204,9 @@ remote func despawn_player(pinfo):
 	if (!player_node):
 		print("Cannot remove invalid node from tree")
 		return
+	emit_signal("player_despawned",player_node)
 	player_node.queue_free()
+	
 	
 func _on_disconnected():
 	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")

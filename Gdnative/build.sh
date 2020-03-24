@@ -2,7 +2,7 @@
 start_time=`date +%s`
 
 copy_dest=".."
-source="bot"
+source=$1
 build_result=0
 no_patforms=6
 exit_on_error=1
@@ -70,4 +70,4 @@ fi
 end_time=`date +%s`
 runtime=$((end_time-start_time))
 
-echo "All processes are done in $runtime seconds"
+echo "All processes were done in $runtime seconds"

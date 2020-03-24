@@ -13,9 +13,9 @@ func _ready():
 
 
 func _on_A_pressed():
-	emit_signal("teamSelected","A")
+	emit_signal("teamSelected",0)
 
 
 func _on_B_pressed():
-	emit_signal("teamSelected","B")
+	emit_signal("teamSelected",1)
 

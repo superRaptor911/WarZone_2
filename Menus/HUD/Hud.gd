@@ -1,21 +1,18 @@
 extends CanvasLayer
 
 var user
-var ini_pause_posi : Vector2
 var kill_msg_slots : Kill_Message_slots
 var score_board = preload("res://Menus/HUD/ScoreBoard.tscn").instance()
 
 func _ready():
-	ini_pause_posi = $Panel2.rect_global_position
-	$Panel2.rect_global_position = Vector2(-500,-500)
 	kill_msg_slots = Kill_Message_slots.new(self,8)
 	score_board.hide()
 	game_server.connect("player_data_synced",self,"updateScoreBoard")
-	var GameMode = get_tree().get_nodes_in_group("GameMode")[0]
-	if GameMode:
-		if GameMode.get("scoreBoard"):
+	var GameMode = get_tree().get_nodes_in_group("GameMode")
+	if not GameMode.empty():
+		if GameMode[0].get("scoreBoard"):
 			score_board.queue_free()
-			score_board = GameMode.scoreBoard
+			score_board = GameMode[0].scoreBoard
 	else:
 		print("GameMode not loaded")
 	
@@ -23,13 +20,11 @@ func _ready():
 
 func setUser(u):
 	user = u
-	$Panel/ammo.text = String( user.selected_gun.rounds_left) + "|" + String(user.selected_gun.clips)
 	$reload/gun_s.texture = user.selected_gun.gun_portrait
+	$reload/TextureProgress.value =  user.selected_gun.rounds_left
 
 func _process(delta):
-	$Panel/ammo.text = String( user.selected_gun.rounds_left) + "|" + String(user.selected_gun.clips)
-
-
+	$reload/TextureProgress.value =  user.selected_gun.rounds_left
 
 func _on_quit_pressed():
 	if get_tree().is_network_server():
@@ -37,14 +32,10 @@ func _on_quit_pressed():
 	else:
 		network.rpc_id(1,"kick_player",game_states.player_info.net_id,"Disconnected From Server")
 	
-var pause_counter : bool = false
 
 func _on_pause_pressed():
-	pause_counter = !pause_counter
-	if pause_counter:
-		$Panel2.rect_global_position = ini_pause_posi
-	else:
-		$Panel2.rect_global_position = Vector2(-500,-500)
+	$Panel2.show()
+	pauseMenuOpenTween()
 
 class MyPlayerSorter:
 	static func sort(a, b):
@@ -55,12 +46,7 @@ class MyPlayerSorter:
 
 
 func _on_score_pressed():
-	pause_counter = !pause_counter
-	if pause_counter:
-		$Panel2.rect_global_position = ini_pause_posi
-	else:
-		$Panel2.rect_global_position = Vector2(-500,-500)
-	
+	pauseMenuCloseTween()
 	if not get_tree().is_network_server():
 		game_server.rpc_id(1,"ServerSyncPlayerDataList",game_states.player_info.net_id)
 	else:
@@ -159,7 +145,32 @@ func addKillMessage(msg):
 func _on_nextGun_pressed():
 	user.rpc("switchGun")
 	$reload/gun_s.texture = user.selected_gun.gun_portrait
+	$reload/TextureProgress.max_value = user.selected_gun.rounds_in_clip
+	$reload/TextureProgress.value =  user.selected_gun.rounds_left
 
 
 func _on_btn_pressed():
 	user.selected_gun.reload()
+
+func _on_back_pressed():
+	pauseMenuCloseTween()
+
+############################Tweeennnnnning##################################
+
+func pauseMenuOpenTween():
+	$Panel2.rect_pivot_offset = $Panel2.rect_size / 2
+	$Tween.remove_all()
+	$Panel2.rect_scale = Vector2(0.01,0.01)
+	$Tween.interpolate_property($Panel2,"rect_scale",$Panel2.rect_scale,
+		Vector2(1,1),0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.start()
+
+func pauseMenuCloseTween():
+	$Tween.remove_all()
+	$Tween.interpolate_property($Panel2,"rect_scale",$Panel2.rect_scale,
+		Vector2(0.01,0.01),0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.interpolate_property($Panel2,"visible",true,false,0.5,Tween.TRANS_LINEAR,Tween.EASE_OUT)
+	$Tween.start()
+
+
+

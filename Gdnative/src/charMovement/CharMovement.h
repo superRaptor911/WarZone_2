@@ -13,8 +13,6 @@ namespace godot
 {
 	class stateVector :public Reference
 	{
-		
-
 		GODOT_CLASS(stateVector, Reference)
 	public:
 		Vector2 position;
@@ -25,6 +23,8 @@ namespace godot
 
 		stateVector()
 		{
+			position = Vector2(0,0);
+			movement_vector = Vector2(0,0);
 			rotation = 0.f;
 			input_id = 0;
 			speed_multiplier = 1.f;
@@ -48,8 +48,6 @@ namespace godot
 			register_property<stateVector, float>("speed_multiplier", &stateVector::speed_multiplier, 0.f);
 
 		}
-
-
 	};
 
 	template <typename T> 
@@ -68,12 +66,12 @@ namespace godot
 		Input* _Input;
 		KinematicBody2D *_parent;
 		//CollisionShape2D *_skin;
-		int _current_input_id;
-		float _rotational_speed;
+		int _current_input_id = 0;
+		float _rotational_speed = 0.1f;
 
 		float _update_delta;
-		float _current_time;
-		float _old_rot;
+		float _current_time = 0.f;
+		float _old_rot = 0.f;
 
 		std::vector<stateVector> _stateVectors;
 

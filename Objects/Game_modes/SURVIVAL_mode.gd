@@ -33,8 +33,7 @@ var hud_message_timer : Timer
 
 #ready
 func _ready():
-	#potential bug
-	lvl = get_parent()
+	lvl = get_tree().get_nodes_in_group("Level")[0]
 	if get_tree().is_network_server():
 		network.connect("server_stopped",self,"_on_server_stopped")
 		$chk_zm_count.start()
@@ -54,20 +53,18 @@ func _ready():
 #this function is server only
 func _spawn_zombies(zm_type):
 	var rand_index = randi() % zm_spawn_points.size()
-	var zm = zombie_types.get(zm_type).instance()
-	zm.position = zm_spawn_points[rand_index].position
-	zm.set_name("bot" + String(zm_id))
-	lvl.add_child(zm)
-	rpc("_sync_spawn_zombie",zm_type,zm.position,zm_id)
+	var pos = zm_spawn_points[rand_index].position
+	rpc("_sync_spawn_zombie",zm_type,pos,zm_id)
 	zm_id += 1
 	
 #sync spawn 
 #client fn
-remote func _sync_spawn_zombie(zm_type,pos,idx):
+remotesync func _sync_spawn_zombie(zm_type,pos,idx):
 	var zm = zombie_types.get(zm_type).instance()
 	zm.position = pos
 	zm.set_name("bot" + String(idx))
 	lvl.add_child(zm)
+	lvl.get("team2").addPlayer(zm)
 
 
 #check end of level

@@ -1,6 +1,12 @@
 #include <State.h>
 #include <Bot.h>
 using namespace godot;
+
+void State::initState()
+{
+	//pass
+}
+
 void State::runState()
 {
 	//pass

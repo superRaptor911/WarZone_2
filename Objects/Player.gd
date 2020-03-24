@@ -49,17 +49,18 @@ func _ready():
 		add_child(hud)
 		hud.get_node("respawn").max_value = 4.0
 		#rpc("switchGun")
-		
+	if get_tree().is_network_server():
+		connect("char_killed",self,"_on_peer_killed")
 
 func _on_player_killed():
 	#show respawn percentage
 	hud.get_node("respawn").visible = true
 	$Camera2D.current = false
 	pause_controls(true)
+
+func _on_peer_killed():
 	emit_signal("player_killed",self)
-
-
-
+	
 func load_guns(nam : String , nam2 : String):
 	var g = game_states.weaponResource[nam].instance()
 	var g2 = game_states.weaponResource[nam2].instance()
@@ -91,8 +92,6 @@ func _process(delta):
 			hud.get_node("respawn").value += delta
 		$CanvasModulate.color = Color8(255,2.55 * HP,2.55 * HP)
 
-
-	
 
 func _get_inputs():
 	if not is_network_master():
@@ -199,24 +198,15 @@ func _on_Timer_timeout():
 	frames = 0
 	$Timer.start()
 
-
 func _on_free_timer_timeout():
 	respawn_player()
 
 func respawn_player():
 	hud.get_node("respawn").value = 0
 	hud.get_node("respawn").visible = false
-	var spawn_points
-	for sp in get_tree().get_nodes_in_group("spawn_points"):
-		spawn_points = sp.get_children()
-	var id = randi() % spawn_points.size()
-	#modulate = Color8(255,255,255,255)
-	#alive = true
-	#skin.disabled = false
 	HP = 100
 	AP = 100
-	position = spawn_points[id].position
-	#load_guns(game_states.player_info.primary_gun_name,game_states.player_info.sec_gun_name)
+	position = get_tree().get_nodes_in_group("Level")[0].getSpawnPosition(team.team_id)
 	$Camera2D.current = true
 	pause_controls(false)
-	rpc("sync_respawn",spawn_points[id].position,game_states.player_info.net_id)
+	rpc("sync_respawn",position,game_states.player_info.net_id)
