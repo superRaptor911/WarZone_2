@@ -1,4 +1,7 @@
 extends RigidBody2D
+
+var gun_type : String = "explosive"
+
 export var velocity : float = 200
 
 #Loading explosive

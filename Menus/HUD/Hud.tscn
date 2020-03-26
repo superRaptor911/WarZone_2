@@ -8,6 +8,7 @@
 [ext_resource path="res://Menus/HUD/grenedefinal.png" type="Texture" id=6]
 [ext_resource path="res://font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Menus/HUD/pause3.png" type="Texture" id=8]
+[ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=9]
 [ext_resource path="res://Antaro.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://Menus/resources/next_gun.png" type="Texture" id=13]
 
@@ -30,14 +31,6 @@ radius = 45.0
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.6, 0.6, 0.6, 0.686275 )
-shadow_size = 6
-
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.0627451, 0.0627451, 0.0627451, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
 shadow_size = 6
 
 [sub_resource type="StyleBoxFlat" id=7]
@@ -193,7 +186,10 @@ margin_top = -155.0
 margin_right = 37.5007
 margin_bottom = -113.0
 rect_scale = Vector2( 1.5, 1.5 )
-custom_styles/normal = SubResource( 6 )
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/focus = ExtResource( 9 )
+custom_styles/normal = ExtResource( 9 )
 custom_fonts/font = ExtResource( 7 )
 text = "Score Board"
 __meta__ = {
@@ -210,7 +206,7 @@ margin_top = -63.0
 margin_right = 37.5007
 margin_bottom = -21.0002
 rect_scale = Vector2( 1.5, 1.5 )
-custom_styles/normal = SubResource( 6 )
+custom_styles/normal = ExtResource( 9 )
 custom_fonts/font = ExtResource( 7 )
 text = "Back"
 __meta__ = {

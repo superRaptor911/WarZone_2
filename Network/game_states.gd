@@ -60,6 +60,7 @@ var player_data = {
 	name = "player",
 	kills = 0,
 	deaths = 0,
+	cash = 0,
 	guns = Array(),
 	skins = Array(),
 	selected_guns = Array(),
