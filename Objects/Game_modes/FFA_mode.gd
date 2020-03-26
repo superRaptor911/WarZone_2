@@ -98,24 +98,14 @@ func _on_uptime_timeout():
 func _ready():
 	#only server handles quake events and sound
 	if get_tree().is_network_server():
-		setupBots()
 		current_level = get_tree().get_nodes_in_group("Level")[0]
 		current_level.connect("player_spawned", self, "_on_new_player_spawned")
+		current_level.connect("bot_spawned",self,"_on_new_bot_spawned")
 		$Label/Timer.start()
 
 func _process(delta):
 	if get_tree().is_network_server():
 		showQuakeKills()
-
-func setupBots():
-	var plz = get_tree().get_nodes_in_group("Bot")
-	for plr in plz:
-		var p = Player_stats.new(plr.pname,quake_sound_queue)
-		plr.connect("char_killed",p,"_player_got_killed")
-		plr.connect("char_killed_someone",p,"_player_killed_someone")
-		Players.push_back(p)
-		plr.connect("bot_killed",self,"_on_bot_killed")
-
 
 func showQuakeKills():
 	if quake_sound_queue.size():
@@ -149,8 +139,15 @@ func _on_new_player_spawned(plr):
 	#connect
 	plr.connect("player_killed",self,"_on_player_killed")
 
+
+func _on_new_bot_spawned(bot):
+	var p = Player_stats.new(bot.pname,quake_sound_queue)
+	bot.connect("char_killed",p,"_player_got_killed")
+	bot.connect("char_killed_someone",p,"_player_killed_someone")
+	Players.push_back(p)
+	bot.connect("bot_killed",self,"_on_bot_killed")
+
 func _on_player_killed(plr):
-	print("called")
 	plr.get_node("free_timer").start()
 	
 func _on_bot_killed(bot):

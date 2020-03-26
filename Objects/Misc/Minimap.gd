@@ -20,6 +20,8 @@ func _ready():
 		Scale = Vector2(cell_size,cell_size) / hmap.cell_size
 		worldsize = hmap.get_used_rect().size * hmap.cell_size
 		createMinimap(hmap.get_used_rect().size,hmap.get_used_cells(),lvl.Level_Name)
+		playerList = get_tree().get_nodes_in_group("User")
+		getLocalPlayer()
 		lvl.connect("player_spawned", self,"addPlayer")
 		lvl.connect("player_despawned", self,"removeplayer")
 		_cacheDots()
@@ -57,10 +59,7 @@ func moveMapWithPlayer():
 		ref_pos.y = clamp(ref_pos.y,0, worldsize.y - e.y)
 		material.set_shader_param("pos",ref_pos / worldsize)
 	else:
-		for p in playerList:
-			if p.is_network_master():
-				local_player = p
-				break
+		getLocalPlayer()
 
 func showPlayersInMap():
 	if local_player:
@@ -80,7 +79,16 @@ func removeplayer(plr):
 	
 	
 func addPlayer(plr):
-	playerList.append(plr)
+	if plr != local_player:
+		playerList.append(plr)
+	else:
+		print("error duplicate")
 
 func _cacheDots():
 	dotsList = get_children()
+
+func getLocalPlayer():
+	for p in playerList:
+		if p.is_network_master():
+			local_player = p
+			break

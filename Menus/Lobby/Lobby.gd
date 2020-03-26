@@ -1,13 +1,17 @@
 extends CanvasLayer
 
-var _selected_level = 0
+
 var levels = Array()
+var selected_level = null
+var selected_level_id = 0
 onready var selected_btn = $Panel/VBoxContainer/level
+var selected_gameMode = null
+var selected_gameMode_id = 0
 
 func _ready():
 	game_server.bot_settings.bot_count = 0
 	game_server.bot_settings.bot_difficulty = 1
-	setLevels()
+	loadLevelInfos()
 	network.connect("player_removed", self, "_on_player_removed")
 	#show IP address 
 	for i in IP.get_local_addresses():
@@ -18,28 +22,44 @@ func _ready():
 	initialTween()
 
 
-func setLevels():
+func loadLevelInfos():
 	var dir = Directory.new()
 	dir.change_dir("res://Maps")
 	dir.list_dir_begin()
 	var d = dir.get_next()
+	
 	while d != "":
 		if d.get_extension() == "" and not d.begins_with("."):
-			levels.append(d)
+			var level_info = load("res://Maps//" + d + "//level_info.gd").new()
+			levels.append(level_info)
 		d = dir.get_next()
 	
-	for i in levels:
-		$level/level.add_item(i)
+	if not levels.empty():
+		setLevelInfo(levels[0])
+	else:
+		print("No levels found")
 
-#level is selected
-func _on_level_item_selected(ID):
-	_selected_level = ID
-	print(ID)
+func setLevelInfo(info):
+	if selected_level != info:
+		selected_level = info
+		$level/icon.texture = selected_level.icon
+		$level/desc/Label.text = selected_level.level_desc
+		$level/icon/Label.text = selected_level.level_name
+		if not selected_level.gameModes.empty():
+			setGameModeInfo(selected_level.gameModes[0])
 
+func setGameModeInfo(info):
+	if selected_gameMode != info:
+		selected_gameMode = info
+		$gameMode/Panel/Label.text = info.name
+		$gameMode/desc/Label.text = info.desc
+	
 func _start_game():
-	network.serverAvertiser.serverInfo.map = levels[_selected_level]
-	var level_path = "res://Maps/" + levels[_selected_level] + "/" + levels[_selected_level] + ".tscn"
-	get_tree().change_scene(level_path)
+	game_server.serverInfo.map = selected_level.level_name
+	game_server.serverInfo.game_mode = selected_gameMode.name
+	network.serverAvertiser.serverInfo = game_server.serverInfo
+	network.add_child(network.serverAvertiser)
+	get_tree().change_scene(selected_level.level_path)
 	queue_free()
 
 func _on_start_pressed():
@@ -54,35 +74,20 @@ func _on_bot_diff_value_changed(value):
 	game_server.bot_settings.bot_difficulty = value
 	$bots/bot_difficulty/Panel/count.text = String(value)
 
-#################################Tweening################################
+func _on_prev_map_pressed():
+	if levels.size() > 1:
+		if selected_level_id == 0:
+			selected_level_id = levels.size()
+		selected_level_id -= 1
+		setLevelInfo(levels[selected_level_id])
 
-onready var selected_panel = $level
-var panel_pos : Vector2
 
-func initialTween():
-	panel_pos = selected_panel.rect_position
-	selected_panel.rect_position += Vector2(0,400)
-	$Tween.remove_all()
-	$Tween.interpolate_property(selected_panel,"rect_position",selected_panel.rect_position,
-	panel_pos,0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	$Tween.start()
-
-func changePanelTween(node_name : String):
-	var node = get_node(node_name)
-	if node == selected_panel:
-		print("Error same node")
-		return
-		
-	$Tween.remove_all()
-	selected_panel.rect_position = panel_pos
-	$Tween.interpolate_property(selected_panel,"rect_position",selected_panel.rect_position,
-		selected_panel.rect_position + Vector2(550,0),0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	node.rect_position = panel_pos - Vector2(0,550)
-	$Tween.interpolate_property(node,"rect_position",node.rect_position,panel_pos,
-		0.5,Tween.TRANS_QUAD,Tween.EASE_OUT,0.2)
-	selected_panel = node
-	$Tween.start()
-
+func _on_next_map_pressed():
+	if levels.size() > 1:
+		if selected_level_id + 1 == levels.size():
+			selected_level_id = -1
+		selected_level_id += 1
+		setLevelInfo(levels[selected_level_id])
 
 func _on_level_pressed():
 	if selected_btn != $Panel/VBoxContainer/level:
@@ -106,3 +111,49 @@ func _on_bots_pressed():
 		selected_btn.self_modulate = Color8(255,255,255,255)
 		selected_btn = $Panel/VBoxContainer/bots
 		changePanelTween("bots")
+
+
+func _on_prev_mode_pressed():
+	if selected_level and selected_level.gameModes.size() > 1:
+		if selected_gameMode_id == 0:
+			selected_gameMode_id = selected_level.gameModes.size()
+		selected_gameMode_id -= 1
+		setGameModeInfo(selected_level.gameModes[selected_gameMode_id])
+
+
+func _on_next_mode_pressed():
+	if selected_level and selected_level.gameModes.size() > 1:
+		if selected_gameMode_id + 1 == selected_level.gameModes.size():
+			selected_gameMode_id = -1
+		selected_gameMode_id += 1
+		setGameModeInfo(selected_level.gameModes[selected_gameMode_id])
+
+#################################Tweening################################
+
+onready var selected_panel = $level
+var panel_pos : Vector2
+
+func initialTween():
+	panel_pos = selected_panel.rect_position
+	selected_panel.rect_position += Vector2(0,400)
+	$Tween.remove_all()
+	$Tween.interpolate_property(selected_panel,"rect_position",selected_panel.rect_position,
+	panel_pos,0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.start()
+
+func changePanelTween(node_name : String):
+	var node = get_node(node_name)
+	if node == selected_panel:
+		print("Error same node")
+		return
+		
+	$Tween.remove_all()
+	selected_panel.rect_position = panel_pos
+	$Tween.interpolate_property(selected_panel,"rect_position",selected_panel.rect_position,
+		selected_panel.rect_position + Vector2(650,0),0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	node.rect_position = panel_pos - Vector2(0,650)
+	$Tween.interpolate_property(node,"rect_position",node.rect_position,panel_pos,
+		0.5,Tween.TRANS_QUAD,Tween.EASE_OUT,0.2)
+	selected_panel = node
+	$Tween.start()
+

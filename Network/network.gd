@@ -5,11 +5,6 @@ var serverAvertiser = null
 
 var players = {}
 
-var server_info = {
-	name = "Server",      # Holds the name of the server
-	max_players = 4,      # Maximum allowed connections
-	used_port = 0         # Listening port
-}
 
 signal server_created                          # when server is successfully created
 signal join_success                            # When the peer successfully joins a server
@@ -60,22 +55,18 @@ func _on_disconnected_from_server():
 	game_states.player_info.net_id = 1
 	
 func create_server(server_name,port,max_players):
-	print("called cs")
 	var net = NetworkedMultiplayerENet.new()
 	if (net.create_server(port,max_players) != OK):
 		print("Failed to create server")
 		return
 	get_tree().set_network_peer(net)
 	emit_signal("server_created")
-	server_info.port = port
-	server_info.max_players = max_players
 	serverAvertiser = preload("res://Network/ServerAdvertiser.gd").new()
-	add_child(serverAvertiser)
 	register_player(game_states.player_info)
-	serverAvertiser.serverInfo.port = String(port)
-	serverAvertiser.serverInfo.max_players = String(max_players)
-	serverAvertiser.serverInfo.name = server_name
-	serverAvertiser.serverInfo.plrs = String(players.size())
+	game_server.serverInfo.port = String(port)
+	game_server.serverInfo.max_players = String(max_players)
+	game_server.serverInfo.name = server_name
+	game_server.serverInfo.plrs = String(players.size())
 	
 	
 func join_server(ip, port):

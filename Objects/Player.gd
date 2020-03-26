@@ -14,7 +14,6 @@ var pname : String
 var id : int
 
 
-var frames : float = 0
 var timer_time : float = 0
 var hud
 
@@ -37,7 +36,6 @@ func _ready():
 	if is_network_master():
 		pname = game_states.player_info.name
 		$Camera2D.current = true
-		$Timer.start()
 		var cnt_path = game_states.control_types.get(game_states.game_settings.control_type)
 		var controller = load(cnt_path).instance()
 		controller.set_name("controller")
@@ -96,7 +94,6 @@ func _process(delta):
 func _get_inputs():
 	if not is_network_master():
 		return
-	frames += 1
 	if game_states.is_android or _pause_cntrl:
 		return
 	if Input.is_action_pressed("ui_fire"):
@@ -146,10 +143,6 @@ remote func _sync_throwGrenade(nam):
 	g.user = self
 	g.throwGrenade(dir)
 
-#sync 
-
-
-
 
 sync func sync_respawn(pos,id):
 	show()
@@ -185,19 +178,11 @@ remotesync func switchGun():
 	selected_gun.gun_user = self
 	selected_gun.position = Vector2(0,0)
 
-
-
 func pause_controls(val : bool):
 	_pause_cntrl = val
 	if game_states.is_android:
 		get_node("controller").enabled = !val
 	
-
-func _on_Timer_timeout():
-	get_parent().get_node("CanvasLayer/Label").text = String(frames)
-	frames = 0
-	$Timer.start()
-
 func _on_free_timer_timeout():
 	respawn_player()
 

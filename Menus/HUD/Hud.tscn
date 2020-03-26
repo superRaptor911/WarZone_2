@@ -117,6 +117,9 @@ rect_rotation = 11.8325
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 4 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="zoom" type="TextureButton" parent="."]
 margin_left = 21.498
@@ -253,7 +256,8 @@ margin_right = 319.928
 margin_bottom = 509.608
 custom_constants/separation = 8
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_use_anchors_": false
 }
 
 [node name="1" type="Label" parent="kill_msg"]
@@ -348,6 +352,14 @@ margin_left = 3.0
 margin_top = 3.0
 margin_right = 247.28
 margin_bottom = 147.4
+
+[node name="fps" type="Label" parent="."]
+margin_left = 111.0
+margin_top = 9.0
+margin_right = 158.0
+margin_bottom = 25.0
+
+[node name="fps_timer" type="Timer" parent="."]
 [connection signal="pressed" from="reload/btn" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="zoom/zoom" to="." method="_on_zoom_pressed"]
 [connection signal="pressed" from="HE/HE" to="." method="_on_HE_pressed"]
@@ -356,3 +368,4 @@ margin_bottom = 147.4
 [connection signal="pressed" from="Panel2/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Panel2/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="nextGun" to="." method="_on_nextGun_pressed"]
+[connection signal="timeout" from="fps_timer" to="." method="_on_fps_timer_timeout"]

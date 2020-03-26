@@ -49,7 +49,3 @@ position = Vector2( -1.47835, -15.9435 )
 z_index = -2
 zoom = Vector2( 0.75, 0.75 )
 smoothing_enabled = true
-
-[node name="Timer" type="Timer" parent="." index="6"]
-one_shot = true
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

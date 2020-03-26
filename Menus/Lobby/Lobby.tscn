@@ -1,23 +1,25 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=4]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Maps/blu.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
 shadow_size = 6
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=2]
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 shadow_size = 6
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
 border_width_left = 4
 border_width_top = 4
@@ -27,28 +29,48 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 shadow_size = 6
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 30
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=5]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=6]
 size = 24
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=7]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 32
+[sub_resource type="StyleBoxFlat" id=8]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.501961, 0.529412, 0.286275, 0.568627 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=10]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 24
 use_filter = true
 font_data = ExtResource( 3 )
 
@@ -65,20 +87,24 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="."]
-margin_left = 44.0
-margin_top = 83.0
-margin_right = 659.0
-margin_bottom = 662.0
+margin_left = 28.4916
+margin_top = 104.97
+margin_right = 588.492
+margin_bottom = 600.97
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-margin_left = 53.0
-margin_top = 58.0
-margin_right = 551.0
-margin_bottom = 459.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -249.0
+margin_top = -200.5
+margin_right = 249.0
+margin_bottom = 200.5
 custom_constants/separation = 40
 __meta__ = {
 "_edit_group_": true,
@@ -89,7 +115,7 @@ __meta__ = {
 margin_right = 498.0
 margin_bottom = 84.0
 rect_min_size = Vector2( 400, 50 )
-custom_styles/normal = SubResource( 8 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 5 )
 text = "Level"
 
@@ -98,7 +124,7 @@ margin_top = 124.0
 margin_right = 498.0
 margin_bottom = 208.0
 rect_min_size = Vector2( 400, 50 )
-custom_styles/normal = SubResource( 8 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 5 )
 text = "GameMode"
 
@@ -107,7 +133,7 @@ margin_top = 248.0
 margin_right = 498.0
 margin_bottom = 332.0
 rect_min_size = Vector2( 400, 50 )
-custom_styles/normal = SubResource( 8 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 5 )
 text = "Bots"
 
@@ -140,7 +166,7 @@ margin_left = 1496.63
 margin_top = 211.072
 margin_right = 1996.63
 margin_bottom = 526.072
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -165,7 +191,7 @@ margin_left = -55.0
 margin_top = -19.5
 margin_right = 55.0
 margin_bottom = 19.5
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Bots"
 
 [node name="bot_no" type="Label" parent="bots"]
@@ -173,7 +199,7 @@ margin_left = 38.007
 margin_top = 65.8757
 margin_right = 208.007
 margin_bottom = 108.876
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "Bot Count"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -206,7 +232,7 @@ margin_left = -22.0
 margin_top = -16.0
 margin_right = 22.0
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 6 )
 text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -217,7 +243,7 @@ margin_left = 9.13086
 margin_top = 148.289
 margin_right = 232.131
 margin_bottom = 191.289
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "Bot Difficulty"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -256,18 +282,18 @@ margin_left = -22.0
 margin_top = -16.0
 margin_right = 22.0
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 6 )
 text = "1"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="level" type="Panel" parent="."]
-margin_left = 737.751
-margin_top = 218.416
-margin_right = 1237.75
-margin_bottom = 533.416
-custom_styles/panel = SubResource( 4 )
+margin_left = 714.0
+margin_top = 146.0
+margin_right = 1214.0
+margin_bottom = 598.0
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -292,41 +318,105 @@ margin_left = -90.5
 margin_top = -19.5
 margin_right = 90.5
 margin_bottom = 19.5
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Level Select"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="level" type="OptionButton" parent="level"]
-margin_left = 225.025
-margin_top = 79.2488
-margin_right = 468.025
-margin_bottom = 128.249
-custom_fonts/font = SubResource( 2 )
+[node name="icon" type="TextureRect" parent="level"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -98.6732
+margin_top = 63.0252
+margin_right = 101.327
+margin_bottom = 223.025
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="level/icon"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -58.2631
+margin_top = 3.36844
+margin_right = 52.7369
+margin_bottom = 50.3684
+custom_fonts/font = SubResource( 7 )
+text = "Dust II"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="level/level"]
-margin_left = -209.642
-margin_top = -1.5957
-margin_right = -60.6422
-margin_bottom = 45.4043
-custom_fonts/font = SubResource( 3 )
-text = "Level"
+[node name="Panel" type="Panel" parent="level/icon"]
+show_behind_parent = true
+margin_left = -3.0
+margin_top = -3.0
+margin_right = 203.0
+margin_bottom = 163.0
+custom_styles/panel = SubResource( 8 )
+
+[node name="prev_map" type="TextureButton" parent="level/icon"]
+margin_left = -2.828
+margin_top = -5.50739
+margin_right = 121.172
+margin_bottom = 154.493
+rect_scale = Vector2( -1, 1 )
+texture_normal = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="next_map" type="TextureButton" parent="level/icon"]
+margin_left = 202.036
+margin_top = -5.24338
+margin_right = 326.036
+margin_bottom = 154.757
+texture_normal = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="desc" type="Panel" parent="level"]
+margin_left = 24.0
+margin_top = 284.0
+margin_right = 476.0
+margin_bottom = 430.0
+custom_styles/panel = SubResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="level/desc"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -218.0
+margin_top = -63.5
+margin_right = 218.0
+margin_bottom = 63.5
+custom_fonts/font = SubResource( 10 )
+text = "Famous counter strike map. small but highly tactical map"
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="gameMode" type="Panel" parent="."]
-margin_left = 1514.83
-margin_top = 592.89
-margin_right = 2014.83
-margin_bottom = 907.89
-custom_styles/panel = SubResource( 4 )
+margin_left = 1811.14
+margin_top = 708.338
+margin_right = 2311.14
+margin_bottom = 1072.34
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -349,8 +439,76 @@ margin_left = -90.5
 margin_top = -19.5
 margin_right = 90.5
 margin_bottom = 19.5
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Game Mode"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="desc" type="Panel" parent="gameMode"]
+margin_left = 24.5741
+margin_top = 171.511
+margin_right = 476.574
+margin_bottom = 317.511
+custom_styles/panel = SubResource( 9 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="gameMode/desc"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -218.0
+margin_top = -63.5
+margin_right = 218.0
+margin_bottom = 63.5
+custom_fonts/font = SubResource( 10 )
+text = "Game mode"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="next_mode" type="TextureButton" parent="gameMode"]
+margin_left = 317.063
+margin_top = 60.6786
+margin_right = 402.063
+margin_bottom = 143.679
+texture_normal = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="prev_mode" type="TextureButton" parent="gameMode"]
+margin_left = 159.211
+margin_top = 61.4525
+margin_right = 244.211
+margin_bottom = 144.452
+rect_scale = Vector2( -1, 1 )
+texture_normal = ExtResource( 7 )
+expand = true
+
+[node name="Panel" type="Panel" parent="gameMode"]
+margin_left = 157.0
+margin_top = 69.0
+margin_right = 329.0
+margin_bottom = 135.0
+
+[node name="Label" type="Label" parent="gameMode/Panel"]
+anchor_left = 0.504
+anchor_top = 0.509
+anchor_right = 0.504
+anchor_bottom = 0.509
+margin_left = -60.1465
+margin_top = -17.1812
+margin_right = 72.8535
+margin_bottom = 14.8188
+custom_fonts/font = SubResource( 11 )
+text = "FFA"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -360,4 +518,7 @@ __meta__ = {
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="value_changed" from="bots/bot_no/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="value_changed" from="bots/bot_difficulty/bot_diff" to="." method="_on_bot_diff_value_changed"]
-[connection signal="item_selected" from="level/level" to="." method="_on_level_item_selected"]
+[connection signal="pressed" from="level/icon/prev_map" to="." method="_on_prev_map_pressed"]
+[connection signal="pressed" from="level/icon/next_map" to="." method="_on_next_map_pressed"]
+[connection signal="pressed" from="gameMode/next_mode" to="." method="_on_next_mode_pressed"]
+[connection signal="pressed" from="gameMode/prev_mode" to="." method="_on_prev_mode_pressed"]

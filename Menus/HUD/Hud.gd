@@ -3,9 +3,11 @@ extends CanvasLayer
 var user
 var kill_msg_slots : Kill_Message_slots
 var score_board = preload("res://Menus/HUD/ScoreBoard.tscn").instance()
+var frames : int = 0
 
 func _ready():
 	kill_msg_slots = Kill_Message_slots.new(self,8)
+	$fps_timer.start()
 	score_board.hide()
 	game_server.connect("player_data_synced",self,"updateScoreBoard")
 	var GameMode = get_tree().get_nodes_in_group("GameMode")
@@ -24,6 +26,7 @@ func setUser(u):
 	$reload/TextureProgress.value =  user.selected_gun.rounds_left
 
 func _process(delta):
+	frames += 1
 	$reload/TextureProgress.value =  user.selected_gun.rounds_left
 
 func _on_quit_pressed():
@@ -31,7 +34,6 @@ func _on_quit_pressed():
 		network.kick_player(game_states.player_info.net_id,"Disconnected From Server")
 	else:
 		network.rpc_id(1,"kick_player",game_states.player_info.net_id,"Disconnected From Server")
-	
 
 func _on_pause_pressed():
 	$Panel2.show()
@@ -154,6 +156,10 @@ func _on_btn_pressed():
 
 func _on_back_pressed():
 	pauseMenuCloseTween()
+	
+func _on_fps_timer_timeout():
+	$fps.text = String(frames)
+	frames = 0
 
 ############################Tweeennnnnning##################################
 
@@ -171,6 +177,5 @@ func pauseMenuCloseTween():
 		Vector2(0.01,0.01),0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.interpolate_property($Panel2,"visible",true,false,0.5,Tween.TRANS_LINEAR,Tween.EASE_OUT)
 	$Tween.start()
-
 
 

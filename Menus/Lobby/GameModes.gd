@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-
 func _ready():
 	pass # Replace with function body.
 
@@ -18,7 +17,6 @@ func _on_ZM_pressed():
 	network.serverAvertiser.serverInfo.game_mode = "SURVIVAL"
 	game_server.serverInfo = network.serverAvertiser.serverInfo
 	get_tree().change_scene("res://Menus/Lobby/Lobby.tscn")
-
 
 func _on_back_pressed():
 	network.stopServer()

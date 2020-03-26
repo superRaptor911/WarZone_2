@@ -3,6 +3,9 @@ extends Node2D
 signal player_spawned(player)
 signal player_despawned(player)
 
+signal bot_spawned(bot)
+signal bot_despawned(bot)
+
 export var Level_Name = "no_name"
 export var team1_name = "A"
 
@@ -10,9 +13,9 @@ var team1 = preload("res://Objects/scripts/Team.gd").new(0)
 export var team2_name = "B"
 var team2 = preload("res://Objects/scripts/Team.gd").new(1)
 
-var teamSelector = preload("res://Menus/Lobby/TeamSelect.tscn").instance()
+var teamSelector = preload("res://Objects/Game_modes/FFA/FFATeamSelect.tscn").instance()
+var spec_mode = preload("res://Objects/Game_modes/Spectate.tscn").instance()
 
-var _game
 var arr = Array()
 var spawn_ponts = Array()
 
@@ -28,22 +31,51 @@ var char_data_dict = {
 }
 
 func _ready():
+	loadGameMode()
 	game_server._player_data_list.clear()
 	spawn_ponts = get_tree().get_nodes_in_group("SpawnPoint")
-	#network.connect("player_list_changed", self, "_on_player_list_changed")
+	$CanvasLayer.add_child(teamSelector)
 	network.connect("disconnected", self, "_on_disconnected")
-	add_child(teamSelector)
-	teamSelector.connect("teamSelected",self,"_on_player_selected_team")
+	teamSelector.connect("team_selected",self,"_on_player_selected_team")
+	teamSelector.connect("spectate_mode",self,"_on_specmode_selected")
+	spec_mode.connect("leave_spec_mode",self,"_on_spec_mode_leave")
+	
 	if (get_tree().is_network_server()):
 		network.connect("player_removed", self, "_on_player_removed")
 		spawnBots()
+	else:
+		rpc_id(1,"serverGetPlayers", game_states.player_info.net_id)
+
+
+func loadGameMode():
+	var game_mode = null
+	#load appropriate game mode
+	if game_server.serverInfo.game_mode == "SURVIVAL":
+		game_mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn").instance()
+	elif game_server.serverInfo.game_mode == "FFA":
+		game_mode = load("res://Objects/Game_modes/FFA_mode.tscn").instance()
+	#add game mode
+	if game_mode:
+		var mode_res = load($level_info.getGameModeNodePath()).instance()
+		game_mode.add_to_group("GameMode")
+		add_child(game_mode)
+		add_child(mode_res)
+
+
+func _on_specmode_selected():
+	add_child(spec_mode)
+	$CanvasLayer.remove_child(teamSelector)
+
+func _on_spec_mode_leave():
+	remove_child(spec_mode)
+	$CanvasLayer.add_child(teamSelector)
 
 func _on_player_selected_team(selected_team):
 	_init_game()
-	if not get_tree().is_network_server():
-		rpc_id(1,"serverGetPlayers", game_states.player_info.net_id)
-		
-	rpc("spawn_player", game_states.player_info, getSpawnPosition(selected_team), selected_team)
+	if get_tree().is_network_server():
+		rpc("spawn_player", game_states.player_info, getSpawnPosition(selected_team), selected_team)
+	else:
+		rpc_id(1,"serverSpawnMyPlayer",game_states.player_info,selected_team)
 	teamSelector.queue_free()
 
 func _on_player_removed(pinfo):
@@ -101,6 +133,11 @@ remote func serverGetPlayers(peer_id):
 	#send data to peer
 	rpc_id(peer_id,"peerSpawnPlayers", char_data_list)
 
+remote func serverSpawnMyPlayer(pinfo,team):
+	if get_tree().is_network_server():
+		rpc("spawn_player",pinfo,getSpawnPosition(team),team)
+	else:
+		print("Error : not server")
 
 remote func peerSpawnPlayers(player_dict):
 	for i in player_dict:
@@ -145,7 +182,11 @@ func spawnPlayer(char_data):
 	add_child(nactor)
 	if not char_data.is_bot:
 		emit_signal("player_spawned",nactor)
+	else:
+		emit_signal("bot_spawned",nactor)
 
+
+#legacy spawn function
 remotesync func spawn_player(pinfo, pos : Vector2, team : int):
 	if arr.has(pinfo.net_id) or pos == game_states.invalid_position:
 		print("Fatal network spawn error")
@@ -192,7 +233,6 @@ func spawnBots():
 		spawnPlayer(i)
 
 
-
 remote func despawn_player(pinfo):
 	if (get_tree().is_network_server()):
 		for id in network.players:
@@ -215,14 +255,3 @@ func _on_disconnected():
 
 func _init_game():
 	game_server.init_scoreBoard()
-	var game_mode = null
-	#load appropriate game mode
-	if game_server.serverInfo.game_mode == "SURVIVAL":
-		game_mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn").instance()
-		print("Survival Mode")
-	elif game_server.serverInfo.game_mode == "FFA":
-		game_mode = load("res://Objects/Game_modes/FFA_mode.tscn").instance()
-	#add game mode
-	if game_mode:
-		game_mode.add_to_group("GameMode")
-		add_child(game_mode)

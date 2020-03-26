@@ -10,8 +10,7 @@ func _ready():
 	startingTween()
 
 func _join_lobby():
-	next_scene = "res://Menus/Lobby/GameModes.tscn"
-	get_tree().change_scene(next_scene);
+	get_tree().change_scene("res://Menus/Lobby/Lobby.tscn")
 
 
 func _on_create_pressed():
