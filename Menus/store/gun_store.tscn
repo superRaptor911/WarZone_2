@@ -14,7 +14,7 @@ border_width_right = 2
 border_width_bottom = 2
 
 [sub_resource type="DynamicFont" id=5]
-size = 20
+size = 28
 use_filter = true
 font_data = ExtResource( 4 )
 
@@ -73,11 +73,12 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="gun_desc"]
 margin_left = 22.0
-margin_top = 46.2105
-margin_right = 577.0
-margin_bottom = 270.211
+margin_top = 27.9499
+margin_right = 520.0
+margin_bottom = 161.95
 custom_fonts/font = SubResource( 5 )
 text = "efdfdf"
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

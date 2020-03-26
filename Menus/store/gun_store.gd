@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var gun_data_format = "Name : %s\nGun Type : %s\nDamage : %d\nClip Size : %d"
+
 class WeaponType:
 	var wpn_type = ""
 	var weapons = Array()
@@ -51,8 +53,6 @@ func loadWeapons():
 					break
 		d = dir.get_next()
 	setCurrentWeaponType("pistol")
-	
-	
 
 
 func setCurrentWeaponType(type):
@@ -67,8 +67,14 @@ func setCurrentWeaponType(type):
 			print(current_type.wpn_type)
 			current_type.current_wpn = current_type.weapons[0]
 			$icon/TextureRect.texture = current_type.current_wpn.gun_portrait
+			setGunInfo()
 		
-	
+
+
+func setGunInfo():
+	var w = current_type.current_wpn
+	$gun_desc/Label.text = gun_data_format % [w.gun_name,w.gun_type,w.damage,w.rounds_in_clip]
+
 func _on_pistol_pressed():
 	setCurrentWeaponType("pistol")
 
