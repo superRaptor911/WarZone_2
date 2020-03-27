@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Weapons/Gun.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Weapons/pistol_1.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Weapons/deagle.bmp" type="Texture" id=2]
 [ext_resource path="res://Sfx/weapons/handgun/usp.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sfx/weapons/handgun/pis_clipout.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sfx/weapons/rifle/ak47_reload.wav" type="AudioStream" id=5]
-[ext_resource path="res://Sprites/Weapons/gun_p.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/particles/muzzle.png" type="Texture" id=7]
 
 [node name="Gun" type="Node2D"]
@@ -14,13 +13,12 @@ rotation = -1.5708
 z_index = 1
 script = ExtResource( 1 )
 gun_name = "default_gun"
-gun_portrait = ExtResource( 6 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="Muzzle" type="Node2D" parent="."]
-position = Vector2( 0, -11.3392 )
+position = Vector2( -0.0565491, -15.4116 )
 
 [node name="muzzle" type="Sprite" parent="Muzzle"]
 visible = false
@@ -33,9 +31,9 @@ texture = ExtResource( 7 )
 one_shot = true
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -0.648891, -2.56607 )
-scale = Vector2( 0.512586, 0.261017 )
+position = Vector2( -107.857, -0.130371 )
 texture = ExtResource( 2 )
+offset = Vector2( 108.364, -8.76697 )
 
 [node name="fire" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
@@ -44,12 +42,13 @@ stream = ExtResource( 3 )
 stream = ExtResource( 4 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 0.226303, -16.6856 )
 enabled = true
 cast_to = Vector2( 0, -750 )
 collision_mask = 3
 
 [node name="reload" type="AudioStreamPlayer2D" parent="."]
-position = Vector2( -0.138885, -0.277771 )
+position = Vector2( 0.25705, -0.0515289 )
 stream = ExtResource( 5 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Reload_time" to="." method="_on_Reload_time_timeout"]

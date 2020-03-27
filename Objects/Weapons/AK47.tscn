@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Weapons/AK47.gd" type="Script" id=2]
-[ext_resource path="res://Sprites/Weapons/ak47.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Weapons/ak47.bmp" type="Texture" id=3]
 [ext_resource path="res://Sfx/weapons/rifle/ak47.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sfx/weapons/rifle/ak47_clipout.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sprites/Weapons/ak47_p.png" type="Texture" id=6]
@@ -16,20 +16,17 @@ damage = 36.0
 rounds_in_clip = 30
 clips = 99
 rate_of_fire = 7.0
-spread = 0.01
-recoil_factor = 0.5
 max_zoom = 1.5
 gun_portrait = ExtResource( 6 )
 
 [node name="Muzzle" parent="." index="1"]
-position = Vector2( 0.0936937, -20.1523 )
+position = Vector2( -0.116863, -36.8125 )
 
 [node name="Reload_time" parent="." index="2"]
 wait_time = 2.0
 
 [node name="Sprite" parent="." index="3"]
-position = Vector2( 1.44342, -14.4161 )
-scale = Vector2( 1.35344, 1.50763 )
+position = Vector2( -107.799, -9.68899 )
 texture = ExtResource( 3 )
 
 [node name="fire" parent="." index="4"]
@@ -38,5 +35,5 @@ stream = ExtResource( 4 )
 [node name="clipOut" parent="." index="5"]
 stream = ExtResource( 5 )
 
-[node name="RayCast2D" parent="." index="7"]
-position = Vector2( 0.0672321, -20.2242 )
+[node name="RayCast2D" parent="." index="6"]
+position = Vector2( -0.112196, -36.7372 )
