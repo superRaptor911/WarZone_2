@@ -1,10 +1,17 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Menus/store/gun_store.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=3]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=5]
+[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=6]
+[ext_resource path="res://new_font.tres" type="DynamicFont" id=7]
+
+[sub_resource type="DynamicFont" id=6]
+size = 24
+use_filter = true
+font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -39,6 +46,27 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color( 0, 0, 0, 1 )
 
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.105882, 0.623529, 0.141176, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+shadow_size = 6
+
+[sub_resource type="DynamicFont" id=8]
+size = 28
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.937255, 0.211765, 0.211765, 0.54902 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+shadow_size = 6
+
 [node name="gun_store" type="CanvasLayer"]
 script = ExtResource( 1 )
 
@@ -53,19 +81,25 @@ __meta__ = {
 }
 
 [node name="back" type="Button" parent="."]
-margin_left = 366.271
-margin_top = -0.847713
-margin_right = 438.271
-margin_bottom = 30.1523
+margin_left = 96.0
+margin_top = 659.0
+margin_right = 204.0
+margin_bottom = 697.0
+custom_styles/hover = ExtResource( 6 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/focus = ExtResource( 6 )
+custom_styles/normal = ExtResource( 6 )
+custom_fonts/font = SubResource( 6 )
+text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="gun_desc" type="Panel" parent="."]
 margin_left = 538.017
-margin_top = 345.803
+margin_top = 334.696
 margin_right = 1134.02
-margin_bottom = 629.803
+margin_bottom = 618.696
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -84,10 +118,10 @@ __meta__ = {
 }
 
 [node name="weapon_types" type="Panel" parent="."]
-margin_left = 44.0038
-margin_top = 110.0
-margin_right = 390.004
-margin_bottom = 671.0
+margin_left = 77.1486
+margin_top = 178.431
+margin_right = 409.149
+margin_bottom = 622.431
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_group_": true,
@@ -225,6 +259,59 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="purchase" type="Button" parent="."]
+margin_left = 1079.46
+margin_top = 644.652
+margin_right = 1229.46
+margin_bottom = 702.652
+custom_styles/normal = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
+text = "Puchase"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="purchase_fail" type="PopupPanel" parent="."]
+margin_left = 1730.53
+margin_top = 367.836
+margin_right = 2391.53
+margin_bottom = 599.836
+custom_styles/panel = SubResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="purchase_fail"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -280.5
+margin_top = -42.0
+margin_right = 280.5
+margin_bottom = 42.0
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0.803922, 0.678431, 0.909804, 1 )
+text = "Insufficient Fund"
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cash" type="Label" parent="."]
+margin_left = 77.1486
+margin_top = 35.3911
+margin_right = 429.149
+margin_bottom = 119.391
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0.113725, 0.478431, 0.0745098, 1 )
+text = "$2000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="weapon_types/VBoxContainer/pistol" to="." method="_on_pistol_pressed"]
 [connection signal="pressed" from="weapon_types/VBoxContainer/smg" to="." method="_on_smg_pressed"]
 [connection signal="pressed" from="weapon_types/VBoxContainer/rifle" to="." method="_on_rifle_pressed"]
@@ -232,3 +319,4 @@ __meta__ = {
 [connection signal="pressed" from="weapon_types/VBoxContainer/armour" to="." method="_on_armour_pressed"]
 [connection signal="pressed" from="icon/next_wpn" to="." method="_on_next_wpn_pressed"]
 [connection signal="pressed" from="icon/prev_wpn" to="." method="_on_prev_wpn_pressed"]
+[connection signal="pressed" from="purchase" to="." method="_on_purchase_pressed"]

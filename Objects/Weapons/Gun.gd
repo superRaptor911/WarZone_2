@@ -10,6 +10,7 @@ export var gun_rating : int = 0
 export var rate_of_fire : float = 4
 export var max_zoom : float = 1.0
 export var gun_portrait : Texture = preload("res://Sprites/Weapons/gun_p.png")
+export var wpn_cost : int = 500
 
 var current_zoom : float = 0.75
 var projectile = preload("res://Objects/Weapons/Projectile.tscn")

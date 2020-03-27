@@ -4,6 +4,7 @@
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Menus/resources/light_b.png" type="Texture" id=4]
+[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=5]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://calibrib.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=8]
@@ -36,44 +37,40 @@ font_data = ExtResource( 3 )
 bg_color = Color( 0.196078, 0.176471, 0.517647, 1 )
 shadow_size = 6
 
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.956863, 0.0313726, 0.0313726, 1 )
-shadow_size = 6
-
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=7]
 size = 24
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=8]
 size = 64
 use_filter = true
 font_data = ExtResource( 7 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
 shadow_size = 6
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=10]
 size = 28
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=11]
 size = 24
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=13]
+[sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
 shadow_size = 6
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=13]
 size = 34
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=15]
+[sub_resource type="DynamicFont" id=14]
 size = 34
 use_filter = true
 font_data = ExtResource( 3 )
@@ -191,8 +188,11 @@ margin_left = 58.0
 margin_top = 642.0
 margin_right = 211.0
 margin_bottom = 697.0
-custom_styles/normal = SubResource( 7 )
-custom_fonts/font = SubResource( 8 )
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 5 )
+custom_fonts/font = SubResource( 7 )
 text = "BACK"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -204,7 +204,7 @@ margin_left = 466.054
 margin_top = 624.071
 margin_right = 828.054
 margin_bottom = 688.071
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 0.0392157, 0.0823529, 0.027451, 1 )
 custom_colors/font_color_shadow = Color( 0.807843, 0.52549, 0.52549, 1 )
 text = "Connecting ..."
@@ -214,7 +214,7 @@ margin_left = 100.0
 margin_top = 180.0
 margin_right = 566.0
 margin_bottom = 575.0
-custom_styles/panel = SubResource( 10 )
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -238,7 +238,7 @@ margin_left = -82.0
 margin_top = -18.5
 margin_right = 82.0
 margin_bottom = 18.5
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 10 )
 text = "Server List"
 
 [node name="serverList" type="VBoxContainer" parent="serverList"]
@@ -272,7 +272,7 @@ margin_left = -211.5
 margin_top = -16.0
 margin_right = 221.5
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "best server"
 __meta__ = {
@@ -296,7 +296,7 @@ margin_left = -212.5
 margin_top = -21.0
 margin_right = 220.5
 margin_bottom = 11.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 text = "my server"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -322,7 +322,7 @@ margin_left = -211.5
 margin_top = -16.0
 margin_right = 221.5
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "best server"
 __meta__ = {
@@ -346,7 +346,7 @@ margin_left = -212.5
 margin_top = -21.0
 margin_right = 220.5
 margin_bottom = 11.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 text = "my server"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -372,7 +372,7 @@ margin_left = -211.5
 margin_top = -16.0
 margin_right = 221.5
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "best server"
 __meta__ = {
@@ -390,7 +390,7 @@ margin_left = -449.0
 margin_top = -184.0
 margin_right = 449.0
 margin_bottom = 184.0
-custom_styles/panel = SubResource( 13 )
+custom_styles/panel = SubResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -422,7 +422,7 @@ margin_left = -257.0
 margin_top = 23.6312
 margin_right = -60.7675
 margin_bottom = 75.6312
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 13 )
 text = "Server IP"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -441,7 +441,7 @@ margin_left = -257.937
 margin_top = 23.4618
 margin_right = -16.937
 margin_bottom = 74.4618
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 14 )
 text = "Server Port"
 
 [node name="auto" type="Button" parent="manual_ip"]

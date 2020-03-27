@@ -1,6 +1,7 @@
 extends CanvasLayer
 
-var gun_data_format = "Name : %s\nGun Type : %s\nDamage : %d\nClip Size : %d"
+var gun_data_format = ("Name : %s\nGun Type : %s\nDamage : %d\nClip Size : %d\nCost : $%d")
+
 
 class WeaponType:
 	var wpn_type = ""
@@ -18,7 +19,7 @@ func _ready():
 	initWeaponTypes()
 	loadWeapons()
 	initialTween()
-	
+	$cash.text = "$" + String(game_states.player_data.cash)
 
 func initWeaponTypes():
 	var pistols = WeaponType.new("pistol")
@@ -48,7 +49,6 @@ func loadWeapons():
 				if not gun_t:
 					break
 				if i.wpn_type == gun_t:
-					print(gun_t)
 					i.weapons.append(script)
 					break
 		d = dir.get_next()
@@ -73,7 +73,8 @@ func setCurrentWeaponType(type):
 
 func setGunInfo():
 	var w = current_type.current_wpn
-	$gun_desc/Label.text = gun_data_format % [w.gun_name,w.gun_type,w.damage,w.rounds_in_clip]
+	$gun_desc/Label.text = gun_data_format % [w.gun_name,w.gun_type,w.damage,w.rounds_in_clip,w.wpn_cost]
+
 
 func _on_pistol_pressed():
 	setCurrentWeaponType("pistol")
@@ -112,6 +113,31 @@ func _on_prev_wpn_pressed():
 		current_type.current_wpn = current_type.weapons[current_type.cur_wpn_id] 
 		$icon/TextureRect.texture = current_type.current_wpn.gun_portrait
 
+
+func _on_purchase_pressed():
+	if current_type.wpn_type != "armour" and current_type.wpn_type != "explosive":
+		purchaseGun()
+
+func purchaseGun():
+	var w = current_type.current_wpn.gun_name
+	for i in game_states.player_data.guns:
+		if i == w:
+			$purchase_fail/Label.text = "You own this"
+			$purchase_fail.popup_centered()
+			return
+	
+	if game_states.player_data.cash >= current_type.current_wpn.wpn_cost:
+		game_states.player_data.cash -= current_type.current_wpn.wpn_cost
+		game_states.player_data.guns.append(w)
+		game_states.savePlayerData()
+	else:
+		$purchase_fail/Label.text = "Insufficient Funds"
+		$purchase_fail.popup_centered()
+
+
+func _on_back_pressed():
+	pass # Replace with function body.
+
 ####################Tweening##########################
 
 func initialTween():
@@ -135,5 +161,3 @@ func initialTween():
 	$Tween.interpolate_property(node,"rect_position",node.rect_position,
 		old_rectpos,duration,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.start()
-
-

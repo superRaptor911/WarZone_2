@@ -106,9 +106,6 @@ func saveDefaultData():
 func portGameToCurrentVersion():
 	pass
 	
-func saveSettings():
-	save_data("user://settings.dat",game_settings)
-
 #setup player info
 func _init_setup():
 	player_info.name = player_data.name
@@ -118,6 +115,11 @@ func _init_setup():
 	player_info.sec_gun_name = player_data.selected_guns[1]
 	generateBotProfiles()
 
+func saveSettings():
+	save_data("user://settings.dat",game_settings)
+
+func savePlayerData():
+	save_data("user://pinfo.dat",player_data)
 
 func save_data(save_path : String, data) -> void:
 	var data_string = JSON.print(data)
