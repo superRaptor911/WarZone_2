@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Weapons/Gun.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Weapons/deagle.bmp" type="Texture" id=2]
+[ext_resource path="res://Sprites/Weapons/glock.bmp" type="Texture" id=2]
 [ext_resource path="res://Sfx/weapons/handgun/usp.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sfx/weapons/handgun/pis_clipout.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sfx/weapons/rifle/ak47_reload.wav" type="AudioStream" id=5]
@@ -31,7 +31,7 @@ texture = ExtResource( 7 )
 one_shot = true
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -107.857, -0.130371 )
+position = Vector2( -108.011, -3.97758 )
 texture = ExtResource( 2 )
 offset = Vector2( 108.364, -8.76697 )
 

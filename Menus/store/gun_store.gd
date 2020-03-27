@@ -64,7 +64,6 @@ func setCurrentWeaponType(type):
 	$icon/TextureRect.texture = null
 	if current_type:
 		if not current_type.weapons.empty():
-			print(current_type.wpn_type)
 			current_type.current_wpn = current_type.weapons[0]
 			$icon/TextureRect.texture = current_type.current_wpn.gun_portrait
 			setGunInfo()
@@ -103,7 +102,7 @@ func _on_next_wpn_pressed():
 			current_type.cur_wpn_id = 0
 		current_type.current_wpn = current_type.weapons[current_type.cur_wpn_id] 
 		$icon/TextureRect.texture = current_type.current_wpn.gun_portrait
-
+		setGunInfo()
 
 func _on_prev_wpn_pressed():
 	if current_type.weapons.size() > 1:
@@ -112,7 +111,7 @@ func _on_prev_wpn_pressed():
 			current_type.cur_wpn_id = current_type.weapons.size() - 1
 		current_type.current_wpn = current_type.weapons[current_type.cur_wpn_id] 
 		$icon/TextureRect.texture = current_type.current_wpn.gun_portrait
-
+		setGunInfo()
 
 func _on_purchase_pressed():
 	if current_type.wpn_type != "armour" and current_type.wpn_type != "explosive":
