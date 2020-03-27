@@ -41,31 +41,37 @@ build_targets()
 	fi
 }
 
+build_plugin()
+{
+	for (( i = 0; i < 6; i++ )); do
+		build_targets "${args[i]}" "${i}"
+	done
+
+	echo
+	echo
+	echo operation result -----------------------------------
+
+	for (( i = 0; i < 6; i++ )); do
+		printf "${result[i]}"
+	done
+
+	echo operation result -----------------------------------
+	echo
+	echo
+
+	if [[ build_result -ne 0 ]]; then
+		cp -r output/bin ${copy_dest}
+		echo copied libs to ${copy_dest}
+	fi	
+}
+
 ##############################Starts here#######################
+
+
 clear
 mkdir -p output/bin
 
-for (( i = 0; i < 6; i++ )); do
-	build_targets "${args[i]}" "${i}"
-done
-
-echo
-echo
-echo operation result -----------------------------------
-
-for (( i = 0; i < 6; i++ )); do
-	printf "${result[i]}"
-done
-
-echo operation result -----------------------------------
-echo
-echo
-
-if [[ build_result -ne 0 ]]; then
-	cp -r output/bin ${copy_dest}
-	echo copied libs to ${copy_dest}
-fi
-
+build_plugin
 
 end_time=`date +%s`
 runtime=$((end_time-start_time))
