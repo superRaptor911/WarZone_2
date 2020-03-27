@@ -66,10 +66,10 @@ elif env['platform'] in ('x11', 'linux'):
     cpp_library += '.linux'
     if env['target'] in ('debug', 'd'):
         env.Append(CCFLAGS=['-fPIC', '-g3', '-Og','-Wall'])
-        env.Append(CXXFLAGS=['-std=c++17'])
+        env.Append(CXXFLAGS=['-std=c++14'])
     else:
         env.Append(CCFLAGS=['-fPIC', '-g', '-O3'])
-        env.Append(CXXFLAGS=['-std=c++17'])
+        env.Append(CXXFLAGS=['-std=c++14'])
 
 elif env['platform'] == 'android':
     env['CC'] = '/home/raptor/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/linux-x86_64/bin/'
@@ -94,28 +94,40 @@ elif env['platform'] == 'android':
     cpp_library += '.android'
     if env['target'] in ('debug', 'd'):
         env.Append(CCFLAGS=['-fPIC', '-g3', '-Og'])
-        env.Append(CXXFLAGS=['-std=c++17'])
+        env.Append(CXXFLAGS=['-std=c++14'])
     else:
         env.Append(CCFLAGS=['-fPIC', '-g', '-O3'])
-        env.Append(CXXFLAGS=['-std=c++17'])
+        env.Append(CXXFLAGS=['-std=c++14'])
 
 
 elif env['platform'] == "windows":
     env['target_path'] += 'win64/'
     cpp_library += '.windows'
+    env['CXX'] = 'x86_64-w64-mingw32-g++'
+    env['AR'] = "x86_64-w64-mingw32-ar"
+    env['RANLIB'] = "x86_64-w64-mingw32-ranlib"
+    env['LINK'] = "x86_64-w64-mingw32-g++"
+
+    env.Append(CCFLAGS=['-g', '-O3', '-std=c++14', '-Wwrite-strings'])
+    env.Append(LINKFLAGS=[
+        '--static',
+        '-Wl,--no-undefined',
+        '-static-libgcc',
+        '-static-libstdc++',
+    ])
     # This makes sure to keep the session environment variables on windows,
     # that way you can run scons in a vs 2017 prompt and it will find all the required tools
-    env.Append(ENV=os.environ)
+#    env.Append(ENV=os.environ)
 
-    env.Append(CPPDEFINES=['WIN32', '_WIN32', '_WINDOWS', '_CRT_SECURE_NO_WARNINGS'])
-    env.Append(CCFLAGS=['-W3', '-GR'])
-    if env['target'] in ('debug', 'd'):
-        env.Append(CPPDEFINES=['_DEBUG'])
-        env.Append(CCFLAGS=['-EHsc', '-MDd', '-ZI'])
-        env.Append(LINKFLAGS=['-DEBUG'])
-    else:
-        env.Append(CPPDEFINES=['NDEBUG'])
-        env.Append(CCFLAGS=['-O2', '-EHsc', '-MD'])
+#   env.Append(CPPDEFINES=['WIN32', '_WIN32', '_WINDOWS', '_CRT_SECURE_NO_WARNINGS'])
+#    env.Append(CCFLAGS=['-W3', '-GR'])
+#    if env['target'] in ('debug', 'd'):
+#        env.Append(CPPDEFINES=['_DEBUG'])
+#        env.Append(CCFLAGS=['-EHsc', '-MDd', '-ZI'])
+#        env.Append(LINKFLAGS=['-DEBUG'])
+#    else:
+#        env.Append(CPPDEFINES=['NDEBUG'])
+#        env.Append(CCFLAGS=['-O2', '-EHsc', '-MD'])
 
 if env['target'] in ('debug', 'd'):
     cpp_library += '.debug'

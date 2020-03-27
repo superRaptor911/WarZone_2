@@ -62,9 +62,9 @@ buildCppBindings()
 {
 	cd godot-cpp
 	printBuffer "Compiling for Linux"
-	!(scons platform=linux generate_bindings=yes bits=64 -j4) && exit 1
+	!(scons platform=linux generate_bindings=yes bits=64 target=release -j4) && exit 1
 	printBuffer "Compiling for Windows"
-	!(scons platform=windows generate_bindings=yes bits=64 -j4) && exit 1
+	!(scons platform=windows generate_bindings=yes bits=64 target=release -j4) && exit 1
 	clear
 	echo "Do you want to generate bindings for android? (y/n)"
 	read ans
@@ -78,13 +78,25 @@ buildCppBindings()
 
 	android_archs=(x86 x86_64 armv7 arm64v8)
 	for i in ${android_archs[@]}; do
-		!(scons platform=android generate_bindings=yes ANDROID_NDK_ROOT="$ndk_path" android_arch=$i -j4) && exit 1
+		!(scons platform=android generate_bindings=yes ANDROID_NDK_ROOT="$ndk_path" target=release android_arch=$i -j4) && exit 1
 		printBuffer "Compiled for Android $i"
 	done
 	cd ..
+}
+
+buildWarzonePlugins()
+{
+	cd src
+	for i in */; do
+		plugin="${i:0:${#i}-1}"
+		cd ..
+		./build.sh $plugin
+		cd src
+	done
 }
 
 
 installTools
 installGodotCpp
 buildCppBindings
+buildWarzonePlugins
