@@ -32,12 +32,7 @@ build_targets()
 		result+="operation $2 completed successfully ( ${plats[i]} )\n"
 		build_result+=1
 	else
-	    result+="operation $2 failed ( ${plats[i]} )\n"
-	    #exit on failure
-	    if [ $exit_on_error -eq 1 ] && [ "${plats[i]}" != "windows" ]; then
-	    	exit 1
-	    fi
-	    
+	    exit 1
 	fi
 }
 

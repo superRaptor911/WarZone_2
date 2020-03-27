@@ -1,6 +1,6 @@
 #!/bin/bash
 
-msg_buffer="------------------Raptor--inc-------------Setup"
+msg_buffer="------------------Raptor--inc-------------Dev-Setup--------"
 
 
 printBuffer()
@@ -73,7 +73,7 @@ buildCppBindings()
 	fi
 
 	echo "Okay,Ready to build bindings for android......."
-	echo "Please input Android NDK path (example : /home/raptor/Android/Sdk/ndk/21.0.6113669 )"
+	echo "Please input Android NDK path (example : /home/raptor/Android/Sdk/ndk/21.0.6113669)"
 	read ndk_path
 
 	android_archs=(x86 x86_64 armv7 arm64v8)
@@ -86,17 +86,23 @@ buildCppBindings()
 
 buildWarzonePlugins()
 {
+	printBuffer "Building WarZone 2 plugins"
 	cd src
 	for i in */; do
 		plugin="${i:0:${#i}-1}"
 		cd ..
 		./build.sh $plugin
 		cd src
+		printBuffer "Compiled $plugin"
 	done
 }
 
-
-installTools
-installGodotCpp
-buildCppBindings
-buildWarzonePlugins
+main()
+{
+	installTools
+	installGodotCpp
+	buildCppBindings
+	buildWarzonePlugins	
+}
+######################################Starts Here#####################################
+main
