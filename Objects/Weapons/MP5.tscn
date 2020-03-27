@@ -14,7 +14,7 @@ damage = 20.0
 rounds_in_clip = 30
 clips = 99
 gun_rating = 3
-rate_of_fire = 12.0
+rate_of_fire = 10.0
 max_zoom = 1.25
 gun_portrait = ExtResource( 5 )
 

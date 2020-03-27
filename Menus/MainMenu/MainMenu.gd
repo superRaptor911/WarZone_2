@@ -34,6 +34,12 @@ func _on_Button3_pressed():
 	tweenTransition()
 	$Timer.start()
 	
+func _on_store_pressed():
+	btn_click.play()
+	_next_scene = "res://Menus/store/store_menu.tscn"
+	tweenTransition()
+	$Timer.start()
+
 
 func goToNextScene():
 	get_tree().change_scene(_next_scene);
@@ -62,3 +68,4 @@ func tweenInitial():
 	$Tween.interpolate_property($VBoxContainer,"rect_position",new_pos,
 		old_pos,$Timer.wait_time,Tween.TRANS_QUAD,Tween.EASE_OUT,0.1)
 	$Tween.start()
+

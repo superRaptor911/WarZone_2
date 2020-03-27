@@ -11,6 +11,9 @@ class WeaponType:
 	
 	func _init(t):
 		wpn_type = t
+	#sort by cost
+	static func sort(a,b) -> bool:
+		return a.wpn_cost < b.wpn_cost
 
 var weapon_types = Array()
 var current_type = null
@@ -34,6 +37,7 @@ func initWeaponTypes():
 	weapon_types.append(nades)
 	weapon_types.append(armour)
 
+
 func loadWeapons():
 	var path = "res://Objects/Weapons"
 	var dir = Directory.new()
@@ -52,6 +56,10 @@ func loadWeapons():
 					i.weapons.append(script)
 					break
 		d = dir.get_next()
+	
+	for i in weapon_types:
+		i.weapons.sort_custom(WeaponType,"sort")
+	
 	setCurrentWeaponType("pistol")
 
 
@@ -135,7 +143,7 @@ func purchaseGun():
 
 
 func _on_back_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://Menus/store/store_menu.tscn")
 
 ####################Tweening##########################
 

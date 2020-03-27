@@ -83,8 +83,8 @@ __meta__ = {
 [node name="back" type="Button" parent="."]
 margin_left = 96.0
 margin_top = 659.0
-margin_right = 204.0
-margin_bottom = 697.0
+margin_right = 206.0
+margin_bottom = 699.0
 custom_styles/hover = ExtResource( 6 )
 custom_styles/pressed = ExtResource( 6 )
 custom_styles/focus = ExtResource( 6 )
