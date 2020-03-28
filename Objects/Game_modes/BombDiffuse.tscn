@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Objects/Game_modes/BombDiffuse.gd" type="Script" id=1]
+[ext_resource path="res://new_font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Objects/scripts/popup.gd" type="Script" id=3]
+[ext_resource path="res://Sfx/weapons/terwin.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sfx/weapons/bombpl.wav" type="AudioStream" id=5]
+
+[node name="BombDiffuse" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="RoundTimer" type="Timer" parent="."]
+wait_time = 150.0
+
+[node name="plant_bomb" type="Button" parent="."]
+visible = false
+margin_left = 524.145
+margin_top = 473.499
+margin_right = 629.145
+margin_bottom = 499.499
+text = "Plant bomb"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -328.0
+margin_top = -42.0
+margin_right = 328.0
+margin_bottom = 42.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0.968627, 0.0392157, 1 )
+text = "You are the bomber"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bomb_planted" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="terrorist_win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="timeLeft" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -75.0
+margin_right = 75.0
+margin_bottom = 45.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="timeLeft"]
+margin_left = 52.9428
+margin_top = 16.2901
+margin_right = 134.943
+margin_bottom = 41.2901
+text = "5:2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+margin_left = 400.88
+margin_top = 575.52
+margin_right = 922.88
+margin_bottom = 667.52
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="no_plr_timer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="RoundTimer" to="." method="_on_RoundTimer_timeout"]
+[connection signal="pressed" from="plant_bomb" to="." method="_on_plant_bomb_pressed"]
+[connection signal="timeout" from="no_plr_timer" to="." method="_on_no_plr_timer_timeout"]

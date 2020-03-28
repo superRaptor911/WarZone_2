@@ -7,7 +7,6 @@ var id = 0
 var level = null
 
 var _near_bodies = Array()
-var visible_bodies = Array()
 var primary_gun = null
 var sec_gun = null
 var selected_gun = null
@@ -121,7 +120,6 @@ func _on_vision_body_exited(body):
 		_near_bodies.erase(body)
 
 func _on_VisionTimer_timeout():
-	visible_bodies.clear()
 	$Brain.visible_enemies.clear()
 	$Brain.visible_friends.clear()
 	
@@ -133,7 +131,6 @@ func _on_VisionTimer_timeout():
 													[self], collision_mask)
 			if result:
 				if result.collider.name == i.name:
-					visible_bodies.append(i)
 					if game_server.serverInfo.game_mode == "FFA" or i.team.team_id != team.team_id:
 						$Brain.visible_enemies.append(i)
 					else:

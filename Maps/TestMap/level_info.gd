@@ -12,6 +12,7 @@ var level_path = "res://Maps/TestMap/TestMap.tscn"
 var icon : Texture = preload("res://Maps/TestMap/minimap.png")
 var gameModes = Array()
 
+
 func _init():
 	setupGameModes()
 
@@ -21,6 +22,13 @@ func setupGameModes():
 	dict.node_path = "res://Maps/TestMap/FFA.tscn"
 	gameModes.append(dict)
 	
+	dict = gameMode_dict.duplicate(true)
+	dict.name = "Bombing"
+	dict.node_path = "res://Maps/TestMap/Bombing.tscn"
+	gameModes.append(dict)
+
+
+
 func getGameModeNodePath() -> String:
 	for i in gameModes:
 		if i.name == game_server.serverInfo.game_mode:

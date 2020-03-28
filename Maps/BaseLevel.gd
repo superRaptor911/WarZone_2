@@ -54,12 +54,15 @@ func loadGameMode():
 		game_mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn").instance()
 	elif game_server.serverInfo.game_mode == "FFA":
 		game_mode = load("res://Objects/Game_modes/FFA_mode.tscn").instance()
+	elif game_server.serverInfo.game_mode == "Bombing":
+		game_mode = load("res://Objects/Game_modes/BombDiffuse.tscn").instance()
 	#add game mode
 	if game_mode:
 		var mode_res = load($level_info.getGameModeNodePath()).instance()
 		game_mode.add_to_group("GameMode")
-		add_child(game_mode)
 		add_child(mode_res)
+		add_child(game_mode)
+		
 
 
 func _on_specmode_selected():

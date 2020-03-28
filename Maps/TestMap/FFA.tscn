@@ -1,21 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Objects/Misc/spawn_point.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=2]
 
-[sub_resource type="NavigationPolygon" id=1]
-vertices = PoolVector2Array( 1820.14, 822.42, 1713.74, 822.24, 1045.65, 784.922, 1122.92, 535.668, 1771.57, 722.595, 1809.38, 972.153, 1882.17, 971.041, 2519.36, 1070.46, 1836.99, 1077.43, 1805.92, 1043.41, 1958.91, 537.183, 2159.35, 622.341, 1773, 627.449, 1428.35, 177.65, 1519.89, 81.0696, 1519.89, 395.762, 1426.77, 277.746, 167.973, 116.315, 1079.66, 184.335, 797.226, 183.326, 686.167, 181.162, 876.624, 483.942, 952.729, 454.071, 947.969, 693.659, 654.433, 685.726, 2166.9, 81.0696, 1957.4, 436.191, 1610.52, 78.5521, 1620.59, 398.28, 1117.91, 435.457, 1081.25, 282.89, 654.433, 496.911, 689.34, 460.417, 789.38, 466.556, 1881.75, 888.15, 1800.33, 884.273, 2163.12, 859.769, 1650.42, 966.984, 1543.65, 1036.4, 1548.4, 949.951, 1655.59, 882.98, 2261.52, 858.631, 2244.95, 453.666, 2518.6, 471.404, 429.124, 584.178, 557.74, 592.175, 563.992, 690.486, 443.405, 687.312, 351.754, 670.175, 273.71, 675.21, 276.227, 491.429, 440.231, 179.575, 2519.77, 367.598, 2249.98, 375.622, 2252.5, 83.5872, 2680.48, 81.0696, 2670.41, 1327.25, 802.394, 1128.37, 809.946, 1327.25, 656.376, 1329.77, 658.894, 1130.88, 668.964, 1052.84, 1715.04, 882.98, 438.644, 782.513, 948.001, 944.251, 663.929, 886.683, 535.534, 1138.44, 540.569, 1319.7, 69.789, 1324.74, 180.561, 1052.84, 1935.29, 1332.29, 1934.19, 1179.19, 2519.36, 1173.68, 946.101, 1037.35, 1206.4, 1038.3, 1207.35, 1294.8, 924.99, 1331.89, 925.753, 1135.92, 2162.63, 724.146, 155.385, 486.394, 79.8591, 592.131, 175.526, 592.131, 529.085, 496.911, 522.739, 185.922, 568.262, 879.131, 563.227, 939.552, 270.402, 933.609, 268.781, 784.469, 350.133, 781.4, 1837.8, 1331.89, 1292.85, 1291.95, 1299.5, 1039.25, 1720.2, 1043.23, 1715.04, 974.738, 1036.82, 373.15, 876.624, 370.725 )
-polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 6, 7, 8, 9 ), PoolIntArray( 10, 11, 12, 3 ), PoolIntArray( 13, 14, 15, 16 ), PoolIntArray( 17, 14, 13, 18, 19, 20 ), PoolIntArray( 21, 22, 23, 24 ), PoolIntArray( 25, 11, 10, 26 ), PoolIntArray( 27, 25, 26, 28 ), PoolIntArray( 28, 26, 29, 15 ), PoolIntArray( 16, 15, 29, 30 ), PoolIntArray( 21, 24, 31, 32, 33 ), PoolIntArray( 34, 35, 0, 36 ), PoolIntArray( 37, 38, 39, 40 ), PoolIntArray( 41, 42, 43, 7 ), PoolIntArray( 44, 45, 46, 47, 48 ), PoolIntArray( 44, 48, 49, 50, 51 ), PoolIntArray( 52, 53, 54, 55 ), PoolIntArray( 43, 52, 55, 56, 7 ), PoolIntArray( 57, 58, 59, 60, 61 ), PoolIntArray( 1, 62, 40, 2 ), PoolIntArray( 63, 2, 40, 39, 64, 65 ), PoolIntArray( 66, 67, 68, 69 ), PoolIntArray( 56, 70, 71, 72 ), PoolIntArray( 73, 74, 75, 76, 77 ), PoolIntArray( 4, 78, 36, 0 ), PoolIntArray( 50, 79, 17, 51 ), PoolIntArray( 80, 81, 69, 68 ), PoolIntArray( 66, 69, 61, 60 ), PoolIntArray( 19, 18, 30 ), PoolIntArray( 31, 82, 83, 20, 32 ), PoolIntArray( 84, 85, 86, 87, 88, 63 ), PoolIntArray( 89, 90, 91, 38, 92, 8 ), PoolIntArray( 3, 12, 4 ), PoolIntArray( 7, 6, 34, 36, 41 ), PoolIntArray( 37, 93, 92, 38 ), PoolIntArray( 73, 77, 57, 61, 65, 64 ), PoolIntArray( 19, 30, 29, 94 ), PoolIntArray( 92, 9, 8 ), PoolIntArray( 90, 89, 76, 75 ), PoolIntArray( 63, 65, 84 ), PoolIntArray( 63, 88, 48, 47 ), PoolIntArray( 51, 17, 20, 83 ), PoolIntArray( 95, 21, 33, 19 ), PoolIntArray( 94, 95, 19 ), PoolIntArray( 2, 94, 29, 3 ), PoolIntArray( 7, 56, 72 ) ]
-outlines = [ PoolVector2Array( 167.973, 116.315, 1519.89, 81.0696, 1519.89, 395.762, 1620.59, 398.28, 1610.52, 78.5521, 2166.9, 81.0696, 2159.35, 622.341, 1773, 627.449, 1771.57, 722.595, 2162.63, 724.146, 2163.12, 859.769, 2261.52, 858.631, 2244.95, 453.666, 2518.6, 471.404, 2519.77, 367.598, 2249.98, 375.622, 2252.5, 83.5872, 2680.48, 81.0696, 2670.41, 1327.25, 1935.29, 1332.29, 1934.19, 1179.19, 2519.36, 1173.68, 2519.36, 1070.46, 1836.99, 1077.43, 1837.8, 1331.89, 924.99, 1331.89, 925.753, 1135.92, 802.394, 1128.37, 809.946, 1327.25, 656.376, 1329.77, 658.894, 1130.88, 535.534, 1138.44, 540.569, 1319.7, 69.789, 1324.74, 79.8591, 592.131, 175.526, 592.131, 180.561, 1052.84, 668.964, 1052.84, 663.929, 886.683, 568.262, 879.131, 563.227, 939.552, 270.402, 933.609, 268.781, 784.469, 350.133, 781.4, 351.754, 670.175, 273.71, 675.21, 276.227, 491.429, 155.385, 486.394 ), PoolVector2Array( 440.231, 179.575, 522.739, 185.922, 529.085, 496.911, 654.433, 496.911, 654.433, 685.726, 947.969, 693.659, 952.729, 454.071, 876.624, 483.942, 876.624, 370.725, 1036.82, 373.15, 1045.65, 784.922, 438.644, 782.513, 443.405, 687.312, 563.992, 690.486, 557.74, 592.175, 429.124, 584.178 ), PoolVector2Array( 686.167, 181.162, 797.226, 183.326, 789.38, 466.556, 689.34, 460.417 ), PoolVector2Array( 1079.66, 184.335, 1081.25, 282.89, 1426.77, 277.746, 1428.35, 177.65 ), PoolVector2Array( 1117.91, 435.457, 1957.4, 436.191, 1958.91, 537.183, 1122.92, 535.668 ), PoolVector2Array( 948.001, 944.251, 1548.4, 949.951, 1543.65, 1036.4, 1299.5, 1039.25, 1292.85, 1291.95, 1207.35, 1294.8, 1206.4, 1038.3, 946.101, 1037.35 ), PoolVector2Array( 1655.59, 882.98, 1715.04, 882.98, 1713.74, 822.24, 1820.14, 822.42, 1800.33, 884.273, 1881.75, 888.15, 1882.17, 971.041, 1809.38, 972.153, 1805.92, 1043.41, 1720.2, 1043.23, 1715.04, 974.738, 1650.42, 966.984 ) ]
-
 [node name="FFA" type="Node"]
-
-[node name="Navigation2D" type="Navigation2D" parent="." groups=[
-"Nav",
-]]
-
-[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
-navpoly = SubResource( 1 )
 
 [node name="POI" type="Node2D" parent="." groups=[
 "POI",
@@ -47,65 +34,30 @@ position = Vector2( 1372.04, 766.12 )
 
 [node name="spawn_points" type="Node" parent="."]
 
-[node name="spawn_point" type="Area2D" parent="spawn_points" groups=[
-"SpawnPoint",
-] instance=ExtResource( 2 )]
+[node name="spawn_point" parent="spawn_points" instance=ExtResource( 2 )]
 position = Vector2( 1214.97, 810.775 )
-script = ExtResource( 1 )
 team_id = -1
 
-[node name="spawn_point2" type="Area2D" parent="spawn_points" groups=[
-"SpawnPoint",
-] instance=ExtResource( 2 )]
+[node name="spawn_point2" parent="spawn_points" instance=ExtResource( 2 )]
 position = Vector2( 302.781, 1222.73 )
-script = ExtResource( 1 )
 team_id = -1
 
-[node name="spawn_point3" type="Area2D" parent="spawn_points" groups=[
-"SpawnPoint",
-] instance=ExtResource( 2 )]
+[node name="spawn_point3" parent="spawn_points" instance=ExtResource( 2 )]
 position = Vector2( 1607.3, 1208.02 )
-script = ExtResource( 1 )
 team_id = -1
 
-[node name="spawn_point4" type="Area2D" parent="spawn_points" groups=[
-"SpawnPoint",
-] instance=ExtResource( 2 )]
+[node name="spawn_point4" parent="spawn_points" instance=ExtResource( 2 )]
 position = Vector2( 2480.26, 217.364 )
-script = ExtResource( 1 )
 team_id = -1
 
-[node name="spawn_point5" type="Area2D" parent="spawn_points" groups=[
-"SpawnPoint",
-] instance=ExtResource( 2 )]
+[node name="spawn_point5" parent="spawn_points" instance=ExtResource( 2 )]
 position = Vector2( 2578.34, 1237.44 )
-script = ExtResource( 1 )
 team_id = -1
 
-[node name="spawn_point6" type="Area2D" parent="spawn_points" groups=[
-"SpawnPoint",
-] instance=ExtResource( 2 )]
+[node name="spawn_point6" parent="spawn_points" instance=ExtResource( 2 )]
 position = Vector2( 297.877, 222.268 )
-script = ExtResource( 1 )
 team_id = -1
 
-[node name="spawn_point7" type="Area2D" parent="spawn_points" groups=[
-"SpawnPoint",
-] instance=ExtResource( 2 )]
+[node name="spawn_point7" parent="spawn_points" instance=ExtResource( 2 )]
 position = Vector2( 783.395, 565.564 )
-script = ExtResource( 1 )
 team_id = -1
-[connection signal="body_entered" from="spawn_points/spawn_point" to="spawn_points/spawn_point" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_points/spawn_point" to="spawn_points/spawn_point" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_points/spawn_point2" to="spawn_points/spawn_point2" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_points/spawn_point2" to="spawn_points/spawn_point2" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_points/spawn_point3" to="spawn_points/spawn_point3" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_points/spawn_point3" to="spawn_points/spawn_point3" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_points/spawn_point4" to="spawn_points/spawn_point4" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_points/spawn_point4" to="spawn_points/spawn_point4" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_points/spawn_point5" to="spawn_points/spawn_point5" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_points/spawn_point5" to="spawn_points/spawn_point5" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_points/spawn_point6" to="spawn_points/spawn_point6" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_points/spawn_point6" to="spawn_points/spawn_point6" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_points/spawn_point7" to="spawn_points/spawn_point7" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_points/spawn_point7" to="spawn_points/spawn_point7" method="_on_spawn_point_body_exited"]

@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/Game_modes/BombDiffuse/bomb_site.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Misc/spawn_point.gd" type="Script" id=2]
+[ext_resource path="res://Objects/Game_modes/BombDiffuse/bomb_site.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=4]
+
+[node name="Bombing" type="Node"]
+
+[node name="CT" type="Node" parent="."]
+
+[node name="spawn_point" type="Area2D" parent="CT" groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 2395.78, 231.349 )
+script = ExtResource( 2 )
+team_id = 1
+
+[node name="spawn_point2" type="Area2D" parent="CT" groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 2591.88, 239.299 )
+script = ExtResource( 2 )
+team_id = 1
+
+[node name="spawn_point3" type="Area2D" parent="CT" groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 2197.02, 1246.32 )
+script = ExtResource( 2 )
+team_id = 1
+
+[node name="spawn_point4" type="Area2D" parent="CT" groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 2575.98, 1243.67 )
+script = ExtResource( 2 )
+team_id = 1
+
+[node name="spawn_point5" type="Area2D" parent="CT" groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 2361.33, 565.255 )
+script = ExtResource( 2 )
+team_id = 1
+
+[node name="T" type="Node" parent="."]
+
+[node name="spawn_point" type="Area2D" parent="T" groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 237.934, 1222.11 )
+script = ExtResource( 2 )
+
+[node name="spawn_point2" type="Area2D" parent="T" groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 292.01, 273.984 )
+script = ExtResource( 2 )
+
+[node name="spawn_point3" type="Area2D" parent="T" groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 421.792, 1222.11 )
+script = ExtResource( 2 )
+
+[node name="spawn_point4" type="Area2D" parent="T" groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 421.151, 845.756 )
+script = ExtResource( 2 )
+
+[node name="spawn_point5" type="Area2D" parent="T" groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 338.096, 459.122 )
+script = ExtResource( 2 )
+
+[node name="bomb_site" type="Area2D" parent="." groups=[
+"Bomb_site",
+] instance=ExtResource( 3 )]
+position = Vector2( 1378.11, 730.997 )
+script = ExtResource( 1 )
+[connection signal="body_entered" from="CT/spawn_point" to="CT/spawn_point" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="CT/spawn_point" to="CT/spawn_point" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="CT/spawn_point2" to="CT/spawn_point2" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="CT/spawn_point2" to="CT/spawn_point2" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="CT/spawn_point3" to="CT/spawn_point3" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="CT/spawn_point3" to="CT/spawn_point3" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="CT/spawn_point4" to="CT/spawn_point4" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="CT/spawn_point4" to="CT/spawn_point4" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="CT/spawn_point5" to="CT/spawn_point5" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="CT/spawn_point5" to="CT/spawn_point5" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="T/spawn_point" to="T/spawn_point" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="T/spawn_point" to="T/spawn_point" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="T/spawn_point2" to="T/spawn_point2" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="T/spawn_point2" to="T/spawn_point2" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="T/spawn_point3" to="T/spawn_point3" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="T/spawn_point3" to="T/spawn_point3" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="T/spawn_point4" to="T/spawn_point4" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="T/spawn_point4" to="T/spawn_point4" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="T/spawn_point5" to="T/spawn_point5" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="T/spawn_point5" to="T/spawn_point5" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="bomb_site" to="bomb_site" method="_on_bomb_site_body_entered"]
+[connection signal="body_exited" from="bomb_site" to="bomb_site" method="_on_bomb_site_body_exited"]

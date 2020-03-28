@@ -8,20 +8,8 @@
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=6]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=7]
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=1]
 size = 24
-use_filter = true
-font_data = ExtResource( 4 )
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-
-[sub_resource type="DynamicFont" id=5]
-size = 28
 use_filter = true
 font_data = ExtResource( 4 )
 
@@ -31,14 +19,26 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-shadow_size = 6
 
 [sub_resource type="DynamicFont" id=3]
-size = 24
+size = 28
 use_filter = true
 font_data = ExtResource( 4 )
 
 [sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+shadow_size = 6
+
+[sub_resource type="DynamicFont" id=5]
+size = 24
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=6]
 draw_center = false
 border_width_left = 4
 border_width_top = 4
@@ -89,7 +89,7 @@ custom_styles/hover = ExtResource( 6 )
 custom_styles/pressed = ExtResource( 6 )
 custom_styles/focus = ExtResource( 6 )
 custom_styles/normal = ExtResource( 6 )
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 1 )
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -100,7 +100,7 @@ margin_left = 538.017
 margin_top = 334.696
 margin_right = 1134.02
 margin_bottom = 618.696
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -110,7 +110,7 @@ margin_left = 22.0
 margin_top = 27.9499
 margin_right = 520.0
 margin_bottom = 161.95
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "efdfdf"
 autowrap = true
 __meta__ = {
@@ -122,7 +122,7 @@ margin_left = 77.1486
 margin_top = 178.431
 margin_right = 409.149
 margin_bottom = 622.431
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -144,14 +144,14 @@ __meta__ = {
 }
 
 [node name="pistol" type="Button" parent="weapon_types/VBoxContainer"]
-margin_right = 247.0
+margin_right = 246.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "PISTOL"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -159,14 +159,14 @@ __meta__ = {
 
 [node name="smg" type="Button" parent="weapon_types/VBoxContainer"]
 margin_top = 80.0
-margin_right = 247.0
+margin_right = 246.0
 margin_bottom = 130.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "SMG"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -174,14 +174,14 @@ __meta__ = {
 
 [node name="rifle" type="Button" parent="weapon_types/VBoxContainer"]
 margin_top = 160.0
-margin_right = 247.0
+margin_right = 246.0
 margin_bottom = 210.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "RIFLE"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -189,14 +189,14 @@ __meta__ = {
 
 [node name="nades" type="Button" parent="weapon_types/VBoxContainer"]
 margin_top = 240.0
-margin_right = 247.0
+margin_right = 246.0
 margin_bottom = 290.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "GRENADES"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -204,14 +204,14 @@ __meta__ = {
 
 [node name="armour" type="Button" parent="weapon_types/VBoxContainer"]
 margin_top = 320.0
-margin_right = 247.0
+margin_right = 246.0
 margin_bottom = 370.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "ARMOUR"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -222,7 +222,7 @@ margin_left = 636.866
 margin_top = 35.3911
 margin_right = 1027.87
 margin_bottom = 301.391
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 6 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -287,10 +287,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -327.761
-margin_top = -114.042
-margin_right = -326.761
-margin_bottom = -113.042
+margin_left = -328.5
+margin_top = -114.0
+margin_right = 328.5
+margin_bottom = 114.0
 custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0.803922, 0.678431, 0.909804, 1 )
 autowrap = true
