@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Game_modes/BombDiffuse.gd" type="Script" id=1]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Objects/scripts/popup.gd" type="Script" id=3]
 [ext_resource path="res://Sfx/weapons/terwin.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sfx/weapons/bombpl.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sfx/radio/letsgo.wav" type="AudioStream" id=6]
 
 [node name="BombDiffuse" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -47,6 +48,9 @@ stream = ExtResource( 5 )
 [node name="terrorist_win" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 
+[node name="lets_go" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
 [node name="timeLeft" type="Panel" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -79,6 +83,14 @@ __meta__ = {
 
 [node name="no_plr_timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="round_end_delay" type="Timer" parent="."]
+one_shot = true
+
+[node name="round_start_delay" type="Timer" parent="."]
+one_shot = true
 [connection signal="timeout" from="RoundTimer" to="." method="_on_RoundTimer_timeout"]
 [connection signal="pressed" from="plant_bomb" to="." method="_on_plant_bomb_pressed"]
 [connection signal="timeout" from="no_plr_timer" to="." method="_on_no_plr_timer_timeout"]
+[connection signal="timeout" from="round_end_delay" to="." method="_on_round_end_delay_timeout"]
+[connection signal="timeout" from="round_start_delay" to="." method="_on_round_start_delay_timeout"]

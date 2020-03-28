@@ -4,6 +4,8 @@ var bomber = null
 var bomb_planted = false
 var is_dropped = false
 
+var explo = preload("res://Objects/Weapons/Bomb.tscn").instance()
+
 signal bomb_planted
 signal bomb_exploded
 signal bomb_diffused
@@ -29,12 +31,15 @@ func _on_bomb_plant_timer_timeout():
 	emit_signal("bomb_planted")
 
 func _on_bomber_killed():
+	dropBomb()
+
+
+func dropBomb():
 	is_dropped = true
 	$Area2D/CollisionShape2D.disabled = false
 	position = bomber.position
 	if not $bomb_plant_timer.is_stopped():
 		$bomb_plant_timer.stop()
-
 
 
 

@@ -15,22 +15,28 @@ func _ready():
 		#level.connect("bot_despawned",self,"")
 		overrideTeamSelector(level)
 		
+		#connect to bomb sites
 		var bombSites = get_tree().get_nodes_in_group("Bomb_site")
 		for i in bombSites:
 			i.connect("bomber_entered",self,"_on_bomber_entered_bombSpot")
 			i.connect("bomber_left",self,"_on_bomber_exited_bombSpot")
 		startRound()
 
+#set custom team selector 
 func overrideTeamSelector(lvl):
 	var new_teamSelector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 	lvl.teamSelector = new_teamSelector
 
 
+#Handle bomber disconnection
 func _on_plyer_despawned(plr):
 	if plr == bomber:
 		bomber = null
+		bomb.dropBomb()
 
-func selectBomber():
+#randomly select a bomber from terrorist team
+#team id  0 is for terrorist
+func selectBomber() -> bool:
 	var actors = get_tree().get_nodes_in_group("Actor")
 	var ts = Array()
 	for i in actors:
@@ -47,25 +53,38 @@ func selectBomber():
 		bomb = bomb_scene.instance()
 		bomb.bomber = bomber
 		bomb.connect("bomb_planted",self,"_on_bomb_planted")
+		bomb.connect("bomb_exploded",self,"_on_bomb_exploded")
 		get_tree().root.add_child(bomb)
 		
 		if bomber.is_in_group("Actor"):
 			bomberSelected()
+		return true
 	else:
 		print("Not enough players")
+	return false
+
+
+#restart this map reseting all data
+#need to reset pinfo
+func restartGame():
+	if selectBomber():
+		Round = 1
+		$round_start_delay.start()
+	else:
+		$no_plr_timer.start()
+	
+#start new round
+func startRound():
+	if selectBomber():
+		Round += 1
+		$round_start_delay.start()
+	else:
 		$no_plr_timer.start()
 
-func restartGame():
-	Round = 1
-	$RoundTimer.start()
-	selectBomber()
-
-func startRound():
-	Round += 1
-	$RoundTimer.start()
-	selectBomber()
-
+#end current round
+#its like a destructor for rounds
 func endRound():
+	#respawn everyone
 	var players = get_tree().get_nodes_in_group("User")
 	for i in players:
 		i.respawn_player()
@@ -74,8 +93,11 @@ func endRound():
 	for i in bots:
 		i.respawnBot()
 	
+	#rest bomb and bomber
 	if bomb:
 		bomb.queue_free()
+	if bomber:
+		bomber.remove_from_group("bomber")
 	bomber = null
 
 
@@ -95,11 +117,26 @@ func _on_RoundTimer_timeout():
 
 func _on_bomb_planted():
 	bomber.remove_from_group("bomber")
+	showPlantOption(false)
 	rpc("bomb_planted")
-
+	
+func _on_bomb_exploded():
+	$terrorist_win.play()
+	#increse terrorist points
+	#####
+	$round_end_delay.start()
 
 func _on_no_plr_timer_timeout():
 	restartGame()
+
+func _on_round_end_delay_timeout():
+	endRound()
+	startRound()
+
+func _on_round_start_delay_timeout():
+	$RoundTimer.start()
+	$lets_go.play()
+
 
 ##########################Remote funcs####################################
 
