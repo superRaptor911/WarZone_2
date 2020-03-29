@@ -52,6 +52,7 @@ var weaponResource = {
 	default_gun = preload("res://Objects/Weapons/Gun.tscn"),
 	AK47 = preload("res://Objects/Weapons/AK47.tscn"),
 	MP5 = preload("res://Objects/Weapons/MP5.tscn"),
+	deagle = preload("res://Objects/Weapons/deagle.tscn"),
 	Turret = preload("res://Objects/Weapons/light_turret.tscn")
 }
 
@@ -60,7 +61,7 @@ var player_data = {
 	name = "player",
 	kills = 0,
 	deaths = 0,
-	cash = 0,
+	cash = 2000,
 	guns = Array(),
 	skins = Array(),
 	selected_guns = Array(),

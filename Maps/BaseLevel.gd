@@ -9,9 +9,9 @@ signal bot_despawned(bot)
 export var Level_Name = "no_name"
 export var team1_name = "A"
 
-var team1 = preload("res://Objects/scripts/Team.gd").new(0)
+var team1 = preload("res://Objects/scripts/Team.gd").new(0,self)
 export var team2_name = "B"
-var team2 = preload("res://Objects/scripts/Team.gd").new(1)
+var team2 = preload("res://Objects/scripts/Team.gd").new(1,self)
 
 var teamSelector = preload("res://Objects/Game_modes/FFA/FFATeamSelect.tscn").instance()
 var spec_mode = preload("res://Objects/Game_modes/Spectate.tscn").instance()

@@ -18,6 +18,7 @@ var skin : Model = null
 #This signal is emitted when char is killed
 #it's better naming should be char_dead 
 signal char_killed
+signal char_born
 signal char_took_damage
 signal char_killed_someone
 
@@ -26,6 +27,7 @@ func _ready():
 	#skin = $Model
 	remove_child($Model)
 	setSkin(game_states.modelResource.default_model.instance())
+	emit_signal("char_born")
 	#skin.set_name("skin")
 	#add_child(skin)
 	
@@ -105,11 +107,18 @@ func takeDamage(damage : float,weapon,attacker):
 	_blood_splash(attacker.position,position)
 	#sync with peers
 	rpc("sync_health",HP,AP)
-	if HP == 0:
+	if HP <= 0:
 		attacker.emit_signal("char_killed_someone")
 		game_server.handleKills(self,attacker,weapon)
 		#sync with everyone
 		rpc("sync_death")
+
+
+func killChar():
+	HP = 0
+	AP = 0
+	rpc("sync_health",HP,AP)
+	rpc("sync_death")
 
 #emit blood when injured
 #server function

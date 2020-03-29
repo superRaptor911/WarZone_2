@@ -21,6 +21,7 @@ func _process(delta):
 "
 
 [node name="Player" groups=[
+"Unit",
 "User",
 ] instance=ExtResource( 1 )]
 position = Vector2( 478.288, 270.546 )

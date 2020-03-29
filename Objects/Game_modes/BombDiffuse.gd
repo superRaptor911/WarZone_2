@@ -11,8 +11,12 @@ var bomber = null
 func _ready():
 	level = get_tree().get_nodes_in_group("Level")[0]
 	overrideTeamSelector(level)
+	bomb = bomb_scene.instance()
+	level.add_child(bomb)
 	
 	if get_tree().is_network_server():
+		bomb.connect("bomb_planted",self,"_on_bomb_planted")
+		bomb.connect("bomb_exploded",self,"_on_bomb_exploded")
 		level.connect("player_despawned",self,"_on_plyer_despawned")
 		#level.connect("bot_despawned",self,"")		
 		#connect to bomb sites
@@ -47,10 +51,7 @@ func selectBomber() -> bool:
 		var random_id = randi() % ts.size()
 		bomber = ts[random_id]
 		bomber.add_to_group("bomber")
-		
-		rpc("loadBomb")
-		bomb.connect("bomb_planted",self,"_on_bomb_planted")
-		bomb.connect("bomb_exploded",self,"_on_bomb_exploded")
+		bomb.bomber = bomber
 		
 		if bomber.is_in_group("User"):
 			notifyBomber()
@@ -89,10 +90,7 @@ func endRound():
 	for i in bots:
 		i.respawnBot()
 	
-	#rest bomb and bomber
-	if bomb:
-		bomb.queue_free()
-	if bomber:
+	if bomber and bomber.is_in_group("bomber"):
 		bomber.remove_from_group("bomber")
 	bomber = null
 
@@ -121,6 +119,7 @@ func _on_bomb_exploded():
 	#increse terrorist points
 	#####
 	$round_end_delay.start()
+	
 
 func _on_no_plr_timer_timeout():
 	restartGame()
@@ -145,17 +144,6 @@ func notifyBomber():
 
 remote func _notifyBomber():
 	$Label.popup(1.5)
-
-
-remotesync func loadBomb():
-	if bomb:
-		bomb.queue_free()
-	bomb = bomb_scene.instance()
-	#set bomber
-	if get_tree().is_network_server():
-		bomb.bomber = bomber
-	
-	get_tree().root.add_child(bomb)
 
 
 remotesync func bombPlanted():

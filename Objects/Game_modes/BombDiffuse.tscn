@@ -85,6 +85,7 @@ __meta__ = {
 one_shot = true
 
 [node name="round_end_delay" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="round_start_delay" type="Timer" parent="."]

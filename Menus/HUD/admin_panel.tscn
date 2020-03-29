@@ -1,0 +1,122 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=2]
+[ext_resource path="res://Menus/HUD/admin_panel.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="DynamicFont" id=2]
+size = 22
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 22
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="admin_panel" type="Panel"]
+margin_right = 970.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 200, 40 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sno" type="Label" parent="."]
+margin_left = 8.0
+margin_top = 6.0
+margin_right = 49.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 2 )
+text = "1"
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="name" type="Label" parent="."]
+margin_left = 60.8717
+margin_top = 6.0
+margin_right = 283.872
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 2 )
+text = "supper raptor"
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="team" type="Label" parent="."]
+margin_left = 303.0
+margin_top = 6.0
+margin_right = 507.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 2 )
+text = "counter terrorist"
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="doa" type="Label" parent="."]
+margin_left = 525.284
+margin_top = 7.0
+margin_right = 590.284
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 2 )
+text = "Alive"
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="type" type="Label" parent="."]
+margin_left = 619.0
+margin_top = 7.0
+margin_right = 695.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 2 )
+text = "Human"
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="kill" type="Button" parent="."]
+margin_left = 743.671
+margin_top = 4.08467
+margin_right = 816.671
+margin_bottom = 34.0847
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = SubResource( 3 )
+text = "Kill"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="kick" type="Button" parent="."]
+margin_left = 870.478
+margin_top = 4.08467
+margin_right = 943.478
+margin_bottom = 34.0847
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = SubResource( 3 )
+text = "Kick"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="kill" to="." method="_on_kill_pressed"]
+[connection signal="pressed" from="kick" to="." method="_on_kick_pressed"]

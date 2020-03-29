@@ -148,6 +148,7 @@ remotesync func sync_respawn(pos,id):
 	skin.revive()
 	if is_network_master():
 		$Camera2D.current = true
+	emit_signal("char_born")
 
 func switchToPrimaryGun():
 	if selected_gun != primary_gun:

@@ -113,6 +113,7 @@ remotesync func sync_respawn(pos):
 	load_guns(bot_data.bot_g1, bot_data.bot_g2)
 	switchGun()
 	skin.revive()
+	emit_signal("char_born")
 
 func _on_free_timer_timeout():
 	respawnBot()

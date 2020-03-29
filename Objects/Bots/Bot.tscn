@@ -9,6 +9,7 @@ extents = Vector2( 636.278, 356.822 )
 
 [node name="Bot" groups=[
 "Bot",
+"Unit",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 speed = 80.0

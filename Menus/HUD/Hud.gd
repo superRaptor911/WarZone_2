@@ -157,7 +157,14 @@ func _on_btn_pressed():
 
 func _on_back_pressed():
 	pauseMenuCloseTween()
-	
+
+
+func _on_admin_menu_pressed():
+	pauseMenuCloseTween()
+	var admin_menu = load("res://Menus/HUD/admin_menu.tscn").instance()
+	add_child(admin_menu)
+
+
 func _on_fps_timer_timeout():
 	$fps.text = String(frames)
 	frames = 0

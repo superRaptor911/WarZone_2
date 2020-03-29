@@ -2,8 +2,6 @@ extends Sprite
 
 var bomber = null
 var bomb_planted = false
-var is_dropped = false
-
 var explo = preload("res://Objects/Weapons/Bomb.tscn").instance()
 
 signal bomb_planted
@@ -22,9 +20,11 @@ func activateBomb():
 
 
 func _on_bomb_plant_timer_timeout():
+	bomb_planted = true
 	bomber.disconnect("char_killed",self,"_on_bomber_killed")
 	rpc("bombPlanted",bomber.position)
 	emit_signal("bomb_planted")
+
 
 func _on_bomber_killed():
 	dropBomb()
@@ -35,8 +35,7 @@ func dropBomb():
 
 
 func _on_Timer_timeout():
-	$bomb_timer/bom_beep.stop()
-	$bomb_explosion.play()
+	rpc("bombExploded")
 	emit_signal("bomb_exploded")
 
 
@@ -50,14 +49,18 @@ func _on_bom_beep_timeout():
 
 remotesync func bombPlanted(pos):
 	$Timer.start()
-	bomb_planted = true
 	show()
 	$bomb_timer/bom_beep.start()
 	position = pos
 
 remotesync func bombDroped(pos):
-	is_dropped = true
 	$Area2D/CollisionShape2D.disabled = false
 	position = pos
 	if not $bomb_plant_timer.is_stopped():
 		$bomb_plant_timer.stop()
+
+remotesync func bombExploded():
+	bomb_planted = false
+	$bomb_timer/bom_beep.stop()
+	$bomb_explosion.play()
+	hide()
