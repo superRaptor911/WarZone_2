@@ -17,17 +17,13 @@ func _ready():
 	$Area2D/CollisionShape2D.disabled = true
 
 func activateBomb():
-	$bomb_plant_timer.start()
+	if get_tree().is_network_server():
+		$bomb_plant_timer.start()
 
 
 func _on_bomb_plant_timer_timeout():
-	$Timer.start()
-	bomb_planted = true
-	show()
-	$Timer.start()
-	$bomb_timer/bom_beep.start()
-	print(bomber.position)
-	position = bomber.position
+	bomber.disconnect("char_killed",self,"_on_bomber_killed")
+	rpc("bombPlanted",bomber.position)
 	emit_signal("bomb_planted")
 
 func _on_bomber_killed():
@@ -35,12 +31,7 @@ func _on_bomber_killed():
 
 
 func dropBomb():
-	is_dropped = true
-	$Area2D/CollisionShape2D.disabled = false
-	position = bomber.position
-	if not $bomb_plant_timer.is_stopped():
-		$bomb_plant_timer.stop()
-
+	rpc("bombDroped",bomber.position)
 
 
 func _on_Timer_timeout():
@@ -53,3 +44,20 @@ func _on_bom_beep_timeout():
 	$bomb_timer.play()
 	var beep_time = 0.1 + ($Timer.time_left / $Timer.wait_time)
 	$bomb_timer/bom_beep.start(beep_time)
+
+
+####################Remote###########################
+
+remotesync func bombPlanted(pos):
+	$Timer.start()
+	bomb_planted = true
+	show()
+	$bomb_timer/bom_beep.start()
+	position = pos
+
+remotesync func bombDroped(pos):
+	is_dropped = true
+	$Area2D/CollisionShape2D.disabled = false
+	position = pos
+	if not $bomb_plant_timer.is_stopped():
+		$bomb_plant_timer.stop()

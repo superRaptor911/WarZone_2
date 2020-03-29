@@ -45,14 +45,11 @@ func _ready():
 		hud = load("res://Menus/HUD/Hud.tscn").instance()
 		hud.setUser(self)
 		add_child(hud)
-		hud.get_node("respawn").max_value = 4.0
 		#rpc("switchGun")
 	if get_tree().is_network_server():
 		connect("char_killed",self,"_on_peer_killed")
 
 func _on_player_killed():
-	#show respawn percentage
-	hud.get_node("respawn").visible = true
 	$Camera2D.current = false
 	pause_controls(true)
 
@@ -86,8 +83,6 @@ func _process(delta):
 	HP = min(100,HP + regen_rate * delta)
 	_get_inputs()
 	if is_network_master():
-		if not alive:
-			hud.get_node("respawn").value += delta
 		$CanvasModulate.color = Color8(255,2.55 * HP,2.55 * HP)
 
 
@@ -144,7 +139,7 @@ remote func _sync_throwGrenade(nam):
 	g.throwGrenade(dir)
 
 
-sync func sync_respawn(pos,id):
+remotesync func sync_respawn(pos,id):
 	show()
 	$dtween.stop(skin)
 	$dtween.interpolate_property(skin,"modulate",Color8(50,50,200,255),Color8(255,255,255,255),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
@@ -153,10 +148,13 @@ sync func sync_respawn(pos,id):
 	skin.set_deferred("disabled",false)
 	HP = 100
 	AP = 100
+	pause_controls(false)
 	$movmtCPP._teleportCharacter(pos)
 	load_guns(network.players[id].primary_gun_name,network.players[id].sec_gun_name)
 	switchGun()
 	skin.revive()
+	if is_network_master():
+		$Camera2D.current = true
 
 remotesync func switchGun():
 	skin.switchGun(selected_gun.gun_type)
@@ -187,11 +185,5 @@ func _on_free_timer_timeout():
 	respawn_player()
 
 func respawn_player():
-	hud.get_node("respawn").value = 0
-	hud.get_node("respawn").visible = false
-	HP = 100
-	AP = 100
 	position = get_tree().get_nodes_in_group("Level")[0].getSpawnPosition(team.team_id)
-	$Camera2D.current = true
-	pause_controls(false)
 	rpc("sync_respawn",position,game_states.player_info.net_id)

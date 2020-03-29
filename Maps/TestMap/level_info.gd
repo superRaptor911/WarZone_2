@@ -16,6 +16,7 @@ var gameModes = Array()
 func _init():
 	setupGameModes()
 
+
 func setupGameModes():
 	var dict = gameMode_dict.duplicate(true)
 	dict.name = "FFA"

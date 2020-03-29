@@ -229,22 +229,6 @@ text = "Quit Server"
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="respawn" type="ProgressBar" parent="."]
-visible = false
-margin_left = 512.608
-margin_top = 537.777
-margin_right = 711.608
-margin_bottom = 568.777
-custom_fonts/font = ExtResource( 7 )
-
-[node name="Label" type="Label" parent="respawn"]
-margin_left = -176.127
-margin_top = 2.21606
-margin_right = -30.1271
-margin_bottom = 36.2161
-custom_fonts/font = ExtResource( 7 )
-text = "Respawning"
-
 [node name="kill_msg" type="VBoxContainer" parent="."]
 margin_left = 19.9276
 margin_top = 261.608

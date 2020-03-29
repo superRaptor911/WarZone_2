@@ -508,7 +508,7 @@ margin_top = -17.1812
 margin_right = 72.8535
 margin_bottom = 14.8188
 custom_fonts/font = SubResource( 11 )
-text = "FFA"
+text = "No mode"
 __meta__ = {
 "_edit_use_anchors_": false
 }

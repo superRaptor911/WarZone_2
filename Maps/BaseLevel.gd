@@ -50,6 +50,7 @@ func _ready():
 func loadGameMode():
 	var game_mode = null
 	#load appropriate game mode
+	print(game_server.serverInfo.game_mode)
 	if game_server.serverInfo.game_mode == "SURVIVAL":
 		game_mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn").instance()
 	elif game_server.serverInfo.game_mode == "FFA":

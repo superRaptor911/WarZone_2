@@ -5,16 +5,16 @@ var round_time : int = 150
 var level = null
 
 var bomb_scene = preload("res://Objects/Game_modes/BombDiffuse/C4Bomb.tscn")
-var bomb
+var bomb = null
 var bomber = null
 
 func _ready():
+	level = get_tree().get_nodes_in_group("Level")[0]
+	overrideTeamSelector(level)
+	
 	if get_tree().is_network_server():
-		level = get_tree().get_nodes_in_group("Level")[0]
 		level.connect("player_despawned",self,"_on_plyer_despawned")
-		#level.connect("bot_despawned",self,"")
-		overrideTeamSelector(level)
-		
+		#level.connect("bot_despawned",self,"")		
 		#connect to bomb sites
 		var bombSites = get_tree().get_nodes_in_group("Bomb_site")
 		for i in bombSites:
@@ -48,16 +48,12 @@ func selectBomber() -> bool:
 		bomber = ts[random_id]
 		bomber.add_to_group("bomber")
 		
-		if bomb:
-			bomb.queue_free()
-		bomb = bomb_scene.instance()
-		bomb.bomber = bomber
+		rpc("loadBomb")
 		bomb.connect("bomb_planted",self,"_on_bomb_planted")
 		bomb.connect("bomb_exploded",self,"_on_bomb_exploded")
-		get_tree().root.add_child(bomb)
 		
-		if bomber.is_in_group("Actor"):
-			bomberSelected()
+		if bomber.is_in_group("User"):
+			notifyBomber()
 		return true
 	else:
 		print("Not enough players")
@@ -109,7 +105,7 @@ func _on_bomber_exited_bombSpot():
 	showPlantOption(false)
 
 func _on_plant_bomb_pressed():
-	bomb.activateBomb()
+	rpc("plantBomb")
 
 func _on_RoundTimer_timeout():
 	#ct win
@@ -118,7 +114,7 @@ func _on_RoundTimer_timeout():
 func _on_bomb_planted():
 	bomber.remove_from_group("bomber")
 	showPlantOption(false)
-	rpc("bomb_planted")
+	rpc("bombPlanted")
 	
 func _on_bomb_exploded():
 	$terrorist_win.play()
@@ -138,16 +134,28 @@ func _on_round_start_delay_timeout():
 	$lets_go.play()
 
 
+
 ##########################Remote funcs####################################
 
-func bomberSelected():
+func notifyBomber():
 	if bomber.is_network_master():
 		$Label.popup(1.5)
 	else:
-		rpc_id(int(bomber.name),"_onBomberSelected")
+		rpc_id(int(bomber.name),"_notifyBomber")
 
-remote func _onBomberSelected():
+remote func _notifyBomber():
 	$Label.popup(1.5)
+
+
+remotesync func loadBomb():
+	if bomb:
+		bomb.queue_free()
+	bomb = bomb_scene.instance()
+	#set bomber
+	if get_tree().is_network_server():
+		bomb.bomber = bomber
+	
+	get_tree().root.add_child(bomb)
 
 
 remotesync func bombPlanted():
@@ -157,7 +165,10 @@ func showPlantOption(val):
 	if bomber.is_network_master():
 		$plant_bomb.visible = val
 	else:
-		rpc_id(int(bomber.name),"_showPlantOption")
+		rpc_id(int(bomber.name),"_showPlantOption",val)
 
 remote func _showPlantOption(val):
 	$plant_bomb.visible = val
+
+remotesync func plantBomb():
+	bomb.activateBomb()
