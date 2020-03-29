@@ -27,6 +27,7 @@ var char_data_dict = {
 	pos = Vector2(0,0),
 	g1 = "",
 	g2 = "",
+	cur_gun = 0,
 	is_bot = false
 }
 
@@ -121,6 +122,10 @@ remote func serverGetPlayers(peer_id):
 		char_data.g1 = i.primary_gun.gun_name
 		char_data.g2 = i.sec_gun.gun_name
 		char_data.is_bot = false
+		if i.selected_gun == i.primary_gun:
+			char_data.cur_gun = 0
+		else:
+			char_data.cur_gun = 1
 		char_data_list.append(char_data)
 		
 	spawned_chars = get_tree().get_nodes_in_group("Bot")
@@ -133,6 +138,10 @@ remote func serverGetPlayers(peer_id):
 		char_data.g1 = i.primary_gun.gun_name
 		char_data.g2 = i.sec_gun.gun_name
 		char_data.is_bot = true
+		if i.selected_gun == i.primary_gun:
+			char_data.cur_gun = 0
+		else:
+			char_data.cur_gun = 1
 		char_data_list.append(char_data)
 	#send data to peer
 	rpc_id(peer_id,"peerSpawnPlayers", char_data_list)
@@ -165,6 +174,10 @@ func spawnPlayer(char_data):
 	nactor.pname = char_data.pname
 	nactor.id = int(char_data.name)
 	nactor.set_name(char_data.name)
+	if char_data.cur_gun == 0:
+		nactor.selected_gun = nactor.primary_gun
+	else:
+		nactor.selected_gun = nactor.sec_gun
 	
 	# If this actor does not belong to the server, change the node name and network master accordingly
 	if (int(char_data.name) != 1):
@@ -211,8 +224,11 @@ remotesync func spawn_player(pinfo, pos : Vector2, team : int):
 		team1.addPlayer(nactor)
 	elif team == team2.team_id:
 		team2.addPlayer(nactor)
+	
+	nactor.selected_gun = nactor.primary_gun
 	add_child(nactor)
 	emit_signal("player_spawned",nactor)
+
 
 func spawnBots():
 	var index : int = 0

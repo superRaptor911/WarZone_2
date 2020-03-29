@@ -32,7 +32,7 @@ signal player_killed(player)
 func _ready():
 	$Gun.queue_free()
 	$name_tag.text = pname
-	switchGun()
+	setupGun()
 	if is_network_master():
 		pname = game_states.player_info.name
 		$Camera2D.current = true
@@ -67,14 +67,7 @@ func load_guns(nam : String , nam2 : String):
 	sec_gun = g2
 	
 	if not skin:
-		selected_gun = primary_gun
-		return
-	skin.get_node("body/r_shoulder/arm/joint/hand/fist").remove_child(selected_gun)
-	selected_gun = primary_gun
-	skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
-	selected_gun.connect("gun_fired",skin,"_on_gun_fired")
-	selected_gun.connect("reloading_gun",skin,"_on_gun_reload")
-	selected_gun.gun_user = self
+		print("Error no skin")
 	#selected_gun.position = $Model.get("fist").position
 
 
@@ -156,8 +149,15 @@ remotesync func sync_respawn(pos,id):
 	if is_network_master():
 		$Camera2D.current = true
 
+func switchToPrimaryGun():
+	if selected_gun != primary_gun:
+		rpc("switchGun")
+
+func switchToSecGun():
+	if selected_gun != sec_gun:
+		rpc("switchGun")
+
 remotesync func switchGun():
-	skin.switchGun(selected_gun.gun_type)
 	if selected_gun == primary_gun:
 		if sec_gun != null:
 			skin.get_node("body/r_shoulder/arm/joint/hand/fist").remove_child(selected_gun)
@@ -175,6 +175,24 @@ remotesync func switchGun():
 	
 	selected_gun.gun_user = self
 	selected_gun.position = Vector2(0,0)
+	skin.switchGun(selected_gun.gun_type)
+
+
+func setupGun():
+	if selected_gun != null:
+		skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
+	else:
+		print("Error no selected gun")
+	
+	if not selected_gun.is_connected("gun_fired",skin,"_on_gun_fired"):
+		selected_gun.connect("gun_fired",skin,"_on_gun_fired")
+	if not selected_gun.is_connected("reloading_gun",skin,"_on_gun_reload"):
+		selected_gun.connect("reloading_gun",skin,"_on_gun_reload")
+	
+	selected_gun.gun_user = self
+	selected_gun.position = Vector2(0,0)
+	skin.switchGun(selected_gun.gun_type)
+	
 
 func pause_controls(val : bool):
 	_pause_cntrl = val

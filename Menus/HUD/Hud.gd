@@ -23,6 +23,7 @@ func _ready():
 func setUser(u):
 	user = u
 	$reload/gun_s.texture = user.selected_gun.gun_portrait
+	$reload/TextureProgress.max_value = user.selected_gun.rounds_in_clip
 	$reload/TextureProgress.value =  user.selected_gun.rounds_left
 
 func _process(delta):

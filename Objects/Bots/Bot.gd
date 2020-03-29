@@ -25,14 +25,13 @@ var bot_data : Dictionary = {
 ###################################################
 
 func _ready():
-	switchGun()
+	setupGun()
 	if get_tree().is_network_server():
 		level = get_tree().get_nodes_in_group("Level")[0]
 		$Brain.setBotDifficulty(game_server.bot_settings.bot_difficulty)
 		$VisionTimer.wait_time = $VisionTimer.wait_time * (1.0 + rand_range(-0.5,0.5))
 		$VisionTimer.start()
 		connect("char_killed",self,"_on_bot_killed")
-		switchToPrimaryGun()
 	else:
 		$Brain.queue_free()
 
@@ -48,14 +47,7 @@ func load_guns(nam : String , nam2 : String):
 	sec_gun = g2
 	
 	if not skin:
-		selected_gun = primary_gun
-		return
-	skin.get_node("body/r_shoulder/arm/joint/hand/fist").remove_child(selected_gun)
-	selected_gun = primary_gun
-	skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
-	selected_gun.connect("gun_fired",skin,"_on_gun_fired")
-	selected_gun.connect("reloading_gun",skin,"_on_gun_reload")
-	selected_gun.gun_user = self
+		print("Error no skin")
 
 
 remotesync func switchGun():
@@ -80,8 +72,28 @@ remotesync func switchGun():
 	selected_gun.gun_user = self
 	selected_gun.position = Vector2(0,0)
 
+func setupGun():
+	if selected_gun != null:
+		skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
+	else:
+		print("Error no selected gun")
+	
+	if not selected_gun.is_connected("gun_fired",skin,"_on_gun_fired"):
+		selected_gun.connect("gun_fired",skin,"_on_gun_fired")
+	if not selected_gun.is_connected("reloading_gun",skin,"_on_gun_reload"):
+		selected_gun.connect("reloading_gun",skin,"_on_gun_reload")
+	
+	selected_gun.gun_user = self
+	selected_gun.position = Vector2(0,0)
+	skin.switchGun(selected_gun.gun_type)
+
+
 func switchToPrimaryGun():
 	if selected_gun != primary_gun:
+		rpc("switchGun")
+
+func switchToSecGun():
+	if selected_gun != sec_gun:
 		rpc("switchGun")
 
 func respawnBot():
