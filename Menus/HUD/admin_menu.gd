@@ -52,6 +52,7 @@ func _on_VSlider_value_changed(value):
 	var old_panels = vbox.get_children()
 	for i in old_panels:
 		vbox.remove_child(i)
-
-	for i in range(value,value + max_panels):
+	
+	var max_p = min(value + max_panels,panels.size())
+	for i in range(value,max_p):
 		vbox.add_child(panels[i])

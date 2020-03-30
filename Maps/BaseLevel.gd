@@ -32,6 +32,8 @@ var char_data_dict = {
 }
 
 func _ready():
+	add_child(team1)
+	add_child(team2)
 	loadGameMode()
 	game_server._player_data_list.clear()
 	spawn_ponts = get_tree().get_nodes_in_group("SpawnPoint")

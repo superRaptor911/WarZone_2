@@ -14,6 +14,13 @@ func _ready():
 	bomb = bomb_scene.instance()
 	level.add_child(bomb)
 	
+	var teams = get_tree().get_nodes_in_group("Team")
+	for i in teams:
+		if i.team_id == 0:
+			i.team_name = "Terrorist"
+		elif i.team_id == 1:
+			i.team_name = "Counter Terrorist"
+	
 	if get_tree().is_network_server():
 		bomb.connect("bomb_planted",self,"_on_bomb_planted")
 		bomb.connect("bomb_exploded",self,"_on_bomb_exploded")
@@ -24,6 +31,11 @@ func _ready():
 		for i in bombSites:
 			i.connect("bomber_entered",self,"_on_bomber_entered_bombSpot")
 			i.connect("bomber_left",self,"_on_bomber_exited_bombSpot")
+		
+		
+		for t in teams:
+			t.connect("team_eliminated",self,"_on_team_eliminated")
+			
 		startRound()
 
 #set custom team selector 
@@ -133,6 +145,9 @@ func _on_round_start_delay_timeout():
 	$lets_go.play()
 
 
+func _on_team_eliminated(team):
+	if team.team_id == 1:
+		_on_bomb_exploded()
 
 ##########################Remote funcs####################################
 
