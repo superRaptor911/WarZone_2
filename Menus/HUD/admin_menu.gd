@@ -22,6 +22,9 @@ func _ready():
 		panels.append(pn)
 		if index <= 8:
 			$VBoxContainer.add_child(pn)
+	
+	$VSlider.max_value = max(panels.size() - 8, 0)
+	$VSlider.value = 0
 
 	 
 
@@ -31,6 +34,8 @@ func _on_player_joined(plr):
 	pn.connect("remove_panel",self,"_remove_panel")
 	panels.append(pn)
 	$VBoxContainer.add_child(pn)
+	$VSlider.max_value = max(panels.size() - 8, 0)
+	$VSlider.value = min($VSlider.max_value,$VSlider.value)
 
 func _remove_panel(pn):
 	panels.erase(pn)
@@ -39,3 +44,14 @@ func _remove_panel(pn):
 
 func _on_quit_pressed():
 	queue_free()
+
+
+func _on_VSlider_value_changed(value):
+	print(value)
+	var vbox = $VBoxContainer
+	var old_panels = vbox.get_children()
+	for i in old_panels:
+		vbox.remove_child(i)
+
+	for i in range(value,value + max_panels):
+		vbox.add_child(panels[i])

@@ -183,6 +183,7 @@ bool Attack::_headToPosition(const Vector2 &pos)
 
 void Attack::_handleWeapons()
 {
+	return;
 	//swith gun in fire fight
 	if (static_cast<bool>(static_cast<Node *>(_parent->get("selected_gun"))->get("reloading")))
 	{

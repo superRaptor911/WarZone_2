@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=2]
 [ext_resource path="res://Menus/HUD/admin_menu.gd" type="Script" id=3]
+[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=4]
+[ext_resource path="res://Sprites/UI/grabber.png" type="Texture" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -23,9 +24,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -504.0
-margin_top = -276.5
-margin_right = 504.0
-margin_bottom = 276.5
+margin_top = -276.0
+margin_right = 527.0
+margin_bottom = 277.0
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -75,9 +76,25 @@ margin_left = 450.557
 margin_top = 495.65
 margin_right = 554.557
 margin_bottom = 538.65
-custom_styles/normal = ExtResource( 2 )
+custom_styles/normal = ExtResource( 4 )
 text = "Quit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="VSlider" type="VSlider" parent="."]
+margin_left = 1026.25
+margin_top = 359.536
+margin_right = 1060.25
+margin_bottom = 600.536
+rect_rotation = 180.0
+custom_icons/grabber_disabled = ExtResource( 5 )
+custom_icons/grabber_highlight = ExtResource( 5 )
+custom_icons/grabber = ExtResource( 5 )
+value = 20.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
+[connection signal="value_changed" from="VSlider" to="." method="_on_VSlider_value_changed"]
