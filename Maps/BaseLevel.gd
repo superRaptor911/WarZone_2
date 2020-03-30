@@ -7,14 +7,14 @@ signal bot_spawned(bot)
 signal bot_despawned(bot)
 
 export var Level_Name = "no_name"
-export var team1_name = "A"
 
 var team1 = preload("res://Objects/scripts/Team.gd").new(0,self)
-export var team2_name = "B"
 var team2 = preload("res://Objects/scripts/Team.gd").new(1,self)
 
 var teamSelector = preload("res://Objects/Game_modes/FFA/FFATeamSelect.tscn").instance()
 var spec_mode = preload("res://Objects/Game_modes/Spectate.tscn").instance()
+
+var dropedItem_manager = preload("res://Objects/Misc/DropedItemManager.tscn").instance()
 
 var arr = Array()
 var spawn_ponts = Array()
@@ -34,6 +34,7 @@ var char_data_dict = {
 func _ready():
 	add_child(team1)
 	add_child(team2)
+	add_child(dropedItem_manager)
 	loadGameMode()
 	game_server._player_data_list.clear()
 	spawn_ponts = get_tree().get_nodes_in_group("SpawnPoint")
@@ -79,6 +80,7 @@ func _on_spec_mode_leave():
 
 func _on_player_selected_team(selected_team):
 	_init_game()
+	#bad code
 	if get_tree().is_network_server():
 		rpc("spawn_player", game_states.player_info, getSpawnPosition(selected_team), selected_team)
 	else:
@@ -181,6 +183,7 @@ func spawnPlayer(char_data):
 	else:
 		nactor.selected_gun = nactor.sec_gun
 	
+	
 	# If this actor does not belong to the server, change the node name and network master accordingly
 	if (int(char_data.name) != 1):
 		if not char_data.is_bot:
@@ -268,8 +271,8 @@ remote func despawn_player(pinfo):
 		return
 	emit_signal("player_despawned",player_node)
 	player_node.queue_free()
-	
-	
+
+
 func _on_disconnected():
 	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
 	queue_free()
@@ -277,3 +280,4 @@ func _on_disconnected():
 
 func _init_game():
 	game_server.init_scoreBoard()
+

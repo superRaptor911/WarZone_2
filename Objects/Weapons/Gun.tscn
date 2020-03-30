@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/Weapons/Gun.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Weapons/glock.bmp" type="Texture" id=2]
 [ext_resource path="res://Sfx/weapons/handgun/usp.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sfx/weapons/handgun/pis_clipout.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sfx/weapons/rifle/ak47_reload.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sprites/Weapons/elite_d.bmp" type="Texture" id=6]
 [ext_resource path="res://Sprites/particles/muzzle.png" type="Texture" id=7]
 
 [node name="Gun" type="Node2D"]
@@ -13,6 +14,7 @@ rotation = -1.5708
 z_index = 1
 script = ExtResource( 1 )
 gun_name = "default_gun"
+gun_d_img = ExtResource( 6 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

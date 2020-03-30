@@ -10,13 +10,14 @@ export var gun_rating : int = 0
 export var rate_of_fire : float = 4
 export var max_zoom : float = 1.0
 export var gun_portrait : Texture = preload("res://Sprites/Weapons/gun_p.png")
+export var gun_d_img : Texture
 export var wpn_cost : int = 500
 
 var current_zoom : float = 0.75
 var projectile = preload("res://Objects/Weapons/Projectile.tscn")
 var ready_to_fire : bool = true
 var gun_user = null
-var rounds_left : int
+var rounds_left = 0
 var reloading : bool = false
 
 var max_ray_distance : float = 200
@@ -29,7 +30,8 @@ signal gun_fired
 signal reloading_gun
 
 func _ready():
-	rounds_left = rounds_in_clip
+	if rounds_left == 0:
+		reload()
 	#if it does not have parent/user then force get parent
 	if not gun_user:
 		gun_user = get_parent()

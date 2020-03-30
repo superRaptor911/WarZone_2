@@ -187,3 +187,9 @@ func pauseMenuCloseTween():
 	$Tween.start()
 
 
+
+
+func _on_pick_pressed():
+	if user.alive:
+		user.pickItem()
+		$pick.hide()

@@ -357,6 +357,17 @@ margin_right = 158.0
 margin_bottom = 25.0
 
 [node name="fps_timer" type="Timer" parent="."]
+
+[node name="pick" type="Button" parent="."]
+visible = false
+margin_left = 548.761
+margin_top = 511.119
+margin_right = 638.761
+margin_bottom = 534.119
+text = "Pick"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="reload/btn" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="zoom/zoom" to="." method="_on_zoom_pressed"]
 [connection signal="pressed" from="HE/HE" to="." method="_on_HE_pressed"]
@@ -367,3 +378,4 @@ margin_bottom = 25.0
 [connection signal="pressed" from="Panel2/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="nextGun" to="." method="_on_nextGun_pressed"]
 [connection signal="timeout" from="fps_timer" to="." method="_on_fps_timer_timeout"]
+[connection signal="pressed" from="pick" to="." method="_on_pick_pressed"]

@@ -18,8 +18,11 @@ var timer_time : float = 0
 var hud
 
 var grenade = preload("res://Objects/Weapons/grenade.tscn")
+var wpn_drop = preload("res://Objects/Misc/WpnDrop.tscn").instance()
 var grenade_count = 3
 var _pause_cntrl : bool = false
+
+var cur_dropped_item_id = 0
 
 signal player_killed(player)
 
@@ -45,13 +48,39 @@ func _ready():
 		hud = load("res://Menus/HUD/Hud.tscn").instance()
 		hud.setUser(self)
 		add_child(hud)
-		#rpc("switchGun")
 	if get_tree().is_network_server():
 		connect("char_killed",self,"_on_peer_killed")
 
 func _on_player_killed():
 	$Camera2D.current = false
 	pause_controls(true)
+	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+	d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(selected_gun))
+
+
+func pickItem():
+	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+	d_item_man.rpc_id(1,"requestPickUp",name,cur_dropped_item_id)
+
+
+remotesync func pickUpItem(item):
+	if item.type == "wpn":
+		var old_gun = selected_gun
+		if selected_gun == primary_gun:
+			primary_gun = game_states.weaponResource.get(item.wpn).instance()
+			primary_gun.rounds_left = item.bul
+			primary_gun.clips = item.clps
+			selected_gun = primary_gun
+		else:
+			sec_gun = game_states.weaponResource.get(item.wpn).instance()
+			sec_gun.rounds_left = item.bul
+			sec_gun.clips = item.clps
+			selected_gun = sec_gun
+		var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+		d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(old_gun))
+		old_gun.queue_free()
+		setupGun()
+
 
 func _on_peer_killed():
 	emit_signal("player_killed",self)
