@@ -54,14 +54,32 @@ func _ready():
 func _on_player_killed():
 	$Camera2D.current = false
 	pause_controls(true)
+	createDropedItems()
+
+
+func createDropedItems():
 	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+	#drop selected gun
 	d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(selected_gun))
+	#drop health pack (10 % chance)
+	var rand_num = randi() % 100
+	if rand_num <= 10: 
+		var item_info = {type = "med",pos = position}
+		d_item_man.rpc_id(1,"serverMakeItem",item_info)
+	
+	#drop kevlar (20 % chance)
+	rand_num = randi() % 100
+	if rand_num <= 20: 
+		var item_info = {type = "kevlar",pos = position}
+		d_item_man.rpc_id(1,"serverMakeItem",item_info)
 
 
-func pickItem():
+func pickItem(item_id = -1):
 	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
-	d_item_man.rpc_id(1,"requestPickUp",name,cur_dropped_item_id)
-
+	if item_id == -1:
+		d_item_man.rpc_id(1,"requestPickUp",name,cur_dropped_item_id)
+	else:
+		d_item_man.rpc_id(1,"requestPickUp",name,item_id)
 
 remotesync func pickUpItem(item):
 	if item.type == "wpn":
@@ -80,6 +98,10 @@ remotesync func pickUpItem(item):
 		d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(old_gun))
 		old_gun.queue_free()
 		setupGun()
+	elif item.type == "med":
+		HP = 100
+	elif item.type == "kevlar":
+		AP = 100
 
 
 func _on_peer_killed():

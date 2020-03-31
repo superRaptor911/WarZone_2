@@ -11,6 +11,7 @@ var primary_gun = null
 var sec_gun = null
 var selected_gun = null
 var unselected_gun = null
+var wpn_drop = preload("res://Objects/Misc/WpnDrop.tscn").instance()
 
 signal bot_killed(bot)
 
@@ -119,8 +120,28 @@ func _on_free_timer_timeout():
 	respawnBot()
 
 func _on_bot_killed():
+	createDropedItems()
 	emit_signal("bot_killed",self)
 	#$free_timer.start()
+
+
+func createDropedItems():
+	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+	#drop selected gun
+	d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(selected_gun))
+	#drop health pack (10 % chance)
+	var rand_num = randi() % 100
+	if rand_num <= 10: 
+		var item_info = {type = "med",pos = position}
+		d_item_man.rpc_id(1,"serverMakeItem",item_info)
+	
+	#drop kevlar (20 % chance)
+	rand_num = randi() % 100
+	if rand_num <= 20: 
+		var item_info = {type = "kevlar",pos = position}
+		d_item_man.rpc_id(1,"serverMakeItem",item_info)
+
+
 
 ########################bot vision####################
 
