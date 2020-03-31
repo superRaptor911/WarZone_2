@@ -29,7 +29,8 @@ func loadLevelInfos():
 	var d = dir.get_next()
 	
 	while d != "":
-		if d.get_extension() == "" and not d.begins_with("."):
+		if d.get_extension() == "" and not d.begins_with(".") and not d.begins_with("_"):
+			print(d)
 			var level_info = load("res://Maps/" + d + "/level_info.gd").new()
 			levels.append(level_info)
 		d = dir.get_next()

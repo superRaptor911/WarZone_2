@@ -15,7 +15,9 @@ signal item_expired(id)
 func create(info):
 	item_data = info
 	position = item_data.pos
-	texture = game_states.weaponResource.get(item_data.wpn).instance().gun_d_img
+	var wpn = game_states.weaponResource.get(item_data.wpn).instance()
+	texture = wpn.gun_d_img
+	wpn.queue_free()
 	$Timer.start()
 	
 
@@ -45,4 +47,9 @@ func _on_Area2D_body_exited(body):
 
 
 remotesync func itemPicked():
+	$AudioStreamPlayer2D.play()
+	hide()
+
+
+func _on_AudioStreamPlayer2D_finished():
 	queue_free()

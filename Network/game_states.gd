@@ -1,7 +1,7 @@
 extends Node
 
 #is exporting for android or not
-var is_android : bool = false
+var is_android : bool = true
 var current_game_version = 1.0
 const invalid_position = Vector2(-999,-999)
 
@@ -52,8 +52,7 @@ var weaponResource = {
 	default_gun = preload("res://Objects/Weapons/Gun.tscn"),
 	AK47 = preload("res://Objects/Weapons/AK47.tscn"),
 	MP5 = preload("res://Objects/Weapons/MP5.tscn"),
-	deagle = preload("res://Objects/Weapons/deagle.tscn"),
-	Turret = preload("res://Objects/Weapons/light_turret.tscn")
+	deagle = preload("res://Objects/Weapons/deagle.tscn")
 }
 
 #player data/stats

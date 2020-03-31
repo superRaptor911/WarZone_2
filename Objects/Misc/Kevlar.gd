@@ -28,4 +28,10 @@ func _on_Area2D_body_entered(body):
 
 
 remotesync func itemPicked():
+	$AudioStreamPlayer2D.play()
+	hide()
+
+
+func _on_AudioStreamPlayer2D_finished():
+	emit_signal("item_expired",item_id)
 	queue_free()

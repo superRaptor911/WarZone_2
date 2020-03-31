@@ -8,19 +8,19 @@ script = ExtResource( 1 )
 
 [node name="mov_joy" parent="." instance=ExtResource( 2 )]
 margin_left = 72.6314
-margin_top = 442.47
+margin_top = 445.81
 margin_right = 293.631
-margin_bottom = 635.47
+margin_bottom = 638.81
 radius = 90.0
 use_screen_rectangle = false
 screen_rectangle = Rect2( 0, 125, 500, 600 )
 editor_color = Color( 1, 0, 0, 1 )
 
 [node name="aim_joy" parent="." instance=ExtResource( 2 )]
-margin_left = 953.495
-margin_top = 445.204
-margin_right = 1149.5
-margin_bottom = 654.204
+margin_left = 950.155
+margin_top = 455.225
+margin_right = 1146.16
+margin_bottom = 664.225
 radius = 90.0
 use_screen_rectangle = false
 screen_rectangle = Rect2( 700, 125, 500, 600 )
