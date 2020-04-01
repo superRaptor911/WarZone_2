@@ -24,13 +24,9 @@ signal char_killed_someone
 
 	
 func _ready():
-	#skin = $Model
 	remove_child($Model)
 	setSkin(game_states.modelResource.default_model.instance())
-	emit_signal("char_born")
-	#skin.set_name("skin")
-	#add_child(skin)
-	
+	emit_signal("char_born")	
 
 #process Character
 func _process(delta):
@@ -44,12 +40,7 @@ func _process(delta):
 			skin.is_walking = false
 
 func _isInjured():
-	#emit blood only if pratricle effect is enabled
-	if game_states.game_settings.particle_effects:
-		if HP < 40:
-			$bloodSpot.emitting = true
-		else:
-			$bloodSpot.emitting = false
+	pass
 
 
 #This function sets model
@@ -115,10 +106,11 @@ func takeDamage(damage : float,weapon,attacker):
 
 
 func killChar():
-	HP = 0
-	AP = 0
-	rpc("sync_health",HP,AP)
-	rpc("sync_death")
+	if not alive:
+		HP = 0
+		AP = 0
+		rpc("sync_health",HP,AP)
+		rpc("sync_death")
 
 #emit blood when injured
 #server function
@@ -147,9 +139,7 @@ func _on_free_timer_timeout():
 	queue_free()
 
 func _on_Character_char_took_damage():
-	if game_states.game_settings.particle_effects:
-		if HP < 40:
-			$bloodSpot.emitting = true
+	pass
 
 func teleportCharacter(pos,input_id):
 	return

@@ -15,7 +15,7 @@ var id : int
 
 
 var timer_time : float = 0
-var hud
+var hud = null
 
 var grenade = preload("res://Objects/Weapons/grenade.tscn")
 var wpn_drop = preload("res://Objects/Misc/WpnDrop.tscn").instance()
@@ -244,7 +244,11 @@ func setupGun():
 	selected_gun.gun_user = self
 	selected_gun.position = Vector2(0,0)
 	skin.switchGun(selected_gun.gun_type)
-	
+	if hud:
+		hud.get_node("reload/gun_s").texture = selected_gun.gun_portrait
+		hud.get_node("reload/TextureProgress").max_value = selected_gun.rounds_in_clip
+		hud.get_node("reload/TextureProgress").value = selected_gun.rounds_left
+
 
 func pause_controls(val : bool):
 	_pause_cntrl = val

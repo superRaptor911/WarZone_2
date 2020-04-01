@@ -43,8 +43,7 @@ func switchGun(gun_type):
 	$anim.play("smg_trans")
 
 func _on_gun_fired():
-	if current_anim == "smg":
-		$anim.play("smg_firing")
+	pass
 
 func _on_gun_reload():
 	if current_anim == "smg":

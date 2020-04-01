@@ -21,6 +21,7 @@ func _ready():
 	level.connect("bot_despawned",self,"removePlayer")
 
 func addPlayer(P):
+	player_count += 1
 	P.team = self
 	P.connect("char_killed",self,"_on_player_killed")
 	P.connect("char_born",self,"_on_player_born")
@@ -36,8 +37,13 @@ func removePlayer(plr):
 
 func _on_player_killed():
 	alive_players -= 1
+	print("player alive ",alive_players)
 	if alive_players == 0:
 		emit_signal("team_eliminated",self)
 
 func _on_player_born():
 	alive_players += 1
+	print("player alive ",alive_players)
+
+func resetAliveData():
+	alive_players = 0

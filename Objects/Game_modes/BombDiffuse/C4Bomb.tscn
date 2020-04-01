@@ -10,7 +10,6 @@
 radius = 26.7771
 
 [node name="C4Bomb" type="Sprite"]
-z_index = 2
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 
