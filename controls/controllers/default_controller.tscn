@@ -9,10 +9,10 @@
 script = ExtResource( 1 )
 
 [node name="mov_joy" type="TextureRect" parent="."]
-margin_left = 89.0277
-margin_top = 466.444
-margin_right = 289.028
-margin_bottom = 666.444
+margin_left = 87.1771
+margin_top = 464.593
+margin_right = 287.177
+margin_bottom = 664.593
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
@@ -21,7 +21,7 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
-radius = 125.0
+radius = 90.0
 screen_rectangle = Rect2( 0, 125, 500, 600 )
 
 [node name="Joystick_Ring" type="TextureRect" parent="mov_joy"]
@@ -46,7 +46,7 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
-radius = 125.0
+radius = 110.0
 screen_rectangle = Rect2( 700, 125, 500, 600 )
 
 [node name="Joystick_Ring" type="TextureRect" parent="aim_joy"]
