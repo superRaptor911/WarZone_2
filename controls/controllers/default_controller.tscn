@@ -9,10 +9,10 @@
 script = ExtResource( 1 )
 
 [node name="mov_joy" type="TextureRect" parent="."]
-margin_left = 87.1771
-margin_top = 464.593
-margin_right = 287.177
-margin_bottom = 664.593
+margin_left = 96.1109
+margin_top = 452.679
+margin_right = 296.111
+margin_bottom = 652.679
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
@@ -34,10 +34,10 @@ expand = true
 stretch_mode = 6
 
 [node name="aim_joy" type="TextureRect" parent="."]
-margin_left = 915.897
-margin_top = 465.63
-margin_right = 1115.9
-margin_bottom = 665.63
+margin_left = 995.997
+margin_top = 452.679
+margin_right = 1196.0
+margin_bottom = 652.679
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
