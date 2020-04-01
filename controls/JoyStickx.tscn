@@ -12,6 +12,9 @@ texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Joystick_Ring" type="TextureRect" parent="."]
 margin_left = 49.9834

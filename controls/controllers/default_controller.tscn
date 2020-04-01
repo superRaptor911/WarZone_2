@@ -1,27 +1,62 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://controls/controllers/default_controller.gd" type="Script" id=1]
-[ext_resource path="res://controls/JoyStickx.tscn" type="PackedScene" id=2]
+[ext_resource path="res://controls/JoyStickx.gd" type="Script" id=3]
+[ext_resource path="res://controls/Godot_TouchScreen_Joysticks_Joy.png" type="Texture" id=4]
+[ext_resource path="res://controls/Godot_TouchScreen_Joysticks_JoyBG.png" type="Texture" id=5]
 
 [node name="default_controller" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="mov_joy" parent="." instance=ExtResource( 2 )]
-margin_left = 72.6314
-margin_top = 445.81
-margin_right = 293.631
-margin_bottom = 638.81
-radius = 90.0
-use_screen_rectangle = false
+[node name="mov_joy" type="TextureRect" parent="."]
+margin_left = 89.0277
+margin_top = 466.444
+margin_right = 289.028
+margin_bottom = 666.444
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+radius = 125.0
 screen_rectangle = Rect2( 0, 125, 500, 600 )
-editor_color = Color( 1, 0, 0, 1 )
 
-[node name="aim_joy" parent="." instance=ExtResource( 2 )]
-margin_left = 950.155
-margin_top = 455.225
-margin_right = 1146.16
-margin_bottom = 664.225
-radius = 90.0
-use_screen_rectangle = false
+[node name="Joystick_Ring" type="TextureRect" parent="mov_joy"]
+margin_left = 31.0
+margin_top = 24.0
+margin_right = 191.0
+margin_bottom = 184.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="aim_joy" type="TextureRect" parent="."]
+margin_left = 915.897
+margin_top = 465.63
+margin_right = 1115.9
+margin_bottom = 665.63
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+radius = 125.0
 screen_rectangle = Rect2( 700, 125, 500, 600 )
-editor_color = Color( 1, 0, 0, 1 )
+
+[node name="Joystick_Ring" type="TextureRect" parent="aim_joy"]
+margin_left = 30.3396
+margin_top = 17.687
+margin_right = 190.34
+margin_bottom = 177.687
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
