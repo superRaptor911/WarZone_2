@@ -106,7 +106,7 @@ func takeDamage(damage : float,weapon,attacker):
 
 
 func killChar():
-	if not alive:
+	if alive:
 		HP = 0
 		AP = 0
 		rpc("sync_health",HP,AP)

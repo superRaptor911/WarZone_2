@@ -44,6 +44,3 @@ func _on_player_killed():
 func _on_player_born():
 	alive_players += 1
 	print("player alive ",alive_players)
-
-func resetAliveData():
-	alive_players = 0

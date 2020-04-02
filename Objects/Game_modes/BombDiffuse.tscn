@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Objects/Game_modes/BombDiffuse.gd" type="Script" id=1]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Sfx/weapons/bombpl.wav" type="AudioStream" id=5]
 [ext_resource path="res://Sfx/radio/letsgo.wav" type="AudioStream" id=6]
 [ext_resource path="res://Sfx/weapons/ctwin.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sfx/weapons/bombdef.wav" type="AudioStream" id=8]
 
 [node name="BombDiffuse" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -16,14 +17,20 @@ wait_time = 150.0
 
 [node name="plant_bomb" type="Button" parent="."]
 visible = false
-margin_left = 524.145
-margin_top = 473.499
-margin_right = 629.145
-margin_bottom = 499.499
+margin_left = 527.896
+margin_top = 510.012
+margin_right = 658.896
+margin_bottom = 546.012
 text = "Plant bomb"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ProgressBar" type="ProgressBar" parent="plant_bomb"]
+margin_left = 2.71759
+margin_top = -84.9213
+margin_right = 127.718
+margin_bottom = -60.9213
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -45,6 +52,9 @@ __meta__ = {
 
 [node name="bomb_planted" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+
+[node name="bomb_diffused" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 
 [node name="terrorist_win" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
@@ -95,8 +105,31 @@ one_shot = true
 [node name="round_start_delay" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="diffuse_button" type="Button" parent="."]
+visible = false
+margin_left = 596.749
+margin_top = 513.422
+margin_right = 709.749
+margin_bottom = 547.422
+text = "Diffuse"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="diffuse_button"]
+margin_left = -49.9116
+margin_top = -85.7041
+margin_right = 152.088
+margin_bottom = -58.7041
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="RoundTimer" to="." method="_on_RoundTimer_timeout"]
-[connection signal="pressed" from="plant_bomb" to="." method="_on_plant_bomb_pressed"]
+[connection signal="button_down" from="plant_bomb" to="." method="_on_plant_bomb_button_down"]
+[connection signal="button_up" from="plant_bomb" to="." method="_on_plant_bomb_button_up"]
 [connection signal="timeout" from="no_plr_timer" to="." method="_on_no_plr_timer_timeout"]
 [connection signal="timeout" from="round_end_delay" to="." method="_on_round_end_delay_timeout"]
 [connection signal="timeout" from="round_start_delay" to="." method="_on_round_start_delay_timeout"]
+[connection signal="button_down" from="diffuse_button" to="." method="_on_diffuse_button_button_down"]
+[connection signal="button_up" from="diffuse_button" to="." method="_on_diffuse_button_button_up"]

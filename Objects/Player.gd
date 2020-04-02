@@ -184,6 +184,7 @@ remote func _sync_throwGrenade(nam):
 
 
 remotesync func sync_respawn(pos,id):
+	var was_alive = alive
 	show()
 	$dtween.stop(skin)
 	$dtween.interpolate_property(skin,"modulate",Color8(50,50,200,255),Color8(255,255,255,255),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
@@ -199,7 +200,8 @@ remotesync func sync_respawn(pos,id):
 	skin.revive()
 	if is_network_master():
 		$Camera2D.current = true
-	emit_signal("char_born")
+	if not was_alive:
+		emit_signal("char_born")
 
 func switchToPrimaryGun():
 	if selected_gun != primary_gun:

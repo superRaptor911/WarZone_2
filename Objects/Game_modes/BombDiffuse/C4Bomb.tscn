@@ -7,7 +7,7 @@
 [ext_resource path="res://Sfx/weapons/c4.wav" type="AudioStream" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 26.7771
+radius = 40.4977
 
 [node name="C4Bomb" type="Sprite"]
 texture = ExtResource( 2 )
@@ -41,4 +41,5 @@ one_shot = true
 shape = SubResource( 1 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="bomb_timer/bom_beep" to="." method="_on_bom_beep_timeout"]
-[connection signal="timeout" from="bomb_plant_timer" to="." method="_on_bomb_plant_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

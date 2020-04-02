@@ -101,6 +101,7 @@ func respawnBot():
 	rpc("sync_respawn",level.getSpawnPosition(team.team_id))
 
 remotesync func sync_respawn(pos):
+	var was_alive = alive
 	show()
 	$dtween.stop(skin)
 	$dtween.interpolate_property(skin,"modulate",Color8(50,50,200,255),Color8(255,255,255,255),4,Tween.TRANS_LINEAR,Tween.EASE_IN)
@@ -114,7 +115,8 @@ remotesync func sync_respawn(pos):
 	load_guns(bot_data.bot_g1, bot_data.bot_g2)
 	switchGun()
 	skin.revive()
-	emit_signal("char_born")
+	if not was_alive:
+		emit_signal("char_born")
 
 func _on_free_timer_timeout():
 	respawnBot()
