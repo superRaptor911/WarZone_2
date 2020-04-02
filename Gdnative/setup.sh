@@ -44,11 +44,11 @@ installGodotCpp()
 
 installTools()
 {
-	tools=(unzip scons)
+	tools=(unzip scons g++-mingw-w64-x86-64)
 	for i in ${tools[@]}; do
 		if ! [ -x "$(command -v $i)" ]; then
 			printBuffer "$i not installed .. Installing $i"
-			sudo apt install unzip
+			sudo apt install $i
 			if [[ $? -ne 0 ]]; then
 				printBuffer "Error unable to install $i"
 			fi
