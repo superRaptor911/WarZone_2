@@ -1,6 +1,7 @@
 #ifndef BOTATTRIB_H
 #define BOTATTRIB_H
 
+
 struct BotAttrib
 {
 	enum EGetMode

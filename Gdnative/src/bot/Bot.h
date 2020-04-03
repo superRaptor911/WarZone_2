@@ -4,7 +4,6 @@
 #include <Godot.hpp>
 #include <vector>
 #include <Navigation2D.hpp>
-#include <State.h>
 #include <BotAttrib.h>
 
 namespace godot
@@ -14,11 +13,7 @@ namespace godot
 		GODOT_CLASS(Bot, Node)
 	private:
 
-		State *_current_state = nullptr;
 		Node2D *_parent = nullptr;
-		std::vector<State *> _all_the_states;
-
-		bool _was_dead = false;
 
 	private:
 
@@ -27,11 +22,9 @@ namespace godot
 	public:
 
 		Navigation2D *nav = nullptr;
-		std::vector<Vector2> points_of_interest;
 		Array visible_enemies;
 		Array visible_friends;
 
-		bool use_mov_vct_for_rotation = true;
 		Vector2 point_to_position;
 		float angle_left_to_rotate = 0;
 		BotAttrib bot_attribute;

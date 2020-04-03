@@ -6,8 +6,6 @@
 #include <Array.hpp>
 #include <string>
 
-#include <Roam.h>
-#include <Attack.h>
 
 using namespace godot;
 
@@ -31,21 +29,7 @@ void Bot::_register_methods()
 //Loads & links states
 void Bot::_loadStates()
 {
-	Roam *roam = new Roam;
-	_all_the_states.push_back(roam);
 
-	Attack *attack = new Attack;
-	_all_the_states.push_back(attack);
-	roam->connect(attack);
-
-	for(auto &i : _all_the_states)
-	{
-		i->setParentAndBot(_parent, this);
-		i->initState();
-	}
-
-	_current_state = roam;
-	_current_state->startState();
 }
 
 void Bot::_ready()
@@ -60,32 +44,6 @@ void Bot::_ready()
 		nav = arr[0];
 	else
 		Godot::print("Error::Unable_to_get_navigation2D");
-
-	//get point of interests
-	Array arr2 = get_tree()->get_nodes_in_group("POI");
-	if (!arr2.empty())
-	{
-		//get points inside point of interest
-		int arr2_sz = arr2.size();
-		for (int i = 0; i < arr2_sz; i++)
-		{
-			Array children = static_cast<Node2D *>(arr2[i])->get_children();
-			int children_sz = children.size();
-			if (!children.empty())
-			{
-				for (int j = 0; j < children_sz; j++)
-				{
-					Vector2 position = static_cast<Node2D *>(children[j])->get_position();
-					points_of_interest.push_back(position);
-				}
-			}
-			else
-				Godot::print("Error::Nopoints_in_this_POI");
-		}
-	}
-	else
-		Godot::print("Error::There_are_no_POIs");
-	_parent->call("switchToPrimaryGun");
 }
 
 void Bot::_init()
@@ -95,30 +53,6 @@ void Bot::_init()
 
 void Bot::_process(float delta)
 {
-	if (_current_state && static_cast<bool>(_parent->get("alive")) )
-	{
-		if (_was_dead)
-		{
-			_current_state->startState();
-			_was_dead = false;
-		}
-
-		_current_state->runState();
-		State *new_state = _current_state->chkForStateChange();
-		
-		if (new_state)
-		{	
-			_current_state->stopState();
-			new_state->prev_state = _current_state;
-			_current_state = new_state;
-			_current_state->startState();
-			//Godot::print("State changed");
-		}
-
-		interpolate_rotation(delta);
-	}
-	else
-		_was_dead = true;
 
 }
 
@@ -126,12 +60,7 @@ void Bot::_process(float delta)
 void Bot::interpolate_rotation(float delta)
 {
 	float rotation = _parent->get_rotation();
-	float new_rotation;
-	
-	if (use_mov_vct_for_rotation)
-		new_rotation = (static_cast<Vector2>(_parent->get("movement_vector"))).angle() + 1.57f;
-	else
-		new_rotation = (point_to_position - _parent->get_position()).angle() + 1.57f;
+	float new_rotation = (point_to_position - _parent->get_position()).angle() + 1.57f;
 
 	//setting domain [0 - 2pi]
 	if (new_rotation < 0.f)
@@ -198,9 +127,6 @@ void Bot::setBotDifficulty(int difficulty)
 
 Bot::~Bot()
 {
-	for(auto i : _all_the_states)
-	{
-		delete i;
-	}
+
 }
 

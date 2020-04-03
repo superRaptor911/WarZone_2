@@ -29,6 +29,8 @@ func _ready():
 	setupGun()
 	if get_tree().is_network_server():
 		level = get_tree().get_nodes_in_group("Level")[0]
+		level.connect("player_despawned",self,"_on_player_left_server")
+		level.connect("bot_despawned",self,"_on_player_left_server")
 		$Brain.setBotDifficulty(game_server.bot_settings.bot_difficulty)
 		$VisionTimer.wait_time = $VisionTimer.wait_time * (1.0 + rand_range(-0.5,0.5))
 		$VisionTimer.start()
@@ -146,6 +148,16 @@ func createDropedItems():
 
 
 ########################bot vision####################
+
+#handle player disconnection
+func _on_player_left_server(plr):
+	var old_size = _near_bodies.size()
+	_near_bodies.erase(plr)
+	
+	#update vision if affected by player disconnection
+	if old_size != _near_bodies.size():
+		_on_VisionTimer_timeout()
+	
 
 func _on_vision_body_entered(body):
 	if body.is_in_group("Actor"):
