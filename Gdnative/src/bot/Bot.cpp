@@ -11,7 +11,8 @@ using namespace godot;
 
 Bot::Bot()
 {
-	//pass 
+	current_state = STATE::ROAM;
+	game_mode = GMODE::DM; 
 }
 
 
@@ -20,6 +21,7 @@ void Bot::_register_methods()
 	register_method("_process", &Bot::_process);
 	register_method("_ready", &Bot::_ready);
 	register_method("setBotDifficulty", &Bot::setBotDifficulty);
+	register_method("setGameMode",&Bot::setGameMode);
 
 	register_property<Bot, Array> ("visible_enemies", &Bot::visible_enemies, Array());
 	register_property<Bot, Array> ("visible_friends", &Bot::visible_friends, Array());
@@ -44,6 +46,8 @@ void Bot::_ready()
 		nav = arr[0];
 	else
 		Godot::print("Error::Unable_to_get_navigation2D");
+	
+	navigation = std::make_unique<navigate>(_parent, nav, this);
 }
 
 void Bot::_init()
@@ -53,7 +57,7 @@ void Bot::_init()
 
 void Bot::_process(float delta)
 {
-
+	interpolate_rotation(delta);	
 }
 
 //rotate the bot smoothly
@@ -124,9 +128,29 @@ void Bot::setBotDifficulty(int difficulty)
 	}
 }
 
+void Bot::setGameMode(const String &gmod)
+{
+	if (gmod == "FFA")
+		game_mode = GMODE::DM;
+	else if (gmod == "Bombing")
+		game_mode = GMODE::BOMBING;
+	
+}
+
+
+void Bot::gamemodeDeathmath()
+{
+	if (current_state == STATE::ROAM)
+	{	
+		navigation->move();
+		if (navigation->on_final_destination)
+		{
+			navigation->getRandomLocation();
+		}
+	}
+}
 
 Bot::~Bot()
 {
 
 }
-

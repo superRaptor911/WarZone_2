@@ -4,8 +4,9 @@ start_time=`date +%s`
 copy_dest=".."
 source=$1
 build_result=0
-no_patforms=6
+platforms=$2
 exit_on_error=1
+
 
 #build arguments
 args[0]="platform=linux target_name=${source} src_path=src/${source} target=release"
@@ -39,7 +40,12 @@ build_targets()
 build_plugin()
 {
 	for (( i = 0; i < 6; i++ )); do
-		build_targets "${args[i]}" "${i}"
+
+		if [ "$platforms" == "" ] || [ "$platforms" == "${plats[i]}" ]
+		then
+			echo "$platforms"
+			build_targets "${args[i]}" "${i}"
+		fi
 	done
 
 	echo
@@ -64,6 +70,7 @@ build_plugin()
 
 
 clear
+rm -rf output
 mkdir -p output/bin
 
 build_plugin

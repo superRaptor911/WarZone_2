@@ -5,6 +5,9 @@
 #include <vector>
 #include <Navigation2D.hpp>
 #include <BotAttrib.h>
+#include <navigate.h>
+#include <memory>
+#include <BotFlags.h>
 
 namespace godot
 {
@@ -14,11 +17,14 @@ namespace godot
 	private:
 
 		Node2D *_parent = nullptr;
+		std::unique_ptr<navigate> navigation;
+		enum class GMODE {DM, ZM, BOMBING};
+		enum class STATE {ROAM, ATTACK};
+		BotFlags flags;
 
 	private:
 
 		void _loadStates();
-
 	public:
 
 		Navigation2D *nav = nullptr;
@@ -28,6 +34,9 @@ namespace godot
 		Vector2 point_to_position;
 		float angle_left_to_rotate = 0;
 		BotAttrib bot_attribute;
+
+		GMODE game_mode;
+		STATE current_state;
 
 	public:
 
@@ -40,7 +49,8 @@ namespace godot
 		void interpolate_rotation(float delta);
 
 		void setBotDifficulty(int difficulty);
-
+		void setGameMode(const String &gmod);
+		void gamemodeDeathmath();
 	};
 
 
@@ -48,9 +58,7 @@ namespace godot
 	int sign(T val) 
 	{
     	return (T(0) < val) - (val < T(0));
-	}
-
-	
+	}	
 }
 
 #endif
