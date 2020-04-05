@@ -20,8 +20,9 @@ void Bot::_register_methods()
 {
 	register_method("_process", &Bot::_process);
 	register_method("_ready", &Bot::_ready);
+	register_method("updateVision", &Bot::updateVision);
 	register_method("setBotDifficulty", &Bot::setBotDifficulty);
-	register_method("setGameMode",&Bot::setGameMode);
+	register_method("setGameMode", &Bot::setGameMode);
 
 	register_property<Bot, Array> ("visible_enemies", &Bot::visible_enemies, Array());
 	register_property<Bot, Array> ("visible_friends", &Bot::visible_friends, Array());
@@ -47,7 +48,8 @@ void Bot::_ready()
 	else
 		Godot::print("Error::Unable_to_get_navigation2D");
 	
-	navigation = std::make_unique<navigate>(_parent, nav, this);
+	navigation_state = std::make_unique<navigate>(_parent, nav, this);
+	attack_state = std::make_unique<Attack>(_parent, this);
 }
 
 void Bot::_init()
@@ -57,7 +59,17 @@ void Bot::_init()
 
 void Bot::_process(float delta)
 {
-	interpolate_rotation(delta);	
+	if ( !static_cast<bool>(_parent->get("alive")) )
+		return;
+		
+	interpolate_rotation(delta);
+	if (game_mode == GMODE::DM)
+		gamemodeDeathmath();
+}
+
+void Bot::updateVision()
+{
+	attack_state->getEnemy();
 }
 
 //rotate the bot smoothly
@@ -126,15 +138,16 @@ void Bot::setBotDifficulty(int difficulty)
 		bot_attribute.spray_time = 0.4f;
 		bot_attribute.accuracy = 0.3f;
 	}
+
+	attack_state->resetTimers();
 }
 
-void Bot::setGameMode(const String &gmod)
+void Bot::setGameMode(String gmod)
 {
 	if (gmod == "FFA")
 		game_mode = GMODE::DM;
 	else if (gmod == "Bombing")
-		game_mode = GMODE::BOMBING;
-	
+		game_mode = GMODE::BOMBING;	
 }
 
 
@@ -142,12 +155,31 @@ void Bot::gamemodeDeathmath()
 {
 	if (current_state == STATE::ROAM)
 	{	
-		navigation->move();
-		if (navigation->on_final_destination)
+		navigation_state->move();
+		if (navigation_state->on_final_destination)
 		{
-			navigation->getRandomLocation();
+			navigation_state->getRandomLocation();
 		}
+
+		if (!visible_enemies.empty())
+		{
+			current_state = STATE::ATTACK;
+			Godot::print("changing state to attack");
+		}
+		
 	}
+	else if (current_state == STATE::ATTACK)
+	{
+		attack_state->engageEnemy();
+		
+		if (!attack_state->current_enemy)
+		{
+			navigation_state->addPlace(point_to_position);
+			current_state = STATE::ROAM;
+			Godot::print("changing state to roam");	
+		}		
+	}
+	
 }
 
 Bot::~Bot()

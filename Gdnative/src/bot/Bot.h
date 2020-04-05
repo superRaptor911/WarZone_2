@@ -6,6 +6,7 @@
 #include <Navigation2D.hpp>
 #include <BotAttrib.h>
 #include <navigate.h>
+#include <Attack.h>
 #include <memory>
 #include <BotFlags.h>
 
@@ -17,7 +18,9 @@ namespace godot
 	private:
 
 		Node2D *_parent = nullptr;
-		std::unique_ptr<navigate> navigation;
+		std::unique_ptr<navigate> navigation_state;
+		std::unique_ptr<Attack> attack_state;
+
 		enum class GMODE {DM, ZM, BOMBING};
 		enum class STATE {ROAM, ATTACK};
 		BotFlags flags;
@@ -46,10 +49,11 @@ namespace godot
 		void _init(); // our initializer called by Godot
 		void _ready();
 		void _process(float delta);
+		void updateVision();
 		void interpolate_rotation(float delta);
 
 		void setBotDifficulty(int difficulty);
-		void setGameMode(const String &gmod);
+		void setGameMode(String gmod);
 		void gamemodeDeathmath();
 	};
 

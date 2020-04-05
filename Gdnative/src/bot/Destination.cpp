@@ -36,6 +36,7 @@ void Destination::traverse()
     if ((position - _old_pos).length() > max_displacement_limit)
     {
         Godot::print(std::to_string((position - _old_pos).length()).c_str());
+        Godot::print("error displacement");
         has_path_to_destination = false;
     }
     _old_pos = position;

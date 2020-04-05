@@ -20,6 +20,7 @@ namespace godot
     
     private:
 
+        //This function prevents bots from being stuck when they collide with each other.
         bool _handleCollisionWithFriend();
     
     public:
@@ -30,10 +31,19 @@ namespace godot
     public:
 
         navigate(Node2D *par, Navigation2D *nav, Bot *bot);
+       
+        //add a new location to visit.
         void addPlace(const Vector2 &place);
+        
+        //move to specified location.
         void move();
+        
+        //generates a random location to visit.
         void getRandomLocation();
-        float sqDistance(const Vector2 &v1, const Vector2 &v2);
+
+        //returns square of distanec between 2 points.
+        static float sqDistance(const Vector2 &v1, const Vector2 &v2);
+        static float sq(float v) {return v*v;}
         ~navigate();
     };    
 }

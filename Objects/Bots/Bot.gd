@@ -183,3 +183,6 @@ func _on_VisionTimer_timeout():
 						$Brain.visible_enemies.append(i)
 					else:
 						$Brain.visible_friends.append(i)
+	$Brain.updateVision()
+	
+

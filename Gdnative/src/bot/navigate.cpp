@@ -13,6 +13,7 @@ navigate::~navigate()
 {
 }
 
+//add a new location to visit.
 void navigate::addPlace(const Vector2 &place)
 {
     //clear if limit reached
@@ -26,6 +27,7 @@ void navigate::addPlace(const Vector2 &place)
     on_final_destination = false;
 }
 
+//move to specified location.
 void navigate::move()
 {
     if (!_places.empty())
@@ -46,6 +48,7 @@ void navigate::move()
     
 }
 
+//generates a random location to visit.
 void navigate::getRandomLocation()
 {
     Vector2 random_position = Vector2(rand() % (int)world_size.x, rand() % (int)world_size.y);
@@ -53,12 +56,14 @@ void navigate::getRandomLocation()
     addPlace(random_position);
 }
 
+//returns square of distanec between 2 points.
 float navigate::sqDistance(const Vector2 &v1, const Vector2 &v2)
 {
 	Vector2 diff = v2 - v1;
 	return (diff.x * diff.x + diff.y * diff.y);
 }
 
+//This function prevents bots from being stuck when they collide with each other.
 bool navigate::_handleCollisionWithFriend()
 {
     int sz = _bot->visible_enemies.size();
