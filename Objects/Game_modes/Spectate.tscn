@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/Game_modes/Spectate.gd" type="Script" id=1]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Objects/Game_modes/FFA/FFAMinimap.tscn" type="PackedScene" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -13,6 +14,18 @@ shadow_size = 6
 
 [sub_resource type="DynamicFont" id=2]
 size = 20
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.6, 0.6, 0.6, 0.588235 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
 use_filter = true
 font_data = ExtResource( 2 )
 
@@ -42,5 +55,34 @@ text = "Menu"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Minimap" parent="." instance=ExtResource( 3 )]
+self_modulate = Color( 1, 1, 1, 0.509804 )
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -350.0
+margin_right = 0.0
+margin_bottom = 256.0
+
+[node name="Text" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -263.0
+margin_top = 109.0
+margin_right = 289.0
+margin_bottom = 185.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Text"]
+margin_left = 14.3374
+margin_top = 12.78
+margin_right = 328.337
+margin_bottom = 55.78
+custom_fonts/font = SubResource( 4 )
+text = "You are spectating"
 [connection signal="pressed" from="spec" to="." method="_on_spec_pressed"]
 [connection signal="pressed" from="menu" to="." method="_on_menu_pressed"]

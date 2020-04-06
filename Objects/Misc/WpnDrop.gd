@@ -10,12 +10,15 @@ var item_data = {
 	pos = Vector2()
 }
 
+var gun_rating = 0
+
 signal item_expired(id)
 
 func create(info):
 	item_data = info
 	position = item_data.pos
 	var wpn = game_states.weaponResource.get(item_data.wpn).instance()
+	gun_rating = wpn.gun_rating
 	texture = wpn.gun_d_img
 	wpn.queue_free()
 	$Timer.start()
@@ -35,15 +38,19 @@ func _on_Timer_timeout():
 
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("User") and body.is_network_master():
-		get_tree().get_nodes_in_group("Hud")[0].get_node("pick").show()
-		body.cur_dropped_item_id = item_id
+	if body.is_in_group("Unit") and body.is_network_master():
+		if body.is_in_group("User"):
+			get_tree().get_nodes_in_group("Hud")[0].get_node("pick").show()
+			body.cur_dropped_item_id = item_id
+		elif body.selected_gun.gun_rating < gun_rating:
+			body.pickItem(item_id)
 
 
 func _on_Area2D_body_exited(body):
-	if body.is_in_group("User") and body.is_network_master():
-		if body.cur_dropped_item_id == item_id:
-			get_tree().get_nodes_in_group("Hud")[0].get_node("pick").hide()
+	if body.is_in_group("Unit") and body.is_network_master():
+		if body.is_in_group("User"):
+			if body.cur_dropped_item_id == item_id:
+				get_tree().get_nodes_in_group("Hud")[0].get_node("pick").hide()
 
 
 remotesync func itemPicked():

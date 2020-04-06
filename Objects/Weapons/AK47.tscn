@@ -16,6 +16,7 @@ gun_name = "AK47"
 damage = 36.0
 rounds_in_clip = 30
 clips = 99
+gun_rating = 5
 rate_of_fire = 7.0
 max_zoom = 1.5
 gun_portrait = ExtResource( 6 )

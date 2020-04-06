@@ -226,7 +226,7 @@ void Bot::gamemodeDeathmath()
 			#endif
 		}
 		//stay in this mode for 30 seconds
-		if (time_elapsed - flags.scout_start_time > 30.f)
+		if (time_elapsed - flags.scout_start_time > 20.f)
 		{
 			current_state = STATE::ROAM;
 			#ifdef DEBUG_MODE
@@ -238,6 +238,11 @@ void Bot::gamemodeDeathmath()
 	{
 		
 	}	
+}
+
+void Bot::gamemodeBombing()
+{
+
 }
 
 Bot::~Bot()

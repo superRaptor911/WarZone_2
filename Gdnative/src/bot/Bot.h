@@ -10,7 +10,7 @@
 #include <memory>
 #include <BotFlags.h>
 
-//#define DEBUG_MODE
+#define DEBUG_MODE
 
 namespace godot
 {
@@ -59,6 +59,7 @@ namespace godot
 		void setBotDifficulty(int difficulty);
 		void setGameMode(String gmod);
 		void gamemodeDeathmath();
+		void gamemodeBombing();
 	};
 
 

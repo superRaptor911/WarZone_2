@@ -145,7 +145,31 @@ func createDropedItems():
 		var item_info = {type = "kevlar",pos = position}
 		d_item_man.rpc_id(1,"serverMakeItem",item_info)
 
+func pickItem(item_id):
+	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+	d_item_man.rpc_id(1,"requestPickUp",name,item_id)
 
+remotesync func pickUpItem(item):
+	if item.type == "wpn":
+		var old_gun = selected_gun
+		if selected_gun == primary_gun:
+			primary_gun = game_states.weaponResource.get(item.wpn).instance()
+			primary_gun.rounds_left = item.bul
+			primary_gun.clips = item.clps
+			selected_gun = primary_gun
+		else:
+			sec_gun = game_states.weaponResource.get(item.wpn).instance()
+			sec_gun.rounds_left = item.bul
+			sec_gun.clips = item.clps
+			selected_gun = sec_gun
+		var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+		d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(old_gun))
+		old_gun.queue_free()
+		setupGun()
+	elif item.type == "med":
+		HP = 100
+	elif item.type == "kevlar":
+		AP = 100
 
 ########################bot vision####################
 

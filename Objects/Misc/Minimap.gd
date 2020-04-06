@@ -20,10 +20,12 @@ func _ready():
 		Scale = Vector2(cell_size,cell_size) / hmap.cell_size
 		worldsize = hmap.get_used_rect().size * hmap.cell_size
 		createMinimap(hmap.get_used_rect().size,hmap.get_used_cells(),lvl.Level_Name)
-		playerList = get_tree().get_nodes_in_group("User")
+		playerList = get_tree().get_nodes_in_group("Unit")
 		getLocalPlayer()
 		lvl.connect("player_spawned", self,"addPlayer")
+		lvl.connect("bot_spawned", self,"addPlayer")
 		lvl.connect("player_despawned", self,"removeplayer")
+		lvl.connect("bot_despawned", self,"removeplayer")
 		_cacheDots()
 	else:
 		print("Error : No level loaded for minimap generation")
@@ -73,6 +75,8 @@ func showPlayersInMap():
 				dotsList[sp_index].show()
 				dotsList[sp_index].position = rel_pos
 				sp_index += 1
+				if sp_index >= 12:
+					break
 
 func removeplayer(plr):
 	playerList.erase(plr)

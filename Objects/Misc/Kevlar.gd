@@ -22,7 +22,7 @@ func _on_Timer_timeout():
 
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("User") and body.is_network_master():
+	if body.is_in_group("Unit") and body.is_network_master():
 		if body.AP < 100:
 			body.pickItem(item_id)
 

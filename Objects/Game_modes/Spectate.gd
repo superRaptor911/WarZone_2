@@ -15,6 +15,8 @@ func _ready():
 		var level = level_group[0]
 		level.connect("player_spawned",self,"_on_player_spawned") 
 		level.connect("player_despawned",self,"_on_player_despawned")
+		var world_Size = level.get_node("BaseMap/height").get_used_rect().size
+		$Minimap.rect_size = world_Size * 8
 
 func getPlayersAndBots():
 	players_n_bots = get_tree().get_nodes_in_group("User")
@@ -46,6 +48,8 @@ func specNextPlayer():
 		 
 		current_spec_player = alive_players[spec_id]
 		current_spec_player.get_node("Camera2D").current = true
+		$Minimap.local_player = current_spec_player
+		$Text/Label.text = "You are spectating " + current_spec_player.pname
 	else:
 		current_spec_player = null
 
@@ -59,6 +63,8 @@ func specRandomPlayer():
 		spec_id = randi() % alive_players.size()
 		current_spec_player = alive_players[spec_id]
 		current_spec_player.get_node("Camera2D").current = true
+		$Minimap.local_player = current_spec_player
+		$Text/Label.text = "You are spectating " + current_spec_player.pname
 	else:
 		current_spec_player = null
 

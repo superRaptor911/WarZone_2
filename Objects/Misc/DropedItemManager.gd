@@ -36,7 +36,7 @@ remotesync func requestPickUp(pid : String,item_id : int):
 	var drop = Items.get(item_id)
 	if drop:
 		var p = null
-		var players  = get_tree().get_nodes_in_group("User")
+		var players  = get_tree().get_nodes_in_group("Unit")
 		for i in players:
 			if i.name == pid:
 				p = i
@@ -44,6 +44,7 @@ remotesync func requestPickUp(pid : String,item_id : int):
 		p.rpc("pickUpItem",drop.item_data)
 		drop.rpc("itemPicked")
 		eraseItem(item_id)
+
 
 func eraseItem(item_id):
 	Items.erase(item_id)
