@@ -2,6 +2,7 @@
 #include <SceneTree.hpp>
 #include <Viewport.hpp>
 #include <string>
+#include <Bot.h>
 using namespace godot;
 
 Destination::Destination(Node2D *par, Navigation2D *nav, const Vector2 &dest)
@@ -24,7 +25,9 @@ void Destination::getPathToDestination()
         has_path_to_destination = true;
         path = _nav->get_simple_path(_parent->get_position(), dest_pos);
         _cur_pos_id = 0;
-        Godot::print(std::to_string(path.size()).c_str());
+        #ifdef DEBUG_MODE
+            Godot::print(std::to_string(path.size()).c_str());
+        #endif
     }
 }
 
@@ -35,8 +38,10 @@ void Destination::traverse()
     //check displacement errors
     if ((position - _old_pos).length() > max_displacement_limit)
     {
-        Godot::print(std::to_string((position - _old_pos).length()).c_str());
-        Godot::print("error displacement");
+        #ifdef DEBUG_MODE
+            Godot::print(std::to_string((position - _old_pos).length()).c_str());
+            Godot::print("error displacement");
+        #endif
         has_path_to_destination = false;
     }
     _old_pos = position;
@@ -52,7 +57,9 @@ void Destination::traverse()
     if (_cur_pos_id >= path.size() )
     {
         reached_desination = true;
-        Godot::print("reached destination");
+        #ifdef DEBUG_MODE
+            Godot::print("reached destination");
+        #endif
         return;
     }
 

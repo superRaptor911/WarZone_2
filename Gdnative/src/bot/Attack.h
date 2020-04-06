@@ -26,9 +26,6 @@ namespace godot
         //For how long bot will press trigger
         Timer *burst_timer;
 
-        //For how long bot will not press trigger
-        Timer *cool_down_timer;
-
     public:
 
         Attack(Node2D *par, Bot *bot);
@@ -41,6 +38,7 @@ namespace godot
         
         void engageEnemy();
         ~Attack();
+        
     };   
 }
 

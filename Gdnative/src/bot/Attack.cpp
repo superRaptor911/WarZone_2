@@ -32,11 +32,35 @@ void Attack::getEnemy()
         current_enemy = static_cast<Node2D *>(_bot->visible_enemies[_id]);
     }
 
+    //get nearest to aim enemy
+    else if (_bot->bot_attribute.enemy_get_mode == BotAttrib::EGetMode::NEAREST_AIM)
+    {
+        float min_tan = 999999.f;
+        int no_enemies = _bot->visible_enemies.size();
+        int _id = 0;
+        Vector2 position = _parent->get_position();
+
+        for (size_t i = 0; i < no_enemies; i++)
+        {
+            Vector2 epos = static_cast<Node2D *>(_bot->visible_enemies[i])->get_position();
+            Vector2 vct = epos - position;
+            float _tan = vct.y / (std::max(0.00001f, vct.x));
+            if (_tan < min_tan)
+            {
+                min_tan = _tan;
+                _id = i;
+            }            
+        }
+
+        current_enemy = static_cast<Node2D *>(_bot->visible_enemies[_id]);
+    }
 
     if (current_enemy != old_enemy)
         reaction_timer->start();
 
-    Godot::print("looking for enemies");
+    #ifdef DEBUG_MODE
+        Godot::print("looking for enemies");
+    #endif
 }
 
 
@@ -54,17 +78,12 @@ Attack::Attack(Node2D *par, Bot *bot)
     burst_timer->set_wait_time(_bot->bot_attribute.spray_time);
     _bot->add_child(burst_timer);
 
-    cool_down_timer = Timer()._new();
-    cool_down_timer->set_one_shot(true);
-    cool_down_timer->set_wait_time(_bot->bot_attribute.spray_delay);
-    _bot->add_child(cool_down_timer);
 }
 
 void Attack::resetTimers()
 {
     reaction_timer->set_wait_time(_bot->bot_attribute.reaction_time);
     burst_timer->set_wait_time(_bot->bot_attribute.spray_time);
-    cool_down_timer->set_wait_time(_bot->bot_attribute.spray_delay);
 }
 
 void Attack::engageEnemy()
@@ -74,24 +93,10 @@ void Attack::engageEnemy()
 
     _bot->point_to_position = current_enemy->get_position();
 
-    if (reaction_timer->is_stopped() && cool_down_timer->is_stopped())
+    if (reaction_timer->is_stopped() && burst_timer->is_stopped())
     {
-        if (burst_timer->is_stopped())
-        {
-
-            burst_timer->start();
-        }
-        
-        if (!burst_timer->is_stopped())
-        {
-            static_cast<Node *>(_parent->get("selected_gun"))->call("fireGun");
-        }
+       static_cast<Node *>(_parent->get("selected_gun"))->call("fireGun");
     }
-    /*
-    else if (!cool_down_timer->is_stopped())
-    {
-        burst_timer->start();
-    }*/
 }
 
 Attack::~Attack()

@@ -15,6 +15,9 @@ struct BotAttrib
 	float spray_delay = 0.4f;
 	float rotational_speed = 2.f;
 	float reaction_time = 1.f;
+
+	bool enable_evasive_mov = false;
+	bool is_coward = false;
 };
 
 #endif

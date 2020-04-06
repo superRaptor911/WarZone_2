@@ -59,6 +59,7 @@ void Bot::_init()
 
 void Bot::_process(float delta)
 {
+	time_elapsed += delta;
 	if ( !static_cast<bool>(_parent->get("alive")) )
 		return;
 		
@@ -130,6 +131,7 @@ void Bot::setBotDifficulty(int difficulty)
 		bot_attribute.reaction_time = 0.8f;
 		bot_attribute.spray_time = 0.4f;
 		bot_attribute.accuracy = 0.5f;
+		bot_attribute.enable_evasive_mov = true;
 	}
 	else if (difficulty == 4)
 	{
@@ -137,6 +139,7 @@ void Bot::setBotDifficulty(int difficulty)
 		bot_attribute.reaction_time = 0.2f;
 		bot_attribute.spray_time = 0.4f;
 		bot_attribute.accuracy = 0.3f;
+		bot_attribute.enable_evasive_mov = true;
 	}
 
 	attack_state->resetTimers();
@@ -164,22 +167,77 @@ void Bot::gamemodeDeathmath()
 		if (!visible_enemies.empty())
 		{
 			current_state = STATE::ATTACK;
-			Godot::print("changing state to attack");
-		}
-		
+			#ifdef DEBUG_MODE
+				Godot::print("changing state to attack");
+			#endif
+		}		
 	}
 	else if (current_state == STATE::ATTACK)
 	{
+		if (bot_attribute.enable_evasive_mov)
+		{
+			if (time_elapsed - flags.evasive_mov_start_time > 2.f)
+			{
+				flags.evasive_mov_dir *= -1;
+				flags.evasive_mov_start_time = time_elapsed;
+			}
+			_parent->set("movement_vector",_parent->get_transform().get_axis(0) * flags.evasive_mov_dir);		
+		}
+		
 		attack_state->engageEnemy();
 		
 		if (!attack_state->current_enemy)
 		{
+			navigation_state->clearPlaces();
 			navigation_state->addPlace(point_to_position);
-			current_state = STATE::ROAM;
-			Godot::print("changing state to roam");	
-		}		
+			current_state = STATE::SCOUT;
+			flags.scout_start_time = time_elapsed;
+			#ifdef DEBUG_MODE
+				Godot::print("changing state to scout");
+			#endif
+		}
+		else if (bot_attribute.is_coward && static_cast<float>(_parent->get("HP")) < 35.f)
+		{
+			current_state = STATE::FLEE;
+			#ifdef DEBUG_MODE
+				Godot::print("changing state to flee");
+			#endif
+		}			
 	}
-	
+	else if (current_state == STATE::SCOUT)
+	{
+		navigation_state->move();
+		if (navigation_state->on_final_destination)
+		{
+			Vector2 mov_vct = static_cast<Vector2>(_parent->get("movement_vector"));
+			double angle = atan2(mov_vct.y, mov_vct.x);
+			Vector2 rot_pos = Vector2(280,280).rotated(angle + 1.57);
+			Vector2 rand_pos = Vector2(2.0 * rot_pos.x * (rand() % 100) / 100.0 - rot_pos.x, 
+									   2.0 * rot_pos.y * (rand() % 100) / 100.0 - rot_pos.y);
+			
+			Vector2 pos = nav->get_closest_point(_parent->get_position() + rand_pos);
+			navigation_state->addPlace(pos);
+		}
+		if (!visible_enemies.empty())
+		{
+			current_state = STATE::ATTACK;
+			#ifdef DEBUG_MODE
+				Godot::print("changing state to attack");
+			#endif
+		}
+		//stay in this mode for 30 seconds
+		if (time_elapsed - flags.scout_start_time > 30.f)
+		{
+			current_state = STATE::ROAM;
+			#ifdef DEBUG_MODE
+				Godot::print("changing state to Roam");
+			#endif
+		}
+	}	
+	else if (current_state == STATE::FLEE)
+	{
+		
+	}	
 }
 
 Bot::~Bot()

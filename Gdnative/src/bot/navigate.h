@@ -35,6 +35,8 @@ namespace godot
         //add a new location to visit.
         void addPlace(const Vector2 &place);
         
+        void clearPlaces();
+        
         //move to specified location.
         void move();
         

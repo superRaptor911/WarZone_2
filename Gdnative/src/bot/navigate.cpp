@@ -27,6 +27,11 @@ void navigate::addPlace(const Vector2 &place)
     on_final_destination = false;
 }
 
+void navigate::clearPlaces()
+{
+    _places = std::stack<Destination>();
+}
+
 //move to specified location.
 void navigate::move()
 {
@@ -43,7 +48,9 @@ void navigate::move()
     else
     {
         on_final_destination = true;
-        Godot::print("on destination");
+        #ifdef DEBUG_MODE
+            Godot::print("on destination");
+        #endif
     }
     
 }

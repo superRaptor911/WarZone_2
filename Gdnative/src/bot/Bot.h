@@ -10,6 +10,8 @@
 #include <memory>
 #include <BotFlags.h>
 
+//#define DEBUG_MODE
+
 namespace godot
 {
 	class Bot : public Node
@@ -22,7 +24,7 @@ namespace godot
 		std::unique_ptr<Attack> attack_state;
 
 		enum class GMODE {DM, ZM, BOMBING};
-		enum class STATE {ROAM, ATTACK};
+		enum class STATE {ROAM, ATTACK, SCOUT, FLEE};
 		BotFlags flags;
 
 	private:
@@ -40,6 +42,8 @@ namespace godot
 
 		GMODE game_mode;
 		STATE current_state;
+
+		float time_elapsed = 0.f;
 
 	public:
 
