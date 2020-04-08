@@ -26,7 +26,7 @@ void Destination::getPathToDestination()
         path = _nav->get_simple_path(_parent->get_position(), dest_pos);
         _cur_pos_id = 0;
         #ifdef DEBUG_MODE
-            Godot::print(std::to_string(path.size()).c_str());
+            Godot::print("getting path");
         #endif
     }
 }
@@ -63,11 +63,14 @@ void Destination::traverse()
         return;
     }
 
-    mov_vct = path[_cur_pos_id] - position;
-    _parent->set("movement_vector", mov_vct);
+  //  mov_vct = static_cast<Vector2>(_parent->get("movement_vector")).normalized();
+    mov_vct = (path[_cur_pos_id] - position).normalized() / 20.f;
+
+//    Vector2 steering_vct = desired_vct - mov_vct;
+    
+//    _parent->set("movement_vector", desired_vct + mov_vct);
 
     //if near next point 
-    if (mov_vct.length() < max_displacement_limit)
-        _cur_pos_id++;
-    
+    if ((path[_cur_pos_id] - position).length() < 10.f)
+        _cur_pos_id++;    
 }

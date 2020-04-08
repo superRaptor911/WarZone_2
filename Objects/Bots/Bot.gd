@@ -13,6 +13,9 @@ var selected_gun = null
 var unselected_gun = null
 var wpn_drop = preload("res://Objects/Misc/WpnDrop.tscn").instance()
 
+var is_bomber = false
+var is_on_bomb_site = false
+
 signal bot_killed(bot)
 
 var bot_data : Dictionary = {
@@ -35,6 +38,11 @@ func _ready():
 		$VisionTimer.wait_time = $VisionTimer.wait_time * (1.0 + rand_range(-0.5,0.5))
 		$VisionTimer.start()
 		connect("char_killed",self,"_on_bot_killed")
+		
+		if game_server.serverInfo.game_mode == "Bombing":
+			var bomb_mode = get_tree().get_nodes_in_group("GameMode")[0]
+			bomb_mode.connect("round_started",self,"_on_new_round_start")
+			bomb_mode.connect("bomb_planted",self,"_on_bomb_planted")
 	else:
 		$Brain.queue_free()
 
@@ -210,3 +218,13 @@ func _on_VisionTimer_timeout():
 	$Brain.updateVision()
 	
 
+###################################Bot Bombing mode####################
+
+func _on_new_round_start():
+	$Brain.onNewRoundStarted()
+
+func _on_bomb_planted():
+	$Brain.onBombPlanted()
+
+func _process(delta):
+	$Brain.think(delta)

@@ -91,7 +91,8 @@ void Attack::engageEnemy()
     if (!current_enemy)
         return;
 
-    _bot->point_to_position = current_enemy->get_position();
+    enemy_position = current_enemy->get_position();
+    _bot->point_to_dir = enemy_position - _parent->get_position();
 
     if (reaction_timer->is_stopped() && burst_timer->is_stopped())
     {

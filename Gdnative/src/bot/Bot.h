@@ -36,7 +36,7 @@ namespace godot
 		Array visible_enemies;
 		Array visible_friends;
 
-		Vector2 point_to_position;
+		Vector2 point_to_dir;
 		float angle_left_to_rotate = 0;
 		BotAttrib bot_attribute;
 
@@ -53,6 +53,7 @@ namespace godot
 		void _init(); // our initializer called by Godot
 		void _ready();
 		void _process(float delta);
+		void think(float delta);
 		void updateVision();
 		void interpolate_rotation(float delta);
 
@@ -60,6 +61,9 @@ namespace godot
 		void setGameMode(String gmod);
 		void gamemodeDeathmath();
 		void gamemodeBombing();
+
+		void onNewRoundStarted();
+		void onBombPlanted();
 	};
 
 

@@ -4,6 +4,8 @@ var players_n_bots = Array()
 var current_spec_player = null
 var spec_id = 0
 
+var str_format = "%s\nKills : %d\nDeaths : %d\nHP : %d\nAP : %d"
+
 signal leave_spec_mode
 
 func _ready():
@@ -49,7 +51,6 @@ func specNextPlayer():
 		current_spec_player = alive_players[spec_id]
 		current_spec_player.get_node("Camera2D").current = true
 		$Minimap.local_player = current_spec_player
-		$Text/Label.text = "You are spectating " + current_spec_player.pname
 	else:
 		current_spec_player = null
 
@@ -64,7 +65,6 @@ func specRandomPlayer():
 		current_spec_player = alive_players[spec_id]
 		current_spec_player.get_node("Camera2D").current = true
 		$Minimap.local_player = current_spec_player
-		$Text/Label.text = "You are spectating " + current_spec_player.pname
 	else:
 		current_spec_player = null
 
@@ -77,3 +77,8 @@ func _on_menu_pressed():
 	if current_spec_player:
 		current_spec_player.get_node("Camera2D").current = false
 	emit_signal("leave_spec_mode")
+
+func _process(delta):
+	$Text/Label.text = str_format % [current_spec_player.pname, 
+	current_spec_player.kills, current_spec_player.deaths, current_spec_player.HP,
+	current_spec_player.AP]

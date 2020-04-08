@@ -2,8 +2,10 @@
 #define NAVIGATE_H
 
 #include <Godot.hpp>
+#include <RayCast2D.hpp>
 #include <Destination.h>
 #include <stack>
+
 
 namespace godot
 {
@@ -15,18 +17,21 @@ namespace godot
         Node2D *_parent;
         Navigation2D *_nav;
         Bot *_bot;
+        RayCast2D *_ray;
         std::stack<Destination> _places;
         int _max_places {5};
     
     private:
 
         //This function prevents bots from being stuck when they collide with each other.
-        bool _handleCollisionWithFriend();
+        void _handleCollisionWithFriend();
     
     public:
 
         bool on_final_destination {true};
         Vector2 world_size {Vector2(1500,1500)};
+        Vector2 force_vect;
+        Vector2 mov_vct;
         
     public:
 

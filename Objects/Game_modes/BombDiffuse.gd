@@ -18,6 +18,10 @@ var planting_bomb = false
 var time_to_diffuse = 5.0
 var diffusing_bomb = false
 
+signal round_started
+signal round_end
+signal bomb_planted
+
 func _ready():
 	$plant_bomb/ProgressBar.max_value = time_to_plant
 	$diffuse_button/ProgressBar.max_value = time_to_diffuse
@@ -43,7 +47,7 @@ func _ready():
 		level.connect("player_spawned",self,"_on_player_spawnwed")
 		level.connect("bot_spawned",self,"_on_player_spawnwed")
 		level.connect("player_despawned",self,"_on_plyer_despawned")
-		#level.connect("bot_despawned",self,"")		
+		level.connect("bot_despawned",self,"_on_plyer_despawned")
 		#connect to bomb sites
 		var bombSites = get_tree().get_nodes_in_group("Bomb_site")
 		for i in bombSites:
@@ -104,6 +108,8 @@ func selectBomber() -> bool:
 		
 		if bomber.is_in_group("User"):
 			rpc_id(int(bomber.name),"_notifyBomber")
+		else:
+			bomber.is_bomber = true
 		return true
 	else:
 		print("Not enough players")
@@ -116,6 +122,10 @@ func removeBomber():
 		bomber.remove_from_group("bomber")
 		bomber.disconnect("char_killed",self,"removeBomber")
 		bomb.dropBomb()
+		if bomber.is_in_group("Bot"):
+			bomber.is_bomber = false
+			bomber.is_on_bomb_site = false
+		
 		bomber = null
 
 
@@ -180,10 +190,14 @@ func _on_diffuser_killed():
 func _on_bomber_entered_bombSpot():
 	if not bomb.bomb_planted and bomber.is_in_group("User"):
 		showPlantOption(true)
+	else:
+		bomber.is_on_bomb_site = true
 
 func _on_bomber_exited_bombSpot():
 	if bomber.is_in_group("User"):
 		showPlantOption(false)
+	else:
+		bomber.is_on_bomb_site = false
 
 
 func _on_plant_bomb_pressed():

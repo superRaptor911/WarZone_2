@@ -19,10 +19,10 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.6, 0.6, 0.6, 0.588235 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
 
 [sub_resource type="DynamicFont" id=4]
 size = 32
@@ -66,23 +66,28 @@ margin_right = 0.0
 margin_bottom = 256.0
 
 [node name="Text" type="Panel" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -263.0
-margin_top = 109.0
-margin_right = 289.0
-margin_bottom = 185.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -281.0
+margin_right = 407.0
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Text"]
-margin_left = 14.3374
-margin_top = 12.78
-margin_right = 328.337
-margin_bottom = 55.78
+margin_left = 14.0
+margin_top = 13.0
+margin_right = 328.0
+margin_bottom = 256.0
 custom_fonts/font = SubResource( 4 )
-text = "You are spectating"
+text = "      Spectating
+Kills
+Deaths
+HP
+AP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="spec" to="." method="_on_spec_pressed"]
 [connection signal="pressed" from="menu" to="." method="_on_menu_pressed"]

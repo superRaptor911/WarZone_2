@@ -26,6 +26,11 @@ shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="." index="9"]
 zoom = Vector2( 0.75, 0.75 )
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="10"]
+rotation = 3.14159
+enabled = true
+cast_to = Vector2( 0, 60 )
 [connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]
 [connection signal="timeout" from="VisionTimer" to="." method="_on_VisionTimer_timeout"]

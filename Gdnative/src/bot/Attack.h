@@ -20,6 +20,8 @@ namespace godot
 
         Node2D *current_enemy = nullptr;
 
+        Vector2 enemy_position;
+
         //Delay before engaging new enemy
         Timer *reaction_timer;
         

@@ -23,6 +23,9 @@ void Bot::_register_methods()
 	register_method("updateVision", &Bot::updateVision);
 	register_method("setBotDifficulty", &Bot::setBotDifficulty);
 	register_method("setGameMode", &Bot::setGameMode);
+	register_method("onNewRoundStarted",&Bot::onNewRoundStarted);
+	register_method("onBombPlanted",&Bot::onBombPlanted);
+	register_method("think",&Bot::think);
 
 	register_property<Bot, Array> ("visible_enemies", &Bot::visible_enemies, Array());
 	register_property<Bot, Array> ("visible_friends", &Bot::visible_friends, Array());
@@ -59,6 +62,10 @@ void Bot::_init()
 
 void Bot::_process(float delta)
 {
+}
+
+void Bot::think(float delta)
+{
 	time_elapsed += delta;
 	if ( !static_cast<bool>(_parent->get("alive")) )
 		return;
@@ -77,7 +84,7 @@ void Bot::updateVision()
 void Bot::interpolate_rotation(float delta)
 {
 	float rotation = _parent->get_rotation();
-	float new_rotation = (point_to_position - _parent->get_position()).angle() + 1.57f;
+	float new_rotation = (point_to_dir).angle() + 1.57f;
 
 	//setting domain [0 - 2pi]
 	if (new_rotation < 0.f)
@@ -164,13 +171,13 @@ void Bot::gamemodeDeathmath()
 			navigation_state->getRandomLocation();
 		}
 
-		if (!visible_enemies.empty())
+		/*if (!visible_enemies.empty())
 		{
 			current_state = STATE::ATTACK;
 			#ifdef DEBUG_MODE
 				Godot::print("changing state to attack");
 			#endif
-		}		
+		}*/
 	}
 	else if (current_state == STATE::ATTACK)
 	{
@@ -189,7 +196,7 @@ void Bot::gamemodeDeathmath()
 		if (!attack_state->current_enemy)
 		{
 			navigation_state->clearPlaces();
-			navigation_state->addPlace(point_to_position);
+			navigation_state->addPlace(attack_state->enemy_position);
 			current_state = STATE::SCOUT;
 			flags.scout_start_time = time_elapsed;
 			#ifdef DEBUG_MODE
@@ -237,10 +244,20 @@ void Bot::gamemodeDeathmath()
 	else if (current_state == STATE::FLEE)
 	{
 		
-	}	
+	}
 }
 
 void Bot::gamemodeBombing()
+{
+
+}
+
+void Bot::onNewRoundStarted()
+{
+
+}
+
+void Bot::onBombPlanted()
 {
 
 }

@@ -5,8 +5,9 @@ using namespace godot;
 navigate::navigate(Node2D *par, Navigation2D *nav, Bot *bot)
 {
     _parent = par;
-     _nav = nav;
-     _bot = bot;
+    _nav = nav;
+    _bot = bot;
+    _ray = static_cast<RayCast2D *>(_parent->get_node("RayCast2D"));
 }
     
 navigate::~navigate()
@@ -37,11 +38,16 @@ void navigate::move()
 {
     if (!_places.empty())
     {
-        _bot->point_to_position = _places.top().mov_vct + _parent->get_position();
+        force_vect = Vector2(0,0);
+        mov_vct = mov_vct.normalized();
+        
+        _handleCollisionWithFriend();
+        _places.top().traverse();
+        force_vect += _places.top().mov_vct;
 
-        if(!_handleCollisionWithFriend())
-            _places.top().traverse();
-
+        mov_vct += force_vect;
+        _parent->set("movement_vector", mov_vct);
+        _bot->point_to_dir = mov_vct;
         if (_places.top().reached_desination)
             _places.pop();
     }
@@ -71,27 +77,30 @@ float navigate::sqDistance(const Vector2 &v1, const Vector2 &v2)
 }
 
 //This function prevents bots from being stuck when they collide with each other.
-bool navigate::_handleCollisionWithFriend()
-{
-    int sz = _bot->visible_enemies.size();
+void navigate::_handleCollisionWithFriend()
+{/*
+    int sz = _bot->visible_friends.size();
     float min_dist = 50.f;
     Vector2 position = _parent->get_position();
     Node2D *friend_node = nullptr;
     for (size_t i = 0; i < sz; i++)
     {
-        float distance = sqDistance(position, static_cast<Node2D *>(_bot->visible_enemies[i])->get_position() ) ;
+        float distance = sqDistance(position, static_cast<Node2D *>(_bot->visible_friends[i])->get_position() ) ;
         if (distance < min_dist * min_dist)
         {
-            friend_node = static_cast<Node2D *>(_bot->visible_enemies[i]);
+            friend_node = static_cast<Node2D *>(_bot->visible_friends[i]);
         }                
     }
 
     if (friend_node)
     {
-        _parent->set("movement_vector", _places.top().mov_vct.rotated(0.785f));
-        _bot->point_to_position = _places.top().mov_vct.rotated(0.785f) + _parent->get_position();
+        force_vect += ((position + mov_vct * 2.0) - friend_node->get_position()).normalized() * 3.0;
         return true;
-    }
+    }*/
 
-    return false;
+    if (_ray->is_colliding())
+    {
+        Vector2 coll_norm = _ray->get_collision_normal();
+        force_vect += coll_norm / 15.f;
+    }
 }

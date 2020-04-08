@@ -26,7 +26,7 @@ namespace godot
         bool has_path_to_destination {false};
         PoolVector2Array path;
 
-        const float max_displacement_limit = 6.f;
+        const float max_displacement_limit = 64.f;
 
     public:
         Destination(Node2D *_par, Navigation2D *nav, const Vector2 &dest);
