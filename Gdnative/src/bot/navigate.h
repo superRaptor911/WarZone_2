@@ -5,6 +5,7 @@
 #include <RayCast2D.hpp>
 #include <Destination.h>
 #include <stack>
+#include <vector>
 
 
 namespace godot
@@ -17,14 +18,15 @@ namespace godot
         Node2D *_parent;
         Navigation2D *_nav;
         Bot *_bot;
-        RayCast2D *_ray;
+        std::vector<RayCast2D *> _rays;
         std::stack<Destination> _places;
+
         int _max_places {5};
     
     private:
 
         //This function prevents bots from being stuck when they collide with each other.
-        void _handleCollisionWithFriend();
+        void handleCollision();
     
     public:
 

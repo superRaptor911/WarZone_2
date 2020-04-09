@@ -1,5 +1,7 @@
 #include <navigate.h>
 #include <Bot.h>
+#include <SceneTree.hpp>
+#include <TileMap.hpp>
 using namespace godot;
 
 navigate::navigate(Node2D *par, Navigation2D *nav, Bot *bot)
@@ -7,7 +9,13 @@ navigate::navigate(Node2D *par, Navigation2D *nav, Bot *bot)
     _parent = par;
     _nav = nav;
     _bot = bot;
-    _ray = static_cast<RayCast2D *>(_parent->get_node("RayCast2D"));
+    _rays.push_back(static_cast<RayCast2D *>(_parent->get_node("RayCast_up")));
+    _rays.push_back(static_cast<RayCast2D *>(_parent->get_node("RayCast_down")));
+    _rays.push_back(static_cast<RayCast2D *>(_parent->get_node("RayCast_left")));
+    _rays.push_back(static_cast<RayCast2D *>(_parent->get_node("RayCast_right")));
+
+    Node2D *level = _bot->get_tree()->get_nodes_in_group("Level")[0];
+    world_size = static_cast<TileMap *>(level->get_node("BaseMap/height"))->get_used_rect().get_size() * Vector2(64, 64);
 }
     
 navigate::~navigate()
@@ -24,7 +32,7 @@ void navigate::addPlace(const Vector2 &place)
     if (!_places.empty())
         _places.top().has_path_to_destination = false;
     
-    _places.push(Destination(_parent,_nav,place));
+    _places.push(Destination(_parent,_bot,_nav,place));
     on_final_destination = false;
 }
 
@@ -41,9 +49,9 @@ void navigate::move()
         force_vect = Vector2(0,0);
         mov_vct = mov_vct.normalized();
         
-        _handleCollisionWithFriend();
+        handleCollision();
         _places.top().traverse();
-        force_vect += _places.top().mov_vct;
+        force_vect += _places.top().mov_force;
 
         mov_vct += force_vect;
         _parent->set("movement_vector", mov_vct);
@@ -77,30 +85,15 @@ float navigate::sqDistance(const Vector2 &v1, const Vector2 &v2)
 }
 
 //This function prevents bots from being stuck when they collide with each other.
-void navigate::_handleCollisionWithFriend()
-{/*
-    int sz = _bot->visible_friends.size();
-    float min_dist = 50.f;
-    Vector2 position = _parent->get_position();
-    Node2D *friend_node = nullptr;
-    for (size_t i = 0; i < sz; i++)
+void navigate::handleCollision()
+{
+    for(auto &it : _rays)
     {
-        float distance = sqDistance(position, static_cast<Node2D *>(_bot->visible_friends[i])->get_position() ) ;
-        if (distance < min_dist * min_dist)
+        if (it->is_colliding())
         {
-            friend_node = static_cast<Node2D *>(_bot->visible_friends[i]);
-        }                
-    }
-
-    if (friend_node)
-    {
-        force_vect += ((position + mov_vct * 2.0) - friend_node->get_position()).normalized() * 3.0;
-        return true;
-    }*/
-
-    if (_ray->is_colliding())
-    {
-        Vector2 coll_norm = _ray->get_collision_normal();
-        force_vect += coll_norm / 15.f;
+            Vector2 coll_norm = it->get_collision_normal();
+            float scale = 60.f / (it->get_collision_point() - it->get_global_position()).length();
+            force_vect += (coll_norm / 15.f) * scale;
+        }        
     }
 }

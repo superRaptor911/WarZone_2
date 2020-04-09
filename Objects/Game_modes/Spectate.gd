@@ -78,7 +78,12 @@ func _on_menu_pressed():
 		current_spec_player.get_node("Camera2D").current = false
 	emit_signal("leave_spec_mode")
 
+
+	
 func _process(delta):
 	$Text/Label.text = str_format % [current_spec_player.pname, 
 	current_spec_player.kills, current_spec_player.deaths, current_spec_player.HP,
 	current_spec_player.AP]
+
+
+

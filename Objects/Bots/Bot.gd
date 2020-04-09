@@ -39,6 +39,7 @@ func _ready():
 		$VisionTimer.start()
 		connect("char_killed",self,"_on_bot_killed")
 		
+		
 		if game_server.serverInfo.game_mode == "Bombing":
 			var bomb_mode = get_tree().get_nodes_in_group("GameMode")[0]
 			bomb_mode.connect("round_started",self,"_on_new_round_start")
@@ -133,6 +134,7 @@ func _on_free_timer_timeout():
 
 func _on_bot_killed():
 	createDropedItems()
+	$Brain.onKilled()
 	emit_signal("bot_killed",self)
 	#$free_timer.start()
 

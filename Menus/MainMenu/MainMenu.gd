@@ -13,6 +13,7 @@ func _ready():
 		remove_child($btn_click)
 		get_tree().root.call_deferred("add_child",btn_click)
 
+
 func _on_Button_pressed():
 	btn_click.play()
 	_next_scene = "res://Menus/MainMenu/Join_menu.tscn"
@@ -43,6 +44,7 @@ func _on_store_pressed():
 
 func goToNextScene():
 	get_tree().change_scene(_next_scene);
+	
 
 #########################Tweeeening############################
 func tweenTransition():

@@ -37,10 +37,8 @@ func removePlayer(plr):
 
 func _on_player_killed():
 	alive_players -= 1
-	print("player alive ",alive_players)
 	if alive_players == 0:
 		emit_signal("team_eliminated",self)
 
 func _on_player_born():
 	alive_players += 1
-	print("player alive ",alive_players)

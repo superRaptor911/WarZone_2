@@ -23,8 +23,9 @@ void Bot::_register_methods()
 	register_method("updateVision", &Bot::updateVision);
 	register_method("setBotDifficulty", &Bot::setBotDifficulty);
 	register_method("setGameMode", &Bot::setGameMode);
-	register_method("onNewRoundStarted",&Bot::onNewRoundStarted);
+	register_method("onNewBombingRoundStarted",&Bot::onNewBombingRoundStarted);
 	register_method("onBombPlanted",&Bot::onBombPlanted);
+	register_method("onKilled",&Bot::onKilled);
 	register_method("think",&Bot::think);
 
 	register_property<Bot, Array> ("visible_enemies", &Bot::visible_enemies, Array());
@@ -171,24 +172,24 @@ void Bot::gamemodeDeathmath()
 			navigation_state->getRandomLocation();
 		}
 
-		/*if (!visible_enemies.empty())
+		if (!visible_enemies.empty())
 		{
 			current_state = STATE::ATTACK;
 			#ifdef DEBUG_MODE
 				Godot::print("changing state to attack");
 			#endif
-		}*/
+		}
 	}
 	else if (current_state == STATE::ATTACK)
 	{
 		if (bot_attribute.enable_evasive_mov)
 		{
-			if (time_elapsed - flags.evasive_mov_start_time > 2.f)
+			if (time_elapsed - NavFlags.evasive_mov_start_time > 2.f)
 			{
-				flags.evasive_mov_dir *= -1;
-				flags.evasive_mov_start_time = time_elapsed;
+				NavFlags.evasive_mov_dir *= -1;
+				NavFlags.evasive_mov_start_time = time_elapsed;
 			}
-			_parent->set("movement_vector",_parent->get_transform().get_axis(0) * flags.evasive_mov_dir);		
+			_parent->set("movement_vector",_parent->get_transform().get_axis(0) * NavFlags.evasive_mov_dir);		
 		}
 		
 		attack_state->engageEnemy();
@@ -198,7 +199,7 @@ void Bot::gamemodeDeathmath()
 			navigation_state->clearPlaces();
 			navigation_state->addPlace(attack_state->enemy_position);
 			current_state = STATE::SCOUT;
-			flags.scout_start_time = time_elapsed;
+			NavFlags.scout_start_time = time_elapsed;
 			#ifdef DEBUG_MODE
 				Godot::print("changing state to scout");
 			#endif
@@ -233,7 +234,7 @@ void Bot::gamemodeDeathmath()
 			#endif
 		}
 		//stay in this mode for 30 seconds
-		if (time_elapsed - flags.scout_start_time > 20.f)
+		if (time_elapsed - NavFlags.scout_start_time > 20.f)
 		{
 			current_state = STATE::ROAM;
 			#ifdef DEBUG_MODE
@@ -252,15 +253,27 @@ void Bot::gamemodeBombing()
 
 }
 
-void Bot::onNewRoundStarted()
+void Bot::onNewBombingRoundStarted()
 {
-
+	//terrorrist team
+	if (team_id == 0)
+	{
+				
+	}
+	
 }
 
 void Bot::onBombPlanted()
 {
-
+	
 }
+
+void Bot::onKilled()
+{
+	navigation_state->clearPlaces();
+}
+
+
 
 Bot::~Bot()
 {

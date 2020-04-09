@@ -20,13 +20,13 @@ namespace godot
 	private:
 
 		Node2D *_parent = nullptr;
+		int team_id = 0;
 		std::unique_ptr<navigate> navigation_state;
 		std::unique_ptr<Attack> attack_state;
 
 		enum class GMODE {DM, ZM, BOMBING};
 		enum class STATE {ROAM, ATTACK, SCOUT, FLEE};
-		BotFlags flags;
-
+		BotNavFlags NavFlags;
 	private:
 
 		void _loadStates();
@@ -62,8 +62,10 @@ namespace godot
 		void gamemodeDeathmath();
 		void gamemodeBombing();
 
-		void onNewRoundStarted();
+		void onNewBombingRoundStarted();
 		void onBombPlanted();
+		void onSelectedAsBomber();
+		void onKilled();
 	};
 
 

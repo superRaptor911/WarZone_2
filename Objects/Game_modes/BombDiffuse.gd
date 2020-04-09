@@ -20,6 +20,7 @@ var diffusing_bomb = false
 
 signal round_started
 signal round_end
+signal bomber_bot(bot)
 signal bomb_planted
 
 func _ready():
@@ -212,6 +213,7 @@ func _on_bomb_planted():
 	showPlantOption(false)
 	rpc("bombPlanted")
 	removeBomber()
+	emit_signal("bomb_planted")
 
 
 func terroristWin():
@@ -232,6 +234,7 @@ func _on_round_end_delay_timeout():
 
 func _on_round_start_delay_timeout():
 	$RoundTimer.start()
+	emit_signal("round_started")
 	rpc("_roundStart")
 
 

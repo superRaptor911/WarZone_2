@@ -1,30 +1,24 @@
 #ifndef BOTFLAGS_H
 #define BOTFLAGS_H
 
+#include <Vector2.hpp>
+
 namespace godot
 {
-    struct BotFlags
+    struct BotNavFlags
     {
-        bool took_low_hp_measures;
-        bool took_low_ap_measures;
-
-        float scout_start_time;
+        float scout_start_time = 0.f;
         float evasive_mov_start_time = 0;
         int evasive_mov_dir = 1;
 
-        BotFlags()
-        {
-            resetDefaults();
-        }
-
-        void resetDefaults()
-        {
-            took_low_ap_measures = false;
-            took_low_hp_measures = false;
-            scout_start_time = 0.f;
-            evasive_mov_start_time = 0.f;
-        }
+        enum NON_BOMBER_MISSION { FOLLOW_BOMBER, GOTO_BOMBSPOT, GOTO_ENEMY_SPAWN};
+        NON_BOMBER_MISSION non_bomber_mission = NON_BOMBER_MISSION::FOLLOW_BOMBER;
+        Vector2 selected_bombspot;
+        Vector2 selected_enemy_spawn;
+        bool bomb_planted = false;
     };
+
+    
     
 }
 

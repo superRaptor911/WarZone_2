@@ -27,8 +27,22 @@ shape = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="." index="9"]
 zoom = Vector2( 0.75, 0.75 )
 
-[node name="RayCast2D" type="RayCast2D" parent="." index="10"]
+[node name="RayCast_up" type="RayCast2D" parent="." index="10"]
 rotation = 3.14159
+enabled = true
+cast_to = Vector2( 0, 60 )
+
+[node name="RayCast_down" type="RayCast2D" parent="." index="11"]
+enabled = true
+cast_to = Vector2( 0, 60 )
+
+[node name="RayCast_left" type="RayCast2D" parent="." index="12"]
+rotation = 1.5708
+enabled = true
+cast_to = Vector2( 0, 60 )
+
+[node name="RayCast_right" type="RayCast2D" parent="." index="13"]
+rotation = -1.5708
 enabled = true
 cast_to = Vector2( 0, 60 )
 [connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]

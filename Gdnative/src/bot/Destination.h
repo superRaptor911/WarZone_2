@@ -9,19 +9,23 @@
 
 namespace godot
 {
+    class Bot;
+    
     class Destination
     {
     private:
     
         Node2D *_parent;
         Navigation2D *_nav;
-        int _cur_pos_id {0};
+        Bot *_bot;
+        int _cur_node_id {0};
         Vector2 _old_pos;
+        float _timeStamp_at_node = 0.f;
 
     public:
         
         Vector2 dest_pos;
-        Vector2 mov_vct;
+        Vector2 mov_force;
         bool reached_desination {false};
         bool has_path_to_destination {false};
         PoolVector2Array path;
@@ -29,7 +33,7 @@ namespace godot
         const float max_displacement_limit = 64.f;
 
     public:
-        Destination(Node2D *_par, Navigation2D *nav, const Vector2 &dest);
+        Destination(Node2D *_par,Bot *bot, Navigation2D *nav, const Vector2 &dest);
         void getPathToDestination();
         void traverse();
         ~Destination();

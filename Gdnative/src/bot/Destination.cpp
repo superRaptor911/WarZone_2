@@ -5,11 +5,12 @@
 #include <Bot.h>
 using namespace godot;
 
-Destination::Destination(Node2D *par, Navigation2D *nav, const Vector2 &dest)
+Destination::Destination(Node2D *par,Bot *bot, Navigation2D *nav, const Vector2 &dest)
 {
     _parent = par;
     _nav = nav;
     dest_pos = dest;
+    _bot = bot;
 }
     
 Destination::~Destination()
@@ -24,10 +25,12 @@ void Destination::getPathToDestination()
     {
         has_path_to_destination = true;
         path = _nav->get_simple_path(_parent->get_position(), dest_pos);
-        _cur_pos_id = 0;
+        _cur_node_id = 0;
         #ifdef DEBUG_MODE
             Godot::print("getting path");
         #endif
+
+        _timeStamp_at_node = _bot->time_elapsed;
     }
 }
 
@@ -44,6 +47,14 @@ void Destination::traverse()
         #endif
         has_path_to_destination = false;
     }
+    if (_bot->time_elapsed - _timeStamp_at_node > 30.f)
+    {
+        #ifdef DEBUG_MODE
+            Godot::print("Bot stuck for mare than 30 sec at a node");
+        #endif
+        has_path_to_destination = false;
+    }
+    
     _old_pos = position;
 
     //if no path, get path
@@ -54,7 +65,7 @@ void Destination::traverse()
     }
            
     //if index reaches end of the path then the journey ends 
-    if (_cur_pos_id >= path.size() )
+    if (_cur_node_id >= path.size() )
     {
         reached_desination = true;
         #ifdef DEBUG_MODE
@@ -63,14 +74,11 @@ void Destination::traverse()
         return;
     }
 
-  //  mov_vct = static_cast<Vector2>(_parent->get("movement_vector")).normalized();
-    mov_vct = (path[_cur_pos_id] - position).normalized() / 20.f;
+    mov_force = (path[_cur_node_id] - position).normalized() / 20.f;
 
-//    Vector2 steering_vct = desired_vct - mov_vct;
-    
-//    _parent->set("movement_vector", desired_vct + mov_vct);
-
-    //if near next point 
-    if ((path[_cur_pos_id] - position).length() < 10.f)
-        _cur_pos_id++;    
+    if ((path[_cur_node_id] - position).length() < 64.f)
+    {
+        _cur_node_id++;
+        _timeStamp_at_node = _bot->time_elapsed;
+    }
 }
