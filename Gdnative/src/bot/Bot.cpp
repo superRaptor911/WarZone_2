@@ -54,6 +54,14 @@ void Bot::_ready()
 	
 	navigation_state = std::make_unique<navigate>(_parent, nav, this);
 	attack_state = std::make_unique<Attack>(_parent, this);
+	team_id = static_cast<int>(static_cast<Node *>(_parent->get("team"))->get("team_id"));
+	
+	#ifdef DEBUG_MODE
+		std::string team_name = "terrorist";
+		if (team_id == 1)
+			team_name = "counter_terrorist";
+		Godot::print(("team is " + team_name).c_str());
+	#endif
 }
 
 void Bot::_init()
@@ -116,6 +124,10 @@ void Bot::interpolate_rotation(float delta)
 	_parent->set_rotation(rotation);
 }
 
+bool Bot::chance(int percentage)
+{
+	return (rand() % 100 < percentage);
+}
 
 void Bot::setBotDifficulty(int difficulty)
 {
@@ -158,7 +170,10 @@ void Bot::setGameMode(String gmod)
 	if (gmod == "FFA")
 		game_mode = GMODE::DM;
 	else if (gmod == "Bombing")
-		game_mode = GMODE::BOMBING;	
+	{
+		game_mode = GMODE::BOMBING;
+		BombFlags.bomb_sites = get_tree()->get_nodes_in_group("Bomb_site");
+	}
 }
 
 
@@ -250,7 +265,164 @@ void Bot::gamemodeDeathmath()
 
 void Bot::gamemodeBombing()
 {
+	if (current_state == STATE::ROAM)
+	{	
+		navigation_state->move();
+		if (navigation_state->on_final_destination)
+		{
+			//check if on bomb site
+			int arr_sz = BombFlags.bomb_sites.size();
+			Vector2 position = _parent->get_position();
+			for (int i = 0; i < arr_sz; i++)
+			{
+				if ((position - static_cast<Node2D *>(BombFlags.bomb_sites[i])->get_position()).length() < 100.f)
+				{
+					#ifdef DEBUG_MODE
+						Godot::print("Bot reached bomb spot");
+					#endif
 
+					if (BombFlags.is_bomber)
+					{
+						//plant bomb
+					}
+					else
+					{
+						//terrorist team
+						if (team_id == 0)
+						{
+							int chance_to_camp = 33;
+
+							if (BombFlags.bomb_planted)
+								chance_to_camp = 66;	
+							
+							//change state to camp
+							if (chance(chance_to_camp))
+							{
+								current_state = STATE::CAMP;
+								#ifdef DEBUG_MODE
+									Godot::print("changing state to camp");
+								#endif
+							}
+							//change state to roam
+							else
+							{
+								navigation_state->clearPlaces();
+								current_state = STATE::ROAM;
+								#ifdef DEBUG_MODE
+									Godot::print("changing state to roam");
+								#endif
+							}								
+						}			
+					}
+					break;
+				}
+			}
+			
+			navigation_state->getRandomLocation();
+		}
+
+		if (!visible_enemies.empty())
+		{
+			current_state = STATE::ATTACK;
+			#ifdef DEBUG_MODE
+				Godot::print("changing state to attack");
+			#endif
+		}
+	}
+	else if (current_state == STATE::ATTACK)
+	{
+		if (bot_attribute.enable_evasive_mov)
+		{
+			if (time_elapsed - NavFlags.evasive_mov_start_time > 2.f)
+			{
+				NavFlags.evasive_mov_dir *= -1;
+				NavFlags.evasive_mov_start_time = time_elapsed;
+			}
+			_parent->set("movement_vector",_parent->get_transform().get_axis(0) * NavFlags.evasive_mov_dir);		
+		}
+		
+		attack_state->engageEnemy();
+		if (!attack_state->current_enemy)
+		{
+			//bomber goto bombsite
+			if (BombFlags.is_bomber)
+			{
+				navigation_state->clearPlaces();
+				navigation_state->addPlace(BombFlags.selected_bombspot);
+				current_state = STATE::ROAM;
+				#ifdef DEBUG_MODE
+					Godot::print("changing state to goto site");
+				#endif
+			}
+			//follow bomber if was following bomber
+			else if (team_id == 0 && BombFlags.non_bomber_mission == BotBombingFlags::NON_BOMBER_MISSION::FOLLOW_BOMBER)
+			{
+				navigation_state->clearPlaces();
+				current_state = STATE::FOLLOW_BOMBER;
+				#ifdef DEBUG_MODE
+					Godot::print("changing state to follow bomber");
+				#endif
+			}			
+			else
+			{
+				navigation_state->clearPlaces();
+				navigation_state->addPlace(attack_state->enemy_position);
+				current_state = STATE::SCOUT;
+				NavFlags.scout_start_time = time_elapsed;
+				#ifdef DEBUG_MODE
+					Godot::print("changing state to scout");
+				#endif
+			}
+		}
+	}
+	else if (current_state == STATE::SCOUT)
+	{
+		navigation_state->move();
+		if (navigation_state->on_final_destination)
+		{
+			Vector2 mov_vct = static_cast<Vector2>(_parent->get("movement_vector"));
+			double angle = atan2(mov_vct.y, mov_vct.x);
+			Vector2 rot_pos = Vector2(280,280).rotated(angle + 1.57);
+			Vector2 rand_pos = Vector2(2.0 * rot_pos.x * (rand() % 100) / 100.0 - rot_pos.x, 
+									   2.0 * rot_pos.y * (rand() % 100) / 100.0 - rot_pos.y);
+			
+			Vector2 pos = nav->get_closest_point(_parent->get_position() + rand_pos);
+			navigation_state->addPlace(pos);
+		}
+		if (!visible_enemies.empty())
+		{
+			current_state = STATE::ATTACK;
+			#ifdef DEBUG_MODE
+				Godot::print("changing state to attack");
+			#endif
+		}
+		//stay in this mode for 30 seconds
+		if (time_elapsed - NavFlags.scout_start_time > 20.f)
+		{
+			current_state = STATE::ROAM;
+			#ifdef DEBUG_MODE
+				Godot::print("changing state to Roam");
+			#endif
+		}
+	}
+	else if (current_state == STATE::CAMP)
+	{
+		if (time_elapsed - BombFlags.camp_time_start > BombFlags.max_camp_time)
+		{
+			current_state = STATE::ROAM;
+			#ifdef DEBUG_MODE
+				Godot::print("changing state to Roam");
+			#endif	
+		}
+
+		if (!visible_enemies.empty())
+		{
+			current_state = STATE::ATTACK;
+			#ifdef DEBUG_MODE
+				Godot::print("changing state to attack");
+			#endif
+		}		
+	}
 }
 
 void Bot::onNewBombingRoundStarted()
@@ -258,9 +430,34 @@ void Bot::onNewBombingRoundStarted()
 	//terrorrist team
 	if (team_id == 0)
 	{
-				
+		if (BombFlags.is_bomber)
+		{
+			Array bomb_sites = BombFlags.bomb_sites;
+			int rand_no = rand() % bomb_sites.size();
+			BombFlags.selected_bombspot = static_cast<Node2D *>(bomb_sites[rand_no])->get_position();
+			navigation_state->addPlace(BombFlags.selected_bombspot);
+		}
+		else
+		{
+			int a = rand() % 3;
+			if (a == 0)
+				BombFlags.non_bomber_mission = BotBombingFlags::NON_BOMBER_MISSION::FOLLOW_BOMBER;
+			else if (a == 1)
+				BombFlags.non_bomber_mission = BotBombingFlags::NON_BOMBER_MISSION::GOTO_BOMBSPOT;
+			else if (a == 2)
+				BombFlags.non_bomber_mission = BotBombingFlags::NON_BOMBER_MISSION::GOTO_ENEMY_SPAWN;
+		}	
 	}
-	
+	//counter terrorist
+	else
+	{
+		
+	}
+}
+
+void Bot::onBombingRoundEnds()
+{
+	BombFlags.resetFlags();
 }
 
 void Bot::onBombPlanted()
@@ -273,7 +470,10 @@ void Bot::onKilled()
 	navigation_state->clearPlaces();
 }
 
-
+void Bot::onSelectedAsBomber()
+{
+	BombFlags.is_bomber = true;
+}
 
 Bot::~Bot()
 {

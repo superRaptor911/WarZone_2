@@ -25,8 +25,9 @@ namespace godot
 		std::unique_ptr<Attack> attack_state;
 
 		enum class GMODE {DM, ZM, BOMBING};
-		enum class STATE {ROAM, ATTACK, SCOUT, FLEE};
+		enum class STATE {ROAM, ATTACK, SCOUT, FLEE, FOLLOW_BOMBER, CAMP};
 		BotNavFlags NavFlags;
+		BotBombingFlags BombFlags;
 	private:
 
 		void _loadStates();
@@ -56,6 +57,9 @@ namespace godot
 		void think(float delta);
 		void updateVision();
 		void interpolate_rotation(float delta);
+		
+		//returns true by given percentage 
+		bool chance(int percentage);
 
 		void setBotDifficulty(int difficulty);
 		void setGameMode(String gmod);
@@ -63,6 +67,7 @@ namespace godot
 		void gamemodeBombing();
 
 		void onNewBombingRoundStarted();
+		void onBombingRoundEnds();
 		void onBombPlanted();
 		void onSelectedAsBomber();
 		void onKilled();
