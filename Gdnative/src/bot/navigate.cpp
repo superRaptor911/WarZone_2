@@ -20,6 +20,7 @@ navigate::navigate(Node2D *par, Navigation2D *nav, Bot *bot)
     
 navigate::~navigate()
 {
+
 }
 
 //add a new location to visit.
@@ -69,6 +70,26 @@ void navigate::move()
     
 }
 
+void navigate::followLeader()
+{
+    if (!_bot->NavFlags.leader)
+        return;
+
+    Vector2 leader_pos = _bot->NavFlags.leader->get_position();
+    Vector2 position = _parent->get_position();
+    if (sqDistance(leader_pos, position) > sq(60.f))
+    {
+        force_vect = Vector2(0,0);
+        mov_vct = mov_vct.normalized();
+            
+        handleCollision();
+        force_vect += (leader_pos - position).normalized() / 20.f;
+        mov_vct += force_vect;
+        _parent->set("movement_vector", mov_vct);
+        _bot->point_to_dir = mov_vct;
+    }
+}
+
 //generates a random location to visit.
 void navigate::getRandomLocation()
 {
@@ -93,7 +114,7 @@ void navigate::handleCollision()
         {
             Vector2 coll_norm = it->get_collision_normal();
             float scale = 60.f / (it->get_collision_point() - it->get_global_position()).length();
-            force_vect += (coll_norm / 15.f) * scale;
+            force_vect += (coll_norm / 25.f) * scale;
         }        
     }
 }

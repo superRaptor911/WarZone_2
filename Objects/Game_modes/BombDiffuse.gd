@@ -20,7 +20,6 @@ var diffusing_bomb = false
 
 signal round_started
 signal round_end
-signal bomber_bot(bot)
 signal bomb_planted
 
 func _ready():
@@ -93,7 +92,7 @@ func selectBomber() -> bool:
 		bomber.remove_from_group("bomber")
 	
 	#unit is (player and bot)
-	var actors = get_tree().get_nodes_in_group("Unit")
+	var actors = get_tree().get_nodes_in_group("User")
 	var ts = Array()
 	for i in actors:
 		if i.alive and i.team.team_id == 0:
@@ -111,6 +110,7 @@ func selectBomber() -> bool:
 			rpc_id(int(bomber.name),"_notifyBomber")
 		else:
 			bomber.is_bomber = true
+			bomber.selectedAsbomber()
 		return true
 	else:
 		print("Not enough players")
@@ -162,6 +162,7 @@ func startRound():
 #end current round
 #its like a destructor for rounds
 func endRound():
+	emit_signal("round_end")
 	respawnEveryOne()
 	removeBomber()
 	bomb_planted = false
@@ -191,14 +192,11 @@ func _on_diffuser_killed():
 func _on_bomber_entered_bombSpot():
 	if not bomb.bomb_planted and bomber.is_in_group("User"):
 		showPlantOption(true)
-	else:
-		bomber.is_on_bomb_site = true
+
 
 func _on_bomber_exited_bombSpot():
 	if bomber.is_in_group("User"):
 		showPlantOption(false)
-	else:
-		bomber.is_on_bomb_site = false
 
 
 func _on_plant_bomb_pressed():

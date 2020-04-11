@@ -78,6 +78,10 @@ game_states="*res://Network/game_states.gd"
 network="*res://Network/network.gd"
 game_server="*res://Network/server.gd"
 
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/size/width=1280

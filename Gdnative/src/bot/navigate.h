@@ -50,6 +50,9 @@ namespace godot
         //generates a random location to visit.
         void getRandomLocation();
 
+        //Follow the leader
+        void followLeader();
+
         //returns square of distanec between 2 points.
         static float sqDistance(const Vector2 &v1, const Vector2 &v2);
         static float sq(float v) {return v*v;}

@@ -35,6 +35,7 @@ func _ready():
 		level.connect("player_despawned",self,"_on_player_left_server")
 		level.connect("bot_despawned",self,"_on_player_left_server")
 		$Brain.setBotDifficulty(game_server.bot_settings.bot_difficulty)
+		$Brain.setGameMode(game_server.serverInfo.game_mode)
 		$VisionTimer.wait_time = $VisionTimer.wait_time * (1.0 + rand_range(-0.5,0.5))
 		$VisionTimer.start()
 		connect("char_killed",self,"_on_bot_killed")
@@ -44,6 +45,11 @@ func _ready():
 			var bomb_mode = get_tree().get_nodes_in_group("GameMode")[0]
 			bomb_mode.connect("round_started",self,"_on_new_round_start")
 			bomb_mode.connect("bomb_planted",self,"_on_bomb_planted")
+			bomb_mode.connect("round_end", $Brain,"onBombingRoundEnds")
+			var bomb_sites = get_tree().get_nodes_in_group("Bomb_site")
+			for i in bomb_sites:
+				i.connect("bot_entered",$Brain,"onEnteredBombSite")
+				print("connected signal")
 	else:
 		$Brain.queue_free()
 
@@ -222,11 +228,17 @@ func _on_VisionTimer_timeout():
 
 ###################################Bot Bombing mode####################
 
+func selectedAsbomber():
+	$Brain.onSelectedAsBomber()
+
 func _on_new_round_start():
-	$Brain.onNewRoundStarted()
+	$Brain.onNewBombingRoundStarted()
 
 func _on_bomb_planted():
 	$Brain.onBombPlanted()
 
 func _process(delta):
 	$Brain.think(delta)
+
+func plantBomb():
+	get_tree().get_nodes_in_group("GameMode")[0]._on_plant_bomb_pressed()

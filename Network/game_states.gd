@@ -144,6 +144,7 @@ func load_data(save_path : String = "user://game.dat"):
 	var data = parse_json(json)
 	file.close()
 	
+	
 	return data
 
 

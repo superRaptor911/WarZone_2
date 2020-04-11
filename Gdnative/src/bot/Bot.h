@@ -25,9 +25,7 @@ namespace godot
 		std::unique_ptr<Attack> attack_state;
 
 		enum class GMODE {DM, ZM, BOMBING};
-		enum class STATE {ROAM, ATTACK, SCOUT, FLEE, FOLLOW_BOMBER, CAMP};
-		BotNavFlags NavFlags;
-		BotBombingFlags BombFlags;
+		enum class STATE {ROAM, ATTACK, SCOUT, FLEE, FOLLOW, CAMP, BOMB_PLANT};
 	private:
 
 		void _loadStates();
@@ -46,6 +44,9 @@ namespace godot
 
 		float time_elapsed = 0.f;
 
+		BotNavFlags NavFlags;
+		BotBombingFlags BombFlags;
+		
 	public:
 
 		Bot();
@@ -68,6 +69,7 @@ namespace godot
 
 		void onNewBombingRoundStarted();
 		void onBombingRoundEnds();
+		void onEnteredBombSite();
 		void onBombPlanted();
 		void onSelectedAsBomber();
 		void onKilled();
