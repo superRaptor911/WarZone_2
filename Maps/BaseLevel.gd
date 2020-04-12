@@ -23,7 +23,7 @@ var spawn_ponts = Array()
 var char_data_dict = {
 	pname = "player",
 	name = "null",
-	team_id = 0,
+	team_id = 1,
 	pos = Vector2(0,0),
 	g1 = "",
 	g2 = "",
@@ -248,7 +248,7 @@ func spawnBots():
 		char_data.g1 = i.bot_primary_gun
 		char_data.g2 = i.bot_sec_gun
 		char_data.is_bot = true
-		char_data.team_id = 0
+		char_data.team_id = 1
 		char_data.pos = getSpawnPosition(char_data.team_id)
 		#giving unique integer name
 		char_data.name = String(69 + index)

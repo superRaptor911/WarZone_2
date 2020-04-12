@@ -30,6 +30,8 @@ void Bot::_register_methods()
 	register_method("onKilled",&Bot::onKilled);
 	register_method("think",&Bot::think);
 	register_method("onEnteredBombSite",&Bot::onEnteredBombSite);
+	register_method("onCTnearBomb", &Bot::onCTnearBomb);
+	register_method("bombSiteFound",&Bot::bombSiteFound);
 
 	register_property<Bot, Array> ("visible_enemies", &Bot::visible_enemies, Array());
 	register_property<Bot, Array> ("visible_friends", &Bot::visible_friends, Array());
@@ -312,6 +314,21 @@ void Bot::gamemodeBombing()
 				}
 			}
 
+			if (team_id == 1)
+			{
+				if (BombFlags.bomb_planted && !BombFlags.is_bomb_being_diifused)
+				{
+					if (BombFlags.going_to_diffuse)
+					{
+						BombFlags.camp_time_start = time_elapsed;
+						current_state = STATE::BOMB_DIFF;
+					}
+					
+				}
+				
+			}
+			
+
 			navigation_state->getRandomLocation();
 		}
 
@@ -465,6 +482,15 @@ void Bot::gamemodeBombing()
 			#endif
 		}
 	}
+	else if (current_state == STATE::BOMB_DIFF)
+	{
+		if (time_elapsed - BombFlags.camp_time_start > 4.f)
+		{
+			_parent->call("diffuseBomb");
+		}
+		
+	}
+	
 }
 
 void Bot::onNewBombingRoundStarted()
@@ -522,7 +548,25 @@ void Bot::onNewBombingRoundStarted()
 	//counter terrorist
 	else
 	{
-		
+		int a = rand() % 2;
+		if (chance(50))
+			BombFlags.non_bomber_mission = BotBombingFlags::NON_BOMBER_MISSION::GOTO_BOMBSPOT;
+		else if (a == 0)
+			BombFlags.non_bomber_mission = BotBombingFlags::NON_BOMBER_MISSION::GOTO_ENEMY_SPAWN;
+		else if (a == 1)
+			BombFlags.non_bomber_mission = BotBombingFlags::NON_BOMBER_MISSION::ROAM;
+
+		if (BombFlags.non_bomber_mission == BotBombingFlags::NON_BOMBER_MISSION::GOTO_BOMBSPOT)
+		{
+			Array bomb_sites = BombFlags.bomb_sites;
+			int rand_no = rand() % bomb_sites.size();
+			BombFlags.selected_bombspot = static_cast<Node2D *>(bomb_sites[rand_no])->get_position();
+			navigation_state->addPlace(BombFlags.selected_bombspot);
+				
+			#ifdef DEBUG_MODE
+				Godot::print("going to bombspot");
+			#endif	
+		}
 	}
 }
 
@@ -546,13 +590,16 @@ void Bot::onEnteredBombSite()
 	}
 	else
 	{
-		//terrorist team
-		if (team_id == 0)
+		if (!BombFlags.bomb_planted)
 		{
 			int chance_to_camp = 33;
 
 			if (BombFlags.bomb_planted)
-				chance_to_camp = 66;	
+				chance_to_camp = 66;
+
+			if (team_id == 1)
+				chance_to_camp = 100 - chance_to_camp;
+			
 							
 			//change state to camp
 			if (chance(chance_to_camp))
@@ -571,7 +618,43 @@ void Bot::onEnteredBombSite()
 				#ifdef DEBUG_MODE
 					Godot::print("changing state to roam");
 				#endif
-			}								
+			}		
+		}
+		//bomb planted and counter terrorist
+		else if (team_id == 1)
+		{
+			if (!BombFlags.bomb_site_found)
+			{
+				Vector2 bomb_pos = static_cast<Node2D *>(get_tree()->get_nodes_in_group("C4Bomb")[0])->get_position();
+				if ((_parent->get_position() - bomb_pos).length() < 100.f)
+				{
+					Array bots = get_tree()->get_nodes_in_group("Bot");
+					int sz = bots.size();
+
+					for (int i = 0; i < sz; i++)
+					{
+						static_cast<Node *>(bots[i])->call("bombSiteFound", BombFlags.bomb_site_id);
+					}
+
+					if (!BombFlags.is_bomb_being_diifused)
+					{
+						BombFlags.going_to_diffuse = true;
+						navigation_state->clearPlaces();
+						navigation_state->addPlace(bomb_pos);	
+					}										
+				}
+				//wrong bomb site, bomb not here
+				else
+				{
+					BombFlags.bomb_site_id += 1;
+					if (BombFlags.bomb_site_id >= BombFlags.bomb_sites.size())
+						BombFlags.bomb_site_id = 0;
+
+					navigation_state->clearPlaces();
+					navigation_state->addPlace(BombFlags.bomb_sites[BombFlags.bomb_site_id]);			
+				}
+							
+			}		
 		}			
 	}
 }
@@ -579,7 +662,24 @@ void Bot::onEnteredBombSite()
 void Bot::onBombPlanted()
 {
 	BombFlags.bomb_planted = true;
-	BombFlags.is_bomber = false;	
+	BombFlags.is_bomber = false;
+	if (team_id == 1)
+	{
+		int rand_no = rand() % BombFlags.bomb_sites.size();
+		navigation_state->clearPlaces();
+		navigation_state->addPlace(BombFlags.bomb_sites[rand_no]);
+		BombFlags.bomb_site_id = rand_no;
+		BombFlags.non_bomber_mission = BotBombingFlags::NON_BOMBER_MISSION::GOTO_BOMBSPOT;
+		#ifdef DEBUG_MODE
+			Godot::print("Heading towards bomb site");
+		#endif
+	}
+}
+
+void Bot::onCTnearBomb()
+{
+	BombFlags.camp_time_start = time_elapsed;
+	current_state = STATE::BOMB_DIFF;
 }
 
 void Bot::onKilled()
@@ -594,6 +694,41 @@ void Bot::onSelectedAsBomber()
 	#ifdef DEBUG_MODE
 		Godot::print("selected as bomber");
 	#endif
+}
+
+void Bot::bombBeingDiffused(bool val)
+{
+	BombFlags.is_bomb_being_diifused = val;
+	if (team_id == 0 && val)
+	{
+		if (chance(55))
+		{
+			current_state = STATE::ROAM;
+			navigation_state->clearPlaces();
+
+		}
+		
+	}
+	else if (team_id == 1)
+	{
+		
+	}
+}
+
+
+void Bot::bombSiteFound(int id)
+{
+	//Counter Terrorist only
+	if (team_id == 1)
+	{
+		BombFlags.bomb_site_found = true;
+		if (BombFlags.bomb_site_id != id)
+		{
+			BombFlags.bomb_site_id = id;
+			navigation_state->clearPlaces();
+			navigation_state->addPlace(BombFlags.bomb_sites[BombFlags.bomb_site_id]);
+		}		
+	}
 }
 
 Bot::~Bot()

@@ -13,6 +13,8 @@ signal bomb_diffused
 signal bomb_diffuser
 signal bomb_diffuser_left
 
+var is_being_diffused : bool = false
+
 func _ready():
 	hide()
 	$Area2D/CollisionShape2D.disabled = true

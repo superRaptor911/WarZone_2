@@ -9,7 +9,9 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 40.4977
 
-[node name="C4Bomb" type="Sprite"]
+[node name="C4Bomb" type="Sprite" groups=[
+"C4Bomb",
+]]
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 

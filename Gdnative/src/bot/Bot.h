@@ -25,7 +25,7 @@ namespace godot
 		std::unique_ptr<Attack> attack_state;
 
 		enum class GMODE {DM, ZM, BOMBING};
-		enum class STATE {ROAM, ATTACK, SCOUT, FLEE, FOLLOW, CAMP, BOMB_PLANT};
+		enum class STATE {ROAM, ATTACK, SCOUT, FLEE, FOLLOW, CAMP, BOMB_PLANT, BOMB_DIFF};
 	private:
 
 		void _loadStates();
@@ -72,7 +72,13 @@ namespace godot
 		void onEnteredBombSite();
 		void onBombPlanted();
 		void onSelectedAsBomber();
+		void onCTnearBomb();
 		void onKilled();
+
+		//CT found the bomb site
+		void bombSiteFound(int id);
+
+		void bombBeingDiffused(bool val);
 	};
 
 

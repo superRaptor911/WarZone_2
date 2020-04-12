@@ -242,3 +242,10 @@ func _process(delta):
 
 func plantBomb():
 	get_tree().get_nodes_in_group("GameMode")[0]._on_plant_bomb_pressed()
+
+
+func diffuseBomb():
+	get_tree().get_nodes_in_group("GameMode")[0].rpc("_bombDiffused")
+	
+func canDiffuse():
+	$Brain.onCTnearBomb()

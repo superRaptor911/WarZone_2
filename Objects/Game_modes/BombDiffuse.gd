@@ -176,12 +176,17 @@ func _bomb_diffuser_diffusing():
 	bomb.diffuser.connect("char_killed",self,"_on_diffuser_killed")
 	if bomb.diffuser.is_in_group("User"):
 		rpc_id(int(bomb.diffuser.name),"_showDiffuseOption",true)
+	else:
+		bomb.diffuser.canDiffuse()
+	  
 
 func _bomb_diffuser_not_diffusing():
 	if bomb.diffuser:
 		bomb.diffuser.disconnect("char_killed",self,"_on_diffuser_killed")
 		if bomb.diffuser.is_in_group("User"):
 			rpc_id(int(bomb.diffuser.name),"_showDiffuseOption",false)
+		else:
+			pass
 
 func _on_diffuser_killed():
 	bomb.diffuser.disconnect("char_killed",self,"_on_diffuser_killed")
