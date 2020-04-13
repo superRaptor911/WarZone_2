@@ -23,22 +23,37 @@ func _ready():
 
 
 func loadLevelInfos():
-	var dir = Directory.new()
-	dir.change_dir("res://Maps")
-	dir.list_dir_begin()
-	var d = dir.get_next()
-	
-	while d != "":
-		if d.get_extension() == "" and not d.begins_with(".") and not d.begins_with("_"):
-			print("map ",d," ",dir.get_current_dir())
-			var level_info = load("res://Maps/" + "TestMap" + "/level_info.gd").new()
-			levels.append(level_info)
-		d = dir.get_next()
-	
-	if not levels.empty():
-		setLevelInfo(levels[0])
+	if not game_states.is_android:
+		#this method does not work in android
+		var dir = Directory.new()
+		dir.change_dir("res://Maps")
+		dir.list_dir_begin()
+		var d = dir.get_next()
+		var data = {level_info_paths = Array()}
+		
+		while d != "":
+			if d.get_extension() == "" and not d.begins_with(".") and not d.begins_with("_"):
+				print("map ",d," ",dir.get_current_dir())
+				var level_info = load("res://Maps/" + d + "/level_info.gd").new()
+				data.level_info_paths.append("res://Maps/" + d + "/level_info.gd")
+				levels.append(level_info)
+			d = dir.get_next()
+		
+		game_states.save_data("res://Maps/lvl_info_paths.txt",data)
+		if not levels.empty():
+			setLevelInfo(levels[0])
+		else:
+			print("No levels found")
 	else:
-		print("No levels found")
+		var data : Dictionary = game_states.load_data("res://Maps/lvl_info_paths.txt")
+		for i in data.level_info_paths:
+			var level_info = load(i)
+			levels.append(level_info)
+		
+		#select first level
+		if not levels.empty():
+			setLevelInfo(levels[0])
+
 
 func setLevelInfo(info):
 	if selected_level != info:

@@ -1,7 +1,7 @@
 extends Node
 
 #is exporting for android or not
-var is_android : bool = true
+var is_android : bool = false
 var current_game_version = 1.0
 const invalid_position = Vector2(-999,-999)
 
@@ -121,7 +121,7 @@ func saveSettings():
 func savePlayerData():
 	save_data("user://pinfo.dat",player_data)
 
-func save_data(save_path : String, data) -> void:
+func save_data(save_path : String, data : Dictionary) -> void:
 	var data_string = JSON.print(data)
 	var file = File.new()
 	var json_error = validate_json(data_string)
@@ -134,7 +134,7 @@ func save_data(save_path : String, data) -> void:
 	file.close()
 
 
-func load_data(save_path : String = "user://game.dat"):
+func load_data(save_path : String = "user://game.dat") -> Dictionary:
 	var file : File = File.new()
 	if not file.file_exists(save_path):
 		print_debug('file [%s] does not exist; creating' % save_path)
@@ -143,8 +143,6 @@ func load_data(save_path : String = "user://game.dat"):
 	var json : String = file.get_as_text()
 	var data = parse_json(json)
 	file.close()
-	
-	
 	return data
 
 

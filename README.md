@@ -10,28 +10,18 @@ cd WarZone_2
 You need gdnative c++ plugins to run this project.
 You can build them for your system or download precompiled plugins.
 
-You can download pre compiled plugins [here](https://github.com/superRaptor911/WarZone_2/archive/libs.zip) and paste ```bin ``` folder to base directory.
+You can download pre compiled plugins [here](https://drive.google.com/open?id=1GGgfn0B4uP7YzqoVRyOM4KplnBunhXW5) and paste ```bin ``` folder to base directory.
 
 OR
 
 You can build them (For linux users only).
-To build plugins there are a few prerequisites you’ll need:
-* [SCons](https://scons.org/) as a build tool.
-* C++ compiler
-* Android NDK (optional, only needed if you are building for android)
-* Copy of the godot-cpp repository (Already included(Godot 3.2) in Gdnative folder).
+To build plugins, you’ll need run `setup.sh` script present in `Gdnative` folder :
+This script will install required tools and will build plugins.
 
-After downloading the prerequisites, It's time to run build script present in  ``` Gdnative ``` folder to do that
 ```
 cd Gdnative
-mkdir -p output/bin/
-cd godot-cpp
-scons platform=linux -j4
-cd ..
-./build.sh
+sudo ./setup.sh
 ```
-After the script execution you should get ``` operation 0 completed successfully ( LINUX ) ```.
-
 Then import as Godot project.
 
 ## Build With

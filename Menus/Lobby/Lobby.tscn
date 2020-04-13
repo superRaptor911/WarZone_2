@@ -78,8 +78,8 @@ font_data = ExtResource( 3 )
 script = ExtResource( 1 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 1280.0
-margin_bottom = 720.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 4 )
 expand = true
 __meta__ = {
@@ -87,10 +87,14 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="."]
-margin_left = 28.4916
-margin_top = 104.97
-margin_right = 588.492
-margin_bottom = 600.97
+anchor_left = 0.241
+anchor_top = 0.49
+anchor_right = 0.241
+anchor_bottom = 0.49
+margin_left = -279.988
+margin_top = -247.83
+margin_right = 280.012
+margin_bottom = 248.17
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -162,10 +166,14 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="."]
 
 [node name="bots" type="Panel" parent="."]
-margin_left = 1496.63
-margin_top = 211.072
-margin_right = 1996.63
-margin_bottom = 526.072
+anchor_left = 1.365
+anchor_top = 0.512
+anchor_right = 1.365
+anchor_bottom = 0.512
+margin_left = -250.57
+margin_top = -157.568
+margin_right = 249.43
+margin_bottom = 157.432
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
@@ -289,10 +297,14 @@ __meta__ = {
 }
 
 [node name="level" type="Panel" parent="."]
-margin_left = 714.0
-margin_top = 146.0
-margin_right = 1214.0
-margin_bottom = 598.0
+anchor_left = 0.753
+anchor_top = 0.5
+anchor_right = 0.753
+anchor_bottom = 0.5
+margin_left = -249.84
+margin_top = -214.0
+margin_right = 250.16
+margin_bottom = 238.0
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
@@ -411,10 +423,14 @@ __meta__ = {
 }
 
 [node name="gameMode" type="Panel" parent="."]
-margin_left = 1811.14
-margin_top = 708.338
-margin_right = 2311.14
-margin_bottom = 1072.34
+anchor_left = 1.61
+anchor_top = 1.237
+anchor_right = 1.61
+anchor_bottom = 1.237
+margin_left = -249.66
+margin_top = -182.302
+margin_right = 250.34
+margin_bottom = 181.7
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
