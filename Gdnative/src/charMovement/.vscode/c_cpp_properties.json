@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64",
+            "includePath": [
+                "${default}",
+                "/home/raptor/program/godot/WarZone_2/Gdnative/godot-cpp/include/**",
+                "/home/raptor/program/godot/WarZone_2/Gdnative/godot-cpp/godot_headers"
+            ]
+        }
+    ],
+    "version": 4
+}

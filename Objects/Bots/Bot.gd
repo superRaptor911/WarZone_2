@@ -249,3 +249,4 @@ func diffuseBomb():
 	
 func canDiffuse():
 	$Brain.onCTnearBomb()
+

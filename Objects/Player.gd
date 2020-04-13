@@ -263,3 +263,6 @@ func _on_free_timer_timeout():
 func respawn_player():
 	position = get_tree().get_nodes_in_group("Level")[0].getSpawnPosition(team.team_id)
 	rpc("sync_respawn",position,game_states.player_info.net_id)
+
+
+

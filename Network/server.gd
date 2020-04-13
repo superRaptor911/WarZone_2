@@ -160,5 +160,6 @@ func _get_player_data_by_id(id):
 
 var bot_settings = {
 	bot_count = 0,
-	bot_difficulty = 1
+	bot_difficulty = 1,
+	index = 0
 }

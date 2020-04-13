@@ -17,8 +17,9 @@ func _ready():
 			score_board = GameMode[0].scoreBoard
 	else:
 		print("GameMode not loaded")
-	
 	add_child(score_board)
+	if get_tree().is_network_server():
+		$Panel2/admin_menu.disabled = false
 
 func setUser(u):
 	user = u
@@ -161,7 +162,7 @@ func _on_back_pressed():
 
 func _on_admin_menu_pressed():
 	pauseMenuCloseTween()
-	var admin_menu = load("res://Menus/HUD/admin_menu.tscn").instance()
+	var admin_menu = load("res://Menus/HUD/AdminPanel.tscn").instance()
 	add_child(admin_menu)
 
 

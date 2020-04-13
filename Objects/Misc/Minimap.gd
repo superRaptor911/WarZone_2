@@ -93,6 +93,6 @@ func _cacheDots():
 
 func getLocalPlayer():
 	for p in playerList:
-		if p.is_network_master():
+		if p.is_network_master() and p.is_in_group("User"):
 			local_player = p
 			break

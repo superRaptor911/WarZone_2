@@ -32,6 +32,7 @@ void Bot::_register_methods()
 	register_method("onEnteredBombSite",&Bot::onEnteredBombSite);
 	register_method("onCTnearBomb", &Bot::onCTnearBomb);
 	register_method("bombSiteFound",&Bot::bombSiteFound);
+	register_method("bombBeingDiffused", &Bot::bombBeingDiffused);
 
 	register_property<Bot, Array> ("visible_enemies", &Bot::visible_enemies, Array());
 	register_property<Bot, Array> ("visible_friends", &Bot::visible_friends, Array());
@@ -705,13 +706,13 @@ void Bot::bombBeingDiffused(bool val)
 		{
 			current_state = STATE::ROAM;
 			navigation_state->clearPlaces();
-
 		}
 		
 	}
 	else if (team_id == 1)
 	{
-		
+		BombFlags.camp_time_start = time_elapsed;
+		current_state = STATE::CAMP;
 	}
 }
 

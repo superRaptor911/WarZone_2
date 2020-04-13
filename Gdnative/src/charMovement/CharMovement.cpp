@@ -180,7 +180,7 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 	//update
 	
 	//velocity of character
-	Vector2 velocity =mov_vct.normalized() * speed_mul * speed * _update_delta;
+	Vector2 velocity = mov_vct.normalized() * speed_mul * speed * _update_delta;
 
 	Ref<KinematicCollision2D> collision = _parent->move_and_collide(velocity);
 	//test collision
@@ -284,7 +284,7 @@ stateVector *getStateVector(std::vector<stateVector> &_stateVectors,const int &i
 
 void removePreviousStateVectors(std::vector<stateVector> &_stateVectors,const int &input_id)
 {
-	std::vector<stateVector> new_vectors(_stateVectors.size());
+	std::vector<stateVector> new_vectors;
 	for (auto it = _stateVectors.begin(); it != _stateVectors.end(); it++)
 	{
 		if (it->input_id >= input_id)

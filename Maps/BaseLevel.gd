@@ -236,11 +236,11 @@ remotesync func spawn_player(pinfo, pos : Vector2, team : int):
 
 
 func spawnBots():
-	var index : int = 0
 	var bots : Array
+	game_server.bot_settings.index = 0
 	
 	for i in game_states.bot_profiles.bot:
-		if index == game_server.bot_settings.bot_count:
+		if game_server.bot_settings.index == game_server.bot_settings.bot_count:
 			break
 		print("spawning " + i.bot_name)
 		var char_data = char_data_dict.duplicate(true)
@@ -251,12 +251,44 @@ func spawnBots():
 		char_data.team_id = 1
 		char_data.pos = getSpawnPosition(char_data.team_id)
 		#giving unique integer name
-		char_data.name = String(69 + index)
+		char_data.name = String(69 + game_server.bot_settings.index)
 		bots.append(char_data)
-		index += 1
+		game_server.bot_settings.index += 1
 	for i in bots:
 		spawnPlayer(i)
 
+func spawnBot(team_id : int = 0):
+	if get_tree().get_nodes_in_group("Bot").size() == 0:
+		game_server.bot_settings.index = 0
+		
+	if game_server.bot_settings.index < game_states.bot_profiles.bot.size():
+		var i = game_states.bot_profiles.bot[game_server.bot_settings.index]
+		print("spawning " + i.bot_name)
+		var char_data = char_data_dict.duplicate(true)
+		char_data.pname = "bot_" + i.bot_name
+		char_data.g1 = i.bot_primary_gun
+		char_data.g2 = i.bot_sec_gun
+		char_data.is_bot = true
+		char_data.team_id = 1
+		char_data.pos = getSpawnPosition(char_data.team_id)
+		#giving unique integer name
+		char_data.name = String(69 + game_server.bot_settings.index)
+		game_server.bot_settings.index += 1
+		spawnPlayer(char_data)
+	else:
+		print("No bot profile")
+
+func server_kickBot(bot):
+	if get_tree().is_network_server():
+		rpc("kickBot",bot.name)
+
+remotesync func kickBot(bot_name):
+	var bot = get_node(bot_name)
+	if bot:
+		emit_signal("bot_despawned",bot)
+		bot.queue_free()
+	else:
+		print("Fatal:Cannot remove invalid node from tree")
 
 remote func despawn_player(pinfo):
 	if (get_tree().is_network_server()):

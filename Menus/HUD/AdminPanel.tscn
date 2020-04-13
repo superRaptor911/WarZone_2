@@ -1,0 +1,126 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=2]
+[ext_resource path="res://Menus/HUD/AdminPanel.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+shadow_size = 6
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 28
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="AdminPanel" type="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -216.0
+margin_top = -245.0
+margin_right = 216.0
+margin_bottom = 245.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="header" type="Panel" parent="."]
+anchor_right = 1.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="header"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -77.0
+margin_top = -17.5
+margin_right = 77.0
+margin_bottom = 17.5
+custom_fonts/font = SubResource( 2 )
+text = "Admin Panel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -165.5
+margin_top = -152.5
+margin_right = 165.5
+margin_bottom = 152.5
+custom_constants/separation = 40
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlrList" type="Button" parent="VBoxContainer"]
+margin_right = 331.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 325, 60 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Player List"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bot" type="Button" parent="VBoxContainer"]
+margin_top = 100.0
+margin_right = 331.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 325, 60 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Bot Option"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="quit" type="Button" parent="VBoxContainer"]
+margin_top = 200.0
+margin_right = 331.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 325, 60 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="pressed" from="VBoxContainer/PlrList" to="." method="_on_PlrList_pressed"]
+[connection signal="pressed" from="VBoxContainer/bot" to="." method="_on_bot_pressed"]
+[connection signal="pressed" from="VBoxContainer/quit" to="." method="_on_quit_pressed"]
