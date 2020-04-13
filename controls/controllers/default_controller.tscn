@@ -9,10 +9,14 @@
 script = ExtResource( 1 )
 
 [node name="mov_joy" type="TextureRect" parent="."]
-margin_left = 96.1109
-margin_top = 452.679
-margin_right = 296.111
-margin_bottom = 652.679
+anchor_left = 0.153
+anchor_top = 0.768
+anchor_right = 0.153
+anchor_bottom = 0.768
+margin_left = -99.7291
+margin_top = -100.281
+margin_right = 100.271
+margin_bottom = 99.719
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
@@ -22,7 +26,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 radius = 90.0
+use_screen_rectangle = false
 screen_rectangle = Rect2( 0, 125, 500, 600 )
+editor_color = Color( 1, 0, 0, 1 )
 
 [node name="Joystick_Ring" type="TextureRect" parent="mov_joy"]
 margin_left = 31.0
@@ -34,10 +40,14 @@ expand = true
 stretch_mode = 6
 
 [node name="aim_joy" type="TextureRect" parent="."]
-margin_left = 995.997
-margin_top = 452.679
-margin_right = 1196.0
-margin_bottom = 652.679
+anchor_left = 0.856
+anchor_top = 0.768
+anchor_right = 0.856
+anchor_bottom = 0.768
+margin_left = -99.683
+margin_top = -100.281
+margin_right = 100.32
+margin_bottom = 99.719
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
@@ -47,7 +57,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 radius = 110.0
+use_screen_rectangle = false
 screen_rectangle = Rect2( 700, 125, 500, 600 )
+editor_color = Color( 1, 0, 0, 1 )
 
 [node name="Joystick_Ring" type="TextureRect" parent="aim_joy"]
 margin_left = 30.3396
