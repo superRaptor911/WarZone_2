@@ -16,6 +16,8 @@ func _ready():
 	fist = $body/r_shoulder/arm/joint/hand/fist
 	$anim.play("smg")
 	parent = get_parent()
+	parent.connect("char_took_damage", self, "_on_char_damaged")
+	parent.connect("char_killed", self, "_on_char_killed")
 	fist.global_scale = Vector2(1,1)
 	fist.rotation = rotation
 
@@ -71,3 +73,14 @@ func revive():
 	$blood_scat.hide()
 	$body.show()
 
+func _on_char_damaged():
+	if parent.HP < 50:
+		$body.material.set_shader_param("use",1.0)
+		$body.material.set_shader_param("tex_size",Vector2(64,64))
+	else:
+		$body.material.set_shader_param("use",0.0)
+		$body.material.set_shader_param("tex_size",Vector2(0,0))
+
+func _on_char_killed():
+	$body.material.set_shader_param("use",0.0)
+	$body.material.set_shader_param("tex_size",Vector2(0,0))

@@ -11,6 +11,8 @@ var selected_gun : Gun
 var kills : int = 0
 var deaths : int = 0
 var pname : String
+var cash : int = 0
+var xp : int = 0
 var id : int
 
 
@@ -265,4 +267,12 @@ func respawn_player():
 	rpc("sync_respawn",position,game_states.player_info.net_id)
 
 
+remotesync func getKillRewards(enemy_xp = 0):
+	xp += 10 + game_states.getLevelFromXP(enemy_xp) * 3
+	cash += 25 + 50 * game_states.getLevelFromXP(enemy_xp)
+	print(xp," ",cash)
 
+remotesync func deductDeathPenalty():
+	xp = max(xp - 3 * game_states.getLevelFromXP(xp), 0)
+	cash -= max(cash - 10 * game_states.getLevelFromXP(xp), 0)
+	

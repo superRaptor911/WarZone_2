@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Models/Model.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Character/default/head.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Sprites/Character/default/hand.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Character/default/arm.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/particles/blood_scat1.png" type="Texture" id=10]
+[ext_resource path="res://Objects/Graphics/outline.shader" type="Shader" id=11]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 17.793
@@ -511,6 +512,14 @@ tracks/3/keys = {
 "values": [ 0.0, 0.0 ]
 }
 
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = ExtResource( 11 )
+shader_param/clr = null
+shader_param/tex_size = Vector2( 0, 0 )
+shader_param/out_size = 2.0
+shader_param/use = 0.0
+
 [node name="Model" type="CollisionShape2D"]
 z_index = 2
 z_as_relative = false
@@ -544,20 +553,24 @@ z_index = -1
 texture = ExtResource( 3 )
 
 [node name="body" type="Sprite" parent="."]
+material = SubResource( 8 )
 position = Vector2( -0.452026, 5.34251 )
 scale = Vector2( 0.32, 0.32 )
 z_index = 1
 texture = ExtResource( 7 )
 
 [node name="head" type="Sprite" parent="body"]
+use_parent_material = true
 position = Vector2( -0.624359, -17.4825 )
 texture = ExtResource( 2 )
 
 [node name="l_shoulder" type="Sprite" parent="body"]
+use_parent_material = true
 position = Vector2( -49.9201, -10.9435 )
 texture = ExtResource( 6 )
 
 [node name="arm" type="Sprite" parent="body/l_shoulder"]
+use_parent_material = true
 position = Vector2( -0.576889, -0.302248 )
 rotation = 0.449227
 z_index = -1
@@ -565,10 +578,12 @@ texture = ExtResource( 9 )
 offset = Vector2( 2.34541, -23.8781 )
 
 [node name="joint" type="Sprite" parent="body/l_shoulder/arm"]
+use_parent_material = true
 position = Vector2( 1.14902, -45.5815 )
 texture = ExtResource( 5 )
 
 [node name="hand" type="Sprite" parent="body/l_shoulder/arm/joint"]
+use_parent_material = true
 position = Vector2( 0.950844, -0.271236 )
 rotation = 0.314035
 z_index = -1
@@ -576,11 +591,13 @@ texture = ExtResource( 8 )
 offset = Vector2( 3, -21 )
 
 [node name="r_shoulder" type="Sprite" parent="body"]
+use_parent_material = true
 position = Vector2( 48.0181, -12.964 )
 scale = Vector2( -1, 1 )
 texture = ExtResource( 6 )
 
 [node name="arm" type="Sprite" parent="body/r_shoulder"]
+use_parent_material = true
 position = Vector2( -0.576889, -0.302248 )
 rotation = -0.214063
 z_index = -1
@@ -588,10 +605,12 @@ texture = ExtResource( 9 )
 offset = Vector2( 2.34541, -23.8781 )
 
 [node name="joint" type="Sprite" parent="body/r_shoulder/arm"]
+use_parent_material = true
 position = Vector2( 1.14902, -45.5815 )
 texture = ExtResource( 5 )
 
 [node name="hand" type="Sprite" parent="body/r_shoulder/arm/joint"]
+use_parent_material = true
 position = Vector2( 0.950844, -0.271236 )
 rotation = 1.77898
 z_index = -1

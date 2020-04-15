@@ -22,7 +22,7 @@ signal char_born
 signal char_took_damage
 signal char_killed_someone
 
-	
+
 func _ready():
 	remove_child($Model)
 	setSkin(game_states.modelResource.default_model.instance())
@@ -97,8 +97,20 @@ func takeDamage(damage : float,weapon,attacker):
 	#will be fixed
 	_blood_splash(attacker.position,position)
 	#sync with peers
-	rpc("sync_health",HP,AP)
+	rpc_unreliable("sync_health",HP,AP)
+	
 	if HP <= 0:
+		#add xp and cash to player
+		if attacker.is_in_group("User"):
+			var enemy_xp = 0
+			if self.is_in_group("User"):
+				enemy_xp = network.players[int(name)]
+			attacker.rpc_id(int(attacker.name),"getKillRewards", enemy_xp)
+		
+		#deduct xp and cash
+		if self.is_in_group("User"):
+			self.rpc_id(int(name),"deductDeathPenalty")
+		
 		attacker.emit_signal("char_killed_someone")
 		game_server.handleKills(self,attacker,weapon)
 		#sync with everyone
@@ -127,6 +139,7 @@ remotesync func _sync_blood_splash(angle):
 remote func sync_health(hp,ap):
 	HP = hp
 	AP = ap
+	emit_signal("char_took_damage")
 
 remotesync func sync_death():
 	alive = false

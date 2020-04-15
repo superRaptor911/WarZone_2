@@ -11,7 +11,8 @@ var player_info = {
 	net_id = 1,                 
 	model_name = "default_model",
 	primary_gun_name = "MP5",
-	sec_gun_name = "default_gun"
+	sec_gun_name = "default_gun",
+	XP = 0
 }
 
 
@@ -61,6 +62,7 @@ var player_data = {
 	kills = 0,
 	deaths = 0,
 	cash = 2000,
+	XP = 0,
 	guns = Array(),
 	skins = Array(),
 	selected_guns = Array(),
@@ -70,6 +72,9 @@ var player_data = {
 var bot_profiles = {
 	bot = Array()
 }
+
+func getLevelFromXP(xp : int) -> int:
+	return xp / 250
 
 func _ready():
 	var gameStatus = load_data("user://status.dat")
@@ -110,6 +115,7 @@ func portGameToCurrentVersion():
 func _init_setup():
 	player_info.name = player_data.name
 	player_info.model_name = player_data.selected_model
+	player_info.XP = player_data.XP
 	
 	player_info.primary_gun_name = player_data.selected_guns[0]
 	player_info.sec_gun_name = player_data.selected_guns[1]
