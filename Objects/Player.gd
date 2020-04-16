@@ -167,7 +167,7 @@ remote func throwGrenade():
 		var nam = "g" + String(randi()%1000)
 		g.set_name(nam)
 		get_tree().root.add_child(g)
-		var dir = (skin.get_node("body/r_shoulder/arm/joint/hand/fist").global_position - global_position).normalized()
+		var dir = (skin.fist.global_position - global_position).normalized()
 		g.position = position + (Vector2(-1.509,-50.226)).rotated(rotation)
 		g.user = self
 		g.throwGrenade(dir)
@@ -216,13 +216,15 @@ func switchToSecGun():
 remotesync func switchGun():
 	if selected_gun == primary_gun:
 		if sec_gun != null:
-			skin.get_node("body/r_shoulder/arm/joint/hand/fist").remove_child(selected_gun)
+			skin.fist.remove_child(selected_gun)
 			selected_gun = sec_gun
-			skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
+			skin.switchGun(selected_gun.gun_type)
+			skin.fist.add_child(selected_gun)
 	else:
-		skin.get_node("body/r_shoulder/arm/joint/hand/fist").remove_child(selected_gun)
+		skin.fist.remove_child(selected_gun)
 		selected_gun = primary_gun
-		skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
+		skin.switchGun(selected_gun.gun_type)
+		skin.fist.add_child(selected_gun)
 	
 	if not selected_gun.is_connected("gun_fired",skin,"_on_gun_fired"):
 		selected_gun.connect("gun_fired",skin,"_on_gun_fired")
@@ -231,12 +233,13 @@ remotesync func switchGun():
 	
 	selected_gun.gun_user = self
 	selected_gun.position = Vector2(0,0)
-	skin.switchGun(selected_gun.gun_type)
+	
 
 
 func setupGun():
 	if selected_gun != null:
-		skin.get_node("body/r_shoulder/arm/joint/hand/fist").add_child(selected_gun)
+		skin.switchGun(selected_gun.gun_type)
+		skin.fist.add_child(selected_gun)
 	else:
 		print("Error no selected gun")
 	
@@ -247,7 +250,6 @@ func setupGun():
 	
 	selected_gun.gun_user = self
 	selected_gun.position = Vector2(0,0)
-	skin.switchGun(selected_gun.gun_type)
 	if hud:
 		hud.get_node("reload/gun_s").texture = selected_gun.gun_portrait
 		hud.get_node("reload/TextureProgress").max_value = selected_gun.rounds_in_clip
@@ -270,9 +272,20 @@ func respawn_player():
 remotesync func getKillRewards(enemy_xp = 0):
 	xp += 10 + game_states.getLevelFromXP(enemy_xp) * 3
 	cash += 25 + 50 * game_states.getLevelFromXP(enemy_xp)
-	print(xp," ",cash)
 
 remotesync func deductDeathPenalty():
 	xp = max(xp - 3 * game_states.getLevelFromXP(xp), 0)
 	cash -= max(cash - 10 * game_states.getLevelFromXP(xp), 0)
-	
+
+
+func performMeleeAttack():
+	rpc_id(1,"serverMeleeAttack")
+
+remotesync func serverMeleeAttack():
+	if selected_gun.target:
+		var body = selected_gun.get_node("RayCast2D").get_collider()
+		if body and body.is_in_group("Actor") and (position - body.position).length() < 70:
+			body.takeDamage(selected_gun.melee_damage, selected_gun, self)
+
+remotesync func syncMelee():
+	pass

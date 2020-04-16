@@ -4,6 +4,7 @@ class_name Gun
 export var gun_type : String = "pistol"
 export var gun_name : String = "null"
 export var damage : float = 18
+export var melee_damage : float = 50
 export var rounds_in_clip : int = 10
 export var clips : int = 4
 export var gun_rating : int = 0
@@ -57,7 +58,7 @@ func fireGun():
 			reloading = true
 
 #create projectile
-remote func _create_bullet():
+remotesync func _create_bullet():
 	if game_states.game_settings.particle_effects:
 		var bullet = projectile.instance()
 		bullet.create_bullet($Muzzle.global_position,global_rotation,1500,ray_dest)
@@ -65,27 +66,24 @@ remote func _create_bullet():
 	
 	$Muzzle/muzzle.show()
 	muzzle_frames = 3
+	$fire.play()
+	emit_signal("gun_fired")
+
+
+remotesync func chkBulletHit():
 	if target:
 		var body = $RayCast2D.get_collider()
 		if body and body.is_in_group("Actor"):
 			body.takeDamage(damage,self,gun_user)
-	$fire.play()
-	emit_signal("gun_fired")
-	if get_tree().is_network_server():
-		rpc("_create_bullet")
 
 #shoot weapon
 func _shoot():
-	#increase recoil
-	if get_tree().is_network_server():
-		_create_bullet()
-	else:
-		#call server to create projectiles
-		rpc_id(1,"_create_bullet")
+	rpc_id(1,"chkBulletHit")
+	rpc("_create_bullet")
+	
 	ready_to_fire = false
 	$Timer.start(1 / rate_of_fire)
 	rounds_left -= 1
-
 
 
 func _on_Timer_timeout():

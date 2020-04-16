@@ -13,13 +13,11 @@ var fist
 
 
 func _ready():
-	fist = $body/r_shoulder/arm/joint/hand/fist
-	$anim.play("smg")
+	fist = $sfist
 	parent = get_parent()
 	parent.connect("char_took_damage", self, "_on_char_damaged")
 	parent.connect("char_killed", self, "_on_char_killed")
-	fist.global_scale = Vector2(1,1)
-	fist.rotation = rotation
+
 
 func _process(delta):
 	if parent.alive:
@@ -42,45 +40,44 @@ func walking():
 		movement_count += 1
 
 func switchGun(gun_type):
-	$anim.play("smg_trans")
+	if gun_type == "pistol":
+		fist = $pfist
+		$skin.frame = 3
+	elif gun_type == "smg":
+		$skin.frame = 4
+		fist = $sfist
 
 func _on_gun_fired():
 	pass
 
 func _on_gun_reload():
+	return
 	if current_anim == "smg":
 		$anim.play("smg_reload")
 
-func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "smg_trans":
-		$anim.play("smg")
-		current_anim = "smg"
-	if anim_name == "smg_firing":
-		$anim.play("smg")
-		current_anim = "smg"
-	if anim_name == "smg_reload":
-		$anim.play("smg")
-		current_anim = "smg"
+
 
 func _on_killed():
 	$blood_scat.show()
-	$body.hide()
+	$skin.hide()
 	$anim.stop()
 	$anim.play("smg_reload")
 	$walking.stop()
 	
 func revive():
 	$blood_scat.hide()
-	$body.show()
+	$skin.show()
 
 func _on_char_damaged():
+	return
 	if parent.HP < 50:
-		$body.material.set_shader_param("use",1.0)
-		$body.material.set_shader_param("tex_size",Vector2(64,64))
+		$skin.material.set_shader_param("use",1.0)
+		$skin.material.set_shader_param("tex_size",Vector2(64,64))
 	else:
-		$body.material.set_shader_param("use",0.0)
-		$body.material.set_shader_param("tex_size",Vector2(0,0))
+		$skin.material.set_shader_param("use",0.0)
+		$skin.material.set_shader_param("tex_size",Vector2(0,0))
 
 func _on_char_killed():
-	$body.material.set_shader_param("use",0.0)
-	$body.material.set_shader_param("tex_size",Vector2(0,0))
+	return
+	$skin.material.set_shader_param("use",0.0)
+	$skin.material.set_shader_param("tex_size",Vector2(0,0))

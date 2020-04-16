@@ -8,8 +8,9 @@ const invalid_position = Vector2(-999,-999)
 #player info (pinfo) used to send info about player in multiplayer
 var player_info = {
 	name = "Player",
-	net_id = 1,                 
-	model_name = "default_model",
+	net_id = 1,
+	t_model = "t1",
+	ct_model = "ct1",
 	primary_gun_name = "MP5",
 	sec_gun_name = "default_gun",
 	XP = 0
@@ -38,7 +39,8 @@ var control_types = {
 
 #models available
 var modelResource = {
-	default_model = preload("res://Models/Model.tscn"),
+	ct1 = preload("res://Models/ct1.tscn"),
+	t1 = preload("res://Models/t1.tscn"),
 	zombie_model = preload("res://Models/Zombie.tscn"),
 	zombie_hunter = preload("res://Models/Hunter.tscn")
 }
@@ -66,7 +68,8 @@ var player_data = {
 	guns = Array(),
 	skins = Array(),
 	selected_guns = Array(),
-	selected_model = "default_model"
+	selected_t_model = "t1",
+	selected_ct_model = "ct1"
 }
 
 var bot_profiles = {
@@ -98,12 +101,14 @@ func saveDefaultData():
 	default_guns.append("MP5")
 	default_guns.append("default_gun")
 	var default_skins : Array
-	default_skins.append("default_model")
+	default_skins.append("t1")
+	default_skins.append("ct1")
 	
 	player_data.guns = default_guns
 	player_data.selected_guns = default_guns
 	player_data.skins = default_skins
-	player_data.selected_model = default_skins[0]
+	player_data.t_model = default_skins[0]
+	player_data.ct_model = default_skins[1]
 	
 	save_data("user://pinfo.dat",player_data)
 	
@@ -114,7 +119,8 @@ func portGameToCurrentVersion():
 #setup player info
 func _init_setup():
 	player_info.name = player_data.name
-	player_info.model_name = player_data.selected_model
+	player_info.t_model = player_data.selected_t_model
+	player_info.ct_model = player_data.selected_ct_model
 	player_info.XP = player_data.XP
 	
 	player_info.primary_gun_name = player_data.selected_guns[0]
@@ -179,7 +185,9 @@ func generateBotProfiles():
 	var bot_profile = {
 		bot_name = "",
 		bot_primary_gun = "MP5",
-		bot_sec_gun = "default_gun"
+		bot_sec_gun = "default_gun",
+		bot_t_skin = "t1",
+		bot_ct_skin = "ct1"
 	}
 	
 	var bot_names : Array
@@ -204,14 +212,25 @@ func generateBotProfiles():
 	
 	var bot_sec_weapons : Array
 	bot_sec_weapons.append("default_gun")
+	bot_sec_weapons.append("deagle")
+	
+	var bot_t_skins : Array
+	bot_t_skins.append("t1")
+	
+	var bot_ct_skins : Array
+	bot_ct_skins.append("ct1")
 	
 	for b in bot_names:
 		var pg_id = randi() % bot_primary_weapons.size()
 		var sg_id = randi() % bot_sec_weapons.size()
+		var t_sk_id = randi() % bot_t_skins.size()
+		var ct_sk_id = randi() % bot_ct_skins.size()
 		
 		var new_bot_profile = bot_profile.duplicate(true)
 		new_bot_profile.bot_name = b
 		new_bot_profile.bot_primary_gun = bot_primary_weapons[pg_id]
 		new_bot_profile.bot_sec_gun = bot_sec_weapons[sg_id]
+		new_bot_profile.bot_t_skin = bot_t_skins[t_sk_id]
+		new_bot_profile.bot_ct_skin = bot_ct_skins[ct_sk_id]
 		bot_profiles.bot.append(new_bot_profile)
 	

@@ -1,0 +1,459 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=1]
+[ext_resource path="res://hg.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=3]
+[ext_resource path="res://Menus/store/gun_selection.gd" type="Script" id=4]
+[ext_resource path="res://Menus/Inventory/label_bg.png" type="Texture" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+shadow_size = 6
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 28
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "buy_popup"
+tracks/0/type = "value"
+tracks/0/path = NodePath("buy:rect_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.1, 0.1 ), Vector2( 0.4, 0.4 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "initial_anim"
+tracks/0/type = "value"
+tracks/0/path = NodePath("weapons:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 192, -250 ), Vector2( 192, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("weapons:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("sec_gun:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1300, 260 ), Vector2( 698, 260 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("sec_gun:rect_rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("primary_gun:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -600, 260 ), Vector2( 0, 260 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("primary_gun:rect_rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.0941176, 0.0823529, 0.0823529, 0.976471 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="DynamicFont" id=8]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.109804, 0.65098, 0.0156863, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="DynamicFont" id=10]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="gun_selection" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="bg" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="primary_gun" type="Panel" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -460.0
+margin_right = 582.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="selected" type="Label" parent="primary_gun"]
+anchor_left = 0.5
+anchor_top = 0.934
+anchor_right = 0.5
+anchor_bottom = 0.934
+margin_left = -153.321
+margin_top = -20.6677
+margin_right = 152.679
+margin_bottom = 20.3323
+custom_fonts/font = SubResource( 3 )
+text = "Selected as Primary gun"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gun_panel" type="Panel" parent="primary_gun"]
+anchor_left = 0.5
+anchor_top = 0.008
+anchor_right = 0.5
+anchor_bottom = 0.008
+margin_left = -108.082
+margin_top = 0.000940084
+margin_right = 108.918
+margin_bottom = 171.001
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="texture" type="TextureRect" parent="primary_gun/gun_panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="primary_gun/gun_panel"]
+margin_left = 50.0
+margin_top = 182.0
+margin_right = 151.0
+margin_bottom = 214.0
+custom_fonts/font = SubResource( 3 )
+text = "Ak47"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="laser" type="Button" parent="primary_gun"]
+anchor_left = 0.5
+anchor_top = 0.617
+anchor_right = 0.5
+anchor_bottom = 0.617
+margin_left = -150.0
+margin_top = -26.82
+margin_right = 146.0
+margin_bottom = 27.18
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = SubResource( 4 )
+text = "Buy Laser sight"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="clip_ext" type="Button" parent="primary_gun"]
+anchor_left = 0.5
+anchor_top = 0.793
+anchor_right = 0.5
+anchor_bottom = 0.793
+margin_left = -151.587
+margin_top = -26.8596
+margin_right = 144.413
+margin_bottom = 27.1404
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = SubResource( 4 )
+text = "Buy clip extender"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sec_gun" type="Panel" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -582.0
+margin_top = -460.0
+margin_right = 0.000488281
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="selected" type="Label" parent="sec_gun"]
+anchor_left = 0.5
+anchor_top = 0.934
+anchor_right = 0.5
+anchor_bottom = 0.934
+margin_left = -153.321
+margin_top = -20.6677
+margin_right = 152.679
+margin_bottom = 20.3323
+custom_fonts/font = SubResource( 3 )
+text = "Selected as Secondary gun"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gun_panel" type="Panel" parent="sec_gun"]
+anchor_left = 0.5
+anchor_top = 0.008
+anchor_right = 0.5
+anchor_bottom = 0.008
+margin_left = -108.082
+margin_top = 0.000940084
+margin_right = 108.918
+margin_bottom = 171.001
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="texture" type="TextureRect" parent="sec_gun/gun_panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="sec_gun/gun_panel"]
+margin_left = 50.0
+margin_top = 182.0
+margin_right = 151.0
+margin_bottom = 214.0
+custom_fonts/font = SubResource( 3 )
+text = "Ak47"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="laser" type="Button" parent="sec_gun"]
+anchor_left = 0.5
+anchor_top = 0.617
+anchor_right = 0.5
+anchor_bottom = 0.617
+margin_left = -150.0
+margin_top = -26.82
+margin_right = 146.0
+margin_bottom = 27.18
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = SubResource( 4 )
+text = "Buy Laser sight"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="clip_ext" type="Button" parent="sec_gun"]
+anchor_left = 0.5
+anchor_top = 0.793
+anchor_right = 0.5
+anchor_bottom = 0.793
+margin_left = -151.587
+margin_top = -26.8596
+margin_right = 144.413
+margin_bottom = 27.1404
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = SubResource( 4 )
+text = "Buy clip extender"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="weapons" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -448.0
+margin_right = 448.0
+margin_bottom = 226.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "initial_anim"
+playback_speed = 2.0
+anims/buy_popup = SubResource( 6 )
+anims/initial_anim = SubResource( 5 )
+
+[node name="buy" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -256.0
+margin_top = -234.0
+margin_right = 256.0
+margin_bottom = 234.0
+rect_pivot_offset = Vector2( 256, 252.692 )
+custom_styles/panel = SubResource( 7 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="cost" type="Label" parent="buy"]
+margin_left = 57.0
+margin_top = 292.0
+margin_right = 241.0
+margin_bottom = 324.0
+custom_fonts/font = SubResource( 8 )
+text = "Cost :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cash" type="Label" parent="buy"]
+margin_left = 57.0
+margin_top = 346.737
+margin_right = 241.0
+margin_bottom = 378.737
+custom_fonts/font = SubResource( 8 )
+text = "Cash :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="img" type="TextureRect" parent="buy"]
+anchor_left = 0.48
+anchor_top = 0.246
+anchor_right = 0.48
+anchor_bottom = 0.246
+margin_left = -111.76
+margin_top = -88.128
+margin_right = 112.24
+margin_bottom = 87.872
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="buy/img"]
+margin_left = 27.1737
+margin_top = 193.692
+margin_right = 172.174
+margin_bottom = 225.692
+custom_fonts/font = SubResource( 8 )
+text = "Laser Sight"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="buy"]
+margin_left = 198.0
+margin_top = 418.0
+margin_right = 309.0
+margin_bottom = 449.0
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
+text = "Buy"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="primary_gun/laser" to="." method="_on_laser_pressed"]

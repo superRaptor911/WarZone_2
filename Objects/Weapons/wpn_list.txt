@@ -1,0 +1,1 @@
+{"gun_paths":["res://Objects/Weapons/Gun.tscn","res://Objects/Weapons/MP5.tscn","res://Objects/Weapons/grenade.tscn","res://Objects/Weapons/AK47.tscn","res://Objects/Weapons/deagle.tscn"]}

@@ -39,23 +39,40 @@ func initWeaponTypes():
 
 
 func loadWeapons():
-	var path = "res://Objects/Weapons"
-	var dir = Directory.new()
-	dir.change_dir(path)
-	dir.list_dir_begin()
-	
-	var d = dir.get_next()
-	while d != "":
-		if d.get_extension() == "tscn":
-			var script = load(path + "/" + d).instance()
-			for i in weapon_types:
-				var gun_t = script.get("gun_type")
-				if not gun_t:
+	#below method does not works on android 
+	if not game_states.is_android:
+		var path = "res://Objects/Weapons"
+		var dir = Directory.new()
+		dir.change_dir(path)
+		dir.list_dir_begin()
+		
+		#holds path to guns
+		var guns = { gun_paths = Array()}
+		
+		var d = dir.get_next()
+		while d != "":
+			if d.get_extension() == "tscn":
+				var script = load(path + "/" + d).instance()
+				for i in weapon_types:
+					var gun_t = script.get("gun_type")
+					if not gun_t:
+						break
+					if i.wpn_type == gun_t:
+						guns.gun_paths.append(path + "/" + d)
+						i.weapons.append(script)
+						break
+			d = dir.get_next()
+		
+		game_states.save_data(path + "/wpn_list.txt",guns)
+	else:
+		#LOAD PATH FROM wpn_list.txt
+		var guns = game_states.load_data("res://Objects/Weapons" + "/wpn_list.txt")
+		for i in guns.gun_paths:
+			var script = load(i).instance()
+			for j in weapon_types:
+				if j.wpn_type == script.get("gun_type"):
+					j.weapons.append(script)
 					break
-				if i.wpn_type == gun_t:
-					i.weapons.append(script)
-					break
-		d = dir.get_next()
 	
 	for i in weapon_types:
 		i.weapons.sort_custom(WeaponType,"sort")
@@ -136,6 +153,7 @@ func purchaseGun():
 	if game_states.player_data.cash >= current_type.current_wpn.wpn_cost:
 		game_states.player_data.cash -= current_type.current_wpn.wpn_cost
 		game_states.player_data.guns.append(w)
+		$cash.text = "$" + String(game_states.player_data.cash)
 		game_states.savePlayerData()
 	else:
 		$purchase_fail/Label.text = "Insufficient Funds"
@@ -143,6 +161,10 @@ func purchaseGun():
 
 
 func _on_back_pressed():
+	for i in weapon_types:
+		for j in i.weapons:
+			j.queue_free()
+		
 	get_tree().change_scene("res://Menus/store/store_menu.tscn")
 
 ####################Tweening##########################

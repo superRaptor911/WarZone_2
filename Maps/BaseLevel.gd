@@ -25,6 +25,7 @@ var char_data_dict = {
 	name = "null",
 	team_id = 1,
 	pos = Vector2(0,0),
+	skin = "",
 	g1 = "",
 	g2 = "",
 	cur_gun = 0,
@@ -125,6 +126,7 @@ remote func serverGetPlayers(peer_id):
 		char_data.pos = i.position
 		char_data.g1 = i.primary_gun.gun_name
 		char_data.g2 = i.sec_gun.gun_name
+		char_data.skin = i.skin.model_name
 		char_data.is_bot = false
 		if i.selected_gun == i.primary_gun:
 			char_data.cur_gun = 0
@@ -141,6 +143,7 @@ remote func serverGetPlayers(peer_id):
 		char_data.pos = i.position
 		char_data.g1 = i.primary_gun.gun_name
 		char_data.g2 = i.sec_gun.gun_name
+		char_data.skin = i.skin.model_name
 		char_data.is_bot = true
 		if i.selected_gun == i.primary_gun:
 			char_data.cur_gun = 0
@@ -201,6 +204,8 @@ func spawnPlayer(char_data):
 		team2.addPlayer(nactor)
 	else:
 		print("Fatal Error: invalid team id for player ", char_data.pname)
+	
+	nactor.setSkin(game_states.modelResource.get(char_data.skin).instance())
 	add_child(nactor)
 	if not char_data.is_bot:
 		emit_signal("player_spawned",nactor)
@@ -225,12 +230,16 @@ remotesync func spawn_player(pinfo, pos : Vector2, team : int):
 	nactor.pname = pinfo.name
 	nactor.id = pinfo.net_id
 	game_server.addPlayer(pinfo.name, pinfo.net_id,team)
+	var skin
 	if team == team1.team_id:
 		team1.addPlayer(nactor)
+		skin = game_states.modelResource.get(pinfo.t_model).instance()
 	elif team == team2.team_id:
 		team2.addPlayer(nactor)
+		skin = game_states.modelResource.get(pinfo.ct_model).instance()
 	
 	nactor.selected_gun = nactor.primary_gun
+	nactor.setSkin(skin)
 	add_child(nactor)
 	emit_signal("player_spawned",nactor)
 

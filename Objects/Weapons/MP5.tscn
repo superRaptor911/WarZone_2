@@ -21,14 +21,14 @@ gun_portrait = ExtResource( 5 )
 gun_d_img = ExtResource( 6 )
 
 [node name="Muzzle" parent="." index="1"]
-position = Vector2( 0.11322, -30.7197 )
+position = Vector2( 0.241745, -38.6875 )
 
 [node name="Sprite" parent="." index="3"]
-position = Vector2( -106.135, -10.9207 )
+position = Vector2( -106.006, -19.6595 )
 texture = ExtResource( 3 )
 
 [node name="fire" parent="." index="4"]
 stream = ExtResource( 4 )
 
 [node name="RayCast2D" parent="." index="6"]
-position = Vector2( 0.205879, -30.9174 )
+position = Vector2( 0.591438, -38.3711 )

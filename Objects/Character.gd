@@ -25,8 +25,12 @@ signal char_killed_someone
 
 func _ready():
 	remove_child($Model)
-	setSkin(game_states.modelResource.default_model.instance())
-	emit_signal("char_born")	
+	
+	if skin == null:
+		setSkin(game_states.modelResource.t1.instance())
+	
+	emit_signal("char_born")
+
 
 #process Character
 func _process(delta):
@@ -104,7 +108,7 @@ func takeDamage(damage : float,weapon,attacker):
 		if attacker.is_in_group("User"):
 			var enemy_xp = 0
 			if self.is_in_group("User"):
-				enemy_xp = network.players[int(name)]
+				enemy_xp = network.players[int(name)].XP
 			attacker.rpc_id(int(attacker.name),"getKillRewards", enemy_xp)
 		
 		#deduct xp and cash
