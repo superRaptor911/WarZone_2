@@ -156,7 +156,7 @@ __meta__ = {
 }
 
 [node name="pistol" type="Button" parent="weapon_types/VBoxContainer"]
-margin_right = 246.0
+margin_right = 247.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
@@ -171,7 +171,7 @@ __meta__ = {
 
 [node name="smg" type="Button" parent="weapon_types/VBoxContainer"]
 margin_top = 80.0
-margin_right = 246.0
+margin_right = 247.0
 margin_bottom = 130.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
@@ -186,7 +186,7 @@ __meta__ = {
 
 [node name="rifle" type="Button" parent="weapon_types/VBoxContainer"]
 margin_top = 160.0
-margin_right = 246.0
+margin_right = 247.0
 margin_bottom = 210.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
@@ -201,7 +201,7 @@ __meta__ = {
 
 [node name="nades" type="Button" parent="weapon_types/VBoxContainer"]
 margin_top = 240.0
-margin_right = 246.0
+margin_right = 247.0
 margin_bottom = 290.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
@@ -216,7 +216,7 @@ __meta__ = {
 
 [node name="armour" type="Button" parent="weapon_types/VBoxContainer"]
 margin_top = 320.0
-margin_right = 246.0
+margin_right = 247.0
 margin_bottom = 370.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )

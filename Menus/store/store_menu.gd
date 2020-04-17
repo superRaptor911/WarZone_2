@@ -19,6 +19,9 @@ func _on_bw_pressed():
 	get_tree().change_scene("res://Menus/store/gun_store.tscn")
 
 
+func _on_sw_pressed():
+	get_tree().change_scene("res://Menus/store/gun_selection.tscn")
+
 ####################Tweeening###########################
 
 func initialTween():
@@ -29,3 +32,5 @@ func initialTween():
 	$Tween.interpolate_property(node,"rect_scale",node.rect_scale,
 		Vector2(1,1),duration,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.start()
+
+

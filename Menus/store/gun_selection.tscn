@@ -1,10 +1,14 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=1]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=3]
 [ext_resource path="res://Menus/store/gun_selection.gd" type="Script" id=4]
 [ext_resource path="res://Menus/Inventory/label_bg.png" type="Texture" id=5]
+[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=6]
+[ext_resource path="res://Sprites/UI/laser.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/UI/mag.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/UI/next_white.png" type="Texture" id=9]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -14,12 +18,12 @@ border_width_right = 3
 border_width_bottom = 3
 shadow_size = 6
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 24
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_left = 2
 border_width_top = 2
@@ -31,6 +35,15 @@ border_color = Color( 0, 0, 0, 1 )
 size = 28
 use_filter = true
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="Animation" id=6]
 resource_name = "buy_popup"
@@ -46,9 +59,104 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0.1, 0.1 ), Vector2( 0.4, 0.4 ), Vector2( 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("sec_gun:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 740, 260 ), Vector2( 1300, 260 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("sec_gun:rect_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("weapons:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 135, 0 ), Vector2( 135, -250 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("weapons:rect_rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("primary_gun:rect_position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 260 ), Vector2( -600, 260 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("primary_gun:rect_rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("back:rect_position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 563.684, 583.21 ), Vector2( 563.684, 730 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("back:rect_rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
 
-[sub_resource type="Animation" id=5]
-resource_name = "initial_anim"
+[sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath("weapons:rect_position")
 tracks/0/interp = 1
@@ -59,7 +167,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 192, -250 ), Vector2( 192, 0 ) ]
+"values": [ Vector2( 192, -250 ), Vector2( 135, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("weapons:rect_rotation")
@@ -83,7 +191,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1300, 260 ), Vector2( 698, 260 ) ]
+"values": [ Vector2( 1300, 260 ), Vector2( 740, 260 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("sec_gun:rect_rotation")
@@ -121,33 +229,65 @@ tracks/5/keys = {
 "update": 0,
 "values": [ 0.0, 0.0 ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("back:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 563.684, 730 ), Vector2( 563.684, 583.21 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("back:rect_rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.0941176, 0.0823529, 0.0823529, 0.976471 )
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
+shadow_size = 6
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=9]
 size = 24
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.109804, 0.65098, 0.0156863, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=11]
 size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 28
 use_filter = true
 font_data = ExtResource( 2 )
 
 [node name="gun_selection" type="CanvasLayer"]
 script = ExtResource( 4 )
+laser_tex = ExtResource( 7 )
+mag_tex = ExtResource( 8 )
 
 [node name="bg" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -161,8 +301,9 @@ __meta__ = {
 [node name="primary_gun" type="Panel" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
+margin_left = -600.0
 margin_top = -460.0
-margin_right = 582.0
+margin_right = -70.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_group_": true,
@@ -178,7 +319,7 @@ margin_left = -153.321
 margin_top = -20.6677
 margin_right = 152.679
 margin_bottom = 20.3323
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Selected as Primary gun"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -193,7 +334,7 @@ margin_left = -108.082
 margin_top = 0.000940084
 margin_right = 108.918
 margin_bottom = 171.001
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -203,7 +344,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 expand = true
-stretch_mode = 5
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -213,13 +354,13 @@ margin_left = 50.0
 margin_top = 182.0
 margin_right = 151.0
 margin_bottom = 214.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Ak47"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="laser" type="Button" parent="primary_gun"]
+[node name="prim_laser" type="Button" parent="primary_gun"]
 anchor_left = 0.5
 anchor_top = 0.617
 anchor_right = 0.5
@@ -238,7 +379,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="clip_ext" type="Button" parent="primary_gun"]
+[node name="prim_clip_ext" type="Button" parent="primary_gun"]
 anchor_left = 0.5
 anchor_top = 0.793
 anchor_right = 0.5
@@ -262,9 +403,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -582.0
+margin_left = 20.0001
 margin_top = -460.0
-margin_right = 0.000488281
+margin_right = 560.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_group_": true,
@@ -280,7 +421,7 @@ margin_left = -153.321
 margin_top = -20.6677
 margin_right = 152.679
 margin_bottom = 20.3323
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Selected as Secondary gun"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -295,7 +436,7 @@ margin_left = -108.082
 margin_top = 0.000940084
 margin_right = 108.918
 margin_bottom = 171.001
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -305,7 +446,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 expand = true
-stretch_mode = 5
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -315,13 +456,13 @@ margin_left = 50.0
 margin_top = 182.0
 margin_right = 151.0
 margin_bottom = 214.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Ak47"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="laser" type="Button" parent="sec_gun"]
+[node name="sec_laser" type="Button" parent="sec_gun"]
 anchor_left = 0.5
 anchor_top = 0.617
 anchor_right = 0.5
@@ -340,7 +481,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="clip_ext" type="Button" parent="sec_gun"]
+[node name="sec_clip_ext" type="Button" parent="sec_gun"]
 anchor_left = 0.5
 anchor_top = 0.793
 anchor_right = 0.5
@@ -362,19 +503,138 @@ __meta__ = {
 [node name="weapons" type="Panel" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -448.0
-margin_right = 448.0
-margin_bottom = 226.0
+margin_left = -505.0
+margin_top = -250.0
+margin_right = 505.0
+margin_bottom = -24.0
 custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="prev_btn" type="TextureButton" parent="weapons"]
+margin_left = 10.65
+margin_top = 16.3
+margin_right = 143.65
+margin_bottom = 208.3
+rect_scale = Vector2( -1, 1 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 9 )
+expand = true
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="next_btn" type="TextureButton" parent="weapons"]
+margin_left = 1000.48
+margin_top = 24.8918
+margin_right = 1133.48
+margin_bottom = 216.892
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="weapons"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -470.0
+margin_top = -82.5
+margin_right = 470.0
+margin_bottom = 82.5
+custom_constants/separation = 40
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="p1" type="Panel" parent="weapons/HBoxContainer"]
+margin_right = 205.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 205, 165 )
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="p1_btn" type="TextureButton" parent="weapons/HBoxContainer/p1"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 202.0
+margin_bottom = 162.0
+expand = true
+stretch_mode = 5
+
+[node name="p2" type="Panel" parent="weapons/HBoxContainer"]
+margin_left = 245.0
+margin_right = 450.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 205, 165 )
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="p2_btn" type="TextureButton" parent="weapons/HBoxContainer/p2"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 202.0
+margin_bottom = 162.0
+expand = true
+stretch_mode = 6
+
+[node name="p3" type="Panel" parent="weapons/HBoxContainer"]
+margin_left = 490.0
+margin_right = 695.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 205, 165 )
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="p3_btn" type="TextureButton" parent="weapons/HBoxContainer/p3"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 202.0
+margin_bottom = 162.0
+expand = true
+stretch_mode = 6
+
+[node name="p4" type="Panel" parent="weapons/HBoxContainer"]
+margin_left = 735.0
+margin_right = 940.0
+margin_bottom = 165.0
+rect_min_size = Vector2( 205, 165 )
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="p4_btn" type="TextureButton" parent="weapons/HBoxContainer/p4"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 202.0
+margin_bottom = 162.0
+expand = true
+stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "initial_anim"
 playback_speed = 2.0
 anims/buy_popup = SubResource( 6 )
-anims/initial_anim = SubResource( 5 )
+anims/initial_anim = SubResource( 7 )
 
 [node name="buy" type="Panel" parent="."]
 visible = false
@@ -387,7 +647,7 @@ margin_top = -234.0
 margin_right = 256.0
 margin_bottom = 234.0
 rect_pivot_offset = Vector2( 256, 252.692 )
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -398,7 +658,7 @@ margin_left = 57.0
 margin_top = 292.0
 margin_right = 241.0
 margin_bottom = 324.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "Cost :"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -409,7 +669,7 @@ margin_left = 57.0
 margin_top = 346.737
 margin_right = 241.0
 margin_bottom = 378.737
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "Cash :"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -436,24 +696,70 @@ margin_left = 27.1737
 margin_top = 193.692
 margin_right = 172.174
 margin_bottom = 225.692
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "Laser Sight"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="buy"]
-margin_left = 198.0
-margin_top = 418.0
-margin_right = 309.0
-margin_bottom = 449.0
-custom_styles/hover = SubResource( 9 )
-custom_styles/pressed = SubResource( 9 )
-custom_styles/focus = SubResource( 9 )
-custom_styles/normal = SubResource( 9 )
-custom_fonts/font = SubResource( 10 )
+[node name="buy_Button" type="Button" parent="buy"]
+margin_left = 51.413
+margin_top = 416.834
+margin_right = 162.413
+margin_bottom = 452.834
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/normal = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "Buy"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="primary_gun/laser" to="." method="_on_laser_pressed"]
+
+[node name="exit_buy" type="Button" parent="buy"]
+margin_left = 372.953
+margin_top = 416.834
+margin_right = 483.953
+margin_bottom = 452.834
+custom_styles/hover = ExtResource( 6 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/focus = ExtResource( 6 )
+custom_styles/normal = ExtResource( 6 )
+custom_fonts/font = SubResource( 11 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="back" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.846
+anchor_right = 0.5
+anchor_bottom = 0.846
+margin_left = -76.316
+margin_top = 120.88
+margin_right = 69.684
+margin_bottom = 172.88
+custom_styles/hover = ExtResource( 6 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/focus = ExtResource( 6 )
+custom_styles/normal = ExtResource( 6 )
+custom_fonts/font = SubResource( 12 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="primary_gun/prim_laser" to="." method="_on_prim_laser_pressed"]
+[connection signal="pressed" from="primary_gun/prim_clip_ext" to="." method="_on_prim_clip_ext_pressed"]
+[connection signal="pressed" from="sec_gun/sec_laser" to="." method="_on_sec_laser_pressed"]
+[connection signal="pressed" from="sec_gun/sec_clip_ext" to="." method="_on_sec_clip_ext_pressed"]
+[connection signal="pressed" from="weapons/prev_btn" to="." method="_on_prev_btn_pressed"]
+[connection signal="pressed" from="weapons/next_btn" to="." method="_on_next_btn_pressed"]
+[connection signal="pressed" from="weapons/HBoxContainer/p1/p1_btn" to="." method="_on_p1_btn_pressed"]
+[connection signal="pressed" from="weapons/HBoxContainer/p2/p2_btn" to="." method="_on_p2_btn_pressed"]
+[connection signal="pressed" from="weapons/HBoxContainer/p3/p3_btn" to="." method="_on_p3_btn_pressed"]
+[connection signal="pressed" from="weapons/HBoxContainer/p4/p4_btn" to="." method="_on_p4_btn_pressed"]
+[connection signal="pressed" from="buy/buy_Button" to="." method="_on_buy_Button_pressed"]
+[connection signal="pressed" from="buy/exit_buy" to="." method="_on_exit_buy_pressed"]
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

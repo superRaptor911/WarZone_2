@@ -9,7 +9,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 17.793
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 tracks/0/type = "value"
 tracks/0/path = NodePath("leg2:position")
 tracks/0/interp = 1
@@ -59,7 +59,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("leg1:position")
@@ -123,8 +123,8 @@ max_distance = 800.0
 attenuation = 1.27456
 
 [node name="walking" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 6 )
-anims/walking = SubResource( 7 )
+anims/idle = SubResource( 2 )
+anims/walking = SubResource( 3 )
 
 [node name="leg1" type="Sprite" parent="."]
 position = Vector2( 9.81211, -15.9617 )

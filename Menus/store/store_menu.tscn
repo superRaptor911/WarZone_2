@@ -64,7 +64,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="Panel/VBoxContainer"]
+[node name="sw" type="Button" parent="Panel/VBoxContainer"]
 margin_right = 589.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 100, 80 )
@@ -75,7 +75,7 @@ custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = SubResource( 2 )
 text = "Select Weapon"
 
-[node name="Button4" type="Button" parent="Panel/VBoxContainer"]
+[node name="ss" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 130.0
 margin_right = 589.0
 margin_bottom = 210.0
@@ -124,5 +124,6 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="."]
+[connection signal="pressed" from="Panel/VBoxContainer/sw" to="." method="_on_sw_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/bw" to="." method="_on_bw_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]

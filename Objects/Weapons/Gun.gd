@@ -23,7 +23,8 @@ var reloading : bool = false
 
 var max_ray_distance : float = 200
 var ray_dest : Vector2
-var laser_sight : bool = true
+var laser_sight : bool = false
+var extended_mag : bool = false
 var target : bool = false
 var muzzle_frames = 0
 
@@ -36,8 +37,10 @@ func _ready():
 	#if it does not have parent/user then force get parent
 	if not gun_user:
 		gun_user = get_parent()
-	laser_sight = game_states.game_settings.laser_targeting
 
+func extendMag():
+	if extended_mag:
+		rounds_in_clip += int(0.33 * rounds_in_clip)
 
 #Try to fire gun
 func fireGun():

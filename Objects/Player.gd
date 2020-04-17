@@ -119,10 +119,23 @@ func load_guns(nam : String , nam2 : String):
 		sec_gun.queue_free()
 	sec_gun = g2
 	
+	if is_network_master():
+		getWpnAttachments()
+	
 	if not skin:
 		print("Error no skin")
 	#selected_gun.position = $Model.get("fist").position
 
+func getWpnAttachments():
+	for i in game_states.player_data.guns:
+		if i.gun_name == primary_gun.gun_name:
+			primary_gun.laser_sight = i.laser
+			primary_gun.extended_mag = i.mag_ext
+			primary_gun.extendMag()
+		if i.gun_name == sec_gun.gun_name:
+			sec_gun.laser_sight = i.laser
+			sec_gun.extended_mag = i.mag_ext
+			sec_gun.extendMag()
 
 
 func _process(delta):
@@ -254,6 +267,10 @@ func setupGun():
 		hud.get_node("reload/gun_s").texture = selected_gun.gun_portrait
 		hud.get_node("reload/TextureProgress").max_value = selected_gun.rounds_in_clip
 		hud.get_node("reload/TextureProgress").value = selected_gun.rounds_left
+	
+	if is_network_master():
+		getWpnAttachments()
+
 
 
 func pause_controls(val : bool):

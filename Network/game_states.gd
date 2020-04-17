@@ -104,12 +104,19 @@ func saveDefaultData():
 	default_skins.append("t1")
 	default_skins.append("ct1")
 	
-	player_data.guns = default_guns
+	var gun_data = {gun_name = "", laser = false, mag_ext = false}
+	
 	player_data.selected_guns = default_guns
 	player_data.skins = default_skins
 	player_data.t_model = default_skins[0]
 	player_data.ct_model = default_skins[1]
 	
+	for i in default_guns:
+		var data = gun_data.duplicate(true)
+		data.gun_name = i
+		player_data.guns.append(data)
+		
+	print("saving data")
 	save_data("user://pinfo.dat",player_data)
 	
 	
