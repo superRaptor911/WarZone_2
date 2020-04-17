@@ -2,6 +2,10 @@ extends CollisionShape2D
 class_name Model
 
 export var model_name : String = "Model"
+export var model_real_name : String = "S.A.S"
+export(String, MULTILINE) var model_desc : String = "Britsh Special forces"
+export var price = 500
+export var team_id = 0
 
 var is_walking : bool = false
 var playing : bool = false
@@ -60,16 +64,15 @@ func _on_gun_reload():
 func _on_killed():
 	$blood_scat.show()
 	$skin.hide()
-	$anim.stop()
-	$anim.play("smg_reload")
+	fist.hide()
 	$walking.stop()
 	
 func revive():
 	$blood_scat.hide()
 	$skin.show()
+	fist.show()
 
 func _on_char_damaged():
-	return
 	if parent.HP < 50:
 		$skin.material.set_shader_param("use",1.0)
 		$skin.material.set_shader_param("tex_size",Vector2(64,64))
@@ -78,6 +81,5 @@ func _on_char_damaged():
 		$skin.material.set_shader_param("tex_size",Vector2(0,0))
 
 func _on_char_killed():
-	return
 	$skin.material.set_shader_param("use",0.0)
 	$skin.material.set_shader_param("tex_size",Vector2(0,0))

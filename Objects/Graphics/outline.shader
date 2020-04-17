@@ -7,8 +7,8 @@ uniform float use = 0.0;
 
 void fragment()
 {
-	vec4 color = clr + abs(sin(TIME * 4.0 * use));
-	vec2 size = out_size / tex_size;
+	vec4 color = clr + abs(sin(TIME * 4.0)) * use;
+	vec2 size = out_size / tex_size * use;
     vec4 sprite_color = texture(TEXTURE, UV);
    
     float alpha = sprite_color.a;

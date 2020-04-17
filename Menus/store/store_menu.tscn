@@ -125,5 +125,7 @@ __meta__ = {
 
 [node name="Tween" type="Tween" parent="."]
 [connection signal="pressed" from="Panel/VBoxContainer/sw" to="." method="_on_sw_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ss" to="." method="_on_ss_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/bw" to="." method="_on_bw_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/bs" to="." method="_on_bs_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]

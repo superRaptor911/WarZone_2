@@ -1,0 +1,397 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=2]
+[ext_resource path="res://Menus/store/skinSelect.gd" type="Script" id=3]
+[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=4]
+[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+shadow_size = 6
+
+[sub_resource type="DynamicFont" id=2]
+size = 28
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 28
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "initalAnim"
+tracks/0/type = "value"
+tracks/0/path = NodePath("T:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -550, 151.801 ), Vector2( 74.7135, 151.801 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("T:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Back:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 593, 740 ), Vector2( 593, 639 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Back:rect_rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CT:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1300, 151.801 ), Vector2( 693.593, 151.801 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CT:rect_rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0 ]
+}
+
+[node name="skinSelect" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="T" type="Panel" parent="."]
+margin_left = 74.7135
+margin_top = 151.801
+margin_right = 586.714
+margin_bottom = 554.801
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="T"]
+anchor_right = 1.0
+margin_bottom = 65.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="T/Header"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -97.5
+margin_top = -18.5
+margin_right = 97.5
+margin_bottom = 18.5
+custom_fonts/font = SubResource( 2 )
+text = "Selected Skin"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="footer" type="Panel" parent="T"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -256.0
+margin_top = -65.0
+margin_right = 256.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="T/footer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -97.5
+margin_top = -18.5
+margin_right = 97.5
+margin_bottom = 18.5
+custom_fonts/font = SubResource( 2 )
+text = "Terrorist"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="portrait" type="Panel" parent="T"]
+margin_left = 132.754
+margin_top = 100.0
+margin_right = 375.754
+margin_bottom = 278.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="T/portrait"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -99.922
+margin_top = 97.0255
+margin_right = 95.078
+margin_bottom = 134.025
+custom_fonts/font = SubResource( 2 )
+text = "S.A.S"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="T/portrait"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 241.0
+margin_bottom = 176.0
+expand = true
+stretch_mode = 6
+
+[node name="Tnext" type="TextureButton" parent="T/portrait"]
+margin_left = 246.729
+margin_top = 14.3951
+margin_right = 389.729
+margin_bottom = 149.395
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tprev" type="TextureButton" parent="T/portrait"]
+margin_top = 14.3951
+margin_right = 143.0
+margin_bottom = 149.395
+rect_scale = Vector2( -1, 1 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CT" type="Panel" parent="."]
+margin_left = 693.593
+margin_top = 151.801
+margin_right = 1205.59
+margin_bottom = 554.801
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="CT"]
+anchor_right = 1.0
+margin_bottom = 65.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CT/Header"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -97.5
+margin_top = -18.5
+margin_right = 97.5
+margin_bottom = 18.5
+custom_fonts/font = SubResource( 2 )
+text = "Selected Skin"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="footer" type="Panel" parent="CT"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -256.0
+margin_top = -65.0
+margin_right = 256.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CT/footer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -127.5
+margin_top = -18.5
+margin_right = 127.5
+margin_bottom = 18.5
+custom_fonts/font = SubResource( 2 )
+text = "Counter Terrorist"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="portrait" type="Panel" parent="CT"]
+margin_left = 132.754
+margin_top = 100.0
+margin_right = 375.754
+margin_bottom = 278.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="CT/portrait"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -99.922
+margin_top = 97.0255
+margin_right = 95.078
+margin_bottom = 134.025
+custom_fonts/font = SubResource( 2 )
+text = "S.A.S"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="CT/portrait"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 241.0
+margin_bottom = 176.0
+expand = true
+stretch_mode = 6
+
+[node name="CTnext" type="TextureButton" parent="CT/portrait"]
+margin_left = 246.729
+margin_top = 14.3951
+margin_right = 389.729
+margin_bottom = 149.395
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CTprev" type="TextureButton" parent="CT/portrait"]
+margin_top = 14.3951
+margin_right = 143.0
+margin_bottom = 149.395
+rect_scale = Vector2( -1, 1 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Button" parent="."]
+anchor_left = 0.515
+anchor_top = 0.919
+anchor_right = 0.515
+anchor_bottom = 0.919
+margin_left = -66.2001
+margin_top = -22.68
+margin_right = 65.7999
+margin_bottom = 22.32
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 5 )
+custom_fonts/font = SubResource( 5 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "initalAnim"
+playback_speed = 2.0
+anims/initalAnim = SubResource( 4 )
+[connection signal="pressed" from="T/portrait/Tnext" to="." method="_on_Tnext_pressed"]
+[connection signal="pressed" from="T/portrait/Tprev" to="." method="_on_Tprev_pressed"]
+[connection signal="pressed" from="CT/portrait/CTnext" to="." method="_on_CTnext_pressed"]
+[connection signal="pressed" from="CT/portrait/CTprev" to="." method="_on_CTprev_pressed"]
+[connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]

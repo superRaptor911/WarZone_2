@@ -41,8 +41,6 @@ var control_types = {
 var modelResource = {
 	ct1 = preload("res://Models/ct1.tscn"),
 	t1 = preload("res://Models/t1.tscn"),
-	zombie_model = preload("res://Models/Zombie.tscn"),
-	zombie_hunter = preload("res://Models/Hunter.tscn")
 }
 
 var classResource = {
@@ -68,8 +66,8 @@ var player_data = {
 	guns = Array(),
 	skins = Array(),
 	selected_guns = Array(),
-	selected_t_model = "t1",
-	selected_ct_model = "ct1"
+	t_model = "t1",
+	ct_model = "ct1"
 }
 
 var bot_profiles = {
@@ -126,8 +124,8 @@ func portGameToCurrentVersion():
 #setup player info
 func _init_setup():
 	player_info.name = player_data.name
-	player_info.t_model = player_data.selected_t_model
-	player_info.ct_model = player_data.selected_ct_model
+	player_info.t_model = player_data.t_model
+	player_info.ct_model = player_data.ct_model
 	player_info.XP = player_data.XP
 	
 	player_info.primary_gun_name = player_data.selected_guns[0]

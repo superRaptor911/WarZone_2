@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Models/Model.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Graphics/outline.shader" type="Shader" id=2]
 [ext_resource path="res://Sprites/Character/legs.png" type="Texture" id=3]
 [ext_resource path="res://Sfx/walk1.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sprites/Character/cr1/ct1.bmp" type="Texture" id=5]
@@ -110,6 +111,14 @@ tracks/3/keys = {
 "values": [ 0.0, 0.0 ]
 }
 
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = ExtResource( 2 )
+shader_param/clr = null
+shader_param/tex_size = Vector2( 64, 64 )
+shader_param/out_size = 1.0
+shader_param/use = 0.0
+
 [node name="Model" type="CollisionShape2D"]
 z_index = 2
 z_as_relative = false
@@ -157,6 +166,7 @@ position = Vector2( -0.80497, -22.9638 )
 rotation = 1.5708
 
 [node name="skin" type="Sprite" parent="."]
+material = SubResource( 4 )
 position = Vector2( -0.643921, -7.72699 )
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 5 )

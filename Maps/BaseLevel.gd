@@ -259,6 +259,7 @@ func spawnBots():
 		char_data.is_bot = true
 		char_data.team_id = 1
 		char_data.pos = getSpawnPosition(char_data.team_id)
+		char_data.skin = i.bot_ct_skin
 		#giving unique integer name
 		char_data.name = String(69 + game_server.bot_settings.index)
 		bots.append(char_data)
