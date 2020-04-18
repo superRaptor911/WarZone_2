@@ -6,7 +6,6 @@ export var stay_time = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("decal")
 	$Timer.wait_time = stay_time
 	$Timer.start()
 

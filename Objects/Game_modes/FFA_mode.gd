@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var scoreBoard = preload("res://Objects/Game_modes/FFA/FFAScoreBoard.tscn").instance()
+var scoreBoard = preload("res://Objects/Misc/ScoreBoard.tscn").instance()
 var current_level = null
 var world_size : Vector2
 

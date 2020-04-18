@@ -117,11 +117,19 @@ func handleKills(victim,killer,weapon_used):
 		if victim.is_in_group("User") or victim.is_in_group("Bot"):
 			var victim_data = _get_player_data_by_id(victim.id)
 			victim_data.deaths += 1
+			victim_data.score -= 1
+			#handle suicide
+			if victim == killer:
+				victim_data.score -= 2
 	if killer:
 		killer_name = killer.pname
 		if killer.is_in_group("User") or killer.is_in_group("Bot"):
 			var killer_data = _get_player_data_by_id(killer.id)
 			killer_data.kills += 1
+			killer_data.score += 4
+			if victim == killer:
+				killer_data.kills -= 1
+				killer_data.score -= 4
 	if weapon_used:
 		if weapon_used.gun_name == "plasma":
 			kill_msg = victim_name + " was burned alive by hot plasma"

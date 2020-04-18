@@ -21,7 +21,6 @@ var hud = null
 
 var grenade = preload("res://Objects/Weapons/grenade.tscn")
 var wpn_drop = preload("res://Objects/Misc/WpnDrop.tscn").instance()
-var grenade_count = 3
 var _pause_cntrl : bool = false
 
 var cur_dropped_item_id = 0
@@ -164,7 +163,9 @@ func _get_inputs():
 	if Input.is_action_pressed("ui_sprint"):
 		useSprint()
 	if Input.is_action_just_pressed("ui_spl"):
-		throwGrenade()
+		if game_states.player_data.nade_count > 0:
+			game_states.player_data.nade_count -= 1
+			rpc_id(1,"server_throwGrenade")
 	if Input.is_action_just_pressed("ui_next_item"):
 		rpc("switchGun")
 	if Input.is_action_just_pressed("ui_inv"):
@@ -174,24 +175,18 @@ func _get_inputs():
 	
 	rotation = (get_global_mouse_position()  - global_position).angle() + 1.57
 
-remote func throwGrenade():
+remotesync func server_throwGrenade():
 	if get_tree().is_network_server():
-		var g = grenade.instance()
-		var nam = "g" + String(randi()%1000)
-		g.set_name(nam)
-		get_tree().root.add_child(g)
-		var dir = (skin.fist.global_position - global_position).normalized()
-		g.position = position + (Vector2(-1.509,-50.226)).rotated(rotation)
-		g.user = self
-		g.throwGrenade(dir)
+		#bad code
+		var nam = "g" + String(randi()%10000)
 		rpc("_sync_throwGrenade",nam)
 	else:
-		rpc_id(1,"throwGrenade")
+		print("Error : called on peer")
 
-remote func _sync_throwGrenade(nam):
+remotesync func _sync_throwGrenade(nam):
 	var g = grenade.instance()
 	g.set_name(nam)
-	get_tree().root.add_child(g)
+	get_tree().get_nodes_in_group("Level")[0].add_child(g)
 	var dir = (skin.get("fist").global_position - global_position).normalized()
 	g.position = position + (Vector2(-1.509,-50.226)).rotated(rotation)
 	g.user = self

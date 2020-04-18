@@ -67,7 +67,8 @@ var player_data = {
 	skins = Array(),
 	selected_guns = Array(),
 	t_model = "t1",
-	ct_model = "ct1"
+	ct_model = "ct1",
+	nade_count = 2
 }
 
 var bot_profiles = {

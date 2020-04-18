@@ -68,7 +68,9 @@ func _on_zoom_pressed():
 	user.get_node("Camera2D").zoom = Vector2(user.selected_gun.current_zoom,user.selected_gun.current_zoom)
 
 func _on_HE_pressed():
-	user.throwGrenade()
+	if game_states.player_data.nade_count > 0:
+		game_states.player_data.nade_count -= 1
+		user.rpc_id(1,"server_throwGrenade")
 
 class Message_slot:
 	var is_free : bool

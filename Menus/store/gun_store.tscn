@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Menus/store/gun_store.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=5]
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=6]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Sprites/Weapons/he.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -69,6 +70,7 @@ shadow_size = 6
 
 [node name="gun_store" type="CanvasLayer"]
 script = ExtResource( 1 )
+nade_img = ExtResource( 8 )
 
 [node name="BG" type="TextureRect" parent="."]
 self_modulate = Color( 1, 1, 1, 0.572549 )
@@ -126,14 +128,14 @@ __meta__ = {
 }
 
 [node name="weapon_types" type="Panel" parent="."]
-anchor_left = 0.19
-anchor_top = 0.556
-anchor_right = 0.19
-anchor_bottom = 0.556
-margin_left = -166.051
-margin_top = -221.889
-margin_right = 165.949
-margin_bottom = 222.111
+anchor_left = 0.181
+anchor_top = 0.561
+anchor_right = 0.181
+anchor_bottom = 0.561
+margin_left = -165.51
+margin_top = -211.603
+margin_right = 166.49
+margin_bottom = 211.397
 custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true,
@@ -146,9 +148,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -123.5
-margin_top = -185.0
+margin_top = -150.0
 margin_right = 123.5
-margin_bottom = 185.0
+margin_bottom = 150.0
 custom_constants/separation = 30
 __meta__ = {
 "_edit_group_": true,
@@ -215,6 +217,7 @@ __meta__ = {
 }
 
 [node name="armour" type="Button" parent="weapon_types/VBoxContainer"]
+visible = false
 margin_top = 320.0
 margin_right = 247.0
 margin_bottom = 370.0
