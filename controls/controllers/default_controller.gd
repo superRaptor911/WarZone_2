@@ -11,9 +11,9 @@ func _ready():
 		return
 	$aim_joy.connect("Joystick_Updated",self,"_on_joy2_move")
 	
-	if not game_states.game_settings.static_dpad:
-		$mov_joy.use_screen_rectangle = true
-		$aim_joy.use_screen_rectangle = true
+	#if not game_states.game_settings.static_dpad:
+		#$mov_joy.use_screen_rectangle = true
+		#$aim_joy.use_screen_rectangle = true
 	$mov_joy.modulate.a8 = game_states.game_settings.dpad_transparency
 	$aim_joy.modulate.a8 = game_states.game_settings.dpad_transparency
 

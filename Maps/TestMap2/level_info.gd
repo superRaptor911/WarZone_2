@@ -9,7 +9,7 @@ var gameMode_dict = {
 var level_name = "TestMap2"
 var level_desc = "Test map for testing WarZone 2. Created for testing purposes only"
 var level_path = "res://Maps/TestMap2/TestMap2.tscn"
-var icon : Texture = preload("res://Maps/TestMap/minimap.png")
+var icon : Texture = preload("res://Maps/TestMap2/minimap.png")
 var gameModes = Array()
 
 

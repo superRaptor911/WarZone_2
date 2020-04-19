@@ -1,0 +1,142 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/Misc/spawn_point.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=2]
+
+[node name="TDM" type="Node"]
+
+[node name="spawn_point" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 220.526, 2919.16 )
+script = ExtResource( 1 )
+
+[node name="spawn_point9" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 261.304, 252.476 )
+script = ExtResource( 1 )
+team_id = 1
+
+[node name="spawn_point10" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 475.655, 252.476 )
+script = ExtResource( 1 )
+team_id = 1
+
+[node name="spawn_point11" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 358.203, 419.846 )
+script = ExtResource( 1 )
+team_id = 1
+
+[node name="spawn_point12" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 1674.8, 294.453 )
+script = ExtResource( 1 )
+team_id = 1
+
+[node name="spawn_point14" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 3143.85, 244.524 )
+script = ExtResource( 1 )
+team_id = 1
+
+[node name="spawn_point15" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 2919.52, 244.524 )
+script = ExtResource( 1 )
+team_id = 1
+
+[node name="spawn_point16" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 3038.1, 364.777 )
+script = ExtResource( 1 )
+team_id = 1
+
+[node name="spawn_point13" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 1887.84, 297.969 )
+script = ExtResource( 1 )
+team_id = 1
+
+[node name="spawn_point2" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 509.916, 2919.16 )
+script = ExtResource( 1 )
+
+[node name="spawn_point3" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 366.417, 2804.36 )
+script = ExtResource( 1 )
+
+[node name="spawn_point4" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 1672.88, 2849.42 )
+script = ExtResource( 1 )
+
+[node name="spawn_point5" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 1951.13, 2849.42 )
+script = ExtResource( 1 )
+
+[node name="spawn_point6" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 3106.55, 2886.52 )
+script = ExtResource( 1 )
+
+[node name="spawn_point7" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 2883.95, 2886.52 )
+script = ExtResource( 1 )
+
+[node name="spawn_point8" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 2 )]
+position = Vector2( 2997.9, 2743.41 )
+script = ExtResource( 1 )
+[connection signal="body_entered" from="spawn_point" to="spawn_point" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point" to="spawn_point" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point9" to="spawn_point9" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point9" to="spawn_point9" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point10" to="spawn_point10" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point10" to="spawn_point10" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point11" to="spawn_point11" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point11" to="spawn_point11" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point12" to="spawn_point12" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point12" to="spawn_point12" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point14" to="spawn_point14" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point14" to="spawn_point14" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point15" to="spawn_point15" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point15" to="spawn_point15" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point16" to="spawn_point16" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point16" to="spawn_point16" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point13" to="spawn_point13" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point13" to="spawn_point13" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point2" to="spawn_point2" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point2" to="spawn_point2" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point3" to="spawn_point3" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point3" to="spawn_point3" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point4" to="spawn_point4" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point4" to="spawn_point4" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point5" to="spawn_point5" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point5" to="spawn_point5" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point6" to="spawn_point6" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point6" to="spawn_point6" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point7" to="spawn_point7" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point7" to="spawn_point7" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point8" to="spawn_point8" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point8" to="spawn_point8" method="_on_spawn_point_body_exited"]

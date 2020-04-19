@@ -72,6 +72,16 @@ func _on_HE_pressed():
 		game_states.player_data.nade_count -= 1
 		user.rpc_id(1,"server_throwGrenade")
 
+
+func addCash(val):
+	$Tween.stop_all()
+	$cash.visible = true
+	$cash.text = "+ $" + String(val)
+	$Tween.interpolate_property($cash, "rect_scale", Vector2(0.5,0.5), Vector2(1,1),1.5,Tween.TRANS_ELASTIC,Tween.EASE_IN_OUT)
+	$Tween.interpolate_property($cash, "rect_scale", Vector2(1,1), Vector2(0.5,0.5),1,Tween.TRANS_QUAD,Tween.EASE_IN_OUT,1.5)
+	$Tween.interpolate_property($cash, "visible", true,false,0.5,Tween.TRANS_LINEAR,Tween.EASE_OUT,3)
+	$Tween.start()
+
 class Message_slot:
 	var is_free : bool
 	var msg : String
@@ -196,3 +206,7 @@ func _on_pick_pressed():
 	if user.alive:
 		user.pickItem()
 		$pick.hide()
+
+
+func _on_melee_pressed():
+	user.performMeleeAttack()

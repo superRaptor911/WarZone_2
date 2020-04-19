@@ -40,8 +40,7 @@ func _ready():
 	if is_network_master():
 		pname = game_states.player_info.name
 		$Camera2D.current = true
-		var cnt_path = game_states.control_types.get(game_states.game_settings.control_type)
-		var controller = load(cnt_path).instance()
+		var controller = load("res://controls/controllers/default_controller.tscn").instance()
 		controller.set_name("controller")
 		add_child(controller)
 		controller.user = self
@@ -169,6 +168,8 @@ func _get_inputs():
 	if Input.is_action_just_pressed("ui_next_item"):
 		rpc("switchGun")
 	if Input.is_action_just_pressed("ui_inv"):
+		performMeleeAttack()
+		return
 		pause_controls(true)
 		var inv_menu = load("res://Menus/Inventory/inventory_menu.tscn").instance()
 		get_tree().root.add_child(inv_menu)
@@ -205,6 +206,7 @@ remotesync func sync_respawn(pos,id):
 	AP = 100
 	pause_controls(false)
 	$movmtCPP._teleportCharacter(pos)
+	#primary_gun = null
 	load_guns(network.players[id].primary_gun_name,network.players[id].sec_gun_name)
 	switchGun()
 	skin.revive()
@@ -228,8 +230,12 @@ remotesync func switchGun():
 			selected_gun = sec_gun
 			skin.switchGun(selected_gun.gun_type)
 			skin.fist.add_child(selected_gun)
-	else:
+	elif selected_gun == sec_gun:
 		skin.fist.remove_child(selected_gun)
+		selected_gun = primary_gun
+		skin.switchGun(selected_gun.gun_type)
+		skin.fist.add_child(selected_gun)
+	else:
 		selected_gun = primary_gun
 		skin.switchGun(selected_gun.gun_type)
 		skin.fist.add_child(selected_gun)
@@ -283,7 +289,9 @@ func respawn_player():
 
 remotesync func getKillRewards(enemy_xp = 0):
 	xp += 10 + game_states.getLevelFromXP(enemy_xp) * 3
-	cash += 25 + 50 * game_states.getLevelFromXP(enemy_xp)
+	var add = 25 + 50 * game_states.getLevelFromXP(enemy_xp)
+	cash += add
+	hud.addCash(add)
 
 remotesync func deductDeathPenalty():
 	xp = max(xp - 3 * game_states.getLevelFromXP(xp), 0)
@@ -291,13 +299,14 @@ remotesync func deductDeathPenalty():
 
 
 func performMeleeAttack():
-	rpc_id(1,"serverMeleeAttack")
+	if skin.doMelee():
+		rpc_id(1,"serverMeleeAttack")
 
 remotesync func serverMeleeAttack():
-	if selected_gun.target:
-		var body = selected_gun.get_node("RayCast2D").get_collider()
-		if body and body.is_in_group("Actor") and (position - body.position).length() < 70:
-			body.takeDamage(selected_gun.melee_damage, selected_gun, self)
+	for i in close_chars:
+		if game_server.extraServerInfo.friendly_fire or (i.team.team_id != team.team_id):
+			i.takeDamage(300, selected_gun, self)
+			print("done")
 
 remotesync func syncMelee():
-	pass
+	skin.doMelee()

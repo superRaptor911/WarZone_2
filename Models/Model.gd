@@ -17,7 +17,8 @@ var fist
 
 
 func _ready():
-	fist = $sfist
+	fist = $skin/sfist
+	fist.global_scale = Vector2(1,1)
 	parent = get_parent()
 	parent.connect("char_took_damage", self, "_on_char_damaged")
 	parent.connect("char_killed", self, "_on_char_killed")
@@ -45,11 +46,14 @@ func walking():
 
 func switchGun(gun_type):
 	if gun_type == "pistol":
-		fist = $pfist
+		fist = $skin/pfist
 		$skin.frame = 3
-	elif gun_type == "smg":
+	elif gun_type == "smg" or gun_type == "rifle":
 		$skin.frame = 4
-		fist = $sfist
+		fist = $skin/sfist
+		
+	fist.global_scale = Vector2(1,1)
+	fist.show()
 
 func _on_gun_fired():
 	pass
@@ -72,6 +76,16 @@ func revive():
 	$skin.show()
 	fist.show()
 
+func doMelee() -> bool:
+	if $mele_delay.is_stopped():
+		parent.pause_controls(true)
+		$AnimationPlayer.play("melee")
+		$mele_delay.start()
+		return true
+	
+	return false
+
+
 func _on_char_damaged():
 	if parent.HP < 50:
 		$skin.material.set_shader_param("use",1.0)
@@ -83,3 +97,8 @@ func _on_char_damaged():
 func _on_char_killed():
 	$skin.material.set_shader_param("use",0.0)
 	$skin.material.set_shader_param("tex_size",Vector2(0,0))
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "melee":
+		parent.pause_controls(false)

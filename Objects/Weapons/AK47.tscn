@@ -23,13 +23,13 @@ gun_portrait = ExtResource( 6 )
 gun_d_img = ExtResource( 7 )
 
 [node name="Muzzle" parent="." index="1"]
-position = Vector2( -0.116863, -36.8125 )
+position = Vector2( 0.544254, -42.542 )
 
 [node name="Reload_time" parent="." index="2"]
 wait_time = 2.0
 
 [node name="Sprite" parent="." index="3"]
-position = Vector2( -107.799, -9.68899 )
+position = Vector2( -107.689, -15.3083 )
 texture = ExtResource( 3 )
 
 [node name="fire" parent="." index="4"]
@@ -39,4 +39,4 @@ stream = ExtResource( 4 )
 stream = ExtResource( 5 )
 
 [node name="RayCast2D" parent="." index="6"]
-position = Vector2( -0.112196, -36.7372 )
+position = Vector2( 0.659103, -42.9074 )

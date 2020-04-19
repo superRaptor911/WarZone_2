@@ -75,11 +75,13 @@ remotesync func switchGun():
 			skin.fist.remove_child(selected_gun)
 			selected_gun = sec_gun
 			unselected_gun = primary_gun
+			skin.switchGun(selected_gun.gun_type)
 			skin.fist.add_child(selected_gun)
 	else:
 		skin.fist.remove_child(selected_gun)
 		selected_gun = primary_gun
 		unselected_gun = sec_gun
+		skin.switchGun(selected_gun.gun_type)
 		skin.fist.add_child(selected_gun)
 	
 	if not selected_gun.is_connected("gun_fired",skin,"_on_gun_fired"):
@@ -92,6 +94,7 @@ remotesync func switchGun():
 
 func setupGun():
 	if selected_gun != null:
+		skin.switchGun(selected_gun.gun_type)
 		skin.fist.add_child(selected_gun)
 	else:
 		print("Error no selected gun")
@@ -167,6 +170,7 @@ func pickItem(item_id):
 
 remotesync func pickUpItem(item):
 	if item.type == "wpn":
+		print("picking up wpn ", item.wpn)
 		var old_gun = selected_gun
 		if selected_gun == primary_gun:
 			primary_gun = game_states.weaponResource.get(item.wpn).instance()

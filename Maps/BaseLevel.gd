@@ -100,8 +100,7 @@ func getSpawnPosition(team_id : int) -> Vector2:
 		var min_value = 999
 		
 		for i in spawn_ponts:
-			if (game_server.serverInfo.game_mode == "FFA" or i.team_id == -1
-			or i.team_id == team_id) and i.entity_count < min_value:
+			if (i.team_id == -1 or i.team_id == team_id) and i.entity_count < min_value:
 				min_value = i.entity_count
 				best_spawn_point = i
 		

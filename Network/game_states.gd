@@ -1,7 +1,7 @@
 extends Node
 
 #is exporting for android or not
-var is_android : bool = false
+var is_android : bool = true
 var current_game_version = 1.0
 const invalid_position = Vector2(-999,-999)
 
@@ -23,12 +23,10 @@ var game_status = {
 
 #game settings with default value
 var game_settings = {
-	control_type = "default",
-	static_dpad = true,
 	dpad_transparency = 128,
 	particle_effects = true,
 	lighting_effects = true,
-	laser_targeting = true
+	music_enabled = true
 }
 
 #control types available

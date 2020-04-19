@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Models/Model.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Graphics/outline.shader" type="Shader" id=2]
@@ -119,6 +119,22 @@ shader_param/tex_size = Vector2( 64, 64 )
 shader_param/out_size = 1.0
 shader_param/use = 0.0
 
+[sub_resource type="Animation" id=5]
+resource_name = "melee"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("skin:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -45.0, 45.0, 0.0 ]
+}
+
 [node name="Model" type="CollisionShape2D"]
 z_index = 2
 z_as_relative = false
@@ -157,14 +173,6 @@ texture = ExtResource( 10 )
 [node name="Sprite" type="Sprite" parent="blood_scat"]
 position = Vector2( -38.9172, -40.4954 )
 
-[node name="sfist" type="Node2D" parent="."]
-position = Vector2( 0.0709008, -14.3056 )
-rotation = 1.5708
-
-[node name="pfist" type="Node2D" parent="."]
-position = Vector2( -0.80497, -22.9638 )
-rotation = 1.5708
-
 [node name="skin" type="Sprite" parent="."]
 material = SubResource( 4 )
 position = Vector2( -0.643921, -7.72699 )
@@ -173,3 +181,20 @@ texture = ExtResource( 5 )
 vframes = 3
 hframes = 2
 frame = 3
+
+[node name="sfist" type="Node2D" parent="skin"]
+position = Vector2( 1.27866, -8.28313 )
+rotation = 1.5708
+scale = Vector2( 1.33333, 1.33333 )
+
+[node name="pfist" type="Node2D" parent="skin"]
+position = Vector2( 0.607859, -22.5676 )
+rotation = 1.5708
+scale = Vector2( 1.33333, 1.33333 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/melee = SubResource( 5 )
+
+[node name="mele_delay" type="Timer" parent="."]
+one_shot = true
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

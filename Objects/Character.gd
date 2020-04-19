@@ -14,6 +14,8 @@ var current_time : float = 0
 #last attacked entity
 var last_attacker
 var skin : Model = null
+#characters in melee range
+var close_chars = Array()
 
 #This signal is emitted when char is killed
 #it's better naming should be char_dead 
@@ -160,3 +162,13 @@ func _on_Character_char_took_damage():
 
 func teleportCharacter(pos,input_id):
 	return
+
+
+func _on_melee_range_body_entered(body):
+	if body.is_in_group("Actor"):
+		close_chars.append(body)
+
+
+func _on_melee_range_body_exited(body):
+	if body.is_in_group("Actor"):
+		close_chars.erase(body)

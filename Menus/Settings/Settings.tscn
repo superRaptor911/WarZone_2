@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Menus/Settings/Settings.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=3]
+[ext_resource path="res://hg.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -11,6 +13,28 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.266667, 0.266667, 0.266667, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_size = 4
+
+[sub_resource type="DynamicFont" id=3]
+size = 24
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+use_filter = true
+font_data = ExtResource( 4 )
 
 [node name="Settings" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -24,24 +48,122 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="."]
-margin_left = 1390.65
-margin_top = 473.896
-margin_right = 1482.65
-margin_bottom = 513.896
+margin_left = 597.042
+margin_top = 634.044
+margin_right = 689.042
+margin_bottom = 674.044
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 5 )
 custom_fonts/font = ExtResource( 2 )
 text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Panel" type="Panel" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -310.5
+margin_left = -293.5
 margin_top = -257.0
-margin_right = 310.5
+margin_right = 293.5
 margin_bottom = 257.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -213.5
+margin_top = -163.0
+margin_right = 213.5
+margin_bottom = 175.0
+custom_constants/separation = 30
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="particles" type="Panel" parent="Panel/VBoxContainer"]
+margin_right = 427.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 427, 40 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/particles"]
+margin_left = 14.9753
+margin_top = 1.95422
+margin_right = 213.975
+margin_bottom = 33.9542
+custom_fonts/font = SubResource( 3 )
+text = "Enable Particles"
+
+[node name="particles" type="CheckButton" parent="Panel/VBoxContainer/particles"]
+margin_left = 336.729
+margin_right = 412.729
+margin_bottom = 40.0
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music" type="Panel" parent="Panel/VBoxContainer"]
+margin_top = 70.0
+margin_right = 427.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 427, 40 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/music"]
+margin_left = 14.9753
+margin_top = 1.95422
+margin_right = 213.975
+margin_bottom = 33.9542
+custom_fonts/font = SubResource( 3 )
+text = "Music"
+
+[node name="music" type="CheckButton" parent="Panel/VBoxContainer/music"]
+margin_left = 336.729
+margin_right = 412.729
+margin_bottom = 40.0
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Panel"]
+anchor_right = 1.0
+margin_bottom = 48.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/Header"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -70.5
+margin_top = -21.5
+margin_right = 70.5
+margin_bottom = 21.5
+custom_fonts/font = SubResource( 4 )
+text = "Settings"
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="toggled" from="Panel/VBoxContainer/particles/particles" to="." method="_on_particles_toggled"]
+[connection signal="toggled" from="Panel/VBoxContainer/music/music" to="." method="_on_music_toggled"]
