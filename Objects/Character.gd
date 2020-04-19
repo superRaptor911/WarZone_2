@@ -84,7 +84,7 @@ func takeDamage(damage : float,weapon,attacker):
 		return
 	#disable friendly fire in moded other than FFA
 	#will be replaced by something better in future
-	if team and not (game_server.serverInfo.game_mode == "FFA"):
+	if team and not (game_server.extraServerInfo.friendly_fire):
 		if attacker:
 			if team.team_id == attacker.team.team_id:
 				return

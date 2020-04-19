@@ -28,8 +28,8 @@ font_data = ExtResource( 3 )
 script = ExtResource( 5 )
 
 [node name="bg" type="TextureRect" parent="."]
-margin_right = 1280.0
-margin_bottom = 720.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
@@ -112,10 +112,14 @@ custom_fonts/font = SubResource( 2 )
 text = "Buy Skins"
 
 [node name="back" type="Button" parent="."]
-margin_left = 53.0
-margin_top = 639.0
-margin_right = 163.0
-margin_bottom = 679.0
+anchor_left = 0.084
+anchor_top = 0.915
+anchor_right = 0.084
+anchor_bottom = 0.915
+margin_left = -54.52
+margin_top = -19.8
+margin_right = 55.48
+margin_bottom = 20.2
 custom_styles/normal = ExtResource( 4 )
 custom_fonts/font = SubResource( 3 )
 text = "Back"

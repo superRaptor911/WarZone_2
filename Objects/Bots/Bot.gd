@@ -219,7 +219,7 @@ func _on_VisionTimer_timeout():
 													[self], collision_mask)
 			if result:
 				if result.collider.name == i.name:
-					if game_server.serverInfo.game_mode == "FFA" or i.team.team_id != team.team_id:
+					if i.team.team_id != team.team_id:
 						$Brain.visible_enemies.append(i)
 					else:
 						$Brain.visible_friends.append(i)

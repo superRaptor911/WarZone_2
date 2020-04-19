@@ -9,6 +9,10 @@ var serverInfo := {
 	"map" : "",
 }
 
+var extraServerInfo = {
+	friendly_fire = false
+}
+
 
 #####################Update rate######################
 var update_rate = 25 setget set_update_rate

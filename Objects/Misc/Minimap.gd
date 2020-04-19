@@ -19,6 +19,7 @@ func _ready():
 		var hmap = lvl.get_node("BaseMap/height")
 		Scale = Vector2(cell_size,cell_size) / hmap.cell_size
 		worldsize = hmap.get_used_rect().size * hmap.cell_size
+		print(worldsize)
 		createMinimap(hmap.get_used_rect().size,hmap.get_used_cells(),lvl.Level_Name)
 		playerList = get_tree().get_nodes_in_group("Unit")
 		getLocalPlayer()

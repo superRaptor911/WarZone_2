@@ -47,7 +47,7 @@ func loadLevelInfos():
 	else:
 		var data : Dictionary = game_states.load_data("res://Maps/lvl_info_paths.txt")
 		for i in data.level_info_paths:
-			var level_info = load(i)
+			var level_info = load(i).new()
 			levels.append(level_info)
 		
 		#select first level

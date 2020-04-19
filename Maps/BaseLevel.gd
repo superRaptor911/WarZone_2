@@ -11,7 +11,7 @@ export var Level_Name = "no_name"
 var team1 = preload("res://Objects/scripts/Team.gd").new(0,self)
 var team2 = preload("res://Objects/scripts/Team.gd").new(1,self)
 
-var teamSelector = preload("res://Objects/Game_modes/FFA/FFATeamSelect.tscn").instance()
+var teamSelector = preload("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 var spec_mode = preload("res://Objects/Game_modes/Spectate.tscn").instance()
 
 var dropedItem_manager = preload("res://Objects/Misc/DropedItemManager.tscn").instance()
@@ -247,6 +247,7 @@ remotesync func spawn_player(pinfo, pos : Vector2, team : int):
 func spawnBots():
 	var bots : Array
 	game_server.bot_settings.index = 0
+	var ct = false
 	
 	for i in game_states.bot_profiles.bot:
 		if game_server.bot_settings.index == game_server.bot_settings.bot_count:
@@ -257,9 +258,18 @@ func spawnBots():
 		char_data.g1 = i.bot_primary_gun
 		char_data.g2 = i.bot_sec_gun
 		char_data.is_bot = true
-		char_data.team_id = 1
+		
+		#assign team
+		if ct:
+			char_data.team_id = 1
+			char_data.skin = i.bot_ct_skin
+			ct = false
+		else:
+			char_data.team_id = 0
+			char_data.skin = i.bot_t_skin
+			ct = true
+		
 		char_data.pos = getSpawnPosition(char_data.team_id)
-		char_data.skin = i.bot_ct_skin
 		#giving unique integer name
 		char_data.name = String(69 + game_server.bot_settings.index)
 		bots.append(char_data)
