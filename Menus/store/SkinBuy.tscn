@@ -35,12 +35,12 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=5]
 size = 24
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 size = 28
 use_filter = true
 font_data = ExtResource( 3 )
@@ -231,7 +231,7 @@ margin_left = 15.0
 margin_top = 15.0
 margin_right = 657.0
 margin_bottom = 120.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 autowrap = true
 clip_text = true
 
@@ -240,7 +240,7 @@ margin_left = 15.0
 margin_top = 131.0
 margin_right = 432.0
 margin_bottom = 206.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 text = "Team : Terrorist
 Price : $500"
 autowrap = true
@@ -259,7 +259,7 @@ custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Purchase"
 __meta__ = {
 "_edit_use_anchors_": false

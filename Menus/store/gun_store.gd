@@ -180,7 +180,7 @@ func _on_back_pressed():
 		for j in i.weapons:
 			j.queue_free()
 		
-	get_tree().change_scene("res://Menus/store/store_menu.tscn")
+	MenuManager.changeScene("storeMenu")
 
 
 func setNadeInfo():

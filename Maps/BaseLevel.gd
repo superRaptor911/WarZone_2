@@ -7,6 +7,7 @@ signal bot_spawned(bot)
 signal bot_despawned(bot)
 
 export var Level_Name = "no_name"
+export var capture_mod = false
 
 var team1 = preload("res://Objects/scripts/Team.gd").new(0,self)
 var team2 = preload("res://Objects/scripts/Team.gd").new(1,self)
@@ -33,6 +34,10 @@ var char_data_dict = {
 }
 
 func _ready():
+	if capture_mod:
+		captureMap()
+		return
+	
 	add_child(team1)
 	add_child(team2)
 	add_child(dropedItem_manager)
@@ -50,6 +55,33 @@ func _ready():
 		spawnBots()
 	else:
 		rpc_id(1,"serverGetPlayers", game_states.player_info.net_id)
+
+func captureMap():
+	var size = $BaseMap/height.get_used_rect().size * Vector2(64,64)
+	OS.window_size = size / Vector2(8,8)
+	var max_xy = min(size.x,size.y)
+	var ratio
+	if max_xy == size.x:
+		ratio = OS.window_size.x / max_xy
+	else:
+		ratio = OS.window_size.y / max_xy
+	
+	self.scale = Vector2(ratio,ratio)
+	
+	
+	
+	
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	# Retrieve the captured Image using get_data()
+	var img = get_viewport().get_texture().get_data()
+	# Flip on the y axis
+	# You can also set "V Flip" to true if not on the Root Viewport
+	img.flip_y()
+	# Convert Image to ImageTexture
+	img.save_png("res://Maps/" + Level_Name + "/minimap.png")
 
 
 func loadGameMode():

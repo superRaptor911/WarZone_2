@@ -28,7 +28,7 @@ func _join_game():
 
 func _on_back_button_pressed():
 	btn_click.play()
-	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
+	MenuManager.changeScene("mainMenu")
 
 func on_server_found(server_info):
 	current_server = server_info

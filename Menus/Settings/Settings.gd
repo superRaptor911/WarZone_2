@@ -15,4 +15,4 @@ func _on_particles_toggled(button_pressed):
 
 func _on_Button_pressed():
 	game_states.saveSettings()
-	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
+	MenuManager.changeScene("mainMenu")

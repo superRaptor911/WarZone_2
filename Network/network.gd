@@ -125,7 +125,7 @@ func _close_server():
 	serverAvertiser.queue_free()
 	serverAvertiser = null
 	get_tree().get_nodes_in_group("Level")[0].queue_free()
-	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
+	MenuManager.changeScene("mainMenu")
 	
 
 func stopServer():

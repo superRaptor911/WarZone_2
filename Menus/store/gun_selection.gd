@@ -189,10 +189,8 @@ func saveAll():
 func _on_back_pressed():
 	saveAll()
 	freeGuns()
-	get_tree().change_scene("res://Menus/store/store_menu.tscn")
+	MenuManager.changeScene("storeMenu")
 	queue_free()
-	print("freed")
-
 
 func _on_prev_btn_pressed():
 	if arr_slot_index > 0:

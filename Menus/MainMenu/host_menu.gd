@@ -10,8 +10,7 @@ func _ready():
 	startingTween()
 
 func _join_lobby():
-	get_tree().change_scene("res://Menus/Lobby/Lobby.tscn")
-
+	MenuManager.changeScene("HM/lobby")
 
 func _on_create_pressed():
 	var port = int($panel/contatiner/e3.text)
@@ -22,8 +21,7 @@ func _on_create_pressed():
 
 func _on_back_pressed():
 	btn_click.play()
-	next_scene = "res://Menus/MainMenu/MainMenu.tscn"
-	get_tree().change_scene(next_scene);
+	MenuManager.changeScene("mainMenu")
 
 ######################Tween ###################################################
 

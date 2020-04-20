@@ -33,15 +33,7 @@ func _ready():
 
 
 func createMinimap(world_size : Vector2,used_cells : Array, levl_name):
-	var res = Vector2(world_size.x * cell_size, world_size.y * cell_size)
-	#load minimap from disc because android (GLES 3) does not support 
-	#texture generation
-	if game_states.is_android:
-		texture = load("res://Maps/" + levl_name +"/minimap.png")
-	else:
-		var MinimapMaker = preload("res://bin/MinimapMaker.gdns").new()
-		var data : PoolByteArray = MinimapMaker.generateMinimap(world_size,used_cells,cell_size,Color(0.0,0.25,0.3),Color(1.0,1.0,1.0))
-		createTexture(res,levl_name,data)
+	texture = load("res://Maps/" + levl_name +"/minimap.png")
 
 
 func createTexture(res : Vector2, levl_name, data : PoolByteArray):
@@ -73,6 +65,12 @@ func showPlayersInMap():
 		for i in playerList:
 			var rel_pos = (i.position - ref_pos) * Scale
 			if rel_pos.x > 0 && rel_pos.y > 0 && rel_pos.x < rect_size.x && rel_pos.y < rect_size.y:
+				if i == local_player:
+					dotsList[sp_index].modulate = Color8(255,255,255,255)
+				elif i.team.team_id == local_player.team.team_id:
+					dotsList[sp_index].modulate = Color8(50,255,50,255)
+				else:
+					dotsList[sp_index].modulate = Color8(255,50,50,255)
 				dotsList[sp_index].show()
 				dotsList[sp_index].position = rel_pos
 				sp_index += 1

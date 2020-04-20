@@ -24,20 +24,20 @@ border_color = Color( 0, 0, 0, 1 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 80, 40 )
 
-[sub_resource type="CircleShape2D" id=10]
+[sub_resource type="CircleShape2D" id=3]
 radius = 98.0
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=4]
 radius = 40.0
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=5]
 radius = 45.0
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.6, 0.6, 0.6, 0.686275 )
 shadow_size = 6
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.0627451, 0.0627451, 0.0627451, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -45,12 +45,12 @@ border_width_right = 2
 border_width_bottom = 2
 shadow_size = 6
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=8]
 size = 18
 use_filter = true
 font_data = ExtResource( 12 )
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=9]
 draw_center = false
 border_width_left = 3
 border_width_top = 3
@@ -58,7 +58,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=10]
 size = 36
 use_filter = true
 font_data = ExtResource( 10 )
@@ -119,11 +119,14 @@ __meta__ = {
 }
 
 [node name="melee" type="TouchScreenButton" parent="."]
-position = Vector2( 671.521, 610.344 )
+position = Vector2( 734.793, 602.552 )
 scale = Vector2( 0.754964, 0.465095 )
 normal = ExtResource( 4 )
 pressed = ExtResource( 4 )
-shape = SubResource( 10 )
+shape = SubResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="zoom" type="TextureButton" parent="."]
 anchor_left = 0.048
@@ -143,28 +146,29 @@ __meta__ = {
 
 [node name="zoom" type="TouchScreenButton" parent="zoom"]
 position = Vector2( 1.1376, -4.55041 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="HE" type="TextureButton" parent="."]
-anchor_left = 0.327
-anchor_top = 0.916
-anchor_right = 0.327
-anchor_bottom = 0.916
-margin_left = -42.89
-margin_top = -48.697
-margin_right = 56.11
-margin_bottom = 35.303
+anchor_left = 0.413
+anchor_top = 0.905
+anchor_right = 0.413
+anchor_bottom = 0.905
+margin_left = -42.576
+margin_top = -49.048
+margin_right = 56.424
+margin_bottom = 34.952
 rect_rotation = 8.39806
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 6 )
 expand = true
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="HE" type="TouchScreenButton" parent="HE"]
 position = Vector2( 5.62723, 2.88458 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="pause" type="TextureButton" parent="."]
 anchor_left = 0.046
@@ -192,7 +196,7 @@ margin_left = -202.708
 margin_top = -254.771
 margin_right = 152.292
 margin_bottom = 171.229
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -265,7 +269,7 @@ margin_top = 91.645
 margin_right = 37.499
 margin_bottom = 133.645
 rect_scale = Vector2( 1.5, 1.5 )
-custom_styles/normal = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
 custom_fonts/font = ExtResource( 7 )
 text = "Quit Server"
 
@@ -287,7 +291,7 @@ margin_right = 300.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 rect_clip_content = true
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 
 [node name="2" type="Label" parent="kill_msg"]
@@ -296,7 +300,7 @@ margin_right = 300.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 20 )
 rect_clip_content = true
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 
 [node name="3" type="Label" parent="kill_msg"]
@@ -304,7 +308,7 @@ margin_top = 56.0
 margin_right = 300.0
 margin_bottom = 75.0
 rect_clip_content = true
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 
 [node name="4" type="Label" parent="kill_msg"]
@@ -312,7 +316,7 @@ margin_top = 83.0
 margin_right = 300.0
 margin_bottom = 102.0
 rect_clip_content = true
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 
 [node name="5" type="Label" parent="kill_msg"]
@@ -320,7 +324,7 @@ margin_top = 110.0
 margin_right = 300.0
 margin_bottom = 129.0
 rect_clip_content = true
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 
 [node name="6" type="Label" parent="kill_msg"]
@@ -328,7 +332,7 @@ margin_top = 137.0
 margin_right = 300.0
 margin_bottom = 156.0
 rect_clip_content = true
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 
 [node name="7" type="Label" parent="kill_msg"]
@@ -336,7 +340,7 @@ margin_top = 164.0
 margin_right = 300.0
 margin_bottom = 183.0
 rect_clip_content = true
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 
 [node name="8" type="Label" parent="kill_msg"]
@@ -344,7 +348,7 @@ margin_top = 191.0
 margin_right = 300.0
 margin_bottom = 210.0
 rect_clip_content = true
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 
 [node name="nextGun" type="TextureButton" parent="."]
@@ -372,7 +376,7 @@ margin_left = -128.33
 margin_top = -78.042
 margin_right = 127.67
 margin_bottom = 77.958
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -418,7 +422,7 @@ margin_top = -206.604
 margin_right = 71.988
 margin_bottom = -158.604
 rect_pivot_offset = Vector2( 44.5, 24 )
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color = Color( 0.141176, 0.568627, 0.0235294, 1 )
 text = "+ $10"
 align = 1

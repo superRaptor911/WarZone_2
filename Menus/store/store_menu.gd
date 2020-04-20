@@ -12,23 +12,23 @@ func _ready():
 
 
 func _on_back_pressed():
-	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
+	MenuManager.changeScene("mainMenu")
 
 
 func _on_bw_pressed():
-	get_tree().change_scene("res://Menus/store/gun_store.tscn")
+	MenuManager.changeScene("SM/gunStore")
 
 
 func _on_sw_pressed():
-	get_tree().change_scene("res://Menus/store/gun_selection.tscn")
+	MenuManager.changeScene("SM/gunSelection")
 
 
 func _on_bs_pressed():
-	get_tree().change_scene("res://Menus/store/SkinBuy.tscn")
+	MenuManager.changeScene("SM/skinBuy")
 
 
 func _on_ss_pressed():
-	get_tree().change_scene("res://Menus/store/skinSelect.tscn")
+	MenuManager.changeScene("SM/skinSelect")
 
 
 ####################Tweeening###########################

@@ -69,7 +69,7 @@ _global_script_class_icons={
 [application]
 
 config/name="WarZone_2"
-run/main_scene="res://Menus/MainMenu/MainMenu.tscn"
+run/main_scene="res://Menus/MainMenu/LoadingMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -77,6 +77,7 @@ config/icon="res://icon.png"
 game_states="*res://Network/game_states.gd"
 network="*res://Network/network.gd"
 game_server="*res://Network/server.gd"
+MenuManager="*res://Menus/menuManager.gd"
 
 [debug]
 
@@ -86,8 +87,6 @@ gdscript/warnings/return_value_discarded=false
 
 window/size/width=1280
 window/size/height=720
-window/stretch/mode="2d"
-window/stretch/aspect="expand"
 
 [input]
 

@@ -63,5 +63,5 @@ func _on_prevButton_pressed():
 func _on_back_pressed():
 	game_states.savePlayerData()
 	freeSkins()
-	get_tree().change_scene("res://Menus/store/store_menu.tscn")
+	MenuManager.changeScene("storeMenu")
 	queue_free()

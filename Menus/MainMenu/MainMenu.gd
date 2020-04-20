@@ -4,6 +4,7 @@ var btn_click
 var _next_scene : String  
 
 func _ready():
+	print("ready called")
 	tweenInitial()
 	get_tree().paused = false
 	btn_click = get_tree().root.get_node("btn_click")
@@ -16,14 +17,14 @@ func _ready():
 
 func _on_Button_pressed():
 	btn_click.play()
-	_next_scene = "res://Menus/MainMenu/Join_menu.tscn"
+	_next_scene = "joinMenu"
 	$Timer.start()
 	tweenTransition()
 
 
 func _on_Button2_pressed():
 	btn_click.play()
-	_next_scene = "res://Menus/MainMenu/host_menu.tscn"
+	_next_scene = "hostMenu"
 	$Timer.start()
 	tweenTransition()
 
@@ -31,19 +32,19 @@ func _on_Button2_pressed():
 
 func _on_Button3_pressed():
 	btn_click.play()
-	_next_scene = "res://Menus/Settings/Settings.tscn"
+	_next_scene = "settings"
 	tweenTransition()
 	$Timer.start()
 	
 func _on_store_pressed():
 	btn_click.play()
-	_next_scene = "res://Menus/store/store_menu.tscn"
+	_next_scene = "storeMenu"
 	tweenTransition()
 	$Timer.start()
 
 
 func goToNextScene():
-	get_tree().change_scene(_next_scene);
+	MenuManager.changeScene(_next_scene)
 	
 
 #########################Tweeeening############################

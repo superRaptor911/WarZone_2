@@ -87,5 +87,5 @@ func freeSkins():
 func _on_Back_pressed():
 	saveAll()
 	freeSkins()
-	get_tree().change_scene("res://Menus/store/store_menu.tscn")
+	MenuManager.changeScene("storeMenu")
 	queue_free()

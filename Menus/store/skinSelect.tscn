@@ -27,13 +27,12 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 28
 use_filter = true
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=4]
-resource_name = "initalAnim"
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("T:rect_position")
 tracks/0/interp = 1
@@ -380,7 +379,7 @@ custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -389,7 +388,7 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "initalAnim"
 playback_speed = 2.0
-anims/initalAnim = SubResource( 4 )
+anims/initalAnim = SubResource( 5 )
 [connection signal="pressed" from="T/portrait/Tnext" to="." method="_on_Tnext_pressed"]
 [connection signal="pressed" from="T/portrait/Tprev" to="." method="_on_Tprev_pressed"]
 [connection signal="pressed" from="CT/portrait/CTnext" to="." method="_on_CTnext_pressed"]
