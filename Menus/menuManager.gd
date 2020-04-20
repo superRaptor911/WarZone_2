@@ -20,6 +20,7 @@ func loadMenu():
 	addMenu("hostMenu","res://Menus/MainMenu/host_menu.tscn")
 	addMenu("settings","res://Menus/Settings/Settings.tscn")
 	addMenu("stats","res://Menus/MainMenu/Stats.tscn")
+	addMenu("summary","res://Menus/Misc/Summary.tscn")
 	
 	#sub menu of store menu
 	addMenu("SM/gunStore","res://Menus/store/gun_store.tscn")
@@ -35,13 +36,16 @@ func loadMenu():
 func addMenu(name,path):
 	menu[name] = load(path)
 	menu_loaded += 1
-	loading_menu.get_node("ProgressBar").value = (menu_loaded / max_menus) * 100.0 - 1
+	loading_menu.get_node("ProgressBar").value = min((menu_loaded / max_menus) * 100.0, 99)
 
 func finishLoading():
 	loading_menu.get_node("ProgressBar").value = 100
 
 func changeScene(new_scene):
-	get_tree().change_scene_to(menu.get(new_scene))
+	if menu.get(new_scene):
+		get_tree().change_scene_to(menu.get(new_scene))
+	else:
+		print("Error changing scene to ", new_scene)
 
 func on_loaded():
 	changeScene("mainMenu")

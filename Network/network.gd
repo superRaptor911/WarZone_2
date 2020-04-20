@@ -44,7 +44,7 @@ func _on_connection_failed():
 
 func _on_disconnected_from_server():
 	print("Disconnected from server")
-	get_tree().paused = true
+	#get_tree().paused = true
 	# Clear the network object
 	get_tree().set_network_peer(null)
 	# Allow outside code to know about the disconnection
@@ -55,6 +55,7 @@ func _on_disconnected_from_server():
 	game_states.player_info.net_id = 1
 	
 func create_server(server_name,port,max_players):
+	players.clear()
 	var net = NetworkedMultiplayerENet.new()
 	if (net.create_server(port,max_players) != OK):
 		print("Failed to create server")
@@ -70,6 +71,7 @@ func create_server(server_name,port,max_players):
 	
 	
 func join_server(ip, port):
+	players.clear()
 	var net = NetworkedMultiplayerENet.new()
 	if (net.create_client(ip, port) != OK):
 		print("Failed to create client")
@@ -107,7 +109,7 @@ remote func kick_player(net_id, reason):
 
 
 remote func kicked(reason):
-	get_tree().network_peer.disconnect_peer(game_states.player_info.net_id)
+	#get_tree().network_peer.disconnect_peer(game_states.player_info.net_id)
 	#get_tree().network_peer.disconnect_peer(game_states.player_info.net_id)
 	print("You have been kicked from the server, reason: ", reason)
 
@@ -125,7 +127,7 @@ func _close_server():
 	serverAvertiser.queue_free()
 	serverAvertiser = null
 	get_tree().get_nodes_in_group("Level")[0].queue_free()
-	MenuManager.changeScene("mainMenu")
+	MenuManager.changeScene("summary")
 	
 
 func stopServer():

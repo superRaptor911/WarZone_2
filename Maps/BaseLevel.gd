@@ -357,8 +357,9 @@ remote func despawn_player(pinfo):
 
 
 func _on_disconnected():
-	get_tree().change_scene("res://Menus/MainMenu/MainMenu.tscn")
+	MenuManager.changeScene("summary")
 	queue_free()
+	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
 
 func _init_game():

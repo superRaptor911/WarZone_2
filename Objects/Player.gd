@@ -34,6 +34,11 @@ signal player_killed(player)
 ###################################################
 
 func _ready():
+	game_states.last_match_result.map = game_server.serverInfo.map
+	game_states.last_match_result.cash = 0
+	game_states.last_match_result.kills = 0
+	game_states.last_match_result.death = 0
+	game_states.last_match_result.xp =0
 	$Gun.queue_free()
 	$name_tag.text = pname
 	setupGun()
@@ -292,10 +297,21 @@ remotesync func getKillRewards(enemy_xp = 0):
 	var add = 25 + 50 * game_states.getLevelFromXP(enemy_xp)
 	cash += add
 	hud.addCash(add)
+	kills += 1
+	game_states.last_match_result.kills = kills
+	game_states.last_match_result.deaths = deaths
+	game_states.last_match_result.cash = cash
+	game_states.last_match_result.xp = xp
+
 
 remotesync func deductDeathPenalty():
 	xp = max(xp - 3 * game_states.getLevelFromXP(xp), 0)
-	cash -= max(cash - 10 * game_states.getLevelFromXP(xp), 0)
+	cash = max(cash - 10 * game_states.getLevelFromXP(xp), 0)
+	deaths += 1
+	game_states.last_match_result.kills = kills
+	game_states.last_match_result.deaths = deaths
+	game_states.last_match_result.cash = cash
+	game_states.last_match_result.xp = xp
 
 
 func performMeleeAttack():

@@ -1,0 +1,221 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=2]
+[ext_resource path="res://Menus/Misc/Summary.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+shadow_size = 6
+
+[node name="Summary" type="CanvasLayer"]
+layer = 3
+script = ExtResource( 3 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = 380.0
+margin_top = 140.0
+margin_right = 915.0
+margin_bottom = 636.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Panel" parent="Panel"]
+anchor_right = 1.0
+margin_bottom = 42.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/Header"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -69.0
+margin_top = -18.5
+margin_right = 69.0
+margin_bottom = 18.5
+custom_fonts/font = ExtResource( 1 )
+text = "Summary"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -168.141
+margin_right = 200.0
+margin_bottom = 136.859
+custom_constants/separation = 30
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="map" type="Label" parent="Panel/VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 37.0
+custom_fonts/font = ExtResource( 1 )
+text = "Map"
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/map"]
+margin_left = 176.0
+margin_right = 396.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/map/Panel"]
+margin_left = 17.2915
+margin_top = 0.540359
+margin_right = 57.2915
+margin_bottom = 37.5404
+custom_fonts/font = ExtResource( 1 )
+text = "Dust2"
+
+[node name="kills" type="Label" parent="Panel/VBoxContainer"]
+margin_top = 67.0
+margin_right = 400.0
+margin_bottom = 104.0
+custom_fonts/font = ExtResource( 1 )
+text = "Kills"
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/kills"]
+margin_left = 176.0
+margin_right = 396.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/kills/Panel"]
+margin_left = 17.2915
+margin_top = 0.540359
+margin_right = 57.2915
+margin_bottom = 37.5404
+custom_fonts/font = ExtResource( 1 )
+text = "Dust2"
+
+[node name="deaths" type="Label" parent="Panel/VBoxContainer"]
+margin_top = 134.0
+margin_right = 400.0
+margin_bottom = 171.0
+custom_fonts/font = ExtResource( 1 )
+text = "Deaths"
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/deaths"]
+margin_left = 176.0
+margin_right = 396.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/deaths/Panel"]
+margin_left = 17.2915
+margin_top = 0.540359
+margin_right = 57.2915
+margin_bottom = 37.5404
+custom_fonts/font = ExtResource( 1 )
+text = "Dust2"
+
+[node name="cash" type="Label" parent="Panel/VBoxContainer"]
+margin_top = 201.0
+margin_right = 400.0
+margin_bottom = 238.0
+custom_fonts/font = ExtResource( 1 )
+text = "rewards"
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/cash"]
+margin_left = 176.0
+margin_right = 396.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/cash/Panel"]
+margin_left = 17.2915
+margin_top = 0.540359
+margin_right = 57.2915
+margin_bottom = 37.5404
+custom_fonts/font = ExtResource( 1 )
+text = "Dust2"
+
+[node name="xp" type="Label" parent="Panel/VBoxContainer"]
+margin_top = 268.0
+margin_right = 400.0
+margin_bottom = 305.0
+custom_fonts/font = ExtResource( 1 )
+text = "XP"
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/xp"]
+margin_left = 176.0
+margin_right = 396.0
+margin_bottom = 44.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/xp/Panel"]
+margin_left = 17.2915
+margin_top = 0.540359
+margin_right = 57.2915
+margin_bottom = 37.5404
+custom_fonts/font = ExtResource( 1 )
+text = "Dust2"
+
+[node name="Ok" type="Button" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.825
+anchor_right = 0.5
+anchor_bottom = 0.825
+margin_left = -61.6334
+margin_top = 24.5687
+margin_right = 46.3666
+margin_bottom = 65.5687
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "Done"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+[connection signal="pressed" from="Panel/Ok" to="." method="_on_Ok_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

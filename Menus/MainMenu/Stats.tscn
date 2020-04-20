@@ -180,6 +180,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Level" type="Label" parent="Panel/VBoxContainer"]
+margin_top = 292.0
+margin_right = 472.0
+margin_bottom = 335.0
+custom_fonts/font = SubResource( 2 )
+text = "XP Level"
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer/Level"]
+margin_left = 191.0
+margin_top = 6.0
+margin_right = 472.0
+margin_bottom = 45.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Level/Panel"]
+margin_left = 9.57983
+margin_right = 62.5798
+margin_bottom = 37.0
+custom_fonts/font = ExtResource( 2 )
+text = "$100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="back" type="Button" parent="Panel"]
 margin_left = 279.623
 margin_top = 500.619

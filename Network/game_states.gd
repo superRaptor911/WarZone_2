@@ -73,6 +73,14 @@ var bot_profiles = {
 	bot = Array()
 }
 
+var last_match_result = {
+	kills = 0,
+	deaths = 0,
+	cash = 0,
+	map = "",
+	xp = 0
+}
+
 func getLevelFromXP(xp : int) -> int:
 	return xp / 250
 
