@@ -45,6 +45,9 @@ cast_to = Vector2( 0, 60 )
 rotation = -1.5708
 enabled = true
 cast_to = Vector2( 0, 60 )
+
+[node name="buy_time" type="Timer" parent="." index="15"]
+one_shot = true
 [connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]
 [connection signal="timeout" from="VisionTimer" to="." method="_on_VisionTimer_timeout"]

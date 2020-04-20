@@ -22,10 +22,10 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchor_left = 0.495
-anchor_top = 0.5
-anchor_right = 0.495
-anchor_bottom = 0.5
+anchor_left = 0.49436
+anchor_top = 0.447119
+anchor_right = 0.492798
+anchor_bottom = 0.527675
 margin_left = -324.781
 margin_top = -185.926
 margin_right = 324.219
@@ -41,9 +41,9 @@ __meta__ = {
 
 [node name="Button" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
-margin_right = 649.0
-margin_bottom = 75.0
-rect_min_size = Vector2( 200, 75 )
+margin_right = 647.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 200, 60 )
 rect_clip_content = true
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
@@ -57,10 +57,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -143.84
-margin_top = -48.7018
-margin_right = 259.16
-margin_bottom = 41.2982
+margin_left = -201.5
+margin_top = -45.0
+margin_right = 201.5
+margin_bottom = 45.0
 custom_fonts/font = ExtResource( 6 )
 text = "Join Server"
 __meta__ = {
@@ -69,10 +69,10 @@ __meta__ = {
 
 [node name="Button2" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
-margin_top = 125.0
-margin_right = 649.0
-margin_bottom = 195.0
-rect_min_size = Vector2( 0, 70 )
+margin_top = 110.0
+margin_right = 647.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 0, 60 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 5 )
 expand = true
@@ -82,10 +82,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -161.01
-margin_top = -47.0316
-margin_right = 274.99
-margin_bottom = 40.9684
+margin_left = -218.0
+margin_top = -44.0
+margin_right = 218.0
+margin_bottom = 44.0
 custom_fonts/font = ExtResource( 6 )
 text = "Host Server"
 __meta__ = {
@@ -94,23 +94,23 @@ __meta__ = {
 
 [node name="Button3" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
-margin_top = 245.0
-margin_right = 649.0
-margin_bottom = 315.0
-rect_min_size = Vector2( 0, 70 )
+margin_top = 220.0
+margin_right = 647.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 0, 60 )
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/Button3"]
 anchor_left = 0.5
-anchor_top = 0.457
+anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -112.521
-margin_top = -44.0216
-margin_right = 141.479
-margin_bottom = 40.9684
+margin_left = -130.0
+margin_top = -43.785
+margin_right = 130.0
+margin_bottom = 43.785
 custom_fonts/font = ExtResource( 6 )
 text = "Options"
 __meta__ = {
@@ -119,10 +119,10 @@ __meta__ = {
 
 [node name="store" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
-margin_top = 365.0
-margin_right = 649.0
-margin_bottom = 435.0
-rect_min_size = Vector2( 0, 70 )
+margin_top = 330.0
+margin_right = 647.0
+margin_bottom = 390.0
+rect_min_size = Vector2( 0, 60 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 5 )
 expand = true
@@ -132,12 +132,43 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -73.6702
-margin_top = -48.7018
-margin_right = 96.3298
-margin_bottom = 39.2982
+margin_left = -94.0
+margin_top = -44.0
+margin_right = 94.0
+margin_bottom = 44.0
 custom_fonts/font = ExtResource( 6 )
 text = "Store"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="stats" type="TextureButton" parent="VBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0.588235 )
+margin_top = 440.0
+margin_right = 647.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 0, 60 )
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/stats"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -97.5
+margin_top = -44.0
+margin_right = 97.5
+margin_bottom = 44.0
+custom_fonts/font = ExtResource( 6 )
+text = "Stats"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
@@ -166,3 +197,4 @@ one_shot = true
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
 [connection signal="pressed" from="VBoxContainer/store" to="." method="_on_store_pressed"]
+[connection signal="pressed" from="VBoxContainer/stats" to="." method="_on_stats_pressed"]

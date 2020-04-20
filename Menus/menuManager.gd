@@ -19,6 +19,7 @@ func loadMenu():
 	addMenu("joinMenu","res://Menus/MainMenu/Join_menu.tscn")
 	addMenu("hostMenu","res://Menus/MainMenu/host_menu.tscn")
 	addMenu("settings","res://Menus/Settings/Settings.tscn")
+	addMenu("stats","res://Menus/MainMenu/Stats.tscn")
 	
 	#sub menu of store menu
 	addMenu("SM/gunStore","res://Menus/store/gun_store.tscn")

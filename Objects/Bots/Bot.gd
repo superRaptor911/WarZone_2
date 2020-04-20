@@ -118,6 +118,7 @@ func switchToSecGun():
 		rpc("switchGun")
 
 func respawnBot():
+	$buy_time.start()
 	rpc("sync_respawn",level.getSpawnPosition(team.team_id))
 
 remotesync func sync_respawn(pos):
@@ -164,13 +165,15 @@ func createDropedItems():
 		var item_info = {type = "kevlar",pos = position}
 		d_item_man.rpc_id(1,"serverMakeItem",item_info)
 
+
 func pickItem(item_id):
-	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
-	d_item_man.rpc_id(1,"requestPickUp",name,item_id)
+	if $buy_time.is_stopped():
+		var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+		d_item_man.rpc_id(1,"requestPickUp",name,item_id)
+
 
 remotesync func pickUpItem(item):
 	if item.type == "wpn":
-		print("picking up wpn ", item.wpn)
 		var old_gun = selected_gun
 		if selected_gun == primary_gun:
 			primary_gun = game_states.weaponResource.get(item.wpn).instance()
@@ -253,4 +256,3 @@ func diffuseBomb():
 	
 func canDiffuse():
 	$Brain.onCTnearBomb()
-
