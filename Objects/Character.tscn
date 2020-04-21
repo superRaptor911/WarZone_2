@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Character.gd" type="Script" id=1]
 [ext_resource path="res://Models/Model.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sfx/die3.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sprites/particles/bloodSplash.tscn" type="PackedScene" id=4]
 [ext_resource path="res://bin/charMovement.gdns" type="Script" id=5]
 
@@ -25,7 +26,9 @@ wait_time = 5.0
 one_shot = true
 
 [node name="bloodSplash" parent="." instance=ExtResource( 4 )]
+amount = 24
 lifetime = 2.5
+explosiveness = 0.69
 
 [node name="ptween" type="Tween" parent="."]
 __meta__ = {
@@ -47,6 +50,10 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="melee_range"]
 shape = SubResource( 1 )
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+max_distance = 800.0
 [connection signal="char_took_damage" from="." to="." method="_on_Character_char_took_damage"]
 [connection signal="timeout" from="free_timer" to="." method="_on_free_timer_timeout"]
 [connection signal="body_entered" from="melee_range" to="." method="_on_melee_range_body_entered"]

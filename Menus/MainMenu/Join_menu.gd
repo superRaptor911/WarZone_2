@@ -4,7 +4,6 @@ var servers = Array()
 var serverListener = preload("res://Network/ServerListener.gd").new()
 var current_server = null
 var serverInfoFormatStr = "Server Name : %s\nGame Mode : %s\nMap : %s\nPlayers : %s"
-var btn_click
 
 func _ready():
 	network.connect("join_fail", self, "_on_join_fail")
@@ -12,7 +11,6 @@ func _ready():
 	add_child(serverListener)
 	serverListener.connect("new_server",self,"on_server_found")
 	serverListener.connect("remove_server", self, "on_server_closed")
-	btn_click = get_tree().root.get_node("btn_click")
 	startingTween()
 
 func _on_join_fail():
@@ -27,7 +25,7 @@ func _join_game():
 	get_tree().change_scene(level_path)
 
 func _on_back_button_pressed():
-	btn_click.play()
+	MusicMan.click()
 	MenuManager.changeScene("mainMenu")
 
 func on_server_found(server_info):
@@ -68,7 +66,7 @@ func _on_auto_pressed():
 	manualIpCloseTween()
 
 func _on_join_button_pressed():
-	btn_click.play()
+	MusicMan.click()
 	$con.show()
 	var port = int($manual_ip/container/port.text)
 	var ip = $manual_ip/container/ip.text
@@ -77,35 +75,35 @@ func _on_join_button_pressed():
 
 
 func _on_b1_pressed():
-	btn_click.play()
+	MusicMan.click()
 	current_server = servers[0]
 	var svr = servers[0]
 	$manual_ip/container/port.text = svr.port
 	$manual_ip/container/ip.text = svr.ip
 
 func _on_b2_pressed():
-	btn_click.play()
+	MusicMan.click()
 	current_server = servers[1]
 	var svr = servers[1]
 	$manual_ip/container/port.text = svr.port
 	$manual_ip/container/ip.text = svr.ip
 	
 func _on_b3_pressed():
-	btn_click.play()
+	MusicMan.click()
 	current_server = servers[2]
 	var svr = servers[2]
 	$manual_ip/container/port.text = svr.port
 	$manual_ip/container/ip.text = svr.ip
 
 func _on_b4_pressed():
-	btn_click.play()
+	MusicMan.click()
 	current_server = servers[3]
 	var svr = servers[3]
 	$manual_ip/container/port.text = svr.port
 	$manual_ip/container/ip.text = svr.ip
 
 func _on_b5_pressed():
-	btn_click.play()
+	MusicMan.click()
 	current_server = servers[4]
 	var svr = servers[4]
 	$manual_ip/container/port.text = svr.port

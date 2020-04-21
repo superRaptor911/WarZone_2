@@ -22,7 +22,7 @@ func setSummary(map,kills,deaths,cash,xp):
 
 
 func _on_Ok_pressed():
-	print("pressed")
+	MusicMan.click()
 	MenuManager.changeScene("mainMenu")
 
 

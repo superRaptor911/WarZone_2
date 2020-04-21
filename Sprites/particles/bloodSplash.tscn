@@ -1,15 +1,23 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Sprites/particles/bloodSplash.tres" type="Material" id=1]
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0.025974, 0.157955 ), 0.0, 0.0, 0, 0, Vector2( 0.993506, 0.597727 ), 0.0, 0.0, 0, 0 ]
 
-[node name="bloodSplash" type="Particles2D" groups=[
+[node name="bloodSplash" type="CPUParticles2D" groups=[
 "Particle",
 ]]
 emitting = false
-amount = 64
+amount = 32
 lifetime = 3.0
 one_shot = true
 speed_scale = 5.0
 explosiveness = 0.25
 local_coords = false
-process_material = ExtResource( 1 )
+spread = 10.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 30.0
+initial_velocity_random = 1.0
+angular_velocity = 100.0
+scale_amount = 8.0
+scale_amount_curve = SubResource( 1 )
+color = Color( 0.784314, 0.0627451, 0.0627451, 1 )

@@ -1,49 +1,41 @@
 extends CanvasLayer
 
-var btn_click
 var _next_scene : String  
 
 func _ready():
 	print("ready called")
 	tweenInitial()
 	get_tree().paused = false
-	btn_click = get_tree().root.get_node("btn_click")
 	$Timer.connect("timeout",self,"goToNextScene")
-	if not btn_click:
-		btn_click = $btn_click
-		remove_child($btn_click)
-		get_tree().root.call_deferred("add_child",btn_click)
 
 
 func _on_Button_pressed():
-	btn_click.play()
+	MusicMan.click()
 	_next_scene = "joinMenu"
 	$Timer.start()
 	tweenTransition()
 
 
 func _on_Button2_pressed():
-	btn_click.play()
+	MusicMan.click()
 	_next_scene = "hostMenu"
 	$Timer.start()
 	tweenTransition()
 
-
-
 func _on_Button3_pressed():
-	btn_click.play()
+	MusicMan.click()
 	_next_scene = "settings"
 	tweenTransition()
 	$Timer.start()
 	
 func _on_store_pressed():
-	btn_click.play()
+	MusicMan.click()
 	_next_scene = "storeMenu"
 	tweenTransition()
 	$Timer.start()
 	
 func _on_stats_pressed():
-	btn_click.play()
+	MusicMan.click()
 	_next_scene = "stats"
 	tweenTransition()
 	$Timer.start()

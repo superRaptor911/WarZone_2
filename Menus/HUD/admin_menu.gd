@@ -43,6 +43,7 @@ func _remove_panel(pn):
 
 
 func _on_quit_pressed():
+	MusicMan.click()
 	queue_free()
 
 

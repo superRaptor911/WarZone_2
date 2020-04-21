@@ -12,22 +12,27 @@ func _ready():
 
 
 func _on_back_pressed():
+	MusicMan.click()
 	MenuManager.changeScene("mainMenu")
 
 
 func _on_bw_pressed():
+	MusicMan.click()
 	MenuManager.changeScene("SM/gunStore")
 
 
 func _on_sw_pressed():
+	MusicMan.click()
 	MenuManager.changeScene("SM/gunSelection")
 
 
 func _on_bs_pressed():
+	MusicMan.click()
 	MenuManager.changeScene("SM/skinBuy")
 
 
 func _on_ss_pressed():
+	MusicMan.click()
 	MenuManager.changeScene("SM/skinSelect")
 
 

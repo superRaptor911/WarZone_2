@@ -194,6 +194,7 @@ func _on_back_pressed():
 
 func _on_prev_btn_pressed():
 	if arr_slot_index > 0:
+		MusicMan.click()
 		arr_slot_index -= 1
 		for i in range(0,no_slots):
 			var panel = $weapons/HBoxContainer.get_node("p" + String(i + 1))
@@ -202,6 +203,7 @@ func _on_prev_btn_pressed():
 
 func _on_next_btn_pressed():
 	if arr_slot_index + no_slots < guns.size():
+		MusicMan.click()
 		arr_slot_index += 1
 		for i in range(0,no_slots):
 			var panel = $weapons/HBoxContainer.get_node("p" + String(i + 1))

@@ -78,6 +78,7 @@ game_states="*res://Network/game_states.gd"
 network="*res://Network/network.gd"
 game_server="*res://Network/server.gd"
 MenuManager="*res://Menus/menuManager.gd"
+MusicMan="*res://Objects/scripts/musicMan.gd"
 
 [debug]
 

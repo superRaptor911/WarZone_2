@@ -5,9 +5,11 @@ func _ready():
 
 
 func _on_ok_pressed():
+	MusicMan.click()
 	game_states.save_player_info()
 	get_tree().change_scene("res://Menus/Settings/Settings.tscn")
 
 
 func _on_pname_text_changed(new_text):
+	MusicMan.click()
 	game_states.player_info.name = new_text

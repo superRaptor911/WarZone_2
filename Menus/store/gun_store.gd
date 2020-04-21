@@ -103,28 +103,34 @@ func setGunInfo():
 
 
 func _on_pistol_pressed():
+	MusicMan.click()
 	setCurrentWeaponType("pistol")
 
 
 func _on_smg_pressed():
+	MusicMan.click()
 	setCurrentWeaponType("smg")
 
 
 func _on_rifle_pressed():
+	MusicMan.click()
 	setCurrentWeaponType("rifle")
 
 
 func _on_nades_pressed():
+	MusicMan.click()
 	setCurrentWeaponType("nades")
 	setNadeInfo()
 
 
 func _on_armour_pressed():
+	MusicMan.click()
 	setCurrentWeaponType("armour")
 
 
 func _on_next_wpn_pressed():
 	if current_type.weapons.size() > 1:
+		MusicMan.click()
 		current_type.cur_wpn_id += 1
 		if current_type.cur_wpn_id >= current_type.weapons.size():
 			current_type.cur_wpn_id = 0
@@ -134,6 +140,7 @@ func _on_next_wpn_pressed():
 
 func _on_prev_wpn_pressed():
 	if current_type.weapons.size() > 1:
+		MusicMan.click()
 		current_type.cur_wpn_id -= 1
 		if current_type.cur_wpn_id < 0:
 			current_type.cur_wpn_id = current_type.weapons.size() - 1
@@ -143,6 +150,7 @@ func _on_prev_wpn_pressed():
 
 func _on_purchase_pressed():
 	if current_type.wpn_type != "armour" and current_type.wpn_type != "explosive":
+		MusicMan.click()
 		purchaseGun()
 
 func purchaseGun():
@@ -176,6 +184,7 @@ func purchaseGun():
 
 
 func _on_back_pressed():
+	MusicMan.click()
 	for i in weapon_types:
 		for j in i.weapons:
 			j.queue_free()

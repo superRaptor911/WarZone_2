@@ -43,6 +43,7 @@ func freeSkins():
 
 func _on_purchase_pressed():
 	if  skins[cur_skin_id].price < game_states.player_data.cash:
+		MusicMan.click()
 		game_states.player_data.skins.append(skins[cur_skin_id].model_name)
 		$cash.text = "$" + String(game_states.player_data.cash)
 		$Panel/purchase.disabled = true
@@ -50,17 +51,20 @@ func _on_purchase_pressed():
 
 func _on_nextButton_pressed():
 	if cur_skin_id < skins.size() - 1:
+		MusicMan.click()
 		cur_skin_id += 1
 		setSkinData()
 
 
 func _on_prevButton_pressed():
 	if cur_skin_id > 0:
+		MusicMan.click()
 		cur_skin_id -= 1
 		setSkinData()
 
 
 func _on_back_pressed():
+	MusicMan.click()
 	game_states.savePlayerData()
 	freeSkins()
 	MenuManager.changeScene("storeMenu")

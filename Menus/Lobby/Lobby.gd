@@ -87,11 +87,13 @@ func _on_HSlider_value_changed(value):
 
 
 func _on_bot_diff_value_changed(value):
+	MusicMan.click()
 	game_server.bot_settings.bot_difficulty = value
 	$bots/bot_difficulty/Panel/count.text = String(value)
 
 func _on_prev_map_pressed():
 	if levels.size() > 1:
+		MusicMan.click()
 		if selected_level_id == 0:
 			selected_level_id = levels.size()
 		selected_level_id -= 1
@@ -100,6 +102,7 @@ func _on_prev_map_pressed():
 
 func _on_next_map_pressed():
 	if levels.size() > 1:
+		MusicMan.click()
 		if selected_level_id + 1 == levels.size():
 			selected_level_id = -1
 		selected_level_id += 1
@@ -107,6 +110,7 @@ func _on_next_map_pressed():
 
 func _on_level_pressed():
 	if selected_btn != $Panel/VBoxContainer/level:
+		MusicMan.click()
 		$Panel/VBoxContainer/level.self_modulate = selected_btn.self_modulate
 		selected_btn.self_modulate = Color8(255,255,255,255)
 		selected_btn = $Panel/VBoxContainer/level
@@ -115,6 +119,7 @@ func _on_level_pressed():
 
 func _on_GameMode_pressed():
 	if selected_btn != $Panel/VBoxContainer/GameMode:
+		MusicMan.click()
 		$Panel/VBoxContainer/GameMode.self_modulate = selected_btn.self_modulate
 		selected_btn.self_modulate = Color8(255,255,255,255)
 		selected_btn = $Panel/VBoxContainer/GameMode
@@ -123,6 +128,7 @@ func _on_GameMode_pressed():
 
 func _on_bots_pressed():
 	if selected_btn != $Panel/VBoxContainer/bots:
+		MusicMan.click()
 		$Panel/VBoxContainer/bots.self_modulate = selected_btn.self_modulate
 		selected_btn.self_modulate = Color8(255,255,255,255)
 		selected_btn = $Panel/VBoxContainer/bots
@@ -131,6 +137,7 @@ func _on_bots_pressed():
 
 func _on_prev_mode_pressed():
 	if selected_level and selected_level.gameModes.size() > 1:
+		MusicMan.click()
 		if selected_gameMode_id == 0:
 			selected_gameMode_id = selected_level.gameModes.size()
 		selected_gameMode_id -= 1
@@ -139,6 +146,7 @@ func _on_prev_mode_pressed():
 
 func _on_next_mode_pressed():
 	if selected_level and selected_level.gameModes.size() > 1:
+		MusicMan.click()
 		if selected_gameMode_id + 1 == selected_level.gameModes.size():
 			selected_gameMode_id = -1
 		selected_gameMode_id += 1

@@ -14,12 +14,12 @@ border_width_right = 3
 border_width_bottom = 3
 shadow_size = 6
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 36
 use_filter = true
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 32
 use_filter = true
 font_data = ExtResource( 1 )
@@ -62,7 +62,7 @@ margin_left = -71.0
 margin_top = -24.0
 margin_right = 71.0
 margin_bottom = 24.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "STATS"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
@@ -78,7 +78,7 @@ __meta__ = {
 [node name="name" type="Label" parent="Panel/VBoxContainer"]
 margin_right = 472.0
 margin_bottom = 43.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Name"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -100,7 +100,7 @@ __meta__ = {
 margin_top = 73.0
 margin_right = 472.0
 margin_bottom = 116.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Kills"
 __meta__ = {
 "_edit_group_": true,
@@ -127,7 +127,7 @@ text = "100"
 margin_top = 146.0
 margin_right = 472.0
 margin_bottom = 189.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Deaths"
 __meta__ = {
 "_edit_group_": true,
@@ -154,7 +154,7 @@ text = "100"
 margin_top = 219.0
 margin_right = 472.0
 margin_bottom = 262.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Cash"
 __meta__ = {
 "_edit_group_": true,
@@ -184,7 +184,7 @@ __meta__ = {
 margin_top = 292.0
 margin_right = 472.0
 margin_bottom = 335.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "XP Level"
 __meta__ = {
 "_edit_group_": true,

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Menus/MainMenu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/light_b.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://Menus/resources/btn_texture2.png" type="Texture" id=5]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=7]
-[ext_resource path="res://Sfx/menus/btn_hvr.wav" type="AudioStream" id=8]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -22,7 +21,7 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchor_left = 0.49436
+anchor_left = 0.492798
 anchor_top = 0.447119
 anchor_right = 0.492798
 anchor_bottom = 0.527675
@@ -41,7 +40,7 @@ __meta__ = {
 
 [node name="Button" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
-margin_right = 647.0
+margin_right = 649.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 200, 60 )
 rect_clip_content = true
@@ -70,7 +69,7 @@ __meta__ = {
 [node name="Button2" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_top = 110.0
-margin_right = 647.0
+margin_right = 649.0
 margin_bottom = 170.0
 rect_min_size = Vector2( 0, 60 )
 texture_normal = ExtResource( 2 )
@@ -95,7 +94,7 @@ __meta__ = {
 [node name="Button3" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_top = 220.0
-margin_right = 647.0
+margin_right = 649.0
 margin_bottom = 280.0
 rect_min_size = Vector2( 0, 60 )
 texture_normal = ExtResource( 4 )
@@ -120,7 +119,7 @@ __meta__ = {
 [node name="store" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_top = 330.0
-margin_right = 647.0
+margin_right = 649.0
 margin_bottom = 390.0
 rect_min_size = Vector2( 0, 60 )
 texture_normal = ExtResource( 2 )
@@ -145,7 +144,7 @@ __meta__ = {
 [node name="stats" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_top = 440.0
-margin_right = 647.0
+margin_right = 649.0
 margin_bottom = 500.0
 rect_min_size = Vector2( 0, 60 )
 texture_normal = ExtResource( 4 )
@@ -181,12 +180,6 @@ text = "WarZone II"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="btn_hover" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
-
-[node name="btn_click" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.4

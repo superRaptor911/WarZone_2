@@ -36,10 +36,12 @@ func _on_player_born():
 
 
 func _on_kill_pressed():
+	MusicMan.click()
 	player.killChar()
 
 
 func _on_kick_pressed():
+	MusicMan.click()
 	if player.is_in_group("User"):
 		network.kick_player(int(player.name),"kicked by admin")
 	else:

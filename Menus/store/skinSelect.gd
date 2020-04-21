@@ -49,24 +49,28 @@ func selectTskin():
 
 func _on_CTprev_pressed():
 	if cur_ct_skin > 0:
+		MusicMan.click()
 		cur_ct_skin -= 1
 		selectCtSkin()
 
 
 func _on_CTnext_pressed():
 	if cur_ct_skin < ct_skins.size() - 1:
+		MusicMan.click()
 		cur_ct_skin += 1
 		selectCtSkin()
 
 
 func _on_Tnext_pressed():
 	if cur_t_skin < t_skins.size() - 1:
+		MusicMan.click()
 		cur_t_skin += 1
 		selectTskin()
 
 
 func _on_Tprev_pressed():
 	if cur_t_skin > 0:
+		MusicMan.click()
 		cur_t_skin -= 1
 		selectTskin()
 
@@ -85,6 +89,7 @@ func freeSkins():
 
 
 func _on_Back_pressed():
+	MusicMan.click()
 	saveAll()
 	freeSkins()
 	MenuManager.changeScene("storeMenu")

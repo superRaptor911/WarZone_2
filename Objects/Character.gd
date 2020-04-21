@@ -148,6 +148,7 @@ remote func sync_health(hp,ap):
 	emit_signal("char_took_damage")
 
 remotesync func sync_death():
+	$die.play()
 	alive = false
 	skin.set_deferred("disabled",true)
 	$dtween.interpolate_property(skin,"modulate",null,Color8(255,255,255,0),6,Tween.TRANS_LINEAR,Tween.EASE_IN,3)
