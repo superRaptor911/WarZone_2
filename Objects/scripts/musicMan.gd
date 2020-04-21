@@ -18,8 +18,6 @@ func loadMusic():
 	music_player.connect("finished",self,"on_music_finished")
 	tracks.append(load("res://Sfx/music/XTaKeRuX_-_01_-_Free_will_possession.ogg"))
 	tracks.append(load("res://Sfx/music/XTaKeRuX_-_03_-_White_Crow.ogg"))
-	tracks.append(load("res://Sfx/music/XTaKeRuX_-_01_-_Rocking_Forward.ogg"))
-	tracks.append(load("res://Sfx/music/XTaKeRuX_-_03_-_One_Of_Them.ogg"))
 	music_player.stream = tracks[0]
 	ui_player.stream = ui_clk
 	music_player.volume_db = -2.0

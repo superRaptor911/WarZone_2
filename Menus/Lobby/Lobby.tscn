@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=4]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=5]
-[ext_resource path="res://Maps/blu.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -343,7 +342,6 @@ margin_left = -98.6732
 margin_top = 63.0252
 margin_right = 101.327
 margin_bottom = 223.025
-texture = ExtResource( 6 )
 expand = true
 __meta__ = {
 "_edit_group_": true,
@@ -351,16 +349,17 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="level/icon"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -58.2631
-margin_top = 3.36844
-margin_right = 52.7369
-margin_bottom = 50.3684
+anchor_left = 0.51
+anchor_top = 1.166
+anchor_right = 0.51
+anchor_bottom = 1.166
+margin_left = -129.0
+margin_top = -23.5598
+margin_right = 129.0
+margin_bottom = 23.4402
 custom_fonts/font = SubResource( 7 )
 text = "Dust II"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

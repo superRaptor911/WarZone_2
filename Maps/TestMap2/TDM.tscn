@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=1]
-
-[node name="TDM" type="Node"]
-
-[node name="spawn_point" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1183.8, 1554.71 )
-team_id = -1

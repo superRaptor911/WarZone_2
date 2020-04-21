@@ -43,6 +43,8 @@ func _ready():
 	$name_tag.text = pname
 	setupGun()
 	if is_network_master():
+		if not game_states.game_settings.dynamic_camera:
+			$Camera2D.position = Vector2(0,0)
 		pname = game_states.player_info.name
 		$Camera2D.current = true
 		var controller = load("res://controls/controllers/default_controller.tscn").instance()
@@ -147,6 +149,8 @@ func _process(delta):
 	if is_network_master():
 		$CanvasModulate.color = Color8(255,2.55 * HP,2.55 * HP)
 
+
+	
 
 func _get_inputs():
 	if not is_network_master():

@@ -1,1 +1,1 @@
-{"level_info_paths":["res://Maps/TestMap2/level_info.gd","res://Maps/TestMap/level_info.gd"]}
+{"level_info_paths":["res://Maps/DesertComplex/level_info.gd","res://Maps/TestMap/level_info.gd"]}

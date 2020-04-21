@@ -26,7 +26,8 @@ var game_settings = {
 	dpad_transparency = 128,
 	particle_effects = true,
 	lighting_effects = true,
-	music_enabled = true
+	music_enabled = true,
+	dynamic_camera = true
 }
 
 #control types available

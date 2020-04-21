@@ -145,6 +145,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="camera" type="Panel" parent="Panel/VBoxContainer"]
+margin_top = 140.0
+margin_right = 427.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 427, 40 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/camera"]
+margin_left = 14.9753
+margin_top = 1.95422
+margin_right = 213.975
+margin_bottom = 33.9542
+custom_fonts/font = SubResource( 3 )
+text = "Dynamic Camera"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="camera" type="CheckButton" parent="Panel/VBoxContainer/camera"]
+margin_left = 336.729
+margin_right = 412.729
+margin_bottom = 40.0
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Header" type="Panel" parent="Panel"]
 anchor_right = 1.0
 margin_bottom = 48.0
@@ -167,3 +198,4 @@ text = "Settings"
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="toggled" from="Panel/VBoxContainer/particles/particles" to="." method="_on_particles_toggled"]
 [connection signal="toggled" from="Panel/VBoxContainer/music/music" to="." method="_on_music_toggled"]
+[connection signal="toggled" from="Panel/VBoxContainer/camera/camera" to="." method="_on_camera_toggled"]
