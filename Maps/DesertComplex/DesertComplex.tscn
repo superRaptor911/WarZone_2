@@ -33,9 +33,52 @@ script = ExtResource( 5 )
 
 [node name="TDM" parent="." index="3" instance=ExtResource( 3 )]
 
+[node name="spawn_point" parent="TDM" index="0"]
+position = Vector2( 212.117, 2935.98 )
+
+[node name="spawn_point9" parent="TDM" index="1"]
+position = Vector2( 2591.46, 692.014 )
+
+[node name="spawn_point10" parent="TDM" index="2"]
+position = Vector2( 2890.1, 1962.46 )
+
+[node name="spawn_point11" parent="TDM" index="3"]
+position = Vector2( 990.415, 2412.82 )
+
+[node name="spawn_point12" parent="TDM" index="4"]
+position = Vector2( 1769.87, 364.171 )
+
+[node name="spawn_point14" parent="TDM" index="5"]
+position = Vector2( 1280.49, 1531.13 )
+
+[node name="spawn_point16" parent="TDM" index="7"]
+position = Vector2( 224.046, 1302.8 )
+
+[node name="spawn_point13" parent="TDM" index="8"]
+position = Vector2( 233.278, 224.251 )
+
+[node name="spawn_point2" parent="TDM" index="9"]
+position = Vector2( 2539.01, 2377.26 )
+
+[node name="spawn_point3" parent="TDM" index="10"]
+position = Vector2( 639.725, 1929.78 )
+
+[node name="spawn_point4" parent="TDM" index="11"]
+position = Vector2( 1835.45, 2897.59 )
+
+[node name="spawn_point5" parent="TDM" index="12"]
+position = Vector2( 969.697, 705.921 )
+
+[node name="spawn_point6" parent="TDM" index="13"]
+position = Vector2( 2371.35, 1542.87 )
+
+[node name="spawn_point8" parent="TDM" index="15"]
+position = Vector2( 3099.31, 1317.37 )
+
 [node name="Navigation2D" type="Navigation2D" parent="." index="4" groups=[
 "Nav",
 ]]
+visible = false
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D" index="0"]
 navpoly = SubResource( 1 )

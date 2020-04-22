@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Weapons/mac10_d.bmp" type="Texture" id=2]
+[ext_resource path="res://Sprites/Weapons/mac10.bmp" type="Texture" id=3]
+[ext_resource path="res://Sfx/weapons/smg/mac10.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sprites/Weapons/mac10_p.png" type="Texture" id=5]
+
+[node name="mac10" instance=ExtResource( 1 )]
+gun_name = "mac10"
+damage = 22.0
+rounds_in_clip = 30
+rate_of_fire = 11.0
+max_zoom = 0.75
+gun_portrait = ExtResource( 5 )
+gun_d_img = ExtResource( 2 )
+wpn_cost = 700
+
+[node name="Muzzle" parent="." index="1"]
+position = Vector2( -0.185013, -26.7207 )
+
+[node name="Sprite" parent="." index="3"]
+position = Vector2( -107.625, -10.5317 )
+texture = ExtResource( 3 )
+
+[node name="fire" parent="." index="4"]
+stream = ExtResource( 4 )
+
+[node name="RayCast2D" parent="." index="6"]
+position = Vector2( -0.0306854, -26.581 )

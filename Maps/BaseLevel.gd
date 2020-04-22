@@ -34,6 +34,7 @@ var char_data_dict = {
 }
 
 func _ready():
+	MusicMan.music_player.volume_db = -10.0
 	if capture_mod:
 		captureMap()
 		return

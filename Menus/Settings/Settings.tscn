@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Menus/Settings/Settings.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=3]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=5]
+[ext_resource path="res://admob-lib/admob.gd" type="Script" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -43,15 +44,20 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 3 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Button" type="Button" parent="."]
-margin_left = 597.042
-margin_top = 634.044
-margin_right = 689.042
-margin_bottom = 674.044
+anchor_left = 0.502
+anchor_top = 0.908
+anchor_right = 0.502
+anchor_bottom = 0.908
+margin_left = -45.5181
+margin_top = -19.716
+margin_right = 46.4819
+margin_bottom = 20.284
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
@@ -195,6 +201,9 @@ margin_right = 70.5
 margin_bottom = 21.5
 custom_fonts/font = SubResource( 4 )
 text = "Settings"
+
+[node name="Admob" type="Node" parent="."]
+script = ExtResource( 6 )
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="toggled" from="Panel/VBoxContainer/particles/particles" to="." method="_on_particles_toggled"]
 [connection signal="toggled" from="Panel/VBoxContainer/music/music" to="." method="_on_music_toggled"]

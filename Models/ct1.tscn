@@ -13,7 +13,8 @@ shader_param/use = 0.0
 
 [node name="Model" instance=ExtResource( 1 )]
 model_name = "ct1"
+model_desc = "The Special Air Service (SAS) is a special forces unit of the British Army. The SAS was founded in 1941 as a regiment."
 team_id = 1
 
-[node name="skin" parent="." index="7"]
+[node name="skin" parent="." index="5"]
 material = SubResource( 1 )

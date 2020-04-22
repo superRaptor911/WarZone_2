@@ -42,7 +42,8 @@ func freeSkins():
 
 
 func _on_purchase_pressed():
-	if  skins[cur_skin_id].price < game_states.player_data.cash:
+	if  skins[cur_skin_id].price <= game_states.player_data.cash:
+		game_states.player_data.cash -= skins[cur_skin_id].price
 		MusicMan.click()
 		game_states.player_data.skins.append(skins[cur_skin_id].model_name)
 		$cash.text = "$" + String(game_states.player_data.cash)

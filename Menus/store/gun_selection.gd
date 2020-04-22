@@ -182,6 +182,8 @@ func saveAll():
 	game_states.player_data.selected_guns.clear()
 	game_states.player_data.selected_guns.append(selected_primary_gun.gun_name)
 	game_states.player_data.selected_guns.append(selected_sec_gun.gun_name)
+	game_states.player_info.primary_gun_name = selected_primary_gun.gun_name
+	game_states.player_info.sec_gun_name = selected_sec_gun.gun_name
 	game_states.savePlayerData()
 	
 

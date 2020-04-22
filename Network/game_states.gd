@@ -1,7 +1,7 @@
 extends Node
 
 #is exporting for android or not
-var is_android : bool = false
+var is_android : bool = true
 var current_game_version = 1.0
 const invalid_position = Vector2(-999,-999)
 
@@ -40,6 +40,8 @@ var control_types = {
 var modelResource = {
 	ct1 = preload("res://Models/ct1.tscn"),
 	t1 = preload("res://Models/t1.tscn"),
+	t2 = preload("res://Models/t2.tscn"),
+	ct2 = preload("res://Models/ct2.tscn")
 }
 
 var classResource = {
@@ -52,7 +54,12 @@ var weaponResource = {
 	default_gun = preload("res://Objects/Weapons/Gun.tscn"),
 	AK47 = preload("res://Objects/Weapons/AK47.tscn"),
 	MP5 = preload("res://Objects/Weapons/MP5.tscn"),
-	deagle = preload("res://Objects/Weapons/deagle.tscn")
+	deagle = preload("res://Objects/Weapons/deagle.tscn"),
+	Awm = preload("res://Objects/Weapons/Awm.tscn"),
+	Famas = preload("res://Objects/Weapons/Famas.tscn"),
+	M4A1 = preload("res://Objects/Weapons/M4A1.tscn"),
+	mac10 = preload("res://Objects/Weapons/mac10.tscn"),
+	P90 = preload("res://Objects/Weapons/P90.tscn"),
 }
 
 #player data/stats
@@ -60,7 +67,7 @@ var player_data = {
 	name = "player",
 	kills = 0,
 	deaths = 0,
-	cash = 2000,
+	cash = 20000,
 	XP = 0,
 	guns = Array(),
 	skins = Array(),

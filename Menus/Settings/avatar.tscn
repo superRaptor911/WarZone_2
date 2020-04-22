@@ -18,7 +18,8 @@ margin_top = -351.897
 margin_right = 130.054
 margin_bottom = 141.103
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_use_anchors_": false
 }
 
 [node name="Panel" type="Panel" parent="PanelContainer"]

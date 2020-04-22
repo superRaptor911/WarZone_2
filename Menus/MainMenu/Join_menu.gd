@@ -12,6 +12,7 @@ func _ready():
 	serverListener.connect("new_server",self,"on_server_found")
 	serverListener.connect("remove_server", self, "on_server_closed")
 	startingTween()
+	$Admob.load_banner()
 
 func _on_join_fail():
 	print("Failed to join server")

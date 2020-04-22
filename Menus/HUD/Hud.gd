@@ -23,9 +23,18 @@ func _ready():
 
 func setUser(u):
 	user = u
+	user.connect("gun_picked",self,"_on_gun_picked")
 	$reload/gun_s.texture = user.selected_gun.gun_portrait
 	$reload/TextureProgress.max_value = user.selected_gun.rounds_in_clip
 	$reload/TextureProgress.value =  user.selected_gun.rounds_left
+	var n = $reload
+	for i in range(1,5):
+		if i <= user.selected_gun.clips - 1:
+			n.get_node("b" + String(i)).show()
+		else:
+			n.get_node("b" + String(i)).hide()
+	if not user.selected_gun.is_connected("reloading_gun",self,"_on_gun_reload"):
+		user.selected_gun.connect("reloading_gun",self,"_on_gun_reload")
 
 func _process(delta):
 	frames += 1
@@ -163,7 +172,33 @@ func _on_nextGun_pressed():
 	$reload/gun_s.texture = user.selected_gun.gun_portrait
 	$reload/TextureProgress.max_value = user.selected_gun.rounds_in_clip
 	$reload/TextureProgress.value =  user.selected_gun.rounds_left
+	var n = $reload
+	for i in range(1,5):
+		if i <= user.selected_gun.clips - 1:
+			n.get_node("b" + String(i)).show()
+		else:
+			n.get_node("b" + String(i)).hide()
+	if not user.selected_gun.is_connected("reloading_gun",self,"_on_gun_reload"):
+		user.selected_gun.connect("reloading_gun",self,"_on_gun_reload")
 
+
+func _on_gun_reload():
+	var n = $reload
+	for i in range(1,5):
+		if i <= user.selected_gun.clips - 1:
+			n.get_node("b" + String(i)).show()
+		else:
+			n.get_node("b" + String(i)).hide()
+
+func _on_gun_picked():
+	var n = $reload
+	for i in range(1,5):
+		if i <= user.selected_gun.clips - 1:
+			n.get_node("b" + String(i)).show()
+		else:
+			n.get_node("b" + String(i)).hide()
+	if not user.selected_gun.is_connected("reloading_gun",self,"_on_gun_reload"):
+		user.selected_gun.connect("reloading_gun",self,"_on_gun_reload")
 
 func _on_btn_pressed():
 	user.selected_gun.reload()

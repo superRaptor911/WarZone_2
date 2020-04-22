@@ -67,7 +67,7 @@ func loadWeapons():
 		game_states.save_data(path + "/wpn_list.txt",guns)
 	else:
 		#LOAD PATH FROM wpn_list.txt
-		var guns = game_states.load_data("res://Objects/Weapons" + "/wpn_list.txt")
+		var guns = game_states.load_data("res://Objects/Weapons/wpn_list.txt")
 		for i in guns.gun_paths:
 			var script = load(i).instance()
 			for j in weapon_types:

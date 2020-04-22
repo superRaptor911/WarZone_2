@@ -15,12 +15,14 @@ func _ready():
 
 func loadMenu():
 	addMenu("mainMenu","res://Menus/MainMenu/MainMenu.tscn")
+	addMenu("newGame","res://Menus/MainMenu/NewGame.tscn")
 	addMenu("storeMenu","res://Menus/store/store_menu.tscn")
 	addMenu("joinMenu","res://Menus/MainMenu/Join_menu.tscn")
 	addMenu("hostMenu","res://Menus/MainMenu/host_menu.tscn")
 	addMenu("settings","res://Menus/Settings/Settings.tscn")
 	addMenu("stats","res://Menus/MainMenu/Stats.tscn")
 	addMenu("summary","res://Menus/Misc/Summary.tscn")
+	
 	
 	#sub menu of store menu
 	addMenu("SM/gunStore","res://Menus/store/gun_store.tscn")

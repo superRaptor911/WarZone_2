@@ -198,6 +198,9 @@ margin_bottom = 215.279
 texture_normal = ExtResource( 5 )
 expand = true
 stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="prevButton" type="TextureButton" parent="Panel/portrait"]
 margin_left = 19.9086

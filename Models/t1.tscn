@@ -15,7 +15,8 @@ shader_param/use = 0.0
 [node name="Model" instance=ExtResource( 1 )]
 model_name = "t1"
 model_real_name = "LeeT"
+model_desc = "The Elite Crew, sometimes referred to as the 1337 Krew or Leet Krew is a Terrorists faction"
 
-[node name="skin" parent="." index="7"]
+[node name="skin" parent="." index="5"]
 material = SubResource( 1 )
 texture = ExtResource( 2 )

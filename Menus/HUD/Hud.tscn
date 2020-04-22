@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Menus/HUD/Hud.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/white.png" type="Texture" id=2]
@@ -10,10 +10,14 @@
 [ext_resource path="res://Menus/HUD/pause3.png" type="Texture" id=8]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=9]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://Sprites/UI/bullet.png" type="Texture" id=11]
 [ext_resource path="res://Antaro.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://Menus/resources/next_gun.png" type="Texture" id=13]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="CircleShape2D" id=1]
+radius = 98.0
+
+[sub_resource type="StyleBoxFlat" id=2]
 draw_center = false
 border_width_left = 3
 border_width_top = 3
@@ -21,11 +25,8 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 80, 40 )
-
-[sub_resource type="CircleShape2D" id=3]
-radius = 98.0
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 40.0
@@ -68,17 +69,39 @@ font_data = ExtResource( 10 )
 ]]
 script = ExtResource( 1 )
 
+[node name="Control" type="Control" parent="."]
+anchor_left = 0.627
+anchor_top = 0.906
+anchor_right = 0.627
+anchor_bottom = 0.906
+margin_left = -67.5601
+margin_top = -49.32
+margin_right = 67.4399
+margin_bottom = 48.68
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="melee" type="TouchScreenButton" parent="Control"]
+scale = Vector2( 0.754964, 0.465095 )
+normal = ExtResource( 4 )
+pressed = ExtResource( 4 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
 [node name="reload" type="Panel" parent="."]
-anchor_left = 0.918
+anchor_left = 1.0
 anchor_top = 0.067
-anchor_right = 0.918
+anchor_right = 1.0
 anchor_bottom = 0.067
-margin_left = -83.04
+margin_left = -188.0
 margin_top = -41.24
-margin_right = 13.96
+margin_right = -91.0
 margin_bottom = 4.76
 rect_scale = Vector2( 1.70963, 1.78606 )
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -96,10 +119,9 @@ __meta__ = {
 }
 
 [node name="btn" type="TouchScreenButton" parent="reload"]
-visible = false
 position = Vector2( 0, 4.76837e-07 )
 scale = Vector2( 0.584922, 0.559892 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="TextureProgress" type="TextureProgress" parent="reload"]
 self_modulate = Color( 1, 1, 1, 0.470588 )
@@ -118,15 +140,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="melee" type="TouchScreenButton" parent="."]
-position = Vector2( 734.793, 602.552 )
-scale = Vector2( 0.754964, 0.465095 )
-normal = ExtResource( 4 )
-pressed = ExtResource( 4 )
-shape = SubResource( 3 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="b1" type="Sprite" parent="reload"]
+position = Vector2( 82.2771, 57.2319 )
+rotation = -1.5708
+scale = Vector2( 0.432732, 0.57199 )
+texture = ExtResource( 11 )
+
+[node name="b2" type="Sprite" parent="reload"]
+position = Vector2( 56, 57.232 )
+rotation = -1.5708
+scale = Vector2( 0.432732, 0.57199 )
+texture = ExtResource( 11 )
+
+[node name="b3" type="Sprite" parent="reload"]
+position = Vector2( 32.5897, 57.4767 )
+rotation = -1.5708
+scale = Vector2( 0.432732, 0.57199 )
+texture = ExtResource( 11 )
+
+[node name="b4" type="Sprite" parent="reload"]
+position = Vector2( 10.8183, 57.7213 )
+rotation = -1.5708
+scale = Vector2( 0.432732, 0.57199 )
+texture = ExtResource( 11 )
 
 [node name="zoom" type="TextureButton" parent="."]
 anchor_left = 0.048
@@ -352,13 +388,13 @@ custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 
 [node name="nextGun" type="TextureButton" parent="."]
-anchor_left = 0.822
+anchor_left = 0.856
 anchor_top = 0.064
-anchor_right = 0.822
+anchor_right = 0.856
 anchor_bottom = 0.064
-margin_left = 36.39
+margin_left = -7.13
 margin_top = -36.095
-margin_right = 76.39
+margin_right = 32.87
 margin_bottom = 3.905
 rect_scale = Vector2( -1.8, 1.8 )
 texture_normal = ExtResource( 13 )
@@ -368,14 +404,14 @@ __meta__ = {
 }
 
 [node name="Minimap" type="Panel" parent="."]
-anchor_left = 0.897
-anchor_top = 0.269
-anchor_right = 0.897
-anchor_bottom = 0.269
-margin_left = -128.33
-margin_top = -78.042
-margin_right = 127.67
-margin_bottom = 77.958
+anchor_left = 0.999
+anchor_top = 0.299
+anchor_right = 0.999
+anchor_bottom = 0.299
+margin_left = -255.89
+margin_top = -78.2082
+margin_right = 0.109985
+margin_bottom = 77.7918
 custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_group_": true,
@@ -402,10 +438,15 @@ __meta__ = {
 
 [node name="pick" type="Button" parent="."]
 visible = false
-margin_left = 548.761
-margin_top = 511.119
-margin_right = 638.761
-margin_bottom = 534.119
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -61.2793
+margin_top = 94.2715
+margin_right = 66.7207
+margin_bottom = 134.271
+custom_styles/normal = ExtResource( 9 )
 text = "Pick"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -429,8 +470,8 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="Control/melee" to="." method="_on_melee_pressed"]
 [connection signal="pressed" from="reload/btn" to="." method="_on_btn_pressed"]
-[connection signal="pressed" from="melee" to="." method="_on_melee_pressed"]
 [connection signal="pressed" from="zoom/zoom" to="." method="_on_zoom_pressed"]
 [connection signal="pressed" from="HE/HE" to="." method="_on_HE_pressed"]
 [connection signal="pressed" from="pause" to="." method="_on_pause_pressed"]

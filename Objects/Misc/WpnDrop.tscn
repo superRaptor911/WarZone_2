@@ -4,7 +4,7 @@
 [ext_resource path="res://Sfx/weapons/pickup.wav" type="AudioStream" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 16.7206
+radius = 24.0
 
 [node name="WpnDrop" type="Sprite" groups=[
 "DropedItem",

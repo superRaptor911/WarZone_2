@@ -13,6 +13,7 @@ var kits = Array()
 
 func _ready():
 	if get_tree().is_network_server():
+		spawn_wait = 30
 		kits.append("med")
 		kits.append("kevlar")
 		$Timer.wait_time = spawn_wait
@@ -50,7 +51,7 @@ func generateWpn() -> Dictionary:
 		wpn = weapons[randi() % weapons.size()].instance()
 	else:
 		wpn = game_states.weaponResource.get(weapon_to_spawn).instance()
-	wpn.position = position
+	wpn.position = position + Vector2(rand_range(-50,50),rand_range(-50,-50))
 	
 	var rtn_val = wpn_drop.getWpnInfo(wpn)
 	wpn.queue_free()

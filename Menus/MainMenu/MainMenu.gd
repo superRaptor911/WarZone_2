@@ -1,24 +1,21 @@
 extends CanvasLayer
 
-var _next_scene : String  
+var _next_scene : String 
+onready var admob = $Admob
 
 func _ready():
+	MusicMan.music_player.volume_db = -2.0
 	print("ready called")
 	tweenInitial()
 	get_tree().paused = false
 	$Timer.connect("timeout",self,"goToNextScene")
-
-
-func _on_Button_pressed():
-	MusicMan.click()
-	_next_scene = "joinMenu"
-	$Timer.start()
-	tweenTransition()
+	admob.load_banner()
+	admob.load_interstitial()
 
 
 func _on_Button2_pressed():
 	MusicMan.click()
-	_next_scene = "hostMenu"
+	_next_scene = "newGame"
 	$Timer.start()
 	tweenTransition()
 
@@ -46,6 +43,7 @@ func goToNextScene():
 
 #########################Tweeeening############################
 func tweenTransition():
+	admob.hide_banner()
 	#scale tween
 	$Tween.remove_all()
 	$Tween.interpolate_property($VBoxContainer,"rect_scale",$VBoxContainer.rect_scale,
@@ -71,4 +69,10 @@ func tweenInitial():
 
 
 
+func _on_Admob_interstitial_loaded():
+	if randi() % 100 < 40:
+		admob.show_interstitial()
 
+
+func _on_Admob_banner_loaded():
+	admob.show_banner()

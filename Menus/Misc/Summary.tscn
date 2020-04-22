@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=2]
 [ext_resource path="res://Menus/Misc/Summary.gd" type="Script" id=3]
+[ext_resource path="res://admob-lib/admob.gd" type="Script" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -19,7 +20,7 @@ script = ExtResource( 3 )
 [node name="Panel" type="Panel" parent="."]
 margin_left = 380.0
 margin_top = 140.0
-margin_right = 915.0
+margin_right = 974.0
 margin_bottom = 636.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
@@ -72,7 +73,7 @@ __meta__ = {
 
 [node name="Panel" type="Panel" parent="Panel/VBoxContainer/map"]
 margin_left = 176.0
-margin_right = 396.0
+margin_right = 456.0
 margin_bottom = 44.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -85,6 +86,9 @@ margin_right = 57.2915
 margin_bottom = 37.5404
 custom_fonts/font = ExtResource( 1 )
 text = "Dust2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="kills" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 67.0
@@ -112,6 +116,9 @@ margin_right = 57.2915
 margin_bottom = 37.5404
 custom_fonts/font = ExtResource( 1 )
 text = "Dust2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="deaths" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 134.0
@@ -217,5 +224,8 @@ __meta__ = {
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="Admob" type="Node" parent="."]
+script = ExtResource( 4 )
 [connection signal="pressed" from="Panel/Ok" to="." method="_on_Ok_pressed"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="interstitial_loaded" from="Admob" to="." method="_on_Admob_interstitial_loaded"]

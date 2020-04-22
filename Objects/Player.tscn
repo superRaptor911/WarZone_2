@@ -48,15 +48,5 @@ position = Vector2( -1.47835, -15.9435 )
 
 [node name="Camera2D" type="Camera2D" parent="." index="5"]
 z_index = -2
-offset = Vector2( 0, -150 )
 zoom = Vector2( 0.75, 0.75 )
 smoothing_enabled = true
-
-[node name="bloodSplash" parent="." index="6"]
-spread = 45.0
-gravity = Vector2( 0, 98 )
-initial_velocity = 0.0
-initial_velocity_random = 0.0
-angular_velocity = 0.0
-scale_amount = 1.0
-scale_amount_curve = null

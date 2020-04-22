@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sfx/weapons/smg/p90.wav" type="AudioStream" id=2]
+[ext_resource path="res://Sprites/Weapons/p90_d.bmp" type="Texture" id=3]
+[ext_resource path="res://Sprites/Weapons/p90.bmp" type="Texture" id=4]
+[ext_resource path="res://Sprites/Weapons/p90_p.png" type="Texture" id=5]
+
+[node name="P90" instance=ExtResource( 1 )]
+gun_type = "smg"
+gun_name = "P90"
+damage = 20.0
+rounds_in_clip = 50
+gun_rating = 4
+rate_of_fire = 13.0
+gun_portrait = ExtResource( 5 )
+gun_d_img = ExtResource( 3 )
+wpn_cost = 2200
+
+[node name="Muzzle" parent="." index="1"]
+position = Vector2( 0.416855, -31.9784 )
+
+[node name="Sprite" parent="." index="3"]
+position = Vector2( -105.487, -14.2332 )
+texture = ExtResource( 4 )
+
+[node name="fire" parent="." index="4"]
+stream = ExtResource( 2 )
+
+[node name="RayCast2D" parent="." index="6"]
+position = Vector2( 0.226364, -32.3057 )

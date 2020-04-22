@@ -44,6 +44,7 @@ func setBoardData(data : Array):
 		slot.get_node("score").text = String(i.score)
 		slot.get_node("death").text = String(i.deaths)
 		slot.get_node("ping").text = String(i.ping)
+		index += 1
 
 	for i in range(index , no_slots + 1):
 		get_node("CT/Plist/s" + String(index)).hide()

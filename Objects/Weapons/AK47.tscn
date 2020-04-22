@@ -13,12 +13,11 @@ position = Vector2( 218.31, 213.063 )
 script = ExtResource( 2 )
 gun_type = "rifle"
 gun_name = "AK47"
-damage = 36.0
+damage = 34.0
 rounds_in_clip = 30
-clips = 99
 gun_rating = 5
 rate_of_fire = 7.0
-max_zoom = 1.5
+max_zoom = 1.25
 gun_portrait = ExtResource( 6 )
 gun_d_img = ExtResource( 7 )
 

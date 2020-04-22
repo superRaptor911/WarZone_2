@@ -14,6 +14,7 @@ var pname : String
 var cash : int = 0
 var xp : int = 0
 var id : int
+var streak = 0
 
 
 var timer_time : float = 0
@@ -26,6 +27,7 @@ var _pause_cntrl : bool = false
 var cur_dropped_item_id = 0
 
 signal player_killed(player)
+signal gun_picked
 
 
 ###################################################
@@ -43,8 +45,9 @@ func _ready():
 	$name_tag.text = pname
 	setupGun()
 	if is_network_master():
-		if not game_states.game_settings.dynamic_camera:
-			$Camera2D.position = Vector2(0,0)
+		#enable dynamic camera
+		if game_states.game_settings.dynamic_camera:
+			$Camera2D.position = Vector2(0,-150)
 		pname = game_states.player_info.name
 		$Camera2D.current = true
 		var controller = load("res://controls/controllers/default_controller.tscn").instance()
@@ -105,6 +108,7 @@ remotesync func pickUpItem(item):
 		d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(old_gun))
 		old_gun.queue_free()
 		setupGun()
+		emit_signal("gun_picked")
 	elif item.type == "med":
 		HP = 100
 	elif item.type == "kevlar":
@@ -256,7 +260,10 @@ remotesync func switchGun():
 	
 	selected_gun.gun_user = self
 	selected_gun.position = Vector2(0,0)
-	
+	if hud:
+		hud.get_node("reload/gun_s").texture = selected_gun.gun_portrait
+		hud.get_node("reload/TextureProgress").max_value = selected_gun.rounds_in_clip
+		hud.get_node("reload/TextureProgress").value = selected_gun.rounds_left
 
 
 func setupGun():
@@ -297,8 +304,8 @@ func respawn_player():
 
 
 remotesync func getKillRewards(enemy_xp = 0):
-	xp += 10 + game_states.getLevelFromXP(enemy_xp) * 3
-	var add = 25 + 50 * game_states.getLevelFromXP(enemy_xp)
+	xp += 10 + game_states.getLevelFromXP(enemy_xp) * 3 + 10 * streak
+	var add = 25 + 50 * game_states.getLevelFromXP(enemy_xp) + 25 * streak
 	cash += add
 	hud.addCash(add)
 	kills += 1
@@ -306,6 +313,7 @@ remotesync func getKillRewards(enemy_xp = 0):
 	game_states.last_match_result.deaths = deaths
 	game_states.last_match_result.cash = cash
 	game_states.last_match_result.xp = xp
+	streak += 1
 
 
 remotesync func deductDeathPenalty():
@@ -316,6 +324,7 @@ remotesync func deductDeathPenalty():
 	game_states.last_match_result.deaths = deaths
 	game_states.last_match_result.cash = cash
 	game_states.last_match_result.xp = xp
+	streak = 0
 
 
 func performMeleeAttack():

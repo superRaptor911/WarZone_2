@@ -1,1 +1,1 @@
-{"gun_paths":["res://Objects/Weapons/Gun.tscn","res://Objects/Weapons/MP5.tscn","res://Objects/Weapons/grenade.tscn","res://Objects/Weapons/AK47.tscn","res://Objects/Weapons/deagle.tscn"]}
+{"gun_paths":["res://Objects/Weapons/mac10.tscn","res://Objects/Weapons/Awm.tscn","res://Objects/Weapons/Gun.tscn","res://Objects/Weapons/Famas.tscn","res://Objects/Weapons/MP5.tscn","res://Objects/Weapons/grenade.tscn","res://Objects/Weapons/P90.tscn","res://Objects/Weapons/Aug.tscn","res://Objects/Weapons/M4A1.tscn","res://Objects/Weapons/AK47.tscn","res://Objects/Weapons/deagle.tscn"]}

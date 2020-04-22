@@ -9,6 +9,7 @@ var cur_ct_skin = 0
 
 func _ready():
 	loadSkins()
+	$Admob.load_banner()
 
 func loadSkins():
 	for i in game_states.player_data.skins:
@@ -42,8 +43,9 @@ func selectCtSkin():
 
 
 func selectTskin():
-	$T/portrait/TextureRect.texture = t_skins[cur_ct_skin].get_node("skin").texture
-	$T/portrait/label.text = t_skins[cur_ct_skin].model_real_name
+	$T/portrait/TextureRect.texture = t_skins[cur_t_skin].get_node("skin").texture
+	$T/portrait/label.text = t_skins[cur_t_skin].model_real_name
+
 
 
 

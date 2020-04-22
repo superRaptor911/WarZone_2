@@ -78,7 +78,7 @@ class Player_stats:
 		if kill_streak == 13:
 			return "mega_kill"
 		if kill_streak == 15:
-			return "ulta_kill"
+			return "ultra_kill"
 		return ""
 
 #list of player stats
