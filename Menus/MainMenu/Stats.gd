@@ -12,5 +12,6 @@ func _ready():
 func _on_back_pressed():
 	MusicMan.click()
 	game_states.player_data.name = $Panel/VBoxContainer/name/LineEdit.text
+	game_states.player_info.name = $Panel/VBoxContainer/name/LineEdit.text
 	game_states.savePlayerData()
 	MenuManager.changeScene("mainMenu")

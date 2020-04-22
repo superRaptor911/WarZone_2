@@ -1,6 +1,8 @@
 extends CanvasLayer
+var add_shown = false
 
 func _ready():
+	add_shown = false
 	$Admob.load_banner()
 	$Admob.load_interstitial()
 	var map = game_states.last_match_result.map
@@ -33,4 +35,6 @@ func _on_Timer_timeout():
 
 
 func _on_Admob_interstitial_loaded():
-	$Admob.show_interstitial()
+	if not add_shown:
+		$Admob.show_interstitial()
+		add_shown = true

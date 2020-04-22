@@ -5,7 +5,7 @@
 [ext_resource path="res://bin/Bot.gdns" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 636.278, 356.822 )
+extents = Vector2( 706.249, 458.787 )
 
 [node name="Bot" groups=[
 "Bot",
@@ -13,6 +13,9 @@ extents = Vector2( 636.278, 356.822 )
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 speed = 80.0
+
+[node name="free_timer" parent="." index="1"]
+wait_time = 8.0
 
 [node name="Brain" type="Node" parent="." index="6"]
 script = ExtResource( 3 )

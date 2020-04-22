@@ -10,7 +10,7 @@
 #include <memory>
 #include <BotFlags.h>
 
-#define DEBUG_MODE
+//#define DEBUG_MODE
 
 namespace godot
 {

@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Sprites/Tilesets/ground_dark.tres" type="TileSet" id=1]
 [ext_resource path="res://Sprites/Tilesets/height.tres" type="TileSet" id=2]
-[ext_resource path="res://Maps/DesertComplex/TDM.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Maps/BaseLevel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Maps/DesertComplex/level_info.gd" type="Script" id=5]
 [ext_resource path="res://Maps/palmtree1.png" type="Texture" id=6]
@@ -31,51 +30,7 @@ tile_data = PoolIntArray( 52, 0, 262144, 65537, 0, 327681, 65538, 0, 0, 65539, 0
 [node name="level_info" type="Node" parent="." index="2"]
 script = ExtResource( 5 )
 
-[node name="TDM" parent="." index="3" instance=ExtResource( 3 )]
-
-[node name="spawn_point" parent="TDM" index="0"]
-position = Vector2( 212.117, 2935.98 )
-
-[node name="spawn_point9" parent="TDM" index="1"]
-position = Vector2( 2591.46, 692.014 )
-
-[node name="spawn_point10" parent="TDM" index="2"]
-position = Vector2( 2890.1, 1962.46 )
-
-[node name="spawn_point11" parent="TDM" index="3"]
-position = Vector2( 990.415, 2412.82 )
-
-[node name="spawn_point12" parent="TDM" index="4"]
-position = Vector2( 1769.87, 364.171 )
-
-[node name="spawn_point14" parent="TDM" index="5"]
-position = Vector2( 1280.49, 1531.13 )
-
-[node name="spawn_point16" parent="TDM" index="7"]
-position = Vector2( 224.046, 1302.8 )
-
-[node name="spawn_point13" parent="TDM" index="8"]
-position = Vector2( 233.278, 224.251 )
-
-[node name="spawn_point2" parent="TDM" index="9"]
-position = Vector2( 2539.01, 2377.26 )
-
-[node name="spawn_point3" parent="TDM" index="10"]
-position = Vector2( 639.725, 1929.78 )
-
-[node name="spawn_point4" parent="TDM" index="11"]
-position = Vector2( 1835.45, 2897.59 )
-
-[node name="spawn_point5" parent="TDM" index="12"]
-position = Vector2( 969.697, 705.921 )
-
-[node name="spawn_point6" parent="TDM" index="13"]
-position = Vector2( 2371.35, 1542.87 )
-
-[node name="spawn_point8" parent="TDM" index="15"]
-position = Vector2( 3099.31, 1317.37 )
-
-[node name="Navigation2D" type="Navigation2D" parent="." index="4" groups=[
+[node name="Navigation2D" type="Navigation2D" parent="." index="3" groups=[
 "Nav",
 ]]
 visible = false
@@ -83,87 +38,85 @@ visible = false
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D" index="0"]
 navpoly = SubResource( 1 )
 
-[node name="palmtree1" type="Sprite" parent="." index="5"]
+[node name="palmtree1" type="Sprite" parent="." index="4"]
 position = Vector2( 3151.92, 2021.23 )
 scale = Vector2( 2, 2 )
 z_index = 3
 texture = ExtResource( 6 )
 
-[node name="palmtree2" type="Sprite" parent="." index="6"]
+[node name="palmtree2" type="Sprite" parent="." index="5"]
 position = Vector2( 223.907, 1949.52 )
 scale = Vector2( 2, 2 )
 z_index = 3
 texture = ExtResource( 6 )
 
-[node name="palmtree3" type="Sprite" parent="." index="7"]
+[node name="palmtree3" type="Sprite" parent="." index="6"]
 position = Vector2( 206.611, 795.523 )
 scale = Vector2( 2, 2 )
 z_index = 3
 texture = ExtResource( 6 )
 
-[node name="palmtree4" type="Sprite" parent="." index="8"]
+[node name="palmtree4" type="Sprite" parent="." index="7"]
 position = Vector2( 904.767, 2922.87 )
 scale = Vector2( 2, 2 )
 z_index = 3
 texture = ExtResource( 6 )
 
-[node name="palmtree5" type="Sprite" parent="." index="9"]
+[node name="palmtree5" type="Sprite" parent="." index="8"]
 position = Vector2( 2579.08, 2933.02 )
 scale = Vector2( 2, 2 )
 z_index = 3
 texture = ExtResource( 6 )
 
-[node name="palmtree7" type="Sprite" parent="." index="10"]
+[node name="palmtree7" type="Sprite" parent="." index="9"]
 position = Vector2( 1144.97, 212.663 )
 scale = Vector2( 2, 2 )
 z_index = 3
 texture = ExtResource( 6 )
 
-[node name="palmtree8" type="Sprite" parent="." index="11"]
+[node name="palmtree8" type="Sprite" parent="." index="10"]
 position = Vector2( 2498.98, 196.244 )
 scale = Vector2( 2, 2 )
 z_index = 3
 texture = ExtResource( 6 )
 
-[node name="palmtree6" type="Sprite" parent="." index="12"]
+[node name="palmtree6" type="Sprite" parent="." index="11"]
 position = Vector2( 1938.7, 1537.25 )
 scale = Vector2( 2, 2 )
 z_index = 3
 texture = ExtResource( 6 )
 
-[node name="ItemSpawner" parent="." index="13" instance=ExtResource( 7 )]
+[node name="ItemSpawner" parent="." index="12" instance=ExtResource( 7 )]
 position = Vector2( 1778.79, 2019.79 )
 weapon_to_spawn = "AK47"
 spawn_kits = false
 spawn_wait = 15
 
-[node name="ItemSpawner2" parent="." index="14" instance=ExtResource( 7 )]
+[node name="ItemSpawner2" parent="." index="13" instance=ExtResource( 7 )]
 position = Vector2( 577.914, 2434.13 )
 spawn_wpn = false
 weapon_to_spawn = "AK47"
 spawn_wait = 15
 
-[node name="ItemSpawner3" parent="." index="15" instance=ExtResource( 7 )]
+[node name="ItemSpawner3" parent="." index="14" instance=ExtResource( 7 )]
 position = Vector2( 570.892, 1422.87 )
 spawn_wpn = false
 weapon_to_spawn = "AK47"
 spawn_wait = 15
 
-[node name="ItemSpawner4" parent="." index="16" instance=ExtResource( 7 )]
+[node name="ItemSpawner4" parent="." index="15" instance=ExtResource( 7 )]
 position = Vector2( 2944.55, 1415.84 )
 spawn_wpn = false
 weapon_to_spawn = "AK47"
 spawn_wait = 15
 
-[node name="ItemSpawner5" parent="." index="17" instance=ExtResource( 7 )]
+[node name="ItemSpawner5" parent="." index="16" instance=ExtResource( 7 )]
 position = Vector2( 3169.28, 1127.92 )
 spawn_wpn = false
 weapon_to_spawn = "AK47"
 spawn_wait = 15
 
-[node name="ItemSpawner6" parent="." index="18" instance=ExtResource( 7 )]
+[node name="ItemSpawner6" parent="." index="17" instance=ExtResource( 7 )]
 position = Vector2( 1792.84, 1029.6 )
 spawn_kits = false
 spawn_wait = 15
-
-[editable path="TDM"]

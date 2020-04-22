@@ -148,10 +148,14 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="."]
 
 [node name="cash" type="Button" parent="."]
-margin_left = 1085.0
-margin_top = 273.0
-margin_right = 1248.0
-margin_bottom = 406.0
+anchor_left = 0.911
+anchor_top = 0.472
+anchor_right = 0.911
+anchor_bottom = 0.472
+margin_left = -81.0801
+margin_top = -66.84
+margin_right = 81.9199
+margin_bottom = 66.16
 custom_styles/normal = SubResource( 4 )
 custom_fonts/font = ExtResource( 7 )
 text = "$$"
@@ -163,10 +167,14 @@ __meta__ = {
 script = ExtResource( 6 )
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
-margin_left = 339.0
-margin_top = 248.0
-margin_right = 910.0
-margin_bottom = 439.0
+anchor_left = 0.5
+anchor_top = 0.477
+anchor_right = 0.5
+anchor_bottom = 0.477
+margin_left = -301.0
+margin_top = -95.44
+margin_right = 270.0
+margin_bottom = 95.56
 custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -177,10 +185,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -246.0
-margin_top = -42.0
-margin_right = 246.0
-margin_bottom = 42.0
+margin_left = -279.5
+margin_top = -89.5
+margin_right = 279.5
+margin_bottom = 89.5
 custom_fonts/font = ExtResource( 7 )
 text = "You Got $200"
 [connection signal="pressed" from="Panel/VBoxContainer/sw" to="." method="_on_sw_pressed"]
@@ -190,3 +198,4 @@ text = "You Got $200"
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="cash" to="." method="_on_cash_pressed"]
 [connection signal="rewarded" from="Admob" to="." method="_on_Admob_rewarded"]
+[connection signal="rewarded_video_loaded" from="Admob" to="." method="_on_Admob_rewarded_video_loaded"]

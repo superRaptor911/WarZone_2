@@ -15,6 +15,7 @@ func _ready():
 
 func loadMenu():
 	addMenu("mainMenu","res://Menus/MainMenu/MainMenu.tscn")
+	addMenu("once","res://Menus/MainMenu/once.tscn")
 	addMenu("newGame","res://Menus/MainMenu/NewGame.tscn")
 	addMenu("storeMenu","res://Menus/store/store_menu.tscn")
 	addMenu("joinMenu","res://Menus/MainMenu/Join_menu.tscn")
@@ -50,4 +51,7 @@ func changeScene(new_scene):
 		print("Error changing scene to ", new_scene)
 
 func on_loaded():
-	changeScene("mainMenu")
+	if game_states.first_run:
+		changeScene("once")
+	else:
+		changeScene("mainMenu")

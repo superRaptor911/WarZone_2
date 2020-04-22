@@ -15,6 +15,9 @@ namespace godot
 
         Bot *_bot;
         Node2D *_parent;
+
+        float last_fire_time = 0.f;
+        float last_delay_time = 0.f;
        
     public:
 

@@ -46,6 +46,9 @@ __meta__ = {
 [node name="Gun" parent="." index="3" instance=ExtResource( 3 )]
 position = Vector2( -1.47835, -15.9435 )
 
+[node name="free_timer" parent="." index="4"]
+wait_time = 8.0
+
 [node name="Camera2D" type="Camera2D" parent="." index="5"]
 z_index = -2
 zoom = Vector2( 0.75, 0.75 )

@@ -433,6 +433,7 @@ margin_right = 250.34
 margin_bottom = 181.7
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -528,6 +529,24 @@ text = "No mode"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Panel2" type="Panel" parent="gameMode"]
+margin_left = 5.0
+margin_top = 46.0
+margin_right = 496.0
+margin_bottom = 356.0
+
+[node name="Label" type="Label" parent="gameMode/Panel2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -207.5
+margin_top = -42.0
+margin_right = 207.5
+margin_bottom = 42.0
+custom_fonts/font = ExtResource( 5 )
+text = "coming soon"
 
 [node name="Admob" type="Node" parent="."]
 script = ExtResource( 6 )

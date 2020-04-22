@@ -9,7 +9,6 @@ extends CanvasLayer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initialTween()
-	$Admob.load_rewarded_video()
 
 
 func _on_back_pressed():
@@ -54,11 +53,15 @@ func initialTween():
 
 
 func _on_cash_pressed():
-	$Admob.show_rewarded_video()
+	$Admob.load_rewarded_video()
 
 
 func _on_Admob_rewarded(currency, ammount):
 	game_states.player_data.cash += 200
 	game_states.savePlayerData()
-	$Admob.load_rewarded_video()
+	$PopupPanel.popup()
 	
+
+
+func _on_Admob_rewarded_video_loaded():
+	$Admob.show_rewarded_video()

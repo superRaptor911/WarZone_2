@@ -264,6 +264,7 @@ remotesync func switchGun():
 		hud.get_node("reload/gun_s").texture = selected_gun.gun_portrait
 		hud.get_node("reload/TextureProgress").max_value = selected_gun.rounds_in_clip
 		hud.get_node("reload/TextureProgress").value = selected_gun.rounds_left
+		emit_signal("gun_picked")
 
 
 func setupGun():
@@ -292,7 +293,7 @@ func setupGun():
 
 func pause_controls(val : bool):
 	_pause_cntrl = val
-	if game_states.is_android:
+	if game_states.is_android and is_network_master():
 		get_node("controller").enabled = !val
 	
 func _on_free_timer_timeout():

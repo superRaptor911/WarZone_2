@@ -17,9 +17,10 @@ damage = 34.0
 rounds_in_clip = 30
 gun_rating = 5
 rate_of_fire = 7.0
-max_zoom = 1.25
+max_zoom = 0.9
 gun_portrait = ExtResource( 6 )
 gun_d_img = ExtResource( 7 )
+wpn_cost = 1500
 
 [node name="Muzzle" parent="." index="1"]
 position = Vector2( 0.544254, -42.542 )

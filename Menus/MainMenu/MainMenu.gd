@@ -2,8 +2,10 @@ extends CanvasLayer
 
 var _next_scene : String 
 onready var admob = $Admob
+var add_shown = false
 
 func _ready():
+	add_shown = false
 	MusicMan.music_player.volume_db = -2.0
 	print("ready called")
 	tweenInitial()
@@ -70,8 +72,9 @@ func tweenInitial():
 
 
 func _on_Admob_interstitial_loaded():
-	if randi() % 100 < 40:
+	if randi() % 100 < 40 and (not add_shown):
 		admob.show_interstitial()
+		add_shown = true
 
 
 func _on_Admob_banner_loaded():

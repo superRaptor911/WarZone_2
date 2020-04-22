@@ -94,9 +94,20 @@ void Attack::engageEnemy()
     enemy_position = current_enemy->get_position();
     _bot->point_to_dir = enemy_position - _parent->get_position();
 
-    if (reaction_timer->is_stopped() && burst_timer->is_stopped())
+    if (reaction_timer->is_stopped())
     {
-       static_cast<Node *>(_parent->get("selected_gun"))->call("fireGun");
+        if (_bot->time_elapsed - last_fire_time  < _bot->bot_attribute.spray_time)
+        {
+            static_cast<Node *>(_parent->get("selected_gun"))->call("fireGun");
+            last_delay_time = _bot->time_elapsed;
+        }
+        else
+        {
+            if (_bot->time_elapsed - last_delay_time > _bot->bot_attribute.spray_delay)
+            {
+                last_fire_time = _bot->time_elapsed;
+            }            
+        }
     }
 }
 

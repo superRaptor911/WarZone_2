@@ -4,6 +4,7 @@ extends Node
 var is_android : bool = true
 var current_game_version = 1.0
 const invalid_position = Vector2(-999,-999)
+var first_run = false
 
 #player info (pinfo) used to send info about player in multiplayer
 var player_info = {
@@ -53,6 +54,7 @@ var classResource = {
 var weaponResource = {
 	default_gun = preload("res://Objects/Weapons/Gun.tscn"),
 	AK47 = preload("res://Objects/Weapons/AK47.tscn"),
+	Aug = preload("res://Objects/Weapons/Aug.tscn"),
 	MP5 = preload("res://Objects/Weapons/MP5.tscn"),
 	deagle = preload("res://Objects/Weapons/deagle.tscn"),
 	Awm = preload("res://Objects/Weapons/Awm.tscn"),
@@ -67,7 +69,7 @@ var player_data = {
 	name = "player",
 	kills = 0,
 	deaths = 0,
-	cash = 20000,
+	cash = 500,
 	XP = 0,
 	guns = Array(),
 	skins = Array(),
@@ -90,7 +92,8 @@ var last_match_result = {
 }
 
 func getLevelFromXP(xp : int) -> int:
-	return xp / 250
+	return xp / 50
+
 
 func _ready():
 	var gameStatus = load_data("user://status.dat")
@@ -102,6 +105,7 @@ func _ready():
 			player_data = load_data("user://pinfo.dat")
 	else:
 		saveDefaultData()
+		first_run = true
 	_init_setup()
 
 
@@ -224,10 +228,22 @@ func generateBotProfiles():
 	bot_names.append("47")
 	bot_names.append("noooob")
 	bot_names.append("Taask")
-	
+	bot_names.append("Carmack")
+	bot_names.append("steve")
+	bot_names.append("Syam")
+	bot_names.append("14K")
+	bot_names.append("rambo")
+	bot_names.append("neerajzz")
+	bot_names.append("superMan")
+	bot_names.append("ihihi")
+	bot_names.append("Corona")
+	bot_names.append("Ebola")
+		
 	var bot_primary_weapons : Array
 	bot_primary_weapons.append("MP5")
-	bot_primary_weapons.append("AK47")
+	bot_primary_weapons.append("P90")
+	bot_primary_weapons.append("Famas")
+	bot_primary_weapons.append("mac10")
 	bot_primary_weapons.append("default_gun")
 	
 	var bot_sec_weapons : Array

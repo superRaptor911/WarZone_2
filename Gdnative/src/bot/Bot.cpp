@@ -5,14 +5,15 @@
 #include <SceneTree.hpp>
 #include <Array.hpp>
 #include <string>
-
+#include<ctime>
 
 using namespace godot;
 
 Bot::Bot()
 {
 	current_state = STATE::ROAM;
-	game_mode = GMODE::DM; 
+	game_mode = GMODE::DM;
+	std::srand(std::time(0));
 }
 
 
@@ -156,14 +157,17 @@ void Bot::setBotDifficulty(int difficulty)
 		bot_attribute.reaction_time = 1.f;
 		bot_attribute.spray_time = 0.4f;
 		bot_attribute.accuracy = 0.7f;
+		bot_attribute.enable_evasive_mov = true;
+		bot_attribute.enemy_get_mode = BotAttrib::EGetMode::NEAREST_AIM;
 	}
 	else if (difficulty == 3)
 	{
 		bot_attribute.rotational_speed = 3.f;
-		bot_attribute.reaction_time = 0.8f;
+		bot_attribute.reaction_time = 0.5f;
 		bot_attribute.spray_time = 0.4f;
 		bot_attribute.accuracy = 0.5f;
 		bot_attribute.enable_evasive_mov = true;
+		bot_attribute.enemy_get_mode = BotAttrib::EGetMode::NEAREST_AIM;
 	}
 	else if (difficulty == 4)
 	{
@@ -172,6 +176,7 @@ void Bot::setBotDifficulty(int difficulty)
 		bot_attribute.spray_time = 0.4f;
 		bot_attribute.accuracy = 0.3f;
 		bot_attribute.enable_evasive_mov = true;
+		bot_attribute.enemy_get_mode = BotAttrib::EGetMode::NEAREST_AIM;
 	}
 
 	attack_state->resetTimers();
