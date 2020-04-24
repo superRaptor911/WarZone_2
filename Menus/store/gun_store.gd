@@ -29,7 +29,7 @@ func initWeaponTypes():
 	var pistols = WeaponType.new("pistol")
 	var smg = WeaponType.new("smg")
 	var rifle = WeaponType.new("rifle")
-	var nades = WeaponType.new("explosive")
+	var nades = WeaponType.new("nades")
 	var armour = WeaponType.new("armour")
 	
 	weapon_types.append(pistols)
@@ -40,7 +40,7 @@ func initWeaponTypes():
 
 
 func loadWeapons():
-	var values = game_states.weaponResource.values()
+	var values : Array = game_states.weaponResource.values()
 	for i in values:
 		var o = i.instance()
 		for j in weapon_types:
@@ -55,7 +55,7 @@ func loadWeapons():
 
 
 func setCurrentWeaponType(type):
-	if not current_type or current_type.wpn_type != type:
+	if (not current_type) or current_type.wpn_type != type:
 		for i in weapon_types:
 			if i.wpn_type == type:
 				current_type = i
@@ -66,7 +66,7 @@ func setCurrentWeaponType(type):
 			current_type.current_wpn = current_type.weapons[0]
 			$icon/TextureRect.texture = current_type.current_wpn.gun_portrait
 			setGunInfo()
-	current_type.wpn_type = type
+			#current_type.wpn_type = type
 	
 
 
