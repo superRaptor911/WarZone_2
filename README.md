@@ -1,5 +1,6 @@
 # WarZone_2
-A 2D multiplayer shooter made using [Godot](https://godotengine.org/)
+A 2D multiplayer shooter made using [Godot](https://godotengine.org/) for android.
+This game is inspired by counter strike and [CS2D](https://store.steampowered.com/app/666220/CS2D/)
 
 ## Installing
 Open terminal at desired directory and enter
@@ -10,7 +11,7 @@ cd WarZone_2
 You need gdnative c++ plugins to run this project.
 You can build them for your system or download precompiled plugins.
 
-You can download pre compiled plugins [here](https://drive.google.com/open?id=1GGgfn0B4uP7YzqoVRyOM4KplnBunhXW5) and paste ```bin ``` folder to base directory.
+You can download pre compiled plugins [here](https://drive.google.com/open?id=1gHfod0AtoYsMgnV2SEeO8s3Q_v7IXEBO) and paste ```bin ``` folder to base directory.
 
 OR
 

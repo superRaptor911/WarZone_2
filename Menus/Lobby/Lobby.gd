@@ -8,6 +8,8 @@ onready var selected_btn = $Panel/VBoxContainer/level
 var selected_gameMode = null
 var selected_gameMode_id = 0
 
+var level_names = ["DesertComplex","Mansion"]
+
 func _ready():
 	$Admob.load_banner()
 	game_server.bot_settings.bot_count = 0
@@ -26,36 +28,14 @@ func _ready():
 
 
 func loadLevelInfos():
-	if not game_states.is_android:
-		#this method does not work in android
-		var dir = Directory.new()
-		dir.change_dir("res://Maps")
-		dir.list_dir_begin()
-		var d = dir.get_next()
-		var data = {level_info_paths = Array()}
-		
-		while d != "":
-			if d.get_extension() == "" and not d.begins_with(".") and not d.begins_with("_"):
-				print("map ",d," ",dir.get_current_dir())
-				var level_info = load("res://Maps/" + d + "/level_info.gd").new()
-				data.level_info_paths.append("res://Maps/" + d + "/level_info.gd")
-				levels.append(level_info)
-			d = dir.get_next()
-		
-		game_states.save_data("res://Maps/lvl_info_paths.txt",data)
-		if not levels.empty():
-			setLevelInfo(levels[0])
-		else:
-			print("No levels found")
+	for i in level_names:
+		var level_info = load("res://Maps/" + i + "/level_info.gd").new()
+		levels.append(level_info)
+	
+	if not levels.empty():
+		setLevelInfo(levels[0])
 	else:
-		var data : Dictionary = game_states.load_data("res://Maps/lvl_info_paths.txt")
-		for i in data.level_info_paths:
-			var level_info = load(i).new()
-			levels.append(level_info)
-		
-		#select first level
-		if not levels.empty():
-			setLevelInfo(levels[0])
+		print("No levels found")
 
 
 func setLevelInfo(info):

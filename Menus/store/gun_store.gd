@@ -40,41 +40,14 @@ func initWeaponTypes():
 
 
 func loadWeapons():
-	#below method does not works on android 
-	if not game_states.is_android:
-		var path = "res://Objects/Weapons"
-		var dir = Directory.new()
-		dir.change_dir(path)
-		dir.list_dir_begin()
+	var values = game_states.weaponResource.values()
+	for i in values:
+		var o = i.instance()
+		for j in weapon_types:
+			if j.wpn_type == o.gun_type:
+				j.weapons.append(o)
+				break
 		
-		#holds path to guns
-		var guns = { gun_paths = Array()}
-		
-		var d = dir.get_next()
-		while d != "":
-			if d.get_extension() == "tscn":
-				var script = load(path + "/" + d).instance()
-				for i in weapon_types:
-					var gun_t = script.get("gun_type")
-					if not gun_t:
-						break
-					if i.wpn_type == gun_t:
-						guns.gun_paths.append(path + "/" + d)
-						i.weapons.append(script)
-						break
-			d = dir.get_next()
-		
-		game_states.save_data(path + "/wpn_list.txt",guns)
-	else:
-		#LOAD PATH FROM wpn_list.txt
-		var guns = game_states.load_data("res://Objects/Weapons/wpn_list.txt")
-		for i in guns.gun_paths:
-			var script = load(i).instance()
-			for j in weapon_types:
-				if j.wpn_type == script.get("gun_type"):
-					j.weapons.append(script)
-					break
-	
 	for i in weapon_types:
 		i.weapons.sort_custom(WeaponType,"sort")
 	

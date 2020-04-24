@@ -17,7 +17,7 @@ signal rewarded_video_opened
 signal rewarded_video_started
 
 # properties
-export var is_real:bool  = true setget is_real_set
+export var is_real:bool  = false setget is_real_set
 export var banner_on_top:bool = true
 export var banner_id:String = "ca-app-pub-9443221640471166/9049742329"
 export var interstitial_id:String = "ca-app-pub-9443221640471166/1781147462"
