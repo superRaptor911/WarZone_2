@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://admob-lib/admob.gd"
 }, {
-"base": "Node",
-"class": "BOT_FSM_STATE",
-"language": "GDScript",
-"path": "res://Objects/custom_scripts/fsm_bot.gd"
-}, {
 "base": "Node2D",
 "class": "Gun",
 "language": "GDScript",
@@ -28,16 +23,6 @@ _global_script_classes=[ {
 "class": "Model",
 "language": "GDScript",
 "path": "res://Models/Model.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Monster",
-"language": "GDScript",
-"path": "res://Objects/Monsters/Monster.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Necron",
-"language": "GDScript",
-"path": "res://Objects/Monsters/Necron.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
@@ -61,11 +46,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Admob": "res://admob-lib/icon.png",
-"BOT_FSM_STATE": "",
 "Gun": "",
 "Model": "",
-"Monster": "",
-"Necron": "",
 "Player": "",
 "ServerAdvertiser": "",
 "ServerListener": "",

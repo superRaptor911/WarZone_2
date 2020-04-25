@@ -1,13 +1,15 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Objects/Game_modes/FFA_mode.gd" type="Script" id=1]
-[ext_resource path="res://Menus/Inventory/label_bg.png" type="Texture" id=2]
-[ext_resource path="res://Menus/Inventory/label2.png" type="Texture" id=3]
+[ext_resource path="res://Menus/resources/dark_wD.png" type="Texture" id=2]
+[ext_resource path="res://Menus/resources/dark_w.png" type="Texture" id=3]
 [ext_resource path="res://font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Antaro.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Sfx/QuakeSounds/triplekill.wav" type="AudioStream" id=6]
 [ext_resource path="res://Sfx/QuakeSounds/multikill.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sfx/QuakeSounds/rampage.wav" type="AudioStream" id=8]
+
+
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
