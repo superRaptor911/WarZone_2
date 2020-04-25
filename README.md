@@ -2,6 +2,13 @@
 A 2D multiplayer shooter made using [Godot](https://godotengine.org/) for android.
 This game is inspired by counter strike and [CS2D](https://store.steampowered.com/app/666220/CS2D/)
 
+
+![Screenshot from 2020-04-22 19-58-04](https://user-images.githubusercontent.com/58220198/80273921-2048b700-86f4-11ea-82df-d7d429d13270.png)
+![Screenshot from 2020-04-22 19-54-57](https://user-images.githubusercontent.com/58220198/80273931-3fdfdf80-86f4-11ea-98d0-a287780d115d.png)
+![Screenshot from 2020-04-22 19-54-19](https://user-images.githubusercontent.com/58220198/80273996-dc09e680-86f4-11ea-8d64-7b027a1538c4.png)
+![Screenshot from 2020-04-22 19-58-27](https://user-images.githubusercontent.com/58220198/80274000-e6c47b80-86f4-11ea-894c-31cb6a3660cf.png)
+
+
 ## Installing
 Open terminal at desired directory and enter
 ```

@@ -69,9 +69,6 @@ func captureMap():
 	
 	self.scale = Vector2(ratio,ratio)
 	
-	
-	
-	
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")

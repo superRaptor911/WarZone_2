@@ -12,4 +12,5 @@ Output/
 Gdnative/godot-cpp/
 Gdnative/src/bot/.vscode/
 android/
-
+output/
+*.zip
