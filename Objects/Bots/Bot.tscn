@@ -12,7 +12,6 @@ extents = Vector2( 706.249, 458.787 )
 "Unit",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-speed = 80.0
 
 [node name="free_timer" parent="." index="1"]
 wait_time = 8.0

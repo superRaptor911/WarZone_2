@@ -84,63 +84,67 @@ var _player_data = {
 	deaths = 0,
 	ping = 0,
 	score = 0,
-	team_id = 0
+	team_id = 0,
+	pl_ref = null
 }
 
 signal player_data_synced
 
 
 
-var _player_data_list = Array()
+var _player_data_list : Dictionary
 var _kill_msg_list = Array()
 
 func init_scoreBoard():
 	_kill_msg_list.clear()
 
-func addPlayer(pname,pid,team_id):
-	var pd = _player_data.duplicate(true)
-	pd.pname = pname
-	pd.team_id = team_id
-	pd.id = pid
-	_player_data_list.append(pd)
-	
-func removePlayer(pid):
-	var new_list = Array()
-	for i in _player_data_list:
-		if i.id != pid:
-			new_list.append(i)
-	_player_data_list = new_list
 
-func handleKills(victim,killer,weapon_used):
-	var victim_name = "someone"
-	var killer_name = "someone"
+func addPlayer(pid : String,pl_ref):
+	var pd = _player_data.duplicate(true)
+	pd.pname = pl_ref.pname
+	pd.team_id = pl_ref.team.team_id
+	pd.id = pid
+	pd.pl_ref = pl_ref
+	_player_data_list[pid] = pd
+
+
+func removePlayer(pid : String):
+	_player_data_list.erase(pid)
+
+
+#handle kill and death event
+func handleKills(victim_id : String, killer_id : String, weapon_used : String):
+	var victim = _player_data_list.get(victim_id)
+	var killer = _player_data_list.get(killer_id)
 	var kill_msg = ""
+	
+	var suicide = (victim_id == killer_id)
+	var victim_name = ""
+	var killer_name = ""
 	#safe checks
 	if victim:
 		victim_name = victim.pname
-		if victim.is_in_group("User") or victim.is_in_group("Bot"):
-			var victim_data = _get_player_data_by_id(victim.id)
-			victim_data.deaths += 1
-			victim_data.score -= 1
-			#handle suicide
-			if victim == killer:
-				victim_data.score -= 2
+		if victim.pl_ref.is_in_group("Unit"):
+			victim.deaths += 1
+			victim.score -= 1
+			#Suicide case
+			if suicide:
+				victim.score -= 3
 	if killer:
 		killer_name = killer.pname
-		if killer.is_in_group("User") or killer.is_in_group("Bot"):
-			var killer_data = _get_player_data_by_id(killer.id)
-			killer_data.kills += 1
-			killer_data.score += 4
-			if victim == killer:
-				killer_data.kills -= 1
-				killer_data.score -= 4
-	if weapon_used:
-		if weapon_used.gun_name == "plasma":
+		if killer.pl_ref.is_in_group("Unit") and not suicide:
+			killer.kills += 1
+			killer.score += 4
+
+	if suicide:
+		kill_msg = victim_name + " did suicide"
+	elif weapon_used == "":
+		if weapon_used == "plasma":
 			kill_msg = victim_name + " was burned alive by hot plasma"
-		elif weapon_used.gun_name == "explosive":
+		elif weapon_used == "explosive":
 			kill_msg = killer_name + " exploded " + victim_name
 		else:
-			kill_msg = killer_name + " killed " + victim_name + " with " + weapon_used.gun_name
+			kill_msg = killer_name + " killed " + victim_name + " with " + weapon_used
 	else:
 		kill_msg = killer_name + " killed " + victim_name
 	
@@ -148,6 +152,7 @@ func handleKills(victim,killer,weapon_used):
 		_kill_msg_list.pop_front()
 	_kill_msg_list.append(kill_msg)
 	rpc_unreliable("sync_kill_msg",kill_msg)
+
 
 remotesync func sync_kill_msg(kill_msg):
 	var hud = get_tree().get_nodes_in_group("Hud")
@@ -161,11 +166,12 @@ remote func sync_player_data(player_data_list):
 	_player_data_list = player_data_list
 	emit_signal("player_data_synced")
 
-func _get_player_data_by_id(id):
-	for p in _player_data_list:
-		if p.id == id:
-			return p
-	print("Server/Scoreboard : fatal error unable to find ",id)
+func getUnitByID(id : String):
+	var unit = _player_data_list.get(id)
+	if unit:
+		return unit.pl_ref
+	print("Error player " + id + " not found")
+	return null
 
 ###############################################################################
 ######BOT################BOT#############BOT##################################

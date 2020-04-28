@@ -1,37 +1,28 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.392593, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 0.965265, 0.972656, 0.0265961, 1, 0, 0, 0, 0 )
+[ext_resource path="res://Sprites/particles/whitePuff00.png" type="Texture" id=1]
 
-[sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
-
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=1]
 _data = [ Vector2( 0.0544842, 0.0875 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=4]
-curve = SubResource( 3 )
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.708609, 1 )
+colors = PoolColorArray( 0.397461, 0.349331, 0.349331, 1, 0.192604, 0.193359, 0.0966797, 1, 0, 0, 0, 0 )
 
-[sub_resource type="ParticlesMaterial" id=5]
-flag_disable_z = true
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 50.0
-angular_velocity = 300.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-linear_accel = 2.0
-scale = 10.0
-scale_curve = SubResource( 4 )
-color_ramp = SubResource( 2 )
-
-[node name="explosion_cloud" type="Particles2D" groups=[
+[node name="explosion_cloud" type="CPUParticles2D" groups=[
 "Particle",
 ]]
 emitting = false
-amount = 128
-lifetime = 2.0
+amount = 100
+lifetime = 3.0
 one_shot = true
-explosiveness = 1.0
-process_material = SubResource( 5 )
+explosiveness = 0.55
+texture = ExtResource( 1 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 250.0
+damping = 20.0
+damping_random = 0.47
+scale_amount = 2.0
+scale_amount_curve = SubResource( 1 )
+color_ramp = SubResource( 2 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/Weapons/Bomb.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Weapons/explosion.png" type="Texture" id=2]
@@ -21,6 +21,13 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22 ]
 }
 
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0.0544842, 0.0875 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.392593, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.965265, 0.972656, 0.0265961, 1, 0, 0, 0, 0 )
+
 [node name="Bomb" type="Node2D"]
 position = Vector2( 508.781, 288.4 )
 script = ExtResource( 1 )
@@ -32,12 +39,18 @@ __meta__ = {
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 5
-frame = 22
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/explode = SubResource( 1 )
 
 [node name="explosion_cloud" parent="." instance=ExtResource( 3 )]
+explosiveness = 1.0
+initial_velocity = 50.0
+linear_accel = 2.0
+scale_amount = 10.0
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="."]
 

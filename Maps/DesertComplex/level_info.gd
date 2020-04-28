@@ -22,6 +22,12 @@ func setupGameModes():
 	dict.name = "FFA"
 	dict.node_path = "res://Maps/DesertComplex/TDM.tscn"
 	gameModes.append(dict)
+	
+	dict = gameMode_dict.duplicate(true)
+	dict.name = "Bombing"
+	dict.node_path = "res://Maps/DesertComplex/Bombing.tscn"
+	gameModes.append(dict)
+	
 
 
 func getGameModeNodePath() -> String:

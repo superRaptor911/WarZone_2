@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/Game_modes/BombDiffuse/C4Bomb.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Weapons/plantedbomb_d.bmp" type="Texture" id=2]
 [ext_resource path="res://Sfx/weapons/c4_disarm.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sfx/weapons/c4_explode.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sfx/weapons/c4.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sprites/Weapons/c4indicator.png" type="Texture" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 40.4977
@@ -41,6 +42,14 @@ one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
+
+[node name="c4indicator" type="Sprite" parent="."]
+modulate = Color( 1, 1, 0.54902, 1 )
+position = Vector2( -0.916112, -5.98555 )
+scale = Vector2( 1.54058, 1.12652 )
+texture = ExtResource( 6 )
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="bomb_timer/bom_beep" to="." method="_on_bom_beep_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

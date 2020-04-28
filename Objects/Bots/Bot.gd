@@ -89,7 +89,7 @@ remotesync func switchGun():
 	if not selected_gun.is_connected("reloading_gun",skin,"_on_gun_reload"):
 		selected_gun.connect("reloading_gun",skin,"_on_gun_reload")
 	
-	selected_gun.gun_user = self
+	selected_gun.gun_user = name
 	selected_gun.position = Vector2(0,0)
 
 func setupGun():
@@ -104,7 +104,7 @@ func setupGun():
 	if not selected_gun.is_connected("reloading_gun",skin,"_on_gun_reload"):
 		selected_gun.connect("reloading_gun",skin,"_on_gun_reload")
 	
-	selected_gun.gun_user = self
+	selected_gun.gun_user = name
 	selected_gun.position = Vector2(0,0)
 	skin.switchGun(selected_gun.gun_type)
 

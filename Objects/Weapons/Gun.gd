@@ -17,7 +17,7 @@ export var wpn_cost : int = 500
 var current_zoom : float = 0.75
 var projectile = preload("res://Objects/Weapons/Projectile.tscn")
 var ready_to_fire : bool = true
-var gun_user = null
+var gun_user : String = "" 
 var rounds_left = 0
 var reloading : bool = false
 
@@ -36,7 +36,7 @@ func _ready():
 		reload()
 	#if it does not have parent/user then force get parent
 	if not gun_user:
-		gun_user = get_parent()
+		gun_user = get_parent().name
 
 func extendMag():
 	if extended_mag:
@@ -77,7 +77,7 @@ remotesync func chkBulletHit():
 	if target:
 		var body = $RayCast2D.get_collider()
 		if body and body.is_in_group("Actor"):
-			body.takeDamage(damage,self,gun_user)
+			body.takeDamage(damage,gun_name,gun_user)
 
 #shoot weapon
 func _shoot():

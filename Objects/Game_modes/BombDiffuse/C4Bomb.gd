@@ -2,7 +2,7 @@ extends Sprite
 
 var bomber = null
 var bomb_planted = false
-var explo = preload("res://Objects/Weapons/Bomb.tscn").instance()
+var explosion = preload("res://Objects/Weapons/Bomb.tscn")
 
 var diffuser = null
 
@@ -36,8 +36,10 @@ func diffuseBomb():
 	emit_signal("bomb_diffused")
 	diffuser = null
 
+
 func dropBomb():
 	rpc("bombDroped",bomber.position)
+
 
 func resetBomb():
 	rpc("_resetBomb")
@@ -50,6 +52,9 @@ func _on_Timer_timeout():
 func _on_bom_beep_timeout():
 	$bomb_timer.play()
 	var beep_time = 0.1 + ($Timer.time_left / $Timer.wait_time)
+	$Tween.interpolate_property($c4indicator,"modulate",Color(1.0,1.0,0.549),
+		Color(0,0,0,0),beep_time,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
+	$Tween.start()
 	$bomb_timer/bom_beep.start(beep_time)
 
 
@@ -83,6 +88,12 @@ remotesync func bombExploded():
 	$bomb_timer/bom_beep.stop()
 	$bomb_explosion.play()
 	hide()
+	var explo = explosion.instance()
+	explo.SCALE = 4
+	explo.position = position
+	explo.usr = bomber
+	get_tree().get_nodes_in_group("Level")[0].add_child(explo)
+	explo.explode(true)
 
 remotesync func _resetBomb():
 	bomber = null

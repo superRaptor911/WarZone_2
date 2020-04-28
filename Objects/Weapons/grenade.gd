@@ -8,7 +8,7 @@ export var velocity : float = 200
 var explo = preload("res://Objects/Weapons/Bomb.tscn").instance()
 var decal = preload("res://Objects/Graphics/Decal.tscn").instance()
 #user of this grenade
-var user
+var user = ""
 
 func _ready():
 	

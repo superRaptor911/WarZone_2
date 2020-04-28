@@ -75,21 +75,22 @@ func useSprint():
 	speed_multiplier = 1.3
 
 #Take damage from some weapon used by someone
-func takeDamage(damage : float,weapon,attacker):
+func takeDamage(damage : float, weapon : String, attacker_id : String):
 	#Do not take damage if dead
 	if not alive:
 		return
 	#Register last attacker
-	last_attacker = attacker
+	last_attacker = attacker_id
 	#Rest of the code is only handled by server
 	if not get_tree().is_network_server():
 		return
-	#disable friendly fire in moded other than FFA
-	#will be replaced by something better in future
-	if team and not (game_server.extraServerInfo.friendly_fire):
-		if attacker:
-			if team.team_id == attacker.team.team_id:
-				return
+	
+	#reference to attacker
+	var attacker_ref = game_server.getUnitByID(attacker_id)
+	
+	if not (game_server.extraServerInfo.friendly_fire):
+		if attacker_ref and team.team_id == attacker_ref.team.team_id:
+			return
 	#Damage distribution
 	if AP > 0:
 		AP = max(0,AP - 0.75 * damage)
@@ -101,24 +102,25 @@ func takeDamage(damage : float,weapon,attacker):
 	#emit blood splash
 	#works well with projectiles but fails with explosion
 	#will be fixed
-	_blood_splash(attacker.position,position)
+	_blood_splash(attacker_ref.position,position)
 	#sync with peers
 	rpc_unreliable("sync_health",HP,AP)
 	
+	#char dead
 	if HP <= 0:
 		#add xp and cash to player
-		if attacker.is_in_group("User"):
+		if attacker_ref.is_in_group("User"):
 			var enemy_xp = 0
 			if self.is_in_group("User"):
 				enemy_xp = network.players[int(name)].XP
-			attacker.rpc_id(int(attacker.name),"getKillRewards", enemy_xp)
+			attacker_ref.rpc_id(int(attacker_id),"getKillRewards", enemy_xp)
 		
 		#deduct xp and cash
 		if self.is_in_group("User"):
 			self.rpc_id(int(name),"deductDeathPenalty")
 		
-		attacker.emit_signal("char_killed_someone")
-		game_server.handleKills(self,attacker,weapon)
+		attacker_ref.emit_signal("char_killed_someone")
+		game_server.handleKills(name,attacker_id,weapon)
 		#sync with everyone
 		rpc("sync_death")
 

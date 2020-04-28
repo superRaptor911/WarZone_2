@@ -215,17 +215,6 @@ func spawnPlayer(char_data):
 	else:
 		nactor.selected_gun = nactor.sec_gun
 	
-	
-	# If this actor does not belong to the server, change the node name and network master accordingly
-	if (int(char_data.name) != 1):
-		if not char_data.is_bot:
-			nactor.set_network_master(int(char_data.name))
-		game_server.addPlayer(char_data.pname, int(char_data.name), char_data.team_id)
-		arr.push_back(int(char_data.name))
-	else:
-		game_server.addPlayer(char_data.pname, 1, char_data.team_id)
-		arr.push_back(1)
-	
 	#assign player a team
 	if char_data.team_id == team1.team_id:
 		team1.addPlayer(nactor)
@@ -234,6 +223,16 @@ func spawnPlayer(char_data):
 	else:
 		print("Fatal Error: invalid team id for player ", char_data.pname)
 	
+	# If this actor does not belong to the server, change the node name and network master accordingly
+	if (int(char_data.name) != 1):
+		if not char_data.is_bot:
+			nactor.set_network_master(int(char_data.name))
+		game_server.addPlayer(char_data.name,nactor)
+		arr.push_back(int(char_data.name))
+	else:
+		game_server.addPlayer(String(1),nactor)
+		arr.push_back(1)
+		
 	nactor.setSkin(game_states.modelResource.get(char_data.skin).instance())
 	add_child(nactor)
 	if not char_data.is_bot:
@@ -258,7 +257,6 @@ remotesync func spawn_player(pinfo, pos : Vector2, team : int):
 	
 	nactor.pname = pinfo.name
 	nactor.id = pinfo.net_id
-	game_server.addPlayer(pinfo.name, pinfo.net_id,team)
 	var skin
 	if team == team1.team_id:
 		team1.addPlayer(nactor)
@@ -269,6 +267,7 @@ remotesync func spawn_player(pinfo, pos : Vector2, team : int):
 	
 	nactor.selected_gun = nactor.primary_gun
 	nactor.setSkin(skin)
+	game_server.addPlayer(String(pinfo.net_id),nactor)
 	add_child(nactor)
 	emit_signal("player_spawned",nactor)
 

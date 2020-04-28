@@ -1,10 +1,16 @@
 extends Node
 
+#global file
+#contains key resouces
+
 #is exporting for android or not
-var is_android : bool = true
-var current_game_version = 1.0
+var is_android : bool = false
+const current_game_version : float = 1.1
 const invalid_position = Vector2(-999,-999)
 var first_run = false
+
+#for notice
+var notice_popup = preload("res://Objects/Misc/Notice.tscn")
 
 #player info (pinfo) used to send info about player in multiplayer
 var player_info = {
@@ -19,9 +25,11 @@ var player_info = {
 
 
 var game_status = {
-	game_version = 1.0
+	game_version = current_game_version,
+	runs = 0
 }
 
+#saved
 #game settings with default value
 var game_settings = {
 	dpad_transparency = 128,
@@ -33,8 +41,7 @@ var game_settings = {
 
 #control types available
 var control_types = {
-	default = "res://controls/controllers/default_controller.tscn",
-	simple = "res://controls/controllers/simple_controller.tscn"
+	default = "res://controls/controllers/default_controller.tscn"
 }
 
 #models available
@@ -45,6 +52,7 @@ var modelResource = {
 	ct2 = preload("res://Models/ct2.tscn")
 }
 
+#classes
 var classResource = {
 	player = preload("res://Objects/Player.tscn"),
 	bot = preload("res://Objects/Bots/Bot.tscn")
@@ -64,6 +72,7 @@ var weaponResource = {
 	P90 = preload("res://Objects/Weapons/P90.tscn"),
 }
 
+#saved
 #player data/stats
 var player_data = {
 	name = "player",
@@ -79,10 +88,13 @@ var player_data = {
 	nade_count = 2
 }
 
+#bot profiles
 var bot_profiles = {
 	bot = Array()
 }
 
+
+#last match result of user
 var last_match_result = {
 	kills = 0,
 	deaths = 0,
@@ -91,28 +103,35 @@ var last_match_result = {
 	xp = 0
 }
 
+
 func getLevelFromXP(xp : int) -> int:
 	return xp / 50
 
 
 func _ready():
-	var gameStatus = load_data("user://status.dat")
+	var gameStatus : Dictionary = load_data("user://status.dat",false)
 	if gameStatus.has("game_version"):
 		if gameStatus.game_version != current_game_version:
-			portGameToCurrentVersion()
+			portGameToCurrentVersion(gameStatus.game_version)
 		else:
 			game_settings = load_data("user://settings.dat")
 			player_data = load_data("user://pinfo.dat")
+			print(player_data.name)
 	else:
 		saveDefaultData()
 		first_run = true
 	_init_setup()
 
+func DataReader(dest_D : Dictionary, src_D : Dictionary):
+	var keys = src_D.keys()
+	for i in keys:
+		if dest_D.has(i):
+			dest_D[i] = src_D[i]
 
 
 func saveDefaultData():
 	save_data("user://settings.dat",game_settings)
-	save_data("user://status.dat",game_status)
+	save_data("user://status.dat",game_status,false)
 	
 	var default_guns : Array
 	default_guns.append("MP5")
@@ -137,9 +156,16 @@ func saveDefaultData():
 	save_data("user://pinfo.dat",player_data)
 	
 	
-func portGameToCurrentVersion():
-	pass
-	
+func portGameToCurrentVersion(old_v):
+	print("porting version ",old_v ,"  to ",current_game_version)
+	if old_v == 1.0:
+		DataReader(game_settings, load_data("user://settings.dat",false))
+		DataReader(player_data, load_data("user://pinfo.dat",false))
+		save_data("user://settings.dat",game_settings)
+		save_data("user://status.dat",game_status,false)
+
+
+
 #setup player info
 func _init_setup():
 	player_info.name = player_data.name
@@ -151,13 +177,15 @@ func _init_setup():
 	player_info.sec_gun_name = player_data.selected_guns[1]
 	generateBotProfiles()
 
+
 func saveSettings():
 	save_data("user://settings.dat",game_settings)
+
 
 func savePlayerData():
 	save_data("user://pinfo.dat",player_data)
 
-func save_data(save_path : String, data : Dictionary) -> void:
+func save_data(save_path : String, data : Dictionary,use_enc = true) -> void:
 	var data_string = JSON.print(data)
 	var file = File.new()
 	var json_error = validate_json(data_string)
@@ -165,17 +193,26 @@ func save_data(save_path : String, data : Dictionary) -> void:
 		print_debug("JSON IS NOT VALID FOR: " + data_string)
 		print_debug("error: " + json_error)
 		return
-	file.open(save_path, file.WRITE)
+	
+	if use_enc:
+		file.open_encrypted_with_pass(save_path, File.WRITE, OS.get_unique_id())
+	else:
+		print("no enc")
+		file.open(save_path,File.WRITE)
 	file.store_string(data_string)
 	file.close()
 
 
-func load_data(save_path : String = "user://game.dat") -> Dictionary:
+func load_data(save_path : String = "user://game.dat", use_enc = true) -> Dictionary:
 	var file : File = File.new()
 	if not file.file_exists(save_path):
 		print_debug('file [%s] does not exist; creating' % save_path)
-		save_data(save_path, {})
-	file.open(save_path, file.READ)
+		save_data(save_path, {},use_enc)
+	if use_enc:
+		file.open_encrypted_with_pass(save_path, File.READ, OS.get_unique_id())
+	else:
+		print("no enc")
+		file.open(save_path,File.READ)
 	var json : String = file.get_as_text()
 	var data = parse_json(json)
 	file.close()
