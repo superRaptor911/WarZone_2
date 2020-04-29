@@ -13,10 +13,8 @@ func _ready():
 
 func create_bullet(var pos : Vector2,var rot : float, vel : float, fd : Vector2):
 	position = pos
-	rotation = rot
-	velocity = vel
-	velocity_vector.x = velocity*cos(rot-1.57)
-	velocity_vector.y = velocity*sin(rot - 1.57)
+	velocity_vector = vel * (fd - pos).normalized()
+	rotation = velocity_vector.angle() + 1.57
 	final_dest = fd
 	pos_sign.x = sign(final_dest.x - pos.x)
 	pos_sign.y = sign(final_dest.y - pos.y)

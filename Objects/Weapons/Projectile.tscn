@@ -4,14 +4,14 @@
 [ext_resource path="res://Sprites/Weapons/fire.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/particles/smoke1.png" type="Texture" id=3]
 
-[sub_resource type="Curve" id=2]
+[sub_resource type="Curve" id=1]
 _data = [ Vector2( 0.538961, 0.290909 ), 0.0, -0.124658, 0, 0, Vector2( 1, 0.890909 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.770992, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 2.6081, 11.6156 )
 
 [node name="Projectile" type="Area2D"]
@@ -45,11 +45,11 @@ angular_velocity = 10.0
 angular_velocity_random = 0.54
 linear_accel = -15.0
 scale_amount = 0.4
-scale_amount_curve = SubResource( 2 )
-color_ramp = SubResource( 3 )
+scale_amount_curve = SubResource( 1 )
+color_ramp = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.0237961, -13.8901 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]
 [connection signal="timeout" from="Time_to_live" to="." method="_on_Time_to_live_timeout"]

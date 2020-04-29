@@ -4,12 +4,12 @@ class_name Gun
 export var gun_type : String = "pistol"
 export var gun_name : String = "null"
 export var damage : float = 18
-export var melee_damage : float = 50
 export var rounds_in_clip : int = 10
-export var clips : int = 4
 export var gun_rating : int = 0
 export var rate_of_fire : float = 4
 export var max_zoom : float = 1.0
+export var recoil_factor : float = 0.2
+export var spread : float = 0.05
 export var gun_portrait : Texture = preload("res://Sprites/Weapons/gun_p.png")
 export var gun_d_img : Texture
 export var wpn_cost : int = 500
@@ -20,13 +20,14 @@ var ready_to_fire : bool = true
 var gun_user : String = "" 
 var rounds_left = 0
 var reloading : bool = false
+var clips : int = 4
 
 var max_ray_distance : float = 200
 var ray_dest : Vector2
 var laser_sight : bool = false
 var extended_mag : bool = false
-var target : bool = false
 var muzzle_frames = 0
+var recoil = 0
 
 signal gun_fired
 signal reloading_gun
@@ -61,10 +62,10 @@ func fireGun():
 			reloading = true
 
 #create projectile
-remotesync func _create_bullet():
+remotesync func _create_bullet(cast_to):
 	if game_states.game_settings.particle_effects:
 		var bullet = projectile.instance()
-		bullet.create_bullet($Muzzle.global_position,global_rotation,1500,ray_dest)
+		bullet.create_bullet($Muzzle.global_position,global_rotation,1500,cast_to)
 		get_tree().root.add_child(bullet)
 	
 	$Muzzle/muzzle.show()
@@ -73,17 +74,25 @@ remotesync func _create_bullet():
 	emit_signal("gun_fired")
 
 
+#server only method
 remotesync func chkBulletHit():
-	if target:
-		var body = $RayCast2D.get_collider()
-		if body and body.is_in_group("Actor"):
-			body.takeDamage(damage,gun_name,gun_user)
+	var error_angle = rand_range(-spread - recoil * 0.01,spread + recoil * 0.01)
+	var cast_to = Vector2(0,-750).rotated(global_rotation + error_angle) + global_position
+	recoil += recoil_factor
+	
+
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(global_position, cast_to, [self])
+	if result:
+		if result.collider.is_in_group("Actor"):
+			result.collider.takeDamage(damage,gun_name,gun_user)
+	$recoil_reset.start()
+	rpc("_create_bullet",cast_to)
+
 
 #shoot weapon
 func _shoot():
 	rpc_id(1,"chkBulletHit")
-	rpc("_create_bullet")
-	
 	ready_to_fire = false
 	$Timer.start(1 / rate_of_fire)
 	rounds_left -= 1
@@ -110,14 +119,12 @@ func _process(delta):
 	muzzle_frames = max(muzzle_frames - 1,0)
 	if muzzle_frames == 1:
 		$Muzzle/muzzle.hide()
-	target = false
-	ray_dest = $RayCast2D.cast_to.rotated(global_rotation) + $RayCast2D.global_position
-	if $RayCast2D.is_colliding():
-		ray_dest = $RayCast2D.get_collision_point()
-		target = true
 	#update _draw()
 	if laser_sight:
 		update()
+		ray_dest = $RayCast2D.cast_to.rotated(global_rotation) + $RayCast2D.global_position
+		if $RayCast2D.is_colliding():
+			ray_dest = $RayCast2D.get_collision_point()
 
 func _draw():
 	if laser_sight:
@@ -125,3 +132,7 @@ func _draw():
 		+ $RayCast2D.position , Color.red)
 		draw_circle((ray_dest - $RayCast2D.global_position).rotated(-global_rotation) + $RayCast2D.position 
 		, 3, Color.red)
+
+
+func _on_recoil_reset_timeout():
+	recoil = 0
