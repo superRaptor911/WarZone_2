@@ -1,7 +1,6 @@
 extends CanvasLayer
 
-var scoreBoard = preload("res://Objects/Misc/ScoreBoard.tscn").instance()
-var current_level = null
+var end_screen_scn = preload("res://Objects/Game_modes/endScreen.tscn")
 var world_size : Vector2
 
 #Quake sound class holds message that is to be displayed
@@ -90,22 +89,44 @@ var time_elapsed  : float = 0
 #update time panel every second
 func _on_uptime_timeout():
 	time_elapsed += 1
-	var _min_ : int = time_elapsed/60.0
-	var _sec_ : int = int(time_elapsed) % 60
-	$Time_container/panel/Label.text = String(_min_) + " : " + String(_sec_)
+	rpc("syncTime",time_elapsed)
+	
+	#end game
+	if time_elapsed >= game_server.extraServerInfo.time_limit * 60:
+		time_elapsed = 0
+		var level = get_tree().get_nodes_in_group("Level")[0]
+		level.Server_stopLevel()
+		rpc("sync_endGame")
+
+
+remotesync func sync_endGame():
+	var end_scr = end_screen_scn.instance()
+	if get_tree().is_network_server():
+		end_scr.connect("ok",self,"restartGameMode")
+	add_child(end_scr)
+	end_scr.rect_scale = Vector2(0,0)
+	$Tween.interpolate_property(get_tree().get_nodes_in_group("Level")[0],"modulate",
+		Color8(255,255,255,255),Color8(0,0,0,0),2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
+	$Tween.interpolate_property(end_scr,"rect_scale",Vector2(0,0),Vector2(1,1),1,
+		Tween.TRANS_QUAD,Tween.EASE_OUT,2)
+	$Tween.start()
+	$Time_container.hide()
 
 
 func _ready():
 	#only server handles quake events and sound
 	if get_tree().is_network_server():
-		current_level = get_tree().get_nodes_in_group("Level")[0]
+		var current_level = get_tree().get_nodes_in_group("Level")[0]
 		current_level.connect("player_spawned", self, "_on_new_player_spawned")
 		current_level.connect("bot_spawned",self,"_on_new_bot_spawned")
 		$Label/Timer.start()
+		$Time_container/uptime.start()
+
 
 func _process(delta):
 	if get_tree().is_network_server():
 		showQuakeKills()
+
 
 func showQuakeKills():
 	if quake_sound_queue.size():
@@ -123,7 +144,14 @@ remotesync func syncQuakeKills(msg,sound_name,is_last_msg : bool):
 	if is_last_msg:
 		$Tween.interpolate_property($Label,"modulate",Color8(255,255,255,255),Color8(255,255,255,0),5,Tween.TRANS_LINEAR,Tween.EASE_OUT)
 		$Tween.start()  
-	
+
+
+remotesync func syncTime(time_now):
+	var time_limit = game_server.extraServerInfo.time_limit * 60
+	var _min_ : int = (time_limit - time_now)/60.0
+	var _sec_ : int = int(time_limit - time_now) % 60
+	$Time_container/panel/Label.text = String(_min_) + " : " + String(_sec_)
+
 
 func _on_Timer_timeout():
 	pass
@@ -152,3 +180,11 @@ func _on_player_killed(plr):
 	
 func _on_bot_killed(bot):
 	bot.get_node("free_timer").start()
+
+
+func restartGameMode():
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	level.Server_startLevel()
+	$Tween.interpolate_property(level,"modulate",Color8(0,0,0,0),Color8(255,255,255,255),
+		2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
+	$Tween.start()

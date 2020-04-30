@@ -17,7 +17,7 @@ var spec_mode = preload("res://Objects/Game_modes/Spectate.tscn").instance()
 
 var dropedItem_manager = preload("res://Objects/Misc/DropedItemManager.tscn").instance()
 
-var arr = Array()
+var spawned_pl_arr = Array()
 var spawn_ponts = Array()
 
 #character data dictionary for holding spawn information 
@@ -39,6 +39,7 @@ func _ready():
 		captureMap()
 		return
 	
+	game_server.resetPlayerData()
 	add_child(team1)
 	add_child(team2)
 	add_child(dropedItem_manager)
@@ -110,13 +111,12 @@ func _on_spec_mode_leave():
 	$CanvasLayer.add_child(teamSelector)
 
 func _on_player_selected_team(selected_team):
-	_init_game()
 	#bad code
 	if get_tree().is_network_server():
 		rpc("spawn_player", game_states.player_info, getSpawnPosition(selected_team), selected_team)
 	else:
 		rpc_id(1,"serverSpawnMyPlayer",game_states.player_info,selected_team)
-	teamSelector.queue_free()
+	$CanvasLayer.remove_child(teamSelector)
 
 func _on_player_removed(pinfo):
 	despawn_player(pinfo)
@@ -194,8 +194,8 @@ remote func peerSpawnPlayers(player_dict):
 
 #spawn an individual player
 func spawnPlayer(char_data):
-	if arr.has(int(char_data.name)) or char_data.pos == game_states.invalid_position:
-		print("Fatal network spawn error")
+	if spawned_pl_arr.has(int(char_data.name)) or char_data.pos == game_states.invalid_position:
+		print_debug("Fatal network spawn error : player already exist")
 		return
 	var nactor
 	if char_data.is_bot:
@@ -221,17 +221,17 @@ func spawnPlayer(char_data):
 	elif char_data.team_id == team2.team_id:
 		team2.addPlayer(nactor)
 	else:
-		print("Fatal Error: invalid team id for player ", char_data.pname)
+		print_debug("Fatal Error: invalid team id for player ", char_data.pname)
 	
 	# If this actor does not belong to the server, change the node name and network master accordingly
 	if (int(char_data.name) != 1):
 		if not char_data.is_bot:
 			nactor.set_network_master(int(char_data.name))
 		game_server.addPlayer(char_data.name,nactor)
-		arr.push_back(int(char_data.name))
+		spawned_pl_arr.push_back(int(char_data.name))
 	else:
 		game_server.addPlayer(String(1),nactor)
-		arr.push_back(1)
+		spawned_pl_arr.push_back(1)
 		
 	nactor.setSkin(game_states.modelResource.get(char_data.skin).instance())
 	add_child(nactor)
@@ -243,10 +243,10 @@ func spawnPlayer(char_data):
 
 #legacy spawn function
 remotesync func spawn_player(pinfo, pos : Vector2, team : int):
-	if arr.has(pinfo.net_id) or pos == game_states.invalid_position:
-		print("Fatal network spawn error")
+	if spawned_pl_arr.has(pinfo.net_id) or pos == game_states.invalid_position:
+		print_debug("Fatal network spawn error : player already exist")
 		return
-	arr.push_back(pinfo.net_id)
+	spawned_pl_arr.push_back(pinfo.net_id)
 	var nactor = game_states.classResource.player.instance()
 	nactor.position = pos
 	nactor.load_guns(pinfo.primary_gun_name,pinfo.sec_gun_name)
@@ -274,61 +274,88 @@ remotesync func spawn_player(pinfo, pos : Vector2, team : int):
 
 func spawnBots():
 	var bots : Array
+	var bot_count = game_server.bot_settings.bot_count
 	game_server.bot_settings.index = 0
 	var ct = false
 	
+	if bot_count > game_states.bot_profiles.bot.size():
+		print("error not enough bot profiles")
+	
 	for i in game_states.bot_profiles.bot:
-		if game_server.bot_settings.index == game_server.bot_settings.bot_count:
-			break
-		print("spawning " + i.bot_name)
-		var char_data = char_data_dict.duplicate(true)
-		char_data.pname = "bot_" + i.bot_name
-		char_data.g1 = i.bot_primary_gun
-		char_data.g2 = i.bot_sec_gun
-		char_data.is_bot = true
-		
-		#assign team
-		if ct:
-			char_data.team_id = 1
-			char_data.skin = i.bot_ct_skin
-			ct = false
-		else:
-			char_data.team_id = 0
-			char_data.skin = i.bot_t_skin
-			ct = true
-		
-		char_data.pos = getSpawnPosition(char_data.team_id)
-		#giving unique integer name
-		char_data.name = String(69 + game_server.bot_settings.index)
-		bots.append(char_data)
-		game_server.bot_settings.index += 1
+		i.is_in_use = false
+		if game_server.bot_settings.index < bot_count:
+			i.is_in_use = true
+			var char_data = char_data_dict.duplicate(true)
+			char_data.pname = "bot_" + i.bot_name
+			char_data.g1 = i.bot_primary_gun
+			char_data.g2 = i.bot_sec_gun
+			char_data.is_bot = true
+			
+			#assign team
+			if ct:
+				char_data.team_id = 1
+				char_data.skin = i.bot_ct_skin
+				ct = false
+			else:
+				char_data.team_id = 0
+				char_data.skin = i.bot_t_skin
+				ct = true
+			
+			char_data.pos = getSpawnPosition(char_data.team_id)
+			#giving unique integer name
+			char_data.name = String(69 + game_server.bot_settings.index)
+			bots.append(char_data)
+			game_server.bot_settings.index += 1
+	
+	#spawn bot
 	for i in bots:
 		spawnPlayer(i)
 
+#spawn a single bot to requested team
 func spawnBot(team_id : int = 0):
-	if get_tree().get_nodes_in_group("Bot").size() == 0:
-		game_server.bot_settings.index = 0
-		
-	if game_server.bot_settings.index < game_states.bot_profiles.bot.size():
-		var i = game_states.bot_profiles.bot[game_server.bot_settings.index]
-		print("spawning " + i.bot_name)
-		var char_data = char_data_dict.duplicate(true)
-		char_data.pname = "bot_" + i.bot_name
-		char_data.g1 = i.bot_primary_gun
-		char_data.g2 = i.bot_sec_gun
-		char_data.is_bot = true
-		char_data.team_id = 1
-		char_data.pos = getSpawnPosition(char_data.team_id)
-		#giving unique integer name
-		char_data.name = String(69 + game_server.bot_settings.index)
-		game_server.bot_settings.index += 1
-		spawnPlayer(char_data)
-	else:
-		print("No bot profile")
+	#result of operation
+	var result = false
+	for i in game_states.bot_profiles.bot:
+		#check if profile is in use or not
+		if not i.is_in_use:
+			print("spawning " + i.bot_name)
+			i.is_in_use = true
+			var char_data = char_data_dict.duplicate(true)
+			char_data.pname = i.bot_name
+			char_data.g1 = i.bot_primary_gun
+			char_data.g2 = i.bot_sec_gun
+			char_data.is_bot = true
+			
+			#assign team
+			if team_id == 1:
+				char_data.team_id = 1
+				char_data.skin = i.bot_ct_skin
+			else:
+				char_data.team_id = 0
+				char_data.skin = i.bot_t_skin
+				
+			char_data.pos = getSpawnPosition(char_data.team_id)
+			#giving unique integer name
+			char_data.name = String(69 + game_server.bot_settings.index)
+			game_server.bot_settings.index += 1
+			spawnPlayer(char_data)
+			result = true
+			break
+	
+	if not result:
+		print("unable to add bot no profile available")
+
 
 func server_kickBot(bot):
 	if get_tree().is_network_server():
-		rpc("kickBot",bot.name)
+		for i in game_states.bot_profiles.bot:
+			if i.bot_name == bot.pname:
+				i.is_in_use = false
+				print("Removing bot ",i.bot_name)
+				rpc("kickBot",bot.name)
+				return
+	print_debug("Error Unable to kick bot ", bot.pname)
+
 
 remotesync func kickBot(bot_name):
 	var bot = get_node(bot_name)
@@ -337,6 +364,11 @@ remotesync func kickBot(bot_name):
 		bot.queue_free()
 	else:
 		print("Fatal:Cannot remove invalid node from tree")
+
+func kickAllBot():
+	var bots = get_tree().get_nodes_in_group("Bot")
+	for i in bots:
+		server_kickBot(i)
 
 remote func despawn_player(pinfo):
 	if (get_tree().is_network_server()):
@@ -347,7 +379,7 @@ remote func despawn_player(pinfo):
 	
 	var player_node = get_node(str(pinfo.net_id))
 	if (!player_node):
-		print("Cannot remove invalid node from tree")
+		print_debug("Cannot remove invalid node from tree")
 		return
 	emit_signal("player_despawned",player_node)
 	player_node.queue_free()
@@ -359,6 +391,58 @@ func _on_disconnected():
 	print("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
 
-func _init_game():
-	game_server.init_scoreBoard()
 
+#stops the server
+func Server_stopLevel():
+	if get_tree().is_network_server():
+		rpc("stopLevel")
+		#reset bot profile
+		for i in game_states.bot_profiles.bot:
+			i.is_in_use = false
+	else:
+		print_debug("Error not server")
+
+
+#client func
+remotesync func stopLevel():
+	var chars = get_tree().get_nodes_in_group("Actor")
+	for i in chars:
+		i.queue_free()
+	spawned_pl_arr.clear()
+
+
+func Server_startLevel():
+	if get_tree().is_network_server():
+		rpc("startLevel")
+		spawnBots()
+	else:
+		print_debug("Error not server")
+
+
+remotesync func startLevel():
+	game_server.resetPlayerData()
+	team1.reset()
+	team2.reset()
+	$CanvasLayer.add_child(teamSelector)
+
+
+func Server_restartLevel():
+	if get_tree().is_network_server():
+		rpc("restartLevel")
+		#reset bot profile
+		for i in game_states.bot_profiles.bot:
+			i.is_in_use = false
+		spawnBots()
+	else:
+		print_debug("Error not server")
+
+
+remotesync func restartLevel():
+	var chars = get_tree().get_nodes_in_group("Actor")
+	for i in chars:
+		i.queue_free()
+	spawned_pl_arr.clear()
+	game_server.resetPlayerData()
+	team1.reset()
+	team2.reset()
+	$CanvasLayer.add_child(teamSelector)

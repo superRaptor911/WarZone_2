@@ -248,7 +248,8 @@ func generateBotProfiles():
 		bot_primary_gun = "MP5",
 		bot_sec_gun = "default_gun",
 		bot_t_skin = "t1",
-		bot_ct_skin = "ct1"
+		bot_ct_skin = "ct1",
+		is_in_use = false
 	}
 	
 	var bot_names : Array

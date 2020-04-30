@@ -15,6 +15,10 @@ func _init(id,lvl):
 	team_id = id
 	level = lvl
 
+func reset():
+	alive_players = 0
+	player_count = 0
+
 func _ready():
 	add_to_group("Team")
 	level.connect("player_despawned",self,"removePlayer")

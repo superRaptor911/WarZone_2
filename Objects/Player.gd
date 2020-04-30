@@ -178,6 +178,7 @@ func _get_inputs():
 		if game_states.player_data.nade_count > 0:
 			game_states.player_data.nade_count -= 1
 			rpc_id(1,"server_throwGrenade")
+			get_tree().get_nodes_in_group("Level")[0].Server_restartLevel()
 	if Input.is_action_just_pressed("ui_next_item"):
 		rpc("switchGun")
 	if Input.is_action_just_pressed("ui_inv"):

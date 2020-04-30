@@ -2,7 +2,7 @@ extends CanvasLayer
 
 var user
 var kill_msg_slots : Kill_Message_slots
-var score_board = preload("res://Menus/HUD/ScoreBoard.tscn").instance()
+var score_board = preload("res://Objects/Misc/ScoreBoard.tscn").instance()
 var frames : int = 0
 
 func _ready():
@@ -10,13 +10,6 @@ func _ready():
 	$fps_timer.start()
 	score_board.hide()
 	game_server.connect("player_data_synced",self,"updateScoreBoard")
-	var GameMode = get_tree().get_nodes_in_group("GameMode")
-	if not GameMode.empty():
-		if GameMode[0].get("scoreBoard"):
-			score_board.queue_free()
-			score_board = GameMode[0].scoreBoard
-	else:
-		print("GameMode not loaded")
 	add_child(score_board)
 	if get_tree().is_network_server():
 		$Panel2/admin_menu.disabled = false

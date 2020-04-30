@@ -9,7 +9,8 @@ class custom_sorter:
 	static func sort(a,b) -> bool:
 		return a.score > b.score
 
-func setBoardData(data : Array):
+func setBoardData(data_dict : Dictionary):
+	var data = data_dict.values()
 	var ts = Array()
 	var cts = Array()
 	
