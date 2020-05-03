@@ -1,48 +1,35 @@
 extends Sprite
 
-var bomber = null
 var bomb_planted = false
 var explosion = preload("res://Objects/Weapons/Bomb.tscn")
-
-var diffuser = null
 
 signal bomb_planted
 signal bomb_exploded
 signal bomb_diffused
 
-signal bomb_diffuser
-signal bomb_diffuser_left
-
-var is_being_diffused : bool = false
+signal diffuser_entered(plr)
+signal diffuser_left(plr)
 
 func _ready():
 	hide()
 	$Area2D/CollisionShape2D.disabled = true
 
-func setBomber(b):
-	bomber = b
 
-func activateBomb():
+func activateBomb(pos):
 	if get_tree().is_network_server():
 		bomb_planted = true
-		rpc("bombPlanted",bomber.position)
+		rpc("bombPlanted",pos)
 		emit_signal("bomb_planted")
 
 func diffuseBomb():
 	bomb_planted = false
-	$bomb_timer/bom_beep.stop()
-	$Timer.stop()
-	hide()
+	rpc("bombDiffused")
 	emit_signal("bomb_diffused")
-	diffuser = null
 
 
-func dropBomb():
-	rpc("bombDroped",bomber.position)
+func dropBomb(pos):
+	rpc("bombDroped",pos)
 
-
-func resetBomb():
-	rpc("_resetBomb")
 
 func _on_Timer_timeout():
 	rpc("bombExploded")
@@ -59,15 +46,14 @@ func _on_bom_beep_timeout():
 
 
 func _on_Area2D_body_entered(body):
-	if bomb_planted and (not diffuser) and body.is_in_group("Unit") and body.team.team_id == 1:
-		diffuser = body
-		emit_signal("bomb_diffuser")
+	if bomb_planted and body.is_in_group("Unit") and body.team.team_id == 1:
+		emit_signal("diffuser_entered",body)
 
 
 func _on_Area2D_body_exited(body):
-	if bomb_planted and (body == diffuser):
-		emit_signal("bomb_diffuser_left")
-		diffuser = null
+	if bomb_planted and body.is_in_group("Unit") and body.team.team_id == 1:
+		emit_signal("diffuser_left",body)
+
 
 ####################Remote###########################
 
@@ -91,14 +77,11 @@ remotesync func bombExploded():
 	var explo = explosion.instance()
 	explo.SCALE = 4
 	explo.position = position
-	explo.usr = bomber
+	explo.usr = null
 	get_tree().get_nodes_in_group("Level")[0].add_child(explo)
 	explo.explode(true)
 
-remotesync func _resetBomb():
-	bomber = null
-	diffuser = null
-	bomb_planted = false
+remotesync func bombDiffused():
 	$bomb_timer/bom_beep.stop()
 	$Timer.stop()
 	hide()

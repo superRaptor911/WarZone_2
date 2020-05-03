@@ -8,6 +8,7 @@ var team_name : String = ""
 var score : int = 0
 var player_count = 0
 var alive_players = 0
+var user_count = 0
 
 signal team_eliminated(team)
 
@@ -29,14 +30,18 @@ func addPlayer(P):
 	P.team = self
 	P.connect("char_killed",self,"_on_player_killed")
 	P.connect("char_born",self,"_on_player_born")
+	if P.is_in_group("User"):
+		user_count += 1
 
 func removePlayer(plr):
 	if plr.team.team_id == team_id:
 		player_count -= 1
 		if player_count == 0:
-			emit_signal("team_eliminated")
+			emit_signal("team_eliminated",self)
 		if player_count < 0:
-			print("Error fatal negative number of players")
+			print_debug("Error fatal negative number of players")
+		if plr.is_in_group("User"):
+			user_count -= 1
 
 
 func _on_player_killed():

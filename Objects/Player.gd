@@ -50,10 +50,6 @@ func _ready():
 			$Camera2D.position = Vector2(0,-150)
 		pname = game_states.player_info.name
 		$Camera2D.current = true
-		var controller = load("res://controls/controllers/default_controller.tscn").instance()
-		controller.set_name("controller")
-		add_child(controller)
-		controller.user = self
 		connect("char_killed",self,"_on_player_killed")
 		hud = load("res://Menus/HUD/Hud.tscn").instance()
 		hud.setUser(self)

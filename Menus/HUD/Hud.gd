@@ -6,6 +6,8 @@ var score_board = preload("res://Objects/Misc/ScoreBoard.tscn").instance()
 var frames : int = 0
 
 func _ready():
+	if not game_states.is_android:
+		$controller.queue_free()
 	kill_msg_slots = Kill_Message_slots.new(self,8)
 	$fps_timer.start()
 	score_board.hide()
@@ -16,6 +18,7 @@ func _ready():
 
 func setUser(u):
 	user = u
+	$controller.user = u
 	user.connect("gun_picked",self,"_on_gun_picked")
 	$reload/gun_s.texture = user.selected_gun.gun_portrait
 	$reload/TextureProgress.max_value = user.selected_gun.rounds_in_clip
@@ -238,3 +241,9 @@ func _on_pick_pressed():
 
 func _on_melee_pressed():
 	user.performMeleeAttack()
+
+
+func _on_pic_touch_pressed():
+	if user.alive:
+		user.pickItem()
+		$pick.hide()

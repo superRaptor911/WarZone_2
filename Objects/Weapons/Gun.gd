@@ -9,7 +9,7 @@ export var gun_rating : int = 0
 export var rate_of_fire : float = 4
 export var max_zoom : float = 1.0
 export var recoil_factor : float = 0.2
-export var spread : float = 0.05
+export var spread : float = 2
 export var gun_portrait : Texture = preload("res://Sprites/Weapons/gun_p.png")
 export var gun_d_img : Texture
 export var wpn_cost : int = 500
@@ -33,6 +33,7 @@ signal gun_fired
 signal reloading_gun
 
 func _ready():
+	spread = spread * 3.14 / 180
 	if rounds_left == 0:
 		reload()
 	#if it does not have parent/user then force get parent
@@ -80,7 +81,6 @@ remotesync func chkBulletHit():
 	var cast_to = Vector2(0,-750).rotated(global_rotation + error_angle) + global_position
 	recoil += recoil_factor
 	
-
 	var space_state = get_world_2d().direct_space_state
 	var result = space_state.intersect_ray(global_position, cast_to, [self])
 	if result:

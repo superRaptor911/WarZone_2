@@ -140,6 +140,16 @@ func getSpawnPosition(team_id : int) -> Vector2:
 			print("Error : No spawn point for selected team")
 	return game_states.invalid_position
 
+#incomplete function
+#server only function
+remote func serverGetDropedItems():
+	if not get_tree().is_network_server():
+		print_debug("Error : Not called on server")
+		return
+	
+	var droped_items = get_tree().get_nodes_in_group("DropedItem")
+	var data_dict = {name = "", pos = Vector2(), type = ""}
+
 
 #get player data from server
 #server only function

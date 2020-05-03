@@ -1,20 +1,22 @@
 extends Node
 
-var serverInfo := {
+var serverInfo : = {
 	"name": "Raptors LAN Game",
 	"ip" : "127.0.0.1",
 	"port" : "6969",
 	"game_mode" : "FFA",
 	"max_p" : "6",
 	"map" : "",
+	"version" : game_states.current_game_version
 }
 
 #time is in minutes
 var extraServerInfo = {
 	friendly_fire = false,
-	time_limit = 1,
+	time_limit = 10,
 	round_time = 2,
-	max_wins = 8
+	max_wins = 8,
+	bot_differ_to_user = true
 }
 
 

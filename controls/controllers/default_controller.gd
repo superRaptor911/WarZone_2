@@ -6,11 +6,7 @@ var counter : bool = false
 var enabled : bool = true
 
 func _ready():
-	if not game_states.is_android:
-		self.queue_free()
-		return
 	$aim_joy.connect("Joystick_Updated",self,"_on_joy2_move")
-	
 	#if not game_states.game_settings.static_dpad:
 		#$mov_joy.use_screen_rectangle = true
 		#$aim_joy.use_screen_rectangle = true

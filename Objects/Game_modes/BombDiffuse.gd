@@ -1,133 +1,94 @@
 extends CanvasLayer
 
 var Round : int = 0
-var round_time : int = 150
+var round_time : int = 0
 var level = null
-var local_player = null
+
 
 var bomb_scene = preload("res://Objects/Game_modes/BombDiffuse/C4Bomb.tscn")
 var bomb = null
 var bomber = null
-
-var bomb_planted = false
+var diffuser = null
 var bomb_diffused = false
+var time_elapsed = 0
 
-var time_to_plant = 4.0
-var planting_bomb = false
 
-var time_to_diffuse = 5.0
-var diffusing_bomb = false
+var terrorist_team
+var counter_t_team
 
-signal round_started
-signal round_end
-signal bomb_planted
 
 func _ready():
-	$plant_bomb/ProgressBar.max_value = time_to_plant
-	$diffuse_button/ProgressBar.max_value = time_to_diffuse
-	level = get_tree().get_nodes_in_group("Level")[0]
-	overrideTeamSelectorFor(level)
-	bomb = bomb_scene.instance()
-	level.add_child(bomb)
-	level.connect("player_spawned",self,"getLocalPlayer")
-	
-	var teams = get_tree().get_nodes_in_group("Team")
-	for i in teams:
-		if i.team_id == 0:
-			i.team_name = "Terrorist"
-		elif i.team_id == 1:
-			i.team_name = "Counter Terrorist"
-	
+	#server side
 	if get_tree().is_network_server():
-		bomb.connect("bomb_planted",self,"_on_bomb_planted")
-		bomb.connect("bomb_exploded",self,"terroristWin")
-		bomb.connect("bomb_diffuser",self,"_bomb_diffuser_diffusing")
-		bomb.connect("bomb_diffuser_left",self,"_bomb_diffuser_not_diffusing")
+		round_time = game_server.extraServerInfo.round_time * 60
+		$oneTimer.start()
 		
-		level.connect("player_spawned",self,"_on_player_spawnwed")
-		level.connect("bot_spawned",self,"_on_player_spawnwed")
-		level.connect("player_despawned",self,"_on_plyer_despawned")
-		level.connect("bot_despawned",self,"_on_plyer_despawned")
-		#connect to bomb sites
-		var bombSites = get_tree().get_nodes_in_group("Bomb_site")
-		for i in bombSites:
-			i.connect("bomber_entered",self,"_on_bomber_entered_bombSpot")
-			i.connect("bomber_left",self,"_on_bomber_exited_bombSpot")
-		
-		for t in teams:
-			t.connect("team_eliminated",self,"_on_team_eliminated")
-
-
-#set custom team selector 
-func overrideTeamSelectorFor(lvl):
-	var new_teamSelector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
-	lvl.teamSelector = new_teamSelector
-
-func getLocalPlayer(plr):
-	if plr.is_network_master():
-		local_player = plr
-
-func _on_player_spawnwed(plr):
-	if plr.team.player_count == 1:
-		print("restarting game")
-		restartGame()
-		return
-
-	if not $RoundTimer.is_stopped():
-		plr.killChar()
-
-#Handle bomber disconnection
-func _on_plyer_despawned(plr):
-	if plr == bomber:
-		removeBomber()
-	if plr == bomb.diffuser:
-		_bomb_diffuser_not_diffusing()
-
-
-#randomly select a bomber from terrorist team
-#team id  0 is for terrorist
-func selectBomber() -> bool:
-	#safety chk
-	if bomber and bomber.is_in_group("bomber"):
-		bomber.remove_from_group("bomber")
-	
-	#unit is (player and bot)
-	var actors = get_tree().get_nodes_in_group("User")
-	var ts = Array()
-	for i in actors:
-		if i.alive and i.team.team_id == 0:
-			ts.append(i)
-	
-	#if terrorists select a bomeber
-	if not ts.empty():
-		var random_id = randi() % ts.size()
-		bomber = ts[random_id]
-		bomber.add_to_group("bomber")
-		bomber.connect("char_killed",self,"removeBomber")
-		bomb.setBomber(bomber)
-		
-		if bomber.is_in_group("User"):
-			rpc_id(int(bomber.name),"_notifyBomber")
+		#get team and connect signals
+		var teams = get_tree().get_nodes_in_group("Team")
+		if teams[0].team_id == 0:
+			terrorist_team = teams[0]
+			counter_t_team = teams[1]
 		else:
-			bomber.is_bomber = true
-			bomber.selectedAsbomber()
-		return true
-	else:
-		print("Not enough players")
-	return false
-
-
-func removeBomber():
-	if bomber:
-		print("bomber killed")
-		bomber.remove_from_group("bomber")
-		bomber.disconnect("char_killed",self,"removeBomber")
-		bomb.dropBomb()
-		if bomber.is_in_group("Bot"):
-			bomber.is_bomber = false
-			bomber.is_on_bomb_site = false
+			terrorist_team = teams[1]
+			counter_t_team = teams[0]
+		for i in teams:
+			i.connect("team_eliminated",self,"S_onTeamEliminated")
 		
-		bomber = null
+		#connect signals
+		level = get_tree().get_nodes_in_group("Level")[0]
+		level.connect("player_despawned",self,"S_handleDisconnection")
+		level.connect("bot_despawned",self,"S_handleDisconnection")
+		level.connect("player_spawned",self,"S_on_player_joined")
+		level.connect("bot_spawned",self,"S_on_player_joined")
+		
+		#handle bomb site signals
+		var bomb_sites = get_tree().get_nodes_in_group("Bomb_site")
+		for i in bomb_sites:
+			i.connect("bomber_entered",self,"_on_bomber_enters_bomb_site")
+			i.connect("bomber_left",self,"_on_bomber_leaves_bomb_site")
+
+
+func S_on_player_joined(plr):
+	#if team was empty before restart round
+	if plr.team.player_count == 1:
+		$round_end_delay.start()
+
+
+#server side
+func S_startRound():
+	respawnEveryOne()
+	#update counters
+	time_elapsed = 0
+	Round += 1
+	#start time keeping
+	$oneTimer.start()
+	#load bomb
+	if bomb:
+		print_debug("Error : bomb already exist")
+	var bname = "C4" + String(randi() % 999999)
+	rpc("loadBomb",bname)
+	#select bomber
+	S_selectBomber()
+
+
+remotesync func loadBomb(bomb_name):
+	if bomb:
+		print_debug("Error : bomb already exist")
+		bomb.queue_free()
+	bomb = bomb_scene.instance()
+	bomb.name = bomb_name
+	var lvl = get_tree().get_nodes_in_group("Level")[0]
+	lvl.add_child(bomb)
+	bomb.connect("bomb_planted",self,"_on_bomb_planted")
+
+	#connect local signal
+	bomb.connect("diffuser_entered",self,"_on_ct_in_diffuse_range")
+	bomb.connect("diffuser_left",self,"_on_ct_out_of_diffuse_range")
+	#connect server signal
+	if get_tree().is_network_server():
+		bomb.connect("bomb_planted",self,"S_onBombPlanted")
+		bomb.connect("bomb_exploded",self,"S_bombExploded")
+
 
 
 func respawnEveryOne():
@@ -140,194 +101,213 @@ func respawnEveryOne():
 		i.respawnBot()
 
 
-#restart this map reseting all data
-#need to reset pinfo
-func restartGame():
-	removeBomber()
-	if selectBomber():
-		respawnEveryOne()
-		Round = 1
-		$round_start_delay.start()
-	else:
-		$no_plr_timer.start()
-	
-#start new round
-func startRound():
-	if selectBomber():
-		Round += 1
-		$round_start_delay.start()
-	else:
-		$no_plr_timer.start()
-
-#end current round
-#its like a destructor for rounds
-func endRound():
-	emit_signal("round_end")
-	respawnEveryOne()
-	removeBomber()
-	bomb_planted = false
-	bomb_diffused = false
-	
-	if bomb.bomb_planted:
-		bomb.resetBomb()
+func S_endRound():
+	S_startRound()
 
 
-func _bomb_diffuser_diffusing():
-	bomb.diffuser.connect("char_killed",self,"_on_diffuser_killed")
-	if bomb.diffuser.is_in_group("User"):
-		rpc_id(int(bomb.diffuser.name),"_showDiffuseOption",true)
-	else:
-		bomb.diffuser.canDiffuse()
-	  
-
-func _bomb_diffuser_not_diffusing():
-	if bomb.diffuser:
-		bomb.diffuser.disconnect("char_killed",self,"_on_diffuser_killed")
-		if bomb.diffuser.is_in_group("User"):
-			rpc_id(int(bomb.diffuser.name),"_showDiffuseOption",false)
-		else:
-			pass
-
-func _on_diffuser_killed():
-	bomb.diffuser.disconnect("char_killed",self,"_on_diffuser_killed")
-	if bomb.diffuser.is_in_group("User"):
-		rpc_id(int(bomb.diffuser.name),"_showDiffuseOption",false)
-	bomb.diffuser = null
-
-func _on_bomber_entered_bombSpot():
-	if not bomb.bomb_planted and bomber.is_in_group("User"):
-		showPlantOption(true)
+#time keping timer
+#updates every one second
+func _on_oneTimer_timeout():
+	time_elapsed += 1
+	#round time ended and ct win
+	if time_elapsed > round_time:
+		$oneTimer.stop()
+		$round_end_delay.start()
+		_on_counter_terrorist_win()
+	rpc("syncTime",time_elapsed)
 
 
-func _on_bomber_exited_bombSpot():
-	if bomber.is_in_group("User"):
-		showPlantOption(false)
+remotesync func syncTime(time_now):
+	var time_left : int = round_time - time_now
+	var _min : int = time_left / 60
+	var _sec : int = time_left % 60
+	$info/time_left.text = String(_min) + ":" + String(_sec)
 
-
-func _on_plant_bomb_pressed():
-	rpc("_plantBomb")
-
-func _on_RoundTimer_timeout():
-	counterTerroistWin()
-	endRound()
-
-func _on_bomb_planted():
-	bomb_planted = true
-	showPlantOption(false)
-	rpc("bombPlanted")
-	removeBomber()
-	emit_signal("bomb_planted")
-
-
-func terroristWin():
-	$round_end_delay.start()
-	rpc("_terroristWin")
-
-
-func counterTerroistWin():
-	$round_end_delay.start()
-	rpc("_counterTerroistWin")
-
-func _on_no_plr_timer_timeout():
-	restartGame()
 
 func _on_round_end_delay_timeout():
-	endRound()
-	startRound()
-
-func _on_round_start_delay_timeout():
-	$RoundTimer.start()
-	emit_signal("round_started")
-	rpc("_roundStart")
+	S_endRound()
 
 
-func _on_team_eliminated(team):
-	if team.team_id == 1:
-		terroristWin()
-	elif team.team_id == 0:
-		if not bomb_planted or bomb_diffused:
-			counterTerroistWin()
+#this method selects bomber from terrorist team
+func S_selectBomber():
+	if terrorist_team.player_count > 0:
+		var players = Array()
+		#give C4 to human player
+		if (game_server.extraServerInfo.bot_differ_to_user 
+			and (terrorist_team.user_count > 0)):
+			var Hplayers = get_tree().get_nodes_in_group("User")
+			for i in Hplayers:
+				if i.team.team_id == 0:
+					players.append(i)
+		else:
+			var all_players = get_tree().get_nodes_in_group("Unit")
+			for i in all_players:
+				if i.team.team_id == 0:
+					players.append(i)
+		
+		var chosen_one = players[randi() % players.size()]
+		chosen_one.connect("char_killed",self,"S_onBomberKilled")
+		chosen_one.add_to_group("bomber")
+		bomber = chosen_one
+		
+		#Tell player that he/she was chosen
+		if bomber.is_in_group("User"):
+			rpc_id(int(bomber.name),"notifyBomber")
+	else:
+		print("No players in terrorist")
 
 
+remotesync func notifyBomber():
+	$popup.popup(2.5)
+
+
+func S_handleDisconnection(plr):
+	#bomber disconnected
+	if plr == bomber:
+		bomb.dropBomb(bomber.position)
+
+
+func S_onBomberKilled():
+	#disconnect this signal and group
+	bomber.disconnect("char_killed",self,"S_onBomberKilled")
+	bomber.remove_from_group("bomber")
+	#drop bomb #remote function no need to sync
+	bomb.dropBomb(bomber.position)
+
+
+func S_onTeamEliminated(team):
+	if team.team_id == 0 and bomb.bomb_planted:
+		return
+	#stop timer
+	$oneTimer.stop()
+	#terrorists eliminated
+	if team.team_id == 0:
+		_on_counter_terrorist_win()
+	#counter terrorist eliminated
+	else:
+		_on_terrorist_win()
+
+
+func _on_terrorist_win():
+	rpc("terroristWin")
+	terrorist_team.score += 1
+	$round_end_delay.start()
+
+remotesync func terroristWin():
+	$terrorist_win.play()
+
+
+func _on_counter_terrorist_win(bomb_diff = false):
+	rpc("counterTerroristWin",bomb_diff)
+	counter_t_team.score += 1
+	$round_end_delay.start()
+
+remotesync func counterTerroristWin(bomb_diff):
+	if bomb_diff:
+		$bomb_diffused.play()
+	$counterterrorist_win.play()
+	
+
+
+func S_onBombPlanted():
+	$oneTimer.stop()
+
+#called remotely by c4
+func _on_bomb_planted():
+	$bomb_planted.play()
+	$info/time_left.text = "0:0"
+
+
+
+func _on_bomber_enters_bomb_site():
+	if bomber.is_in_group("User"):
+		rpc_id(int(bomber.name),"showPlantButton",true)
+
+
+func _on_bomber_leaves_bomb_site():
+	if bomber.is_in_group("User"):
+		rpc_id(int(bomber.name),"showPlantButton",false)
+
+
+remotesync func showPlantButton(val):
+	$plant_bomb.visible = val
+
+
+
+var plant_button_pressed = false
+var diffuse_btn_pressed = false
+
+
+#remote method
 func _on_plant_bomb_button_down():
-	#$plant_bomb.show()
+	plant_button_pressed = true
 	$plant_bomb/ProgressBar.value = 0
-	planting_bomb = true
 
-
+#remote method
 func _on_plant_bomb_button_up():
+	plant_button_pressed = false
 	$plant_bomb/ProgressBar.value = 0
-	planting_bomb = false
-	
 
-func _on_diffuse_button_button_down():
-	$diffuse_button/ProgressBar.value = 0
-	diffusing_bomb = true
-
-
-func _on_diffuse_button_button_up():
-	$diffuse_button/ProgressBar.value = 0
-	diffusing_bomb = false
-
-
+#remote method
 func _process(delta):
-	if planting_bomb:
-		$plant_bomb/ProgressBar.value += delta
-		if $plant_bomb/ProgressBar.value == time_to_plant:
-			planting_bomb = false
+	if plant_button_pressed:
+		$plant_bomb/ProgressBar.value += delta 
+		if $plant_bomb/ProgressBar.value == $plant_bomb/ProgressBar.max_value:
+			plant_button_pressed = false
 			$plant_bomb.hide()
-			$plant_bomb/ProgressBar.value = 0
-			rpc("_plantBomb")
-	
-	if diffusing_bomb:
-		$diffuse_button/ProgressBar.value += delta
-		if $diffuse_button/ProgressBar.value == time_to_diffuse:
-			diffusing_bomb = false
-			$diffuse_button.hide()
-			$diffuse_button/ProgressBar.value = 0
-			rpc("_bombDiffused")
+			#tell server that peer planted bomb
+			rpc_id(1,"S_peerPlantedBomb")
+	if diffuse_btn_pressed:
+		var bar = $diffuse_btn/ProgressBar
+		bar.value += delta
+		if bar.value == bar.max_value:
+			diffuse_btn_pressed = false
+			$diffuse_btn.hide()
+			rpc_id(1,"S_peerDiffusedBomb")
 
-##########################Remote funcs####################################
 
-remotesync func _notifyBomber():
-	$Label.popup(1.5)
+#server only
+remotesync func S_peerPlantedBomb():
+	bomb.activateBomb(bomber.position)
+	bomber.disconnect("char_killed",self,"S_onBomberKilled")
+	bomber.remove_from_group("bomber")
+	bomber = null
+	rpc("bombPlanted")
 
 
 remotesync func bombPlanted():
 	$bomb_planted.play()
 
-func showPlantOption(val):
-	if bomber.is_network_master():
-		$plant_bomb.visible = val
-	else:
-		rpc_id(int(bomber.name),"_showPlantOption",val)
 
-remote func _showPlantOption(val):
-	$plant_bomb.visible = val
-
-remotesync func _showDiffuseOption(val):
-	$diffuse_button.visible = val
+#Terrorist wins when bomb explodes
+func S_bombExploded():
+	_on_terrorist_win()
 
 
-remotesync func _plantBomb():
-	bomb.activateBomb()
 
-remotesync func _freezePlayer(val):
-	if local_player:
-		local_player.pause_controls(val)
+func _on_diffuse_btn_button_down():
+	diffuse_btn_pressed = true
+	$diffuse_btn/ProgressBar.value = 0
 
-remotesync func _counterTerroistWin():
-	$counterterrorist_win.play()
 
-remotesync func _terroristWin():
-	$terrorist_win.play()
+func _on_diffuse_btn_button_up():
+	diffuse_btn_pressed = false
+	$diffuse_btn/ProgressBar.value = 0
 
-remotesync func _roundStart():
-	$lets_go.play()
 
-remotesync func _bombDiffused():
-	if get_tree().is_network_server():
-		$round_end_delay.start()
-		_bomb_diffuser_not_diffusing()
-	bomb.diffuseBomb()
-	$bomb_diffused.play()
+#local method
+func _on_ct_in_diffuse_range(ct):
+	if ct.is_in_group("User"):
+		$diffuse_btn.show()
+
+#local method
+func _on_ct_out_of_diffuse_range(ct):
+	if ct.is_in_group("User"):
+		$diffuse_btn.hide()
+
+
+remotesync func S_peerDiffusedBomb():
+	if not bomb_diffused:
+		bomb.diffuseBomb()
+		bomb_diffused = true
+		_on_counter_terrorist_win(true)

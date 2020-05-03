@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Menus/HUD/Hud.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/white.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Sprites/UI/bullet.png" type="Texture" id=11]
 [ext_resource path="res://Antaro.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://Menus/resources/next_gun.png" type="Texture" id=13]
+[ext_resource path="res://controls/controllers/default_controller.tscn" type="PackedScene" id=14]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 98.0
@@ -59,7 +60,10 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 70, 25 )
+
+[sub_resource type="DynamicFont" id=11]
 size = 36
 use_filter = true
 font_data = ExtResource( 10 )
@@ -439,7 +443,6 @@ __meta__ = {
 [node name="fps_timer" type="Timer" parent="."]
 
 [node name="pick" type="Button" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -454,6 +457,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="pic_touch" type="TouchScreenButton" parent="pick"]
+position = Vector2( -5.17657, -4.85297 )
+shape = SubResource( 10 )
+
 [node name="cash" type="Label" parent="."]
 visible = false
 anchor_left = 0.5
@@ -465,13 +472,15 @@ margin_top = -206.604
 margin_right = 71.988
 margin_bottom = -158.604
 rect_pivot_offset = Vector2( 44.5, 24 )
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 0.141176, 0.568627, 0.0235294, 1 )
 text = "+ $10"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="controller" parent="." instance=ExtResource( 14 )]
 [connection signal="pressed" from="Control/melee" to="." method="_on_melee_pressed"]
 [connection signal="pressed" from="reload/btn" to="." method="_on_btn_pressed"]
 [connection signal="pressed" from="zoom/zoom" to="." method="_on_zoom_pressed"]
@@ -483,4 +492,4 @@ __meta__ = {
 [connection signal="pressed" from="Panel2/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="nextGun" to="." method="_on_nextGun_pressed"]
 [connection signal="timeout" from="fps_timer" to="." method="_on_fps_timer_timeout"]
-[connection signal="pressed" from="pick" to="." method="_on_pick_pressed"]
+[connection signal="pressed" from="pick/pic_touch" to="." method="_on_pic_touch_pressed"]
