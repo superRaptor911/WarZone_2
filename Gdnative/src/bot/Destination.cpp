@@ -47,10 +47,10 @@ void Destination::traverse()
         #endif
         has_path_to_destination = false;
     }
-    if (_bot->time_elapsed - _timeStamp_at_node > 30.f)
+    if (_bot->time_elapsed - _timeStamp_at_node > 50.f)
     {
         #ifdef DEBUG_MODE
-            Godot::print("Bot stuck for mare than 30 sec at a node");
+            Godot::print("Bot stuck for more than 50 sec at a node");
         #endif
         has_path_to_destination = false;
     }

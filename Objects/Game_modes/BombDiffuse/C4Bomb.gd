@@ -2,6 +2,7 @@ extends Sprite
 
 var bomb_planted = false
 var explosion = preload("res://Objects/Weapons/Bomb.tscn")
+var usr = ""
 
 signal bomb_planted
 signal bomb_exploded
@@ -16,15 +17,22 @@ func _ready():
 
 
 func activateBomb(pos):
-	if get_tree().is_network_server():
+	if get_tree().is_network_server() and not bomb_planted:
 		bomb_planted = true
 		rpc("bombPlanted",pos)
+		
 		emit_signal("bomb_planted")
+	else:
+		print_debug("Bomb already planted or called in peer")
+
 
 func diffuseBomb():
-	bomb_planted = false
-	rpc("bombDiffused")
-	emit_signal("bomb_diffused")
+	if bomb_planted:
+		bomb_planted = false
+		rpc("bombDiffused")
+		emit_signal("bomb_diffused")
+	else:
+		print_debug("Bomb already diffused or not planted")
 
 
 func dropBomb(pos):
@@ -77,7 +85,7 @@ remotesync func bombExploded():
 	var explo = explosion.instance()
 	explo.SCALE = 4
 	explo.position = position
-	explo.usr = null
+	explo.usr = usr
 	get_tree().get_nodes_in_group("Level")[0].add_child(explo)
 	explo.explode(true)
 

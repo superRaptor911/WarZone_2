@@ -4,7 +4,7 @@ var Round : int = 0
 var round_time : int = 0
 var level = null
 
-
+var end_screen_scn = preload("res://Objects/Game_modes/endScreen.tscn")
 var bomb_scene = preload("res://Objects/Game_modes/BombDiffuse/C4Bomb.tscn")
 var bomb = null
 var bomber = null
@@ -15,6 +15,12 @@ var time_elapsed = 0
 
 var terrorist_team
 var counter_t_team
+
+#signals for bot
+signal round_started
+signal bomb_planted
+signal bomber_selected(plr)
+signal bomber_killed
 
 
 func _ready():
@@ -56,6 +62,8 @@ func S_on_player_joined(plr):
 
 #server side
 func S_startRound():
+	emit_signal("round_started")
+	bomb_diffused = false
 	respawnEveryOne()
 	#update counters
 	time_elapsed = 0
@@ -102,7 +110,33 @@ func respawnEveryOne():
 
 
 func S_endRound():
+	if (max(terrorist_team.score,counter_t_team.score) >=
+		 game_server.extraServerInfo.max_wins):
+			
+			return
 	S_startRound()
+
+
+remotesync func sync_endGame():
+	var end_scr = end_screen_scn.instance()
+	if get_tree().is_network_server():
+		end_scr.connect("ok",self,"restartGameMode")
+	add_child(end_scr)
+	end_scr.rect_scale = Vector2(0,0)
+	$Tween.interpolate_property(get_tree().get_nodes_in_group("Level")[0],"modulate",
+		Color8(255,255,255,255),Color8(0,0,0,0),2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
+	$Tween.interpolate_property(end_scr,"rect_scale",Vector2(0,0),Vector2(1,1),1,
+		Tween.TRANS_QUAD,Tween.EASE_OUT,2)
+	$Tween.start()
+	$info.hide()
+
+
+func restartGameMode():
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	level.Server_startLevel()
+	$Tween.interpolate_property(level,"modulate",Color8(0,0,0,0),Color8(255,255,255,255),
+		2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
+	$Tween.start()
 
 
 #time keping timer
@@ -149,10 +183,12 @@ func S_selectBomber():
 		chosen_one.connect("char_killed",self,"S_onBomberKilled")
 		chosen_one.add_to_group("bomber")
 		bomber = chosen_one
+		bomb.usr = bomber.name
 		
 		#Tell player that he/she was chosen
 		if bomber.is_in_group("User"):
 			rpc_id(int(bomber.name),"notifyBomber")
+		emit_signal("bomber_selected",bomber)
 	else:
 		print("No players in terrorist")
 
@@ -173,6 +209,7 @@ func S_onBomberKilled():
 	bomber.remove_from_group("bomber")
 	#drop bomb #remote function no need to sync
 	bomb.dropBomb(bomber.position)
+	emit_signal("bomber_killed")
 
 
 func S_onTeamEliminated(team):
@@ -192,6 +229,8 @@ func _on_terrorist_win():
 	rpc("terroristWin")
 	terrorist_team.score += 1
 	$round_end_delay.start()
+	rpc("syncScore",terrorist_team.score, counter_t_team.score)
+
 
 remotesync func terroristWin():
 	$terrorist_win.play()
@@ -201,6 +240,8 @@ func _on_counter_terrorist_win(bomb_diff = false):
 	rpc("counterTerroristWin",bomb_diff)
 	counter_t_team.score += 1
 	$round_end_delay.start()
+	rpc("syncScore",terrorist_team.score, counter_t_team.score)
+
 
 remotesync func counterTerroristWin(bomb_diff):
 	if bomb_diff:
@@ -208,9 +249,14 @@ remotesync func counterTerroristWin(bomb_diff):
 	$counterterrorist_win.play()
 	
 
+remotesync func syncScore(t,ct):
+	$info/T/pts.text = String(t)
+	$info/CT/pts.text = String(ct)
+
 
 func S_onBombPlanted():
 	$oneTimer.stop()
+	emit_signal("bomb_planted")
 
 #called remotely by c4
 func _on_bomb_planted():

@@ -68,6 +68,9 @@ func _on_auto_pressed():
 
 func _on_join_button_pressed():
 	MusicMan.click()
+	if current_server.min_v > game_states.current_game_version:
+		#show popup
+		return
 	$con.show()
 	var port = int($manual_ip/container/port.text)
 	var ip = $manual_ip/container/ip.text

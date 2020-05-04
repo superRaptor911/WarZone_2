@@ -239,6 +239,8 @@ __meta__ = {
 }
 
 [node name="oneTimer" type="Timer" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="button_down" from="plant_bomb" to="." method="_on_plant_bomb_button_down"]
 [connection signal="button_up" from="plant_bomb" to="." method="_on_plant_bomb_button_up"]
 [connection signal="button_down" from="diffuse_btn" to="." method="_on_diffuse_btn_button_down"]

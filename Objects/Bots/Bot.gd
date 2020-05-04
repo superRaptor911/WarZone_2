@@ -43,13 +43,9 @@ func _ready():
 		
 		if game_server.serverInfo.game_mode == "Bombing":
 			var bomb_mode = get_tree().get_nodes_in_group("GameMode")[0]
-			bomb_mode.connect("round_started",self,"_on_new_round_start")
-			bomb_mode.connect("bomb_planted",self,"_on_bomb_planted")
-			bomb_mode.connect("round_end", $Brain,"onBombingRoundEnds")
-			var bomb_sites = get_tree().get_nodes_in_group("Bomb_site")
-			for i in bomb_sites:
-				i.connect("bot_entered",$Brain,"onEnteredBombSite")
-				print("connected signal")
+			bomb_mode.connect("round_started",$Brain,"on_new_round_starts")
+			bomb_mode.connect("bomber_selected",$Brain,"on_bomber_selected")
+			bomb_mode.connect("bomb_planted",$Brain,"on_bomb_planted")
 	else:
 		$Brain.queue_free()
 
@@ -144,7 +140,6 @@ func _on_free_timer_timeout():
 
 func _on_bot_killed():
 	createDropedItems()
-	$Brain.onKilled()
 	emit_signal("bot_killed",self)
 	#$free_timer.start()
 

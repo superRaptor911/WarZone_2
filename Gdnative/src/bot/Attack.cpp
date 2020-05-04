@@ -57,10 +57,6 @@ void Attack::getEnemy()
 
     if (current_enemy != old_enemy)
         reaction_timer->start();
-
-    #ifdef DEBUG_MODE
-        Godot::print("looking for enemies");
-    #endif
 }
 
 
