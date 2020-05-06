@@ -52,7 +52,8 @@ func setGameModeInfo(info):
 		selected_gameMode = info
 		$gameMode/Panel/Label.text = info.name
 		$gameMode/desc/Label.text = info.desc
-	
+
+
 func _start_game():
 	$Admob.hide_banner()
 	game_server.serverInfo.map = selected_level.level_name
@@ -61,6 +62,7 @@ func _start_game():
 	network.add_child(network.serverAvertiser)
 	get_tree().change_scene(selected_level.level_path)
 	queue_free()
+
 
 func _on_start_pressed():
 	_start_game()

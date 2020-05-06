@@ -84,6 +84,7 @@ func S_startRound():
 
 
 remotesync func loadBomb(bomb_name):
+	$lets_go.play()
 	$plant_bomb.hide()
 	$diffuse_btn.hide()
 	if bomb:
