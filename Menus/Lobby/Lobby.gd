@@ -8,7 +8,7 @@ onready var selected_btn = $Panel/VBoxContainer/level
 var selected_gameMode = null
 var selected_gameMode_id = 0
 
-var level_names = ["DesertComplex","Mansion","WpnTest"]
+var level_names = ["Dust","DesertComplex","Mansion"]
 
 func _ready():
 	$Admob.load_banner()
@@ -24,7 +24,7 @@ func _ready():
 	selected_btn.self_modulate = Color8(66,210,41,255) 
 	initialTween()
 	$bots/bot_difficulty/bot_diff.value = 2
-	$bots/bot_no/HSlider.value = 13
+	$bots/bot_no/HSlider.value = 10
 
 
 func loadLevelInfos():

@@ -24,10 +24,11 @@ namespace godot
 
     struct BotBombingFlags
     {
-        enum MISSION { FOLLOW_BOMBER, GOTO_BOMBSPOT, GOTO_ENEMY_SPAWN, NOTHING};
+        enum MISSION { FOLLOW_BOMBER, GOTO_BOMBSPOT, GOTO_ENEMY_SPAWN, GET_BOMB, NOTHING};
         MISSION mission = MISSION::FOLLOW_BOMBER;
         Vector2 selected_enemy_spawn;
         PoolVector2Array bomb_sites;
+        PoolVector2Array poi_s;
 
         //Terrorist flags
         bool bomb_planted = false;

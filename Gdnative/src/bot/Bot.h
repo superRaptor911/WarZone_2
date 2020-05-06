@@ -10,7 +10,7 @@
 #include <memory>
 #include <BotFlags.h>
 
-#define DEBUG_MODE
+//#define DEBUG_MODE
 
 namespace godot
 {
@@ -73,8 +73,6 @@ namespace godot
 		void on_bomber_selected(Node2D *bomber);
 		void on_bomb_dropped();
 		void on_bomb_planted();
-		void on_bomb_dropped();
-		void on_bomb_pick();
 	};
 
 

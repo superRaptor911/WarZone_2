@@ -291,7 +291,7 @@ func setupGun():
 func pause_controls(val : bool):
 	_pause_cntrl = val
 	if game_states.is_android and is_network_master():
-		get_node("controller").enabled = !val
+		hud.get_node("controller").enabled = !val
 	
 func _on_free_timer_timeout():
 	respawn_player()

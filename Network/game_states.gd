@@ -4,7 +4,7 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android : bool = false
+var is_android : bool = true
 const current_game_version : float = 1.1
 const invalid_position = Vector2(-999,-999)
 var first_run = false

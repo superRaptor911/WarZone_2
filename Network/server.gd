@@ -17,7 +17,7 @@ var extraServerInfo = {
 	time_limit = 10,
 	round_time = 2,
 	max_wins = 8,
-	bot_differ_to_user = true
+	bot_differ_to_user = false
 }
 
 

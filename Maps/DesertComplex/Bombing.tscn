@@ -10,7 +10,7 @@
 [node name="bomb_site" type="Area2D" parent="." groups=[
 "Bomb_site",
 ] instance=ExtResource( 1 )]
-position = Vector2( 1723.27, 1886.46 )
+position = Vector2( 1745.4, 1554.51 )
 script = ExtResource( 2 )
 
 [node name="spawn_point" type="Area2D" parent="." groups=[
@@ -19,15 +19,66 @@ script = ExtResource( 2 )
 position = Vector2( 1733.03, 2888.38 )
 script = ExtResource( 3 )
 
+[node name="spawn_point6" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 2259.73, 2897.23 )
+script = ExtResource( 3 )
+
+[node name="spawn_point7" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 1193.05, 2914.94 )
+script = ExtResource( 3 )
+
+[node name="spawn_point8" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 1790.57, 2397.09 )
+script = ExtResource( 3 )
+
 [node name="spawn_point2" type="Area2D" parent="." groups=[
 "SpawnPoint",
 ] instance=ExtResource( 4 )]
-position = Vector2( 1798.09, 395.624 )
+position = Vector2( 1554.66, 218.582 )
+script = ExtResource( 3 )
+team_id = 1
+
+[node name="spawn_point5" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 2236.27, 271.695 )
+script = ExtResource( 3 )
+team_id = 1
+
+[node name="spawn_point3" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 917.307, 311.529 )
+script = ExtResource( 3 )
+team_id = 1
+
+[node name="spawn_point4" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 4 )]
+position = Vector2( 2944.44, 311.529 )
 script = ExtResource( 3 )
 team_id = 1
 [connection signal="body_entered" from="bomb_site" to="bomb_site" method="_on_bomb_site_body_entered"]
 [connection signal="body_exited" from="bomb_site" to="bomb_site" method="_on_bomb_site_body_exited"]
 [connection signal="body_entered" from="spawn_point" to="spawn_point" method="_on_spawn_point_body_entered"]
 [connection signal="body_exited" from="spawn_point" to="spawn_point" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point6" to="spawn_point6" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point6" to="spawn_point6" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point7" to="spawn_point7" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point7" to="spawn_point7" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point8" to="spawn_point8" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point8" to="spawn_point8" method="_on_spawn_point_body_exited"]
 [connection signal="body_entered" from="spawn_point2" to="spawn_point2" method="_on_spawn_point_body_entered"]
 [connection signal="body_exited" from="spawn_point2" to="spawn_point2" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point5" to="spawn_point5" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point5" to="spawn_point5" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point3" to="spawn_point3" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point3" to="spawn_point3" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="spawn_point4" to="spawn_point4" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point4" to="spawn_point4" method="_on_spawn_point_body_exited"]

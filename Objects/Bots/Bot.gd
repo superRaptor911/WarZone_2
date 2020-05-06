@@ -46,6 +46,7 @@ func _ready():
 			bomb_mode.connect("round_started",$Brain,"on_new_round_starts")
 			bomb_mode.connect("bomber_selected",$Brain,"on_bomber_selected")
 			bomb_mode.connect("bomb_planted",$Brain,"on_bomb_planted")
+			bomb_mode.connect("bomb_dropped",$Brain,"on_bomb_dropped")
 	else:
 		$Brain.queue_free()
 

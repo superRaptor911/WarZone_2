@@ -20,8 +20,11 @@ var counter_t_team
 signal round_started
 signal bomb_planted
 signal bomber_selected(plr)
-signal bomber_killed
+signal bomb_dropped
 
+var bomber_msg = "You are the bomber. Plant it in bomb site and make sure that it blows"
+var t_bomb_drop_msg = "Bomber was killed, Recover the bomb and Plant it in bomb site"
+var ct_bomb_planted = "Bomb has been planted, Diffuse the bomb before it blows."
 
 func _ready():
 	#server side
@@ -58,6 +61,7 @@ func S_on_player_joined(plr):
 	#if team was empty before restart round
 	if plr.team.player_count == 1:
 		$round_end_delay.start()
+	
 
 
 #server side
@@ -80,6 +84,8 @@ func S_startRound():
 
 
 remotesync func loadBomb(bomb_name):
+	$plant_bomb.hide()
+	$diffuse_btn.hide()
 	if bomb:
 		print_debug("Error : bomb already exist")
 		bomb.queue_free()
@@ -96,6 +102,7 @@ remotesync func loadBomb(bomb_name):
 	if get_tree().is_network_server():
 		bomb.connect("bomb_planted",self,"S_onBombPlanted")
 		bomb.connect("bomb_exploded",self,"S_bombExploded")
+		bomb.connect("bomb_picked",self,"S_onBombPicked")
 
 
 
@@ -112,8 +119,14 @@ func respawnEveryOne():
 func S_endRound():
 	if (max(terrorist_team.score,counter_t_team.score) >=
 		 game_server.extraServerInfo.max_wins):
-			
+			rpc("sync_endGame")
 			return
+	if bomber:
+		bomber.disconnect("char_killed",self,"S_onBomberKilled")
+		bomber.remove_from_group("bomber")
+		if bomber.is_in_group("User"):
+			rpc_id(int(bomber.name),"notifyBomber")
+		bomber = null
 	S_startRound()
 
 
@@ -122,6 +135,7 @@ remotesync func sync_endGame():
 	if get_tree().is_network_server():
 		end_scr.connect("ok",self,"restartGameMode")
 	add_child(end_scr)
+	end_scr.setScore(int($info/T/pts.text),int($info/CT/pts.text))
 	end_scr.rect_scale = Vector2(0,0)
 	$Tween.interpolate_property(get_tree().get_nodes_in_group("Level")[0],"modulate",
 		Color8(255,255,255,255),Color8(0,0,0,0),2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
@@ -164,6 +178,8 @@ func _on_round_end_delay_timeout():
 
 #this method selects bomber from terrorist team
 func S_selectBomber():
+	if bomber:
+		print_debug("Error: bomber exist")
 	if terrorist_team.player_count > 0:
 		var players = Array()
 		#give C4 to human player
@@ -194,6 +210,7 @@ func S_selectBomber():
 
 
 remotesync func notifyBomber():
+	$popup/Label.text = bomber_msg
 	$popup.popup(2.5)
 
 
@@ -201,6 +218,12 @@ func S_handleDisconnection(plr):
 	#bomber disconnected
 	if plr == bomber:
 		bomb.dropBomb(bomber.position)
+		bomber = null
+		emit_signal("bomb_dropped")
+		var Hplayers = get_tree().get_nodes_in_group("User")
+		for i in Hplayers:
+			if i.team.team_id == 0 and i.alive:
+				rpc_id(int(i.name),"notifyBombPickup")
 
 
 func S_onBomberKilled():
@@ -209,7 +232,21 @@ func S_onBomberKilled():
 	bomber.remove_from_group("bomber")
 	#drop bomb #remote function no need to sync
 	bomb.dropBomb(bomber.position)
-	emit_signal("bomber_killed")
+	bomber = null
+	emit_signal("bomb_dropped")
+	var Hplayers = get_tree().get_nodes_in_group("User")
+	for i in Hplayers:
+		if i.team.team_id == 0 and i.alive:
+			rpc_id(int(i.name),"notifyBombPickup")
+
+
+remotesync func notifyBombPickup():
+	$popup/Label.text = t_bomb_drop_msg
+	$popup.popup(2.5)
+
+func S_onBombPicked(plr):
+	bomber = plr
+	emit_signal("bomber_selected",plr)
 
 
 func S_onTeamEliminated(team):
@@ -257,6 +294,14 @@ remotesync func syncScore(t,ct):
 func S_onBombPlanted():
 	$oneTimer.stop()
 	emit_signal("bomb_planted")
+	var Hplayers = get_tree().get_nodes_in_group("User")
+	for i in Hplayers:
+		if i.team.team_id == 1 and i.alive:
+			rpc_id(int(i.name),"notifyBombPlant")
+
+remotesync func notifyBombPlant():
+	$popup/Label.text = ct_bomb_planted
+	$popup.popup(2.5)
 
 #called remotely by c4
 func _on_bomb_planted():

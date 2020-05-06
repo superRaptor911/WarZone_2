@@ -44,6 +44,7 @@ one_shot = true
 shape = SubResource( 1 )
 
 [node name="c4indicator" type="Sprite" parent="."]
+visible = false
 modulate = Color( 1, 1, 0.54902, 1 )
 position = Vector2( -0.916112, -5.98555 )
 scale = Vector2( 1.54058, 1.12652 )

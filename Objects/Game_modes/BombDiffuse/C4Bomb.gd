@@ -4,23 +4,24 @@ var bomb_planted = false
 var explosion = preload("res://Objects/Weapons/Bomb.tscn")
 var usr = ""
 
+var bomb_dropped = false
+
 signal bomb_planted
 signal bomb_exploded
 signal bomb_diffused
 
+signal bomb_picked(plr)
 signal diffuser_entered(plr)
 signal diffuser_left(plr)
 
 func _ready():
-	hide()
-	$Area2D/CollisionShape2D.disabled = true
+	position = Vector2(-999,-999)
 
 
 func activateBomb(pos):
 	if get_tree().is_network_server() and not bomb_planted:
 		bomb_planted = true
 		rpc("bombPlanted",pos)
-		
 		emit_signal("bomb_planted")
 	else:
 		print_debug("Bomb already planted or called in peer")
@@ -36,6 +37,7 @@ func diffuseBomb():
 
 
 func dropBomb(pos):
+	bomb_dropped = true
 	rpc("bombDroped",pos)
 
 
@@ -56,6 +58,12 @@ func _on_bom_beep_timeout():
 func _on_Area2D_body_entered(body):
 	if bomb_planted and body.is_in_group("Unit") and body.team.team_id == 1:
 		emit_signal("diffuser_entered",body)
+	
+	if get_tree().is_network_server():
+		if bomb_dropped and body.is_in_group("Unit") and body.team.team_id == 0:
+			emit_signal("bomb_picked",body)
+			rpc("pickBomb")
+
 
 
 func _on_Area2D_body_exited(body):
@@ -70,6 +78,8 @@ remotesync func bombPlanted(pos):
 	show()
 	$bomb_timer/bom_beep.start()
 	position = pos
+	$c4indicator.show()
+
 
 remotesync func bombDroped(pos):
 	$Area2D/CollisionShape2D.disabled = false
@@ -93,3 +103,9 @@ remotesync func bombDiffused():
 	$bomb_timer/bom_beep.stop()
 	$Timer.stop()
 	hide()
+
+remotesync func pickBomb():
+	hide()
+	position = Vector2(-999,-999)
+	bomb_dropped = false
+	

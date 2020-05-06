@@ -32,8 +32,8 @@ void Bot::_register_methods()
 	register_method("on_bomber_selected",&Bot::on_bomber_selected);
 	register_method("on_bomb_dropped",&Bot::on_bomb_dropped);
 	register_method("on_bomb_planted",&Bot::on_bomb_planted);
-	register_method("on_bomb_dropped",&Bot::on_bomb_dropped);
-	register_method("on_bomb_pick",&Bot::on_bomb_pick);
+
+
 
 	register_property<Bot, Array> ("visible_enemies", &Bot::visible_enemies, Array());
 	register_property<Bot, Array> ("visible_friends", &Bot::visible_friends, Array());
@@ -191,14 +191,39 @@ void Bot::setGameMode(String gmod)
 	else if (gmod == "Bombing")
 	{
 		game_mode = GMODE::BOMBING;
-		
+	
 		Array sites = get_tree()->get_nodes_in_group("Bomb_site");
 		int count = sites.size();
 		for (int i = 0; i < count; i++)
 		{
 			BombFlags.bomb_sites.append(static_cast<Node2D *>(sites[i])->get_position());
 			Godot::print(std::to_string(static_cast<Node2D *>(sites[i])->get_position().x).c_str());
-		}	
+		}
+
+		#ifdef DEBUG_MODE
+			if (count == 0)
+				Godot::print("Error : no bombsite in bombing mode");
+		#endif
+
+		Array poi_s = get_tree()->get_nodes_in_group("POI");
+		if (!poi_s.empty())
+		{
+			Array points = static_cast<Node *>(poi_s[0])->get_children();
+			count = points.size();
+			for (int i = 0; i < count; i++)
+			{
+				if ( static_cast<int>(static_cast<Node2D *>(points[i])->get("team_id")) == team_id)
+				{
+					BombFlags.poi_s.append(static_cast<Node2D *>(points[i])->get_position());
+				}				
+			}
+
+			#ifdef DEBUG_MODE
+				if (count == 0)
+					Godot::print("Error : pois not found");
+			#endif			
+		}
+		
 		
 		current_state = STATE::CAMP;
 	}
@@ -366,9 +391,21 @@ void Bot::gamemodeBombing()
 					navigation_state->addPlace(BombFlags.bomb_sites[id]);
 				}
 			}
+			else if (BombFlags.mission == BotBombingFlags::MISSION::GET_BOMB)
+			{
+				Node2D *c4 = get_tree()->get_nodes_in_group("C4Bomb")[0];
+				navigation_state->addPlace(c4->get_position());
+			}
 			else
 			{
-				navigation_state->getRandomLocation();
+				if (chance(75) && (BombFlags.poi_s.size() != 0))
+				{
+
+					int rand_id = rand() % BombFlags.poi_s.size();
+					navigation_state->addPlace(BombFlags.poi_s[rand_id]);
+				}
+				else
+					navigation_state->getRandomLocation();
 			}			
 		}
 		if (!visible_enemies.empty())
@@ -555,6 +592,11 @@ void Bot::on_new_round_starts()
 		if (team_id == 1)
 		{
 			BombFlags.mission = BotBombingFlags::MISSION::GOTO_ENEMY_SPAWN;
+			if (BombFlags.poi_s.size() != 0)
+			{
+				int rand_id = rand() % BombFlags.poi_s.size();
+				navigation_state->addPlace(BombFlags.poi_s[rand_id]);
+			}			
 		}
 		else
 		{
@@ -573,9 +615,10 @@ void Bot::on_selected_as_bomber()
 	BombFlags.is_bomber = true;
 	BombFlags.mission = BotBombingFlags::MISSION::GOTO_BOMBSPOT;
 	current_state = STATE::ROAM;
+	navigation_state->clearPlaces();
 	BombFlags.selected_bombSite_id = rand() % BombFlags.bomb_sites.size();
 	navigation_state->addPlace(BombFlags.bomb_sites[ BombFlags.selected_bombSite_id ]);
-			
+			Godot::print("selected as bomber, going to plant");
 	#ifdef DEBUG_MODE
 		Godot::print("selected as bomber, going to plant");
 	#endif
@@ -591,13 +634,27 @@ void Bot::on_bomber_selected(Node2D *bomber)
 	else if (BombFlags.mission == BotBombingFlags::MISSION::FOLLOW_BOMBER)
 	{
 		NavFlags.leader = bomber;
+		current_state = STATE::FOLLOW;
 	}
+	else if (BombFlags.mission == BotBombingFlags::MISSION::GET_BOMB)
+	{
+		if (chance(60))
+		{
+			BombFlags.mission = BotBombingFlags::MISSION::GOTO_BOMBSPOT;
+			current_state = STATE::ROAM;
+			BombFlags.selected_bombSite_id = rand() % BombFlags.bomb_sites.size();
+			navigation_state->addPlace(BombFlags.bomb_sites[ BombFlags.selected_bombSite_id ]);
+		}
+		else
+		{
+			BombFlags.mission = BotBombingFlags::MISSION::FOLLOW_BOMBER;
+			NavFlags.leader = bomber;
+			current_state = STATE::FOLLOW;
+		}		
+	}
+	
 }
 
-void Bot::on_bomb_dropped()
-{
-	BombFlags.bomber = nullptr;
-}
 
 void Bot::on_bomb_planted()
 {
@@ -617,14 +674,18 @@ void Bot::on_bomb_planted()
 	}
 }
 
+
 void Bot::on_bomb_dropped()
 {
-
-}
-
-void Bot::on_bomb_pick()
-{
-
+	if (team_id == 0)
+	{
+		BombFlags.mission = BotBombingFlags::MISSION::GET_BOMB;
+		current_state = STATE::ROAM;
+		navigation_state->clearPlaces();
+		Node2D *c4 = get_tree()->get_nodes_in_group("C4Bomb")[0];
+		navigation_state->addPlace(c4->get_position());
+		BombFlags.bomber = nullptr;
+	}	
 }
 
 
