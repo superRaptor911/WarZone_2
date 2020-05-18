@@ -66,7 +66,7 @@ func fireGun():
 remotesync func _create_bullet(cast_to):
 	if game_states.game_settings.particle_effects:
 		var bullet = projectile.instance()
-		bullet.create_bullet($Muzzle.global_position,global_rotation,1500,cast_to)
+		bullet.create_bullet($Muzzle.global_position,cast_to)
 		get_tree().root.add_child(bullet)
 	
 	$Muzzle/muzzle.show()
@@ -84,6 +84,7 @@ remotesync func chkBulletHit():
 	var space_state = get_world_2d().direct_space_state
 	var result = space_state.intersect_ray(global_position, cast_to, [self])
 	if result:
+		cast_to = result.position
 		if result.collider.is_in_group("Actor"):
 			result.collider.takeDamage(damage,gun_name,gun_user)
 	$recoil_reset.start()
@@ -136,3 +137,5 @@ func _draw():
 
 func _on_recoil_reset_timeout():
 	recoil = 0
+
+

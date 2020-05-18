@@ -42,7 +42,7 @@ func _ready():
 	game_states.last_match_result.death = 0
 	game_states.last_match_result.xp =0
 	$Gun.queue_free()
-	$name_tag.text = pname
+	$tag/name_tag.text = pname
 	setupGun()
 	if is_network_master():
 		#enable dynamic camera
@@ -54,11 +54,13 @@ func _ready():
 		hud = load("res://Menus/HUD/Hud.tscn").instance()
 		hud.setUser(self)
 		add_child(hud)
+		$aim_indicator.show()
 	if get_tree().is_network_server():
 		connect("char_killed",self,"_on_peer_killed")
 
 func _on_player_killed():
 	$Camera2D.current = false
+	$aim_indicator.hide()
 	pause_controls(true)
 	createDropedItems()
 
@@ -124,12 +126,12 @@ func load_guns(nam : String , nam2 : String):
 		sec_gun.queue_free()
 	sec_gun = g2
 	
+	primary_gun.name = nam
+	sec_gun.name = nam2
+	
 	if is_network_master():
 		getWpnAttachments()
-	
-	if not skin:
-		print("Error no skin")
-	#selected_gun.position = $Model.get("fist").position
+
 
 func getWpnAttachments():
 	for i in game_states.player_data.guns:
@@ -222,6 +224,7 @@ remotesync func sync_respawn(pos,id):
 	skin.revive()
 	if is_network_master():
 		$Camera2D.current = true
+		$aim_indicator.show()
 	if not was_alive:
 		emit_signal("char_born")
 

@@ -64,7 +64,7 @@ config/name="WarZone_2"
 run/main_scene="res://Menus/MainMenu/LoadingMenu.tscn"
 boot_splash/image="res://Sprites/qq.png"
 boot_splash/fullsize=false
-config/icon="res://icon.png"
+config/icon="res://Sprites/WARZONE-512.png"
 
 [autoload]
 

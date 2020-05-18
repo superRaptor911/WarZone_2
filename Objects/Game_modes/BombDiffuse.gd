@@ -128,7 +128,15 @@ func S_endRound():
 		if bomber.is_in_group("User"):
 			rpc_id(int(bomber.name),"notifyBomber")
 		bomber = null
+	rpc("syncRoundEnd")
 	S_startRound()
+
+
+remotesync func syncRoundEnd():
+	#free droped items at round end
+	var drops = get_tree().get_nodes_in_group("DropedItem")
+	for i in drops:
+		i.queue_free()
 
 
 remotesync func sync_endGame():

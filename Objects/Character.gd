@@ -27,10 +27,8 @@ signal char_killed_someone
 
 func _ready():
 	remove_child($Model)
-	
 	if skin == null:
 		setSkin(game_states.modelResource.t1.instance())
-	
 	emit_signal("char_born")
 
 

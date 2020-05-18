@@ -60,9 +60,9 @@ func load_guns(nam : String , nam2 : String):
 	if sec_gun:
 		sec_gun.queue_free()
 	sec_gun = g2
-	
-	if not skin:
-		print("Error no skin")
+
+	primary_gun.name = nam
+	sec_gun.name = nam2
 
 
 remotesync func switchGun():
