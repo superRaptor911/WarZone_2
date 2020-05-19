@@ -9,6 +9,7 @@ var str_format = "%s\nKills : %d\nDeaths : %d\nHP : %d\nAP : %d"
 signal leave_spec_mode
 
 func _ready():
+	print("spectating")
 	players_n_bots.clear()
 	getPlayersAndBots()
 	

@@ -119,11 +119,6 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 		
 		attacker_ref.emit_signal("char_killed_someone")
 		game_server.handleKills(name,attacker_id,weapon)
-		
-		#change camera to killer
-		if self.is_in_group("User") and attacker_ref.is_in_group("Unit"):
-			rpc_id(int(self.name),"switchCameraToKiller",attacker_ref.name)
-		
 		#sync with everyone
 		rpc("sync_death")
 

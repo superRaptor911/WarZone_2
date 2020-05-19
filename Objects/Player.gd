@@ -22,6 +22,7 @@ var hud = null
 
 var grenade = preload("res://Objects/Weapons/grenade.tscn")
 var wpn_drop = preload("res://Objects/Misc/WpnDrop.tscn").instance()
+var spectate = preload("res://Objects/Game_modes/Spectate.tscn").instance()
 var _pause_cntrl : bool = false
 
 var cur_dropped_item_id = 0
@@ -115,6 +116,9 @@ remotesync func pickUpItem(item):
 
 func _on_peer_killed():
 	emit_signal("player_killed",self)
+	get_parent().add_child(spectate)
+	hud.hide()
+	
 	
 func load_guns(nam : String , nam2 : String):
 	var g = game_states.weaponResource[nam].instance()
@@ -225,6 +229,7 @@ remotesync func sync_respawn(pos,id):
 	if is_network_master():
 		$Camera2D.current = true
 		$aim_indicator.show()
+		get_parent().remove_child(spectate)
 	if not was_alive:
 		emit_signal("char_born")
 

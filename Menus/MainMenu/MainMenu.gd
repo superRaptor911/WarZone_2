@@ -7,6 +7,7 @@ var add_shown = false
 func _ready():
 	add_shown = false
 	MusicMan.music_player.volume_db = -2.0
+	MusicMan.music_player.play()
 	print("ready called")
 	tweenInitial()
 	get_tree().paused = false

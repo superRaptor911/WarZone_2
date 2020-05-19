@@ -5,14 +5,14 @@
 [ext_resource path="res://Sprites/particles/smoke1.png" type="Texture" id=3]
 [ext_resource path="res://Objects/Graphics/shaders/dot.shader" type="Shader" id=4]
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 4 )
 shader_param/speed = 5.0
 
-[sub_resource type="Curve" id=1]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0.538961, 0.290909 ), 0.0, -0.124658, 0, 0, Vector2( 1, 0.890909 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.770992, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
@@ -25,7 +25,7 @@ one_shot = true
 autostart = true
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 3 )
+material = SubResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="impact" type="CPUParticles2D" parent="."]
@@ -46,6 +46,6 @@ angular_velocity = 10.0
 angular_velocity_random = 0.54
 linear_accel = -15.0
 scale_amount = 0.4
-scale_amount_curve = SubResource( 1 )
-color_ramp = SubResource( 2 )
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )
 [connection signal="timeout" from="Time_to_live" to="." method="_on_Time_to_live_timeout"]
