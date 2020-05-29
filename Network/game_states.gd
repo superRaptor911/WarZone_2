@@ -36,7 +36,8 @@ var game_settings = {
 	particle_effects = true,
 	lighting_effects = true,
 	music_enabled = true,
-	dynamic_camera = true
+	dynamic_camera = true,
+	show_fps = false
 }
 
 #control types available
@@ -45,11 +46,11 @@ var control_types = {
 }
 
 #models available
-var modelResource = {
-	ct1 = preload("res://Models/ct1.tscn"),
-	t1 = preload("res://Models/t1.tscn"),
-	t2 = preload("res://Models/t2.tscn"),
-	ct2 = preload("res://Models/ct2.tscn")
+var skinResource = {
+	ct1 = preload("res://Sprites/Character/cr1/ct1.bmp"),
+	t1 = preload("res://Sprites/Character/cr1/t1.bmp"),
+	t2 = preload("res://Sprites/Character/t2.bmp"),
+	ct2 = preload("res://Sprites/Character/ct2.bmp")
 }
 
 #classes
@@ -105,19 +106,24 @@ var last_match_result = {
 
 
 func getLevelFromXP(xp : int) -> int:
+# warning-ignore:integer_division
 	return xp / 50
 
 
 func _ready():
 	var gameStatus : Dictionary = load_data("user://status.dat",false)
+	Logger.Log("Loading status.dat")
+	
 	if gameStatus.has("game_version"):
 		if gameStatus.game_version != current_game_version:
 			portGameToCurrentVersion(gameStatus.game_version)
+			Logger.Log("Game version is different, porting %f to %f" % [gameStatus.game_version, current_game_version])
 		else:
 			game_settings = load_data("user://settings.dat")
 			player_data = load_data("user://pinfo.dat")
-			print(player_data.name)
+			Logger.Log("Loading settings from disk")			
 	else:
+		Logger.Log("Running for the first time, Loading default settings")
 		saveDefaultData()
 		first_run = true
 	_init_setup()
@@ -133,13 +139,12 @@ func saveDefaultData():
 	save_data("user://settings.dat",game_settings)
 	save_data("user://status.dat",game_status,false)
 	
-	var default_guns : Array
+	var default_guns = Array()
 	default_guns.append("MP5")
 	default_guns.append("default_gun")
-	var default_skins : Array
+	var default_skins = Array()
 	default_skins.append("t1")
 	default_skins.append("ct1")
-	
 	var gun_data = {gun_name = "", laser = false, mag_ext = false}
 	
 	player_data.selected_guns = default_guns
@@ -252,7 +257,7 @@ func generateBotProfiles():
 		is_in_use = false
 	}
 	
-	var bot_names : Array
+	var bot_names = Array()
 	bot_names.append("Raptor")
 	bot_names.append("killer")
 	bot_names.append("Hunter")
@@ -277,21 +282,21 @@ func generateBotProfiles():
 	bot_names.append("Corona")
 	bot_names.append("Ebola")
 		
-	var bot_primary_weapons : Array
+	var bot_primary_weapons = Array()
 	bot_primary_weapons.append("MP5")
 	bot_primary_weapons.append("P90")
 	bot_primary_weapons.append("Famas")
 	bot_primary_weapons.append("mac10")
 	bot_primary_weapons.append("default_gun")
 	
-	var bot_sec_weapons : Array
+	var bot_sec_weapons = Array()
 	bot_sec_weapons.append("default_gun")
 	bot_sec_weapons.append("deagle")
 	
-	var bot_t_skins : Array
+	var bot_t_skins = Array()
 	bot_t_skins.append("t1")
 	
-	var bot_ct_skins : Array
+	var bot_ct_skins = Array()
 	bot_ct_skins.append("ct1")
 	
 	for b in bot_names:
@@ -307,4 +312,6 @@ func generateBotProfiles():
 		new_bot_profile.bot_t_skin = bot_t_skins[t_sk_id]
 		new_bot_profile.bot_ct_skin = bot_ct_skins[ct_sk_id]
 		bot_profiles.bot.append(new_bot_profile)
+	
+	Logger.Log("Generated %d bot profiles" % [bot_profiles.bot.size()])
 	

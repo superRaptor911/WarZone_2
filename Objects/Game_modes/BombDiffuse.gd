@@ -27,6 +27,7 @@ var t_bomb_drop_msg = "Bomber was killed, Recover the bomb and Plant it in bomb 
 var ct_bomb_planted = "Bomb has been planted, Diffuse the bomb before it blows."
 
 func _ready():
+	level = get_tree().get_nodes_in_group("Level")[0]
 	#server side
 	if get_tree().is_network_server():
 		round_time = game_server.extraServerInfo.round_time * 60
@@ -44,11 +45,10 @@ func _ready():
 			i.connect("team_eliminated",self,"S_onTeamEliminated")
 		
 		#connect signals
-		level = get_tree().get_nodes_in_group("Level")[0]
-		level.connect("player_despawned",self,"S_handleDisconnection")
-		level.connect("bot_despawned",self,"S_handleDisconnection")
-		level.connect("player_spawned",self,"S_on_player_joined")
-		level.connect("bot_spawned",self,"S_on_player_joined")
+		level.connect("player_removed",self,"S_handleDisconnection")
+		level.connect("bot_removed",self,"S_handleDisconnection")
+		level.connect("player_created",self,"S_on_player_joined")
+		level.connect("bot_created",self,"S_on_player_joined")
 		
 		#handle bomb site signals
 		var bomb_sites = get_tree().get_nodes_in_group("Bomb_site")
@@ -108,13 +108,9 @@ remotesync func loadBomb(bomb_name):
 
 
 func respawnEveryOne():
-	var players = get_tree().get_nodes_in_group("User")
+	var players = get_tree().get_nodes_in_group("Unit")
 	for i in players:
-		i.respawn_player()
-
-	var bots = get_tree().get_nodes_in_group("Bot")
-	for i in bots:
-		i.respawnBot()
+		i.S_respawnUnit()
 
 
 func S_endRound():
@@ -155,7 +151,6 @@ remotesync func sync_endGame():
 
 
 func restartGameMode():
-	var level = get_tree().get_nodes_in_group("Level")[0]
 	level.Server_startLevel()
 	$Tween.interpolate_property(level,"modulate",Color8(0,0,0,0),Color8(255,255,255,255),
 		2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
@@ -176,9 +171,11 @@ func _on_oneTimer_timeout():
 
 remotesync func syncTime(time_now):
 	var time_left : int = round_time - time_now
+	# warning-ignore:integer_division
 	var _min : int = time_left / 60
 	var _sec : int = time_left % 60
 	$info/time_left.text = String(_min) + ":" + String(_sec)
+
 
 
 func _on_round_end_delay_timeout():

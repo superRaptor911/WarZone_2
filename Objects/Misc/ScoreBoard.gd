@@ -1,5 +1,7 @@
 extends Panel
 
+signal scoreboard_closed
+
 var no_slots = 22
 
 func _ready():
@@ -33,7 +35,7 @@ func setBoardData(data_dict : Dictionary):
 		slot.get_node("ping").text = String(i.ping)
 		index += 1
 	
-	for i in range(index , no_slots + 1):
+	for _i in range(index , no_slots + 1):
 		get_node("T/Plist/s" + String(index)).hide()
 		index += 1
 	
@@ -47,10 +49,10 @@ func setBoardData(data_dict : Dictionary):
 		slot.get_node("ping").text = String(i.ping)
 		index += 1
 
-	for i in range(index , no_slots + 1):
+	for _i in range(index , no_slots + 1):
 		get_node("CT/Plist/s" + String(index)).hide()
 		index += 1
 
 
 func _on_back_pressed():
-	hide()
+	emit_signal("scoreboard_closed")

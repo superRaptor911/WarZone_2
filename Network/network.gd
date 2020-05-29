@@ -22,7 +22,7 @@ func _ready():
 	get_tree().connect("connection_failed", self, "_on_connection_failed")
 	get_tree().connect("server_disconnected", self, "_on_disconnected_from_server")
 
-func _on_player_connected(id):
+func _on_player_connected(_id):
 	pass
 
 func _on_player_disconnected(id):
@@ -34,6 +34,7 @@ func _on_player_disconnected(id):
 
 func _on_connected_to_server():
 	emit_signal("join_success")
+	Logger.Log("Connected to server")
 	game_states.player_info.net_id = get_tree().get_network_unique_id()
 	rpc_id(1, "register_player", game_states.player_info)
 	register_player(game_states.player_info)
@@ -44,7 +45,6 @@ func _on_connection_failed():
 
 func _on_disconnected_from_server():
 	print("Disconnected from server")
-	#get_tree().paused = true
 	# Clear the network object
 	get_tree().set_network_peer(null)
 	# Allow outside code to know about the disconnection
@@ -57,11 +57,15 @@ func _on_disconnected_from_server():
 func create_server(server_name,port,max_players):
 	players.clear()
 	var net = NetworkedMultiplayerENet.new()
+	Logger.Log("Creating server %s on port %d" % [server_name,port])
+	
 	if (net.create_server(port,max_players) != OK):
-		print("Failed to create server")
+		Logger.Log("Failed to create server on port %d" % [port])	
 		return
+		
 	get_tree().set_network_peer(net)
 	emit_signal("server_created")
+	Logger.Log("Loading Server Avertiser")
 	serverAvertiser = preload("res://Network/ServerAdvertiser.gd").new()
 	register_player(game_states.player_info)
 	game_server.serverInfo.port = String(port)
@@ -71,12 +75,14 @@ func create_server(server_name,port,max_players):
 	
 	
 func join_server(ip, port):
+	Logger.Log("Connecting to server %s:%d" % [ip,port])
 	players.clear()
 	var net = NetworkedMultiplayerENet.new()
 	if (net.create_client(ip, port) != OK):
-		print("Failed to create client")
 		emit_signal("join_fail")
+		Logger.Log("Connection failed")
 		return
+	Logger.Log("Connection successful")
 	get_tree().set_network_peer(net)
 
 
@@ -88,12 +94,14 @@ remote func register_player(pinfo):
 			rpc_id(pinfo.net_id, "register_player", players[id])
 			if (id != 1):
 				rpc_id(id, "register_player", pinfo)
-	print("Registering player ", pinfo.name, " (", pinfo.net_id, ") to internal player table")
+
+	Logger.Log("Regestering player %s with id %d" % [pinfo.name, pinfo.net_id])
 	players[pinfo.net_id] = pinfo          # Create the player entry in the dictionary
 	emit_signal("player_list_changed")     # And notify that the player list has been changed
 
+
 remote func unregister_player(id):
-	print("Removing player ", players[id].name, " from internal table")
+	Logger.Log("Un-regestering player %s with id %d" % [players[id].name, players[id].net_id])
 	emit_signal("player_removed", players[id])
 	players.erase(id)
 	emit_signal("player_list_changed")
@@ -102,8 +110,10 @@ remote func unregister_player(id):
 remote func kick_player(net_id, reason):
 	if get_tree().is_network_server():
 		if net_id == 1:
+			Logger.Log("Kicking server player, Server will be closed")
 			_close_server()
 		else:
+			Logger.Log("Kicking player %d for %s" % [net_id,reason])
 			rpc_id(net_id,"kicked", reason)
 			get_tree().network_peer.disconnect_peer(net_id)
 
@@ -131,6 +141,7 @@ func _close_server():
 	
 
 func stopServer():
+	Logger.Log("Closing server")
 	#kick players
 	for i in players:
 		if i != 1:

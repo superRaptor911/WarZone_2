@@ -1,141 +1,143 @@
-extends Node2D
 class_name Gun
+extends Node2D
 
 export var gun_type : String = "pistol"
 export var gun_name : String = "null"
 export var damage : float = 18
-export var rounds_in_clip : int = 10
+export var clip_size : int = 10
 export var gun_rating : int = 0
 export var rate_of_fire : float = 4
-export var max_zoom : float = 1.0
+export var zoom_range : PoolRealArray = [0.75, 0.85]
 export var recoil_factor : float = 0.2
 export var spread : float = 2
 export var gun_portrait : Texture = preload("res://Sprites/Weapons/gun_p.png")
 export var gun_d_img : Texture
 export var wpn_cost : int = 500
 
-var current_zoom : float = 0.75
-var projectile = preload("res://Objects/Weapons/Projectile.tscn")
-var ready_to_fire : bool = true
-var gun_user : String = "" 
 var rounds_left = 0
-var reloading : bool = false
-var clips : int = 4
+var clip_count : int = 4
 
-var max_ray_distance : float = 200
-var ray_dest : Vector2
-var laser_sight : bool = false
-var extended_mag : bool = false
-var muzzle_frames = 0
-var recoil = 0
+var _zoom_index : int = 0
+var _ready_to_fire : bool = true
+var user_id : String = "" 
+var is_reloading : bool = false
+var _max_ray_distance : float = 200
+var _ray_dest : Vector2
+var _use_laser_sight : bool = false
+var _has_extended_mag : bool = false
+var _muzzle_frame_id : int = 0
+var _recoil = 0
+
+onready var _fire_delay = 1.0 / rate_of_fire
 
 signal gun_fired
-signal reloading_gun
+signal gun_reloaded
+
 
 func _ready():
-	spread = spread * 3.14 / 180
+	#convert to radians
+	spread = spread * PI / 180
 	if rounds_left == 0:
 		reload()
 	#if it does not have parent/user then force get parent
-	if not gun_user:
-		gun_user = get_parent().name
+	if user_id == "":
+		print_debug("user id not set")
 
-func extendMag():
-	if extended_mag:
-		rounds_in_clip += int(0.33 * rounds_in_clip)
 
 #Try to fire gun
 func fireGun():
-	#ammo check
-	if clips <= 0 and rounds_left <= 0:
-		#No ammo
-		#play clipout sound
-		if ready_to_fire:
+	if _ready_to_fire:
+		if clip_count <= 0 and rounds_left <= 0:
 			$clipOut.play()
-			ready_to_fire = false
-			$Timer.start(1 / rate_of_fire)
-	elif ready_to_fire and rounds_left > 0:
-		_shoot()
-	elif rounds_left <= 0:
-		#auto reload
-		if not reloading:
+			_ready_to_fire = false
+			$Timer.start(_fire_delay)
+		elif rounds_left > 0:
+			_shoot()
+		elif rounds_left <= 0:
 			reload()
-			reloading = true
+
 
 #create projectile
-remotesync func _create_bullet(cast_to):
-	if game_states.game_settings.particle_effects:
-		var bullet = projectile.instance()
-		bullet.create_bullet($Muzzle.global_position,cast_to)
-		get_tree().root.add_child(bullet)
-	
+remotesync func P_createBullet(_cast_to):
 	$Muzzle/muzzle.show()
-	muzzle_frames = 3
+	_muzzle_frame_id = 3
 	$fire.play()
 	emit_signal("gun_fired")
 
 
 #server only method
-remotesync func chkBulletHit():
-	var error_angle = rand_range(-spread - recoil * 0.01,spread + recoil * 0.01)
+remotesync func S_checkBulletHit():
+	var error_angle = rand_range(-spread - _recoil * 0.01,spread + _recoil * 0.01)
 	var cast_to = Vector2(0,-750).rotated(global_rotation + error_angle) + global_position
-	recoil += recoil_factor
+	_recoil += recoil_factor
 	
 	var space_state = get_world_2d().direct_space_state
 	var result = space_state.intersect_ray(global_position, cast_to, [self])
 	if result:
 		cast_to = result.position
 		if result.collider.is_in_group("Actor"):
-			result.collider.takeDamage(damage,gun_name,gun_user)
+			result.collider.takeDamage(damage,gun_name,user_id)
 	$recoil_reset.start()
-	rpc("_create_bullet",cast_to)
+	rpc("P_createBullet",cast_to)
 
 
 #shoot weapon
 func _shoot():
-	rpc_id(1,"chkBulletHit")
-	ready_to_fire = false
+	rpc_id(1,"S_checkBulletHit")
+	_ready_to_fire = false
 	$Timer.start(1 / rate_of_fire)
 	rounds_left -= 1
 
 
 func _on_Timer_timeout():
-	ready_to_fire = true
+	_ready_to_fire = true
+
 
 #do reloading
 func reload():
-	if clips > 0 and not reloading:
+	if clip_count > 0 and not is_reloading:
 		$reload.play()
 		$Reload_time.start()
-		reloading = true
-		emit_signal("reloading_gun")
+		is_reloading = true
+
 
 #reload weapon
 func _on_Reload_time_timeout():
-	clips -= 1
-	rounds_left = rounds_in_clip
-	reloading = false
+	clip_count -= 1
+	rounds_left = clip_size
+	is_reloading = false
+	emit_signal("gun_reloaded")
 
-func _process(delta):
-	muzzle_frames = max(muzzle_frames - 1,0)
-	if muzzle_frames == 1:
+func _process(_delta):
+# warning-ignore:narrowing_conversion
+	_muzzle_frame_id = max(_muzzle_frame_id - 1,0)
+	if _muzzle_frame_id == 1:
 		$Muzzle/muzzle.hide()
 	#update _draw()
-	if laser_sight:
+	if _use_laser_sight:
 		update()
-		ray_dest = $RayCast2D.cast_to.rotated(global_rotation) + $RayCast2D.global_position
+		_ray_dest = $RayCast2D.cast_to.rotated(global_rotation) + $RayCast2D.global_position
 		if $RayCast2D.is_colliding():
-			ray_dest = $RayCast2D.get_collision_point()
+			_ray_dest = $RayCast2D.get_collision_point()
 
 func _draw():
-	if laser_sight:
-		draw_line($Muzzle.position, (ray_dest - $RayCast2D.global_position).rotated(-global_rotation)
+	if _use_laser_sight:
+		draw_line($Muzzle.position, (_ray_dest - $RayCast2D.global_position).rotated(-global_rotation)
 		+ $RayCast2D.position , Color.red)
-		draw_circle((ray_dest - $RayCast2D.global_position).rotated(-global_rotation) + $RayCast2D.position 
+		draw_circle((_ray_dest - $RayCast2D.global_position).rotated(-global_rotation) + $RayCast2D.position 
 		, 3, Color.red)
 
 
 func _on_recoil_reset_timeout():
-	recoil = 0
+	_recoil = 0
 
 
+func getNextZoom() -> Vector2:
+	_zoom_index += 1
+	if _zoom_index >= zoom_range.size():
+		_zoom_index = 0
+	
+	return Vector2(zoom_range[_zoom_index], zoom_range[_zoom_index])
+
+func getCurrentZoom() -> Vector2:
+	return Vector2(zoom_range[_zoom_index], zoom_range[_zoom_index])

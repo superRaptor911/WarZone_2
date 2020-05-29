@@ -7,8 +7,9 @@ var add_shown = false
 func _ready():
 	add_shown = false
 	MusicMan.music_player.volume_db = -2.0
-	MusicMan.music_player.play()
-	print("ready called")
+	if game_states.game_settings.music_enabled:
+		MusicMan.music_player.play()
+		
 	tweenInitial()
 	get_tree().paused = false
 	$Timer.connect("timeout",self,"goToNextScene")

@@ -3,31 +3,37 @@ extends CanvasLayer
 var user
 var kill_msg_slots : Kill_Message_slots
 var score_board = preload("res://Objects/Misc/ScoreBoard.tscn").instance()
+var admin_menu = null
 var frames : int = 0
+
+onready var reload_node = $reload
+onready var reload_progress = get_node("reload/TextureProgress")
 
 func _ready():
 	if not game_states.is_android:
 		$controller.queue_free()
+	
 	kill_msg_slots = Kill_Message_slots.new(self,8)
 	$fps_timer.start()
-	score_board.hide()
-	game_server.connect("player_data_synced",self,"updateScoreBoard")
-	add_child(score_board)
+	score_board.connect("scoreboard_closed", self, "_on_scoreboard_closed")
+	
+	#Enable admin menu if admin
 	if get_tree().is_network_server():
 		$Panel2/admin_menu.disabled = false
+		admin_menu = load("res://Menus/HUD/AdminPanel.tscn").instance()
+		admin_menu.connect("adminPanel_closed", self, "_on_admin_menu_closed")
 
+
+#setup user
 func setUser(u):
 	user = u
 	$controller.user = u
 	user.connect("gun_picked",self,"_on_gun_picked")
-	$reload/gun_s.texture = user.selected_gun.gun_portrait
-	$reload/TextureProgress.max_value = user.selected_gun.rounds_in_clip
-	$reload/TextureProgress.value =  user.selected_gun.rounds_left
-	setClipCount(user.selected_gun.clips)
-	if not user.selected_gun.is_connected("reloading_gun",self,"_on_gun_reload"):
-		user.selected_gun.connect("reloading_gun",self,"_on_gun_reload")
+	user.connect("gun_loaded", self, "setWeaponInfo")
+	user.connect("gun_switched", self, "setWeaponInfo")
 
 
+#show mags remaining in hud
 func setClipCount(count):
 	var n = $reload
 	for i in range(1,5):
@@ -37,19 +43,22 @@ func setClipCount(count):
 		n.get_node("b" + String(i)).show()
 
 
-func _process(delta):
+func _process(_delta):
 	frames += 1
-	$reload/TextureProgress.value =  user.selected_gun.rounds_left
+	reload_progress.value =  user.selected_gun.rounds_left
 
+#handle quit pressed
 func _on_quit_pressed():
 	if get_tree().is_network_server():
 		network.kick_player(game_states.player_info.net_id,"Disconnected From Server")
 	else:
 		network.rpc_id(1,"kick_player",game_states.player_info.net_id,"Disconnected From Server")
 
+#handle paused pressed
 func _on_pause_pressed():
 	$Panel2.show()
 	pauseMenuOpenTween()
+
 
 class MyPlayerSorter:
 	static func sort(a, b):
@@ -58,24 +67,20 @@ class MyPlayerSorter:
 		return true
 
 
-
 func _on_score_pressed():
 	pauseMenuCloseTween()
-	if not get_tree().is_network_server():
-		game_server.rpc_id(1,"ServerSyncPlayerDataList",game_states.player_info.net_id)
-	else:
-		updateScoreBoard()
-	score_board.show()
+	updateScoreBoard()
+	add_child(score_board)
+
+#remove scoreboard when closed
+func _on_scoreboard_closed():
+	remove_child(score_board)
 
 func updateScoreBoard():
 	score_board.setBoardData(game_server._player_data_list)
 
 func _on_zoom_pressed():
-	if user.selected_gun.current_zoom == user.selected_gun.max_zoom:
-		user.selected_gun.current_zoom = 0.75
-	else:
-		user.selected_gun.current_zoom = user.selected_gun.max_zoom
-	user.get_node("Camera2D").zoom = Vector2(user.selected_gun.current_zoom,user.selected_gun.current_zoom)
+	user.get_node("Camera2D").zoom = user.selected_gun.getNextZoom()
 
 func _on_HE_pressed():
 	if game_states.player_data.nade_count > 0:
@@ -119,7 +124,7 @@ class Kill_Message_slots:
 		hud = usr
 		active_slots = 0
 		max_slots = num
-		for i in range(0,num):
+		for _i in range(0,num):
 			msg_slots.append(Message_slot.new())
 		timer = Timer.new()
 		timer.wait_time = 3.0
@@ -167,23 +172,32 @@ class Kill_Message_slots:
 func addKillMessage(msg):
 	kill_msg_slots.addKillMessage(msg)
 
+#set weapon info in hud
+func setWeaponInfo():
+	if not user.selected_gun:
+		return
+	 
+	reload_node.get_node("gun_s").texture = user.selected_gun.gun_portrait
+	reload_progress.max_value = user.selected_gun.clip_size
+	reload_progress.value =  user.selected_gun.rounds_left
+	setClipCount(user.selected_gun.clip_count)
+	user.get_node("Camera2D").zoom = user.selected_gun.getCurrentZoom()
 
+	if not user.selected_gun.is_connected("gun_reloaded",self,"_on_gun_reload"):
+		user.selected_gun.connect("gun_reloaded",self,"_on_gun_reload")
+
+
+#switch weapon when "next gun" is pressed
 func _on_nextGun_pressed():
 	user.rpc("switchGun")
-	$reload/gun_s.texture = user.selected_gun.gun_portrait
-	$reload/TextureProgress.max_value = user.selected_gun.rounds_in_clip
-	$reload/TextureProgress.value =  user.selected_gun.rounds_left
-	setClipCount(user.selected_gun.clips)
-	if not user.selected_gun.is_connected("reloading_gun",self,"_on_gun_reload"):
-		user.selected_gun.connect("reloading_gun",self,"_on_gun_reload")
 
 
 func _on_gun_reload():
-	setClipCount(user.selected_gun.clips)
+	setClipCount(user.selected_gun.clip_count)
 
 
 func _on_gun_picked():
-	setClipCount(user.selected_gun.clips)
+	setClipCount(user.selected_gun.clip_count)
 	if not user.selected_gun.is_connected("reloading_gun",self,"_on_gun_reload"):
 		user.selected_gun.connect("reloading_gun",self,"_on_gun_reload")
 
@@ -196,8 +210,10 @@ func _on_back_pressed():
 
 func _on_admin_menu_pressed():
 	pauseMenuCloseTween()
-	var admin_menu = load("res://Menus/HUD/AdminPanel.tscn").instance()
 	add_child(admin_menu)
+
+func _on_admin_menu_closed():
+	remove_child(admin_menu)
 
 
 func _on_fps_timer_timeout():

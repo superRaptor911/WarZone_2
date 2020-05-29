@@ -14,3 +14,4 @@ Gdnative/src/bot/.vscode/
 android/
 output/
 *.zip
+logs/

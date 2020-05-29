@@ -35,15 +35,14 @@ remotesync func createDropedItem(item_data,item_id):
 remotesync func requestPickUp(pid : String,item_id : int):
 	var drop = Items.get(item_id)
 	if drop:
-		var p = null
-		var players  = get_tree().get_nodes_in_group("Unit")
-		for i in players:
-			if i.name == pid:
-				p = i
-				break
-		p.rpc("pickUpItem",drop.item_data)
-		drop.rpc("itemPicked")
-		eraseItem(item_id)
+		var p = game_server._unit_data_list.get(pid)
+		if p:
+			p.rpc("pickUpItem",drop.item_data)
+			drop.rpc("itemPicked")
+			eraseItem(item_id)
+		else:
+			Logger.Log("Error at func [requestPickUp]")
+			Logger.Log("->Cannot find unit with node name %s" % [pid])
 
 
 func eraseItem(item_id):

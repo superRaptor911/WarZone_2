@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://admob-lib/admob.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Bot",
+"language": "GDScript",
+"path": "res://Objects/Bots/Bot.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Character",
+"language": "GDScript",
+"path": "res://Objects/Character.gd"
+}, {
 "base": "Node2D",
 "class": "Gun",
 "language": "GDScript",
@@ -43,15 +53,23 @@ _global_script_classes=[ {
 "class": "Team",
 "language": "GDScript",
 "path": "res://Objects/scripts/Team.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Unit",
+"language": "GDScript",
+"path": "res://Objects/unit.gd"
 } ]
 _global_script_class_icons={
 "Admob": "res://admob-lib/icon.png",
+"Bot": "",
+"Character": "",
 "Gun": "",
 "Model": "",
 "Player": "",
 "ServerAdvertiser": "",
 "ServerListener": "",
-"Team": ""
+"Team": "",
+"Unit": ""
 }
 
 [android]
@@ -68,6 +86,7 @@ config/icon="res://Sprites/WARZONE-512.png"
 
 [autoload]
 
+Logger="*res://Objects/scripts/logger.gd"
 game_states="*res://Network/game_states.gd"
 network="*res://Network/network.gd"
 game_server="*res://Network/server.gd"

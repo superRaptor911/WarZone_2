@@ -22,8 +22,8 @@ func reset():
 
 func _ready():
 	add_to_group("Team")
-	level.connect("player_despawned",self,"removePlayer")
-	level.connect("bot_despawned",self,"removePlayer")
+	level.connect("player_removed",self,"removePlayer")
+	level.connect("bot_removed",self,"removePlayer")
 
 func addPlayer(P):
 	player_count += 1
@@ -38,10 +38,9 @@ func removePlayer(plr):
 		player_count -= 1
 		if player_count == 0:
 			emit_signal("team_eliminated",self)
-		if player_count < 0:
-			print_debug("Error fatal negative number of players")
 		if plr.is_in_group("User"):
 			user_count -= 1
+		assert(player_count < 0, "Negative number of players")
 
 
 func _on_player_killed():

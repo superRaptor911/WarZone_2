@@ -19,7 +19,6 @@ namespace godot
 		float rotation;
 		int input_id;
 		Vector2 movement_vector;
-		float speed_multiplier;
 
 		stateVector()
 		{
@@ -27,16 +26,14 @@ namespace godot
 			movement_vector = Vector2(0,0);
 			rotation = 0.f;
 			input_id = 0;
-			speed_multiplier = 1.f;
 		}
 
-		stateVector(const Vector2 &pos,const Vector2 &mov_vct,float rot,float speed_mul,int _input_id)
+		stateVector(const Vector2 &pos,const Vector2 &mov_vct,float rot,int _input_id)
 		{
 			position = pos;
 			rotation = rot;
 			input_id = _input_id;
 			movement_vector = mov_vct;
-			speed_multiplier = speed_mul;
 		}
 
 		static void _register_methods()
@@ -45,8 +42,6 @@ namespace godot
 			register_property<stateVector, Vector2>("movement_vector", &stateVector::movement_vector, Vector2(0,0));
 			register_property<stateVector, float>("rotation", &stateVector::rotation, 0.f);
 			register_property<stateVector, int>("input_id", &stateVector::input_id, 0);
-			register_property<stateVector, float>("speed_multiplier", &stateVector::speed_multiplier, 0.f);
-
 		}
 	};
 
@@ -77,10 +72,10 @@ namespace godot
 
 	private:
 
-		void _changeState(stateVector *initial_state, Vector2 mov_vct, float rot,float speed_mul,int input_id);
+		void _changeState(stateVector *initial_state, Vector2 mov_vct, float rot,int input_id);
 		void _client_process_vectors();
-		void _server_process_vectors(Vector2 mov_vct,float rot,float speed_mul,int input_id);
-		void _syncVectors(Vector2 pos,float rot, float speed_mul,bool is_walking,int input_id);
+		void _server_process_vectors(Vector2 mov_vct,float rot,int input_id);
+		void _syncVectors(Vector2 pos,float rot,bool is_walking,int input_id);
 		void _computeStates(Vector2 pos);
 		void _teleportCharacter(Vector2 pos);
 

@@ -1,10 +1,6 @@
 extends Panel
 
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+signal adminPanel_closed
 
 
 func _on_PlrList_pressed():
@@ -21,4 +17,4 @@ func _on_bot_pressed():
 
 func _on_quit_pressed():
 	MusicMan.click()
-	queue_free()
+	emit_signal("adminPanel_closed")

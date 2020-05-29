@@ -12,38 +12,29 @@ var dotsList = Array()
 
 func _ready():
 	var lvls = get_tree().get_nodes_in_group("Level")
-	if lvls.size() > 1:
-		print("Warning : multiple levels loaded for minimap generation")
+	assert(lvls.size() == 1, "Multiple levels loaded for minimap generation")
+	
 	if not lvls.empty():
 		var lvl = lvls[0]
 		var hmap = lvl.get_node("BaseMap/height")
 		Scale = Vector2(cell_size,cell_size) / hmap.cell_size
 		worldsize = hmap.get_used_rect().size * hmap.cell_size
-		print(worldsize)
-		createMinimap(hmap.get_used_rect().size,hmap.get_used_cells(),lvl.Level_Name)
+		loadMinimap(lvl.Level_Name)
 		playerList = get_tree().get_nodes_in_group("Unit")
 		getLocalPlayer()
-		lvl.connect("player_spawned", self,"addPlayer")
-		lvl.connect("bot_spawned", self,"addPlayer")
-		lvl.connect("player_despawned", self,"removeplayer")
-		lvl.connect("bot_despawned", self,"removeplayer")
+
+		lvl.connect("player_created", self,"addPlayer")
+		lvl.connect("bot_created", self,"addPlayer")
+		lvl.connect("player_removed", self,"removeplayer")
+		lvl.connect("bot_removed", self,"removeplayer")
 		_cacheDots()
 	else:
 		print("Error : No level loaded for minimap generation")
 
 
-func createMinimap(world_size : Vector2,used_cells : Array, levl_name):
+func loadMinimap(levl_name : String):
 	texture = load("res://Maps/" + levl_name +"/minimap.png")
 
-
-func createTexture(res : Vector2, levl_name, data : PoolByteArray):
-	var image = Image.new()
-	var imageTex = ImageTexture.new()
-	image.create_from_data(res.x,res.y,false,Image.FORMAT_RGB8,data)
-	imageTex.create_from_image(image)
-	#save Texture because android cannot use generated texture
-	imageTex.get_data().save_png("res://Maps/" + levl_name +"/minimap.png")
-	texture = load("res://Maps/" + levl_name +"/minimap.png")
 
 func moveMapWithPlayer():
 	if local_player:
@@ -56,11 +47,13 @@ func moveMapWithPlayer():
 	else:
 		getLocalPlayer()
 
+
 func showPlayersInMap():
 	if local_player:
 		#hide all the dots
 		for i in dotsList:
 			i.hide()
+		
 		var sp_index = 0
 		for i in playerList:
 			if i.alive:
@@ -80,18 +73,18 @@ func showPlayersInMap():
 					if sp_index >= 12:
 						break
 
+
 func removeplayer(plr):
 	playerList.erase(plr)
 	
 	
 func addPlayer(plr):
-	if plr != local_player:
-		playerList.append(plr)
-	else:
-		print("error duplicate")
+	playerList.append(plr)
+
 
 func _cacheDots():
 	dotsList = get_children()
+
 
 func getLocalPlayer():
 	for p in playerList:

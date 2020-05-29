@@ -128,36 +128,30 @@ void CharMovement::movement(float delta)
 			//locally update position (Client side prediction)
 			
 			_client_process_vectors();
-
-			float speed_multiplier = _parent->get("speed_multiplier");
 			
 			//Send input data to Server
 			if (get_tree()->is_network_server())
 			{
-				_server_process_vectors(movement_vector,rotation,speed_multiplier,_current_input_id);
+				_server_process_vectors(movement_vector,rotation,_current_input_id);
 			}
 			else
 			{
-				rpc_id(1,"_server_process_vectors",movement_vector,rotation,speed_multiplier,_current_input_id);
+				rpc_id(1,"_server_process_vectors",movement_vector,rotation,_current_input_id);
 			}
 		}
 	}
-	//reset input vectors
-	//movement_vector = Vector2(0,0)
-	//speed_multiplier = 1
 	_parent->set("movement_vector", Vector2(0,0));
-	_parent->set("speed_multiplier", 1.f);
 }
 
 
-void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, float rot,float speed_mul,int input_id)
+void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, float rot,int input_id)
 {
 	//if no initial state compute as it is
 	float speed = _parent->get("speed");
 	if (!initial_state)
 	{
 		//velocity of character
-		Vector2 velocity =mov_vct.normalized() * speed_mul * speed * _update_delta;
+		Vector2 velocity = mov_vct.normalized() * speed * _update_delta;
 					
 		Ref<KinematicCollision2D> collision = _parent->move_and_collide(velocity);
 		//test collision
@@ -167,7 +161,7 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 			Vector2 slide_pos = _parent->get_position();
 			_parent->set_position(slide_pos + velocity);
 		}
-		_stateVectors.push_back(stateVector(_parent->get_position(), mov_vct, rot, speed_mul, input_id));
+		_stateVectors.push_back(stateVector(_parent->get_position(), mov_vct, rot, input_id));
 		return;
 	}
 
@@ -180,7 +174,7 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 	//update
 	
 	//velocity of character
-	Vector2 velocity = mov_vct.normalized() * speed_mul * speed * _update_delta;
+	Vector2 velocity = mov_vct.normalized() * speed * _update_delta;
 
 	Ref<KinematicCollision2D> collision = _parent->move_and_collide(velocity);
 	//test collision
@@ -193,7 +187,7 @@ void CharMovement::_changeState(stateVector *initial_state, Vector2 mov_vct, flo
 
 	Vector2 new_position = _parent->get_position();
 	//append new state
-	_stateVectors.push_back(stateVector(new_position,mov_vct,rot,speed_mul,input_id));
+	_stateVectors.push_back(stateVector(new_position,mov_vct,rot,input_id));
 	//revert back to old position
 	_parent->set_position(old_position);
 }
@@ -206,9 +200,8 @@ void CharMovement::_client_process_vectors()
 		last_state = &_stateVectors.back();
 
 	Vector2 movement_vector = _parent->get("movement_vector");
-	float speed_multiplier = _parent->get("speed_multiplier");
 
-	_changeState(last_state,movement_vector,_parent->get_rotation(),speed_multiplier,_current_input_id);
+	_changeState(last_state,movement_vector,_parent->get_rotation(),_current_input_id);
 	//#if movement update position and animation
 	
 	if (movement_vector.length())
@@ -219,13 +212,11 @@ void CharMovement::_client_process_vectors()
 				_update_delta, Tween::TRANS_LINEAR,Tween::EASE_OUT_IN);
 		
 		ptween->start();
-
-		//_parent->get_node("skin")->set("multiplier",speed_multiplier);
 	}
 }
 
 //Server side Input data processor
-void CharMovement::_server_process_vectors(Vector2 mov_vct,float rot,float speed_mul,int input_id)
+void CharMovement::_server_process_vectors(Vector2 mov_vct,float rot,int input_id)
 {
 	//safety check is it really server or not
 	if (get_tree()->is_network_server())
@@ -242,10 +233,8 @@ void CharMovement::_server_process_vectors(Vector2 mov_vct,float rot,float speed
 				{
 					Godot::print("Error at  aserver");
 				}
-				float speed_multiplier = get("speed_multiplier");
 
-				rpc("_syncVectors",last_state->position,last_state->rotation,speed_multiplier,
-					is_walking,input_id);
+				rpc("_syncVectors",last_state->position,last_state->rotation, is_walking,input_id);
 			}
 		}
 		//Compute Input data
@@ -256,11 +245,10 @@ void CharMovement::_server_process_vectors(Vector2 mov_vct,float rot,float speed
 			{
 				last_state = &_stateVectors.back();
 			}
-			_changeState(last_state,mov_vct,rot,speed_mul,input_id);
+			_changeState(last_state,mov_vct,rot,input_id);
 			if (_stateVectors.size())
 			{
-				rpc("_syncVectors",_stateVectors.back().position,rot,speed_mul,
-					 is_walking,input_id);
+				rpc("_syncVectors",_stateVectors.back().position,rot, is_walking,input_id);
 			}
 		}
 	}
@@ -305,7 +293,7 @@ void CharMovement::_computeStates(Vector2 pos)
 		it->position = _parent->get_position();
 
 		Vector2 velocity = it->movement_vector * static_cast<float>(_parent->get("speed")) 
-							* it->speed_multiplier * _update_delta;
+							 * _update_delta;
 		
 		_parent->move_and_collide(velocity);
 		Ref<KinematicCollision2D> collision = _parent->move_and_collide(velocity);
@@ -322,7 +310,7 @@ void CharMovement::_computeStates(Vector2 pos)
 
 //sync vectors 
 //remotesync
-void CharMovement::_syncVectors(Vector2 pos,float rot, float speed_mul,bool is_walking,int input_id)
+void CharMovement::_syncVectors(Vector2 pos,float rot,bool is_walking,int input_id)
 {
 	//Do reconsilation if Character is master
 	if (_parent->is_network_master())
@@ -368,12 +356,11 @@ void CharMovement::_syncVectors(Vector2 pos,float rot, float speed_mul,bool is_w
 
 	_rotational_speed = abs(rot - rotation) / _update_delta;
 	
-	_parent->get_node("skin")->set("multiplier",speed_mul);
 	_parent->get_node("skin")->set("is_walking",is_walking);
 	
 	//do not add if network server because state is already added
 	if (!get_tree()->is_network_server())
-		_stateVectors.push_back(stateVector(Vector2(),Vector2(),rot,0,0));
+		_stateVectors.push_back(stateVector(Vector2(),Vector2(),rot,0));
 }
 
 
@@ -381,5 +368,5 @@ void CharMovement::_teleportCharacter(Vector2 pos)
 {
 	_parent->set_position(pos);
 	_current_input_id += 1;
-	_stateVectors.push_back(stateVector(pos,Vector2(0,0),0,1,_current_input_id));
+	_stateVectors.push_back(stateVector(pos,Vector2(0,0),0,_current_input_id));
 }

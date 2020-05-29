@@ -27,7 +27,7 @@ func create(info):
 func getWpnInfo(selected_gun) -> Dictionary:
 	item_data.wpn = selected_gun.gun_name
 	item_data.bul = selected_gun.rounds_left
-	item_data.clps = selected_gun.clips
+	item_data.clps = selected_gun.clip_count
 	item_data.pos = selected_gun.global_position
 	return item_data
 
