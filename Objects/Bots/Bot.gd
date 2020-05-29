@@ -56,12 +56,12 @@ remotesync func pickUpItem(item):
 		if selected_gun == gun_1:
 			gun_1 = game_states.weaponResource.get(item.wpn).instance()
 			gun_1.rounds_left = item.bul
-			gun_1.clips = item.clps
+			gun_1.clip_count = item.clps
 			selected_gun = gun_1
 		else:
 			gun_2 = game_states.weaponResource.get(item.wpn).instance()
 			gun_2.rounds_left = item.bul
-			gun_2.clips = item.clps
+			gun_2.clip_count = item.clps
 			selected_gun = gun_2
 		var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
 		d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(old_gun))

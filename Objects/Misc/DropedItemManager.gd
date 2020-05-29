@@ -35,7 +35,7 @@ remotesync func createDropedItem(item_data,item_id):
 remotesync func requestPickUp(pid : String,item_id : int):
 	var drop = Items.get(item_id)
 	if drop:
-		var p = game_server._unit_data_list.get(pid)
+		var p = game_server._unit_data_list.get(pid).ref
 		if p:
 			p.rpc("pickUpItem",drop.item_data)
 			drop.rpc("itemPicked")
