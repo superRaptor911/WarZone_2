@@ -7,7 +7,7 @@ export var AP : float = 100
 export var speed : float = 80
 
 var alive : bool = true
-var movement_vector : Vector2	#
+var movement_vector : Vector2
 var team : Team = null
 var close_chars = Array()
 
@@ -33,8 +33,6 @@ func _process(delta):
 	else:
 		model.is_walking = false
 	
-
-
 
 #Take damage from some weapon used by someone
 func takeDamage(damage : float, weapon : String, attacker_id : String):

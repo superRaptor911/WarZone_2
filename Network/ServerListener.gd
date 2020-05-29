@@ -26,7 +26,7 @@ func _ready():
 	else:
 		print("GameServer LAN service: Listening on port: " + str(listenPort))
 
-func _process(delta):
+func _process(_delta):
 	if socketUDP.get_available_packet_count() > 0:
 		var serverIp = socketUDP.get_packet_ip()
 		var serverPort = socketUDP.get_packet_port()

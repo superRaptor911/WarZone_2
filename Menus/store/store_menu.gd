@@ -56,7 +56,7 @@ func _on_cash_pressed():
 	$Admob.load_rewarded_video()
 
 
-func _on_Admob_rewarded(currency, ammount):
+func _on_Admob_rewarded(_currency, _ammount):
 	game_states.player_data.cash += 200
 	game_states.savePlayerData()
 	$PopupPanel.popup()

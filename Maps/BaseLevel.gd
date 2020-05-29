@@ -97,16 +97,19 @@ func captureMap():
 
 func loadGameMode():
 	var game_mode = null
-	#load appropriate game mode
-	print(game_server.serverInfo.game_mode)
+	Logger.Log("Loading gamemode %s" % [game_server.serverInfo.game_mode])
+	
+	#load appropriate game mode	
 	if game_server.serverInfo.game_mode == "SURVIVAL":
 		game_mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn").instance()
 	elif game_server.serverInfo.game_mode == "FFA":
 		game_mode = load("res://Objects/Game_modes/FFA_mode.tscn").instance()
 	elif game_server.serverInfo.game_mode == "Bombing":
 		game_mode = load("res://Objects/Game_modes/BombDiffuse.tscn").instance()
+	
 	#add game mode
 	if game_mode:
+		Logger.Log("Loading Level resource from %s" % [$level_info.getGameModeNodePath()])
 		var mode_res = load($level_info.getGameModeNodePath()).instance()
 		game_mode.add_to_group("GameMode")
 		add_child(mode_res)
@@ -390,7 +393,7 @@ func _on_disconnected():
 
 
 #restart level, server side 
-remotesync func S_restartLevel():
+func S_restartLevel():
 	assert(get_tree().is_network_server(),"Not server")
 	rpc("P_restartLevel")
 	yield(get_tree(), "idle_frame")

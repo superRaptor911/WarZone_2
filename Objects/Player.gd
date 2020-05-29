@@ -172,3 +172,4 @@ func pause_controls(val : bool):
 	_pause_cntrl = val
 	if game_states.is_android and is_network_master():
 		hud.get_node("controller").enabled = !val
+

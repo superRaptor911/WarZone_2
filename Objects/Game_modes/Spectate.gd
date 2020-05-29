@@ -81,7 +81,7 @@ func _on_menu_pressed():
 
 
 	
-func _process(delta):
+func _process(_delta):
 	$Text/Label.text = str_format % [current_spec_player.pname, 
 	current_spec_player.kills, current_spec_player.deaths, current_spec_player.HP,
 	current_spec_player.AP]

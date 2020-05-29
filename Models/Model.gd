@@ -18,7 +18,7 @@ func _ready():
 	if parent:
 		parent.connect("char_took_damage", self, "_on_char_damaged")
 		parent.connect("char_killed", self, "_on_char_killed")
-		parent.connect("char_born",self,"revive")
+		parent.connect("char_born",self,"_on_char_born")
 	
 
 func setSkin(s_name):
@@ -75,20 +75,6 @@ func switchGun(gun : Gun):
 	fist.global_scale = Vector2(1,1)
 	fist.show()
 
-#function called when unit is killed
-func _on_killed():
-	$blood_scat.show()
-	$skin.hide()
-	fist.hide()
-	$walking.stop()
-
-#function is called when unit is born/revived
-func revive():
-	$blood_scat.hide()
-	$skin.show()
-	fist.show()
-	$skin.material.set_shader_param("use",0.0)
-	$skin.material.set_shader_param("tex_size",Vector2(0,0))
 
 #do melee animation
 #returns true if did melee attack
@@ -113,9 +99,24 @@ func _on_char_damaged():
 func _on_char_killed():
 	$skin.material.set_shader_param("use",0.0)
 	$skin.material.set_shader_param("tex_size",Vector2(0,0))
+	$blood_scat.show()
+	$skin.hide()
+	fist.hide()
+	$walking.stop()
+	
+func _on_char_born():
+	$blood_scat.hide()
+	$skin.show()
+	fist.show()
+	$skin.material.set_shader_param("use",0.0)
+	$skin.material.set_shader_param("tex_size",Vector2(0,0))
 
+func revive():
+	_on_char_born()
 
 #function called when melee animation is finished
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "melee":
 		parent.pause_controls(false)
+		
+

@@ -1,7 +1,5 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Objects/Misc/spawn_point.gd" type="Script" id=1]
-[ext_resource path="res://Objects/Game_modes/BombDiffuse/bomb_site.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Game_modes/BombDiffuse/bomb_site.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sprites/Tilesets/bspot_a.png" type="Texture" id=5]
@@ -19,56 +17,32 @@ modulate = Color( 1, 0.141176, 0.0784314, 1 )
 position = Vector2( 868.129, 760.69 )
 texture = ExtResource( 5 )
 
-[node name="spawn_point" type="Area2D" parent="." groups=[
-"SpawnPoint",
-] instance=ExtResource( 4 )]
+[node name="spawn_point" parent="." instance=ExtResource( 4 )]
 position = Vector2( 281.836, 1651.92 )
-script = ExtResource( 1 )
 team_id = 1
 
-[node name="spawn_point4" type="Area2D" parent="." groups=[
-"SpawnPoint",
-] instance=ExtResource( 4 )]
+[node name="spawn_point4" parent="." instance=ExtResource( 4 )]
 position = Vector2( 2723.55, 823.938 )
-script = ExtResource( 1 )
 
-[node name="spawn_point5" type="Area2D" parent="." groups=[
-"SpawnPoint",
-] instance=ExtResource( 4 )]
+[node name="spawn_point5" parent="." instance=ExtResource( 4 )]
 position = Vector2( 2778.28, 1661.83 )
-script = ExtResource( 1 )
 
-[node name="spawn_point6" type="Area2D" parent="." groups=[
-"SpawnPoint",
-] instance=ExtResource( 4 )]
+[node name="spawn_point6" parent="." instance=ExtResource( 4 )]
 position = Vector2( 3058.62, 1298.71 )
-script = ExtResource( 1 )
 
-[node name="spawn_point3" type="Area2D" parent="." groups=[
-"SpawnPoint",
-] instance=ExtResource( 4 )]
+[node name="spawn_point3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 288.343, 2016.32 )
-script = ExtResource( 1 )
 team_id = 1
 
-[node name="spawn_point2" type="Area2D" parent="." groups=[
-"SpawnPoint",
-] instance=ExtResource( 4 )]
+[node name="spawn_point2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 428.246, 1853.64 )
-script = ExtResource( 1 )
 team_id = 1
 
-[node name="bomb_site" type="Area2D" parent="." groups=[
-"Bomb_site",
-] instance=ExtResource( 3 )]
+[node name="bomb_site" parent="." instance=ExtResource( 3 )]
 position = Vector2( 872.875, 756.328 )
-script = ExtResource( 2 )
 
-[node name="bomb_site2" type="Area2D" parent="." groups=[
-"Bomb_site",
-] instance=ExtResource( 3 )]
+[node name="bomb_site2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 455.632, 2545.25 )
-script = ExtResource( 2 )
 
 [node name="POI" type="Node" parent="." groups=[
 "POI",
@@ -93,19 +67,3 @@ team_id = 1
 [node name="2" type="Node2D" parent="POI"]
 position = Vector2( 2438.75, 2779.55 )
 script = ExtResource( 6 )
-[connection signal="body_entered" from="spawn_point" to="spawn_point" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_point" to="spawn_point" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_point4" to="spawn_point4" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_point4" to="spawn_point4" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_point5" to="spawn_point5" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_point5" to="spawn_point5" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_point6" to="spawn_point6" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_point6" to="spawn_point6" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_point3" to="spawn_point3" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_point3" to="spawn_point3" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="spawn_point2" to="spawn_point2" method="_on_spawn_point_body_entered"]
-[connection signal="body_exited" from="spawn_point2" to="spawn_point2" method="_on_spawn_point_body_exited"]
-[connection signal="body_entered" from="bomb_site" to="bomb_site" method="_on_bomb_site_body_entered"]
-[connection signal="body_exited" from="bomb_site" to="bomb_site" method="_on_bomb_site_body_exited"]
-[connection signal="body_entered" from="bomb_site2" to="bomb_site2" method="_on_bomb_site_body_entered"]
-[connection signal="body_exited" from="bomb_site2" to="bomb_site2" method="_on_bomb_site_body_exited"]

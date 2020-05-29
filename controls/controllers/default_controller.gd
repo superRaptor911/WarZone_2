@@ -14,13 +14,11 @@ func _ready():
 	$aim_joy.modulate.a8 = game_states.game_settings.dpad_transparency
 
 
-func _process(delta):
+func _process(_delta):
 	if not (user.alive and enabled):
 		return
 	if $mov_joy.joystick_vector.length() > JOYSTICK_DEADZONE/2 :
 		user.movement_vector = - $mov_joy.joystick_vector
-		if $mov_joy.joystick_vector.length() > 0.85:
-			user.useSprint()
 		counter = true
 	if $aim_joy.joystick_vector.length() > 0.85:
 		user.selected_gun.fireGun()

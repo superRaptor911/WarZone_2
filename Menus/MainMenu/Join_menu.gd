@@ -39,7 +39,6 @@ func on_server_found(server_info):
 		updateServerList()
 
 func on_server_closed(ip):
-	var old_server = null
 	for i in servers:
 		if i.ip == ip:
 			servers.erase(i)

@@ -22,7 +22,7 @@ func setScore(t_score,ct_score):
 		$winner.text = "T WIN"
 
 
-func _process(delta):
+func _process(_delta):
 	$ok.text = String(int($Timer.time_left))
 
 func _on_ok_pressed():

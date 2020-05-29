@@ -16,7 +16,7 @@ script/source = "extends Label
 
 onready var par = get_parent().get_parent()
 
-func _process(delta):
+func _process(_delta):
 	rect_global_position = par.position - Vector2(10,60)
 	set_rotation(-par.rotation)
 "

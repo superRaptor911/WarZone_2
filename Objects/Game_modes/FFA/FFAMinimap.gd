@@ -5,7 +5,7 @@ export var update_at_frame : int = 4
 
 var current_frame : int  = 0
 
-func _process(delta):
+func _process(_delta):
 	current_frame += 1
 	if current_frame == update_at_frame:
 		moveMapWithPlayer()
