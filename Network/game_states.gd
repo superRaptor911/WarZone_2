@@ -47,8 +47,8 @@ var control_types = {
 
 #models available
 var skinResource = {
-	ct1 = preload("res://Sprites/Character/cr1/ct1.bmp"),
-	t1 = preload("res://Sprites/Character/cr1/t1.bmp"),
+	ct1 = preload("res://Sprites/Character/ct1.bmp"),
+	t1 = preload("res://Sprites/Character/t1.bmp"),
 	t2 = preload("res://Sprites/Character/t2.bmp"),
 	ct2 = preload("res://Sprites/Character/ct2.bmp")
 }

@@ -4,7 +4,7 @@
 [ext_resource path="res://Objects/Graphics/outline.shader" type="Shader" id=2]
 [ext_resource path="res://Sprites/Character/legs.png" type="Texture" id=3]
 [ext_resource path="res://Sfx/walk1.wav" type="AudioStream" id=4]
-[ext_resource path="res://Sprites/Character/cr1/ct1.bmp" type="Texture" id=5]
+[ext_resource path="res://Sprites/Character/ct1.bmp" type="Texture" id=5]
 [ext_resource path="res://Sprites/particles/blood_scat1.png" type="Texture" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
