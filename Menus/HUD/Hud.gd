@@ -77,7 +77,7 @@ func _on_scoreboard_closed():
 	remove_child(score_board)
 
 func updateScoreBoard():
-	score_board.setBoardData(game_server._player_data_list)
+	score_board.setBoardData(game_server._unit_data_list)
 
 func _on_zoom_pressed():
 	user.get_node("Camera2D").zoom = user.selected_gun.getNextZoom()

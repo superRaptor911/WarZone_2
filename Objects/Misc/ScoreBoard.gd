@@ -4,12 +4,10 @@ signal scoreboard_closed
 
 var no_slots = 22
 
-func _ready():
-	hide()
 
 class custom_sorter:
 	static func sort(a,b) -> bool:
-		return a.score > b.score
+		return a.ref.score > b.ref.score
 
 func setBoardData(data_dict : Dictionary):
 	var data = data_dict.values()
@@ -20,7 +18,7 @@ func setBoardData(data_dict : Dictionary):
 	
 	for i in data:
 		#terrorists
-		if i.team_id == 0:
+		if i.ref.team.team_id == 0:
 			ts.append(i)
 		else:
 			cts.append(i)
@@ -29,10 +27,10 @@ func setBoardData(data_dict : Dictionary):
 	for i in ts:
 		var slot = get_node("T/Plist/s" + String(index))
 		slot.show()
-		slot.get_node("name").text = i.pname
-		slot.get_node("score").text = String(i.score)
-		slot.get_node("death").text = String(i.deaths)
-		slot.get_node("ping").text = String(i.ping)
+		slot.get_node("name").text = i.ref.pname
+		slot.get_node("score").text = String(i.ref.score)
+		slot.get_node("death").text = String(i.ref.deaths)
+		slot.get_node("ping").text = String(i.ref.ping)
 		index += 1
 	
 	for _i in range(index , no_slots + 1):
@@ -43,10 +41,10 @@ func setBoardData(data_dict : Dictionary):
 	for i in cts:
 		var slot = get_node("CT/Plist/s" + String(index))
 		slot.show()
-		slot.get_node("name").text = i.pname
-		slot.get_node("score").text = String(i.score)
-		slot.get_node("death").text = String(i.deaths)
-		slot.get_node("ping").text = String(i.ping)
+		slot.get_node("name").text = i.ref.pname
+		slot.get_node("score").text = String(i.ref.score)
+		slot.get_node("death").text = String(i.ref.deaths)
+		slot.get_node("ping").text = String(i.ref.ping)
 		index += 1
 
 	for _i in range(index , no_slots + 1):

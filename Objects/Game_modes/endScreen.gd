@@ -6,12 +6,12 @@ signal ok
 func _ready():
 	var ct_score = 0
 	var t_score = 0
-	var pl_dat = game_server._player_data_list.values()
+	var pl_dat = game_server._unit_data_list.values()
 	for i in pl_dat:
-		if i.team_id == 0:
-			t_score += i.score
+		if i.ref.team_id == 0:
+			t_score += i.ref.score
 		else:
-			ct_score += i.score
+			ct_score += i.ref.score
 	setScore(t_score,ct_score)
  
 
