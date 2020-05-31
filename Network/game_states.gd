@@ -53,6 +53,14 @@ var skinResource = {
 	ct2 = preload("res://Sprites/Character/ct2.bmp")
 }
 
+var skinStats = {
+	ct1 = {id = "ct1", name = "S.A.S", cost = 100, team_id = 1},
+	ct2 = {id = "ct2", name = "GIGN", cost = 100, team_id = 1},
+	t1 =  {id = "t1", name = "Leet", cost = 100, team_id = 0},
+	t2 =  {id = "t2", name = "Terror", cost = 100, team_id = 0}
+}
+
+
 #classes
 var classResource = {
 	player = preload("res://Objects/Player.tscn"),

@@ -13,22 +13,22 @@ func _ready():
 
 func loadSkins():
 	for i in game_states.player_data.skins:
-		var skin = game_states.modelResource.get(i).instance()
-		if skin.team_id == 0:
-			t_skins.append(skin)
+		var skin = game_states.skinResource.get(i)
+		if i.begins_with("ct"):
+			ct_skins.append([skin,i,game_states.skinStats[i].name])
 		else:
-			ct_skins.append(skin)
+			t_skins.append([skin,i,game_states.skinStats[i].name])
 	
 	var index = 0
 	for i in t_skins:
-		if i.model_name == game_states.player_data.t_model:
+		if i[1] == game_states.player_data.t_model:
 			cur_t_skin = index
 			break
 		index += 1
 	
 	index = 0
 	for i in ct_skins:
-		if i.model_name == game_states.player_data.t_model:
+		if i[1] == game_states.player_data.t_model:
 			cur_ct_skin = index
 			break
 		index += 1
@@ -38,13 +38,13 @@ func loadSkins():
 	
 
 func selectCtSkin():
-	$CT/portrait/TextureRect.texture = ct_skins[cur_ct_skin].get_node("skin").texture
-	$CT/portrait/label.text = ct_skins[cur_ct_skin].model_real_name
+	$CT/portrait/TextureRect.texture = ct_skins[cur_ct_skin][0]
+	$CT/portrait/label.text = ct_skins[cur_ct_skin][2]
 
 
 func selectTskin():
-	$T/portrait/TextureRect.texture = t_skins[cur_t_skin].get_node("skin").texture
-	$T/portrait/label.text = t_skins[cur_t_skin].model_real_name
+	$T/portrait/TextureRect.texture = t_skins[cur_t_skin][0]
+	$T/portrait/label.text = t_skins[cur_t_skin][2]
 
 
 
@@ -77,22 +77,15 @@ func _on_Tprev_pressed():
 		selectTskin()
 
 func saveAll():
-	game_states.player_data.t_model = t_skins[cur_t_skin].model_name
-	game_states.player_data.ct_model = ct_skins[cur_ct_skin].model_name
+	game_states.player_data.t_model = t_skins[cur_t_skin][1]
+	game_states.player_data.ct_model = ct_skins[cur_ct_skin][1]
 	game_states.savePlayerData()
 
 
-func freeSkins():
-	for i in t_skins:
-		i.queue_free()
-	
-	for i in ct_skins:
-		i.queue_free()
 
 
 func _on_Back_pressed():
 	MusicMan.click()
 	saveAll()
-	freeSkins()
 	MenuManager.changeScene("storeMenu")
 	queue_free()

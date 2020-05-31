@@ -9,11 +9,10 @@
 [node name="Aug" instance=ExtResource( 1 )]
 gun_type = "rifle"
 gun_name = "Aug"
-damage = 31.0
-rounds_in_clip = 30
+damage = 26.0
+clip_size = 30
 gun_rating = 5
 rate_of_fire = 8.0
-max_zoom = 0.9
 gun_portrait = ExtResource( 5 )
 gun_d_img = ExtResource( 2 )
 wpn_cost = 2000

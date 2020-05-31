@@ -72,7 +72,7 @@ func setCurrentWeaponType(type):
 
 func setGunInfo():
 	var w = current_type.current_wpn
-	$gun_desc/Label.text = gun_data_format % [w.gun_name,w.gun_type,w.damage,w.rounds_in_clip,w.wpn_cost,w.rate_of_fire * 60]
+	$gun_desc/Label.text = gun_data_format % [w.gun_name,w.gun_type,w.damage,w.clip_size,w.wpn_cost,w.rate_of_fire * 60]
 
 
 func _on_pistol_pressed():

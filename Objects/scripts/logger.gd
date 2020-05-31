@@ -33,14 +33,22 @@ func _ready():
 
 
 
-func Log(msg, instant_save = false) -> bool:
+func Log(msg : String, instant_save = false):
 	var dt = OS.get_datetime()
 	var message : String = ("%02d:%02d:%02d " % [dt.hour,dt.minute,dt.second]) + msg
 	logs.append(message)
 
 	if instant_save:
 		saveLogs()
-	return true
+
+
+func LogError(func_name : String, msg : String):
+	var dt = OS.get_datetime()
+	var message : String = ("%02d:%02d:%02d " % [dt.hour,dt.minute,dt.second])
+	message += "Error at func %s" % [func_name]
+	logs.append(message)
+	logs.append("-----> %s" % [msg])
+	saveLogs()
 
 
 func saveLogs():

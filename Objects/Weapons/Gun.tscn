@@ -22,7 +22,7 @@ one_shot = true
 [node name="Muzzle" type="Node2D" parent="."]
 position = Vector2( -0.0565491, -15.4116 )
 
-[node name="muzzle" type="Sprite" parent="Muzzle"]
+[node name="muzzle_flash" type="Sprite" parent="Muzzle"]
 visible = false
 position = Vector2( 1.58228, -9.22607 )
 rotation = -1.5708

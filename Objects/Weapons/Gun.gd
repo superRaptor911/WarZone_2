@@ -28,7 +28,12 @@ var _has_extended_mag : bool = false
 var _muzzle_frame_id : int = 0
 var _recoil = 0
 
+#used to render projectile tracers
+var fired = false
+
 onready var _fire_delay = 1.0 / rate_of_fire
+onready var muzzle = $Muzzle
+onready var raycast_2D = $RayCast2D
 
 signal gun_fired
 signal gun_reloaded
@@ -58,15 +63,21 @@ func fireGun():
 
 
 #create projectile
-remotesync func P_createBullet(_cast_to):
-	$Muzzle/muzzle.show()
+remotesync func P_gunFired(_cast_to):
+	#show muzzle flash for 3 frames
+	muzzle.get_node("muzzle_flash").show()
 	_muzzle_frame_id = 3
 	$fire.play()
+	
+	#render tracers
+	fired = true
+	_ray_dest = _cast_to
+	update()
 	emit_signal("gun_fired")
 
 
 #server only method
-remotesync func S_checkBulletHit():
+remotesync func S_gunFired():
 	var error_angle = rand_range(-spread - _recoil * 0.01,spread + _recoil * 0.01)
 	var cast_to = Vector2(0,-750).rotated(global_rotation + error_angle) + global_position
 	_recoil += recoil_factor
@@ -78,12 +89,12 @@ remotesync func S_checkBulletHit():
 		if result.collider.is_in_group("Actor"):
 			result.collider.takeDamage(damage,gun_name,user_id)
 	$recoil_reset.start()
-	rpc("P_createBullet",cast_to)
+	rpc("P_gunFired",cast_to)
 
 
 #shoot weapon
 func _shoot():
-	rpc_id(1,"S_checkBulletHit")
+	rpc_id(1,"S_gunFired")
 	_ready_to_fire = false
 	$Timer.start(1 / rate_of_fire)
 	rounds_left -= 1
@@ -109,22 +120,30 @@ func _on_Reload_time_timeout():
 	emit_signal("gun_reloaded")
 
 func _process(_delta):
-# warning-ignore:narrowing_conversion
-	_muzzle_frame_id = max(_muzzle_frame_id - 1,0)
-	if _muzzle_frame_id == 1:
-		$Muzzle/muzzle.hide()
-	#update _draw()
+	if _muzzle_frame_id != 0:
+		# warning-ignore:narrowing_conversion
+		_muzzle_frame_id = max(_muzzle_frame_id - 1,0)
+		update()
+		#hide muzzle flash
+		if _muzzle_frame_id == 1:
+			muzzle.get_node("muzzle_flash").hide()
+			fired = false
+
+	#draw laser
 	if _use_laser_sight:
 		update()
-		_ray_dest = $RayCast2D.cast_to.rotated(global_rotation) + $RayCast2D.global_position
-		if $RayCast2D.is_colliding():
-			_ray_dest = $RayCast2D.get_collision_point()
+		_ray_dest = raycast_2D.cast_to.rotated(global_rotation) + raycast_2D.global_position
+		if raycast_2D.is_colliding():
+			_ray_dest = raycast_2D.get_collision_point()
 
 func _draw():
+	if fired:
+		draw_line(muzzle.position, (_ray_dest - muzzle.global_position).rotated(-global_rotation), Color(255,250,0),1.5)
+	
 	if _use_laser_sight:
-		draw_line($Muzzle.position, (_ray_dest - $RayCast2D.global_position).rotated(-global_rotation)
-		+ $RayCast2D.position , Color.red)
-		draw_circle((_ray_dest - $RayCast2D.global_position).rotated(-global_rotation) + $RayCast2D.position 
+		draw_line(muzzle.position, (_ray_dest - raycast_2D.global_position).rotated(-global_rotation)
+		+ raycast_2D.position , Color.red)
+		draw_circle((_ray_dest - raycast_2D.global_position).rotated(-global_rotation) + raycast_2D.position 
 		, 3, Color.red)
 
 

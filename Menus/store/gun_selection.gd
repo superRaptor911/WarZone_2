@@ -11,7 +11,7 @@ var selected_primary_gun = null
 var selected_sec_gun = null
 
 var current_gun = null
-var selected_item = "laser_sight"
+var selected_item = "l_aser_sight"
 var cur_cost = 0
 
 
@@ -24,8 +24,8 @@ func getGuns():
 	var index = 0
 	for i in game_states.player_data.guns:
 		guns.append(game_states.weaponResource.get(i.gun_name).instance())
-		guns[index].laser_sight = i.laser
-		guns[index].extended_mag = i.mag_ext
+		guns[index]._use_laser_sight= i.laser
+		guns[index]._has_extended_mag = i.mag_ext
 		if index < no_slots:
 			var panel = $weapons/HBoxContainer.get_node("p" + String(index + 1))
 			panel.get_node("p" + String(index + 1) + "_btn").texture_normal = guns[index].gun_portrait
@@ -61,14 +61,14 @@ func selectWeapon(index):
 			selected_sec_gun = guns[arr_slot_index + index]
 			$sec_gun/gun_panel/Label.text = guns[arr_slot_index + index].gun_name
 			$sec_gun/gun_panel/texture.texture = guns[arr_slot_index + index].gun_portrait
-			$sec_gun/sec_laser.disabled = selected_sec_gun.laser_sight
-			$sec_gun/sec_clip_ext.disabled = selected_sec_gun.extended_mag
+			$sec_gun/sec_laser.disabled = selected_sec_gun._use_laser_sight
+			$sec_gun/sec_clip_ext.disabled = selected_sec_gun._has_extended_mag
 		else:
 			selected_primary_gun = guns[arr_slot_index + index]
 			$primary_gun/gun_panel/Label.text = guns[arr_slot_index + index].gun_name
 			$primary_gun/gun_panel/texture.texture = guns[arr_slot_index + index].gun_portrait
-			$primary_gun/prim_laser.disabled = selected_primary_gun.laser_sight
-			$primary_gun/prim_clip_ext.disabled = selected_primary_gun.extended_mag
+			$primary_gun/prim_laser.disabled = selected_primary_gun._use_laser_sight
+			$primary_gun/prim_clip_ext.disabled = selected_primary_gun._has_extended_mag
 
 
 func _on_p1_btn_pressed():
@@ -96,7 +96,7 @@ func _on_prim_laser_pressed():
 	if $buy.visible:
 		return
 	$buy/img.texture = laser_tex
-	selected_item = "laser_sight"
+	selected_item = "_use_laser_sight"
 	current_gun = selected_primary_gun
 	cur_cost = 500
 	$buy/img/Label.text = "Laser Sight"
@@ -112,7 +112,7 @@ func _on_prim_clip_ext_pressed():
 		return
 	$buy/img.texture = mag_tex
 	cur_cost = 500
-	selected_item = "extended_mag"
+	selected_item = "_has_extended_mag"
 	current_gun = selected_primary_gun
 	$buy/img/Label.text = "Mag extender"
 	$buy/buy_Button.disabled = (game_states.player_data.cash < cur_cost)
@@ -127,7 +127,7 @@ func _on_sec_laser_pressed():
 		return
 	$buy/img.texture = laser_tex
 	cur_cost = 500
-	selected_item = "laser_sight"
+	selected_item = "_use_laser_sight"
 	current_gun = selected_sec_gun
 	$buy/img/Label.text = "Laser Sight"
 	$buy/buy_Button.disabled = (game_states.player_data.cash < cur_cost)
@@ -142,7 +142,7 @@ func _on_sec_clip_ext_pressed():
 		return
 	$buy/img.texture = mag_tex
 	cur_cost = 500
-	selected_item = "extended_mag"
+	selected_item = "_has_extended_mag"
 	current_gun = selected_sec_gun
 	$buy/img/Label.text = "Mag extender"
 	$buy/buy_Button.disabled = (game_states.player_data.cash < cur_cost)
@@ -155,10 +155,10 @@ func _on_sec_clip_ext_pressed():
 func _on_buy_Button_pressed():
 	current_gun.set(selected_item,true)
 	game_states.player_data.cash -= cur_cost
-	$sec_gun/sec_laser.disabled = selected_sec_gun.laser_sight
-	$sec_gun/sec_clip_ext.disabled = selected_sec_gun.extended_mag
-	$primary_gun/prim_laser.disabled = selected_primary_gun.laser_sight
-	$primary_gun/prim_clip_ext.disabled = selected_primary_gun.extended_mag
+	$sec_gun/sec_laser.disabled = selected_sec_gun._use_laser_sight
+	$sec_gun/sec_clip_ext.disabled = selected_sec_gun._has_extended_mag
+	$primary_gun/prim_laser.disabled = selected_primary_gun._use_laser_sight
+	$primary_gun/prim_clip_ext.disabled = selected_primary_gun._has_extended_mag
 	$buy.hide()
 	$AnimationPlayer.play_backwards("buy_popup")
 	saveAll()
@@ -175,8 +175,8 @@ func saveAll():
 	for i in guns:
 		var data = gun_data.duplicate(true)
 		data.gun_name = i.gun_name
-		data.laser = i.laser_sight
-		data.mag_ext = i.extended_mag
+		data.laser = i._use_laser_sight
+		data.mag_ext = i._has_extended_mag
 		game_states.player_data.guns.append(data)
 	
 	game_states.player_data.selected_guns.clear()

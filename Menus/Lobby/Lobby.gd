@@ -8,7 +8,7 @@ onready var selected_btn = $Panel/VBoxContainer/level
 var selected_gameMode = null
 var selected_gameMode_id = 0
 
-var level_names = ["Dust","DesertComplex","Mansion"]
+var level_names = ["Dust","WpnTest"]
 
 func _ready():
 	$Admob.load_banner()
@@ -20,7 +20,7 @@ func _ready():
 	for i in IP.get_local_addresses():
 		if ( !(i.substr(0,3) == "169") ) and i.length() < 15:
 			$Label.text += "IP =" + i + "\n" 
-	game_server.preloadParticles()
+	#game_server.preloadParticles()
 	selected_btn.self_modulate = Color8(66,210,41,255) 
 	initialTween()
 	$bots/bot_difficulty/bot_diff.value = 2
@@ -29,13 +29,14 @@ func _ready():
 
 func loadLevelInfos():
 	for i in level_names:
+		Logger.Log("Loading level " + i)
 		var level_info = load("res://Maps/" + i + "/level_info.gd").new()
 		levels.append(level_info)
 	
 	if not levels.empty():
 		setLevelInfo(levels[0])
 	else:
-		print("No levels found")
+		Logger.LogError("loadLevelInfos", "Failed to load levels")
 
 
 func setLevelInfo(info):

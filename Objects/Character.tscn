@@ -54,6 +54,5 @@ max_distance = 800.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="close_range"]
 shape = SubResource( 1 )
-[connection signal="char_took_damage" from="." to="." method="_on_Character_char_took_damage"]
 [connection signal="body_entered" from="close_range" to="." method="_on_close_range_body_entered"]
 [connection signal="body_exited" from="close_range" to="." method="_on_close_range_body_exited"]

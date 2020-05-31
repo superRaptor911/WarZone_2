@@ -155,7 +155,7 @@ remotesync func _sync_throwGrenade(nam):
 	get_tree().get_nodes_in_group("Level")[0].add_child(g)
 	var dir = (model.get("fist").global_position - global_position).normalized()
 	g.position = position + (Vector2(-1.509,-50.226)).rotated(rotation)
-	g.user = self
+	g.user = self.name
 	g.throwGrenade(dir)
 
 #called when player is respawned
