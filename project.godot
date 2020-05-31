@@ -29,10 +29,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/Weapons/Gun.gd"
 }, {
-"base": "CollisionShape2D",
+"base": "Reference",
 "class": "Model",
 "language": "GDScript",
-"path": "res://Models/Model.gd"
+"path": "res://Objects/Models/Model.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
