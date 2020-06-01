@@ -4,6 +4,7 @@ class_name Player
 extends "res://Objects/unit.gd"
 
 var cash : int = 0
+var xp : int = 0
 
 var timer_time : float = 0
 var hud = null

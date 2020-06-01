@@ -14,7 +14,7 @@ func loadMusic():
 	add_child(music_player)
 	add_child(ui_player)
 	
-	music_player.stream = load("res://Sfx/music/XTaKeRuX_-_03_-_White_Crow.ogg")
+	music_player.stream = load("res://Sfx/music/XTaKeRuX_-_01_-_Free_will_possession.ogg")
 	ui_player.stream = ui_clk
 	music_player.volume_db = -2.0
 	ui_player.volume_db = 2.0

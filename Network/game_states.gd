@@ -55,9 +55,9 @@ var skinResource = {
 
 var skinStats = {
 	ct1 = {id = "ct1", name = "S.A.S", cost = 100, team_id = 1},
-	ct2 = {id = "ct2", name = "GIGN", cost = 100, team_id = 1},
+	ct2 = {id = "ct2", name = "GIGN", cost = 1000, team_id = 1},
 	t1 =  {id = "t1", name = "Leet", cost = 100, team_id = 0},
-	t2 =  {id = "t2", name = "Terror", cost = 100, team_id = 0}
+	t2 =  {id = "t2", name = "Terror", cost = 1000, team_id = 0}
 }
 
 
