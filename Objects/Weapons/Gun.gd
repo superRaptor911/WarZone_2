@@ -138,7 +138,8 @@ func _process(_delta):
 
 func _draw():
 	if fired:
-		draw_line(muzzle.position, (_ray_dest - muzzle.global_position).rotated(-global_rotation), Color(255,250,0),1.5)
+		draw_line(muzzle.position, (_ray_dest - muzzle.global_position).rotated(-global_rotation) + muzzle.position, 
+				Color(255,250,0),1.5)
 	
 	if _use_laser_sight:
 		draw_line(muzzle.position, (_ray_dest - raycast_2D.global_position).rotated(-global_rotation)

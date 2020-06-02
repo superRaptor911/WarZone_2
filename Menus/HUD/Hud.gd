@@ -57,7 +57,7 @@ func _on_quit_pressed():
 #handle paused pressed
 func _on_pause_pressed():
 	$Panel2.show()
-	pauseMenuOpenTween()
+	UiAnim.animZoomIn([$Panel2])
 
 
 class MyPlayerSorter:
@@ -68,8 +68,10 @@ class MyPlayerSorter:
 
 
 func _on_score_pressed():
-	pauseMenuCloseTween()
+	UiAnim.animZoomOut([$Panel2])
 	updateScoreBoard()
+	yield(get_tree().create_timer(0.5 * UiAnim.anim_scale), "timeout")
+	$Panel2.hide()
 	add_child(score_board)
 
 #remove scoreboard when closed
@@ -205,11 +207,15 @@ func _on_btn_pressed():
 	user.selected_gun.reload()
 
 func _on_back_pressed():
-	pauseMenuCloseTween()
+	UiAnim.animZoomOut([$Panel2])
+	yield(get_tree().create_timer(0.5 * UiAnim.anim_scale), "timeout")
+	$Panel2.hide()
 
 
 func _on_admin_menu_pressed():
-	pauseMenuCloseTween()
+	UiAnim.animZoomOut([$Panel2])
+	yield(get_tree().create_timer(0.5 * UiAnim.anim_scale), "timeout")
+	$Panel2.hide()
 	add_child(admin_menu)
 
 func _on_admin_menu_closed():
@@ -221,21 +227,6 @@ func _on_fps_timer_timeout():
 	frames = 0
 
 ############################Tweeennnnnning##################################
-
-func pauseMenuOpenTween():
-	$Panel2.rect_pivot_offset = $Panel2.rect_size / 2
-	$Tween.remove_all()
-	$Panel2.rect_scale = Vector2(0.01,0.01)
-	$Tween.interpolate_property($Panel2,"rect_scale",$Panel2.rect_scale,
-		Vector2(1,1),0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	$Tween.start()
-
-func pauseMenuCloseTween():
-	$Tween.remove_all()
-	$Tween.interpolate_property($Panel2,"rect_scale",$Panel2.rect_scale,
-		Vector2(0.01,0.01),0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	$Tween.interpolate_property($Panel2,"visible",true,false,0.5,Tween.TRANS_LINEAR,Tween.EASE_OUT)
-	$Tween.start()
 
 
 

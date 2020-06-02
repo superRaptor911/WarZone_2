@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var servers = Array()
-var serverListener = preload("res://Network/ServerListener.gd").new()
+var serverListener = preload("res://Objects/Global/ServerListener.gd").new()
 var current_server = null
 var serverInfoFormatStr = "Server Name : %s\nGame Mode : %s\nMap : %s\nPlayers : %s"
 

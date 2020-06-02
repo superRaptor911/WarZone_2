@@ -66,7 +66,7 @@ func create_server(server_name,port,max_players):
 	get_tree().set_network_peer(net)
 	emit_signal("server_created")
 	Logger.Log("Loading Server Avertiser")
-	serverAvertiser = preload("res://Network/ServerAdvertiser.gd").new()
+	serverAvertiser = preload("res://Objects/Global/ServerAdvertiser.gd").new()
 	register_player(game_states.player_info)
 	game_server.serverInfo.port = String(port)
 	game_server.serverInfo.max_players = String(max_players)

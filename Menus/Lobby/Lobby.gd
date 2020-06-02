@@ -23,6 +23,7 @@ func _ready():
 	#game_server.preloadParticles()
 	selected_btn.self_modulate = Color8(66,210,41,255) 
 	initialTween()
+	UiAnim.animLeftToRight([$Panel])
 	$bots/bot_difficulty/bot_diff.value = 2
 	$bots/bot_no/HSlider.value = 10
 

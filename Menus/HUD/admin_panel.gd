@@ -46,4 +46,6 @@ func _on_kick_pressed():
 		network.kick_player(int(player.name),"kicked by admin")
 	else:
 		var lvl = get_tree().get_nodes_in_group("Level")[0]
-		lvl.server_kickBot(player)
+		lvl.S_removeUnit(player.name)
+	
+	emit_signal("remove_panel",self)

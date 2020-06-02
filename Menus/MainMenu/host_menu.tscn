@@ -186,8 +186,6 @@ margin_bottom = 21.5
 custom_fonts/font = SubResource( 7 )
 text = "Host Menu"
 
-[node name="Tween" type="Tween" parent="."]
-
 [node name="Admob" type="Node" parent="."]
 script = ExtResource( 4 )
 [connection signal="pressed" from="Panel/create" to="." method="_on_create_pressed"]

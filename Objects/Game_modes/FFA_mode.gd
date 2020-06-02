@@ -123,7 +123,7 @@ func _ready():
 		$Time_container/uptime.start()
 
 
-func _process(delta):
+func _process(_delta):
 	if get_tree().is_network_server():
 		showQuakeKills()
 

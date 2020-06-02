@@ -3,6 +3,7 @@ extends Panel
 var panel = preload("res://Menus/HUD/admin_panel.tscn")
 var panels = Array()
 
+var cur_panel = 0
 var max_panels = 8
 
 func _ready():
@@ -40,6 +41,7 @@ func _on_player_joined(plr):
 func _remove_panel(pn):
 	panels.erase(pn)
 	$VBoxContainer.remove_child(pn)
+	_on_VSlider_value_changed(cur_panel)
 
 
 func _on_quit_pressed():
@@ -48,7 +50,7 @@ func _on_quit_pressed():
 
 
 func _on_VSlider_value_changed(value):
-	print(value)
+	cur_panel = value
 	var vbox = $VBoxContainer
 	var old_panels = vbox.get_children()
 	for i in old_panels:

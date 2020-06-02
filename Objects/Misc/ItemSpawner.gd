@@ -36,7 +36,7 @@ func generateItem():
 
 
 func generateKit() -> Dictionary:
-	var item_info : Dictionary
+	var item_info = {}
 	if kit_to_spawn == "all":
 		item_info["type"] = kits[randi() % kits.size()]
 	else:

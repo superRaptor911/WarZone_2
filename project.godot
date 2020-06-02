@@ -42,12 +42,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "ServerAdvertiser",
 "language": "GDScript",
-"path": "res://Network/ServerAdvertiser.gd"
+"path": "res://Objects/Global/ServerAdvertiser.gd"
 }, {
 "base": "Node",
 "class": "ServerListener",
 "language": "GDScript",
-"path": "res://Network/ServerListener.gd"
+"path": "res://Objects/Global/ServerListener.gd"
 }, {
 "base": "Node",
 "class": "Team",
@@ -86,12 +86,13 @@ config/icon="res://Sprites/WARZONE-512.png"
 
 [autoload]
 
-Logger="*res://Objects/scripts/logger.gd"
-game_states="*res://Network/game_states.gd"
-network="*res://Network/network.gd"
-game_server="*res://Network/server.gd"
+Logger="*res://Objects/Global/logger.gd"
+game_states="*res://Objects/Global/game_states.gd"
+network="*res://Objects/Global/network.gd"
+game_server="*res://Objects/Global/server.gd"
 MenuManager="*res://Menus/menuManager.gd"
-MusicMan="*res://Objects/scripts/musicMan.gd"
+MusicMan="*res://Objects/Global/musicMan.gd"
+UiAnim="*res://Objects/Global/ui_anim.gd"
 
 [debug]
 

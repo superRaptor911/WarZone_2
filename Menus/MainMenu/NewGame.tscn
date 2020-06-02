@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=2]
@@ -21,21 +21,6 @@ size = 36
 use_filter = true
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=3]
-resource_name = "initial"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Panel:rect_scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0.1, 0.1 ), Vector2( 1, 1 ) ]
-}
-
 [node name="NewGame" type="CanvasLayer"]
 script = ExtResource( 4 )
 
@@ -57,6 +42,7 @@ margin_left = -262.0
 margin_top = -200.0
 margin_right = 262.0
 margin_bottom = 200.0
+rect_scale = Vector2( 0.1, 0.1 )
 rect_pivot_offset = Vector2( 265.194, 202.474 )
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
@@ -103,11 +89,6 @@ __meta__ = {
 
 [node name="Admob" type="Node" parent="."]
 script = ExtResource( 5 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "initial"
-playback_speed = 2.0
-anims/initial = SubResource( 3 )
 
 [node name="Button3" type="Button" parent="."]
 anchor_left = 0.097

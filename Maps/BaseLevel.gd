@@ -132,7 +132,7 @@ func _on_player_selected_team(selected_team):
 
 #When a player disconnects
 func _on_player_removed(pinfo):
-	rpc_id(1, "S_removeUnit", String(pinfo.net_id))
+	S_removeUnit(String(pinfo.net_id))
 
 
 func getSpawnPosition(team_id : int) -> Vector2:
@@ -355,9 +355,12 @@ func spawnBot(team_id : int = 0):
 		print_debug("unable to add bot no profile available")
 
 
-remotesync func S_removeUnit(uid : String):
-	assert(get_tree().is_network_server(),"Not server")
-	rpc("P_removeUnit", uid)
+func S_removeUnit(uid : String):
+	if get_tree().is_network_server():
+		rpc("P_removeUnit", uid)
+	else:
+		Logger.LogError("S_removeUnit", "Not network server")
+
 
 #Remove unit from game, client side
 remotesync func P_removeUnit(uid : String):
@@ -370,11 +373,12 @@ remotesync func P_removeUnit(uid : String):
 				if i.bot_name == unit.pname:
 					i.is_in_use = false
 					break
-
+			
 			emit_signal("bot_removed", unit)
 		else:
 			emit_signal("player_removed", unit)
 		
+		game_server._unit_data_list.erase(uid)
 		unit.queue_free()
 
 
@@ -384,7 +388,7 @@ func removeAllBot():
 	#get all bots
 	var bots = get_tree().get_nodes_in_group("Bot")
 	for i in bots:
-		rpc_id(1,"S_removeUnit", i.name)
+		S_removeUnit(i.name)
 
 
 func _on_disconnected():
