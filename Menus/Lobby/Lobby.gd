@@ -8,7 +8,7 @@ onready var selected_btn = $Panel/VBoxContainer/level
 var selected_gameMode = null
 var selected_gameMode_id = 0
 
-var level_names = ["Dust","WpnTest"]
+var level_names = ["Dust"]
 
 func _ready():
 	$Admob.load_banner()

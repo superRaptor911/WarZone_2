@@ -9,8 +9,8 @@
 [node name="M4A1" instance=ExtResource( 1 )]
 gun_type = "rifle"
 gun_name = "M4A1"
-damage = 32.0
-rounds_in_clip = 30
+damage = 24.0
+clip_size = 30
 gun_rating = 5
 rate_of_fire = 7.8
 gun_portrait = ExtResource( 5 )

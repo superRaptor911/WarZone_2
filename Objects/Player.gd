@@ -5,6 +5,7 @@ extends "res://Objects/unit.gd"
 
 var cash : int = 0
 var xp : int = 0
+var streak : int = 0
 
 var timer_time : float = 0
 var hud = null
@@ -43,6 +44,7 @@ func _ready():
 		
 		$Camera2D.current = true
 		connect("char_killed",self,"_on_player_killed")
+		connect("char_fraged", self, "getKillRewards")
 		hud = load("res://Menus/HUD/Hud.tscn").instance()
 		add_child(hud)
 		hud.setUser(self)
@@ -56,6 +58,7 @@ func _on_player_killed():
 	$Camera2D.current = false
 	$aim_indicator.hide()
 	pause_controls(true)
+	streak = 0
 
 func pickItem(item_id = -1):
 	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
@@ -174,3 +177,15 @@ func pause_controls(val : bool):
 	if game_states.is_android and is_network_master():
 		hud.get_node("controller").enabled = !val
 
+
+func getKillRewards():
+	xp += 10 + 10 * streak
+	var add = 25 + 25 * streak
+	cash += add
+	hud.addCash(add)
+	kills += 1
+	game_states.last_match_result.kills = kills
+	game_states.last_match_result.deaths = deaths
+	game_states.last_match_result.cash = cash
+	game_states.last_match_result.xp = xp
+	streak += 1

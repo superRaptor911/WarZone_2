@@ -11,7 +11,7 @@
 script = ExtResource( 2 )
 gun_type = "smg"
 gun_name = "MP5"
-damage = 20.0
+damage = 18.0
 clip_size = 30
 gun_rating = 3
 rate_of_fire = 10.0

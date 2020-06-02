@@ -4,8 +4,8 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android : bool = false
-const current_game_version : float = 1.1
+var is_android : bool = true
+const current_game_version : float = 1.2
 const invalid_position = Vector2(-999,-999)
 var first_run = false
 
@@ -171,11 +171,13 @@ func saveDefaultData():
 	
 func portGameToCurrentVersion(old_v):
 	print("porting version ",old_v ,"  to ",current_game_version)
-	if old_v == 1.0:
-		DataReader(game_settings, load_data("user://settings.dat",false))
-		DataReader(player_data, load_data("user://pinfo.dat",false))
-		save_data("user://settings.dat",game_settings)
-		save_data("user://status.dat",game_status,false)
+	
+	var use_enc = !(old_v == 1.0)
+	DataReader(game_settings, load_data("user://settings.dat",use_enc))
+	DataReader(player_data, load_data("user://pinfo.dat",use_enc))
+	
+	save_data("user://settings.dat",game_settings)
+	save_data("user://status.dat",game_status,false)
 
 
 

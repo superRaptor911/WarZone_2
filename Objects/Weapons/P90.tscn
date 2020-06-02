@@ -9,11 +9,10 @@
 [node name="P90" instance=ExtResource( 1 )]
 gun_type = "smg"
 gun_name = "P90"
-damage = 20.0
-rounds_in_clip = 50
+damage = 17.0
+clip_size = 50
 gun_rating = 4
 rate_of_fire = 13.0
-max_zoom = 0.85
 gun_portrait = ExtResource( 5 )
 gun_d_img = ExtResource( 3 )
 wpn_cost = 2200

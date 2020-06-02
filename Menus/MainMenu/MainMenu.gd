@@ -7,7 +7,7 @@ var add_shown = false
 func _ready():
 	add_shown = false
 	MusicMan.music_player.volume_db = -2.0
-	if game_states.game_settings.music_enabled:
+	if game_states.game_settings.music_enabled and not MusicMan.music_player.playing:
 		MusicMan.music_player.play()
 		
 	tweenInitial()

@@ -8,10 +8,9 @@
 
 [node name="mac10" instance=ExtResource( 1 )]
 gun_name = "mac10"
-damage = 22.0
-rounds_in_clip = 30
+damage = 16.0
+clip_size = 30
 rate_of_fire = 11.0
-max_zoom = 0.75
 gun_portrait = ExtResource( 5 )
 gun_d_img = ExtResource( 2 )
 wpn_cost = 700
