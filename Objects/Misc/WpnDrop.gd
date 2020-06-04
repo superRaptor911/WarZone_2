@@ -40,7 +40,9 @@ func _on_Timer_timeout():
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("Unit") and body.is_network_master():
 		if body.is_in_group("User"):
-			get_tree().get_nodes_in_group("Hud")[0].get_node("pick").show()
+			var hud = get_tree().get_nodes_in_group("Hud")
+			if not hud.empty():
+				hud[0].get_node("pick").hide()
 			body.cur_dropped_item_id = item_id
 		elif body.selected_gun.gun_rating < gun_rating:
 			body.pickItem(item_id)
@@ -50,7 +52,9 @@ func _on_Area2D_body_exited(body):
 	if body.is_in_group("Unit") and body.is_network_master():
 		if body.is_in_group("User"):
 			if body.cur_dropped_item_id == item_id:
-				get_tree().get_nodes_in_group("Hud")[0].get_node("pick").hide()
+				var hud = get_tree().get_nodes_in_group("Hud")
+				if not hud.empty():
+					hud[0].get_node("pick").hide()
 
 
 remotesync func itemPicked():
