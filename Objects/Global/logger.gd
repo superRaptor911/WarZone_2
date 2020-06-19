@@ -3,6 +3,8 @@ extends Node
 var file : File = File.new()
 var file_name = ""
 var logs = Array()
+var notice = preload("res://Objects/Misc/Notice.tscn").instance()
+
 
 func _ready():
 	var dir = Directory.new()

@@ -5,7 +5,7 @@ extends Node
 
 #is exporting for android or not
 var is_android : bool = true
-const current_game_version : float = 1.2
+const current_game_version : float = 1.3
 const invalid_position = Vector2(-999,-999)
 var first_run = false
 

@@ -17,6 +17,8 @@ func _ready():
 	admob.load_banner()
 	admob.load_interstitial()
 
+	Logger.notice.showNotice(self,"welcome","Hi, all")
+
 
 func _on_Button2_pressed():
 	MusicMan.click()

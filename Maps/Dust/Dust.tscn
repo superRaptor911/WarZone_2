@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Sprites/Tilesets/dust_base.tres" type="TileSet" id=1]
 [ext_resource path="res://Sprites/Tilesets/dust_height.tres" type="TileSet" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://Sprites/Tilesets/dirtpatch.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/vehicles/TRBRYcars [Converted] sedan.svg" type="Texture" id=6]
 [ext_resource path="res://Maps/palmtree1.png" type="Texture" id=7]
-[ext_resource path="res://Maps/Dust/level_info.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 91.2593, 40.644 )
@@ -189,10 +188,7 @@ texture = ExtResource( 6 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="car/StaticBody2D" index="0"]
 shape = SubResource( 1 )
 
-[node name="level_info" type="Node" parent="." index="28"]
-script = ExtResource( 8 )
-
-[node name="Navigation2D" type="Navigation2D" parent="." index="29" groups=[
+[node name="Navigation2D" type="Navigation2D" parent="." index="28" groups=[
 "Nav",
 ]]
 

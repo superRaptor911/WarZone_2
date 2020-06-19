@@ -11,8 +11,13 @@ var current_gun : Gun = null
 var skin_name = ""
 onready var fist = $skin/sfist
 
+export var sk_name = ""
+
 
 func _ready():
+	if sk_name != "" && skin_name != sk_name:
+		setSkin(sk_name)
+	
 	fist.global_scale = Vector2(1,1)
 	parent = get_parent()
 	if parent:

@@ -109,10 +109,7 @@ func loadGameMode():
 	
 	#add game mode
 	if game_mode:
-		Logger.Log("Loading Level resource from %s" % [$level_info.getGameModeNodePath()])
-		var mode_res = load($level_info.getGameModeNodePath()).instance()
 		game_mode.add_to_group("GameMode")
-		add_child(mode_res)
 		add_child(game_mode)
 		
 
@@ -266,7 +263,6 @@ func createUnit(data):
 		emit_signal("player_created",unit)
 	else:
 		emit_signal("bot_created",unit)
-		print("bot created")
 
 
 func createBots():
