@@ -7,7 +7,14 @@ var cur_path_id = 0
 var target_visible = false
 var nav : Navigation2D
 
+var free_timer
+
 func _ready():
+	var teams = get_tree().get_nodes_in_group("Team")
+	for i in teams:
+		if i.team_id == 0:
+			i.addPlayer(self)
+	
 	if not get_tree().is_network_server():
 		return
 
@@ -20,6 +27,13 @@ func _ready():
 	
 	$navTimer.wait_time += rand_range(-0.5, 0.6)
 	$navTimer.start()
+	
+	free_timer = Timer.new()
+	free_timer.one_shot = true
+	add_child(free_timer)
+	free_timer.connect("timeout",self, "_on_free_timeout")
+	
+	connect("char_killed", self, "_on_killed")
 
 
 func _process(_delta):
@@ -31,6 +45,7 @@ func _process(_delta):
 				rotation = movement_vector.angle() + PI / 2
 			else:
 				followPath()
+				rotation = movement_vector.angle() + PI / 2
 
 
 #get nearest unit
@@ -86,3 +101,16 @@ func _on_navTimer_timeout():
 	var T = game_server._unit_data_list.get(target_id)
 	if T:
 		target_visible = isTargetVisible(T.ref)
+
+
+func _on_killed():
+	free_timer.start()
+	
+	
+
+func _on_free_timeout():
+	rpc("P_freeZombie")
+
+
+remotesync func P_freeZombie():
+	queue_free()

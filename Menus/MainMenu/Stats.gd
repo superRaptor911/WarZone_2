@@ -6,7 +6,6 @@ func _ready():
 	$Panel/VBoxContainer/kills/Panel/Label.text = String(game_states.player_data.kills)
 	$Panel/VBoxContainer/name/LineEdit.text = game_states.player_data.name
 	$Panel/VBoxContainer/Level/Panel/Label.text = String(game_states.getLevelFromXP(game_states.player_data.XP))
-	$Admob.load_banner()
 	
 	UiAnim.animLeftToRight([$Panel])
 

@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Menus/MainMenu/host_menu.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://admob-lib/admob.gd" type="Script" id=4]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -185,8 +184,5 @@ margin_right = 89.0
 margin_bottom = 21.5
 custom_fonts/font = SubResource( 7 )
 text = "Host Menu"
-
-[node name="Admob" type="Node" parent="."]
-script = ExtResource( 4 )
 [connection signal="pressed" from="Panel/create" to="." method="_on_create_pressed"]
 [connection signal="pressed" from="Panel/back" to="." method="_on_back_pressed"]

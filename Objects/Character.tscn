@@ -21,10 +21,6 @@ speed = 100.0
 
 [node name="Model" parent="." instance=ExtResource( 2 )]
 
-[node name="free_timer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
 [node name="bloodSplash" parent="." instance=ExtResource( 4 )]
 amount = 24
 lifetime = 2.5

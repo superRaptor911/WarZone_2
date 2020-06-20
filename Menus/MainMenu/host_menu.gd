@@ -7,7 +7,7 @@ var next_scene : String
 func _ready():
 	network.connect("server_created",self,"_join_lobby")
 	UiAnim.animTopToBottom([$panel])
-	$Admob.load_banner()
+	
 
 func _join_lobby():
 	MenuManager.changeScene("HM/lobby")

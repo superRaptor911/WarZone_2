@@ -11,6 +11,6 @@ script = ExtResource( 2 )
 [node name="Model" parent="." index="0"]
 sk_name = "t1"
 
-[node name="navTimer" type="Timer" parent="." index="8"]
+[node name="navTimer" type="Timer" parent="." index="7"]
 wait_time = 1.2
 [connection signal="timeout" from="navTimer" to="." method="_on_navTimer_timeout"]

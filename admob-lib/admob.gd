@@ -5,23 +5,24 @@ class_name Admob, "res://admob-lib/icon.png"
 # signals
 signal banner_loaded
 signal banner_failed_to_load(error_code)
-signal insterstitial_failed_to_load(error_code)
+signal interstitial_failed_to_load(error_code)
 signal interstitial_loaded
 signal interstitial_closed
 signal rewarded_video_loaded
 signal rewarded_video_closed
-signal rewarded(currency, ammount)
+signal rewarded(currency, amount)
 signal rewarded_video_left_application
 signal rewarded_video_failed_to_load(error_code)
 signal rewarded_video_opened
 signal rewarded_video_started
 
 # properties
-export var is_real:bool  = true setget is_real_set
+export var is_real:bool setget is_real_set
 export var banner_on_top:bool = true
 export var banner_id:String = "ca-app-pub-9443221640471166/9049742329"
 export var interstitial_id:String = "ca-app-pub-9443221640471166/1781147462"
 export var rewarded_id:String = "ca-app-pub-9443221640471166/2680609241"
+
 export var child_directed:bool = false
 export var is_personalized:bool = true
 export(String, "G", "PG", "T", "MA") var max_ad_content_rate
@@ -138,9 +139,9 @@ func _on_admob_ad_loaded() -> void:
 func _on_admob_banner_failed_to_load(error_code:int) -> void:
 	emit_signal("banner_failed_to_load", error_code)
 	
-func _on_insterstitial_failed_to_load(error_code:int) -> void:
+func _on_interstitial_failed_to_load(error_code:int) -> void:
 	_is_interstitial_loaded = false
-	emit_signal("insterstitial_failed_to_load", error_code)
+	emit_signal("interstitial_failed_to_load", error_code)
 
 func _on_interstitial_loaded() -> void:
 	_is_interstitial_loaded = true

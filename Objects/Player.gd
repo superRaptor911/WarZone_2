@@ -22,10 +22,6 @@ signal player_killed(player)
 signal gun_picked
 
 
-###################################################
-#Note: free_timer is overridden to perform respawn
-#
-###################################################
 
 func _ready():
 	game_states.last_match_result.map = game_server.serverInfo.map

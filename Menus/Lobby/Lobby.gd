@@ -21,9 +21,7 @@ func _ready():
 	for i in IP.get_local_addresses():
 		if ( !(i.substr(0,3) == "169") ) and i.length() < 15:
 			$Label.text += "IP =" + i + "\n" 
-	#game_server.preloadParticles()
-	#selected_btn.self_modulate = Color8(66,210,41,255) 
-	#initialTween()
+
 	UiAnim.animLeftToRight([$Panel])
 	$Panel/TabContainer/Bots/bot_difficulty/bot_diff.value = 2
 	$Panel/TabContainer/Bots/bot_no/HSlider.value = 10

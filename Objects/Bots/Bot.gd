@@ -15,10 +15,6 @@ var bot_data : Dictionary = {
 	bot_g2 = ""
 }
 
-###################################################
-#Note: free_timer is overridden to perform respawn
-#
-###################################################
 
 func _ready():
 	if get_tree().is_network_server():
