@@ -2,6 +2,7 @@ extends Area2D
 
 export var radius : int = 100
 export var team_id : int = 0
+export var active : bool = true
 var entity_count : int = 0
 
 func _on_spawn_point_body_entered(body):

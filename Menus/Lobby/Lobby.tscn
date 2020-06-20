@@ -123,6 +123,9 @@ margin_top = -11.2253
 margin_right = 378.349
 margin_bottom = 28.7747
 rect_scale = Vector2( 1.5, 1.5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="mode" type="Label" parent="Panel/TabContainer/Game"]
 anchor_right = 1.0
@@ -336,10 +339,10 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_left = 56.4023
-margin_top = 16.384
-margin_right = 407.402
-margin_bottom = 43.384
+margin_left = 41.0
+margin_top = 40.0
+margin_right = 392.0
+margin_bottom = 104.0
 rect_scale = Vector2( 1.25, 1.25 )
 custom_fonts/font = ExtResource( 2 )
 __meta__ = {
