@@ -37,7 +37,9 @@ var game_settings = {
 	lighting_effects = true,
 	music_enabled = true,
 	dynamic_camera = true,
-	show_fps = false
+	show_fps = false,
+	enable_logging = false,
+	shadows = true
 }
 
 #control types available

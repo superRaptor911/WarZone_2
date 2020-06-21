@@ -114,3 +114,32 @@ func _on_free_timeout():
 
 remotesync func P_freeZombie():
 	queue_free()
+
+
+#Function overide
+func takeDamage(damage : float, _weapon : String, attacker_id : String):
+	if not ( alive and get_tree().is_network_server() ):
+		return
+	
+	#reference to attacker
+	var attacker_ref = game_server.getUnitByID(attacker_id).ref
+	
+	#check if friendly fire
+	if not (game_server.extraServerInfo.friendly_fire):
+		if attacker_ref and team.team_id == attacker_ref.team.team_id:
+			return
+	
+
+	HP -= damage
+	
+	emit_signal("char_took_damage")
+	#emit blood splash
+	_blood_splash(attacker_ref.position,position)
+	#sync with peers
+	rpc_unreliable("P_health",HP,AP)
+	
+	#char dead
+	if HP <= 0:
+		attacker_ref.emit_signal("char_fraged")
+		#sync with everyone
+		rpc("P_death")

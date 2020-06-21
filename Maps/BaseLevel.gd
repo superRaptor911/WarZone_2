@@ -46,8 +46,11 @@ func _ready():
 		captureMap()
 		return
 	
+	if not game_states.game_settings.shadows:
+		$BaseMap/shadow.hide()
+		
 	game_server.resetUnitData()
-	
+		
 	#setup teams
 	add_child(team1)
 	add_child(team2)

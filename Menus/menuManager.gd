@@ -34,6 +34,9 @@ func loadMenu():
 	#sub menu of host menu
 	addMenu("HM/lobby","res://Menus/Lobby/Lobby.tscn")
 	
+	#sub menu of settings
+	addMenu("set/logViewer", "res://Menus/Misc/LogViewer.tscn")
+	
 	finishLoading()
 
 func addMenu(name,path):

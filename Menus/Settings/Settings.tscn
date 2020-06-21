@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Menus/Settings/Settings.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
@@ -6,14 +6,35 @@
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=5]
 [ext_resource path="res://admob-lib/admob.gd" type="Script" id=6]
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=8]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 40.0
+content_margin_right = 40.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-shadow_size = 6
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+
+[sub_resource type="StyleBoxFlat" id=6]
+content_margin_left = 40.0
+content_margin_right = 40.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 0.0156863, 0.0156863, 0.0156863, 0.666667 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.266667, 0.266667, 0.266667, 1 )
@@ -32,11 +53,6 @@ size = 24
 use_filter = true
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=4]
-size = 32
-use_filter = true
-font_data = ExtResource( 4 )
-
 [node name="Settings" type="CanvasLayer"]
 script = ExtResource( 1 )
 
@@ -45,6 +61,262 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 3 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="."]
+margin_left = 365.272
+margin_top = 62.9048
+margin_right = 932.272
+margin_bottom = 569.905
+custom_styles/tab_fg = SubResource( 4 )
+custom_styles/tab_bg = SubResource( 6 )
+custom_styles/panel = SubResource( 5 )
+custom_fonts/font = ExtResource( 7 )
+tab_align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Basic" type="Tabs" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 51.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_fonts/font = ExtResource( 7 )
+tab_align = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Basic"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -213.5
+margin_top = -169.0
+margin_right = 213.5
+margin_bottom = 169.0
+custom_constants/separation = 30
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="particles" type="Panel" parent="TabContainer/Basic/VBoxContainer"]
+margin_right = 427.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 427, 40 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Basic/VBoxContainer/particles"]
+margin_left = 14.9753
+margin_top = 1.95422
+margin_right = 213.975
+margin_bottom = 33.9542
+custom_fonts/font = SubResource( 3 )
+text = "Enable Particles"
+
+[node name="particles" type="CheckButton" parent="TabContainer/Basic/VBoxContainer/particles"]
+margin_left = 336.729
+margin_right = 412.729
+margin_bottom = 40.0
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music" type="Panel" parent="TabContainer/Basic/VBoxContainer"]
+margin_top = 70.0
+margin_right = 427.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 427, 40 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Basic/VBoxContainer/music"]
+margin_left = 14.9753
+margin_top = 1.95422
+margin_right = 213.975
+margin_bottom = 33.9542
+custom_fonts/font = SubResource( 3 )
+text = "Music"
+
+[node name="music" type="CheckButton" parent="TabContainer/Basic/VBoxContainer/music"]
+margin_left = 336.729
+margin_right = 412.729
+margin_bottom = 40.0
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="camera" type="Panel" parent="TabContainer/Basic/VBoxContainer"]
+margin_top = 140.0
+margin_right = 427.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 427, 40 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Basic/VBoxContainer/camera"]
+margin_left = 14.9753
+margin_top = 1.95422
+margin_right = 213.975
+margin_bottom = 33.9542
+custom_fonts/font = SubResource( 3 )
+text = "Dynamic Camera"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="camera" type="CheckButton" parent="TabContainer/Basic/VBoxContainer/camera"]
+margin_left = 336.729
+margin_right = 412.729
+margin_bottom = 40.0
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shadows" type="Panel" parent="TabContainer/Basic/VBoxContainer"]
+margin_top = 210.0
+margin_right = 427.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 427, 40 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Basic/VBoxContainer/shadows"]
+margin_left = 14.9753
+margin_top = 1.95422
+margin_right = 213.975
+margin_bottom = 33.9542
+custom_fonts/font = SubResource( 3 )
+text = "Shadows"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shadows" type="CheckButton" parent="TabContainer/Basic/VBoxContainer/shadows"]
+margin_left = 336.729
+margin_right = 412.729
+margin_bottom = 40.0
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Advanced" type="Tabs" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 51.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_fonts/font = ExtResource( 7 )
+tab_align = 0
+
+[node name="container" type="VBoxContainer" parent="TabContainer/Advanced"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -213.5
+margin_top = -169.0
+margin_right = 213.5
+margin_bottom = 1.52588e-05
+custom_constants/separation = 30
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="log" type="Panel" parent="TabContainer/Advanced/container"]
+margin_right = 427.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 427, 40 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Advanced/container/log"]
+margin_left = 14.9753
+margin_top = 1.95422
+margin_right = 213.975
+margin_bottom = 33.9542
+custom_fonts/font = SubResource( 3 )
+text = "Enable logging"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="log" type="CheckButton" parent="TabContainer/Advanced/container/log"]
+margin_left = 336.729
+margin_right = 412.729
+margin_bottom = 40.0
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fps" type="Panel" parent="TabContainer/Advanced/container"]
+margin_top = 70.0
+margin_right = 427.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 427, 40 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TabContainer/Advanced/container/fps"]
+margin_left = 14.9753
+margin_top = 1.95422
+margin_right = 213.975
+margin_bottom = 33.9542
+custom_fonts/font = SubResource( 3 )
+text = "Show Fps"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fps" type="CheckButton" parent="TabContainer/Advanced/container/fps"]
+margin_left = 336.729
+margin_right = 412.729
+margin_bottom = 40.0
+pressed = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="view_logs" type="Button" parent="TabContainer/Advanced"]
+margin_left = 187.546
+margin_top = 374.566
+margin_right = 372.546
+margin_bottom = 426.566
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 8 )
+custom_styles/focus = ExtResource( 8 )
+custom_styles/normal = ExtResource( 8 )
+custom_fonts/font = ExtResource( 7 )
+text = "View Logs"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -68,143 +340,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -293.5
-margin_top = -257.0
-margin_right = 293.5
-margin_bottom = 257.0
-custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -213.5
-margin_top = -163.0
-margin_right = 213.5
-margin_bottom = 175.0
-custom_constants/separation = 30
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="particles" type="Panel" parent="Panel/VBoxContainer"]
-margin_right = 427.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 2 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/particles"]
-margin_left = 14.9753
-margin_top = 1.95422
-margin_right = 213.975
-margin_bottom = 33.9542
-custom_fonts/font = SubResource( 3 )
-text = "Enable Particles"
-
-[node name="particles" type="CheckButton" parent="Panel/VBoxContainer/particles"]
-margin_left = 336.729
-margin_right = 412.729
-margin_bottom = 40.0
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="music" type="Panel" parent="Panel/VBoxContainer"]
-margin_top = 70.0
-margin_right = 427.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 2 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/music"]
-margin_left = 14.9753
-margin_top = 1.95422
-margin_right = 213.975
-margin_bottom = 33.9542
-custom_fonts/font = SubResource( 3 )
-text = "Music"
-
-[node name="music" type="CheckButton" parent="Panel/VBoxContainer/music"]
-margin_left = 336.729
-margin_right = 412.729
-margin_bottom = 40.0
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="camera" type="Panel" parent="Panel/VBoxContainer"]
-margin_top = 140.0
-margin_right = 427.0
-margin_bottom = 180.0
-rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 2 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/camera"]
-margin_left = 14.9753
-margin_top = 1.95422
-margin_right = 213.975
-margin_bottom = 33.9542
-custom_fonts/font = SubResource( 3 )
-text = "Dynamic Camera"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="camera" type="CheckButton" parent="Panel/VBoxContainer/camera"]
-margin_left = 336.729
-margin_right = 412.729
-margin_bottom = 40.0
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Header" type="Panel" parent="Panel"]
-anchor_right = 1.0
-margin_bottom = 48.0
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Panel/Header"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -70.5
-margin_top = -21.5
-margin_right = 70.5
-margin_bottom = 21.5
-custom_fonts/font = SubResource( 4 )
-text = "Settings"
-
 [node name="Admob" type="Node" parent="."]
 script = ExtResource( 6 )
+[connection signal="toggled" from="TabContainer/Basic/VBoxContainer/particles/particles" to="." method="_on_particles_toggled"]
+[connection signal="toggled" from="TabContainer/Basic/VBoxContainer/music/music" to="." method="_on_music_toggled"]
+[connection signal="toggled" from="TabContainer/Basic/VBoxContainer/camera/camera" to="." method="_on_camera_toggled"]
+[connection signal="toggled" from="TabContainer/Basic/VBoxContainer/shadows/shadows" to="." method="_on_shadows_toggled"]
+[connection signal="toggled" from="TabContainer/Advanced/container/log/log" to="." method="_on_log_toggled"]
+[connection signal="toggled" from="TabContainer/Advanced/container/fps/fps" to="." method="_on_fps_toggled"]
+[connection signal="pressed" from="TabContainer/Advanced/view_logs" to="." method="_on_view_logs_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
-[connection signal="toggled" from="Panel/VBoxContainer/particles/particles" to="." method="_on_particles_toggled"]
-[connection signal="toggled" from="Panel/VBoxContainer/music/music" to="." method="_on_music_toggled"]
-[connection signal="toggled" from="Panel/VBoxContainer/camera/camera" to="." method="_on_camera_toggled"]

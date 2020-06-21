@@ -12,7 +12,6 @@ var selected_gameMode_id = 0
 
 
 func _ready():
-	$Admob.load_banner()
 	game_server.bot_settings.bot_count = 0
 	game_server.bot_settings.bot_difficulty = 1
 	loadLevelInfos()
@@ -65,7 +64,6 @@ func setGameModeInfo(info):
 
 
 func _start_game():
-	$Admob.hide_banner()
 	game_server.serverInfo.map = selected_level.name
 	game_server.serverInfo.game_mode = selected_gameMode[0]
 	network.serverAvertiser.serverInfo = game_server.serverInfo
