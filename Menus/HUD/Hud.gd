@@ -19,7 +19,7 @@ func _ready():
 	
 	#Enable admin menu if admin
 	if get_tree().is_network_server():
-		$Panel2/admin_menu.disabled = false
+		$Panel2/container/admin_menu.disabled = false
 		admin_menu = load("res://Menus/HUD/AdminPanel.tscn").instance()
 		admin_menu.connect("adminPanel_closed", self, "_on_admin_menu_closed")
 
@@ -211,6 +211,12 @@ func _on_back_pressed():
 	yield(get_tree().create_timer(0.5 * UiAnim.anim_scale), "timeout")
 	$Panel2.hide()
 
+func _on_changeTeam_pressed():
+	user.P_on_team_menu_selected()
+	UiAnim.animZoomOut([$Panel2])
+	yield(get_tree().create_timer(0.5 * UiAnim.anim_scale), "timeout")
+	$Panel2.hide()
+
 
 func _on_admin_menu_pressed():
 	UiAnim.animZoomOut([$Panel2])
@@ -225,6 +231,8 @@ func _on_admin_menu_closed():
 func _on_fps_timer_timeout():
 	$fps.text = String(frames)
 	frames = 0
+	
+	
 
 ############################Tweeennnnnning##################################
 
@@ -245,3 +253,6 @@ func _on_pic_touch_pressed():
 	if user.alive:
 		user.pickItem()
 		$pick.hide()
+
+
+

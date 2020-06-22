@@ -46,6 +46,10 @@ func _ready():
 		add_child(hud)
 		hud.setUser(self)
 		$aim_indicator.show()
+		
+		#connect signals
+		team_selector.connect("team_selected", self, "P_on_team_selected")
+		team_selector.connect("spectate_mode", self, "P_on_spectate_selected")
 	
 	if get_tree().is_network_server():
 		connect("char_killed",self,"P_player_killed")
@@ -95,13 +99,13 @@ func P_player_killed():
 	remove_child(hud)
 	
 	#connect signals
-	spectate.connect("leave_spec_mode", self, "P_on_spec_menu_selected")
+	spectate.connect("leave_spec_mode", self, "P_on_team_menu_selected")
 
-func P_on_spec_menu_selected():
+func P_on_team_menu_selected():
 	get_parent().remove_child(spectate)
 	get_parent().add_child(team_selector)
-	team_selector.connect("team_selected", self, "P_on_team_selected")
-	team_selector.connect("spectate_mode", self, "P_on_spectate_selected")
+	#team_selector.connect("team_selected", self, "P_on_team_selected")
+	#team_selector.connect("spectate_mode", self, "P_on_spectate_selected")
 	
 
 func P_on_spectate_selected():
@@ -114,7 +118,15 @@ func P_on_team_selected(team_id):
 	if team_id != team.team_id:
 		var level = get_tree().get_nodes_in_group("Level")[0]
 		level.rpc_id(1,"S_changeUnitTeam", name, team_id)
+		get_parent().remove_child(team_selector)
+		get_parent().add_child(spectate)
+	
 	else:
+		get_parent().remove_child(team_selector)
+		if not alive:
+			get_parent().add_child(spectate)
+		
+		#show Warning
 		Logger.Log("Team not changed, You are already in selected team")
 		Logger.notice.showNotice(get_parent(), "OOPS!", "You are already in selected team")
 	
