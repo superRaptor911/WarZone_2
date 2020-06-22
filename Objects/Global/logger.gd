@@ -6,6 +6,8 @@ var logs = Array()
 var notice = preload("res://Objects/Misc/Notice.tscn").instance()
 var max_logs = 8
 
+var print_to_console = true
+
 var path = "res://"
 var final_path = "res://logs/"
 
@@ -48,6 +50,9 @@ func Log(msg : String, instant_save = false):
 		var message : String = ("%02d:%02d:%02d " % [dt.hour,dt.minute,dt.second]) + msg
 		logs.append(message)
 	
+		if print_to_console:
+			print(message)
+	
 		if instant_save:
 			saveLogs()
 
@@ -60,6 +65,10 @@ func LogError(func_name : String, msg : String):
 		logs.append(message)
 		logs.append("-----> %s" % [msg])
 		saveLogs()
+		
+		if print_to_console:
+			print(message)
+			print("-----> %s" % [msg])
 
 
 func saveLogs():

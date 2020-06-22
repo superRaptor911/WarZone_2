@@ -6,8 +6,8 @@ signal remove_panel(panel)
 
 func _ready():
 	var level = get_tree().get_nodes_in_group("Level")[0]
-	level.connect("player_despawned",self,"_on_player_despawned")
-	level.connect("bot_despawned",self,"_on_player_despawned")
+	level.connect("player_removed",self,"_on_player_despawned")
+	level.connect("bot_removed",self,"_on_player_despawned")
 
 
 func setPlayer(plr):

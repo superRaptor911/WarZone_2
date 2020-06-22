@@ -16,8 +16,10 @@ func _ready():
 	var level_group = get_tree().get_nodes_in_group("Level")
 	if not level_group.empty():
 		var level = level_group[0]
-		level.connect("player_spawned",self,"_on_player_spawned") 
-		level.connect("player_despawned",self,"_on_player_despawned")
+		level.connect("player_created",self,"_on_player_spawned") 
+		level.connect("player_removed",self,"_on_player_despawned")
+		level.connect("bot_created",self,"_on_player_spawned") 
+		level.connect("bot_removed",self,"_on_player_despawned")
 		var world_Size = level.get_node("BaseMap/height").get_used_rect().size
 		$Minimap.rect_size = world_Size * 8
 
@@ -82,9 +84,10 @@ func _on_menu_pressed():
 
 	
 func _process(_delta):
-	$Text/Label.text = str_format % [current_spec_player.pname, 
-	current_spec_player.kills, current_spec_player.deaths, current_spec_player.HP,
-	current_spec_player.AP]
+	if current_spec_player:
+		$Text/Label.text = str_format % [current_spec_player.pname, 
+		current_spec_player.kills, current_spec_player.deaths, current_spec_player.HP,
+		current_spec_player.AP]
 
 
 

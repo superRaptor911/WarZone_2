@@ -235,5 +235,5 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="TeamSelect"]
 [connection signal="pressed" from="TeamSelect/container/spec" to="." method="_on_spec_pressed"]
 [connection signal="pressed" from="TeamSelect/container/quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="TeamSelect/spec_panel/spec_Button" to="TeamSelect" method="_on_spec_Button_pressed"]
-[connection signal="pressed" from="TeamSelect/exit_panel/Button" to="TeamSelect" method="_on_Button_pressed"]
+[connection signal="pressed" from="TeamSelect/spec_panel/spec_Button" to="." method="_on_spec_Button_pressed"]
+[connection signal="pressed" from="TeamSelect/exit_panel/Button" to="." method="_on_Button_pressed"]

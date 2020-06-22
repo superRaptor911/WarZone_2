@@ -418,3 +418,52 @@ remotesync func P_restartLevel():
 	team2.reset()
 	spawned_units_ids.clear()
 	add_child(teamSelector)
+
+
+remotesync func S_changeUnitTeam(unit_id : String, team_id : int):
+	if get_tree().is_network_server():
+		var unit = game_server._unit_data_list.get(unit_id)
+		if not unit:
+			Logger.LogError("S_changeUnitTeam", "Unit with id %s not found" % [unit_id])
+			return
+		
+		if unit.ref.team.team_id == team_id:
+			Logger.Log("Failed to change team. Already in team %d" % [team_id])
+			return
+		
+		unit.killChar()
+		rpc("P_changeUnitTeam", unit_id, team_id)
+
+
+remotesync func P_changeUnitTeam(unit_id : String, team_id : int):
+		var unit = game_server._unit_data_list.get(unit_id)
+		if not unit:
+			Logger.LogError("S_changeUnitTeam", "Unit with id %s not found" % [unit_id])
+			return
+		
+		#remove from current team
+		unit.ref.team.removePlayer(unit.ref)
+		
+		#Add to new team
+		if team1.team_id == team_id:
+			team1.addPlayer(unit)
+		else:
+			team2.addPlayer(unit)
+		
+		#assign skin
+		if unit.is_in_group("Bot"):
+			#Terrorist Team
+			if team_id == 0:
+				unit.get_node("Model").setSkin("t1")
+			#CT team
+			else:
+				unit.get_node("Model").setSkin("ct1")
+		#Get custom skins for Player
+		else:
+			var data = network.players.get(int(unit.name))
+			#Terrorist Team
+			if team_id == 0:
+				unit.get_node("Model").setSkin(data.t_model)
+			#CT team
+			else:
+				unit.get_node("Model").setSkin(data.ct_model)

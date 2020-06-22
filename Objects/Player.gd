@@ -101,6 +101,12 @@ func P_on_spec_menu_selected():
 	get_parent().remove_child(spectate)
 	get_parent().add_child(team_selector)
 	team_selector.connect("team_selected", self, "P_on_team_selected")
+	team_selector.connect("spectate_mode", self, "P_on_spectate_selected")
+	
+
+func P_on_spectate_selected():
+	get_parent().remove_child(team_selector)
+	get_parent().add_child(team_selector)
 
 
 func P_on_team_selected(team_id):

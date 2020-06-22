@@ -35,6 +35,8 @@ func addPlayer(P):
 
 func removePlayer(plr):
 	if plr.team.team_id == team_id:
+		plr.disconnect("char_killed",self,"_on_player_killed")
+		plr.disconnect("char_born",self,"_on_player_born")
 		player_count -= 1
 		if player_count == 0:
 			emit_signal("team_eliminated",self)

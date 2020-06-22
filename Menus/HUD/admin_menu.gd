@@ -8,8 +8,8 @@ var max_panels = 8
 
 func _ready():
 	var level = get_tree().get_nodes_in_group("Level")[0]
-	level.connect("player_spawned",self,"_on_player_joined")
-	level.connect("bot_spawned",self,"_on_player_joined")
+	level.connect("player_created",self,"_on_player_joined")
+	level.connect("bot_created",self,"_on_player_joined")
 	
 	var players = get_tree().get_nodes_in_group("Unit")
 	
