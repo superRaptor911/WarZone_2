@@ -106,13 +106,14 @@ func P_on_spec_menu_selected():
 
 func P_on_spectate_selected():
 	get_parent().remove_child(team_selector)
-	get_parent().add_child(team_selector)
+	get_parent().add_child(spectate)
 
 
 func P_on_team_selected(team_id):
 	#New team selected
 	if team_id != team.team_id:
-		pass
+		var level = get_tree().get_nodes_in_group("Level")[0]
+		level.rpc_id(1,"S_changeUnitTeam", name, team_id)
 	else:
 		Logger.Log("Team not changed, You are already in selected team")
 		Logger.notice.showNotice(get_parent(), "OOPS!", "You are already in selected team")

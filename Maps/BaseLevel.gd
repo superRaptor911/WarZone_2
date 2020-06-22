@@ -431,7 +431,7 @@ remotesync func S_changeUnitTeam(unit_id : String, team_id : int):
 			Logger.Log("Failed to change team. Already in team %d" % [team_id])
 			return
 		
-		unit.killChar()
+		unit.ref.killChar()
 		rpc("P_changeUnitTeam", unit_id, team_id)
 
 
@@ -446,24 +446,24 @@ remotesync func P_changeUnitTeam(unit_id : String, team_id : int):
 		
 		#Add to new team
 		if team1.team_id == team_id:
-			team1.addPlayer(unit)
+			team1.addPlayer(unit.ref)
 		else:
-			team2.addPlayer(unit)
+			team2.addPlayer(unit.ref)
 		
 		#assign skin
-		if unit.is_in_group("Bot"):
+		if unit.ref.is_in_group("Bot"):
 			#Terrorist Team
 			if team_id == 0:
-				unit.get_node("Model").setSkin("t1")
+				unit.ref.get_node("Model").setSkin("t1")
 			#CT team
 			else:
-				unit.get_node("Model").setSkin("ct1")
+				unit.ref.get_node("Model").setSkin("ct1")
 		#Get custom skins for Player
 		else:
-			var data = network.players.get(int(unit.name))
+			var data = network.players.get(int(unit.ref.name))
 			#Terrorist Team
 			if team_id == 0:
-				unit.get_node("Model").setSkin(data.t_model)
+				unit.ref.get_node("Model").setSkin(data.t_model)
 			#CT team
 			else:
-				unit.get_node("Model").setSkin(data.ct_model)
+				unit.ref.get_node("Model").setSkin(data.ct_model)
