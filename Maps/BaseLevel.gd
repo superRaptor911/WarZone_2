@@ -61,7 +61,7 @@ func _ready():
 	network.connect("disconnected", self, "_on_disconnected")
 	
 	#handle team selector
-	$CanvasLayer.add_child(teamSelector)
+	add_child(teamSelector)
 	teamSelector.connect("team_selected",self,"_on_player_selected_team")
 	teamSelector.connect("spectate_mode",self,"_on_specmode_selected")
 	spec_mode.connect("leave_spec_mode",self,"_on_spec_mode_leave")
@@ -119,16 +119,16 @@ func loadGameMode():
 func _on_specmode_selected():
 	Logger.Log("[%s] selected spectate" % [game_states.player_info.name])
 	add_child(spec_mode)
-	$CanvasLayer.remove_child(teamSelector)
+	remove_child(teamSelector)
 
 func _on_spec_mode_leave():
 	remove_child(spec_mode)
-	$CanvasLayer.add_child(teamSelector)
+	add_child(teamSelector)
 
 func _on_player_selected_team(selected_team):
 	if get_tree().is_network_server():
 		rpc_id(1,"S_createPlayer",game_states.player_info,selected_team)
-	$CanvasLayer.remove_child(teamSelector)
+	remove_child(teamSelector)
 
 #When a player disconnects
 func _on_player_removed(pinfo):
@@ -417,4 +417,4 @@ remotesync func P_restartLevel():
 	team1.reset()
 	team2.reset()
 	spawned_units_ids.clear()
-	$CanvasLayer.add_child(teamSelector)
+	add_child(teamSelector)

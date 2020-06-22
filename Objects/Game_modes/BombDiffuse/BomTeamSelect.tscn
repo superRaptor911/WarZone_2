@@ -1,22 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Objects/Misc/TeamSelect.tscn" type="PackedScene" id=1]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Objects/Game_modes/BombDiffuse/BomTeamSelect.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/UI/terrorist.jpg" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/ct.jpg" type="Texture" id=5]
-
-[sub_resource type="StyleBoxFlat" id=1]
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_size = 6
-
-[sub_resource type="DynamicFont" id=2]
-size = 28
-use_filter = true
-font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.196078, 0.196078, 0.196078, 0.666667 )
@@ -54,49 +42,18 @@ font_data = ExtResource( 2 )
 [node name="BomTeamSelect" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
-[node name="container" parent="." index="0"]
-margin_left = -148.708
-margin_top = -190.304
-margin_right = 151.292
-margin_bottom = 199.696
-
-[node name="T" type="Button" parent="container" index="0"]
-margin_right = 300.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 300, 60 )
-custom_styles/normal = SubResource( 1 )
-custom_fonts/font = SubResource( 2 )
-text = "Join Terrorists"
-
-[node name="CT" type="Button" parent="container" index="1"]
-margin_top = 110.0
-margin_right = 300.0
-margin_bottom = 170.0
-rect_min_size = Vector2( 300, 60 )
-custom_styles/normal = SubResource( 1 )
-custom_fonts/font = SubResource( 2 )
-text = "Join Counter Terror"
-
-[node name="spec" parent="container" index="2"]
-margin_top = 220.0
-margin_bottom = 280.0
-
-[node name="quit" parent="container" index="3"]
-margin_top = 330.0
-margin_bottom = 390.0
-
-[node name="T_join" type="Panel" parent="." index="5"]
-margin_left = -213.1
-margin_top = 645.726
-margin_right = 293.9
-margin_bottom = 984.726
+[node name="CT_join" type="Panel" parent="TeamSelect" index="0"]
+margin_left = -890.37
+margin_top = 47.838
+margin_right = -383.37
+margin_bottom = 386.838
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="T_join" index="0"]
+[node name="Panel" type="Panel" parent="TeamSelect/CT_join" index="0"]
 margin_left = 159.756
 margin_top = 30.659
 margin_right = 309.756
@@ -107,64 +64,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="T_join/Panel" index="0"]
-margin_left = 3.0
-margin_top = 3.0
-margin_right = 147.0
-margin_bottom = 127.0
-texture = ExtResource( 4 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="T_join" index="1"]
-margin_left = 48.0
-margin_top = 183.0
-margin_right = 449.0
-margin_bottom = 273.0
-custom_fonts/font = SubResource( 5 )
-text = "Join Terrorist and  bomb the target."
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Tjoin_btn" type="Button" parent="T_join" index="2"]
-margin_left = 348.0
-margin_top = 287.0
-margin_right = 455.0
-margin_bottom = 325.0
-custom_styles/normal = SubResource( 6 )
-custom_fonts/font = SubResource( 7 )
-text = "JOIN"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CT_join" type="Panel" parent="." index="6"]
-margin_left = -774.37
-margin_top = 246.838
-margin_right = -267.37
-margin_bottom = 585.838
-custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="CT_join" index="0"]
-margin_left = 159.756
-margin_top = 30.659
-margin_right = 309.756
-margin_bottom = 160.659
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="CT_join/Panel" index="0"]
+[node name="TextureRect" type="TextureRect" parent="TeamSelect/CT_join/Panel" index="0"]
 margin_left = 3.0
 margin_top = 3.0
 margin_right = 147.0
@@ -175,7 +75,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CT_join" index="1"]
+[node name="Label" type="Label" parent="TeamSelect/CT_join" index="1"]
 margin_left = 48.0
 margin_top = 183.0
 margin_right = 449.0
@@ -187,7 +87,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CT_join_btn" type="Button" parent="CT_join" index="2"]
+[node name="CT_join_btn" type="Button" parent="TeamSelect/CT_join" index="2"]
 margin_left = 348.0
 margin_top = 287.0
 margin_right = 455.0
@@ -198,7 +98,64 @@ text = "JOIN"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="container/T" to="." method="_on_T_pressed"]
-[connection signal="pressed" from="container/CT" to="." method="_on_CT_pressed"]
-[connection signal="pressed" from="T_join/Tjoin_btn" to="." method="_on_Tjoin_btn_pressed"]
-[connection signal="pressed" from="CT_join/CT_join_btn" to="." method="_on_CT_join_btn_pressed"]
+
+[node name="T_join" type="Panel" parent="TeamSelect" index="6"]
+margin_left = -329.1
+margin_top = 446.726
+margin_right = 177.9
+margin_bottom = 785.726
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="TeamSelect/T_join" index="0"]
+margin_left = 159.756
+margin_top = 30.659
+margin_right = 309.756
+margin_bottom = 160.659
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="TeamSelect/T_join/Panel" index="0"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 147.0
+margin_bottom = 127.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TeamSelect/T_join" index="1"]
+margin_left = 48.0
+margin_top = 183.0
+margin_right = 449.0
+margin_bottom = 273.0
+custom_fonts/font = SubResource( 5 )
+text = "Join Terrorist and  bomb the target."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tjoin_btn" type="Button" parent="TeamSelect/T_join" index="2"]
+margin_left = 348.0
+margin_top = 287.0
+margin_right = 455.0
+margin_bottom = 325.0
+custom_styles/normal = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
+text = "JOIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="TeamSelect/CT_join/CT_join_btn" to="." method="_on_CT_join_btn_pressed"]
+[connection signal="pressed" from="TeamSelect/container/T" to="." method="_on_T_pressed"]
+[connection signal="pressed" from="TeamSelect/container/CT" to="." method="_on_CT_pressed"]
+[connection signal="pressed" from="TeamSelect/T_join/Tjoin_btn" to="." method="_on_Tjoin_btn_pressed"]

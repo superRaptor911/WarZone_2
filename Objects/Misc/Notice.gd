@@ -8,6 +8,7 @@ func _ready():
 #show notice 
 #set heading and desc with custom colors
 func showNotice(par, Heading, info, h_clr = Color.white, i_clr = Color.white):
+	show()
 	$Header.text = Heading
 	$Header.set("custom_colors/font_color",h_clr)
 	$desc.text = info

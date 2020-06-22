@@ -51,7 +51,7 @@ margin_right = 697.654
 margin_bottom = 636.052
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = SubResource( 2 )
-text = "Menu"
+text = "Choose Team"
 __meta__ = {
 "_edit_use_anchors_": false
 }

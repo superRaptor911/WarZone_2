@@ -12,6 +12,7 @@ var hud = null
 
 var grenade = preload("res://Objects/Weapons/grenade.tscn")
 var spectate = preload("res://Objects/Game_modes/Spectate.tscn").instance()
+var team_selector = preload("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 var _pause_cntrl : bool = false
 
 var cur_dropped_item_id = 0
@@ -47,7 +48,7 @@ func _ready():
 		$aim_indicator.show()
 	
 	if get_tree().is_network_server():
-		connect("char_killed",self,"_on_peer_killed")
+		connect("char_killed",self,"P_player_killed")
 
 
 func _on_player_killed():
@@ -87,10 +88,28 @@ remotesync func pickUpItem(item):
 		AP = 100
 
 
-func _on_peer_killed():
+func P_player_killed():
 	emit_signal("player_killed",self)
+	#add spectate mode to level node
 	get_parent().add_child(spectate)
 	remove_child(hud)
+	
+	#connect signals
+	spectate.connect("leave_spec_mode", self, "P_on_spec_menu_selected")
+
+func P_on_spec_menu_selected():
+	get_parent().remove_child(spectate)
+	get_parent().add_child(team_selector)
+	team_selector.connect("team_selected", self, "P_on_team_selected")
+
+
+func P_on_team_selected(team_id):
+	#New team selected
+	if team_id != team.team_id:
+		pass
+	else:
+		Logger.Log("Team not changed, You are already in selected team")
+		Logger.notice.showNotice(get_parent(), "OOPS!", "You are already in selected team")
 	
 
 func getWpnAttachments():
