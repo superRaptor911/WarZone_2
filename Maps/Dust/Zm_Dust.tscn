@@ -18,10 +18,6 @@
 position = Vector2( 287.403, 2592.3 )
 team_id = 1
 
-[node name="zombieSpawner" parent="spawns" instance=ExtResource( 4 )]
-position = Vector2( 1576.93, 2470.32 )
-activate = true
-
 [node name="spr" type="Node" parent="."]
 
 [node name="hgrunt dead 2" type="Sprite" parent="spr"]
@@ -30,6 +26,21 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 7 )
 
 [node name="blood2" type="Sprite" parent="spr/hgrunt dead 2"]
+modulate = Color( 0.964706, 0.145098, 0.0392157, 1 )
+show_behind_parent = true
+position = Vector2( 13.9199, -10.7344 )
+scale = Vector2( 1.67257, 1.43202 )
+texture = ExtResource( 5 )
+
+[node name="hgrunt dead 3" type="Sprite" parent="spr"]
+position = Vector2( 2106.64, 1354.61 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="blood2" type="Sprite" parent="spr/hgrunt dead 3"]
 modulate = Color( 0.964706, 0.145098, 0.0392157, 1 )
 show_behind_parent = true
 position = Vector2( 13.9199, -10.7344 )
@@ -52,3 +63,22 @@ show_behind_parent = true
 position = Vector2( 24.176, -43.501 )
 scale = Vector2( 1.67257, 1.43202 )
 texture = ExtResource( 5 )
+
+[node name="zspawn" type="Node" parent="." groups=[
+"ZspawnPoints",
+]]
+
+[node name="zombieSpawner2" parent="zspawn" instance=ExtResource( 4 )]
+position = Vector2( 181.779, 1511.38 )
+
+[node name="zombieSpawner3" parent="zspawn" instance=ExtResource( 4 )]
+position = Vector2( 138.518, 624.539 )
+
+[node name="zombieSpawner4" parent="zspawn" instance=ExtResource( 4 )]
+position = Vector2( 2090.65, 121.094 )
+
+[node name="zombieSpawner5" parent="zspawn" instance=ExtResource( 4 )]
+position = Vector2( 3226.97, 2786.48 )
+
+[node name="zombieSpawner6" parent="zspawn" instance=ExtResource( 4 )]
+position = Vector2( 2080.39, 1759.45 )

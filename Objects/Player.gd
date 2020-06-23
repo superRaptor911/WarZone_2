@@ -109,8 +109,11 @@ func P_on_team_menu_selected():
 	
 
 func P_on_spectate_selected():
-	get_parent().remove_child(team_selector)
-	get_parent().add_child(spectate)
+	if not alive:
+		get_parent().remove_child(team_selector)
+		get_parent().add_child(spectate)
+	else:
+		Logger.notice.showNotice(get_parent(), "OOPS!", "You are alive and you need to be dead to spectate")
 
 
 func P_on_team_selected(team_id):

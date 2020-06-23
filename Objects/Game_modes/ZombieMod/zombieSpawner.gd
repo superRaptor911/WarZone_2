@@ -1,7 +1,7 @@
 extends Node2D
 
 export var max_zombies : int = 10
-export var frequency : float = 0.25
+export var frequency : float = 0.25 setget set_frequency
 export var activate : bool = false 
 
 var zombies_spawned : int = 0
@@ -11,6 +11,13 @@ var timer
 
 onready var wait_time : float = 1.0 / frequency 
 onready var level = get_tree().get_nodes_in_group("Level")[0]
+
+
+func set_frequency(f):
+	frequency = f
+	wait_time = 1 / frequency
+	if timer:
+		timer.wait_time = wait_time
 
 
 func _ready():
@@ -33,10 +40,14 @@ remotesync func P_spawnZombie(_id : String):
 	level.add_child(zm)
 	
 
-func activate():
+func activateZ():
 	if get_tree().is_network_server() and not activate:
+		zombies_spawned = 0
 		timer.start()
 
+func deactivateZ():
+	if get_tree().is_network_server() and activate:
+		timer.stop()
 
 func _on_Timer_timeout():
 	if zombies_spawned <= max_zombies:

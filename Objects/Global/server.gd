@@ -19,6 +19,7 @@ var extraServerInfo = {
 	round_time = 2,
 	max_wins = 8,
 	bot_differ_to_user = false,
+	auto_teambalance = true,
 	tick_rate = 25
 }
 

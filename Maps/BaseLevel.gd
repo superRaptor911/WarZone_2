@@ -103,8 +103,8 @@ func loadGameMode():
 	Logger.Log("Loading gamemode %s" % [game_server.serverInfo.game_mode])
 	
 	#load appropriate game mode	
-	if game_server.serverInfo.game_mode == "SURVIVAL":
-		game_mode = load("res://Objects/Game_modes/SURVIVAL_mode.tscn").instance()
+	if game_server.serverInfo.game_mode == "Zombie Mod":
+		game_mode = load("res://Objects/Game_modes/ZombieMod/ZombieMod.tscn").instance()
 	elif game_server.serverInfo.game_mode == "FFA":
 		game_mode = load("res://Objects/Game_modes/FFA_mode.tscn").instance()
 	elif game_server.serverInfo.game_mode == "Bombing":
