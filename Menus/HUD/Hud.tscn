@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Menus/HUD/Hud.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/white.png" type="Texture" id=2]
@@ -52,7 +52,10 @@ size = 18
 use_filter = true
 font_data = ExtResource( 12 )
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 40, 40 )
+
+[sub_resource type="StyleBoxFlat" id=10]
 draw_center = false
 border_width_left = 3
 border_width_top = 3
@@ -60,10 +63,10 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 70, 25 )
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=12]
 size = 36
 use_filter = true
 font_data = ExtResource( 10 )
@@ -404,21 +407,26 @@ rect_clip_content = true
 custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 
-[node name="nextGun" type="TextureButton" parent="."]
-anchor_left = 0.856
-anchor_top = 0.064
-anchor_right = 0.856
-anchor_bottom = 0.064
-margin_left = -7.13
-margin_top = -36.095
-margin_right = 32.87
-margin_bottom = 3.905
-rect_scale = Vector2( -1.8, 1.8 )
-texture_normal = ExtResource( 13 )
-expand = true
+[node name="Control2" type="Control" parent="."]
+anchor_left = 0.824
+anchor_top = 0.061
+anchor_right = 0.824
+anchor_bottom = 0.061
+margin_left = 0.140747
+margin_top = 0.101254
+margin_right = 45.1407
+margin_bottom = 25.1013
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="nextGun" type="TouchScreenButton" parent="Control2"]
+position = Vector2( 29.01, -19.2737 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+normal = ExtResource( 13 )
+pressed = ExtResource( 13 )
+shape = SubResource( 9 )
 
 [node name="Minimap" type="Panel" parent="."]
 anchor_left = 0.999
@@ -429,7 +437,7 @@ margin_left = -255.89
 margin_top = -78.2082
 margin_right = 0.109985
 margin_bottom = 77.7918
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 10 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -471,7 +479,7 @@ __meta__ = {
 
 [node name="pic_touch" type="TouchScreenButton" parent="pick"]
 position = Vector2( -5.17657, -4.85297 )
-shape = SubResource( 10 )
+shape = SubResource( 11 )
 
 [node name="cash" type="Label" parent="."]
 visible = false
@@ -484,7 +492,7 @@ margin_top = -206.604
 margin_right = 71.988
 margin_bottom = -158.604
 rect_pivot_offset = Vector2( 44.5, 24 )
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 custom_colors/font_color = Color( 0.141176, 0.568627, 0.0235294, 1 )
 text = "+ $10"
 align = 1
@@ -503,6 +511,6 @@ __meta__ = {
 [connection signal="pressed" from="Panel2/container/admin_menu" to="." method="_on_admin_menu_pressed"]
 [connection signal="pressed" from="Panel2/container/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Panel2/container/back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="nextGun" to="." method="_on_nextGun_pressed"]
+[connection signal="pressed" from="Control2/nextGun" to="." method="_on_nextGun_pressed"]
 [connection signal="timeout" from="fps_timer" to="." method="_on_fps_timer_timeout"]
 [connection signal="pressed" from="pick/pic_touch" to="." method="_on_pic_touch_pressed"]

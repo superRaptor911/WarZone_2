@@ -47,13 +47,17 @@ func _ready():
 		hud.setUser(self)
 		$aim_indicator.show()
 		
-		var game_mode = get_tree().get_nodes_in_group("GameMode")[0]
-		var ts = game_mode.get("Custom_teamSelector")
-		
-		#use custom team select
-		if ts:
-			team_selector = load(ts).instance()
-		#Use default team select
+		var game_modes = get_tree().get_nodes_in_group("GameMode")
+		if game_modes.size() != 0:
+			var game_mode = game_modes[0]
+			var ts = game_mode.get("Custom_teamSelector")
+			
+			#use custom team select
+			if ts:
+				team_selector = load(ts).instance()
+			#Use default team select
+			else:
+				team_selector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 		else:
 			team_selector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 		

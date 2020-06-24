@@ -2,7 +2,6 @@ extends CanvasLayer
 
 
 func _ready():
-	$Admob.load_banner()
 	UiAnim.animZoomIn([$Panel])
 
 func _on_Button_pressed():

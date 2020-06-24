@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Menus/MainMenu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/light_b.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://Menus/resources/btn_texture2.png" type="Texture" id=5]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=7]
-[ext_resource path="res://admob-lib/admob.gd" type="Script" id=8]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -158,12 +157,7 @@ wait_time = 0.4
 one_shot = true
 
 [node name="Tween" type="Tween" parent="."]
-
-[node name="Admob" type="Node" parent="."]
-script = ExtResource( 8 )
-banner_on_top = false
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="VBoxContainer/stats" to="." method="_on_stats_pressed"]
 [connection signal="pressed" from="VBoxContainer/store" to="." method="_on_store_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
-[connection signal="interstitial_loaded" from="Admob" to="." method="_on_Admob_interstitial_loaded"]

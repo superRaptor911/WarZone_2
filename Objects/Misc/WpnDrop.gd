@@ -42,7 +42,7 @@ func _on_Area2D_body_entered(body):
 		if body.is_in_group("User"):
 			var hud = get_tree().get_nodes_in_group("Hud")
 			if not hud.empty():
-				hud[0].get_node("pick").hide()
+				hud[0].get_node("pick").show()
 			body.cur_dropped_item_id = item_id
 		elif body.selected_gun.gun_rating < gun_rating:
 			body.pickItem(item_id)

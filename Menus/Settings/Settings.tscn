@@ -9,7 +9,7 @@
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=8]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=1]
 content_margin_left = 40.0
 content_margin_right = 40.0
 content_margin_top = 5.0
@@ -19,7 +19,7 @@ border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=2]
 content_margin_left = 40.0
 content_margin_right = 40.0
 content_margin_top = 5.0
@@ -29,14 +29,14 @@ border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.266667, 0.266667, 0.266667, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -48,7 +48,7 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 shadow_size = 4
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=5]
 size = 24
 use_filter = true
 font_data = ExtResource( 4 )
@@ -66,13 +66,17 @@ __meta__ = {
 }
 
 [node name="TabContainer" type="TabContainer" parent="."]
-margin_left = 365.272
-margin_top = 62.9048
-margin_right = 932.272
-margin_bottom = 569.905
-custom_styles/tab_fg = SubResource( 4 )
-custom_styles/tab_bg = SubResource( 6 )
-custom_styles/panel = SubResource( 5 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -283.5
+margin_top = -253.5
+margin_right = 283.5
+margin_bottom = 253.5
+custom_styles/tab_fg = SubResource( 1 )
+custom_styles/tab_bg = SubResource( 2 )
+custom_styles/panel = SubResource( 3 )
 custom_fonts/font = ExtResource( 7 )
 tab_align = 0
 __meta__ = {
@@ -80,7 +84,6 @@ __meta__ = {
 }
 
 [node name="Basic" type="Tabs" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -108,7 +111,7 @@ __meta__ = {
 margin_right = 427.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -119,7 +122,7 @@ margin_left = 14.9753
 margin_top = 1.95422
 margin_right = 213.975
 margin_bottom = 33.9542
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "Enable Particles"
 
 [node name="particles" type="CheckButton" parent="TabContainer/Basic/VBoxContainer/particles"]
@@ -136,7 +139,7 @@ margin_top = 70.0
 margin_right = 427.0
 margin_bottom = 110.0
 rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -147,7 +150,7 @@ margin_left = 14.9753
 margin_top = 1.95422
 margin_right = 213.975
 margin_bottom = 33.9542
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "Music"
 
 [node name="music" type="CheckButton" parent="TabContainer/Basic/VBoxContainer/music"]
@@ -164,7 +167,7 @@ margin_top = 140.0
 margin_right = 427.0
 margin_bottom = 180.0
 rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -175,7 +178,7 @@ margin_left = 14.9753
 margin_top = 1.95422
 margin_right = 213.975
 margin_bottom = 33.9542
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "Dynamic Camera"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -195,7 +198,7 @@ margin_top = 210.0
 margin_right = 427.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -206,7 +209,7 @@ margin_left = 14.9753
 margin_top = 1.95422
 margin_right = 213.975
 margin_bottom = 33.9542
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "Shadows"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -222,6 +225,7 @@ __meta__ = {
 }
 
 [node name="Advanced" type="Tabs" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -249,7 +253,7 @@ __meta__ = {
 margin_right = 427.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -260,7 +264,7 @@ margin_left = 14.9753
 margin_top = 1.95422
 margin_right = 213.975
 margin_bottom = 33.9542
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "Enable logging"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -280,7 +284,7 @@ margin_top = 70.0
 margin_right = 427.0
 margin_bottom = 110.0
 rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -291,7 +295,7 @@ margin_left = 14.9753
 margin_top = 1.95422
 margin_right = 213.975
 margin_bottom = 33.9542
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "Show Fps"
 __meta__ = {
 "_edit_use_anchors_": false

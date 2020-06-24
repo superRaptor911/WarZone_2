@@ -28,9 +28,13 @@ func _ready():
 
 func loadLevelInfos():
 	var level_info = load("res://Maps/level_info.gd").new()
-	levels = level_info.levels.values()
+	var _levels = level_info.levels.values()
 	level_info.queue_free()
 	selected_level_id = 0
+	
+	for i in _levels:
+		if not (i.debug and game_states.is_android):
+			levels.append(i)
 	
 	if not levels.empty():
 		setLevelInfo(levels[0])

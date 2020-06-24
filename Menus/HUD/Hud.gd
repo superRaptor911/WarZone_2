@@ -202,7 +202,7 @@ func _on_gun_reload():
 
 
 func _on_gun_picked():
-	setClipCount(user.selected_gun.clip_count)
+	setWeaponInfo()
 	if not user.selected_gun.is_connected("gun_reloaded",self,"_on_gun_reload"):
 		user.selected_gun.connect("gun_reloaded",self,"_on_gun_reload")
 

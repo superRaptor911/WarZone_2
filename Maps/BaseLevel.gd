@@ -126,6 +126,7 @@ func loadGameMode():
 			teamSelector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 	
 	else:
+		teamSelector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 		Logger.LogError("loadGameMode", "No game mode")
 
 

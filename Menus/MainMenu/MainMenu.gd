@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 var _next_scene : String 
-onready var admob = $Admob
+
 var add_shown = false
 
 func _ready():
@@ -14,8 +14,8 @@ func _ready():
 	UiAnim.animLeftToRight([$VBoxContainer])
 	get_tree().paused = false
 	$Timer.connect("timeout",self,"goToNextScene")
-	admob.load_banner()
-	admob.load_interstitial()
+	#admob.load_banner()
+	#admob.load_interstitial()
 
 	#Logger.notice.showNotice(self,"welcome","Hi, all")
 
@@ -50,7 +50,7 @@ func goToNextScene():
 
 #########################Tweeeening############################
 func tweenTransition():
-	admob.hide_banner()
+	#admob.hide_banner()
 	#scale tween
 	$Tween.remove_all()
 	$Tween.interpolate_property($VBoxContainer,"rect_scale",$VBoxContainer.rect_scale,
@@ -61,13 +61,3 @@ func tweenTransition():
 	$Tween.start()
 
 
-
-
-func _on_Admob_interstitial_loaded():
-	if randi() % 100 < 40 and (not add_shown):
-		admob.show_interstitial()
-		add_shown = true
-
-
-func _on_Admob_banner_loaded():
-	admob.show_banner()
