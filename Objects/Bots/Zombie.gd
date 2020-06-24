@@ -15,6 +15,9 @@ func _ready():
 		if i.team_id == 0:
 			i.addPlayer(self)
 	
+	#This signal is re-emited because team missed previous signal
+	emit_signal("char_born")
+	
 	if not get_tree().is_network_server():
 		return
 
@@ -37,7 +40,7 @@ func _ready():
 
 
 func _process(_delta):
-	if get_tree().is_network_server():
+	if get_tree().is_network_server() and alive:
 		var T = game_server._unit_data_list.get(target_id)
 		if T:
 			if target_visible:
@@ -113,6 +116,7 @@ func _on_free_timeout():
 
 
 remotesync func P_freeZombie():
+	team.removePlayer(self)
 	queue_free()
 
 

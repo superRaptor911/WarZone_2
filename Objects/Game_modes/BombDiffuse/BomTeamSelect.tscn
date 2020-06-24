@@ -1,10 +1,43 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Objects/Misc/TeamSelect.tscn" type="PackedScene" id=1]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Objects/Game_modes/BombDiffuse/BomTeamSelect.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/UI/terrorist.jpg" type="Texture" id=4]
 [ext_resource path="res://Sprites/UI/ct.jpg" type="Texture" id=5]
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.196078, 0.196078, 0.196078, 0.666667 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id=9]
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.694118, 0.72549, 0.145098, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_size = 6
+
+[sub_resource type="DynamicFont" id=12]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.196078, 0.196078, 0.196078, 0.666667 )
@@ -47,7 +80,7 @@ margin_left = -890.37
 margin_top = 47.838
 margin_right = -383.37
 margin_bottom = 386.838
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -58,7 +91,7 @@ margin_left = 159.756
 margin_top = 30.659
 margin_right = 309.756
 margin_bottom = 160.659
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -80,7 +113,7 @@ margin_left = 48.0
 margin_top = 183.0
 margin_right = 449.0
 margin_bottom = 273.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 10 )
 text = "Join Counter Terrorist and prevent terrorist from bombing."
 autowrap = true
 __meta__ = {
@@ -92,8 +125,8 @@ margin_left = 348.0
 margin_top = 287.0
 margin_right = 455.0
 margin_bottom = 325.0
-custom_styles/normal = SubResource( 6 )
-custom_fonts/font = SubResource( 7 )
+custom_styles/normal = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 text = "JOIN"
 __meta__ = {
 "_edit_use_anchors_": false

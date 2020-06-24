@@ -38,10 +38,16 @@ func removePlayer(plr):
 		plr.disconnect("char_killed",self,"_on_player_killed")
 		plr.disconnect("char_born",self,"_on_player_born")
 		player_count -= 1
-		if player_count == 0:
+		
+		if player_count == 0 and plr.alive:
+			alive_players = 0
 			emit_signal("team_eliminated",self)
+		
 		if plr.is_in_group("User"):
 			user_count -= 1
+		
+		if plr.alive:
+			alive_players -= 1
 		assert(player_count >= 0, "Negative number of players")
 
 

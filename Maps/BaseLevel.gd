@@ -12,7 +12,7 @@ export var capture_mod = false
 var team1 = preload("res://Objects/scripts/Team.gd").new(0,self)
 var team2 = preload("res://Objects/scripts/Team.gd").new(1,self)
 
-var teamSelector = preload("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
+var teamSelector = null
 var spec_mode = preload("res://Objects/Game_modes/Spectate.tscn").instance()
 var dropedItem_manager = preload("res://Objects/Misc/DropedItemManager.tscn").instance()
 
@@ -115,6 +115,19 @@ func loadGameMode():
 		game_mode.add_to_group("GameMode")
 		add_child(game_mode)
 		
+		#Use custom team selector, if exist
+		var ts = game_mode.get("Custom_teamSelector")
+		
+		if ts:
+			teamSelector = load(ts).instance()
+			Logger.Log("Using custom team selector from %s" % [ts])
+		#switch to default team selector
+		else:
+			teamSelector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
+	
+	else:
+		Logger.LogError("loadGameMode", "No game mode")
+
 
 func _on_specmode_selected():
 	Logger.Log("[%s] selected spectate" % [game_states.player_info.name])

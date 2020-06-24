@@ -12,7 +12,7 @@ var hud = null
 
 var grenade = preload("res://Objects/Weapons/grenade.tscn")
 var spectate = preload("res://Objects/Game_modes/Spectate.tscn").instance()
-var team_selector = preload("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
+var team_selector = null
 var _pause_cntrl : bool = false
 
 var cur_dropped_item_id = 0
@@ -46,6 +46,16 @@ func _ready():
 		add_child(hud)
 		hud.setUser(self)
 		$aim_indicator.show()
+		
+		var game_mode = get_tree().get_nodes_in_group("GameMode")[0]
+		var ts = game_mode.get("Custom_teamSelector")
+		
+		#use custom team select
+		if ts:
+			team_selector = load(ts).instance()
+		#Use default team select
+		else:
+			team_selector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 		
 		#connect signals
 		team_selector.connect("team_selected", self, "P_on_team_selected")
@@ -122,7 +132,7 @@ func P_on_team_selected(team_id):
 		var level = get_tree().get_nodes_in_group("Level")[0]
 		level.rpc_id(1,"S_changeUnitTeam", name, team_id)
 		get_parent().remove_child(team_selector)
-		get_parent().add_child(spectate)
+		#get_parent().add_child(spectate)
 	
 	else:
 		get_parent().remove_child(team_selector)
