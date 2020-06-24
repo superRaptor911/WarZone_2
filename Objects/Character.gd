@@ -5,6 +5,7 @@ extends KinematicBody2D
 export var HP : float = 100
 export var AP : float = 100
 export var speed : float = 80
+export var melee_damage : float = 300
 
 var alive : bool = true
 var movement_vector : Vector2
@@ -41,10 +42,19 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 	if not ( alive and get_tree().is_network_server() ):
 		return
 	
-	#reference to attacker
-	var attacker_ref = game_server.getUnitByID(attacker_id).ref
+	var _attacker_data = game_server._unit_data_list.get(attacker_id)
 	
-	#check if friendly fire
+	#reference to attacker
+	var attacker_ref = null
+	
+	#Attacker exist.
+	if _attacker_data:
+		attacker_ref = _attacker_data.ref
+		
+		#emit blood splash
+		_blood_splash(attacker_ref.position,position)
+	
+	#check if friendly fire	
 	if not (game_server.extraServerInfo.friendly_fire):
 		if attacker_ref and team.team_id == attacker_ref.team.team_id:
 			return
@@ -57,15 +67,17 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 		HP = max(0,HP - damage)
 		
 	emit_signal("char_took_damage")
-	#emit blood splash
-	_blood_splash(attacker_ref.position,position)
+
 	#sync with peers
 	rpc_unreliable("P_health",HP,AP)
 	
 	#char dead
 	if HP <= 0:
 		game_server.rpc("handleKills",name,attacker_id,weapon)
-		attacker_ref.emit_signal("char_fraged")
+		
+		if attacker_ref:
+			attacker_ref.emit_signal("char_fraged")
+		
 		#sync with everyone
 		rpc("P_death")
 
@@ -128,7 +140,7 @@ func performMeleeAttack():
 remotesync func serverMeleeAttack():
 	for i in close_chars:
 		if game_server.extraServerInfo.friendly_fire or (i.team.team_id != team.team_id):
-			i.takeDamage(300, "melee", name)
+			i.takeDamage(melee_damage, "melee", name)
 
 
 remotesync func syncMelee():

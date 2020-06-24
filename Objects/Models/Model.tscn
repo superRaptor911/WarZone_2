@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Objects/Models/Model.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Graphics/outline.shader" type="Shader" id=2]
@@ -135,6 +135,34 @@ tracks/0/keys = {
 "values": [ 0.0, -45.0, 45.0, 0.0 ]
 }
 
+[sub_resource type="Animation" id=6]
+resource_name = "zombie_attk"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("skin:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("skin:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 8.0, -8.0, 0.0 ]
+}
+
 [node name="Model" type="CollisionShape2D"]
 z_index = 2
 z_as_relative = false
@@ -180,7 +208,7 @@ scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 5 )
 vframes = 3
 hframes = 2
-frame = 3
+frame = 2
 
 [node name="sfist" type="Node2D" parent="skin"]
 position = Vector2( 1.27866, -8.28313 )
@@ -194,6 +222,7 @@ scale = Vector2( 1.33333, 1.33333 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/melee = SubResource( 5 )
+anims/zombie_attk = SubResource( 6 )
 
 [node name="mele_delay" type="Timer" parent="."]
 one_shot = true

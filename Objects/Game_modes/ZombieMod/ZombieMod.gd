@@ -13,6 +13,14 @@ onready var tween =$Tween
 onready var label = $Label
 
 
+func getZombieCount() -> int:
+	return 10 + 5 * current_round
+	
+func getZombieHealth() ->int:
+	return 100 + 12 * current_round
+
+func getZombieSpeed() -> int:
+	return 100 + 14 * current_round
 
 func showLabel(text : String, clr = Color.white):
 	tween.interpolate_property(label, "modulate", Color(1,1,1,0) ,Color(1,1,1,1),
@@ -45,11 +53,9 @@ func on_player_created(_plr):
 	if not is_player_playing:
 		is_player_playing = true
 		$round_start_dl.start()
-
-
-func getZombieCount() -> int:
-	return 10 + 5 * current_round
-
+	
+	if _plr.is_network_master():
+		showLabel("Survive 10 waves of zombies.")
 
 
 func on_team_eliminated(team):
@@ -73,16 +79,21 @@ func _on_round_start_dl_timeout():
 	rpc("P_roundStarted", current_round)
 	
 	var num = int(z_count / zombie_spawns.size())
+	var HP = getZombieHealth()
+	var speed = getZombieSpeed()
 	
 	for i in zombie_spawns:
 		i.max_zombies = num
 		i.frequency = 0.75
+		i.HP = HP
+		i.speed = speed
 		i.activateZ()
 
 
 
 remotesync func P_roundStarted(r : int):
 	showLabel("Round %d started. Get ready !!" % [r], Color.red)
+	$roundStart.play()
 
 
 remotesync func P_roundEnd():
@@ -95,13 +106,22 @@ remotesync func P_gameOver():
 
 func _on_restart_delay_timeout():
 	current_round = 0
+	
+	#Respawn everyone
+	var players = get_tree().get_nodes_in_group("Unit")
+	for i in players:
+		i.S_respawnUnit()
+	
 	rpc("P_restart")
+	
+	$round_start_dl.start()
 
 
 remotesync func P_restart():
 	#remove existing zombies
 	var zombies = get_tree().get_nodes_in_group("Monster")
 	for i in zombies:
+		i.team.removePlayer(i)
 		i.queue_free()
 	
 	showLabel("New game starting")

@@ -2,7 +2,10 @@ extends Node2D
 
 export var max_zombies : int = 10
 export var frequency : float = 0.25 setget set_frequency
-export var activate : bool = false 
+export var activate : bool = false
+
+export var HP : int  = 100
+export var speed : int = 80
 
 var zombies_spawned : int = 0
 var zombie_index : int = 0
@@ -33,10 +36,12 @@ func _ready():
 			timer.start()
 
 
-remotesync func P_spawnZombie(_id : String):
+remotesync func P_spawnZombie(_id : String, hp : int, sped : int):
 	var zm = game_states.classResource.get("zombie").instance()
 	zm.name = _id
 	zm.position = position
+	zm.HP = hp
+	zm.speed = sped
 	level.add_child(zm)
 	
 
@@ -55,6 +60,6 @@ func _on_Timer_timeout():
 		zombie_index += 1
 		zombies_spawned += 1
 		timer.start()
-		rpc("P_spawnZombie", _id)
+		rpc("P_spawnZombie", _id, HP, speed)
 
 

@@ -285,6 +285,7 @@ func createBots():
 	Logger.Log("Creating bots")
 	var bots = Array()
 	var bot_count = game_server.bot_settings.bot_count
+	print("Bot count = ",game_server.bot_settings.bot_count)
 	game_server.bot_settings.index = 0
 	var ct = false
 	

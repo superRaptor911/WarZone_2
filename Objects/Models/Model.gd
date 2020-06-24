@@ -12,6 +12,7 @@ var skin_name = ""
 onready var fist = $skin/sfist
 
 export var sk_name = ""
+signal zm_attk_finished
 
 
 func _ready():
@@ -91,6 +92,11 @@ func doMelee() -> bool:
 		return true
 	return false
 
+func doZmAttk():
+	if $mele_delay.is_stopped():
+		$AnimationPlayer.play("zombie_attk")
+		$mele_delay.start()
+
 #function called when character took damage
 #used for blinking effect when on low hp
 func _on_char_damaged():
@@ -123,5 +129,7 @@ func revive():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "melee":
 		parent.pause_controls(false)
+	elif anim_name == "zombie_attk":
+		emit_signal("zm_attk_finished")
 		
 

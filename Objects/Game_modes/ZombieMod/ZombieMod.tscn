@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Objects/Game_modes/ZombieMod/ZombieMod.gd" type="Script" id=1]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Sfx/zm/spawn.ogg" type="AudioStream" id=3]
 
 [node name="ZombieMod" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -33,5 +34,8 @@ one_shot = true
 [node name="restart_delay" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
+
+[node name="roundStart" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 [connection signal="timeout" from="round_start_dl" to="." method="_on_round_start_dl_timeout"]
 [connection signal="timeout" from="restart_delay" to="." method="_on_restart_delay_timeout"]

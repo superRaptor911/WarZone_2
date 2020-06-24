@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Maps/Dust/Dust.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=2]
@@ -7,6 +7,13 @@
 [ext_resource path="res://Sprites/particles/blood.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/misc/hgrunt dead.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/misc/hgrunt dead 2.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/decals/bigblood1.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/decals/body2.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/decals/bigblood2.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/decals/body1.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/decals/bloodhand3.png" type="Texture" id=12]
+[ext_resource path="res://Objects/Misc/ItemSpawner.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Sprites/decals/noEsc.png" type="Texture" id=14]
 
 [node name="Zm_Dust" type="Node"]
 
@@ -19,6 +26,42 @@ position = Vector2( 287.403, 2592.3 )
 team_id = 1
 
 [node name="spr" type="Node" parent="."]
+
+[node name="bloodhand6" type="Sprite" parent="spr"]
+position = Vector2( 2998.24, 382.473 )
+texture = ExtResource( 12 )
+
+[node name="body3" type="Sprite" parent="spr"]
+position = Vector2( 539.968, 1545.36 )
+texture = ExtResource( 11 )
+
+[node name="bigblood5" type="Sprite" parent="spr"]
+position = Vector2( 793.482, 997.842 )
+texture = ExtResource( 8 )
+
+[node name="bigblood4" type="Sprite" parent="spr"]
+position = Vector2( 726.569, 712.924 )
+texture = ExtResource( 10 )
+
+[node name="body2" type="Sprite" parent="spr"]
+position = Vector2( 795.787, 715.282 )
+texture = ExtResource( 9 )
+
+[node name="body1" type="Sprite" parent="spr"]
+position = Vector2( 2534.7, 1761.76 )
+texture = ExtResource( 11 )
+
+[node name="bloodhand3" type="Sprite" parent="spr"]
+position = Vector2( 1626.04, 2558.03 )
+texture = ExtResource( 12 )
+
+[node name="bloodhand4" type="Sprite" parent="spr"]
+position = Vector2( 2233.71, 2752.81 )
+texture = ExtResource( 12 )
+
+[node name="bloodhand5" type="Sprite" parent="spr"]
+position = Vector2( 2937.04, 1887.48 )
+texture = ExtResource( 12 )
 
 [node name="hgrunt dead 2" type="Sprite" parent="spr"]
 position = Vector2( 2942.29, 2481.37 )
@@ -64,6 +107,34 @@ position = Vector2( 24.176, -43.501 )
 scale = Vector2( 1.67257, 1.43202 )
 texture = ExtResource( 5 )
 
+[node name="bigblood1" type="Sprite" parent="spr"]
+position = Vector2( 666.371, 2058.86 )
+texture = ExtResource( 8 )
+
+[node name="bigblood2" type="Sprite" parent="spr"]
+position = Vector2( 427.867, 1512.95 )
+texture = ExtResource( 8 )
+
+[node name="bigblood3" type="Sprite" parent="spr"]
+position = Vector2( 1992.22, 1790.25 )
+texture = ExtResource( 8 )
+
+[node name="bigblood6" type="Sprite" parent="spr"]
+position = Vector2( 2284.05, 299.516 )
+texture = ExtResource( 8 )
+
+[node name="noEsc" type="Sprite" parent="spr"]
+position = Vector2( 2994.28, 1292.94 )
+texture = ExtResource( 14 )
+
+[node name="body4" type="Sprite" parent="spr"]
+position = Vector2( 2089.54, 2001.65 )
+texture = ExtResource( 11 )
+
+[node name="body5" type="Sprite" parent="spr"]
+position = Vector2( 1913.09, 2003.24 )
+texture = ExtResource( 9 )
+
 [node name="zspawn" type="Node" parent="." groups=[
 "ZspawnPoints",
 ]]
@@ -82,3 +153,60 @@ position = Vector2( 3226.97, 2786.48 )
 
 [node name="zombieSpawner6" parent="zspawn" instance=ExtResource( 4 )]
 position = Vector2( 2080.39, 1759.45 )
+
+[node name="guns" type="Node" parent="."]
+
+[node name="ak" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 1257.25, 2530.73 )
+weapon_to_spawn = "AK47"
+spawn_kits = false
+
+[node name="m4" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 1263.6, 2632.28 )
+weapon_to_spawn = "M4A1"
+spawn_kits = false
+
+[node name="m4_2" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 1633.29, 2100.74 )
+weapon_to_spawn = "M4A1"
+spawn_kits = false
+
+[node name="p90" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 374.385, 1900.57 )
+weapon_to_spawn = "P90"
+spawn_kits = false
+
+[node name="p91" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 2284.57, 1355.47 )
+weapon_to_spawn = "P90"
+spawn_kits = false
+
+[node name="awp" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 793.694, 796.391 )
+weapon_to_spawn = "Awm"
+spawn_kits = false
+
+[node name="Famas" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 1436.64, 940.82 )
+weapon_to_spawn = "Famas"
+spawn_kits = false
+
+[node name="Famas2" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 2410.37, 255.948 )
+weapon_to_spawn = "Famas"
+spawn_kits = false
+
+[node name="Aug" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 2922.86, 908.207 )
+weapon_to_spawn = "Aug"
+spawn_kits = false
+
+[node name="Aug2" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 274.485, 204.644 )
+weapon_to_spawn = "Aug"
+spawn_kits = false
+
+[node name="ak2" parent="guns" instance=ExtResource( 13 )]
+position = Vector2( 2837.09, 2335.93 )
+weapon_to_spawn = "AK47"
+spawn_kits = false
