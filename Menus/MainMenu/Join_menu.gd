@@ -68,7 +68,8 @@ func _on_auto_pressed():
 func _on_join_button_pressed():
 	MusicMan.click()
 	if current_server.min_v > game_states.current_game_version:
-		#show popup
+		Logger.LogError("on_join_button_pressed", "Server is running on higher game version")
+		Logger.notice.showNotice(self, "Join Failed", "Server is running on newer version of game. Update to Version %d" % [current_server.min_v])
 		return
 	$con.show()
 	var port = int($manual_ip/container/port.text)

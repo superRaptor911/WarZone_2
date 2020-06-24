@@ -8,7 +8,7 @@ var serverInfo : = {
 	"max_p" : "6",
 	"map" : "",
 	"version" : game_states.current_game_version,
-	"min_v" : 1.1
+	"min_v" : 1.3
 }
 
 #time is in minutes

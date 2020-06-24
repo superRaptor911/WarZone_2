@@ -14,7 +14,10 @@ func _ready():
 		$controller.queue_free()
 	
 	kill_msg_slots = Kill_Message_slots.new(self,8)
-	$fps_timer.start()
+	
+	if game_states.game_settings.show_fps:
+		$fps_timer.start()
+	
 	score_board.connect("scoreboard_closed", self, "_on_scoreboard_closed")
 	
 	#Enable admin menu if admin
@@ -229,7 +232,7 @@ func _on_admin_menu_closed():
 
 
 func _on_fps_timer_timeout():
-	$fps.text = String(frames)
+	$fps.text = "Fps : " + String(frames)
 	frames = 0
 	
 	
