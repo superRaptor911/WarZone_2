@@ -3,8 +3,8 @@ var add_shown = false
 
 func _ready():
 	add_shown = false
-	$Admob.load_banner()
-	$Admob.load_interstitial()
+	#$Admob.load_banner()
+	#$Admob.load_interstitial()
 	var map = game_states.last_match_result.map
 	var kills = game_states.last_match_result.kills
 	var deaths = game_states.last_match_result.deaths
@@ -34,7 +34,4 @@ func _on_Timer_timeout():
 	MenuManager.changeScene("mainMenu")
 
 
-func _on_Admob_interstitial_loaded():
-	if not add_shown:
-		$Admob.show_interstitial()
-		add_shown = true
+

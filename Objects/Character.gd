@@ -19,7 +19,7 @@ signal char_killed
 signal char_born
 signal char_took_damage
 # warning-ignore:unused_signal
-signal char_fraged
+signal char_fraged(type)
 
 #Note : P_ = peer, S_ = server only
 
@@ -76,7 +76,7 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 		game_server.rpc("handleKills",name,attacker_id,weapon)
 		
 		if attacker_ref:
-			attacker_ref.emit_signal("char_fraged")
+			attacker_ref.emit_signal("char_fraged", 0)
 		
 		#sync with everyone
 		rpc("P_death")

@@ -7,7 +7,6 @@ var cur_path_id = 0
 var target_visible = false
 var nav : Navigation2D
 
-signal zm_terminated
 
 var free_timer
 onready var mdl = $Model
@@ -173,7 +172,9 @@ func takeDamage(damage : float, _weapon : String, attacker_id : String):
 	#char dead
 	if HP <= 0:
 		game_server.rpc("handleKills", "Zombie",attacker_id, _weapon)
-		emit_signal("zm_terminated")
+		
+		if attacker_ref:
+			attacker_ref.emit_signal("char_fraged", 1)
 		#sync with everyone
 		rpc("P_death")
 		

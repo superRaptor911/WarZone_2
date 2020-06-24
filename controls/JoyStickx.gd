@@ -30,6 +30,29 @@ var joystick_active = false;
 # The inner ring/part/circle of the joystick
 var joystick_ring;
 
+var joy_loaded = false
+
+func _enter_tree():
+	if not joy_loaded:
+		return
+	# Reset everything, and if we are using a portion of the screen, then become
+	# invisible
+	joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2);
+	joystick_vector = Vector2(0, 0);
+	
+	joystick_touch_id = null;
+	joystick_active = false;
+
+	if (use_screen_rectangle == true):
+		visible = false
+	
+	# Emit the Joystick_End signal because the joystick is now inactive.
+	emit_signal("Joystick_End");
+	
+
+func _exit_tree():
+	joystick_active = false
+
 func _ready():
 	
 	# This code will only run in game!
@@ -50,6 +73,8 @@ func _ready():
 			self.visible = false;
 		else:
 			self.visible = true;
+		
+		joy_loaded = true
 
 func _draw():
 	# This code will only run in the editor!

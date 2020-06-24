@@ -229,11 +229,18 @@ func pause_controls(val : bool):
 		hud.get_node("controller").enabled = !val
 
 
-func getKillRewards():
-	xp += 10 + 10 * streak
-	var add = 25 + 25 * streak
-	cash += add
-	hud.addCash(add)
+func getKillRewards(type):
+	if type == 0:
+		xp += 10 + 10 * streak
+		var add = 25 + 25 * streak
+		cash += add
+		hud.addCash(add)
+	
+	if type == 1:
+		xp += 10 
+		cash += 10
+		hud.addCash(10)
+		
 	kills += 1
 	game_states.last_match_result.kills = kills
 	game_states.last_match_result.deaths = deaths

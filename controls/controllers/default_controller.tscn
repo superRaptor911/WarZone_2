@@ -26,9 +26,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 radius = 90.0
-use_screen_rectangle = false
 screen_rectangle = Rect2( 0, 125, 500, 600 )
-editor_color = Color( 1, 0, 0, 1 )
 
 [node name="Joystick_Ring" type="TextureRect" parent="mov_joy"]
 margin_left = 31.0
@@ -57,9 +55,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 radius = 110.0
-use_screen_rectangle = false
 screen_rectangle = Rect2( 700, 125, 500, 600 )
-editor_color = Color( 1, 0, 0, 1 )
 
 [node name="Joystick_Ring" type="TextureRect" parent="aim_joy"]
 margin_left = 30.3396

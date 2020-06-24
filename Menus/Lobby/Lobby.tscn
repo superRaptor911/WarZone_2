@@ -349,10 +349,14 @@ __meta__ = {
 }
 
 [node name="start" type="Button" parent="."]
-margin_left = 952.0
-margin_top = 580.0
-margin_right = 1108.0
-margin_bottom = 634.0
+anchor_left = 0.805
+anchor_top = 0.843
+anchor_right = 0.805
+anchor_bottom = 0.843
+margin_left = -78.4001
+margin_top = -26.96
+margin_right = 77.5999
+margin_bottom = 27.04
 custom_fonts/font = ExtResource( 2 )
 text = "Start"
 __meta__ = {

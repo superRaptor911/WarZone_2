@@ -5,22 +5,25 @@ const JOYSTICK_DEADZONE = 0.4;
 var counter : bool = false
 var enabled : bool = true
 
+onready var aim = $aim_joy
+onready var mov = $mov_joy
+
 func _ready():
-	$aim_joy.connect("Joystick_Updated",self,"_on_joy2_move")
+	aim.connect("Joystick_Updated",self,"_on_joy2_move")
 	#if not game_states.game_settings.static_dpad:
 		#$mov_joy.use_screen_rectangle = true
 		#$aim_joy.use_screen_rectangle = true
-	$mov_joy.modulate.a8 = game_states.game_settings.dpad_transparency
-	$aim_joy.modulate.a8 = game_states.game_settings.dpad_transparency
+	mov.modulate.a8 = game_states.game_settings.dpad_transparency
+	aim.modulate.a8 = game_states.game_settings.dpad_transparency
 
 
 func _process(_delta):
 	if not (user.alive and enabled):
 		return
-	if $mov_joy.joystick_vector.length() > JOYSTICK_DEADZONE/2 :
-		user.movement_vector = - $mov_joy.joystick_vector
+	if mov.joystick_vector.length() > JOYSTICK_DEADZONE/2 :
+		user.movement_vector = - mov.joystick_vector
 		counter = true
-	if $aim_joy.joystick_vector.length() > 0.85:
+	if aim.joystick_vector.length() > 0.8:
 		user.selected_gun.fireGun()
 	if counter:
 		counter = false
