@@ -5,7 +5,7 @@ extends Node
 
 #is exporting for android or not
 var is_android : bool = false
-const current_game_version : float = 1.3
+const current_game_version : float = 1.31
 const invalid_position = Vector2(-999,-999)
 var first_run = false
 
@@ -53,7 +53,8 @@ var skinResource = {
 	t1 = preload("res://Sprites/Character/t1.bmp"),
 	t2 = preload("res://Sprites/Character/t2.bmp"),
 	ct2 = preload("res://Sprites/Character/ct2.bmp"),
-	z1 = preload("res://Sprites/Character/zombie.png")
+	z1 = preload("res://Sprites/Character/zombie.png"),
+	z2 = preload("res://Sprites/Character/zombie2.png")
 }
 
 var skinStats = {

@@ -5,6 +5,7 @@ var _next_scene : String
 var add_shown = false
 
 func _ready():
+	get_tree().set_auto_accept_quit(false)
 	Logger.Log("Game Loaded")
 	add_shown = false
 	MusicMan.music_player.volume_db = -2.0

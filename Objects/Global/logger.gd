@@ -8,8 +8,8 @@ var max_logs = 8
 
 var print_to_console = true
 
-var path = "res://"
-var final_path = "res://logs/"
+var path = "user://"
+var final_path = path + "logs/"
 
 
 func _ready():

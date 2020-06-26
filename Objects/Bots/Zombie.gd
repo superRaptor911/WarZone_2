@@ -20,7 +20,11 @@ func _ready():
 	#This signal is re-emited because team missed previous signal
 	emit_signal("char_born")
 	
-	mdl.setSkin("z1")
+	#set Zombie skin
+	if randi() % 2 == 0:
+		mdl.setSkin("z1")
+	else:
+		mdl.setSkin("z2")
 	
 	connect("char_killed", self, "P_on_killed")
 	
