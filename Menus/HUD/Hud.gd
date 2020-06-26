@@ -39,11 +39,13 @@ func setUser(u):
 #show mags remaining in hud
 func setClipCount(count):
 	var n = $reload
-	for i in range(1,5):
-		n.get_node("b" + String(i)).hide()
+	for i in range(4):
+		n.get_node("b" + String(i + 1)).hide()
 	
-	for i in range(1, count):
-		n.get_node("b" + String(i)).show()
+	for i in range(count):
+		n.get_node("b" + String(i + 1)).show()
+	
+	print("clip count = ", count)
 
 
 func _process(_delta):
