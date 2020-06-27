@@ -10,9 +10,14 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
-"class": "Admob",
+"class": "AdMob",
 "language": "GDScript",
 "path": "res://admob-lib/admob.gd"
+}, {
+"base": "Node",
+"class": "Admob",
+"language": "GDScript",
+"path": "res://android/admob.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Bot",
@@ -60,6 +65,7 @@ _global_script_classes=[ {
 "path": "res://Objects/unit.gd"
 } ]
 _global_script_class_icons={
+"AdMob": "res://admob-lib/icon.png",
 "Admob": "res://admob-lib/icon.png",
 "Bot": "",
 "Character": "",
@@ -71,10 +77,6 @@ _global_script_class_icons={
 "Team": "",
 "Unit": ""
 }
-
-[android]
-
-modules="org/godotengine/godot/GodotAdMob"
 
 [application]
 
@@ -172,6 +174,7 @@ quality/driver/driver_name="GLES2"
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/2d/use_pixel_snap=true
+vram_compression/import_s3tc=false
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 quality/shadows/filter_mode=0

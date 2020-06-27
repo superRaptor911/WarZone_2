@@ -1,6 +1,6 @@
 extends Node
 
-class_name Admob, "res://admob-lib/icon.png"
+class_name AdMob, "res://admob-lib/icon.png"
 
 # signals
 signal banner_loaded
@@ -10,7 +10,7 @@ signal interstitial_loaded
 signal interstitial_closed
 signal rewarded_video_loaded
 signal rewarded_video_closed
-signal rewarded(currency, amount)
+signal rewarded(currency, ammount)
 signal rewarded_video_left_application
 signal rewarded_video_failed_to_load(error_code)
 signal rewarded_video_opened
@@ -19,10 +19,9 @@ signal rewarded_video_started
 # properties
 export var is_real:bool setget is_real_set
 export var banner_on_top:bool = true
-export var banner_id:String = "ca-app-pub-9443221640471166/9049742329"
-export var interstitial_id:String = "ca-app-pub-9443221640471166/1781147462"
-export var rewarded_id:String = "ca-app-pub-9443221640471166/2680609241"
-
+export var banner_id:String
+export var interstitial_id:String
+export var rewarded_id:String
 export var child_directed:bool = false
 export var is_personalized:bool = true
 export(String, "G", "PG", "T", "MA") var max_ad_content_rate
@@ -35,7 +34,7 @@ var _is_rewarded_video_loaded:bool = false
 
 func _enter_tree():
 	if not init():
-		print("Admob Java Singleton not found")
+		print("AdMob Java Singleton not found")
 
 # setters
 func is_real_set(new_val) -> void:
@@ -63,8 +62,8 @@ func max_ad_content_rate_set(new_val) -> void:
 
 # initialization
 func init() -> bool:
-	if(Engine.has_singleton("AdMob")):
-		_admob_singleton = Engine.get_singleton("AdMob")
+	if(Engine.has_singleton("GodotAdMob")):
+		_admob_singleton = Engine.get_singleton("GodotAdMob")
 		_admob_singleton.initWithContentRating(
 			is_real,
 			get_instance_id(),

@@ -21,10 +21,10 @@ func _ready():
 	emit_signal("char_born")
 	
 	#set Zombie skin
-	if randi() % 2 == 0:
-		mdl.setSkin("z1")
-	else:
+	if randi() % 4 == 0:
 		mdl.setSkin("z2")
+	else:
+		mdl.setSkin("z1")
 	
 	connect("char_killed", self, "P_on_killed")
 	

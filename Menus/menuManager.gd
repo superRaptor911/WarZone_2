@@ -63,7 +63,7 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
 		_on_Back_pressed()
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		_on_Back_pressed()
+		get_tree().quit(0)
 		
 func _on_Back_pressed():
 	pass

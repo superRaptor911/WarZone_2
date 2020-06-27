@@ -17,10 +17,10 @@ func getZombieCount() -> int:
 	return 10 + 5 * current_round
 	
 func getZombieHealth() ->int:
-	return 100 + 12 * current_round
+	return 100 + 10 * current_round
 
 func getZombieSpeed() -> int:
-	return 100 + 14 * current_round
+	return 80 + 12 * current_round
 
 func showLabel(text : String, clr = Color.white):
 	tween.interpolate_property(label, "modulate", Color(1,1,1,0) ,Color(1,1,1,1),

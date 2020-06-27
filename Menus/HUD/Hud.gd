@@ -44,8 +44,7 @@ func setClipCount(count):
 	
 	for i in range(count):
 		n.get_node("b" + String(i + 1)).show()
-	
-	print("clip count = ", count)
+
 
 
 func _process(_delta):

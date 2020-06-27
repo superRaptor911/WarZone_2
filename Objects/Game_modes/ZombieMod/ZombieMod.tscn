@@ -28,7 +28,7 @@ __meta__ = {
 [node name="Timer" type="Timer" parent="."]
 
 [node name="round_start_dl" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 10.0
 one_shot = true
 
 [node name="restart_delay" type="Timer" parent="."]
