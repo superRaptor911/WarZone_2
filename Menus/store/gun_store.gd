@@ -24,6 +24,7 @@ func _ready():
 	loadWeapons()
 	initialTween()
 	$cash.text = "$" + String(game_states.player_data.cash)
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 
 func initWeaponTypes():
 	var pistols = WeaponType.new("pistol")

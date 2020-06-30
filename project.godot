@@ -85,6 +85,7 @@ run/main_scene="res://Menus/MainMenu/LoadingMenu.tscn"
 boot_splash/image="res://Sprites/qq.png"
 boot_splash/fullsize=false
 config/icon="res://Sprites/WARZONE-512.png"
+config/quit_on_go_back=false
 
 [autoload]
 

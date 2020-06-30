@@ -4,6 +4,7 @@ var servers = Array()
 var serverListener = preload("res://Objects/Global/ServerListener.gd").new()
 var current_server = null
 var serverInfoFormatStr = "Server Name : %s\nGame Mode : %s\nMap : %s\nPlayers : %s"
+var level_info = preload("res://Maps/level_info.gd").new()
 
 func _ready():
 	network.connect("join_fail", self, "_on_join_fail")
@@ -13,6 +14,7 @@ func _ready():
 	serverListener.connect("remove_server", self, "on_server_closed")
 	startingTween()
 	$Admob.load_banner()
+	MenuManager.connect("back_pressed", self,"_on_back_button_pressed")
 
 func _on_join_fail():
 	print("Failed to join server")
@@ -22,8 +24,19 @@ func _on_join_fail():
 func _join_game():
 	$con.hide()
 	game_server.serverInfo = current_server
-	var level_path = "res://Maps/" + current_server.map + "/" + current_server.map + ".tscn"
-	get_tree().change_scene(level_path)
+	var l_info = level_info.getLevelInfo(current_server.map)
+	
+	if l_info == {}:
+		Logger.LogError("_join_game", "Map %s does not exist." % [current_server.map])
+		return
+	
+	var l_path = level_info.getLevelGameModePath(l_info, current_server.game_mode)
+	
+	if l_path == "":
+		Logger.LogError("_join_game", "Map %s does not have game mode %s" % [current_server.map, current_server.game_mode])
+		return
+	
+	get_tree().change_scene(l_path)
 
 func _on_back_button_pressed():
 	MusicMan.click()

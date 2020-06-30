@@ -7,6 +7,7 @@ var next_scene : String
 func _ready():
 	network.connect("server_created",self,"_join_lobby")
 	UiAnim.animTopToBottom([$panel])
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 	
 
 func _join_lobby():

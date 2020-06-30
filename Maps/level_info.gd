@@ -36,3 +36,24 @@ var levels = {
 		debug  = true
 	}
 }
+
+
+func getLevelInfo(level_name) -> Dictionary:
+	var vals = levels.values()
+	for i in vals:
+		if i.name == level_name:
+			return i
+	
+	return {}
+
+
+func getLevelGameModePath(level : Dictionary, game_mode : String) -> String:
+	var i = 0
+	var sz = level.game_modes.size()
+	while (i < sz):
+		if level.game_modes[i] == game_mode:
+			return level.game_modes[i + 1]
+		i += 2
+	
+	return ""
+

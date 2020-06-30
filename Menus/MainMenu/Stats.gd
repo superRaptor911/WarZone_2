@@ -8,6 +8,8 @@ func _ready():
 	$Panel/VBoxContainer/Level/Panel/Label.text = String(game_states.getLevelFromXP(game_states.player_data.XP))
 	
 	UiAnim.animLeftToRight([$Panel])
+	
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 
 
 

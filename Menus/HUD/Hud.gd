@@ -19,6 +19,7 @@ func _ready():
 		$fps_timer.start()
 	
 	score_board.connect("scoreboard_closed", self, "_on_scoreboard_closed")
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 	
 	#Enable admin menu if admin
 	if get_tree().is_network_server():

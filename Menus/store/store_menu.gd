@@ -9,6 +9,7 @@ extends CanvasLayer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initialTween()
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 
 
 func _on_back_pressed():

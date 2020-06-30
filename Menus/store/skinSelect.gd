@@ -10,6 +10,7 @@ var cur_ct_skin = 0
 func _ready():
 	loadSkins()
 	$Admob.load_banner()
+	MenuManager.connect("back_pressed", self,"_on_Back_pressed")
 
 func loadSkins():
 	for i in game_states.player_data.skins:

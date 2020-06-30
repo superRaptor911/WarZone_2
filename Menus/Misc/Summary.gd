@@ -15,6 +15,8 @@ func _ready():
 	game_states.player_data.cash += cash
 	game_states.player_data.kills += kills
 	game_states.player_data.deaths += deaths
+	
+	MenuManager.connect("back_pressed", self,"_on_Ok_pressed")
 
 
 func setSummary(map,kills,deaths,cash,xp):

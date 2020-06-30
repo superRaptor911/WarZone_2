@@ -18,6 +18,7 @@ var cur_cost = 0
 func _ready():
 	getGuns()
 	selectSelectedWeapons()
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 
 #get all purchased guns
 func getGuns():

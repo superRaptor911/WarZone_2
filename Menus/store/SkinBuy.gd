@@ -7,6 +7,7 @@ var cur_skin_id = 0
 func _ready():
 	$cash.text = "$" + String(game_states.player_data.cash)
 	loadSkins()
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 
 
 func loadSkins():

@@ -4,6 +4,7 @@ extends Panel
 func _ready():
 	$VBoxContainer/add_bot_ct.disabled = false
 	$VBoxContainer/add_bot_t.disabled = false
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 
 
 func _on_add_bot_pressed():

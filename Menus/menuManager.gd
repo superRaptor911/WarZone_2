@@ -7,6 +7,8 @@ var max_menus = 10
 var menu_loaded = 0
 var loading_menu
 
+signal back_pressed
+
 func _ready():
 	if !get_tree().get_nodes_in_group("LoadMenu").empty():
 		loading_menu = get_tree().get_nodes_in_group("LoadMenu")[0]
@@ -63,7 +65,8 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
 		_on_Back_pressed()
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		get_tree().quit(0)
+		#get_tree().quit(0)
+		_on_Back_pressed()
 		
 func _on_Back_pressed():
-	pass
+	emit_signal("back_pressed")

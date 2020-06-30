@@ -26,6 +26,7 @@ func _ready():
 	
 	$VSlider.max_value = max(panels.size() - 8, 0)
 	$VSlider.value = 0
+	MenuManager.connect("back_pressed", self,"_on_quit_pressed")
 
 	 
 

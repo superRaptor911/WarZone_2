@@ -6,9 +6,9 @@ var add_shown = false
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 	Logger.Log("Game Loaded")
 	add_shown = false
-	MusicMan.music_player.volume_db = -2.0
 	if game_states.game_settings.music_enabled and not MusicMan.music_player.playing:
 		MusicMan.music_player.play()
 		
@@ -47,7 +47,10 @@ func _on_stats_pressed():
 
 func goToNextScene():
 	MenuManager.changeScene(_next_scene)
-	
+
+
+func _on_back_pressed():
+	get_tree().quit(0)
 
 #########################Tweeeening############################
 func tweenTransition():
