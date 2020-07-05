@@ -100,7 +100,7 @@ remotesync func handleKills(victim_id : String, killer_id : String, weapon_used 
 			if suicide:
 				victim.ref.score -= 3
 	else:
-		Logger.Log("Error : at func handleKills")
+		victim_name = "Zombie"
 		Logger.Log("--> Victim %s not found" % [victim_id])
 
 	if killer:
@@ -109,7 +109,7 @@ remotesync func handleKills(victim_id : String, killer_id : String, weapon_used 
 			killer.ref.kills += 1
 			killer.ref.score += 4
 	else:
-		Logger.Log("Error : at func handleKills")
+		killer_name = "Zombie"
 		Logger.Log("--> Killer %s not found" % [killer_id])
 
 	if suicide:

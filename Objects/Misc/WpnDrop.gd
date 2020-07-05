@@ -24,11 +24,14 @@ func create(info):
 	$Timer.start()
 	
 
-func getWpnInfo(selected_gun) -> Dictionary:
+func getWpnInfo(selected_gun, in_tree = true) -> Dictionary:
 	item_data.wpn = selected_gun.gun_name
 	item_data.bul = selected_gun.rounds_left
-	item_data.clps = selected_gun.clip_count
-	item_data.pos = selected_gun.global_position
+	item_data.clps = min(selected_gun.clip_count, 4)
+	if in_tree:
+		item_data.pos = selected_gun.global_position
+	else:
+		item_data.pos = selected_gun.position
 	return item_data
 
 

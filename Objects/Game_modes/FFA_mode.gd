@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var end_screen_scn = preload("res://Objects/Game_modes/endScreen.tscn")
+var end_screen_scn = preload("res://Objects/Game_modes/TDM/endScreen.tscn")
 var world_size : Vector2
 
 #Quake sound class holds message that is to be displayed

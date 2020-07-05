@@ -71,10 +71,11 @@ func getTarget():
 	var selected_unit = null
 	var min_distance = 9999
 	for i in units:
-		var dist = (i.position - position).length()
-		if dist < min_distance:
-			min_distance = dist
-			selected_unit = i
+		if i.alive:
+			var dist = (i.position - position).length()
+			if dist < min_distance:
+				min_distance = dist
+				selected_unit = i
 	
 	if selected_unit:
 		target_id = selected_unit.name

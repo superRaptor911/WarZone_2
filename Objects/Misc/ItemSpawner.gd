@@ -53,7 +53,7 @@ func generateWpn() -> Dictionary:
 		wpn = game_states.weaponResource.get(weapon_to_spawn).instance()
 	wpn.position = position + Vector2(rand_range(-50,50),rand_range(-50,-50))
 	
-	var rtn_val = wpn_drop.getWpnInfo(wpn)
+	var rtn_val = wpn_drop.getWpnInfo(wpn, false)
 	wpn.queue_free()
 	return rtn_val
 

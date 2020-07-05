@@ -25,6 +25,10 @@
 position = Vector2( 287.403, 2592.3 )
 team_id = 1
 
+[node name="human_sp2" parent="spawns" instance=ExtResource( 2 )]
+position = Vector2( 791.432, 2735.77 )
+team_id = 1
+
 [node name="spr" type="Node" parent="."]
 
 [node name="bloodhand6" type="Sprite" parent="spr"]

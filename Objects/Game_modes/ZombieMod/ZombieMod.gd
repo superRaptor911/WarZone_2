@@ -43,11 +43,9 @@ func _ready():
 		for i in teams:
 			i.connect("team_eliminated", self, "on_team_eliminated")
 		
-		game_server.bot_settings.bot_count = 0
-		
 		var level = get_tree().get_nodes_in_group("Level")[0]
 		level.connect("player_created", self, "on_player_created")
-		
+		createBots()
 
 func on_player_created(_plr):
 	if not is_player_playing:
@@ -63,6 +61,7 @@ func on_team_eliminated(team):
 	if team_id == 0:
 		rpc("P_roundEnd")
 		$round_start_dl.start()
+		respawnEveryOne()
 		print("round end")
 	else:
 		$restart_delay.start()
@@ -98,6 +97,7 @@ remotesync func P_roundStarted(r : int):
 
 remotesync func P_roundEnd():
 	showLabel("You survived this wave.", Color.green)
+	
 
 
 remotesync func P_gameOver():
@@ -125,3 +125,51 @@ remotesync func P_restart():
 		i.queue_free()
 	
 	showLabel("New game starting")
+
+
+func createBots():
+	Logger.Log("Creating bots")
+	var bots = Array()
+	var bot_count = min(game_server.bot_settings.bot_count, 6)
+	print("Bot count = ",game_server.bot_settings.bot_count)
+	game_server.bot_settings.index = 0
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	
+	if bot_count > game_states.bot_profiles.bot.size():
+		Logger.Log("Not enough bot profiles. Required %d , Got %d" % [bot_count, game_states.bot_profiles.bot.size()])
+	
+	for i in game_states.bot_profiles.bot:
+		i.is_in_use = false
+		if game_server.bot_settings.index < bot_count:
+			i.is_in_use = true
+			var data = level.unit_data_dict.duplicate(true)
+			data.pn = i.bot_name
+			data.g1 = i.bot_primary_gun
+			data.g2 = i.bot_sec_gun
+			data.b = true
+			data.k = 0
+			data.d = 0
+			data.scr = 0
+			data.pg = i.bot_primary_gun
+			data.sg = i.bot_sec_gun
+			
+			#assign team
+			data.tId = 1
+			data.s = i.bot_ct_skin
+
+			data.p = level.getSpawnPosition(data.tId)
+			#giving unique node name
+			data.n = "bot" + String(69 + game_server.bot_settings.index)
+			bots.append(data)
+			game_server.bot_settings.index += 1
+	
+	#spawn bot
+	for i in bots:
+		level.createUnit(i)
+		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])
+
+func respawnEveryOne():
+	var players = get_tree().get_nodes_in_group("Unit")
+	for i in players:
+		if not i.alive:
+			i.S_respawnUnit()

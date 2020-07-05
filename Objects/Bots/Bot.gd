@@ -26,6 +26,7 @@ func _ready():
 		$VisionTimer.wait_time = $VisionTimer.wait_time * (1.0 + rand_range(-0.5,0.5))
 		$VisionTimer.start()
 		connect("char_killed",self,"_on_bot_killed")
+
 				
 		if game_server.serverInfo.game_mode == "Bombing":
 			var bomb_mode = get_tree().get_nodes_in_group("GameMode")[0]
