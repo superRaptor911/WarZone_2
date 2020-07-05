@@ -107,7 +107,7 @@ func loadGameMode():
 	if game_server.serverInfo.game_mode == "Zombie Mod":
 		game_mode = load("res://Objects/Game_modes/ZombieMod/ZombieMod.tscn").instance()
 	elif game_server.serverInfo.game_mode == "TDM":
-		game_mode = load("res://Objects/Game_modes/FFA_mode.tscn").instance()
+		game_mode = load("res://Objects/Game_modes/TDM/TDM.tscn").instance()
 	elif game_server.serverInfo.game_mode == "Bombing":
 		game_mode = load("res://Objects/Game_modes/BombDiffuse.tscn").instance()
 	

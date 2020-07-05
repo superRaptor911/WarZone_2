@@ -96,9 +96,12 @@ var player_data = {
 	deaths = 0,
 	cash = 500,
 	XP = 0,
-	guns = Array(),
-	skins = Array(),
-	selected_guns = Array(),
+	
+	guns = [{gun_name = "MP5", laser = false, mag_ext = false}, 
+			{gun_name = "default_gun", laser = false, mag_ext = false}],
+	
+	skins = ["t1", "ct1"],
+	selected_guns = ["MP5", "default_gun"],
 	t_model = "t1",
 	ct_model = "ct1",
 	nade_count = 2
@@ -129,64 +132,22 @@ func _ready():
 	var gameStatus : Dictionary = load_data("user://status.dat",false)
 	Logger.Log("Loading status.dat")
 	
-	if gameStatus.has("game_version"):
-		if gameStatus.game_version != current_game_version:
-			portGameToCurrentVersion(gameStatus.game_version)
-			Logger.Log("Game version is different, porting %f to %f" % [gameStatus.game_version, current_game_version])
-		else:
-			game_settings = load_data("user://settings.dat")
-			player_data = load_data("user://pinfo.dat")
-			Logger.Log("Loading settings from disk")			
-	else:
-		Logger.Log("Running for the first time, Loading default settings")
-		saveDefaultData()
+	safe_cpy_dict(game_settings, load_data("user://settings.dat"))
+	safe_cpy_dict(player_data, load_data("user://pinfo.dat"))
+	
+	if not gameStatus.has("game_version"):
 		first_run = true
+		saveSettings()
+		savePlayerData()
+		save_data("user://status.dat",game_status,false)
+		
 	_init_setup()
 
-func DataReader(dest_D : Dictionary, src_D : Dictionary):
+func safe_cpy_dict(dest_D : Dictionary, src_D : Dictionary):
 	var keys = src_D.keys()
 	for i in keys:
 		if dest_D.has(i):
 			dest_D[i] = src_D[i]
-
-
-func saveDefaultData():
-	save_data("user://settings.dat",game_settings)
-	save_data("user://status.dat",game_status,false)
-	
-	var default_guns = Array()
-	default_guns.append("MP5")
-	default_guns.append("default_gun")
-	var default_skins = Array()
-	default_skins.append("t1")
-	default_skins.append("ct1")
-	var gun_data = {gun_name = "", laser = false, mag_ext = false}
-	
-	player_data.selected_guns = default_guns
-	player_data.skins = default_skins
-	player_data.t_model = default_skins[0]
-	player_data.ct_model = default_skins[1]
-	
-	for i in default_guns:
-		var data = gun_data.duplicate(true)
-		data.gun_name = i
-		player_data.guns.append(data)
-		
-	print("saving data")
-	save_data("user://pinfo.dat",player_data)
-	
-	
-func portGameToCurrentVersion(old_v):
-	print("porting version ",old_v ,"  to ",current_game_version)
-	
-	var use_enc = !(old_v == 1.0)
-	DataReader(game_settings, load_data("user://settings.dat",use_enc))
-	DataReader(player_data, load_data("user://pinfo.dat",use_enc))
-	
-	save_data("user://settings.dat",game_settings)
-	save_data("user://status.dat",game_status,false)
-
-
 
 #setup player info
 func _init_setup():

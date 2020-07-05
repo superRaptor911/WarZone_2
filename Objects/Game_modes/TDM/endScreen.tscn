@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Objects/Game_modes/endScreen.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Game_modes/TDM/endScreen.gd" type="Script" id=1]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=3]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=4]

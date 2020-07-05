@@ -4,7 +4,7 @@ var Round : int = 0
 var round_time : int = 0
 var level = null
 
-var end_screen_scn = preload("res://Objects/Game_modes/endScreen.tscn")
+var end_screen_scn = preload("res://Objects/Game_modes/TDM/endScreen.tscn")
 var bomb_scene = preload("res://Objects/Game_modes/BombDiffuse/C4Bomb.tscn")
 var bomb = null
 var bomber = null
@@ -49,6 +49,8 @@ func _ready():
 		level.connect("bot_removed",self,"S_handleDisconnection")
 		level.connect("player_created",self,"S_on_player_joined")
 		level.connect("bot_created",self,"S_on_player_joined")
+		
+		createBots()
 		
 		#handle bomb site signals
 		var bomb_sites = get_tree().get_nodes_in_group("Bomb_site")
@@ -408,3 +410,52 @@ remotesync func S_peerDiffusedBomb():
 		bomb.diffuseBomb()
 		bomb_diffused = true
 		_on_counter_terrorist_win(true)
+
+
+func createBots():
+	Logger.Log("Creating bots")
+	var bots = Array()
+	var bot_count = game_server.bot_settings.bot_count
+	print("Bot count = ",game_server.bot_settings.bot_count)
+	game_server.bot_settings.index = 0
+	var ct = false
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	
+	if bot_count > game_states.bot_profiles.bot.size():
+		Logger.Log("Not enough bot profiles. Required %d , Got %d" % [bot_count, game_states.bot_profiles.bot.size()])
+	
+	for i in game_states.bot_profiles.bot:
+		i.is_in_use = false
+		if game_server.bot_settings.index < bot_count:
+			i.is_in_use = true
+			var data = level.unit_data_dict.duplicate(true)
+			data.pn = i.bot_name
+			data.g1 = i.bot_primary_gun
+			data.g2 = i.bot_sec_gun
+			data.b = true
+			data.k = 0
+			data.d = 0
+			data.scr = 0
+			data.pg = i.bot_primary_gun
+			data.sg = i.bot_sec_gun
+			
+			#assign team
+			if ct:
+				data.tId = 1
+				data.s = i.bot_ct_skin
+				ct = false
+			else:
+				data.tId = 0
+				data.s = i.bot_t_skin
+				ct = true
+			
+			data.p = level.getSpawnPosition(data.tId)
+			#giving unique node name
+			data.n = "bot" + String(69 + game_server.bot_settings.index)
+			bots.append(data)
+			game_server.bot_settings.index += 1
+	
+	#spawn bot
+	for i in bots:
+		level.createUnit(i)
+		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])

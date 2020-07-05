@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Objects/Game_modes/FFA_mode.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Game_modes/TDM/TDM.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/dark_wD.png" type="Texture" id=2]
 [ext_resource path="res://Menus/resources/dark_w.png" type="Texture" id=3]
 [ext_resource path="res://font.tres" type="DynamicFont" id=4]
