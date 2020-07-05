@@ -126,6 +126,7 @@ class Kill_Message_slots:
 	var active_slots : int
 	var max_slots
 	var hud
+	var bbcode_format = "[color=green][b]%s[/b][/color] %s [color=red][b] %s[/b][/color]"
 	
 	func _init(usr,num = 8):
 		hud = usr
@@ -171,10 +172,19 @@ class Kill_Message_slots:
 	func showKillMsg():
 		var labels = hud.get_node("kill_msg")
 		for i in range(active_slots):
-			labels.get_node(String(i + 1)).text = msg_slots[i].msg
-		for i in range(active_slots,max_slots):
-			labels.get_node(String(i + 1)).text = ""
+			if game_states.game_settings.use_rich_text:
+				var m = msg_slots[i].msg.split(" ")
+				labels.get_node(String(i + 1)).bbcode_text = bbcode_format % [m[0], m[1], m[2]]
+			else:
+				labels.get_node(String(i + 1)).text = msg_slots[i].msg
 		
+		#Remove messages
+		for i in range(active_slots,max_slots):
+			if game_states.game_settings.use_rich_text:
+				labels.get_node(String(i + 1)).bbcode_text = ""
+			else:
+				labels.get_node(String(i + 1)).text = ""
+
 
 func addKillMessage(msg):
 	kill_msg_slots.addKillMessage(msg)
@@ -212,8 +222,11 @@ func _on_btn_pressed():
 	user.selected_gun.reload()
 
 func _on_back_pressed():
-	UiAnim.animZoomOut([$Panel2])
-	yield(get_tree().create_timer(0.5 * UiAnim.anim_scale), "timeout")
+	UiAnim.animZoomOut([$Panel2])	
+	var tree = get_tree()
+	if tree:
+		yield(tree.create_timer(0.5 * UiAnim.anim_scale), "timeout")
+	
 	$Panel2.hide()
 
 func _on_changeTeam_pressed():

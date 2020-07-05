@@ -95,7 +95,7 @@ func _on_uptime_timeout():
 	if time_elapsed >= game_server.extraServerInfo.time_limit * 60:
 		time_elapsed = 0
 		var level = get_tree().get_nodes_in_group("Level")[0]
-		level.Server_stopLevel()
+		#level.S_restartLevel()
 		rpc("sync_endGame")
 
 
@@ -117,10 +117,11 @@ func _ready():
 	#only server handles quake events and sound
 	if get_tree().is_network_server():
 		var current_level = get_tree().get_nodes_in_group("Level")[0]
-		current_level.connect("player_spawned", self, "_on_new_player_spawned")
-		current_level.connect("bot_spawned",self,"_on_new_bot_spawned")
+		current_level.connect("player_created", self, "_on_unit_created")
+		current_level.connect("bot_created",self,"_on_unit_created")
 		$Label/Timer.start()
 		$Time_container/uptime.start()
+		createBots()
 
 
 func _process(_delta):
@@ -158,33 +159,77 @@ func _on_Timer_timeout():
 	#showQuakeKills()
 
 #handle new player
-func _on_new_player_spawned(plr):
+func _on_unit_created(plr):
 	#register player with quake sounds
 	var p = Player_stats.new(plr.pname,quake_sound_queue)
 	plr.connect("char_killed",p,"_player_got_killed")
 	plr.connect("char_killed_someone",p,"_player_killed_someone")
 	Players.push_back(p)
 	#connect
-	plr.connect("player_killed",self,"_on_player_killed")
+	if plr.is_in_group("Bot"):
+		plr.connect("bot_killed",self,"_on_bot_killed")
+	else:
+		plr.connect("player_killed",self,"_on_player_killed")
 
-
-func _on_new_bot_spawned(bot):
-	var p = Player_stats.new(bot.pname,quake_sound_queue)
-	bot.connect("char_killed",p,"_player_got_killed")
-	bot.connect("char_killed_someone",p,"_player_killed_someone")
-	Players.push_back(p)
-	bot.connect("bot_killed",self,"_on_bot_killed")
 
 func _on_player_killed(plr):
-	plr.get_node("free_timer").start()
+	plr.get_node("respawn_timer").start()
 	
 func _on_bot_killed(bot):
-	bot.get_node("free_timer").start()
+	bot.get_node("respawn_timer").start()
 
 
 func restartGameMode():
 	var level = get_tree().get_nodes_in_group("Level")[0]
-	level.Server_startLevel()
+	level.S_restartLevel()
 	$Tween.interpolate_property(level,"modulate",Color8(0,0,0,0),Color8(255,255,255,255),
 		2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
 	$Tween.start()
+
+func createBots():
+	Logger.Log("Creating bots")
+	var bots = Array()
+	var bot_count = game_server.bot_settings.bot_count
+	print("Bot count = ",game_server.bot_settings.bot_count)
+	game_server.bot_settings.index = 0
+	var ct = false
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	
+	if bot_count > game_states.bot_profiles.bot.size():
+		Logger.Log("Not enough bot profiles. Required %d , Got %d" % [bot_count, game_states.bot_profiles.bot.size()])
+	
+	for i in game_states.bot_profiles.bot:
+		i.is_in_use = false
+		if game_server.bot_settings.index < bot_count:
+			i.is_in_use = true
+			var data = level.unit_data_dict.duplicate(true)
+			data.pn = i.bot_name
+			data.g1 = i.bot_primary_gun
+			data.g2 = i.bot_sec_gun
+			data.b = true
+			data.k = 0
+			data.d = 0
+			data.scr = 0
+			data.pg = i.bot_primary_gun
+			data.sg = i.bot_sec_gun
+			
+			#assign team
+			if ct:
+				data.tId = 1
+				data.s = i.bot_ct_skin
+				ct = false
+			else:
+				data.tId = 0
+				data.s = i.bot_t_skin
+				ct = true
+			
+			data.p = level.getSpawnPosition(data.tId)
+			#giving unique node name
+			data.n = "bot" + String(69 + game_server.bot_settings.index)
+			bots.append(data)
+			game_server.bot_settings.index += 1
+	
+	#spawn bot
+	for i in bots:
+		level.createUnit(i)
+		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])

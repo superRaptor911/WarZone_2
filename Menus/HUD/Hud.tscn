@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Menus/HUD/Hud.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/white.png" type="Texture" id=2]
@@ -11,9 +11,10 @@
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=9]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://Sprites/UI/bullet.png" type="Texture" id=11]
-[ext_resource path="res://Antaro.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=12]
 [ext_resource path="res://Menus/resources/next_gun.png" type="Texture" id=13]
 [ext_resource path="res://controls/controllers/default_controller.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Fonts/ARIALBD.TTF" type="DynamicFontData" id=15]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 98.0
@@ -48,14 +49,17 @@ border_width_bottom = 2
 shadow_size = 6
 
 [sub_resource type="DynamicFont" id=8]
-size = 18
+use_filter = true
+font_data = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=9]
 use_filter = true
 font_data = ExtResource( 12 )
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 40, 40 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=11]
 draw_center = false
 border_width_left = 3
 border_width_top = 3
@@ -63,10 +67,10 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 70, 25 )
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=13]
 size = 36
 use_filter = true
 font_data = ExtResource( 10 )
@@ -342,70 +346,76 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="1" type="Label" parent="kill_msg"]
+[node name="1" type="RichTextLabel" parent="kill_msg"]
 margin_right = 300.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
-rect_clip_content = true
-custom_fonts/font = SubResource( 8 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/bold_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 9 )
+bbcode_enabled = true
 
-[node name="2" type="Label" parent="kill_msg"]
+[node name="2" type="RichTextLabel" parent="kill_msg"]
 margin_top = 28.0
 margin_right = 300.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 0, 20 )
-rect_clip_content = true
-custom_fonts/font = SubResource( 8 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/bold_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 9 )
+bbcode_enabled = true
 
-[node name="3" type="Label" parent="kill_msg"]
+[node name="3" type="RichTextLabel" parent="kill_msg"]
 margin_top = 56.0
 margin_right = 300.0
-margin_bottom = 75.0
-rect_clip_content = true
-custom_fonts/font = SubResource( 8 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+margin_bottom = 76.0
+rect_min_size = Vector2( 0, 20 )
+custom_fonts/bold_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 9 )
+bbcode_enabled = true
 
-[node name="4" type="Label" parent="kill_msg"]
-margin_top = 83.0
+[node name="4" type="RichTextLabel" parent="kill_msg"]
+margin_top = 84.0
 margin_right = 300.0
-margin_bottom = 102.0
-rect_clip_content = true
-custom_fonts/font = SubResource( 8 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+margin_bottom = 104.0
+rect_min_size = Vector2( 0, 20 )
+custom_fonts/bold_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 9 )
+bbcode_enabled = true
 
-[node name="5" type="Label" parent="kill_msg"]
-margin_top = 110.0
+[node name="5" type="RichTextLabel" parent="kill_msg"]
+margin_top = 112.0
 margin_right = 300.0
-margin_bottom = 129.0
-rect_clip_content = true
-custom_fonts/font = SubResource( 8 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+margin_bottom = 132.0
+rect_min_size = Vector2( 0, 20 )
+custom_fonts/bold_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 9 )
+bbcode_enabled = true
 
-[node name="6" type="Label" parent="kill_msg"]
-margin_top = 137.0
+[node name="6" type="RichTextLabel" parent="kill_msg"]
+margin_top = 140.0
 margin_right = 300.0
-margin_bottom = 156.0
-rect_clip_content = true
-custom_fonts/font = SubResource( 8 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+margin_bottom = 160.0
+rect_min_size = Vector2( 0, 20 )
+custom_fonts/bold_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 9 )
+bbcode_enabled = true
 
-[node name="7" type="Label" parent="kill_msg"]
-margin_top = 164.0
+[node name="7" type="RichTextLabel" parent="kill_msg"]
+margin_top = 168.0
 margin_right = 300.0
-margin_bottom = 183.0
-rect_clip_content = true
-custom_fonts/font = SubResource( 8 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+margin_bottom = 188.0
+rect_min_size = Vector2( 0, 20 )
+custom_fonts/bold_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 9 )
+bbcode_enabled = true
 
-[node name="8" type="Label" parent="kill_msg"]
-margin_top = 191.0
+[node name="8" type="RichTextLabel" parent="kill_msg"]
+margin_top = 196.0
 margin_right = 300.0
-margin_bottom = 210.0
-rect_clip_content = true
-custom_fonts/font = SubResource( 8 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
+margin_bottom = 216.0
+rect_min_size = Vector2( 0, 20 )
+custom_fonts/bold_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 9 )
+bbcode_enabled = true
 
 [node name="Control2" type="Control" parent="."]
 anchor_left = 0.824
@@ -426,7 +436,7 @@ rotation = -3.14159
 scale = Vector2( 1, -1 )
 normal = ExtResource( 13 )
 pressed = ExtResource( 13 )
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 
 [node name="Minimap" type="Panel" parent="."]
 anchor_left = 0.999
@@ -437,7 +447,7 @@ margin_left = -255.89
 margin_top = -78.2082
 margin_right = 0.109985
 margin_bottom = 77.7918
-custom_styles/panel = SubResource( 10 )
+custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -479,7 +489,7 @@ __meta__ = {
 
 [node name="pic_touch" type="TouchScreenButton" parent="pick"]
 position = Vector2( -5.17657, -4.85297 )
-shape = SubResource( 11 )
+shape = SubResource( 12 )
 
 [node name="cash" type="Label" parent="."]
 visible = false
@@ -492,7 +502,7 @@ margin_top = -206.604
 margin_right = 71.988
 margin_bottom = -158.604
 rect_pivot_offset = Vector2( 44.5, 24 )
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0.141176, 0.568627, 0.0235294, 1 )
 text = "+ $10"
 align = 1

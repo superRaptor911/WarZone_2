@@ -127,3 +127,7 @@ func createDropedItems():
 #to drop weapons on ground.
 func P_on_unit_killed():
 	createDropedItems()
+
+func _on_respawn_timer_timeout():
+	if get_tree().is_network_server():
+		S_respawnUnit()

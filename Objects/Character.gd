@@ -145,3 +145,7 @@ remotesync func serverMeleeAttack():
 
 remotesync func syncMelee():
 	model.doMelee()
+
+
+func _on_respawn_timer_timeout():
+	pass

@@ -186,7 +186,7 @@ void Bot::setBotDifficulty(int difficulty)
 
 void Bot::setGameMode(String gmod)
 {
-	if (gmod == "FFA")
+	if (gmod == "TDM")
 		game_mode = GMODE::DM;
 	else if (gmod == "Bombing")
 	{

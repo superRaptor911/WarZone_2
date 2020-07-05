@@ -17,7 +17,7 @@ var spec_mode = preload("res://Objects/Game_modes/Spectate.tscn").instance()
 var dropedItem_manager = preload("res://Objects/Misc/DropedItemManager.tscn").instance()
 
 var spawned_units = Array()
-var spawn_ponts = Array()
+var spawn_points = Array()
 
 #Unit attiributes
 var unit_data_dict = {
@@ -55,10 +55,11 @@ func _ready():
 	add_child(team1)
 	add_child(team2)
 	add_child(dropedItem_manager)
-	loadGameMode()
+	
 	game_server._unit_data_list.clear()
-	spawn_ponts = get_tree().get_nodes_in_group("SpawnPoint")
+	spawn_points = get_tree().get_nodes_in_group("SpawnPoint")
 	network.connect("disconnected", self, "_on_disconnected")
+	loadGameMode()
 	
 	#handle team selector
 	add_child(teamSelector)
@@ -68,7 +69,7 @@ func _ready():
 	
 	if (get_tree().is_network_server()):
 		network.connect("player_removed", self, "_on_player_removed")
-		createBots()
+		#createBots()
 	else:
 		rpc_id(1,"S_getExistingUnits", game_states.player_info.net_id)
 
@@ -105,7 +106,7 @@ func loadGameMode():
 	#load appropriate game mode	
 	if game_server.serverInfo.game_mode == "Zombie Mod":
 		game_mode = load("res://Objects/Game_modes/ZombieMod/ZombieMod.tscn").instance()
-	elif game_server.serverInfo.game_mode == "FFA":
+	elif game_server.serverInfo.game_mode == "TDM":
 		game_mode = load("res://Objects/Game_modes/FFA_mode.tscn").instance()
 	elif game_server.serverInfo.game_mode == "Bombing":
 		game_mode = load("res://Objects/Game_modes/BombDiffuse.tscn").instance()
@@ -127,7 +128,7 @@ func loadGameMode():
 	
 	else:
 		teamSelector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
-		Logger.LogError("loadGameMode", "No game mode")
+		Logger.LogError("loadGameMode", "Unable to load game mode")
 
 
 func _on_specmode_selected():
@@ -150,13 +151,13 @@ func _on_player_removed(pinfo):
 
 
 func getSpawnPosition(team_id : int) -> Vector2:
-	if spawn_ponts.empty():
+	if spawn_points.empty():
 		print("Error : No spawn points available")
 	else:
 		var best_spawn_point = null
 		var min_value = 999
 		
-		for i in spawn_ponts:
+		for i in spawn_points:
 			if (i.team_id == -1 or i.team_id == team_id) and i.entity_count < min_value:
 				min_value = i.entity_count
 				best_spawn_point = i
@@ -282,53 +283,6 @@ func createUnit(data):
 		emit_signal("bot_created",unit)
 
 
-func createBots():
-	Logger.Log("Creating bots")
-	var bots = Array()
-	var bot_count = game_server.bot_settings.bot_count
-	print("Bot count = ",game_server.bot_settings.bot_count)
-	game_server.bot_settings.index = 0
-	var ct = false
-	
-	if bot_count > game_states.bot_profiles.bot.size():
-		Logger.Log("Not enough bot profiles. Required %d , Got %d" % [bot_count, game_states.bot_profiles.bot.size()])
-	
-	for i in game_states.bot_profiles.bot:
-		i.is_in_use = false
-		if game_server.bot_settings.index < bot_count:
-			i.is_in_use = true
-			var data = unit_data_dict.duplicate(true)
-			data.pn = i.bot_name
-			data.g1 = i.bot_primary_gun
-			data.g2 = i.bot_sec_gun
-			data.b = true
-			data.k = 0
-			data.d = 0
-			data.scr = 0
-			data.pg = i.bot_primary_gun
-			data.sg = i.bot_sec_gun
-			
-			#assign team
-			if ct:
-				data.tId = 1
-				data.s = i.bot_ct_skin
-				ct = false
-			else:
-				data.tId = 0
-				data.s = i.bot_t_skin
-				ct = true
-			
-			data.pos = getSpawnPosition(data.tId)
-			#giving unique node name
-			data.n = "bot" + String(69 + game_server.bot_settings.index)
-			bots.append(data)
-			game_server.bot_settings.index += 1
-	
-	#spawn bot
-	for i in bots:
-		createUnit(i)
-		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])
-
 
 #spawn a single bot to requested team
 func spawnBot(team_id : int = 0):
@@ -415,7 +369,7 @@ func S_restartLevel():
 	assert(get_tree().is_network_server(),"Not server")
 	rpc("P_restartLevel")
 	yield(get_tree(), "idle_frame")
-	createBots()
+	#createBots()
 
 #restart level, client side
 remotesync func P_restartLevel():

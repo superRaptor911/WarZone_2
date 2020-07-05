@@ -8,7 +8,7 @@ func _ready():
 	var t_score = 0
 	var pl_dat = game_server._unit_data_list.values()
 	for i in pl_dat:
-		if i.ref.team_id == 0:
+		if i.ref.team.team_id == 0:
 			t_score += i.ref.score
 		else:
 			ct_score += i.ref.score

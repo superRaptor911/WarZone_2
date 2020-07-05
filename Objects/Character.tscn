@@ -50,5 +50,10 @@ max_distance = 800.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="close_range"]
 shape = SubResource( 1 )
+
+[node name="respawn_timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 [connection signal="body_entered" from="close_range" to="." method="_on_close_range_body_entered"]
 [connection signal="body_exited" from="close_range" to="." method="_on_close_range_body_exited"]
+[connection signal="timeout" from="respawn_timer" to="." method="_on_respawn_timer_timeout"]

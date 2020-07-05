@@ -4,8 +4,8 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android : bool = true
-const current_game_version : float = 1.31
+var is_android : bool = false
+const current_game_version : float = 1.32
 const invalid_position = Vector2(-999,-999)
 var first_run = false
 
@@ -39,7 +39,8 @@ var game_settings = {
 	dynamic_camera = true,
 	show_fps = false,
 	enable_logging = false,
-	shadows = true
+	shadows = true,
+	use_rich_text = true
 }
 
 #control types available
