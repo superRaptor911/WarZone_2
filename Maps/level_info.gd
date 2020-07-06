@@ -34,6 +34,16 @@ var levels = {
 			],
 		desc = "Test Map!!!",
 		debug  = true
+	},
+	
+	l3 = {
+		name = "fy Dust",
+		icon = preload("res://Maps/fy_dust/minimap.png"),
+		game_modes = [
+				"TDM", "res://Maps/fy_dust/fy_dust_tdm.tscn"
+			],
+		desc = "",
+		debug = false
 	}
 }
 

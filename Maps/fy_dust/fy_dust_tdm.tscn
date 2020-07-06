@@ -1,0 +1,133 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Maps/fy_dust/fy_dust.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Misc/ItemSpawner.tscn" type="PackedScene" id=3]
+
+[node name="fy_dust_tdm" type="Node"]
+
+[node name="fy_dust" parent="." instance=ExtResource( 1 )]
+
+[node name="spawn" type="Node" parent="."]
+
+[node name="spawn_point" parent="spawn" instance=ExtResource( 2 )]
+position = Vector2( 417.276, 509.321 )
+
+[node name="spawn_point2" parent="spawn" instance=ExtResource( 2 )]
+position = Vector2( 417.276, 837.692 )
+
+[node name="spawn_point3" parent="spawn" instance=ExtResource( 2 )]
+position = Vector2( 414.606, 1358.28 )
+
+[node name="spawn_point4" parent="spawn" instance=ExtResource( 2 )]
+position = Vector2( 409.267, 1790.77 )
+
+[node name="spawn_point5" parent="spawn" instance=ExtResource( 2 )]
+position = Vector2( 2622.26, 415.22 )
+team_id = 1
+
+[node name="spawn_point6" parent="spawn" instance=ExtResource( 2 )]
+position = Vector2( 2622.26, 750.198 )
+team_id = 1
+
+[node name="spawn_point7" parent="spawn" instance=ExtResource( 2 )]
+position = Vector2( 2636.51, 1356.01 )
+team_id = 1
+
+[node name="spawn_point8" parent="spawn" instance=ExtResource( 2 )]
+position = Vector2( 2654.33, 1748 )
+team_id = 1
+
+[node name="drops" type="Node" parent="."]
+
+[node name="ItemSpawner" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 455.072, 609.408 )
+spawn_kits = false
+
+[node name="ItemSpawner2" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 455.072, 703.065 )
+spawn_kits = false
+
+[node name="ItemSpawner3" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 457.317, 837.76 )
+spawn_kits = false
+
+[node name="ItemSpawner4" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 448.337, 1091.44 )
+spawn_kits = false
+
+[node name="ItemSpawner5" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 445.509, 1331.85 )
+spawn_kits = false
+
+[node name="ItemSpawner6" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 445.509, 1474.72 )
+spawn_kits = false
+
+[node name="ItemSpawner7" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 429.635, 1655.68 )
+spawn_kits = false
+
+[node name="ItemSpawner8" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 432.809, 1792.2 )
+spawn_kits = false
+
+[node name="ItemSpawner9" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 2537.7, 1747.75 )
+spawn_kits = false
+
+[node name="ItemSpawner10" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 2531.35, 1598.54 )
+spawn_kits = false
+
+[node name="ItemSpawner11" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 2518.65, 1442.97 )
+spawn_kits = false
+
+[node name="ItemSpawner12" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 2518.65, 1290.58 )
+spawn_kits = false
+
+[node name="ItemSpawner13" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 2588.5, 1068.34 )
+spawn_kits = false
+
+[node name="ItemSpawner14" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 2525, 766.738 )
+spawn_kits = false
+
+[node name="ItemSpawner15" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 2518.65, 646.096 )
+spawn_kits = false
+
+[node name="ItemSpawner16" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 2512.3, 528.628 )
+spawn_kits = false
+
+[node name="ItemSpawner17" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 2512.3, 376.238 )
+spawn_kits = false
+
+[node name="ItemSpawner18" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 1375.73, 1163.59 )
+spawn_wpn = false
+
+[node name="ItemSpawner19" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 1623.36, 950.877 )
+spawn_wpn = false
+
+[node name="ItemSpawner20" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 1607.49, 1169.94 )
+spawn_wpn = false
+
+[node name="ItemSpawner21" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 1401.12, 960.401 )
+spawn_wpn = false
+
+[node name="ItemSpawner22" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 112.023, 1188.73 )
+spawn_wpn = false
+
+[node name="ItemSpawner23" parent="drops" instance=ExtResource( 3 )]
+position = Vector2( 2947.09, 1098.35 )
+spawn_wpn = false
