@@ -76,7 +76,8 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 		game_server.rpc("handleKills",name,attacker_id,weapon)
 		
 		if attacker_ref:
-			attacker_ref.emit_signal("char_fraged", 0)
+			#attacker_ref.emit_signal("char_fraged", 0)
+			attacker_ref.emit_signal("char_fraged")
 		
 		#sync with everyone
 		rpc("P_death")

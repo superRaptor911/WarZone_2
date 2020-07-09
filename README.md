@@ -3,10 +3,11 @@ A 2D multiplayer shooter made using [Godot](https://godotengine.org/) for androi
 This game is inspired by counter strike and [CS2D](https://store.steampowered.com/app/666220/CS2D/)
 
 
-![Screenshot from 2020-04-22 19-58-04](https://user-images.githubusercontent.com/58220198/80273921-2048b700-86f4-11ea-82df-d7d429d13270.png)
-![Screenshot from 2020-04-22 19-54-57](https://user-images.githubusercontent.com/58220198/80273931-3fdfdf80-86f4-11ea-98d0-a287780d115d.png)
-![Screenshot from 2020-04-22 19-54-19](https://user-images.githubusercontent.com/58220198/80273996-dc09e680-86f4-11ea-8d64-7b027a1538c4.png)
-![Screenshot from 2020-04-22 19-58-27](https://user-images.githubusercontent.com/58220198/80274000-e6c47b80-86f4-11ea-894c-31cb6a3660cf.png)
+![Screenshot from 2020-07-09 21-10-57](https://user-images.githubusercontent.com/58220198/87061420-5abced00-c229-11ea-89da-9b071f300367.png)
+![Screenshot from 2020-07-09 21-11-11](https://user-images.githubusercontent.com/58220198/87061428-5c86b080-c229-11ea-80ce-105c03d07322.png)
+![Screenshot from 2020-07-09 21-11-46](https://user-images.githubusercontent.com/58220198/87061432-5db7dd80-c229-11ea-89f4-bad1480a5f0e.png)
+![Screenshot from 2020-07-09 21-11-59](https://user-images.githubusercontent.com/58220198/87061442-5ee90a80-c229-11ea-9faf-1b140e66e1c4.png)
+
 
 
 ## Installing
