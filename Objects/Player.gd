@@ -193,6 +193,8 @@ func _get_inputs():
 		return
 	if Input.is_action_just_pressed("drop"):
 		pickItem()
+	if Input.is_action_just_pressed("zoom"):
+		get_node("Camera2D").zoom = selected_gun.getNextZoom()
 	rotation = (get_global_mouse_position()  - global_position).angle() + 1.57
 
 
@@ -229,17 +231,17 @@ func pause_controls(val : bool):
 		hud.get_node("controller").enabled = !val
 
 
-func getKillRewards(type):
-	if type == 0:
+func getKillRewards():
+	if game_server.serverInfo.game_mode == "Zombie Mod":
+		xp += 10 
+		cash += 10
+		hud.addCash(10)
+		
+	else:
 		xp += 10 + 10 * streak
 		var add = 25 + 25 * streak
 		cash += add
 		hud.addCash(add)
-	
-	if type == 1:
-		xp += 10 
-		cash += 10
-		hud.addCash(10)
 		
 	kills += 1
 	game_states.last_match_result.kills = kills

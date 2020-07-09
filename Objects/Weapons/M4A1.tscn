@@ -13,6 +13,7 @@ damage = 24.0
 clip_size = 30
 gun_rating = 5
 rate_of_fire = 7.8
+zoom_range = PoolRealArray( 0.75, 0.9, 1 )
 gun_portrait = ExtResource( 5 )
 gun_d_img = ExtResource( 4 )
 wpn_cost = 1800

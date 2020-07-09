@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Menus/HUD/Hud.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/white.png" type="Texture" id=2]
@@ -35,6 +35,11 @@ radius = 40.0
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 45.0
+
+[sub_resource type="DynamicFont" id=14]
+size = 32
+use_filter = true
+font_data = ExtResource( 10 )
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.6, 0.6, 0.6, 0.686275 )
@@ -218,6 +223,14 @@ __meta__ = {
 [node name="HE" type="TouchScreenButton" parent="HE"]
 position = Vector2( 5.62723, 2.88458 )
 shape = SubResource( 5 )
+
+[node name="Label" type="Label" parent="HE"]
+margin_left = 101.649
+margin_top = 33.2484
+margin_right = 154.649
+margin_bottom = 76.2484
+custom_fonts/font = SubResource( 14 )
+text = "x2"
 
 [node name="pause" type="TextureButton" parent="."]
 anchor_left = 0.046

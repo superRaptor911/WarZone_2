@@ -54,7 +54,8 @@ func initialTween():
 
 
 func _on_cash_pressed():
-	$Admob.load_rewarded_video()
+	#$Admob.load_rewarded_video()
+	pass
 
 
 func _on_Admob_rewarded(_currency, _ammount):
@@ -65,4 +66,5 @@ func _on_Admob_rewarded(_currency, _ammount):
 
 
 func _on_Admob_rewarded_video_loaded():
-	$Admob.show_rewarded_video()
+	#$Admob.show_rewarded_video()
+	pass
