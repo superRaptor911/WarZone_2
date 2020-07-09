@@ -7,11 +7,11 @@ export var velocity : float = 200
 #Loading explosive
 var explo = preload("res://Objects/Weapons/Bomb.tscn").instance()
 var decal = preload("res://Objects/Graphics/Decal.tscn").instance()
+
 #user of this grenade
 var user = ""
 
 func _ready():
-	
 	#experimental (freeze collision for peer)
 	if not get_tree().is_network_server():
 		sleeping = true

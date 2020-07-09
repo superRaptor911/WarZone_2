@@ -4,8 +4,6 @@
 [ext_resource path="res://Sprites/Weapons/he.png" type="Texture" id=2]
 
 [sub_resource type="PhysicsMaterial" id=1]
-friction = 0.0
-bounce = 1.0
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 4.45389

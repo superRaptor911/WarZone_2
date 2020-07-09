@@ -8,7 +8,7 @@ var serverInfo : = {
 	"max_p" : "6",
 	"map" : "",
 	"version" : game_states.current_game_version,
-	"min_v" : 1.31
+	"min_v" : 1.33
 }
 
 #time is in minutes
@@ -39,21 +39,6 @@ func no_set(_r):
 	pass
 
 
-##############Loadings##############################
-
-func _init_Particle(particle_name):
-	var pos : Vector2 = Vector2(-9999,-9999)
-	var a = load("res://Sprites/particles/" + particle_name + ".tscn").instance()
-	a.position = pos
-	get_tree().root.add_child(a)
-	a.emitting = true
-
-func preloadParticles():
-	_init_Particle("bloodSplash")
-	_init_Particle("bloodSpot")
-	_init_Particle("explosion_cloud")
-	
-
 
 #######################Score board##############
 
@@ -81,8 +66,8 @@ func removeUnit(pid : String):
 	_unit_data_list.erase(pid)
 
 
-#handle kill and death event
-remotesync func handleKills(victim_id : String, killer_id : String, weapon_used : String):
+#handle kill and death event and show it in HUD
+remotesync func handleKills(victim_id : String, killer_id : String, _weapon_used : String):
 	var victim = _unit_data_list.get(victim_id)
 	var killer = _unit_data_list.get(killer_id)
 	var kill_msg = ""
@@ -100,7 +85,7 @@ remotesync func handleKills(victim_id : String, killer_id : String, weapon_used 
 			if suicide:
 				victim.ref.score -= 3
 	else:
-		victim_name = "Zombie"
+		victim_name = victim_id
 		Logger.Log("--> Victim %s not found" % [victim_id])
 
 	if killer:
@@ -109,18 +94,11 @@ remotesync func handleKills(victim_id : String, killer_id : String, weapon_used 
 			killer.ref.kills += 1
 			killer.ref.score += 4
 	else:
-		killer_name = "Zombie"
+		killer_name = killer_id
 		Logger.Log("--> Killer %s not found" % [killer_id])
 
 	if suicide:
 		kill_msg = victim_name + " did suicide"
-	elif weapon_used == "":
-		if weapon_used == "plasma":
-			kill_msg = victim_name + " was burned alive by hot plasma"
-		elif weapon_used == "explosive":
-			kill_msg = killer_name + " exploded " + victim_name
-		else:
-			kill_msg = killer_name + " killed " + victim_name + " with " + weapon_used
 	else:
 		kill_msg = killer_name + " killed " + victim_name
 	

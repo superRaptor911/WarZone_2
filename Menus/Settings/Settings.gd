@@ -9,7 +9,7 @@ func _ready():
 	$TabContainer/Advanced/container/fps/fps.pressed = game_states.game_settings.show_fps
 	$TabContainer/Advanced/container/log/log.pressed = game_states.game_settings.enable_logging
 	
-	$Admob.load_banner()
+	#$Admob.load_banner()
 	UiAnim.animLeftToRight([$TabContainer])
 	MenuManager.connect("back_pressed", self,"_on_Button_pressed")
 

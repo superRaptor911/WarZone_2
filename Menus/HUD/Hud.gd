@@ -8,6 +8,7 @@ var frames : int = 0
 
 onready var reload_node = $reload
 onready var reload_progress = get_node("reload/TextureProgress")
+onready var grenade_count_lb = get_node("HE/Label")
 
 func _ready():
 	if not game_states.is_android:
@@ -51,6 +52,9 @@ func setClipCount(count):
 func _process(_delta):
 	frames += 1
 	reload_progress.value =  user.selected_gun.rounds_left
+	# Update every 8 frames
+	if frames % 8 == 0:
+		grenade_count_lb.text = "x" + String(game_states.player_data.nade_count)
 
 #handle quit pressed
 func _on_quit_pressed():

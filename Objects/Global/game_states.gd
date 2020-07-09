@@ -4,7 +4,7 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android : bool = true
+var is_android : bool = false
 const current_game_version : float = 1.32
 const invalid_position = Vector2(-999,-999)
 var first_run = false
@@ -132,14 +132,15 @@ func _ready():
 	var gameStatus : Dictionary = load_data("user://status.dat",false)
 	Logger.Log("Loading status.dat")
 	
-	safe_cpy_dict(game_settings, load_data("user://settings.dat"))
-	safe_cpy_dict(player_data, load_data("user://pinfo.dat"))
-	
+	# Check for existance and validity of savegame
 	if not gameStatus.has("game_version"):
 		first_run = true
 		saveSettings()
 		savePlayerData()
 		save_data("user://status.dat",game_status,false)
+	else:
+		safe_cpy_dict(game_settings, load_data("user://settings.dat"))
+		safe_cpy_dict(player_data, load_data("user://pinfo.dat"))
 		
 	_init_setup()
 
