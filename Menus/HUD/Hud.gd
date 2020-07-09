@@ -130,7 +130,6 @@ class Kill_Message_slots:
 	var active_slots : int
 	var max_slots
 	var hud
-	var bbcode_format = "[color=green][b]%s[/b][/color] %s [color=red][b] %s[/b][/color]"
 	
 	func _init(usr,num = 8):
 		hud = usr
@@ -177,8 +176,7 @@ class Kill_Message_slots:
 		var labels = hud.get_node("kill_msg")
 		for i in range(active_slots):
 			if game_states.game_settings.use_rich_text:
-				var m = msg_slots[i].msg.split(" ")
-				labels.get_node(String(i + 1)).bbcode_text = bbcode_format % [m[0], m[1], m[2]]
+				labels.get_node(String(i + 1)).bbcode_text = msg_slots[i].msg
 			else:
 				labels.get_node(String(i + 1)).text = msg_slots[i].msg
 		

@@ -73,7 +73,7 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 	
 	#char dead
 	if HP <= 0:
-		game_server.rpc("handleKills",name,attacker_id,weapon)
+		game_server.rpc("P_handleKills",name,attacker_id,weapon)
 		
 		if attacker_ref:
 			#attacker_ref.emit_signal("char_fraged", 0)

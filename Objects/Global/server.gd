@@ -64,13 +64,20 @@ func addUnit(ref : Unit):
 
 func removeUnit(pid : String):
 	_unit_data_list.erase(pid)
+	
+func getLocalPlayer():
+	return _unit_data_list.get(String(game_states.player_info.net_id))
 
+var bbcode_format_good = "[color=green][b]%s[/b][/color] %s [color=red][b] %s[/b][/color]"
+var bbcode_format_bad = "[color=red][b]%s[/b][/color] %s [color=green][b] %s[/b][/color]"
 
 #handle kill and death event and show it in HUD
-remotesync func handleKills(victim_id : String, killer_id : String, _weapon_used : String):
+remotesync func P_handleKills(victim_id : String, killer_id : String, _weapon_used : String):
 	var victim = _unit_data_list.get(victim_id)
 	var killer = _unit_data_list.get(killer_id)
 	var kill_msg = ""
+	
+	var is_killer_friend = false
 	
 	var suicide = (victim_id == killer_id)
 	var victim_name = ""
@@ -90,6 +97,10 @@ remotesync func handleKills(victim_id : String, killer_id : String, _weapon_used
 
 	if killer:
 		killer_name = killer.ref.pname
+		#Verify killer is our friend
+		var local_plr = getLocalPlayer()
+		is_killer_friend = (local_plr && (local_plr.ref.team.team_id == killer.ref.team.team_id))
+		
 		if killer.ref.is_in_group("Unit") and not suicide:
 			killer.ref.kills += 1
 			killer.ref.score += 4
@@ -98,9 +109,21 @@ remotesync func handleKills(victim_id : String, killer_id : String, _weapon_used
 		Logger.Log("--> Killer %s not found" % [killer_id])
 
 	if suicide:
-		kill_msg = victim_name + " did suicide"
+		if game_states.game_settings.use_rich_text:
+			if is_killer_friend:
+				kill_msg = bbcode_format_good % [victim_name, "killed", "self"]
+			else:
+				kill_msg = bbcode_format_bad % [victim_name, "killed", "self"]
+		else:
+			kill_msg = victim_name + " killed self"
 	else:
-		kill_msg = killer_name + " killed " + victim_name
+		if game_states.game_settings.use_rich_text:
+			if is_killer_friend:
+				kill_msg = bbcode_format_good % [killer_name, "killed", victim_name]
+			else:
+				kill_msg = bbcode_format_bad % [killer_name, "killed", victim_name]
+		else:
+			kill_msg = killer_name + " killed " + victim_name
 	
 	if _kill_msg_list.size() > 15:
 		_kill_msg_list.pop_front()
