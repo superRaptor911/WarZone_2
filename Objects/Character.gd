@@ -39,7 +39,7 @@ func _process(delta):
 
 #Take damage from some weapon used by someone
 func takeDamage(damage : float, weapon : String, attacker_id : String):
-	if not ( alive and get_tree().is_network_server() ):
+	if HP <= 0 or not ( alive and get_tree().is_network_server() ):
 		return
 	
 	var _attacker_data = game_server._unit_data_list.get(attacker_id)
