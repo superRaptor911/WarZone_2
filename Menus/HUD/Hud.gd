@@ -131,10 +131,11 @@ class Kill_Message_slots:
 	var max_slots
 	var hud
 	
-	func _init(usr,num = 8):
+	func _init(usr,num = 6):
 		hud = usr
 		active_slots = 0
-		max_slots = num
+		max_slots = 6
+		num = 6
 		for _i in range(0,num):
 			msg_slots.append(Message_slot.new())
 		timer = Timer.new()
