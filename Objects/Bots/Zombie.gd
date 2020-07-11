@@ -198,4 +198,4 @@ func on_attk_completed():
 	$zAttack.play()
 	var T = game_server._unit_data_list.get(target_id)
 	if T:
-		T.ref.takeDamage(35, "", "Zombie")
+		T.ref.takeDamage(35, "Claw", "Zombie")

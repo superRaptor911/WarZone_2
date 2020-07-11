@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Maps/Dust/Dust.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Sprites/decals/bloodhand3.png" type="Texture" id=12]
 [ext_resource path="res://Objects/Misc/ItemSpawner.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Sprites/decals/noEsc.png" type="Texture" id=14]
+[ext_resource path="res://Objects/Weapons/barrel.tscn" type="PackedScene" id=15]
 
 [node name="Zm_Dust" type="Node"]
 
@@ -214,3 +215,14 @@ spawn_kits = false
 position = Vector2( 2837.09, 2335.93 )
 weapon_to_spawn = "AK47"
 spawn_kits = false
+
+[node name="obj" type="Node" parent="."]
+
+[node name="barrel" parent="obj" instance=ExtResource( 15 )]
+position = Vector2( 689.221, 1908.84 )
+
+[node name="barrel2" parent="obj" instance=ExtResource( 15 )]
+position = Vector2( 811.221, 2036.84 )
+
+[node name="barrel3" parent="obj" instance=ExtResource( 15 )]
+position = Vector2( 1567.22, 2006.84 )

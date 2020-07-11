@@ -2,6 +2,7 @@
 A 2D multiplayer shooter made using [Godot](https://godotengine.org/) for android.
 This game is inspired by counter strike and [CS2D](https://store.steampowered.com/app/666220/CS2D/)
 
+Play Store : [WarZone 2](https://play.google.com/store/apps/details?id=com.raptor.inc)
 
 ![Screenshot from 2020-07-09 21-10-57](https://user-images.githubusercontent.com/58220198/87061420-5abced00-c229-11ea-89da-9b071f300367.png)
 ![Screenshot from 2020-07-09 21-11-11](https://user-images.githubusercontent.com/58220198/87061428-5c86b080-c229-11ea-80ce-105c03d07322.png)

@@ -21,10 +21,13 @@ func explode(cloud = false):
 	#emit blast particles
 	if game_states.game_settings.particle_effects and cloud:
 		$explosion_cloud.emitting = true
-	var chars = get_tree().get_nodes_in_group("Actor")
-	for c in chars:
-		if (c.position - position).length() < radius * SCALE:
-			c.takeDamage(damage,gun_name,usr)
+	
+	#Handle Damage
+	if get_tree().is_network_server():
+		var chars = get_tree().get_nodes_in_group("Destructible")
+		for c in chars:
+			if (c.position - position).length() < radius * SCALE:
+				c.takeDamage(damage,gun_name,usr)
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
