@@ -68,11 +68,37 @@ func removeUnit(pid : String):
 func getLocalPlayer():
 	return _unit_data_list.get(String(game_states.player_info.net_id))
 
-var bbcode_format_good = "[color=green][b]%s[/b][/color] %s [color=red][b] %s[/b][/color]"
-var bbcode_format_bad = "[color=red][b]%s[/b][/color] %s [color=green][b] %s[/b][/color]"
+
+################################################################################
+############## Kill Msg ########################################################
+################################################################################
+
+var wpn_kill_icons = {
+	default_gun = "res://Sprites/Weapons/elite_k.png",
+	AK47 = "res://Sprites/Weapons/ak47_k.png",
+	Aug = "res://Sprites/Weapons/aug_k.png",
+	Awm = "res://Sprites/Weapons/awp_k.png",
+	deagle = "res://Sprites/Weapons/deagle_k.png",
+	MP5 = "res://Sprites/Weapons/mp5_k.png",
+	Famas = "res://Sprites/Weapons/famas_k.png",
+	M4A1 = "res://Sprites/Weapons/m4a1_k.png",
+	P90 = "res://Sprites/Weapons/p90_k.png"
+}
+
+var bbcode_format_good = "[color=green][b]%s[/b][/color] [img]%s[/img][color=red][b] %s[/b][/color]"
+var bbcode_format_bad = "[color=red][b]%s[/b][/color] [img]%s[/img][color=green][b] %s[/b][/color]"
+
+
+func getKillIcon(wpn_name : String) -> String:
+	var rtn_val = wpn_kill_icons.get(wpn_name)
+	if not rtn_val:
+		rtn_val = "res://Sprites/Weapons/p90_k.png"
+	
+	return rtn_val
+
 
 #handle kill and death event and show it in HUD
-remotesync func P_handleKills(victim_id : String, killer_id : String, _weapon_used : String):
+remotesync func P_handleKills(victim_id : String, killer_id : String, weapon_used : String):
 	var victim = _unit_data_list.get(victim_id)
 	var killer = _unit_data_list.get(killer_id)
 	var kill_msg = ""
@@ -111,17 +137,17 @@ remotesync func P_handleKills(victim_id : String, killer_id : String, _weapon_us
 	if suicide:
 		if game_states.game_settings.use_rich_text:
 			if is_killer_friend:
-				kill_msg = bbcode_format_good % [victim_name, "killed", "self"]
+				kill_msg = bbcode_format_good % [victim_name, getKillIcon(weapon_used), "self"]
 			else:
-				kill_msg = bbcode_format_bad % [victim_name, "killed", "self"]
+				kill_msg = bbcode_format_bad % [victim_name, getKillIcon(weapon_used), "self"]
 		else:
 			kill_msg = victim_name + " killed self"
 	else:
 		if game_states.game_settings.use_rich_text:
 			if is_killer_friend:
-				kill_msg = bbcode_format_good % [killer_name, "killed", victim_name]
+				kill_msg = bbcode_format_good % [killer_name, getKillIcon(weapon_used), victim_name]
 			else:
-				kill_msg = bbcode_format_bad % [killer_name, "killed", victim_name]
+				kill_msg = bbcode_format_bad % [killer_name, getKillIcon(weapon_used), victim_name]
 		else:
 			kill_msg = killer_name + " killed " + victim_name
 	
