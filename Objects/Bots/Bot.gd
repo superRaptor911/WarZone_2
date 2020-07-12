@@ -15,27 +15,28 @@ var bot_data : Dictionary = {
 	bot_g2 = ""
 }
 
+onready var brain = $Brain
+
 
 func _ready():
 	if get_tree().is_network_server():
 		level = get_tree().get_nodes_in_group("Level")[0]
 		level.connect("player_removed",self,"_on_player_left_server")
 		level.connect("bot_removed",self,"_on_player_left_server")
-		$Brain.setBotDifficulty(game_server.bot_settings.bot_difficulty)
-		$Brain.setGameMode(game_server.serverInfo.game_mode)
+		brain.setBotDifficulty(game_server.bot_settings.bot_difficulty)
+		brain.setGameMode(game_server.serverInfo.game_mode)
 		$VisionTimer.wait_time = $VisionTimer.wait_time * (1.0 + rand_range(-0.5,0.5))
 		$VisionTimer.start()
 		connect("char_killed",self,"_on_bot_killed")
-
-				
+			
 		if game_server.serverInfo.game_mode == "Bombing":
 			var bomb_mode = get_tree().get_nodes_in_group("GameMode")[0]
-			bomb_mode.connect("round_started",$Brain,"on_new_round_starts")
-			bomb_mode.connect("bomber_selected",$Brain,"on_bomber_selected")
-			bomb_mode.connect("bomb_planted",$Brain,"on_bomb_planted")
-			bomb_mode.connect("bomb_dropped",$Brain,"on_bomb_dropped")
+			bomb_mode.connect("round_started",brain,"on_new_round_starts")
+			bomb_mode.connect("bomber_selected",brain,"on_bomber_selected")
+			bomb_mode.connect("bomb_planted",brain,"on_bomb_planted")
+			bomb_mode.connect("bomb_dropped",brain,"on_bomb_dropped")
 	else:
-		$Brain.queue_free()
+		brain.queue_free()
 
 
 func _on_bot_killed():
@@ -69,6 +70,11 @@ remotesync func pickUpItem(item):
 	elif item.type == "kevlar":
 		AP = 100
 
+#respawn player, server only , clear vision
+func S_respawnUnit():
+	clearVision()
+	.S_respawnUnit()
+
 ########################bot vision####################
 
 #handle player disconnection
@@ -90,8 +96,8 @@ func _on_vision_body_exited(body):
 		_near_bodies.erase(body)
 
 func _on_VisionTimer_timeout():
-	$Brain.visible_enemies.clear()
-	$Brain.visible_friends.clear()
+	brain.visible_enemies.clear()
+	brain.visible_friends.clear()
 	
 	for i in _near_bodies:
 		if i and i.alive:
@@ -102,25 +108,30 @@ func _on_VisionTimer_timeout():
 			if result:
 				if result.collider.name == i.name:
 					if i.team.team_id != team.team_id:
-						$Brain.visible_enemies.append(i)
+						brain.visible_enemies.append(i)
 					else:
-						$Brain.visible_friends.append(i)
-	$Brain.updateVision()
-	
+						brain.visible_friends.append(i)
+	brain.updateVision()
+
+
+func clearVision():
+	brain.visible_enemies.clear()
+	brain.visible_friends.clear()
+	brain.updateVision()
 
 ###################################Bot Bombing mode####################
 
 func selectedAsbomber():
-	$Brain.onSelectedAsBomber()
+	brain.onSelectedAsBomber()
 
 func _on_new_round_start():
-	$Brain.onNewBombingRoundStarted()
+	brain.onNewBombingRoundStarted()
 
 func _on_bomb_planted():
-	$Brain.onBombPlanted()
+	brain.onBombPlanted()
 
 func _process(delta):
-	$Brain.think(delta)
+	brain.think(delta)
 
 func plantBomb():
 	get_tree().get_nodes_in_group("GameMode")[0]._on_plant_bomb_pressed()
@@ -130,4 +141,4 @@ func diffuseBomb():
 	get_tree().get_nodes_in_group("GameMode")[0].rpc("_bombDiffused")
 	
 func canDiffuse():
-	$Brain.onCTnearBomb()
+	brain.onCTnearBomb()

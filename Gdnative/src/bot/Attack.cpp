@@ -1,5 +1,7 @@
 #include <Attack.h>
 #include <Bot.h>
+#include <WeakRef.hpp>
+
 
 using namespace godot;
 
@@ -85,8 +87,8 @@ void Attack::resetTimers()
 void Attack::engageEnemy()
 {
     if (!current_enemy)
-        return;
-
+        return;   
+    
     enemy_position = current_enemy->get_position();
     _bot->point_to_dir = enemy_position - _parent->get_position();
 

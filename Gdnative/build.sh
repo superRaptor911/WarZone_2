@@ -12,17 +12,18 @@ exit_on_error=1
 args[0]="platform=linux target_name=${source} src_path=src/${source} target=release"
 args[1]="platform=android android_arch=armv7 target_name=${source} src_path=src/${source} android_stl=yes target=release"
 args[2]="platform=android android_arch=arm64v8 target_name=${source} src_path=src/${source} android_stl=yes target=release"
-args[3]="platform=android android_arch=x86 target_name=${source} src_path=src/${source} android_stl=yes target=release"
-args[4]="platform=android android_arch=x86_64 target_name=${source} src_path=src/${source} android_stl=yes target=release"
-args[5]="platform=windows target_name=${source} src_path=src/${source} target=release"
+args[3]="platform=windows target_name=${source} src_path=src/${source} target=release"
+args[4]="platform=android android_arch=x86 target_name=${source} src_path=src/${source} android_stl=yes target=release"
+args[5]="platform=android android_arch=x86_64 target_name=${source} src_path=src/${source} android_stl=yes target=release"
+
 
 #platforms
 plats[0]="LINUX"
 plats[1]="Android armv7"
 plats[2]="Android arm64v8"
-plats[3]="Android x86"
-plats[4]="Android x86_64"
-plats[5]="windows"
+plats[3]="windows"
+plats[4]="Android x86"
+plats[5]="Android x86_64"
 
 result=()
 
@@ -32,6 +33,7 @@ build_targets()
 	if [ $? -eq 0 ]; then
 		result+="operation $2 completed successfully ( ${plats[i]} )\n"
 		build_result+=1
+		echo "Done ............."
 	else
 	    exit 1
 	fi
@@ -39,7 +41,8 @@ build_targets()
 
 build_plugin()
 {
-	for (( i = 0; i < 6; i++ )); do
+	#Build only for first 4 platforms
+	for (( i = 0; i < 4; i++ )); do
 
 		if [ "$platforms" == "" ] || [ "$platforms" == "${plats[i]}" ]
 		then
@@ -52,7 +55,7 @@ build_plugin()
 	echo
 	echo operation result -----------------------------------
 
-	for (( i = 0; i < 6; i++ )); do
+	for (( i = 0; i < 4; i++ )); do
 		printf "${result[i]}"
 	done
 
