@@ -77,7 +77,6 @@ func _cacheDots():
 func getLocalPlayer():
 	for i in game_server._unit_data_list:
 		var p = game_server._unit_data_list[i].ref
-		print(i)
 		if p.is_network_master() and p.is_in_group("User"):
 			local_player = p
 			break
