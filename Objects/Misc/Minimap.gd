@@ -7,7 +7,7 @@ var local_player = null
 var ref_pos : Vector2
 var Scale : Vector2
 var worldsize : Vector2
-var playerList = Array()
+
 var dotsList = Array()
 
 func _ready():
@@ -20,13 +20,7 @@ func _ready():
 		Scale = Vector2(cell_size,cell_size) / hmap.cell_size
 		worldsize = hmap.get_used_rect().size * hmap.cell_size
 		loadMinimap(lvl.Level_Name)
-		playerList = get_tree().get_nodes_in_group("Unit")
 		getLocalPlayer()
-
-		lvl.connect("player_created", self,"addPlayer")
-		lvl.connect("bot_created", self,"addPlayer")
-		lvl.connect("player_removed", self,"removeplayer")
-		lvl.connect("bot_removed", self,"removeplayer")
 		_cacheDots()
 	else:
 		print("Error : No level loaded for minimap generation")
@@ -37,7 +31,7 @@ func loadMinimap(levl_name : String):
 
 
 func moveMapWithPlayer():
-	if local_player:
+	if is_instance_valid(local_player):
 		var half_res = get_viewport().size / 2
 		ref_pos = local_player.position - half_res
 		var e = rect_size / Scale
@@ -55,7 +49,8 @@ func showPlayersInMap():
 			i.hide()
 		
 		var sp_index = 0
-		for i in playerList:
+		for u in game_server._unit_data_list:
+			var i = game_server._unit_data_list[u].ref
 			if i.alive:
 				var rel_pos = (i.position - ref_pos) * Scale
 				if rel_pos.x > 0 && rel_pos.y > 0 && rel_pos.x < rect_size.x && rel_pos.y < rect_size.y:
@@ -74,20 +69,15 @@ func showPlayersInMap():
 						break
 
 
-func removeplayer(plr):
-	playerList.erase(plr)
-	
-	
-func addPlayer(plr):
-	playerList.append(plr)
-
 
 func _cacheDots():
 	dotsList = get_children()
 
 
 func getLocalPlayer():
-	for p in playerList:
+	for i in game_server._unit_data_list:
+		var p = game_server._unit_data_list[i].ref
+		print(i)
 		if p.is_network_master() and p.is_in_group("User"):
 			local_player = p
 			break
