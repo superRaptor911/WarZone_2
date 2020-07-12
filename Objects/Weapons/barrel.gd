@@ -1,7 +1,7 @@
 extends StaticBody2D
 
-
 export var HP = 100
+var prop_type = "barrel"
 
 #Loading explosive
 var explo = preload("res://Objects/Weapons/Bomb.tscn").instance()

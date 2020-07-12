@@ -40,6 +40,7 @@ var levels = {
 		name = "fy Dust",
 		icon = preload("res://Maps/fy_dust/minimap.png"),
 		game_modes = [
+				"Zombie Mod", "res://Maps/fy_dust/zm_fy_dust.tscn",
 				"TDM", "res://Maps/fy_dust/fy_dust_tdm.tscn"
 			],
 		desc = "",

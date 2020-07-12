@@ -369,6 +369,7 @@ custom_fonts/bold_font = SubResource( 9 )
 custom_fonts/normal_font = SubResource( 10 )
 bbcode_enabled = true
 bbcode_text = "ssdsdsad"
+text = "ssdsdsad"
 
 [node name="2" type="RichTextLabel" parent="kill_msg"]
 margin_top = 38.0

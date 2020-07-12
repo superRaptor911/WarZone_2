@@ -7,7 +7,8 @@
 radius = 40.6299
 
 [node name="barrel" type="StaticBody2D" groups=[
-"Destructible",
+"Damageable",
+"Prop",
 ]]
 script = ExtResource( 2 )
 __meta__ = {

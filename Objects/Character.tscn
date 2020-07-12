@@ -11,7 +11,7 @@ radius = 41.8711
 
 [node name="Character" type="KinematicBody2D" groups=[
 "Actor",
-"Destructible",
+"Damageable",
 ]]
 show_behind_parent = true
 script = ExtResource( 1 )

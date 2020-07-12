@@ -12,6 +12,14 @@ var is_player_playing = false
 onready var tween =$Tween
 onready var label = $Label
 
+#Props are objects that can be destroyed / damaged
+var Props_scene = {
+	barrel = preload("res://Objects/Weapons/barrel.tscn")
+}
+var prop_parent = null
+var Props = Array()
+
+
 
 func getZombieCount() -> int:
 	return 10 + 5 * current_round
@@ -35,6 +43,15 @@ func showLabel(text : String, clr = Color.white):
 
 
 func _ready():
+	# Get Position of props for respawning them on each round
+	var props = get_tree().get_nodes_in_group("Prop")
+	for i in props:
+		# Prop type, position of prop , referance to prop
+		Props.append({type = i.prop_type, pos = i.position, ref = i})
+	
+	if props.size() != 0:
+		prop_parent = props[0].get_parent()
+	
 	if get_tree().is_network_server():
 		
 		zombie_spawns = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
@@ -93,6 +110,20 @@ func _on_round_start_dl_timeout():
 remotesync func P_roundStarted(r : int):
 	showLabel("Round %d started. Get ready !!" % [r], Color.red)
 	$roundStart.play()
+	
+	# Respawn destroyed props
+	for i in Props:
+		#Check existance of prop
+		if not is_instance_valid(i.ref):
+			#Get prop scene
+			var prop_scn = Props_scene.get(i.type)
+			#Chk error
+			if prop_scn:
+				var prop = prop_scn.instance()
+				prop.position = i.pos
+				prop_parent.add_child(prop)
+				i.ref = prop
+			
 
 
 remotesync func P_roundEnd():
