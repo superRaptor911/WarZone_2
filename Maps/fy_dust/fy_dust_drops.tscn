@@ -1,0 +1,121 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/Misc/ItemSpawner.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Misc/ItemSpawner.tscn" type="PackedScene" id=2]
+
+[node name="drops" type="Node"]
+
+[node name="ItemSpawner" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 455.072, 609.408 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner2" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 455.072, 703.065 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner3" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 457.317, 837.76 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner4" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 448.337, 1091.44 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner5" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 445.509, 1331.85 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner6" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 445.509, 1474.72 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner7" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 429.635, 1655.68 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner8" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 432.809, 1792.2 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner9" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2537.7, 1747.75 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner10" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2531.35, 1598.54 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner11" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2518.65, 1442.97 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner12" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2518.65, 1290.58 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner13" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2588.5, 1068.34 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner14" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2525, 766.738 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner15" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2518.65, 646.096 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner16" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2512.3, 528.628 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner17" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2512.3, 376.238 )
+script = ExtResource( 1 )
+spawn_kits = false
+
+[node name="ItemSpawner18" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1375.73, 1163.59 )
+script = ExtResource( 1 )
+spawn_wpn = false
+
+[node name="ItemSpawner19" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1623.36, 950.877 )
+script = ExtResource( 1 )
+spawn_wpn = false
+
+[node name="ItemSpawner20" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1607.49, 1169.94 )
+script = ExtResource( 1 )
+spawn_wpn = false
+
+[node name="ItemSpawner21" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1401.12, 960.401 )
+script = ExtResource( 1 )
+spawn_wpn = false
+
+[node name="ItemSpawner22" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 112.023, 1188.73 )
+script = ExtResource( 1 )
+spawn_wpn = false
+
+[node name="ItemSpawner23" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2947.09, 1098.35 )
+script = ExtResource( 1 )
+spawn_wpn = false

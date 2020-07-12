@@ -86,7 +86,7 @@ remotesync func S_gunFired():
 	var result = space_state.intersect_ray(global_position, cast_to, [self])
 	if result:
 		cast_to = result.position
-		if result.collider.is_in_group("Destructible"):
+		if result.collider.is_in_group("Damageable"):
 			result.collider.takeDamage(damage,gun_name,user_id)
 	$recoil_reset.start()
 	rpc("P_gunFired",cast_to)

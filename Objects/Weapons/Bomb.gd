@@ -24,7 +24,7 @@ func explode(cloud = false):
 	
 	#Handle Damage
 	if get_tree().is_network_server():
-		var chars = get_tree().get_nodes_in_group("Destructible")
+		var chars = get_tree().get_nodes_in_group("Damageable")
 		for c in chars:
 			if (c.position - position).length() < radius * SCALE:
 				c.takeDamage(damage,gun_name,usr)

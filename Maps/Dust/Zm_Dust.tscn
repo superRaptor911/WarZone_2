@@ -216,13 +216,22 @@ position = Vector2( 2837.09, 2335.93 )
 weapon_to_spawn = "AK47"
 spawn_kits = false
 
-[node name="obj" type="Node" parent="."]
+[node name="props" type="Node" parent="."]
 
-[node name="barrel" parent="obj" instance=ExtResource( 15 )]
-position = Vector2( 689.221, 1908.84 )
+[node name="barrel" parent="props" instance=ExtResource( 15 )]
+position = Vector2( 634.194, 1231.93 )
 
-[node name="barrel2" parent="obj" instance=ExtResource( 15 )]
-position = Vector2( 811.221, 2036.84 )
+[node name="barrel2" parent="props" instance=ExtResource( 15 )]
+position = Vector2( 1870.66, 1264.69 )
 
-[node name="barrel3" parent="obj" instance=ExtResource( 15 )]
+[node name="barrel3" parent="props" instance=ExtResource( 15 )]
 position = Vector2( 1567.22, 2006.84 )
+
+[node name="barrel4" parent="props" instance=ExtResource( 15 )]
+position = Vector2( 3106.09, 210.757 )
+
+[node name="barrel5" parent="props" instance=ExtResource( 15 )]
+position = Vector2( 3070.81, 2740.68 )
+
+[node name="barrel6" parent="props" instance=ExtResource( 15 )]
+position = Vector2( 1623.62, 2366.79 )
