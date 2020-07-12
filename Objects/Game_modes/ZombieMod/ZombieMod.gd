@@ -106,7 +106,6 @@ func _on_round_start_dl_timeout():
 		i.activateZ()
 
 
-
 remotesync func P_roundStarted(r : int):
 	showLabel("Round %d started. Get ready !!" % [r], Color.red)
 	$roundStart.play()
