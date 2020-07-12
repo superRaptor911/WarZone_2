@@ -54,6 +54,10 @@ z_index = -2
 zoom = Vector2( 0.75, 0.75 )
 smoothing_enabled = true
 
+[node name="movmtCPP" parent="." index="7"]
+_current_input_id = null
+_rotational_speed = null
+
 [node name="aim_indicator" type="Sprite" parent="." index="11"]
 visible = false
 position = Vector2( 0, -350 )
