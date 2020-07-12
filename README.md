@@ -35,7 +35,7 @@ cd WarZone_2
 You need gdnative c++ plugins to run this project.
 You can build them for your system or download precompiled plugins.
 
-You can download pre compiled plugins [here](https://drive.google.com/open?id=11fYFJB2msNdvu3ShsLR-GuxwOZSoA37d) and paste ```bin ``` folder to base directory.
+You can download pre compiled plugins [here](https://drive.google.com/file/d/1PRFY6WGsOR5mbIWNGqfeiin4guYDBLT7/view?usp=drivesdk) and paste ```bin ``` folder to base directory.
 
 OR
 

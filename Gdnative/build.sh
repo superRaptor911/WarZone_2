@@ -1,10 +1,12 @@
 #!/bin/bash
 start_time=`date +%s`
 
-copy_dest=".."
 source=$1
-build_result=0
 platforms=$2
+ZipAndUpload=$3
+
+copy_dest=".."
+build_result=0
 exit_on_error=1
 
 
@@ -69,6 +71,18 @@ build_plugin()
 	fi	
 }
 
+zip_N_upload()
+{
+	if [ "$ZipAndUpload" == "y" ] || [ "$ZipAndUpload" == "yes" ]
+	then
+		echo -e "bin.zip will be uploaded\n\t\tThis will take time........"
+		cd ../
+		zip -r Gdnative/tools/bin.zip bin && cd Gdnative/tools/ && ./uploadBinZip
+		rm bin.zip
+	fi
+	
+}
+
 ##############################Starts here#######################
 
 
@@ -77,6 +91,7 @@ rm -rf output
 mkdir -p output/bin
 
 build_plugin
+zip_N_upload
 
 end_time=`date +%s`
 runtime=$((end_time-start_time))
