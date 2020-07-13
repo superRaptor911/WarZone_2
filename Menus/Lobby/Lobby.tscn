@@ -85,10 +85,10 @@ anchor_left = 0.522
 anchor_top = 0.5
 anchor_right = 0.522
 anchor_bottom = 0.5
-margin_left = -459.057
-margin_top = -27.85
-margin_right = 459.943
-margin_bottom = 283.15
+margin_left = -459.444
+margin_top = -27.5
+margin_right = 459.556
+margin_bottom = 319.5
 custom_styles/tab_fg = SubResource( 2 )
 custom_styles/tab_bg = SubResource( 3 )
 custom_styles/panel = SubResource( 4 )
@@ -349,13 +349,13 @@ __meta__ = {
 }
 
 [node name="start" type="Button" parent="."]
-anchor_left = 0.805
+anchor_left = 0.774
 anchor_top = 0.843
-anchor_right = 0.805
+anchor_right = 0.774
 anchor_bottom = 0.843
-margin_left = -78.4001
+margin_left = -78.3629
 margin_top = -26.96
-margin_right = 77.5999
+margin_right = 77.6371
 margin_bottom = 27.04
 custom_fonts/font = ExtResource( 2 )
 text = "Start"
