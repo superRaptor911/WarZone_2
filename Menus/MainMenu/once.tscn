@@ -33,10 +33,13 @@ script = ExtResource( 4 )
 
 [node name="Panel" type="Panel" parent="."]
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-margin_left = -408.5
-margin_right = 408.5
-margin_bottom = 477.0
+anchor_bottom = 0.5
+margin_left = -455.5
+margin_top = -251.5
+margin_right = 455.5
+margin_bottom = 251.5
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -78,14 +81,14 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="Panel"]
-anchor_left = 0.51
-anchor_top = 0.841
-anchor_right = 0.51
-anchor_bottom = 0.841
-margin_left = -68.67
-margin_top = -25.157
-margin_right = 68.33
-margin_bottom = 24.843
+anchor_left = 0.922
+anchor_top = 0.403
+anchor_right = 0.922
+anchor_bottom = 0.403
+margin_left = -51.5033
+margin_top = -29.4555
+margin_right = 51.4967
+margin_bottom = 29.5445
 custom_styles/hover = ExtResource( 2 )
 custom_styles/pressed = ExtResource( 2 )
 custom_styles/normal = ExtResource( 2 )
