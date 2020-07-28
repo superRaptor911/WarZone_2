@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Sprites/Weapons/galil.png" type="Texture" id=1]
+[ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/Weapons/galil_d.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Weapons/galil_p.png" type="Texture" id=4]
+[ext_resource path="res://Sfx/weapons/rifle/galil.wav" type="AudioStream" id=5]
+
+[node name="Galil" instance=ExtResource( 2 )]
+gun_type = "rifle"
+gun_name = "Galil"
+damage = 23.0
+clip_size = 35
+gun_rating = 4
+rate_of_fire = 10.83
+gun_portrait = ExtResource( 4 )
+gun_d_img = ExtResource( 3 )
+wpn_cost = 1600
+
+[node name="Muzzle" parent="." index="1"]
+position = Vector2( 0.110413, -42.609 )
+
+[node name="Sprite" parent="." index="3"]
+position = Vector2( 0.81369, -23.7918 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, 0 )
+
+[node name="fire" parent="." index="4"]
+stream = ExtResource( 5 )
+
+[node name="RayCast2D" parent="." index="6"]
+position = Vector2( 0.56015, -43.3824 )

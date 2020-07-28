@@ -19,9 +19,9 @@ signal rewarded_video_started
 # properties
 export var is_real:bool setget is_real_set
 export var banner_on_top:bool = true
-export var banner_id:String
-export var interstitial_id:String
-export var rewarded_id:String
+export var banner_id:String = "ca-app-pub-9443221640471166/9049742329"
+export var interstitial_id:String = "ca-app-pub-9443221640471166/1781147462"
+export var rewarded_id:String = "ca-app-pub-9443221640471166/2680609241"
 export var child_directed:bool = false
 export var is_personalized:bool = true
 export(String, "G", "PG", "T", "MA") var max_ad_content_rate

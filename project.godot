@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://admob-lib/admob.gd"
 }, {
-"base": "Node",
-"class": "Admob",
-"language": "GDScript",
-"path": "res://android/admob.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "Bot",
 "language": "GDScript",
@@ -66,7 +61,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AdMob": "res://admob-lib/icon.png",
-"Admob": "res://admob-lib/icon.png",
 "Bot": "",
 "Character": "",
 "Gun": "",

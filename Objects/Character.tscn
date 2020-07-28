@@ -37,8 +37,6 @@ script = ExtResource( 5 )
 __meta__ = {
 "_editor_description_": "CPP code for character movement"
 }
-_current_input_id = null
-_rotational_speed = null
 
 [node name="dtween" type="Tween" parent="."]
 __meta__ = {

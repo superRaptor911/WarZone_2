@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=2]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=3]
 [ext_resource path="res://Menus/MainMenu/NewGame.gd" type="Script" id=4]
+[ext_resource path="res://admob-lib/admob.gd" type="Script" id=5]
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=6]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=7]
 
@@ -105,6 +106,11 @@ text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AdMob" type="Node" parent="."]
+script = ExtResource( 5 )
+is_real = true
+max_ad_content_rate = "T"
 [connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Panel/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="Button3" to="." method="_on_Button3_pressed"]

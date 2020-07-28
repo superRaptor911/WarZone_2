@@ -4,6 +4,8 @@ export var nade_img : Texture
 var gun_data_format = ("Name : %s\nGun Type : %s\nDamage : %d\nClip Size : %d\nCost : $%d\nRpm : %d")
 var grenade_cost = 50
 
+onready var admob = $AdMob
+
 class WeaponType:
 	var wpn_type = ""
 	var weapons = Array()
@@ -25,6 +27,7 @@ func _ready():
 	initialTween()
 	$cash.text = "$" + String(game_states.player_data.cash)
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
+	admob.load_interstitial()
 
 func initWeaponTypes():
 	var pistols = WeaponType.new("pistol")
@@ -194,3 +197,7 @@ func initialTween():
 	$Tween.interpolate_property(node,"rect_position",node.rect_position,
 		old_rectpos,duration,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.start()
+
+
+func _on_AdMob_interstitial_loaded():
+	admob.show_interstitial()

@@ -86,6 +86,8 @@ var weaponResource = {
 	M4A1 = preload("res://Objects/Weapons/M4A1.tscn"),
 	mac10 = preload("res://Objects/Weapons/mac10.tscn"),
 	P90 = preload("res://Objects/Weapons/P90.tscn"),
+	G3S1 = preload("res://Objects/Weapons/G3S1.tscn"),
+	Galil = preload("res://Objects/Weapons/Galil.tscn")
 }
 
 #saved

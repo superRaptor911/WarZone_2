@@ -52,3 +52,7 @@ Then import as Godot project.
 ## Build With
 * [Godot](https://godotengine.org/) - open source game engine
 * [SCons](https://scons.org/) - build tool
+
+## Tools Used
+* [Gimp] (https://www.gimp.org/) - GNU IMAGE MANIPULATION PROGRAM
+* [Audacity] (https://www.audacityteam.org) - Free, open source, cross-platform audio software

@@ -83,7 +83,9 @@ var wpn_kill_icons = {
 	Famas = "res://Sprites/Weapons/famas_k.png",
 	M4A1 = "res://Sprites/Weapons/m4a1_k.png",
 	P90 = "res://Sprites/Weapons/p90_k.png",
+	G3S1 = "res://Sprites/Weapons/g3sg1_k.png",
 	Claw = "res://Sprites/Weapons/claw_k.png"
+	
 }
 
 var bbcode_format_good = "[color=green][b]%s[/b][/color] [img]%s[/img][color=red][b] %s[/b][/color]"
