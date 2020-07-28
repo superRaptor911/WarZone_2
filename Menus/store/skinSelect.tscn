@@ -391,10 +391,13 @@ autoplay = "initalAnim"
 playback_speed = 2.0
 anims/initalAnim = SubResource( 5 )
 
-[node name="Admob" type="Node" parent="."]
+[node name="AdMob" type="Node" parent="."]
 script = ExtResource( 6 )
+is_real = true
+max_ad_content_rate = "T"
 [connection signal="pressed" from="T/portrait/Tnext" to="." method="_on_Tnext_pressed"]
 [connection signal="pressed" from="T/portrait/Tprev" to="." method="_on_Tprev_pressed"]
 [connection signal="pressed" from="CT/portrait/CTnext" to="." method="_on_CTnext_pressed"]
 [connection signal="pressed" from="CT/portrait/CTprev" to="." method="_on_CTprev_pressed"]
 [connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]
+[connection signal="interstitial_loaded" from="AdMob" to="." method="_on_AdMob_interstitial_loaded"]

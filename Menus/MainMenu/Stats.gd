@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+onready var admob = $AdMob
+
 func _ready():
 	$Panel/VBoxContainer/cash/Panel/Label.text = "$" + String(game_states.player_data.cash)
 	$Panel/VBoxContainer/deaths/Panel/Label.text = String(game_states.player_data.deaths)
@@ -10,6 +12,7 @@ func _ready():
 	UiAnim.animLeftToRight([$Panel])
 	
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
+	admob.load_banner()
 
 
 
@@ -21,3 +24,7 @@ func _on_back_pressed():
 	UiAnim.animZoomOut([$Panel])
 	yield(get_tree().create_timer(0.5 * UiAnim.anim_scale), "timeout")
 	MenuManager.changeScene("mainMenu")
+
+
+func _exit_tree():
+	admob.hide_banner()

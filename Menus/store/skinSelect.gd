@@ -7,10 +7,13 @@ var ct_skins = Array()
 var cur_t_skin = 0
 var cur_ct_skin = 0
 
+onready var admob = $AdMob
+
 func _ready():
 	loadSkins()
-	$Admob.load_banner()
 	MenuManager.connect("back_pressed", self,"_on_Back_pressed")
+	admob.load_interstitial()
+
 
 func loadSkins():
 	for i in game_states.player_data.skins:
@@ -83,10 +86,12 @@ func saveAll():
 	game_states.savePlayerData()
 
 
-
-
 func _on_Back_pressed():
 	MusicMan.click()
 	saveAll()
 	MenuManager.changeScene("storeMenu")
 	queue_free()
+
+
+func _on_AdMob_interstitial_loaded():
+	admob.show_interstitial()

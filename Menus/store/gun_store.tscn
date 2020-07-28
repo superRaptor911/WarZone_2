@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Menus/store/gun_store.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=6]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Sprites/Weapons/he.png" type="Texture" id=8]
+[ext_resource path="res://admob-lib/admob.gd" type="Script" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -337,6 +338,11 @@ text = "$2000"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AdMob" type="Node" parent="."]
+script = ExtResource( 9 )
+is_real = true
+max_ad_content_rate = "T"
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="weapon_types/VBoxContainer/pistol" to="." method="_on_pistol_pressed"]
 [connection signal="pressed" from="weapon_types/VBoxContainer/smg" to="." method="_on_smg_pressed"]
@@ -346,3 +352,4 @@ __meta__ = {
 [connection signal="pressed" from="icon/next_wpn" to="." method="_on_next_wpn_pressed"]
 [connection signal="pressed" from="icon/prev_wpn" to="." method="_on_prev_wpn_pressed"]
 [connection signal="pressed" from="purchase" to="." method="_on_purchase_pressed"]
+[connection signal="interstitial_loaded" from="AdMob" to="." method="_on_AdMob_interstitial_loaded"]
