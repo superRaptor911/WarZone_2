@@ -111,7 +111,10 @@ remote func P_health(hp,ap):
 
 
 remotesync func P_death():
-	$die.play()
+	# scream chance 1/4 
+	if randi() % 4 == 0:
+		$die.play()
+	
 	alive = false
 	model.set_deferred("disabled",true)
 	$dtween.interpolate_property(model,"modulate",Color8(255,255,255,255),Color8(255,255,255,0),

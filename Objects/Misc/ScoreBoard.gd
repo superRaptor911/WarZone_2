@@ -2,7 +2,9 @@ extends Panel
 
 signal scoreboard_closed
 
-var no_slots = 22
+var red = Color8(222, 74, 23)
+var green = Color8(27, 148, 10)
+var max_slots = 7
 
 
 class custom_sorter:
@@ -16,41 +18,32 @@ func setBoardData(data_dict : Dictionary):
 	
 	data.sort_custom(custom_sorter,"sort")
 	
+	var index = 0
+	# Hide all slots
+	for _i in range(index , max_slots):
+		get_node("Panel/VBoxContainer/f" + String(index)).hide()
+		index += 1
+	
+	index = 0
 	for i in data:
+		var slot = get_node("Panel/VBoxContainer/f" + String(index))
 		#terrorists
 		if i.ref.team.team_id == 0:
-			ts.append(i)
+			slot.self_modulate = red
+		# Counter-terrorist
 		else:
-			cts.append(i)
-	
-	var index = 1
-	for i in ts:
-		var slot = get_node("T/Plist/s" + String(index))
+			slot.self_modulate = green
+		# Set data
 		slot.show()
 		slot.get_node("name").text = i.ref.pname
 		slot.get_node("score").text = String(i.ref.score)
-		slot.get_node("death").text = String(i.ref.deaths)
+		slot.get_node("kills").text = String(i.ref.kills)
+		slot.get_node("deaths").text = String(i.ref.deaths)
 		slot.get_node("ping").text = String(i.ref.ping)
 		index += 1
-	
-	for _i in range(index , no_slots + 1):
-		get_node("T/Plist/s" + String(index)).hide()
-		index += 1
-	
-	index = 1
-	for i in cts:
-		var slot = get_node("CT/Plist/s" + String(index))
-		slot.show()
-		slot.get_node("name").text = i.ref.pname
-		slot.get_node("score").text = String(i.ref.score)
-		slot.get_node("death").text = String(i.ref.deaths)
-		slot.get_node("ping").text = String(i.ref.ping)
-		index += 1
-
-	for _i in range(index , no_slots + 1):
-		get_node("CT/Plist/s" + String(index)).hide()
-		index += 1
-
+		
+		if index == max_slots:
+			break
 
 func _on_back_pressed():
 	emit_signal("scoreboard_closed")

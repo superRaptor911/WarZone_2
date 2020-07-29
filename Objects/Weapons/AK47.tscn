@@ -13,14 +13,14 @@ position = Vector2( 218.31, 213.063 )
 script = ExtResource( 2 )
 gun_type = "rifle"
 gun_name = "AK47"
-damage = 26.0
+damage = 27.0
 clip_size = 30
 gun_rating = 5
 rate_of_fire = 7.0
 zoom_range = PoolRealArray( 0.75, 0.9, 1 )
 gun_portrait = ExtResource( 6 )
 gun_d_img = ExtResource( 7 )
-wpn_cost = 1500
+wpn_cost = 2000
 
 [node name="Muzzle" parent="." index="1"]
 position = Vector2( 0.544254, -42.542 )

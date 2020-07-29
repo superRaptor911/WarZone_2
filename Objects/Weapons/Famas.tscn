@@ -12,10 +12,10 @@ gun_name = "Famas"
 damage = 24.0
 clip_size = 25
 gun_rating = 4
-rate_of_fire = 8.5
+rate_of_fire = 9.0
 gun_portrait = ExtResource( 5 )
 gun_d_img = ExtResource( 3 )
-wpn_cost = 1400
+wpn_cost = 1800
 
 [node name="Muzzle" parent="." index="1"]
 position = Vector2( 0.466919, -42.6269 )
