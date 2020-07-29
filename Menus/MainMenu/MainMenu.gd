@@ -15,9 +15,6 @@ func _ready():
 	UiAnim.animLeftToRight([$VBoxContainer])
 	get_tree().paused = false
 	$Timer.connect("timeout",self,"goToNextScene")
-	#admob.load_banner()
-	#admob.load_interstitial()
-
 	#Logger.notice.showNotice(self,"welcome","Hi, all")
 
 
@@ -66,4 +63,5 @@ func tweenTransition():
 
 
 func _on_extras_pressed():
-	pass # Replace with function body.
+	MusicMan.click()
+	MenuManager.changeScene("extras")
