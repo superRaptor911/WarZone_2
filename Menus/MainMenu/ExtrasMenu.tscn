@@ -1,15 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Menus/MainMenu/ExtrasMenu.gd" type="Script" id=3]
+[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=4]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 56
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.6, 0.6, 0.6, 0.631373 )
 border_width_left = 4
 border_width_top = 4
@@ -36,7 +37,7 @@ margin_left = -0.2677
 margin_top = 0.332952
 margin_right = 0.332275
 margin_bottom = 0.172951
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "WARZONE 2"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -66,8 +67,8 @@ margin_left = 0.639984
 margin_top = 0.259979
 margin_right = 0.639954
 margin_bottom = -0.26001
-custom_styles/pressed = SubResource( 4 )
-custom_styles/normal = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
 text = "Source code"
 __meta__ = {
@@ -83,12 +84,30 @@ margin_left = 0.0799866
 margin_top = -0.076416
 margin_right = -0.0800781
 margin_bottom = -0.076416
-custom_styles/pressed = SubResource( 4 )
-custom_styles/normal = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
 text = "Report Bugs / Feature Request"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="back" type="Button" parent="."]
+anchor_left = 0.798
+anchor_top = 0.832
+anchor_right = 0.927
+anchor_bottom = 0.931
+margin_left = -0.440063
+margin_top = -0.0400391
+margin_right = 0.439941
+margin_bottom = -0.320068
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
+custom_fonts/font = ExtResource( 1 )
+text = "BACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="src_code" to="." method="_on_src_code_pressed"]
 [connection signal="pressed" from="bug" to="." method="_on_bug_pressed"]
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

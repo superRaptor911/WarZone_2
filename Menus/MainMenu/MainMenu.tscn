@@ -149,11 +149,12 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -196.5
-margin_right = 196.5
-margin_bottom = 80.0
+anchor_left = 0.346
+anchor_right = 0.654
+anchor_bottom = 0.111
+margin_left = 0.619995
+margin_right = -0.620056
+margin_bottom = 0.0799942
 custom_fonts/font = ExtResource( 7 )
 text = "WarZone II"
 __meta__ = {

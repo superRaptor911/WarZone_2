@@ -53,7 +53,6 @@ func _ready():
 		prop_parent = props[0].get_parent()
 	
 	if get_tree().is_network_server():
-		
 		zombie_spawns = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
 		var teams = get_tree().get_nodes_in_group("Team")
 		
@@ -68,11 +67,11 @@ func on_player_created(_plr):
 	if not is_player_playing:
 		is_player_playing = true
 		$round_start_dl.start()
-	
+
 	if _plr.is_network_master():
 		showLabel("Survive 10 waves of zombies.")
 
-
+# Called when any team is eliminated (Server side)
 func on_team_eliminated(team):
 	var team_id = team.team_id
 	if team_id == 0:
@@ -88,16 +87,16 @@ func on_team_eliminated(team):
 	for i in zombie_spawns:
 		i.deactivateZ()
 
-
+# Called when round starts ( server side)
 func _on_round_start_dl_timeout():
 	current_round += 1
 	z_count = getZombieCount()
 	rpc("P_roundStarted", current_round)
-	
+	# H
 	var num = int(z_count / zombie_spawns.size())
 	var HP = getZombieHealth()
 	var speed = getZombieSpeed()
-	
+	# Ready zombie spawn
 	for i in zombie_spawns:
 		i.max_zombies = num
 		i.frequency = 0.75
@@ -105,11 +104,10 @@ func _on_round_start_dl_timeout():
 		i.speed = speed
 		i.activateZ()
 
-
+# Local function (client side), called when a new round starts 
 remotesync func P_roundStarted(r : int):
 	showLabel("Round %d started. Get ready !!" % [r], Color.red)
-	$roundStart.play()
-	
+	$roundStart.play()	
 	# Respawn destroyed props
 	for i in Props:
 		#Check existance of prop
@@ -122,31 +120,27 @@ remotesync func P_roundStarted(r : int):
 				prop.position = i.pos
 				prop_parent.add_child(prop)
 				i.ref = prop
-			
 
-
+# Local Function (client side)
 remotesync func P_roundEnd():
 	showLabel("You survived this wave.", Color.green)
 	
-
-
+# Local Function (client side)
 remotesync func P_gameOver():
 	showLabel("Humans eliminated, zombies win")
 
-
+# Called when restart timer timeouts (Server Side)
 func _on_restart_delay_timeout():
 	current_round = 0
-	
-	#Respawn everyone
+	# Respawn everyone
 	var players = get_tree().get_nodes_in_group("Unit")
 	for i in players:
 		i.S_respawnUnit()
 	
 	rpc("P_restart")
-	
 	$round_start_dl.start()
 
-
+# Local function to restart game
 remotesync func P_restart():
 	#remove existing zombies
 	var zombies = get_tree().get_nodes_in_group("Monster")
@@ -156,7 +150,7 @@ remotesync func P_restart():
 	
 	showLabel("New game starting")
 
-
+# Function to spawn bots (not zombies)
 func createBots():
 	Logger.Log("Creating bots")
 	var bots = Array()
@@ -198,6 +192,7 @@ func createBots():
 		level.createUnit(i)
 		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])
 
+# Resawn Units ( Players + Bots)
 func respawnEveryOne():
 	var players = get_tree().get_nodes_in_group("Unit")
 	for i in players:

@@ -25,6 +25,7 @@ func loadMenu():
 	addMenu("settings","res://Menus/Settings/Settings.tscn")
 	addMenu("stats","res://Menus/MainMenu/Stats.tscn")
 	addMenu("summary","res://Menus/Misc/Summary.tscn")
+	addMenu("extras", "res://Menus/MainMenu/ExtrasMenu.tscn")
 	
 	
 	#sub menu of store menu

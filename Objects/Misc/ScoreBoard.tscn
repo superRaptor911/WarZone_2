@@ -185,7 +185,7 @@ __meta__ = {
 
 [node name="f0" type="Panel" parent="Panel/VBoxContainer"]
 self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
-margin_right = 835.0
+margin_right = 834.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 0, 45 )
 custom_styles/panel = SubResource( 4 )
@@ -269,7 +269,7 @@ __meta__ = {
 [node name="f1" type="Panel" parent="Panel/VBoxContainer"]
 self_modulate = Color( 0.870588, 0.290196, 0.0901961, 1 )
 margin_top = 61.0
-margin_right = 835.0
+margin_right = 834.0
 margin_bottom = 106.0
 rect_min_size = Vector2( 0, 45 )
 custom_styles/panel = SubResource( 4 )
@@ -353,7 +353,7 @@ __meta__ = {
 [node name="f2" type="Panel" parent="Panel/VBoxContainer"]
 self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
 margin_top = 122.0
-margin_right = 835.0
+margin_right = 834.0
 margin_bottom = 167.0
 rect_min_size = Vector2( 0, 45 )
 custom_styles/panel = SubResource( 4 )
@@ -437,7 +437,7 @@ __meta__ = {
 [node name="f3" type="Panel" parent="Panel/VBoxContainer"]
 self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
 margin_top = 183.0
-margin_right = 835.0
+margin_right = 834.0
 margin_bottom = 228.0
 rect_min_size = Vector2( 0, 45 )
 custom_styles/panel = SubResource( 4 )
@@ -521,7 +521,7 @@ __meta__ = {
 [node name="f4" type="Panel" parent="Panel/VBoxContainer"]
 self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
 margin_top = 244.0
-margin_right = 835.0
+margin_right = 834.0
 margin_bottom = 289.0
 rect_min_size = Vector2( 0, 45 )
 custom_styles/panel = SubResource( 4 )
@@ -605,7 +605,7 @@ __meta__ = {
 [node name="f5" type="Panel" parent="Panel/VBoxContainer"]
 self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
 margin_top = 305.0
-margin_right = 835.0
+margin_right = 834.0
 margin_bottom = 350.0
 rect_min_size = Vector2( 0, 45 )
 custom_styles/panel = SubResource( 4 )
@@ -689,7 +689,7 @@ __meta__ = {
 [node name="f6" type="Panel" parent="Panel/VBoxContainer"]
 self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
 margin_top = 366.0
-margin_right = 835.0
+margin_right = 834.0
 margin_bottom = 411.0
 rect_min_size = Vector2( 0, 45 )
 custom_styles/panel = SubResource( 4 )
