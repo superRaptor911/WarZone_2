@@ -12,11 +12,11 @@ gun_name = "M4A1"
 damage = 24.0
 clip_size = 30
 gun_rating = 5
-rate_of_fire = 7.8
+rate_of_fire = 8.2
 zoom_range = PoolRealArray( 0.75, 0.9, 1 )
 gun_portrait = ExtResource( 5 )
 gun_d_img = ExtResource( 4 )
-wpn_cost = 1800
+wpn_cost = 2500
 
 [node name="Muzzle" parent="." index="1"]
 position = Vector2( -0.140533, -43.3538 )

@@ -11,13 +11,12 @@
 script = ExtResource( 2 )
 gun_type = "smg"
 gun_name = "MP5"
-damage = 18.0
 clip_size = 30
 gun_rating = 3
 rate_of_fire = 10.0
 gun_portrait = ExtResource( 5 )
 gun_d_img = ExtResource( 6 )
-wpn_cost = 1200
+wpn_cost = 1600
 
 [node name="Muzzle" parent="." index="1"]
 position = Vector2( 0.241745, -38.6875 )

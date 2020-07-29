@@ -13,7 +13,7 @@ clip_size = 30
 rate_of_fire = 11.0
 gun_portrait = ExtResource( 5 )
 gun_d_img = ExtResource( 2 )
-wpn_cost = 700
+wpn_cost = 1200
 
 [node name="Muzzle" parent="." index="1"]
 position = Vector2( -0.185013, -26.7207 )

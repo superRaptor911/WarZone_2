@@ -1,13 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://Objects/Misc/slot.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Sprites/UI/terrorist.jpg" type="Texture" id=3]
-[ext_resource path="res://Sprites/UI/ct.jpg" type="Texture" id=4]
-[ext_resource path="res://new_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=6]
 [ext_resource path="res://Objects/Misc/ScoreBoard.gd" type="Script" id=7]
-[ext_resource path="res://Objects/Misc/s1_red.tscn" type="PackedScene" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -17,375 +13,759 @@ border_width_right = 4
 border_width_bottom = 4
 shadow_size = 6
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.25098, 0.243137, 0.243137, 1 )
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-
-[sub_resource type="StyleBoxFlat" id=3]
-draw_center = false
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-
-[sub_resource type="DynamicFont" id=4]
-use_filter = true
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=2]
 size = 32
 use_filter = true
 font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="DynamicFont" id=5]
+size = 26
+use_filter = true
+font_data = ExtResource( 2 )
 
 [node name="ScoreBoard" type="Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -384.0
-margin_top = -226.0
-margin_right = 389.0
-margin_bottom = 264.0
+margin_left = -467.0
+margin_top = -316.0
+margin_right = 467.0
+margin_bottom = 247.0
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="Panel" parent="."]
-anchor_right = 1.0
-margin_left = -0.250427
-margin_top = -113.249
-margin_right = -0.250427
-margin_bottom = 0.751297
-custom_styles/panel = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="Header"]
-margin_left = 4.46332
-margin_top = 4.5367
-margin_right = 210.463
-margin_bottom = 109.537
-texture = ExtResource( 3 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect2" type="TextureRect" parent="Header"]
-margin_left = 582.0
-margin_top = 4.0
-margin_right = 770.0
-margin_bottom = 110.0
-texture = ExtResource( 4 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Header"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -88.6
-margin_top = -45.1
-margin_right = 111.4
-margin_bottom = 48.9
-custom_fonts/font = ExtResource( 5 )
-text = "Score"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CT" type="Panel" parent="."]
-anchor_left = 0.501
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -0.295074
-margin_right = -6.10352e-05
-custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Plist" type="VBoxContainer" parent="CT"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -189.011
-margin_top = -215.0
-margin_right = 188.989
-margin_bottom = 254.0
-custom_constants/separation = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="s1" parent="CT/Plist" instance=ExtResource( 2 )]
-
-[node name="s2" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 20.0
-margin_bottom = 40.0
-
-[node name="s3" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 40.0
-margin_bottom = 60.0
-
-[node name="s4" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 60.0
-margin_bottom = 80.0
-
-[node name="s5" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 80.0
-margin_bottom = 100.0
-
-[node name="s6" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 100.0
-margin_bottom = 120.0
-
-[node name="s7" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 120.0
-margin_bottom = 140.0
-
-[node name="s8" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 140.0
-margin_bottom = 160.0
-
-[node name="s9" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 160.0
-margin_bottom = 180.0
-
-[node name="s10" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 180.0
-margin_bottom = 200.0
-
-[node name="s11" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 200.0
-margin_bottom = 220.0
-
-[node name="s12" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 220.0
-margin_bottom = 240.0
-
-[node name="s13" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 240.0
-margin_bottom = 260.0
-
-[node name="s14" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 260.0
-margin_bottom = 280.0
-
-[node name="s15" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 280.0
-margin_bottom = 300.0
-
-[node name="s16" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 300.0
-margin_bottom = 320.0
-
-[node name="s17" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 320.0
-margin_bottom = 340.0
-
-[node name="s18" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 340.0
-margin_bottom = 360.0
-
-[node name="s19" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 360.0
-margin_bottom = 380.0
-
-[node name="s20" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 380.0
-margin_bottom = 400.0
-
-[node name="s21" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 400.0
-margin_bottom = 420.0
-
-[node name="s22" parent="CT/Plist" instance=ExtResource( 2 )]
-margin_top = 420.0
-margin_bottom = 440.0
-
-[node name="Title" type="Panel" parent="CT"]
-anchor_left = 0.01
-anchor_top = 0.007
-anchor_right = 0.99
-anchor_bottom = 0.058
-margin_left = 0.13978
-margin_top = 0.234
-margin_right = -0.161774
-margin_bottom = -0.204
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="CT/Title"]
-margin_left = 6.0
-margin_top = 3.0
-margin_right = 371.0
-margin_bottom = 25.0
-custom_fonts/font = SubResource( 4 )
-text = "Name          score         death          ping"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="T" type="Panel" parent="."]
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_right = 0.499969
-custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Plist" type="VBoxContainer" parent="T"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -189.5
-margin_top = -215.0
-margin_right = 189.5
-margin_bottom = 254.0
-custom_constants/separation = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="s1" parent="T/Plist" instance=ExtResource( 8 )]
-
-[node name="s2" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 20.0
-margin_bottom = 40.0
-
-[node name="s3" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 40.0
-margin_bottom = 60.0
-
-[node name="s4" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 60.0
-margin_bottom = 80.0
-
-[node name="s5" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 80.0
-margin_bottom = 100.0
-
-[node name="s6" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 100.0
-margin_bottom = 120.0
-
-[node name="s7" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 120.0
-margin_bottom = 140.0
-
-[node name="s8" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 140.0
-margin_bottom = 160.0
-
-[node name="s9" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 160.0
-margin_bottom = 180.0
-
-[node name="s10" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 180.0
-margin_bottom = 200.0
-
-[node name="s11" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 200.0
-margin_bottom = 220.0
-
-[node name="s12" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 220.0
-margin_bottom = 240.0
-
-[node name="s13" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 240.0
-margin_bottom = 260.0
-
-[node name="s14" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 260.0
-margin_bottom = 280.0
-
-[node name="s15" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 280.0
-margin_bottom = 300.0
-
-[node name="s16" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 300.0
-margin_bottom = 320.0
-
-[node name="s17" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 320.0
-margin_bottom = 340.0
-
-[node name="s18" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 340.0
-margin_bottom = 360.0
-
-[node name="s19" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 360.0
-margin_bottom = 380.0
-
-[node name="s20" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 380.0
-margin_bottom = 400.0
-
-[node name="s21" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 400.0
-margin_bottom = 420.0
-
-[node name="s22" parent="T/Plist" instance=ExtResource( 8 )]
-margin_top = 420.0
-margin_bottom = 440.0
-
-[node name="Title" type="Panel" parent="T"]
-anchor_left = 0.01
-anchor_top = 0.007
-anchor_right = 0.99
-anchor_bottom = 0.058
-margin_left = 0.13
-margin_top = 0.234
-margin_right = -0.130005
-margin_bottom = -0.204
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="T/Title"]
-margin_left = 6.0
-margin_top = 3.0
-margin_right = 371.0
-margin_bottom = 25.0
-custom_fonts/font = SubResource( 4 )
-text = "Name          score         death          ping"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="back" type="Button" parent="."]
-margin_left = 297.0
-margin_top = 508.0
-margin_right = 457.0
-margin_bottom = 559.0
+anchor_left = 0.407
+anchor_top = 1.068
+anchor_right = 0.593
+anchor_bottom = 1.191
+margin_left = -0.138
+margin_top = -0.524048
+margin_right = 0.137939
+margin_bottom = -0.163025
 custom_styles/hover = ExtResource( 6 )
 custom_styles/pressed = ExtResource( 6 )
 custom_styles/focus = ExtResource( 6 )
 custom_styles/normal = ExtResource( 6 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 2 )
 text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.028
+anchor_top = 0.048
+anchor_right = 0.972
+anchor_bottom = 0.952
+margin_left = -0.0799999
+margin_top = -0.164
+margin_right = 0.0799561
+margin_bottom = 0.164001
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Panel" parent="Panel"]
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_left = 0.024
+anchor_top = 0.017
+anchor_right = 0.971
+anchor_bottom = 0.11
+margin_left = -0.164545
+margin_top = -0.19672
+margin_right = -0.282288
+margin_bottom = -0.0376015
+rect_min_size = Vector2( 0, 45 )
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="name" type="Label" parent="Panel/title"]
+anchor_left = 0.026
+anchor_top = 0.161
+anchor_right = 0.31
+anchor_bottom = 0.828
+margin_left = 0.314598
+margin_top = -0.00720787
+margin_right = -0.217407
+margin_bottom = -0.0222092
+custom_fonts/font = SubResource( 5 )
+text = "NAME"
+
+[node name="kills" type="Label" parent="Panel/title"]
+anchor_left = 0.334
+anchor_top = 0.178
+anchor_right = 0.426
+anchor_bottom = 0.844
+margin_left = -0.182007
+margin_top = -0.0100002
+margin_right = -0.298035
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "KILLS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Label" parent="Panel/title"]
+anchor_left = 0.527
+anchor_top = 0.178
+anchor_right = 0.619
+anchor_bottom = 0.844
+margin_left = -0.0450134
+margin_top = -0.0100012
+margin_right = 28.135
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "DEATHS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="Panel/title"]
+anchor_left = 0.722
+anchor_top = 0.156
+anchor_right = 0.842
+anchor_bottom = 0.844
+margin_left = -0.106018
+margin_top = -0.02
+margin_right = 0.133972
+margin_bottom = -0.980003
+custom_fonts/font = SubResource( 5 )
+text = "SCORE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ping" type="Label" parent="Panel/title"]
+anchor_left = 0.885
+anchor_top = 0.156
+anchor_right = 0.982
+anchor_bottom = 0.822
+margin_left = 0.221619
+margin_top = -0.02
+margin_right = 0.240601
+margin_bottom = 0.00999832
+custom_fonts/font = SubResource( 5 )
+text = "PING"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.024
+anchor_top = 0.158
+anchor_right = 0.971
+anchor_bottom = 0.975
+margin_left = -0.164545
+margin_top = -0.181282
+margin_right = -0.282288
+margin_bottom = -0.106018
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="f0" type="Panel" parent="Panel/VBoxContainer"]
+self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
+margin_right = 835.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 45 )
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="name" type="Label" parent="Panel/VBoxContainer/f0"]
+anchor_left = 0.026
+anchor_top = 0.161
+anchor_right = 0.31
+anchor_bottom = 0.828
+margin_left = 0.314598
+margin_top = -0.00720787
+margin_right = -0.217407
+margin_bottom = -0.0222092
+custom_fonts/font = SubResource( 5 )
+text = "LOL"
+
+[node name="kills" type="Label" parent="Panel/VBoxContainer/f0"]
+anchor_left = 0.334
+anchor_top = 0.178
+anchor_right = 0.426
+anchor_bottom = 0.844
+margin_left = -0.182007
+margin_top = -0.0100002
+margin_right = -0.298035
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "300"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Label" parent="Panel/VBoxContainer/f0"]
+anchor_left = 0.527
+anchor_top = 0.178
+anchor_right = 0.619
+anchor_bottom = 0.844
+margin_left = -0.0704651
+margin_top = -0.0100002
+margin_right = -0.186462
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="Panel/VBoxContainer/f0"]
+anchor_left = 0.722
+anchor_top = 0.156
+anchor_right = 0.842
+anchor_bottom = 0.844
+margin_left = -0.106018
+margin_top = -0.02
+margin_right = 0.133972
+margin_bottom = -0.980003
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ping" type="Label" parent="Panel/VBoxContainer/f0"]
+anchor_left = 0.885
+anchor_top = 0.156
+anchor_right = 0.982
+anchor_bottom = 0.822
+margin_left = 0.221619
+margin_top = -0.02
+margin_right = 0.240601
+margin_bottom = 0.00999832
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="f1" type="Panel" parent="Panel/VBoxContainer"]
+self_modulate = Color( 0.870588, 0.290196, 0.0901961, 1 )
+margin_top = 61.0
+margin_right = 835.0
+margin_bottom = 106.0
+rect_min_size = Vector2( 0, 45 )
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="name" type="Label" parent="Panel/VBoxContainer/f1"]
+anchor_left = 0.026
+anchor_top = 0.161
+anchor_right = 0.31
+anchor_bottom = 0.828
+margin_left = 0.314598
+margin_top = -0.00720787
+margin_right = -0.217407
+margin_bottom = -0.0222092
+custom_fonts/font = SubResource( 5 )
+text = "LOL"
+
+[node name="kills" type="Label" parent="Panel/VBoxContainer/f1"]
+anchor_left = 0.334
+anchor_top = 0.178
+anchor_right = 0.426
+anchor_bottom = 0.844
+margin_left = -0.182007
+margin_top = -0.0100002
+margin_right = -0.298035
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "300"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Label" parent="Panel/VBoxContainer/f1"]
+anchor_left = 0.527
+anchor_top = 0.178
+anchor_right = 0.619
+anchor_bottom = 0.844
+margin_left = -0.0704651
+margin_top = -0.0100002
+margin_right = -0.186462
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="Panel/VBoxContainer/f1"]
+anchor_left = 0.722
+anchor_top = 0.156
+anchor_right = 0.842
+anchor_bottom = 0.844
+margin_left = -0.106018
+margin_top = -0.02
+margin_right = 0.133972
+margin_bottom = -0.980003
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ping" type="Label" parent="Panel/VBoxContainer/f1"]
+anchor_left = 0.885
+anchor_top = 0.156
+anchor_right = 0.982
+anchor_bottom = 0.822
+margin_left = 0.221619
+margin_top = -0.02
+margin_right = 0.240601
+margin_bottom = 0.00999832
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="f2" type="Panel" parent="Panel/VBoxContainer"]
+self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
+margin_top = 122.0
+margin_right = 835.0
+margin_bottom = 167.0
+rect_min_size = Vector2( 0, 45 )
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="name" type="Label" parent="Panel/VBoxContainer/f2"]
+anchor_left = 0.026
+anchor_top = 0.161
+anchor_right = 0.31
+anchor_bottom = 0.828
+margin_left = 0.314598
+margin_top = -0.00720787
+margin_right = -0.217407
+margin_bottom = -0.0222092
+custom_fonts/font = SubResource( 5 )
+text = "LOL"
+
+[node name="kills" type="Label" parent="Panel/VBoxContainer/f2"]
+anchor_left = 0.334
+anchor_top = 0.178
+anchor_right = 0.426
+anchor_bottom = 0.844
+margin_left = -0.182007
+margin_top = -0.0100002
+margin_right = -0.298035
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "300"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Label" parent="Panel/VBoxContainer/f2"]
+anchor_left = 0.527
+anchor_top = 0.178
+anchor_right = 0.619
+anchor_bottom = 0.844
+margin_left = -0.0704651
+margin_top = -0.0100002
+margin_right = -0.186462
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="Panel/VBoxContainer/f2"]
+anchor_left = 0.722
+anchor_top = 0.156
+anchor_right = 0.842
+anchor_bottom = 0.844
+margin_left = -0.106018
+margin_top = -0.02
+margin_right = 0.133972
+margin_bottom = -0.980003
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ping" type="Label" parent="Panel/VBoxContainer/f2"]
+anchor_left = 0.885
+anchor_top = 0.156
+anchor_right = 0.982
+anchor_bottom = 0.822
+margin_left = 0.221619
+margin_top = -0.02
+margin_right = 0.240601
+margin_bottom = 0.00999832
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="f3" type="Panel" parent="Panel/VBoxContainer"]
+self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
+margin_top = 183.0
+margin_right = 835.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 0, 45 )
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="name" type="Label" parent="Panel/VBoxContainer/f3"]
+anchor_left = 0.026
+anchor_top = 0.161
+anchor_right = 0.31
+anchor_bottom = 0.828
+margin_left = 0.314598
+margin_top = -0.00720787
+margin_right = -0.217407
+margin_bottom = -0.0222092
+custom_fonts/font = SubResource( 5 )
+text = "LOL"
+
+[node name="kills" type="Label" parent="Panel/VBoxContainer/f3"]
+anchor_left = 0.334
+anchor_top = 0.178
+anchor_right = 0.426
+anchor_bottom = 0.844
+margin_left = -0.182007
+margin_top = -0.0100002
+margin_right = -0.298035
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "300"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Label" parent="Panel/VBoxContainer/f3"]
+anchor_left = 0.527
+anchor_top = 0.178
+anchor_right = 0.619
+anchor_bottom = 0.844
+margin_left = -0.0704651
+margin_top = -0.0100002
+margin_right = -0.186462
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="Panel/VBoxContainer/f3"]
+anchor_left = 0.722
+anchor_top = 0.156
+anchor_right = 0.842
+anchor_bottom = 0.844
+margin_left = -0.106018
+margin_top = -0.02
+margin_right = 0.133972
+margin_bottom = -0.980003
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ping" type="Label" parent="Panel/VBoxContainer/f3"]
+anchor_left = 0.885
+anchor_top = 0.156
+anchor_right = 0.982
+anchor_bottom = 0.822
+margin_left = 0.221619
+margin_top = -0.02
+margin_right = 0.240601
+margin_bottom = 0.00999832
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="f4" type="Panel" parent="Panel/VBoxContainer"]
+self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
+margin_top = 244.0
+margin_right = 835.0
+margin_bottom = 289.0
+rect_min_size = Vector2( 0, 45 )
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="name" type="Label" parent="Panel/VBoxContainer/f4"]
+anchor_left = 0.026
+anchor_top = 0.161
+anchor_right = 0.31
+anchor_bottom = 0.828
+margin_left = 0.314598
+margin_top = -0.00720787
+margin_right = -0.217407
+margin_bottom = -0.0222092
+custom_fonts/font = SubResource( 5 )
+text = "LOL"
+
+[node name="kills" type="Label" parent="Panel/VBoxContainer/f4"]
+anchor_left = 0.334
+anchor_top = 0.178
+anchor_right = 0.426
+anchor_bottom = 0.844
+margin_left = -0.182007
+margin_top = -0.0100002
+margin_right = -0.298035
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "300"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Label" parent="Panel/VBoxContainer/f4"]
+anchor_left = 0.527
+anchor_top = 0.178
+anchor_right = 0.619
+anchor_bottom = 0.844
+margin_left = -0.0704651
+margin_top = -0.0100002
+margin_right = -0.186462
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="Panel/VBoxContainer/f4"]
+anchor_left = 0.722
+anchor_top = 0.156
+anchor_right = 0.842
+anchor_bottom = 0.844
+margin_left = -0.106018
+margin_top = -0.02
+margin_right = 0.133972
+margin_bottom = -0.980003
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ping" type="Label" parent="Panel/VBoxContainer/f4"]
+anchor_left = 0.885
+anchor_top = 0.156
+anchor_right = 0.982
+anchor_bottom = 0.822
+margin_left = 0.221619
+margin_top = -0.02
+margin_right = 0.240601
+margin_bottom = 0.00999832
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="f5" type="Panel" parent="Panel/VBoxContainer"]
+self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
+margin_top = 305.0
+margin_right = 835.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 0, 45 )
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="name" type="Label" parent="Panel/VBoxContainer/f5"]
+anchor_left = 0.026
+anchor_top = 0.161
+anchor_right = 0.31
+anchor_bottom = 0.828
+margin_left = 0.314598
+margin_top = -0.00720787
+margin_right = -0.217407
+margin_bottom = -0.0222092
+custom_fonts/font = SubResource( 5 )
+text = "LOL"
+
+[node name="kills" type="Label" parent="Panel/VBoxContainer/f5"]
+anchor_left = 0.334
+anchor_top = 0.178
+anchor_right = 0.426
+anchor_bottom = 0.844
+margin_left = -0.182007
+margin_top = -0.0100002
+margin_right = -0.298035
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "300"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Label" parent="Panel/VBoxContainer/f5"]
+anchor_left = 0.527
+anchor_top = 0.178
+anchor_right = 0.619
+anchor_bottom = 0.844
+margin_left = -0.0704651
+margin_top = -0.0100002
+margin_right = -0.186462
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="Panel/VBoxContainer/f5"]
+anchor_left = 0.722
+anchor_top = 0.156
+anchor_right = 0.842
+anchor_bottom = 0.844
+margin_left = -0.106018
+margin_top = -0.02
+margin_right = 0.133972
+margin_bottom = -0.980003
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ping" type="Label" parent="Panel/VBoxContainer/f5"]
+anchor_left = 0.885
+anchor_top = 0.156
+anchor_right = 0.982
+anchor_bottom = 0.822
+margin_left = 0.221619
+margin_top = -0.02
+margin_right = 0.240601
+margin_bottom = 0.00999832
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="f6" type="Panel" parent="Panel/VBoxContainer"]
+self_modulate = Color( 0.14902, 0.588235, 0.133333, 1 )
+margin_top = 366.0
+margin_right = 835.0
+margin_bottom = 411.0
+rect_min_size = Vector2( 0, 45 )
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="name" type="Label" parent="Panel/VBoxContainer/f6"]
+anchor_left = 0.026
+anchor_top = 0.161
+anchor_right = 0.31
+anchor_bottom = 0.828
+margin_left = 0.314598
+margin_top = -0.00720787
+margin_right = -0.217407
+margin_bottom = -0.0222092
+custom_fonts/font = SubResource( 5 )
+text = "LOL"
+
+[node name="kills" type="Label" parent="Panel/VBoxContainer/f6"]
+anchor_left = 0.334
+anchor_top = 0.178
+anchor_right = 0.426
+anchor_bottom = 0.844
+margin_left = -0.182007
+margin_top = -0.0100002
+margin_right = -0.298035
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "300"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deaths" type="Label" parent="Panel/VBoxContainer/f6"]
+anchor_left = 0.527
+anchor_top = 0.178
+anchor_right = 0.619
+anchor_bottom = 0.844
+margin_left = -0.0704651
+margin_top = -0.0100002
+margin_right = -0.186462
+margin_bottom = 0.0199966
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="Panel/VBoxContainer/f6"]
+anchor_left = 0.722
+anchor_top = 0.156
+anchor_right = 0.842
+anchor_bottom = 0.844
+margin_left = -0.106018
+margin_top = -0.02
+margin_right = 0.133972
+margin_bottom = -0.980003
+custom_fonts/font = SubResource( 5 )
+text = "200"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ping" type="Label" parent="Panel/VBoxContainer/f6"]
+anchor_left = 0.885
+anchor_top = 0.156
+anchor_right = 0.982
+anchor_bottom = 0.822
+margin_left = 0.221619
+margin_top = -0.02
+margin_right = 0.240601
+margin_bottom = 0.00999832
+custom_fonts/font = SubResource( 5 )
+text = "200"
 __meta__ = {
 "_edit_use_anchors_": false
 }

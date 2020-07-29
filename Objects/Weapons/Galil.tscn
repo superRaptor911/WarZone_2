@@ -12,10 +12,10 @@ gun_name = "Galil"
 damage = 23.0
 clip_size = 35
 gun_rating = 4
-rate_of_fire = 10.83
+rate_of_fire = 9.5
 gun_portrait = ExtResource( 4 )
 gun_d_img = ExtResource( 3 )
-wpn_cost = 1600
+wpn_cost = 1650
 
 [node name="Muzzle" parent="." index="1"]
 position = Vector2( 0.110413, -42.609 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Menus/MainMenu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/light_b.png" type="Texture" id=2]
@@ -7,6 +7,14 @@
 [ext_resource path="res://Menus/resources/btn_texture2.png" type="Texture" id=5]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://Menus/resources/Header_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=8]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.658824 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -21,14 +29,14 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchor_left = 0.492798
-anchor_top = 0.447119
-anchor_right = 0.492798
-anchor_bottom = 0.487397
-margin_left = -324.781
-margin_top = -185.926
-margin_right = 324.219
-margin_bottom = 256.074
+anchor_left = 0.198269
+anchor_top = 0.189
+anchor_right = 0.705269
+anchor_bottom = 0.843
+margin_left = 0.0804138
+margin_top = -0.080307
+margin_right = 0.120361
+margin_bottom = 0.039856
 rect_min_size = Vector2( 0, 30 )
 rect_clip_content = true
 size_flags_vertical = 0
@@ -40,7 +48,7 @@ __meta__ = {
 
 [node name="Button2" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
-margin_right = 649.0
+margin_right = 648.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 0, 75 )
 texture_normal = ExtResource( 2 )
@@ -65,7 +73,7 @@ __meta__ = {
 [node name="stats" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_top = 125.0
-margin_right = 649.0
+margin_right = 648.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 0, 75 )
 texture_normal = ExtResource( 4 )
@@ -93,7 +101,7 @@ __meta__ = {
 [node name="store" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_top = 250.0
-margin_right = 649.0
+margin_right = 648.0
 margin_bottom = 325.0
 rect_min_size = Vector2( 0, 75 )
 texture_normal = ExtResource( 2 )
@@ -118,7 +126,7 @@ __meta__ = {
 [node name="Button3" type="TextureButton" parent="VBoxContainer"]
 self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_top = 375.0
-margin_right = 649.0
+margin_right = 648.0
 margin_bottom = 450.0
 rect_min_size = Vector2( 0, 75 )
 texture_normal = ExtResource( 4 )
@@ -157,7 +165,26 @@ wait_time = 0.4
 one_shot = true
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="extras" type="Button" parent="."]
+anchor_left = 0.777
+anchor_top = 0.846
+anchor_right = 0.958
+anchor_bottom = 0.937
+margin_left = -0.559998
+margin_top = -0.119995
+margin_right = -0.240112
+margin_bottom = 0.359985
+grow_horizontal = 2
+grow_vertical = 2
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 8 )
+text = "EXTRAS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="VBoxContainer/stats" to="." method="_on_stats_pressed"]
 [connection signal="pressed" from="VBoxContainer/store" to="." method="_on_store_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
+[connection signal="pressed" from="extras" to="." method="_on_extras_pressed"]

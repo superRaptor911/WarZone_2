@@ -15,7 +15,7 @@ rate_of_fire = 2.5
 zoom_range = PoolRealArray( 0.75, 0.95, 1.2 )
 gun_portrait = ExtResource( 5 )
 gun_d_img = ExtResource( 3 )
-wpn_cost = 3800
+wpn_cost = 4000
 
 [node name="Muzzle" parent="." index="1"]
 position = Vector2( 0.0667419, -52.7098 )

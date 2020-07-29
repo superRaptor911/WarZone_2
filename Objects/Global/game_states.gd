@@ -4,7 +4,7 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android : bool = true
+var is_android : bool = false
 const current_game_version : float = 1.33
 const invalid_position = Vector2(-999,-999)
 var first_run = false
@@ -87,7 +87,8 @@ var weaponResource = {
 	mac10 = preload("res://Objects/Weapons/mac10.tscn"),
 	P90 = preload("res://Objects/Weapons/P90.tscn"),
 	G3S1 = preload("res://Objects/Weapons/G3S1.tscn"),
-	Galil = preload("res://Objects/Weapons/Galil.tscn")
+	Galil = preload("res://Objects/Weapons/Galil.tscn"),
+	M249 = preload("res://Objects/Weapons/M249.tscn")
 }
 
 #saved
