@@ -69,9 +69,8 @@ func _ready():
 	
 	if (get_tree().is_network_server()):
 		network.connect("player_removed", self, "_on_player_removed")
-		#createBots()
 	else:
-		rpc_id(1,"S_getExistingUnits", game_states.player_info.net_id)
+		rpc_id(1,"S_getExistingUnits", String(game_states.player_info.net_id))
 
 #this is used to capture minimap
 func captureMap():

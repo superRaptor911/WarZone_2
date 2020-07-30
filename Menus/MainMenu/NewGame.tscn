@@ -34,15 +34,14 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -262.0
-margin_top = -200.0
-margin_right = 262.0
-margin_bottom = 200.0
-rect_scale = Vector2( 0.1, 0.1 )
+anchor_left = 0.295
+anchor_top = 0.222
+anchor_right = 0.705
+anchor_bottom = 0.778
+margin_left = 0.399963
+margin_top = 0.159988
+margin_right = -0.400024
+margin_bottom = -0.160034
 rect_pivot_offset = Vector2( 265.194, 202.474 )
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
@@ -50,34 +49,33 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -153.5
-margin_top = -115.479
-margin_right = 153.5
-margin_bottom = -38.4792
+anchor_left = 0.207
+anchor_top = 0.211
+anchor_right = 0.793
+anchor_bottom = 0.404
+margin_left = 0.0319901
+margin_top = 0.121002
+margin_right = -0.0320129
+margin_bottom = -0.0792084
 custom_styles/hover = ExtResource( 2 )
 custom_styles/pressed = ExtResource( 2 )
 custom_styles/focus = ExtResource( 2 )
 custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = SubResource( 2 )
-disabled = true
 text = "Join Server"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Button2" type="Button" parent="Panel"]
-anchor_left = 0.5
-anchor_top = 0.719
-anchor_right = 0.5
-anchor_bottom = 0.719
-margin_left = -153.5
-margin_top = -53.6186
-margin_right = 153.5
-margin_bottom = 23.3814
+anchor_left = 0.207
+anchor_top = 0.585
+anchor_right = 0.793
+anchor_bottom = 0.777
+margin_left = 0.0319901
+margin_top = -0.0186005
+margin_right = -0.0320129
+margin_bottom = 0.181396
 custom_styles/hover = ExtResource( 2 )
 custom_styles/pressed = ExtResource( 2 )
 custom_styles/focus = ExtResource( 2 )
@@ -89,14 +87,14 @@ __meta__ = {
 }
 
 [node name="Button3" type="Button" parent="."]
-anchor_left = 0.097
-anchor_top = 0.903
-anchor_right = 0.097
-anchor_bottom = 0.903
-margin_left = -67.5044
-margin_top = -28.297
-margin_right = 66.4956
-margin_bottom = 28.703
+anchor_left = 0.044
+anchor_top = 0.864
+anchor_right = 0.149
+anchor_bottom = 0.943
+margin_left = 0.335598
+margin_top = -0.217041
+margin_right = -0.0643921
+margin_bottom = -0.0970459
 custom_styles/hover = ExtResource( 6 )
 custom_styles/pressed = ExtResource( 6 )
 custom_styles/focus = ExtResource( 6 )
