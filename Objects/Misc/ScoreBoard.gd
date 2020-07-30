@@ -13,8 +13,6 @@ class custom_sorter:
 
 func setBoardData(data_dict : Dictionary):
 	var data = data_dict.values()
-	var ts = Array()
-	var cts = Array()
 	
 	data.sort_custom(custom_sorter,"sort")
 	

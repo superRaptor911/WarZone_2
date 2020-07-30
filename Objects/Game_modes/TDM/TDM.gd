@@ -94,7 +94,7 @@ func _on_uptime_timeout():
 	#end game
 	if time_elapsed >= game_server.extraServerInfo.time_limit * 60:
 		time_elapsed = 0
-		var level = get_tree().get_nodes_in_group("Level")[0]
+		#var level = get_tree().get_nodes_in_group("Level")[0]
 		#level.S_restartLevel()
 		rpc("sync_endGame")
 
