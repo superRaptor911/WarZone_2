@@ -7,6 +7,7 @@ export var damage : float = 18
 export var clip_size : int = 10
 export var gun_rating : int = 0
 export var rate_of_fire : float = 4
+export var reload_time : float = 1.0
 export var zoom_range : PoolRealArray = [0.75, 0.85]
 export var recoil_factor : float = 0.2
 export var spread : float = 2
@@ -19,7 +20,7 @@ var clip_count : int = 4
 
 var _zoom_index : int = 0
 var _ready_to_fire : bool = true
-var user_id : String = "" 
+var user_id : String = ""
 var is_reloading : bool = false
 var _max_ray_distance : float = 200
 var _ray_dest : Vector2
@@ -36,17 +37,20 @@ onready var muzzle = $Muzzle
 onready var raycast_2D = $RayCast2D
 
 signal gun_fired
+signal gun_reloading
 signal gun_reloaded
 
 
 func _ready():
 	#convert to radians
 	spread = spread * PI / 180
+	$Reload_time.wait_time = reload_time
 	if rounds_left == 0:
 		reload()
 	#if it does not have parent/user then force get parent
 	if user_id == "":
 		print_debug("user id not set")
+
 
 
 #Try to fire gun
@@ -110,6 +114,7 @@ func reload():
 		$reload.play()
 		$Reload_time.start()
 		is_reloading = true
+		emit_signal("gun_reloading")
 
 
 #reload weapon

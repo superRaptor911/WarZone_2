@@ -83,3 +83,6 @@ func animZoomIn(elements : Array, duration = 0.5, method = Tween.TRANS_QUAD , de
 		i.rect_scale = Vector2.ZERO
 	
 	tween.start()
+
+func getAnimDuration() -> float:
+	return 0.5 * anim_scale
