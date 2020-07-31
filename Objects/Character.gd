@@ -67,8 +67,7 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 		HP = max(0,HP - damage)
 		
 	emit_signal("char_took_damage")
-
-	#sync with peers
+	# Sync with peers
 	rpc_unreliable("P_health",HP,AP)
 	
 	#char dead

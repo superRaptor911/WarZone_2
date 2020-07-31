@@ -12,7 +12,7 @@ var zombie_index : int = 0
 var obj_id = 0
 var timer
 
-onready var wait_time : float = 1.0 / frequency 
+onready var wait_time : float = 1.0 / frequency
 onready var level = get_tree().get_nodes_in_group("Level")[0]
 
 
@@ -61,5 +61,3 @@ func _on_Timer_timeout():
 		zombies_spawned += 1
 		timer.start()
 		rpc("P_spawnZombie", _id, HP, speed)
-
-
