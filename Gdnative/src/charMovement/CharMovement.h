@@ -8,6 +8,7 @@
 #include <Reference.hpp>
 #include <KinematicCollision2D.hpp>
 #include <CollisionShape2D.hpp>
+#include <Tween.hpp>
 
 namespace godot
 {
@@ -60,6 +61,8 @@ namespace godot
 
 		Input* _Input;
 		KinematicBody2D *_parent;
+		Tween *_tween;
+		Node *_model;
 		//CollisionShape2D *_skin;
 		int _current_input_id = 0;
 		float _rotational_speed = 0.1f;

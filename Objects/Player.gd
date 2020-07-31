@@ -35,12 +35,15 @@ func _ready():
 	$tag/name_tag.text = pname
 	connect("respawned",self,"on_player_respawned")
 	
+	if get_tree().is_network_server():
+		connect("char_killed",self,"S_on_player_killed")
+	
 	if is_network_master():
 		if game_states.game_settings.dynamic_camera:
 			$Camera2D.position = Vector2(0,-150)
 		
 		$Camera2D.current = true
-		connect("char_killed",self,"_on_player_killed")
+		connect("char_killed",self,"P_on_player_killed")
 		connect("char_fraged", self, "getKillRewards")
 		hud = load("res://Menus/HUD/Hud.tscn").instance()
 		add_child(hud)
@@ -60,20 +63,21 @@ func _ready():
 				team_selector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 		else:
 			team_selector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
-		
-		#connect signals
+		# Connect signals
 		team_selector.connect("team_selected", self, "P_on_team_selected")
 		team_selector.connect("spectate_mode", self, "P_on_spectate_selected")
-	
-	if get_tree().is_network_server():
-		connect("char_killed",self,"P_player_killed")
 
-
-func _on_player_killed():
+func P_on_player_killed():
 	$Camera2D.current = false
 	$aim_indicator.hide()
 	pause_controls(true)
 	streak = 0
+	# Add spectate mode to level node
+	get_parent().add_child(spectate)
+	remove_child(hud)
+	# Connect signals
+	spectate.connect("leave_spec_mode", self, "P_on_team_menu_selected")
+
 
 func pickItem(item_id = -1):
 	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
@@ -106,21 +110,15 @@ remotesync func pickUpItem(item):
 		AP = 100
 
 
-func P_player_killed():
+func S_on_player_killed():
 	emit_signal("player_killed",self)
-	#add spectate mode to level node
-	get_parent().add_child(spectate)
-	remove_child(hud)
-	
-	#connect signals
-	spectate.connect("leave_spec_mode", self, "P_on_team_menu_selected")
+
 
 func P_on_team_menu_selected():
 	get_parent().remove_child(spectate)
 	get_parent().add_child(team_selector)
 	#team_selector.connect("team_selected", self, "P_on_team_selected")
 	#team_selector.connect("spectate_mode", self, "P_on_spectate_selected")
-	
 
 func P_on_spectate_selected():
 	if not alive:
@@ -129,24 +127,20 @@ func P_on_spectate_selected():
 	else:
 		Logger.notice.showNotice(get_parent(), "OOPS!", "You are alive and you need to be dead to spectate")
 
-
 func P_on_team_selected(team_id):
-	#New team selected
+	# New team selected
 	if team_id != team.team_id:
 		var level = get_tree().get_nodes_in_group("Level")[0]
 		level.rpc_id(1,"S_changeUnitTeam", name, team_id)
 		get_parent().remove_child(team_selector)
 		#get_parent().add_child(spectate)
-	
 	else:
 		get_parent().remove_child(team_selector)
 		if not alive:
 			get_parent().add_child(spectate)
-		
-		#show Warning
+		# Show Warning
 		Logger.Log("Team not changed, You are already in selected team")
 		Logger.notice.showNotice(get_parent(), "OOPS!", "You are already in selected team")
-	
 
 func getWpnAttachments():
 	for i in game_states.player_data.guns:
@@ -159,19 +153,15 @@ func getWpnAttachments():
 			gun_2.extended_mag = i.mag_ext
 			gun_2.extendMag()
 
-
 func _process(delta):
 	HP = min(100,HP + regen_rate * delta)
 	_get_inputs()
 	if is_network_master():
 		canvas.color = Color(1.0, 0.01 * HP, 0.01 * HP)
 
-
-
 func _get_inputs():
 	if not is_network_master() or _pause_cntrl or game_states.is_android:
 		return
-
 	if Input.is_action_pressed("ui_fire"):
 		selected_gun.fireGun()
 	if Input.is_action_pressed("ui_down"):
@@ -196,7 +186,6 @@ func _get_inputs():
 	if Input.is_action_just_pressed("zoom"):
 		get_node("Camera2D").zoom = selected_gun.getNextZoom()
 	rotation = (get_global_mouse_position()  - global_position).angle() + 1.57
-
 
 remotesync func server_throwGrenade():
 	if get_tree().is_network_server():
@@ -224,19 +213,16 @@ func on_player_respawned():
 		get_parent().remove_child(spectate)
 		add_child(hud)
 
-
 func pause_controls(val : bool):
 	_pause_cntrl = val
 	if game_states.is_android and is_network_master():
 		hud.get_node("controller").enabled = !val
-
 
 func getKillRewards():
 	if game_server.serverInfo.game_mode == "Zombie Mod":
 		xp += 10 
 		cash += 10
 		hud.addCash(10)
-		
 	else:
 		xp += 10 + 10 * streak
 		var add = 25 + 25 * streak

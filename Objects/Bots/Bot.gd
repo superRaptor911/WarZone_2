@@ -37,6 +37,7 @@ func _ready():
 			bomb_mode.connect("bomb_dropped",brain,"on_bomb_dropped")
 	else:
 		brain.queue_free()
+		brain = null
 
 
 func _on_bot_killed():
@@ -131,7 +132,8 @@ func _on_bomb_planted():
 	brain.onBombPlanted()
 
 func _process(delta):
-	brain.think(delta)
+	if brain:
+		brain.think(delta)
 
 func plantBomb():
 	get_tree().get_nodes_in_group("GameMode")[0]._on_plant_bomb_pressed()

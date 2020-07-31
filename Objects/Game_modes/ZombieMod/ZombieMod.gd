@@ -62,14 +62,18 @@ func _ready():
 		var level = get_tree().get_nodes_in_group("Level")[0]
 		level.connect("player_created", self, "on_player_created")
 		createBots()
+	else:
+		rpc_id(1, "S_getExistingZombies", String(game_states.player_info.net_id))
 
 func on_player_created(_plr):
 	if not is_player_playing:
 		is_player_playing = true
 		$round_start_dl.start()
+	# Show msg
+	rpc_unreliable_id(int(_plr.name), "P_showMessage", "Survive 10 waves of zombies.")
 
-	if _plr.is_network_master():
-		showLabel("Survive 10 waves of zombies.")
+remotesync func P_showMessage(msg : String):
+	showLabel(msg)
 
 # Called when any team is eliminated (Server side)
 func on_team_eliminated(team):
@@ -198,3 +202,27 @@ func respawnEveryOne():
 	for i in players:
 		if not i.alive:
 			i.S_respawnUnit()
+
+remote func S_getExistingZombies(pid : String):
+	var zData = Array()
+	#var data_dict = { name = "", pos = Vector2(), skin = "", hp = 0}
+	var spawned_zombies = get_tree().get_nodes_in_group("Monster")
+	# Fill zData
+	for i in spawned_zombies:
+		var dict = {}
+		dict["name"] = i.name
+		dict["pos"] = i.position
+		dict["skin"] = i.get_node("Model").skin_name
+		zData.append(dict)
+	# Send data to peer
+	rpc_id(int(pid), "P_spawnZombies", zData)
+
+# Local funtion to spawn existing Zombies.
+# Called when a new player joins and requests server for existing zms
+remote func P_spawnZombies(zData : Array):
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	for i in zData:
+		var zm = game_states.classResource.get("zombie").instance()
+		zm.position = i.pos
+		zm.name = i.name
+		level.add_child(zm)
