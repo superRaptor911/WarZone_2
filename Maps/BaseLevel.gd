@@ -140,8 +140,7 @@ func _on_spec_mode_leave():
 	add_child(teamSelector)
 
 func _on_player_selected_team(selected_team):
-	if get_tree().is_network_server():
-		rpc_id(1,"S_createPlayer",game_states.player_info,selected_team)
+	rpc_id(1,"S_createPlayer",game_states.player_info,selected_team)
 	remove_child(teamSelector)
 
 #When a player disconnects

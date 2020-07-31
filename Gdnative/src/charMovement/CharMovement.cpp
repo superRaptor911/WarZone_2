@@ -48,6 +48,8 @@ CharMovement::~CharMovement()
 void CharMovement::_ready()
 {
 	_parent = static_cast<KinematicBody2D *> (get_parent());
+	_tween = static_cast<Tween *> (_parent->get_node("ptween"));
+	_model = static_cast<Node *> (_parent->get_node("Model"));
 }
 
 void CharMovement::_init() 
@@ -206,7 +208,7 @@ void CharMovement::_client_process_vectors()
 	
 	if (movement_vector.length())
 	{
-		Tween *ptween = static_cast<Tween *> (_parent->get_node("ptween"));
+		Tween *ptween = _tween;
 
 		ptween->interpolate_property(_parent, "position", _parent->get_position(), _stateVectors.back().position,
 				_update_delta, Tween::TRANS_LINEAR,Tween::EASE_OUT_IN);
@@ -334,7 +336,7 @@ void CharMovement::_syncVectors(Vector2 pos,float rot,bool is_walking,int input_
 		return;
 	}
 	//if Character is not master interpolate vectors
-	Tween *ptween = static_cast<Tween *> (_parent->get_node("ptween"));
+	Tween *ptween = _tween;
 	ptween->interpolate_property(_parent,"position", _parent->get_position(), pos,
 			_update_delta, Tween::TRANS_LINEAR, Tween::EASE_OUT);
 	ptween->start();
@@ -356,7 +358,7 @@ void CharMovement::_syncVectors(Vector2 pos,float rot,bool is_walking,int input_
 
 	_rotational_speed = abs(rot - rotation) / _update_delta;
 	
-	_parent->get_node("skin")->set("is_walking",is_walking);
+	_model->set("is_walking",is_walking);
 	
 	//do not add if network server because state is already added
 	if (!get_tree()->is_network_server())
