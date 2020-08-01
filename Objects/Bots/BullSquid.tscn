@@ -1,11 +1,77 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Objects/Bots/Zombie.tscn" type="PackedScene" id=1]
+[ext_resource path="res://bin/charMovement.gdns" type="Script" id=1]
 [ext_resource path="res://Objects/Bots/BullSquid.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/particles/bloodSplash.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sfx/zm/zm_die.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Sprites/decals/body1.png" type="Texture" id=6]
+[ext_resource path="res://Sfx/zm/zm_hit2.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Objects/Models/bull_sqid.tscn" type="PackedScene" id=8]
 
-[node name="BullSquid" instance=ExtResource( 1 )]
+[sub_resource type="CircleShape2D" id=1]
+radius = 55.2816
+
+[node name="BullSquid" type="KinematicBody2D" groups=[
+"Actor",
+"Damageable",
+"Monster",
+]]
+show_behind_parent = true
 script = ExtResource( 2 )
 HP = 3000.0
 AP = 2000.0
 speed = 60.0
 melee_damage = 250.0
+
+[node name="Model" parent="." instance=ExtResource( 8 )]
+
+[node name="bloodSplash" parent="." instance=ExtResource( 4 )]
+amount = 24
+lifetime = 2.5
+explosiveness = 0.69
+
+[node name="ptween" type="Tween" parent="."]
+__meta__ = {
+"_editor_description_": "Tweens position of char"
+}
+
+[node name="movmtCPP" type="Node" parent="."]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "CPP code for character movement"
+}
+
+[node name="dtween" type="Tween" parent="."]
+__meta__ = {
+"_editor_description_": "Tweens death"
+}
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+max_distance = 800.0
+attenuation = 0.450625
+
+[node name="close_range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="close_range"]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="navTimer" type="Timer" parent="."]
+wait_time = 1.2
+
+[node name="zAttack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+
+[node name="body" type="Sprite" parent="."]
+visible = false
+position = Vector2( -7.68243, -10.2442 )
+texture = ExtResource( 6 )
+
+[node name="respawn_timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+[connection signal="body_entered" from="close_range" to="." method="_on_close_range_body_entered"]
+[connection signal="body_exited" from="close_range" to="." method="_on_close_range_body_exited"]
+[connection signal="timeout" from="navTimer" to="." method="_on_navTimer_timeout"]
+[connection signal="timeout" from="respawn_timer" to="." method="_on_respawn_timer_timeout"]
