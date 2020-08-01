@@ -102,9 +102,9 @@ func _on_round_start_dl_timeout():
 	rpc("P_roundStarted", current_round)
 	
 	if current_round % 2 == 0:
-		rpc("P_spawnBoss", current_round / 2 - 1)
+		bossRound(current_round / 2)
 		return
-	
+		
 	z_count = getZombieCount()
 	var num = int(z_count / zombie_spawns.size())
 	var HP = getZombieHealth()
@@ -236,11 +236,18 @@ remote func P_spawnZombies(zData : Array):
 		zm.name = i.name
 		level.add_child(zm)
 
+func bossRound(boss_round : int):
+	if boss_round == 1:
+		rpc("P_BossRound_1")
 
-remotesync func P_spawnBoss(id : int):
-	var boss = zombieBossScenes[id].instance()
+remotesync func P_BossRound_1():
+	
+	var boss0 = zombieBossScenes[0].instance()
+	var boss1 = zombieBossScenes[0].instance()
 	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
-	var spawn_pos = spawn_locs[ randi() % spawn_locs.size()].position
 	var level = get_tree().get_nodes_in_group("Level")[0]
-	boss.position = spawn_pos
-	level.add_child(boss)
+	boss0.position = spawn_locs[randi() % spawn_locs.size()].position
+	boss1.position = spawn_locs[randi() % spawn_locs.size()].position
+	level.add_child(boss0)
+	level.add_child(boss1)
+

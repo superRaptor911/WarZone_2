@@ -20,6 +20,9 @@ sk_name = "t1"
 stream = ExtResource( 3 )
 attenuation = 0.450625
 
+[node name="CollisionShape2D" parent="close_range" index="0"]
+disabled = true
+
 [node name="navTimer" type="Timer" parent="." index="7"]
 wait_time = 1.2
 

@@ -7,7 +7,7 @@
 [ext_resource path="res://bin/charMovement.gdns" type="Script" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 41.8711
+radius = 55.2816
 
 [node name="Character" type="KinematicBody2D" groups=[
 "Actor",
