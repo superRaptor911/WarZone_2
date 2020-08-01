@@ -9,6 +9,11 @@ var zombie_spawns = Array()
 var selected_zombie_spawn = null
 var is_player_playing = false
 
+# Boss scenes
+var zombieBossScenes = [
+	preload("res://Objects/Bots/BullSquid.tscn")
+]
+
 onready var tween =$Tween
 onready var label = $Label
 
@@ -94,9 +99,13 @@ func on_team_eliminated(team):
 # Called when round starts ( server side)
 func _on_round_start_dl_timeout():
 	current_round += 1
-	z_count = getZombieCount()
 	rpc("P_roundStarted", current_round)
-	# H
+	
+	if current_round % 2 == 0:
+		rpc("P_spawnBoss", current_round / 2 - 1)
+		return
+	
+	z_count = getZombieCount()
 	var num = int(z_count / zombie_spawns.size())
 	var HP = getZombieHealth()
 	var speed = getZombieSpeed()
@@ -226,3 +235,12 @@ remote func P_spawnZombies(zData : Array):
 		zm.position = i.pos
 		zm.name = i.name
 		level.add_child(zm)
+
+
+remotesync func P_spawnBoss(id : int):
+	var boss = zombieBossScenes[id].instance()
+	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
+	var spawn_pos = spawn_locs[ randi() % spawn_locs.size()].position
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	boss.position = spawn_pos
+	level.add_child(boss)

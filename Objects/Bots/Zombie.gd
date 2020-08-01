@@ -9,46 +9,40 @@ var nav : Navigation2D
 
 
 var free_timer
-onready var mdl = $Model
+
 
 func _ready():
 	var teams = get_tree().get_nodes_in_group("Team")
 	for i in teams:
 		if i.team_id == 0:
 			i.addPlayer(self)
-	
-	#This signal is re-emited because team missed previous signal
+	# This signal is re-emited because team missed previous signal
 	emit_signal("char_born")
-	
-	#set Zombie skin
+	# Set Zombie skin
 	if randi() % 4 == 0:
-		mdl.setSkin("z2")
+		model.setSkin("z2")
 	else:
-		mdl.setSkin("z1")
+		model.setSkin("z1")
 	
 	connect("char_killed", self, "P_on_killed")
+	model.connect("zm_attk_finished", self, "on_attk_completed")
 	
-	if not get_tree().is_network_server():
-		return
-
-	var navs = get_tree().get_nodes_in_group("Nav")
-	if navs.size() == 1:
-		nav = navs[0]
-	else:
-		Logger.LogError("_ready of zombie", "Problem with Navigation")
-		print("Error at zombie")
-	
-	$navTimer.wait_time += rand_range(-0.5, 0.6)
-	$navTimer.start()
-	
-	free_timer = Timer.new()
-	free_timer.one_shot = true
-	free_timer.wait_time = 8
-	add_child(free_timer)
-	free_timer.connect("timeout",self, "_on_free_timeout")
-	mdl.connect("zm_attk_finished", self, "on_attk_completed")
-	
-	connect("char_killed", self, "S_on_killed")
+	if get_tree().is_network_server():
+		var navs = get_tree().get_nodes_in_group("Nav")
+		if navs.size() == 1:
+			nav = navs[0]
+		else:
+			Logger.LogError("_ready of zombie", "Problem with Navigation")
+			print("Error at zombie")
+		
+		$navTimer.wait_time += rand_range(-0.5, 0.6)
+		$navTimer.start()
+		free_timer = Timer.new()
+		free_timer.one_shot = true
+		free_timer.wait_time = 8
+		add_child(free_timer)
+		free_timer.connect("timeout",self, "_on_free_timeout")
+		connect("char_killed", self, "S_on_killed")
 
 
 func _process(_delta):
@@ -198,4 +192,4 @@ func on_attk_completed():
 	$zAttack.play()
 	var T = game_server._unit_data_list.get(target_id)
 	if T:
-		T.ref.takeDamage(35, "Claw", "Zombie")
+		T.ref.takeDamage(melee_damage, "Claw", "Zombie")
