@@ -1,10 +1,9 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sprites/Character/bullsquid64.png" type="Texture" id=1]
 [ext_resource path="res://Objects/Models/bull_sqid.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Graphics/outline.shader" type="Shader" id=3]
 [ext_resource path="res://Sprites/particles/blood_scat1.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/Character/legs.png" type="Texture" id=5]
 [ext_resource path="res://Sfx/walk1.wav" type="AudioStream" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -12,54 +11,6 @@ radius = 44.9498
 
 [sub_resource type="Animation" id=2]
 loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("leg2:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -1.92285, 4.82449 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("leg2:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("leg1:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -0.942424, 2.81537 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("leg1:rotation_degrees")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
 
 [sub_resource type="Animation" id=3]
 tracks/0/type = "value"
@@ -93,7 +44,6 @@ colors = PoolColorArray( 0.0607829, 0.296875, 0.003479, 1, 0.201505, 0.691406, 0
 [sub_resource type="Animation" id=7]
 resource_name = "emit_acid"
 length = 0.5
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("skin:scale")
 tracks/0/interp = 1
@@ -153,18 +103,6 @@ attenuation = 1.27456
 anims/idle = SubResource( 2 )
 anims/walking = SubResource( 3 )
 
-[node name="leg1" type="Sprite" parent="."]
-position = Vector2( 4.48426, -2.9895 )
-scale = Vector2( 1.40538, 1.46329 )
-z_index = -1
-texture = ExtResource( 5 )
-
-[node name="leg2" type="Sprite" parent="."]
-position = Vector2( -6.1451, 10.4633 )
-scale = Vector2( 1.57911, 1.57911 )
-z_index = -1
-texture = ExtResource( 5 )
-
 [node name="blood_scat" type="Sprite" parent="."]
 visible = false
 position = Vector2( 7.61944, -3.84794 )
@@ -184,14 +122,13 @@ texture = ExtResource( 1 )
 position = Vector2( -1.25264, -71.3797 )
 emitting = false
 amount = 16
-lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
 local_coords = false
 direction = Vector2( 0, -1 )
 spread = 22.5
 gravity = Vector2( 0, 0 )
-initial_velocity = 80.0
+initial_velocity = 200.0
 initial_velocity_random = 0.44
 angular_velocity = 720.0
 angular_velocity_random = 0.44

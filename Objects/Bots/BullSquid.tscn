@@ -58,7 +58,7 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="navTimer" type="Timer" parent="."]
-wait_time = 1.2
+wait_time = 2.0
 
 [node name="zAttack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
