@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/Bots/Zombie.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Bots/BullSquid.gd" type="Script" id=2]
+
+[node name="BullSquid" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+HP = 3000.0
+AP = 2000.0
+speed = 60.0
+melee_damage = 250.0
