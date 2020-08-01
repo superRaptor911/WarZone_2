@@ -1,5 +1,7 @@
 extends "res://Objects/Bots/Zombie.gd"
 
+export var spit_damage = 60
+
 var custom_model = preload("res://Objects/Models/bull_sqid.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -24,7 +26,7 @@ func _on_navTimer_timeout():
 					rpc("zmAttack")
 				else:
 					rpc("acidAttack")
-					T.ref.takeDamage(melee_damage, "acid", "Zombie")
+					T.ref.takeDamage(spit_damage, "acid", "Zombie")
 
 remotesync func acidAttack():
 	model.spitAcid()

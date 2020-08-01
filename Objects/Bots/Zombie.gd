@@ -165,10 +165,9 @@ func takeDamage(damage : float, _weapon : String, attacker_id : String):
 	
 	emit_signal("char_took_damage")
 
-	#sync with peers
+	# sync with peers
 	rpc_unreliable("P_health",HP,AP)
-	
-	#char dead
+	# char dead
 	if HP <= 0:
 		game_server.rpc("P_handleKills", "Zombie",attacker_id, _weapon)
 		

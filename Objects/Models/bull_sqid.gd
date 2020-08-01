@@ -6,3 +6,4 @@ func setSkin(_s_name):
 
 func spitAcid():
 	$skin/CPUParticles2D.emitting = true
+	$AnimationPlayer.play("emit_acid")
