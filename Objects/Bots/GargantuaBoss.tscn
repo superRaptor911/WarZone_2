@@ -4,7 +4,7 @@
 [ext_resource path="res://Sprites/particles/bloodSplash.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sfx/zm/zm_die.ogg" type="AudioStream" id=3]
 [ext_resource path="res://Sfx/zm/zm_hit2.ogg" type="AudioStream" id=4]
-[ext_resource path="res://Sprites/decals/body1.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Character/gargantua_dead.png" type="Texture" id=5]
 [ext_resource path="res://Objects/Bots/BullSquid.gd" type="Script" id=6]
 [ext_resource path="res://Objects/Models/Gargantua.tscn" type="PackedScene" id=7]
 

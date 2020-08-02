@@ -52,7 +52,7 @@ var control_types = {
 	default = "res://controls/controllers/default_controller.tscn"
 }
 
-#models available
+# basic skins available
 var skinResource = {
 	ct1 = preload("res://Sprites/Character/ct1.bmp"),
 	t1 = preload("res://Sprites/Character/t1.bmp"),
@@ -71,14 +71,14 @@ var skinStats = {
 }
 
 
-#classes
+# Basic classes
 var classResource = {
 	player = preload("res://Objects/Player.tscn"),
 	bot = preload("res://Objects/Bots/Bot.tscn"),
 	zombie = preload("res://Objects/Bots/Zombie.tscn")
 }
 
-#weapons
+# Weapons
 var weaponResource = {
 	default_gun = preload("res://Objects/Weapons/Gun.tscn"),
 	AK47 = preload("res://Objects/Weapons/AK47.tscn"),
@@ -138,7 +138,6 @@ func getLevelFromXP(xp : int) -> int:
 func _ready():
 	var gameStatus : Dictionary = load_data("user://status.dat",false)
 	Logger.Log("Loading status.dat")
-	
 	# Check for existance and validity of savegame
 	if not gameStatus.has("game_version"):
 		first_run = true

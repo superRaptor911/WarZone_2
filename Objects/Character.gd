@@ -14,6 +14,7 @@ var close_chars = Array()
 
 
 onready var model : Model = $Model
+onready var movementNode = $movmtCPP
 
 signal char_killed
 signal char_born
@@ -31,8 +32,8 @@ func _ready():
 #process Character
 func _process(delta):
 	if alive:
-		#handele movement
-		$movmtCPP.movement(delta)
+		# handele movement
+		movementNode.movement(delta)
 	else:
 		model.is_walking = false
 	
@@ -113,7 +114,6 @@ remotesync func P_death():
 	# scream chance 1/4 
 	if randi() % 4 == 0:
 		$die.play()
-	
 	alive = false
 	model.set_deferred("disabled",true)
 	$dtween.interpolate_property(model,"modulate",Color8(255,255,255,255),Color8(255,255,255,0),
