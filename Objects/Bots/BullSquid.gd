@@ -1,6 +1,7 @@
 extends "res://Objects/Bots/Zombie.gd"
 
-export var spit_damage = 60
+export var ranged_atk_damage = 60
+export var ranged_atk_range = 200
 
 var custom_model = preload("res://Objects/Models/bull_sqid.tscn")
 
@@ -21,12 +22,9 @@ func _on_navTimer_timeout():
 		target_visible = isTargetVisible(T.ref)
 		if target_visible:
 			var dist = (T.ref.position - position).length()
-			if dist < 200:
-				if dist < 100:
-					rpc("zmAttack")
-				else:
-					rpc("acidAttack")
-					T.ref.takeDamage(spit_damage, "acid", "Zombie")
+			if dist < ranged_atk_range:
+				rpc("rangedAttack")
+				T.ref.takeDamage(ranged_atk_damage, "flame", "Gargantua")
 
-remotesync func acidAttack():
-	model.spitAcid()
+remotesync func rangedAttack():
+	model.rangedAttack()

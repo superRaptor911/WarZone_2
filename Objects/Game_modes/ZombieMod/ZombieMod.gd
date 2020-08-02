@@ -11,7 +11,8 @@ var is_player_playing = false
 
 # Boss scenes
 var zombieBossScenes = [
-	preload("res://Objects/Bots/BullSquid.tscn")
+	preload("res://Objects/Bots/BullSquid.tscn"),
+	preload("res://Objects/Bots/GargantuaBoss.tscn"),
 ]
 
 onready var tween =$Tween
@@ -237,11 +238,9 @@ remote func P_spawnZombies(zData : Array):
 		level.add_child(zm)
 
 func bossRound(boss_round : int):
-	if boss_round == 1:
-		rpc("P_BossRound_1")
+	rpc("P_BossRound_" + String(boss_round))
 
 remotesync func P_BossRound_1():
-	
 	var boss0 = zombieBossScenes[0].instance()
 	var boss1 = zombieBossScenes[0].instance()
 	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
@@ -251,3 +250,28 @@ remotesync func P_BossRound_1():
 	level.add_child(boss0)
 	level.add_child(boss1)
 
+remotesync func P_BossRound_2():
+	var boss0 = zombieBossScenes[1].instance()
+	var boss1 = zombieBossScenes[1].instance()
+	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	boss0.position = spawn_locs[randi() % spawn_locs.size()].position
+	boss1.position = spawn_locs[randi() % spawn_locs.size()].position
+	level.add_child(boss0)
+	level.add_child(boss1)
+
+remotesync func P_BossRound_3():
+	var boss0 = zombieBossScenes[1].instance()
+	var boss1 = zombieBossScenes[1].instance()
+	var boss2 = zombieBossScenes[0].instance()
+	var boss3 = zombieBossScenes[0].instance()
+	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	boss0.position = spawn_locs[randi() % spawn_locs.size()].position
+	boss1.position = spawn_locs[randi() % spawn_locs.size()].position
+	boss2.position = spawn_locs[randi() % spawn_locs.size()].position
+	boss3.position = spawn_locs[randi() % spawn_locs.size()].position
+	level.add_child(boss0)
+	level.add_child(boss1)
+	level.add_child(boss2)
+	level.add_child(boss3)
