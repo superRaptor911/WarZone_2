@@ -240,7 +240,19 @@ remote func P_spawnZombies(zData : Array):
 func bossRound(boss_round : int):
 	rpc("P_BossRound_" + String(boss_round))
 
+
 remotesync func P_BossRound_1():
+	var boss0 = zombieBossScenes[1].instance()
+	var boss1 = zombieBossScenes[1].instance()
+	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	boss0.position = spawn_locs[randi() % spawn_locs.size()].position
+	boss1.position = spawn_locs[randi() % spawn_locs.size()].position
+	level.add_child(boss0)
+	level.add_child(boss1)
+
+
+remotesync func P_BossRound_2():
 	var boss0 = zombieBossScenes[0].instance()
 	var boss1 = zombieBossScenes[0].instance()
 	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
@@ -250,15 +262,6 @@ remotesync func P_BossRound_1():
 	level.add_child(boss0)
 	level.add_child(boss1)
 
-remotesync func P_BossRound_2():
-	var boss0 = zombieBossScenes[1].instance()
-	var boss1 = zombieBossScenes[1].instance()
-	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
-	var level = get_tree().get_nodes_in_group("Level")[0]
-	boss0.position = spawn_locs[randi() % spawn_locs.size()].position
-	boss1.position = spawn_locs[randi() % spawn_locs.size()].position
-	level.add_child(boss0)
-	level.add_child(boss1)
 
 remotesync func P_BossRound_3():
 	var boss0 = zombieBossScenes[1].instance()

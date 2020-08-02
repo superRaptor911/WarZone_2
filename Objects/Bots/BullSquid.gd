@@ -9,12 +9,6 @@ var custom_model = preload("res://Objects/Models/bull_sqid.tscn")
 func _ready():
 	pass
 
-# Override previous func defined in zombie.gd
-func P_on_killed():
-	$body.show()
-	$dtween.interpolate_property(self, "modulate", Color(1,1,1,1), Color(1,1,1,0), 2,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT, 6)
-	$dtween.start()
-
 func _on_navTimer_timeout():
 	getTarget()
 	var T = game_server._unit_data_list.get(target_id)
