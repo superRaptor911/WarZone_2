@@ -32,15 +32,19 @@ var game_status = {
 #saved
 #game settings with default value
 var game_settings = {
+	# Graphics
 	dpad_transparency = 128,
 	particle_effects = true,
 	lighting_effects = true,
-	music_enabled = true,
-	dynamic_camera = true,
 	show_fps = false,
-	enable_logging = false,
 	shadows = true,
-	use_rich_text = true
+	use_rich_text = true,
+	body_stay_time = 10,
+	
+	# Misc
+	dynamic_camera = true,
+	music_enabled = true,
+	enable_logging = false
 }
 
 #control types available

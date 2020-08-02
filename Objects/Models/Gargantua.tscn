@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Sprites/Character/bullsquid64.png" type="Texture" id=1]
-[ext_resource path="res://Objects/Models/bull_sqid.gd" type="Script" id=2]
-[ext_resource path="res://Objects/Graphics/outline.shader" type="Shader" id=3]
-[ext_resource path="res://Sprites/particles/blood_scat1.png" type="Texture" id=4]
-[ext_resource path="res://Sfx/walk1.wav" type="AudioStream" id=6]
+[ext_resource path="res://Objects/Graphics/outline.shader" type="Shader" id=1]
+[ext_resource path="res://Sprites/particles/blood_scat1.png" type="Texture" id=2]
+[ext_resource path="res://Sfx/walk1.wav" type="AudioStream" id=3]
+[ext_resource path="res://Objects/Models/Gargantua.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/Character/gargantua.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 44.9498
@@ -28,18 +28,18 @@ tracks/0/keys = {
 
 [sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
-shader = ExtResource( 3 )
+shader = ExtResource( 1 )
 shader_param/clr = null
 shader_param/tex_size = Vector2( 64, 64 )
 shader_param/out_size = 1.0
 shader_param/use = 0.0
 
 [sub_resource type="Curve" id=5]
-_data = [ Vector2( 0, 0.277273 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 0.259091 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="Gradient" id=6]
-offsets = PoolRealArray( 0.821192, 1 )
-colors = PoolColorArray( 0.0667475, 0.261719, 0.0194244, 1, 0.0588235, 0.298039, 0.00392157, 0 )
+offsets = PoolRealArray( 0, 0.231788, 0.993378 )
+colors = PoolColorArray( 0.43454, 0.67013, 0.958984, 1, 1, 0.421875, 0, 1, 1, 0, 0, 0 )
 
 [sub_resource type="Animation" id=7]
 resource_name = "emit_acid"
@@ -87,14 +87,14 @@ tracks/0/keys = {
 "values": [ 0.0, 15.0, -15.0, 0.0 ]
 }
 
-[node name="bull_sqid" type="CollisionShape2D"]
+[node name="Gargantua" type="CollisionShape2D"]
 z_index = 2
 z_as_relative = false
 shape = SubResource( 1 )
-script = ExtResource( 2 )
+script = ExtResource( 4 )
 
 [node name="walk" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource( 3 )
 volume_db = -1.51
 max_distance = 800.0
 attenuation = 1.27456
@@ -108,53 +108,58 @@ visible = false
 position = Vector2( 7.61944, -3.84794 )
 scale = Vector2( 0.372423, 0.331879 )
 z_index = -2
-texture = ExtResource( 4 )
+texture = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="blood_scat"]
 position = Vector2( -38.9172, -40.4954 )
 
 [node name="skin" type="Sprite" parent="."]
 material = SubResource( 4 )
-position = Vector2( 0.478561, 12.1166 )
-texture = ExtResource( 1 )
+position = Vector2( -4.81316, -10.7802 )
+texture = ExtResource( 5 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="skin"]
-position = Vector2( -1.25264, -71.3797 )
+position = Vector2( -34.0106, -52.1659 )
 emitting = false
-amount = 16
+amount = 32
+lifetime = 2.0
 one_shot = true
-explosiveness = 1.0
+explosiveness = 0.59
 local_coords = false
 direction = Vector2( 0, -1 )
 spread = 22.5
 gravity = Vector2( 0, 0 )
 initial_velocity = 200.0
-initial_velocity_random = 0.44
+initial_velocity_random = 0.11
 angular_velocity = 720.0
-angular_velocity_random = 0.44
-scale_amount = 10.0
-scale_amount_random = 0.49
+damping = 91.4
+scale_amount = 40.0
 scale_amount_curve = SubResource( 5 )
 color_ramp = SubResource( 6 )
 
 [node name="CPUParticles2D2" type="CPUParticles2D" parent="skin"]
-show_behind_parent = true
-position = Vector2( -0.841812, -12.9642 )
-z_index = -1
-amount = 64
-lifetime = 7.0
+position = Vector2( 39.0431, -50.3841 )
+emitting = false
+amount = 32
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.59
 local_coords = false
-emission_shape = 2
-emission_rect_extents = Vector2( 3, 3 )
+direction = Vector2( 0, -1 )
 spread = 22.5
 gravity = Vector2( 0, 0 )
-scale_amount = 45.0
+initial_velocity = 200.0
+initial_velocity_random = 0.11
+angular_velocity = 720.0
+damping = 91.4
+scale_amount = 40.0
 scale_amount_curve = SubResource( 5 )
 color_ramp = SubResource( 6 )
 
 [node name="sfist" type="Node2D" parent="skin"]
 
 [node name="pfist" type="Node2D" parent="skin"]
+position = Vector2( -12.0135, 31.3687 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/emit_acid = SubResource( 7 )

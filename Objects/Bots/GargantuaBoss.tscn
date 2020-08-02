@@ -1,31 +1,32 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://bin/charMovement.gdns" type="Script" id=1]
-[ext_resource path="res://Objects/Bots/BullSquid.gd" type="Script" id=2]
-[ext_resource path="res://Sprites/particles/bloodSplash.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Sfx/zm/zm_die.ogg" type="AudioStream" id=5]
-[ext_resource path="res://Sprites/decals/body1.png" type="Texture" id=6]
-[ext_resource path="res://Sfx/zm/zm_hit2.ogg" type="AudioStream" id=7]
-[ext_resource path="res://Objects/Models/bull_sqid.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sprites/particles/bloodSplash.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sfx/zm/zm_die.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Sfx/zm/zm_hit2.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Sprites/decals/body1.png" type="Texture" id=5]
+[ext_resource path="res://Objects/Bots/BullSquid.gd" type="Script" id=6]
+[ext_resource path="res://Objects/Models/Gargantua.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 55.2816
 
-[node name="BullSquid" type="KinematicBody2D" groups=[
+[node name="GargantuaBoss" type="KinematicBody2D" groups=[
 "Actor",
 "Damageable",
 "Monster",
 ]]
 show_behind_parent = true
-script = ExtResource( 2 )
-HP = 5000.0
+script = ExtResource( 6 )
+HP = 3000.0
 AP = 3000.0
-speed = 60.0
+speed = 90.0
 melee_damage = 250.0
+ranged_atk_damage = 100
 
-[node name="Model" parent="." instance=ExtResource( 8 )]
+[node name="Model" parent="." instance=ExtResource( 7 )]
 
-[node name="bloodSplash" parent="." instance=ExtResource( 4 )]
+[node name="bloodSplash" parent="." instance=ExtResource( 2 )]
 amount = 24
 lifetime = 2.5
 explosiveness = 0.69
@@ -47,7 +48,7 @@ __meta__ = {
 }
 
 [node name="die" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 3 )
 max_distance = 800.0
 attenuation = 0.450625
 
@@ -61,12 +62,12 @@ disabled = true
 wait_time = 2.0
 
 [node name="zAttack" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 7 )
+stream = ExtResource( 4 )
 
 [node name="body" type="Sprite" parent="."]
 visible = false
 position = Vector2( -7.68243, -10.2442 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 
 [node name="respawn_timer" type="Timer" parent="."]
 wait_time = 5.0

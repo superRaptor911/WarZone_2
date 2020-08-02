@@ -11,6 +11,7 @@
 "Monster",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+AP = 0.0
 melee_damage = 35.0
 
 [node name="Model" parent="." index="0"]

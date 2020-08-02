@@ -160,8 +160,12 @@ func takeDamage(damage : float, _weapon : String, attacker_id : String):
 		if attacker_ref and team.team_id == attacker_ref.team.team_id:
 			return
 	
-
-	HP -= damage
+	#Damage distribution
+	if AP > 0:
+		AP = max(0,AP - 0.75 * damage)
+		HP = max(0,HP - 0.25 * damage)
+	else:
+		HP = max(0,HP - damage)
 	
 	emit_signal("char_took_damage")
 
