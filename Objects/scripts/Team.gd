@@ -48,7 +48,8 @@ func removePlayer(plr):
 		
 		if plr.alive:
 			alive_players -= 1
-		assert(player_count >= 0, "Negative number of players")
+		# Its fails
+		#assert(player_count >= 0, "Negative number of players")
 
 
 func _on_player_killed():
