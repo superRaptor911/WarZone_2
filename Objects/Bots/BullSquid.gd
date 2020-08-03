@@ -20,7 +20,7 @@ func _on_navTimer_timeout():
 			var dist = (T.ref.position - position).length()
 			if dist < ranged_atk_range:
 				rpc("rangedAttack")
-				T.ref.takeDamage(ranged_atk_damage, ranged_attack_name, "Gargantua")
+				T.ref.takeDamage(ranged_atk_damage, ranged_attack_name, "SCP-682")
 
 remotesync func rangedAttack():
 	attk_sfx.play()
