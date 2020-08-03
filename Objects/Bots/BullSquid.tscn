@@ -2,9 +2,9 @@
 
 [ext_resource path="res://bin/charMovement.gdns" type="Script" id=1]
 [ext_resource path="res://Objects/Bots/BullSquid.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Character/bullsquid_dead.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/particles/bloodSplash.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sfx/zm/zm_die.ogg" type="AudioStream" id=5]
-[ext_resource path="res://Sprites/decals/body1.png" type="Texture" id=6]
 [ext_resource path="res://Sfx/zm/zm_hit2.ogg" type="AudioStream" id=7]
 [ext_resource path="res://Objects/Models/bull_sqid.tscn" type="PackedScene" id=8]
 
@@ -66,7 +66,7 @@ stream = ExtResource( 7 )
 [node name="body" type="Sprite" parent="."]
 visible = false
 position = Vector2( -7.68243, -10.2442 )
-texture = ExtResource( 6 )
+texture = ExtResource( 3 )
 
 [node name="respawn_timer" type="Timer" parent="."]
 wait_time = 5.0

@@ -182,6 +182,11 @@ func _on_bot_killed(bot):
 func restartGameMode():
 	var level = get_tree().get_nodes_in_group("Level")[0]
 	level.S_restartLevel()
+	rpc("P_restartGameMode")
+
+
+remotesync func P_restartGameMode():
+	var level = get_tree().get_nodes_in_group("Level")[0]
 	$Tween.interpolate_property(level,"modulate",Color8(0,0,0,0),Color8(255,255,255,255),
 		2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
 	$Tween.start()

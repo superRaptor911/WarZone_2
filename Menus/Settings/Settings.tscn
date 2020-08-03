@@ -65,14 +65,14 @@ __meta__ = {
 }
 
 [node name="TabContainer" type="TabContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -363.0
-margin_top = -312.5
-margin_right = 363.0
-margin_bottom = 312.5
+anchor_left = 0.089
+anchor_top = 0.047
+anchor_right = 0.911
+anchor_bottom = 0.953
+margin_left = 0.580002
+margin_top = 0.16
+margin_right = -0.580078
+margin_bottom = -0.160034
 custom_styles/tab_fg = SubResource( 1 )
 custom_styles/tab_bg = SubResource( 2 )
 custom_styles/panel = SubResource( 3 )
@@ -93,14 +93,14 @@ custom_fonts/font = ExtResource( 7 )
 tab_align = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Basic"]
-anchor_left = 0.491
-anchor_top = 0.5
-anchor_right = 0.491
-anchor_bottom = 0.5
-margin_left = -272.092
-margin_top = -179.997
-margin_right = 154.908
-margin_bottom = 81.0025
+anchor_left = 0.205
+anchor_top = 0.098
+anchor_right = 0.737
+anchor_bottom = 0.667
+margin_left = -0.208328
+margin_top = 0.117821
+margin_right = -128.084
+margin_bottom = -78.5757
 rect_scale = Vector2( 1.3, 1.3 )
 custom_constants/separation = 30
 __meta__ = {

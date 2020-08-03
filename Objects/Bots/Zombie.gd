@@ -103,10 +103,8 @@ func _on_navTimer_timeout():
 		if target_visible and (T.ref.position - position).length() < 80:
 			rpc("zmAttack")
 
-
 func S_on_killed():
 	$navTimer.stop()
-
 
 func P_on_killed():
 	$body.show()

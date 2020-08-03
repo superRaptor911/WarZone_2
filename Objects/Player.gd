@@ -43,6 +43,7 @@ func _ready():
 			$Camera2D.position = Vector2(0,-150)
 		
 		$Camera2D.current = true
+		print("std::cout<<Hello world;")
 		connect("char_killed",self,"P_on_player_killed")
 		connect("char_fraged", self, "getKillRewards")
 		hud = load("res://Menus/HUD/Hud.tscn").instance()
@@ -67,12 +68,14 @@ func _ready():
 		team_selector.connect("team_selected", self, "P_on_team_selected")
 		team_selector.connect("spectate_mode", self, "P_on_spectate_selected")
 
+
 func P_on_player_killed():
 	$Camera2D.current = false
 	$aim_indicator.hide()
 	pause_controls(true)
 	streak = 0
-	# Add spectate mode to level node
+	# Add spectate mode to level node after 3 seconds
+	yield(get_tree().create_timer(3), "timeout")
 	get_parent().add_child(spectate)
 	remove_child(hud)
 	# Connect signals
