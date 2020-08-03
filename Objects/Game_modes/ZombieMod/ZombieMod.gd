@@ -100,10 +100,12 @@ func on_team_eliminated(team):
 # Called when round starts ( server side)
 func _on_round_start_dl_timeout():
 	current_round += 1
-	rpc("P_roundStarted", current_round)
-	
-	if current_round % 2 == 0:
-		bossRound(current_round / 2)
+	if current_round == 10:
+		current_round = 1
+		
+	rpc("P_roundStarted", current_round)	
+	if current_round % 3 == 0:
+		bossRound(current_round / 3)
 		return
 		
 	z_count = getZombieCount()
@@ -243,6 +245,7 @@ func bossRound(boss_round : int):
 
 
 remotesync func P_BossRound_1():
+	showLabel("Boss Round ! Gargantua is comming", Color.red)
 	var boss0 = zombieBossScenes[1].instance()
 	var boss1 = zombieBossScenes[1].instance()
 	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
@@ -256,6 +259,7 @@ remotesync func P_BossRound_1():
 
 
 remotesync func P_BossRound_2():
+	showLabel("Boss Round ! Scp 682 is set free", Color.red)
 	var boss0 = zombieBossScenes[0].instance()
 	var boss1 = zombieBossScenes[0].instance()
 	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
@@ -269,6 +273,7 @@ remotesync func P_BossRound_2():
 
 
 remotesync func P_BossRound_3():
+	showLabel("Final Round ! prepare for your end", Color.red)
 	var boss0 = zombieBossScenes[1].instance()
 	var boss1 = zombieBossScenes[1].instance()
 	var boss2 = zombieBossScenes[0].instance()
