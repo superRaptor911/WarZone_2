@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://bin/charMovement.gdns" type="Script" id=1]
 [ext_resource path="res://Sprites/particles/bloodSplash.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sfx/zm/zm_die.ogg" type="AudioStream" id=3]
-[ext_resource path="res://Sfx/zm/zm_hit2.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Sfx/zm/flamethrower.ogg" type="AudioStream" id=4]
 [ext_resource path="res://Sprites/Character/gargantua_dead.png" type="Texture" id=5]
-[ext_resource path="res://Objects/Bots/BullSquid.gd" type="Script" id=6]
+[ext_resource path="res://Objects/Bots/GargantuaBoss.gd" type="Script" id=6]
 [ext_resource path="res://Objects/Models/Gargantua.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sfx/zm/gargantua.ogg" type="AudioStream" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 55.2816
@@ -21,8 +22,7 @@ script = ExtResource( 6 )
 HP = 3000.0
 AP = 3000.0
 speed = 90.0
-melee_damage = 250.0
-ranged_atk_damage = 100
+ranged_atk_damage = 80
 
 [node name="Model" parent="." instance=ExtResource( 7 )]
 
@@ -63,6 +63,7 @@ wait_time = 2.0
 
 [node name="zAttack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+volume_db = 6.0
 
 [node name="body" type="Sprite" parent="."]
 visible = false
@@ -72,7 +73,15 @@ texture = ExtResource( 5 )
 [node name="respawn_timer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="gargantua" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+volume_db = 6.0
+max_distance = 3500.0
+
+[node name="playback" type="Timer" parent="gargantua"]
 [connection signal="body_entered" from="close_range" to="." method="_on_close_range_body_entered"]
 [connection signal="body_exited" from="close_range" to="." method="_on_close_range_body_exited"]
 [connection signal="timeout" from="navTimer" to="." method="_on_navTimer_timeout"]
 [connection signal="timeout" from="respawn_timer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="timeout" from="gargantua/playback" to="." method="_on_playback_timeout"]

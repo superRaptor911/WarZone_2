@@ -5,11 +5,11 @@ export var ranged_atk_range = 200
 export var ranged_attack_name = "spit"
 
 onready var attk_sfx = $zAttack
-onready var squiq_sfx = $squid
+onready var gtarg_sfx = $gargantua
 
 func _ready():
-	$squid/playback_timer.wait_time = rand_range(8, 15)
-	$squid/playback_timer.start()
+	$gargantua/playback.wait_time = rand_range(15, 22)
+	$gargantua/playback.start()
 
 func _on_navTimer_timeout():
 	getTarget()
@@ -27,5 +27,5 @@ remotesync func rangedAttack():
 	model.rangedAttack()
 
 
-func _on_playback_timer_timeout():
-	squiq_sfx.play()
+func _on_playback_timeout():
+	gtarg_sfx.play()

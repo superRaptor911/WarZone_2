@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://bin/charMovement.gdns" type="Script" id=1]
 [ext_resource path="res://Objects/Bots/BullSquid.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Character/bullsquid_dead.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/particles/bloodSplash.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Sfx/zm/zm_die.ogg" type="AudioStream" id=5]
-[ext_resource path="res://Sfx/zm/zm_hit2.ogg" type="AudioStream" id=7]
+[ext_resource path="res://Sfx/zm/bsquidAttk.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sfx/zm/bsquid1.ogg" type="AudioStream" id=7]
 [ext_resource path="res://Objects/Models/bull_sqid.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -58,10 +59,12 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="navTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 2.5
 
 [node name="zAttack" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 7 )
+stream = ExtResource( 6 )
+volume_db = 6.0
+max_distance = 3500.0
 
 [node name="body" type="Sprite" parent="."]
 visible = false
@@ -71,7 +74,16 @@ texture = ExtResource( 3 )
 [node name="respawn_timer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="squid" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+volume_db = 6.0
+max_distance = 3500.0
+
+[node name="playback_timer" type="Timer" parent="squid"]
+wait_time = 5.0
 [connection signal="body_entered" from="close_range" to="." method="_on_close_range_body_entered"]
 [connection signal="body_exited" from="close_range" to="." method="_on_close_range_body_exited"]
 [connection signal="timeout" from="navTimer" to="." method="_on_navTimer_timeout"]
 [connection signal="timeout" from="respawn_timer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="timeout" from="squid/playback_timer" to="." method="_on_playback_timer_timeout"]

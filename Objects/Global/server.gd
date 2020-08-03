@@ -86,6 +86,7 @@ var wpn_kill_icons = {
 	G3S1 = "res://Sprites/Weapons/g3sg1_k.png",
 	Galil = "res://Sprites/Weapons/galil_k.png",
 	M249 = "res://Sprites/Weapons/m249_k.png",
+	mac10 = "res://Sprites/Weapons/mac10_k.png",
 	Claw = "res://Sprites/Weapons/claw_k.png"
 }
 
@@ -96,8 +97,7 @@ var bbcode_format_bad = "[color=red][b]%s[/b][/color] [img]%s[/img][color=green]
 func getKillIcon(wpn_name : String) -> String:
 	var rtn_val = wpn_kill_icons.get(wpn_name)
 	if not rtn_val:
-		rtn_val = "res://Sprites/Weapons/p90_k.png"
-	
+		rtn_val = "res://Sprites/Weapons/claw_k.png"
 	return rtn_val
 
 
