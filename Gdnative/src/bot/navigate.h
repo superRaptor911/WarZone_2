@@ -7,6 +7,11 @@
 #include <stack>
 #include <vector>
 
+#ifdef DEBUG_MODE
+    #define DEBUG_PRINT(x) Godot::print(x); 
+#else
+    #define DEBUG_PRINT(x) ;
+#endif
 
 namespace godot
 {

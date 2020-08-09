@@ -54,11 +54,7 @@ namespace godot
             going_to_diffuse = false;
             bomber = nullptr;
         }
-    };
-    
-
-    
-    
+    };  
 }
 
 #endif
