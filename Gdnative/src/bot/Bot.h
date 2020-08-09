@@ -73,6 +73,12 @@ namespace godot
 		void on_bomber_selected(Node2D *bomber);
 		void on_bomb_dropped();
 		void on_bomb_planted();
+
+
+		// States
+		void dm_roam();
+		void dm_attack();
+		void dm_scout();
 	};
 
 
