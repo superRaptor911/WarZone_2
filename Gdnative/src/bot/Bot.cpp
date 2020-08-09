@@ -57,7 +57,7 @@ void Bot::_ready()
 	if (!arr.empty())
 		nav = arr[0];
 	else
-		Godot::print("Error::Unable_to_get_navigation2D");
+		DEBUG_PRINT("Error::Unable_to_get_navigation2D");
 	
 	navigation_state = std::make_unique<navigate>(_parent, nav, this);
 	attack_state = std::make_unique<Attack>(_parent, this);
@@ -67,7 +67,7 @@ void Bot::_ready()
 		std::string team_name = "terrorist";
 		if (team_id == 1)
 			team_name = "counter_terrorist";
-		Godot::print(("team is " + team_name).c_str());
+		DEBUG_PRINT(("team is " + team_name).c_str());
 	#endif
 
 	current_state = STATE::ROAM;
@@ -195,13 +195,12 @@ void Bot::setGameMode(String gmod)
 		for (int i = 0; i < count; i++)
 		{
 			BombFlags.bomb_sites.append(static_cast<Node2D *>(sites[i])->get_position());
-			Godot::print(std::to_string(static_cast<Node2D *>(sites[i])->get_position().x).c_str());
+			DEBUG_PRINT(std::to_string(static_cast<Node2D *>(sites[i])->get_position().x).c_str());
 		}
 
-		#ifdef DEBUG_MODE
 			if (count == 0)
-				Godot::print("Error : no bombsite in bombing mode");
-		#endif
+				DEBUG_PRINT("Error : no bombsite in bombing mode");
+
 
 		Array poi_s = get_tree()->get_nodes_in_group("POI");
 		if (!poi_s.empty())
@@ -216,12 +215,9 @@ void Bot::setGameMode(String gmod)
 				}				
 			}
 
-			#ifdef DEBUG_MODE
-				if (count == 0)
-					Godot::print("Error : pois not found");
-			#endif			
+			if (count == 0)
+				DEBUG_PRINT("Error : pois not found");
 		}
-		
 		
 		current_state = STATE::CAMP;
 	}
@@ -270,7 +266,7 @@ void Bot::dm_roam()
 	{
 		current_state = STATE::ATTACK;
 		#ifdef DEBUG_MODE
-			Godot::print("changing state to attack");
+			DEBUG_PRINT("changing state to attack");
 		#endif
 	}
 }
@@ -296,14 +292,14 @@ void Bot::dm_attack()
 		current_state = STATE::SCOUT;
 		NavFlags.scout_start_time = time_elapsed;
 		#ifdef DEBUG_MODE
-			Godot::print("changing state to scout");
+			DEBUG_PRINT("changing state to scout");
 		#endif
 	}
 	else if (bot_attribute.is_coward && static_cast<float>(_parent->get("HP")) < 35.f)
 	{
 		current_state = STATE::FLEE;
 		#ifdef DEBUG_MODE
-			Godot::print("changing state to flee");
+			DEBUG_PRINT("changing state to flee");
 		#endif
 	}
 }
@@ -322,19 +318,20 @@ void Bot::dm_scout()
 		Vector2 pos = nav->get_closest_point(_parent->get_position() + rand_pos);
 		navigation_state->addPlace(pos);
 	}
+	// Enemy spotted
 	if (!visible_enemies.empty())
 	{
 		current_state = STATE::ATTACK;
 		#ifdef DEBUG_MODE
-			Godot::print("changing state to attack");
+			DEBUG_PRINT("changing state to attack");
 		#endif
 	}
-	//stay in this mode for 30 seconds
+	//stay in this mode for 20 seconds
 	if (time_elapsed - NavFlags.scout_start_time > 20.f)
 	{
 		current_state = STATE::ROAM;
 		#ifdef DEBUG_MODE
-			Godot::print("changing state to Roam");
+			DEBUG_PRINT("changing state to Roam");
 		#endif
 	}
 }
@@ -369,7 +366,7 @@ void Bot::gamemodeBombing()
 								navigation_state->addPlace(c4->get_position());
 								BombFlags.mission = BotBombingFlags::MISSION::GOTO_BOMBSPOT;
 								#ifdef DEBUG_MODE
-									Godot::print("i am not near Bomb");
+									DEBUG_PRINT("i am not near Bomb");
 								#endif
 							}
 							else
@@ -377,14 +374,14 @@ void Bot::gamemodeBombing()
 								current_state = STATE::BOMB_DIFF;
 								BombFlags.camp_time_start = time_elapsed;
 								#ifdef DEBUG_MODE
-									Godot::print("i am Bomb diffusing");
+									DEBUG_PRINT("i am Bomb diffusing");
 								#endif
 							}
 						}
 						else
 						{
 							#ifdef DEBUG_MODE
-								Godot::print("i am at wrong bomb site");
+								DEBUG_PRINT("i am at wrong bomb site");
 							#endif
 
 							BombFlags.selected_bombSite_id += 1;
@@ -431,7 +428,7 @@ void Bot::gamemodeBombing()
 		{
 			current_state = STATE::ATTACK;
 			#ifdef DEBUG_MODE
-				Godot::print("changing state to attack");
+				DEBUG_PRINT("changing state to attack");
 			#endif
 		}
 	}
@@ -444,7 +441,7 @@ void Bot::gamemodeBombing()
 		{
 			current_state = STATE::ATTACK;
 			#ifdef DEBUG_MODE
-				Godot::print("changing state to attack");
+				DEBUG_PRINT("changing state to attack");
 			#endif
 		}
 	}
@@ -469,7 +466,7 @@ void Bot::gamemodeBombing()
 				navigation_state->addPlace(BombFlags.bomb_sites[BombFlags.selected_bombSite_id]);
 				current_state = STATE::ROAM;
 				#ifdef DEBUG_MODE
-					Godot::print("i must diffuse bomb");
+					DEBUG_PRINT("i must diffuse bomb");
 				#endif
 				return;
 			}
@@ -479,7 +476,7 @@ void Bot::gamemodeBombing()
 			current_state = STATE::SCOUT;
 			NavFlags.scout_start_time = time_elapsed;
 			#ifdef DEBUG_MODE
-				Godot::print("changing state to scout");
+				DEBUG_PRINT("changing state to scout");
 			#endif
 		}		
 	}
@@ -501,7 +498,7 @@ void Bot::gamemodeBombing()
 		{
 			current_state = STATE::ATTACK;
 			#ifdef DEBUG_MODE
-				Godot::print("changing state to attack");
+				DEBUG_PRINT("changing state to attack");
 			#endif
 		}
 		//stay in this mode for 30 seconds
@@ -509,7 +506,7 @@ void Bot::gamemodeBombing()
 		{
 			current_state = STATE::ROAM;
 			#ifdef DEBUG_MODE
-				Godot::print("changing state to Roam");
+				DEBUG_PRINT("changing state to Roam");
 			#endif
 		}
 	}
@@ -528,7 +525,7 @@ void Bot::gamemodeBombing()
 			current_state = STATE::ATTACK;
 			BombFlags.mission = BotBombingFlags::MISSION::GOTO_BOMBSPOT;
 			#ifdef DEBUG_MODE
-				Godot::print("changing state to attack from planting");
+				DEBUG_PRINT("changing state to attack from planting");
 			#endif
 		}
 	}
@@ -540,7 +537,7 @@ void Bot::gamemodeBombing()
 			gameMode->rpc_id(1,"S_peerDiffusedBomb");
 			current_state = STATE::ROAM;
 			#ifdef DEBUG_MODE
-				Godot::print("i diffused bomb !!!");
+				DEBUG_PRINT("i diffused bomb !!!");
 			#endif
 		}
 	}
@@ -572,7 +569,7 @@ void Bot::gamemodeBombing()
 		{
 			current_state = STATE::ATTACK;
 			#ifdef DEBUG_MODE
-				Godot::print("changing state to attack");
+				DEBUG_PRINT("changing state to attack");
 			#endif
 		}
 	}
@@ -592,7 +589,7 @@ void Bot::on_new_round_starts()
 			BombFlags.mission = BotBombingFlags::MISSION::FOLLOW_BOMBER;
 			current_state = STATE::FOLLOW;
 			#ifdef DEBUG_MODE
-				Godot::print("BOT::Rounded started and following bomber");
+				DEBUG_PRINT("BOT::Rounded started and following bomber");
 			#endif
 		}
 		else
@@ -601,7 +598,7 @@ void Bot::on_new_round_starts()
 			BombFlags.selected_bombSite_id = rand() % BombFlags.bomb_sites.size();
 			navigation_state->addPlace(BombFlags.bomb_sites[ BombFlags.selected_bombSite_id ]);
 			#ifdef DEBUG_MODE
-				Godot::print("BOT::Rounded started and going to bombsite");
+				DEBUG_PRINT("BOT::Rounded started and going to bombsite");
 			#endif
 		}
 		
@@ -623,7 +620,7 @@ void Bot::on_new_round_starts()
 			BombFlags.selected_bombSite_id = rand() % BombFlags.bomb_sites.size();
 			navigation_state->addPlace(BombFlags.bomb_sites[ BombFlags.selected_bombSite_id ]);
 			#ifdef DEBUG_MODE
-				Godot::print("BOT::Rounded started and going to bombsite");
+				DEBUG_PRINT("BOT::Rounded started and going to bombsite");
 			#endif
 		}
 	}
@@ -637,9 +634,9 @@ void Bot::on_selected_as_bomber()
 	navigation_state->clearPlaces();
 	BombFlags.selected_bombSite_id = rand() % BombFlags.bomb_sites.size();
 	navigation_state->addPlace(BombFlags.bomb_sites[ BombFlags.selected_bombSite_id ]);
-			Godot::print("selected as bomber, going to plant");
+			DEBUG_PRINT("selected as bomber, going to plant");
 	#ifdef DEBUG_MODE
-		Godot::print("selected as bomber, going to plant");
+		DEBUG_PRINT("selected as bomber, going to plant");
 	#endif
 }
 
@@ -688,7 +685,7 @@ void Bot::on_bomb_planted()
 		navigation_state->addPlace(BombFlags.bomb_sites[id]);
 		
 		#ifdef DEBUG_MODE
-			Godot::print("bomb planted goting to bombsite");
+			DEBUG_PRINT("bomb planted goting to bombsite");
 		#endif
 	}
 }
