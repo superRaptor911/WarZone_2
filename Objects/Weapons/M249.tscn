@@ -11,6 +11,7 @@ gun_type = "rifle"
 gun_name = "M249"
 damage = 25.0
 clip_size = 150
+gun_rating = 5
 rate_of_fire = 12.0
 reload_time = 3.5
 zoom_range = PoolRealArray( 0.75, 0.9 )

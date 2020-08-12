@@ -13,6 +13,7 @@ func _ready():
 	
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 	admob.load_banner()
+	admob.load_interstitial()
 
 
 
@@ -28,3 +29,7 @@ func _on_back_pressed():
 
 func _exit_tree():
 	admob.hide_banner()
+
+
+func _on_AdMob_interstitial_loaded():
+	admob.show_interstitial()

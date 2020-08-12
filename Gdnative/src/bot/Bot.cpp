@@ -7,6 +7,8 @@
 #include <string>
 #include<ctime>
 
+#define SQ(x) x*x
+
 using namespace godot;
 
 Bot::Bot()
@@ -26,6 +28,7 @@ void Bot::_register_methods()
 	register_method("setBotDifficulty", &Bot::setBotDifficulty);
 	register_method("setGameMode", &Bot::setGameMode);
 	register_method("think",&Bot::think);
+	register_method("on_unit_removed",&Bot::on_unit_removed);
 
 	//bombing mode
 	register_method("on_new_round_starts",&Bot::on_new_round_starts);
@@ -33,24 +36,15 @@ void Bot::_register_methods()
 	register_method("on_bomb_dropped",&Bot::on_bomb_dropped);
 	register_method("on_bomb_planted",&Bot::on_bomb_planted);
 
-
-
 	register_property<Bot, Array> ("visible_enemies", &Bot::visible_enemies, Array());
 	register_property<Bot, Array> ("visible_friends", &Bot::visible_friends, Array());
 }
 
 
-//Loads & links states
-void Bot::_loadStates()
-{
-
-}
-
 void Bot::_ready()
 {
 	//set parent
 	_parent = static_cast<KinematicBody2D *> (get_parent());
-	_loadStates();
 
 	//get navigation
 	Array arr = get_tree()->get_nodes_in_group("Nav");
@@ -73,6 +67,15 @@ void Bot::_ready()
 	current_state = STATE::ROAM;
 }
 
+void Bot::on_unit_removed(Node2D *unit)
+{
+	if (unit == NavFlags.leader)
+		NavFlags.leader = nullptr;
+	
+	if (unit == attack_state->current_enemy)
+		attack_state->current_enemy = nullptr;	
+}
+
 void Bot::_init()
 {
 	//pass
@@ -93,6 +96,8 @@ void Bot::think(float delta)
 		gamemodeDeathmath();
 	else if (game_mode == GMODE::BOMBING)
 		gamemodeBombing();
+	else if (game_mode == GMODE::ZM)
+		gamemodeZm();
 }
 
 void Bot::updateVision()
@@ -186,6 +191,21 @@ void Bot::setGameMode(String gmod)
 {
 	if (gmod == "TDM")
 		game_mode = GMODE::DM;
+	
+	else if (gmod == "Zombie Mod")
+	{
+		game_mode = GMODE::ZM;
+		auto players = get_tree()->get_nodes_in_group("User");
+		int player_count = players.size();
+
+		// Select a random leader
+		if (player_count > 0)
+			NavFlags.leader = static_cast<Node2D *>(players[rand() % player_count]);
+		
+		// Set enemy get mode to nearest
+		bot_attribute.enemy_get_mode = BotAttrib::EGetMode::NEAREST;
+	}
+
 	else if (gmod == "Bombing")
 	{
 		game_mode = GMODE::BOMBING;
@@ -332,6 +352,150 @@ void Bot::dm_scout()
 		current_state = STATE::ROAM;
 		#ifdef DEBUG_MODE
 			DEBUG_PRINT("changing state to Roam");
+		#endif
+	}
+}
+
+
+void Bot::gamemodeZm()
+{
+	switch (current_state)
+	{
+	case STATE::ROAM:
+		zm_roam();
+		break;
+	
+	case STATE::ATTACK:
+		zm_attack();
+		break;
+	
+	case STATE::SCOUT:
+		dm_scout();
+		break;
+	
+	case STATE::FOLLOW:
+		zm_followLeader();
+		break;
+	
+	default:
+		dm_roam();
+		break;
+	}
+}
+
+
+void Bot::zm_roam()
+{
+	navigation_state->move();
+
+	
+	if (NavFlags.leader)
+	{
+		if (!static_cast<bool>(NavFlags.leader->get("alive")))
+		{
+			NavFlags.leader = nullptr;
+			return;
+		}
+		
+
+		auto leader_distance = (_parent->get_position() - NavFlags.leader->get_position()).length();
+		if (leader_distance < 300.f)
+		{
+			current_state = STATE::FOLLOW;
+			return;
+		}
+	}
+	// Select leader (20 sec interval)
+	else if (time_elapsed - NavFlags.leader_srch_start_time > 20)
+	{
+		NavFlags.leader_srch_start_time = time_elapsed;
+		auto players = get_tree()->get_nodes_in_group("User");
+		int player_count = players.size();
+
+		// Select a random leader
+		if (player_count > 0)
+			NavFlags.leader = static_cast<Node2D *>(players[rand() % player_count]);		
+	}
+	
+	
+	if (navigation_state->on_final_destination)
+			navigation_state->getRandomLocation();
+
+	if (!visible_enemies.empty())
+	{
+		current_state = STATE::ATTACK;
+		#ifdef DEBUG_MODE
+			DEBUG_PRINT("changing state to attack");
+		#endif
+	}	
+}
+
+void Bot::zm_followLeader()
+{
+	//no leader
+	if (!NavFlags.leader)
+	{
+		navigation_state->clearPlaces();
+		current_state = STATE::ROAM;
+	}
+	//leader is dead
+	else if (!static_cast<bool>(NavFlags.leader->get("alive")) )
+	{
+		NavFlags.leader = nullptr;
+	}
+
+	//leader too far
+	else if ((_parent->get_position() - NavFlags.leader->get_position()).length() > 300.f)
+	{
+		//go towards player
+		navigation_state->clearPlaces();
+		navigation_state->addPlace(NavFlags.leader->get_position());
+		current_state = STATE::ROAM;
+	}
+	
+	navigation_state->followLeader();
+	
+	if (!visible_enemies.empty())
+	{
+		current_state = STATE::ATTACK;
+		#ifdef DEBUG_MODE
+			DEBUG_PRINT("changing state to attack");
+		#endif
+	}
+}
+
+void Bot::zm_attack()
+{
+	if (bot_attribute.enable_evasive_mov)
+	{
+		if (time_elapsed - NavFlags.evasive_mov_start_time > 2.f)
+		{
+			NavFlags.evasive_mov_dir *= -1;
+			NavFlags.evasive_mov_start_time = time_elapsed;
+		}
+		_parent->set("movement_vector",_parent->get_transform().get_axis(0) * NavFlags.evasive_mov_dir);		
+	}
+	
+	attack_state->engageEnemy();
+
+
+	if (attack_state->current_enemy)
+	{
+		// Move back, keep distance from zombies
+		auto vector = (_parent->get_position() - attack_state->current_enemy->get_position());
+		
+		if (vector.length_squared() < SQ(300.f))
+			_parent->set("movement_vector", vector);
+	}
+	// No enemy, change state
+	else
+	{
+		navigation_state->clearPlaces();
+		navigation_state->addPlace(attack_state->enemy_position);
+		current_state = STATE::SCOUT;
+		NavFlags.scout_start_time = time_elapsed;
+		#ifdef DEBUG_MODE
+			DEBUG_PRINT("changing state to scout");
 		#endif
 	}
 }

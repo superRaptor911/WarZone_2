@@ -15,7 +15,7 @@ func _ready():
 	UiAnim.animLeftToRight([$VBoxContainer])
 	get_tree().paused = false
 	$Timer.connect("timeout",self,"goToNextScene")
-	#Logger.notice.showNotice(self,"welcome","Hi, all")
+	$g_version.text = "V " + String(game_states.current_game_version)
 
 
 func _on_Button2_pressed():

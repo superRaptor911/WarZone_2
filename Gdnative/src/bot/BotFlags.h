@@ -12,6 +12,7 @@ namespace godot
     {
         float scout_start_time = 0.f;
         float evasive_mov_start_time = 0;
+        float leader_srch_start_time = 0.f;
         int evasive_mov_dir = 1;
         Node2D *leader = nullptr;
 

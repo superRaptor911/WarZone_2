@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Menus/MainMenu/Join_menu.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=5]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 [ext_resource path="res://calibrib.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://admob-lib/admob.gd" type="Script" id=8]
 [ext_resource path="res://Menus/resources/dark_w.png" type="Texture" id=9]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -459,9 +458,6 @@ text = "Try Auto Search"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Admob" type="Node" parent="."]
-script = ExtResource( 8 )
 [connection signal="pressed" from="serverInfo/manualIp_btn" to="." method="_on_manualIp_btn_pressed"]
 [connection signal="pressed" from="join_button" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="back_button" to="." method="_on_back_button_pressed"]

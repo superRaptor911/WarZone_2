@@ -13,7 +13,7 @@ func _ready():
 	serverListener.connect("new_server",self,"on_server_found")
 	serverListener.connect("remove_server", self, "on_server_closed")
 	startingTween()
-	$Admob.load_banner()
+	#$Admob.load_banner()
 	MenuManager.connect("back_pressed", self,"_on_back_button_pressed")
 
 func _on_join_fail():
