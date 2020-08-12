@@ -3,8 +3,6 @@ var add_shown = false
 
 func _ready():
 	add_shown = false
-	#$Admob.load_banner()
-	#$Admob.load_interstitial()
 	var map = game_states.last_match_result.map
 	var kills = game_states.last_match_result.kills
 	var deaths = game_states.last_match_result.deaths
@@ -17,6 +15,7 @@ func _ready():
 	game_states.player_data.deaths += deaths
 	
 	MenuManager.connect("back_pressed", self,"_on_Ok_pressed")
+	$AdMob.load_interstitial()
 
 
 func setSummary(map,kills,deaths,cash,xp):
@@ -36,4 +35,5 @@ func _on_Timer_timeout():
 	MenuManager.changeScene("mainMenu")
 
 
-
+func _on_AdMob_interstitial_loaded():
+	$AdMob.show_interstitial()

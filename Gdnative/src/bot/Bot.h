@@ -28,7 +28,6 @@ namespace godot
 		enum class STATE {ROAM, ATTACK, SCOUT, FLEE, FOLLOW, CAMP, BOMB_PLANT, BOMB_DIFF};
 	private:
 
-		void _loadStates();
 	public:
 
 		Navigation2D *nav = nullptr;
@@ -58,6 +57,8 @@ namespace godot
 		void think(float delta);
 		void updateVision();
 		void interpolate_rotation(float delta);
+
+		void on_unit_removed(Node2D *unit);
 		
 		//returns true by given percentage 
 		bool chance(int percentage);
@@ -66,6 +67,7 @@ namespace godot
 		void setGameMode(String gmod);
 		void gamemodeDeathmath();
 		void gamemodeBombing();
+		void gamemodeZm();
 
 		//bombing mode functions
 		void on_new_round_starts();
@@ -79,6 +81,10 @@ namespace godot
 		void dm_roam();
 		void dm_attack();
 		void dm_scout();
+
+		void zm_roam();
+		void zm_followLeader();
+		void zm_attack();
 	};
 
 

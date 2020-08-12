@@ -184,6 +184,18 @@ text = "EXTRAS"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="g_version" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -50.1084
+margin_top = 5.35143
+margin_right = -10.1084
+margin_bottom = 19.3514
+text = "V 1.35"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="VBoxContainer/stats" to="." method="_on_stats_pressed"]
 [connection signal="pressed" from="VBoxContainer/store" to="." method="_on_store_pressed"]

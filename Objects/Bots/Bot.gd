@@ -86,6 +86,8 @@ func _on_player_left_server(plr):
 	#update vision if affected by player disconnection
 	if old_size != _near_bodies.size():
 		_on_VisionTimer_timeout()
+	print("remoing")
+	$Brain.on_unit_removed(plr)
 	
 
 func _on_vision_body_entered(body):
@@ -97,6 +99,7 @@ func _on_vision_body_exited(body):
 		_near_bodies.erase(body)
 
 func _on_VisionTimer_timeout():
+	selected_gun.clip_count = 4
 	brain.visible_enemies.clear()
 	brain.visible_friends.clear()
 	

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=2]
 [ext_resource path="res://Menus/Misc/Summary.gd" type="Script" id=3]
+[ext_resource path="res://admob-lib/admob.gd" type="Script" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -223,4 +224,8 @@ __meta__ = {
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="AdMob" type="Node" parent="."]
+script = ExtResource( 4 )
 [connection signal="pressed" from="Panel/Ok" to="." method="_on_Ok_pressed"]
+[connection signal="interstitial_loaded" from="AdMob" to="." method="_on_AdMob_interstitial_loaded"]

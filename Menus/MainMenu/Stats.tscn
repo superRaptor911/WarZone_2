@@ -238,3 +238,4 @@ is_real = true
 banner_on_top = false
 max_ad_content_rate = "T"
 [connection signal="pressed" from="Panel/back" to="." method="_on_back_pressed"]
+[connection signal="interstitial_loaded" from="AdMob" to="." method="_on_AdMob_interstitial_loaded"]
