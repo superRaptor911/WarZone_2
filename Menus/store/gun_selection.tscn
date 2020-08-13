@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=1]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Sprites/UI/laser.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/UI/mag.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/UI/next_white.png" type="Texture" id=9]
+[ext_resource path="res://admob-lib/admob.gd" type="Script" id=10]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -750,6 +751,11 @@ text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AdMob" type="Node" parent="."]
+script = ExtResource( 10 )
+is_real = true
+interstitial_id = "ca-app-pub-9443221640471166/1978071782"
 [connection signal="pressed" from="primary_gun/prim_laser" to="." method="_on_prim_laser_pressed"]
 [connection signal="pressed" from="primary_gun/prim_clip_ext" to="." method="_on_prim_clip_ext_pressed"]
 [connection signal="pressed" from="sec_gun/sec_laser" to="." method="_on_sec_laser_pressed"]

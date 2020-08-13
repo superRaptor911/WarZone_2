@@ -10,6 +10,8 @@ extends CanvasLayer
 func _ready():
 	initialTween()
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
+	$AdMob.load_interstitial()
+	$AdMob.load_rewarded_video()
 
 
 func _on_back_pressed():
@@ -54,17 +56,18 @@ func initialTween():
 
 
 func _on_cash_pressed():
-	#$Admob.load_rewarded_video()
-	pass
+	$Admob.show_rewarded_video()
 
 
-func _on_Admob_rewarded(_currency, _ammount):
-	game_states.player_data.cash += 200
+func _on_AdMob_interstitial_loaded():
+	$AdMob.show_interstitial()
+
+
+func _on_AdMob_rewarded(currency, ammount):
+	game_states.player_data.cash += 500
 	game_states.savePlayerData()
 	$PopupPanel.popup()
-	
 
 
-func _on_Admob_rewarded_video_loaded():
-	#$Admob.show_rewarded_video()
+func _on_AdMob_rewarded_video_loaded():
 	pass
