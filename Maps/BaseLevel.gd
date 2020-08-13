@@ -40,6 +40,7 @@ var unit_data_dict = {
 var spawned_units_ids = Array()
 
 func _ready():
+	
 	MusicMan.music_player.stop()
 
 	if capture_mod:
