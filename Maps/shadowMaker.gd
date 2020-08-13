@@ -1,6 +1,8 @@
 tool
 extends TileMap
 
+export var force_update = false
+
 var xStartingTiles = Array()
 var yStartingTiles = Array()
 
@@ -13,7 +15,7 @@ var old_height_array = Array()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if Engine.editor_hint:
+	if Engine.editor_hint or force_update:
 		add_child(timer)
 		timer.connect("timeout",self,"_on_timer_timeout")
 		timer.one_shot = false

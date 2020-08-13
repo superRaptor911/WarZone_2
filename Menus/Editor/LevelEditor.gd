@@ -30,6 +30,8 @@ func setupTileset():
 				var id = h_frames * _i + _j
 				var spr = tile.instance()
 				spr.setData(ground_texture, v_frames, h_frames, id)
+				spr.tile_id = i
+				spr.auto_tile_coord = Vector2(_j - beg.x, _i  - beg.y)
 				gridContainer.add_child(spr)
 				spr.connect("got_selected", self, "_on_tile_selected")
 	
@@ -50,6 +52,9 @@ func setupTileset():
 				var id = h_frames * _i + _j
 				var spr = tile.instance()
 				spr.setData(ground_texture, v_frames, h_frames, id)
+				spr.tile_id = i
+				spr.auto_tile_coord = Vector2((_j - beg.x) , (_i - beg.y))
+				spr.is_Wall = true
 				gridContainer.add_child(spr)
 				spr.connect("got_selected", self, "_on_tile_selected")
 

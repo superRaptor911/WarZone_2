@@ -1,5 +1,9 @@
 extends Control
 
+var is_Wall = false
+var tile_id = 0
+var auto_tile_coord = Vector2(0,0)
+
 signal got_selected(tile)
 
 func setData(tex : Texture, vframes, hframes, frame):
