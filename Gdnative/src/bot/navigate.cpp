@@ -4,11 +4,11 @@
 #include <TileMap.hpp>
 using namespace godot;
 
-navigate::navigate(Node2D *par, Navigation2D *nav, Bot *bot)
+navigate::navigate(Node2D *par, Bot *bot)
 {
     _parent = par;
-    _nav = nav;
     _bot = bot;
+    _level = bot->get_tree()->get_nodes_in_group("Level")[0];
     _rays.push_back(static_cast<RayCast2D *>(_parent->get_node("RayCast_up")));
     _rays.push_back(static_cast<RayCast2D *>(_parent->get_node("RayCast_down")));
     _rays.push_back(static_cast<RayCast2D *>(_parent->get_node("RayCast_left")));
@@ -33,7 +33,7 @@ void navigate::addPlace(const Vector2 &place)
     if (!_places.empty())
         _places.top().has_path_to_destination = false;
     
-    _places.push(Destination(_parent,_bot,_nav,place));
+    _places.push(Destination(_parent,_bot, _level, place));
     on_final_destination = false;
 }
 
@@ -94,7 +94,7 @@ void navigate::followLeader()
 void navigate::getRandomLocation()
 {
     Vector2 random_position = Vector2(rand() % (int)world_size.x, rand() % (int)world_size.y);
-    random_position = _nav->get_closest_point(random_position);
+    random_position = static_cast<Vector2>(_level->call("getNearestPoint", random_position));
     addPlace(random_position);
 }
 

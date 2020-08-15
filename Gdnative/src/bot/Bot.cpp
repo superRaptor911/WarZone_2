@@ -45,15 +45,9 @@ void Bot::_ready()
 {
 	//set parent
 	_parent = static_cast<KinematicBody2D *> (get_parent());
+	_level = get_tree()->get_nodes_in_group("Level")[0];
 
-	//get navigation
-	Array arr = get_tree()->get_nodes_in_group("Nav");
-	if (!arr.empty())
-		nav = arr[0];
-	else
-		DEBUG_PRINT("Error::Unable_to_get_navigation2D");
-	
-	navigation_state = std::make_unique<navigate>(_parent, nav, this);
+	navigation_state = std::make_unique<navigate>(_parent, this);
 	attack_state = std::make_unique<Attack>(_parent, this);
 	team_id = static_cast<int>(static_cast<Node *>(_parent->get("team"))->get("team_id"));
 	
@@ -335,7 +329,7 @@ void Bot::dm_scout()
 		Vector2 rand_pos = Vector2(2.0 * rot_pos.x * (rand() % 100) / 100.0 - rot_pos.x, 
 									2.0 * rot_pos.y * (rand() % 100) / 100.0 - rot_pos.y);
 		
-		Vector2 pos = nav->get_closest_point(_parent->get_position() + rand_pos);
+		Vector2 pos =  static_cast<Vector2>(_level->call("getNearestPoint", _parent->get_position() + rand_pos));
 		navigation_state->addPlace(pos);
 	}
 	// Enemy spotted
@@ -655,7 +649,7 @@ void Bot::gamemodeBombing()
 			Vector2 rand_pos = Vector2(2.0 * rot_pos.x * (rand() % 100) / 100.0 - rot_pos.x, 
 									   2.0 * rot_pos.y * (rand() % 100) / 100.0 - rot_pos.y);
 			
-			Vector2 pos = nav->get_closest_point(_parent->get_position() + rand_pos);
+			Vector2 pos =  static_cast<Vector2>(_level->call("getNearestPoint", _parent->get_position() + rand_pos));
 			navigation_state->addPlace(pos);
 		}
 		if (!visible_enemies.empty())

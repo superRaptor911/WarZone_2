@@ -21,8 +21,8 @@ namespace godot
     private:
 
         Node2D *_parent;
-        Navigation2D *_nav;
         Bot *_bot;
+        Node *_level;
         std::vector<RayCast2D *> _rays;
         std::stack<Destination> _places;
 
@@ -42,7 +42,7 @@ namespace godot
         
     public:
 
-        navigate(Node2D *par, Navigation2D *nav, Bot *bot);
+        navigate(Node2D *par, Bot *bot);
        
         //add a new location to visit.
         void addPlace(const Vector2 &place);

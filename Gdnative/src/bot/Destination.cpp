@@ -5,12 +5,12 @@
 #include <Bot.h>
 using namespace godot;
 
-Destination::Destination(Node2D *par,Bot *bot, Navigation2D *nav, const Vector2 &dest)
+Destination::Destination(Node2D *par,Bot *bot, Node *level, const Vector2 &dest)
 {
     _parent = par;
-    _nav = nav;
     dest_pos = dest;
     _bot = bot;
+    _level = level;
 }
     
 Destination::~Destination()
@@ -24,7 +24,8 @@ void Destination::getPathToDestination()
     if(game_states->call("is_Astar_ready"))
     {
         has_path_to_destination = true;
-        path = _nav->get_simple_path(_parent->get_position(), dest_pos);
+        //path = _nav->get_simple_path(_parent->get_position(), dest_pos);
+        path = static_cast<PoolVector2Array>(_level->call("getPath", _parent->get_position(), dest_pos));
         _cur_node_id = 0;
         #ifdef DEBUG_MODE
             Godot::print("getting path");

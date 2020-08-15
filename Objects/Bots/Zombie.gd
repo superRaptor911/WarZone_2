@@ -6,7 +6,7 @@ var path_to_dest = PoolVector2Array()
 var cur_path_id = 0
 var target_visible = false
 var is_server = false
-var nav : Navigation2D
+var level
 
 func _ready():
 	var teams = get_tree().get_nodes_in_group("Team")
@@ -26,13 +26,7 @@ func _ready():
 	
 	if get_tree().is_network_server():
 		is_server = true
-		var navs = get_tree().get_nodes_in_group("Nav")
-		if navs.size() == 1:
-			nav = navs[0]
-		else:
-			Logger.LogError("_ready of zombie", "Problem with Navigation")
-			print("Error at zombie")
-		
+		level = get_tree().get_nodes_in_group("Level")[0]
 		$navTimer.wait_time += rand_range(-0.5, 0.6)
 		$navTimer.start()
 		connect("char_killed", self, "S_on_killed")
@@ -73,7 +67,7 @@ func getPathToTarget():
 	var tar = game_server._unit_data_list.get(target_id)
 	if tar:
 		if game_states.is_Astar_ready():
-			path_to_dest = nav.get_simple_path(position, tar.ref.position)
+			path_to_dest = level.getPath(position, tar.ref.position)
 			cur_path_id = 0
 
 func isTargetVisible(T) -> bool:
