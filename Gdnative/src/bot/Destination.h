@@ -16,7 +16,7 @@ namespace godot
     private:
     
         Node2D *_parent;
-        Navigation2D *_nav;
+        Node *_level;
         Bot *_bot;
         int _cur_node_id {0};
         Vector2 _old_pos;
@@ -33,7 +33,7 @@ namespace godot
         const float max_displacement_limit = 64.f;
 
     public:
-        Destination(Node2D *_par,Bot *bot, Navigation2D *nav, const Vector2 &dest);
+        Destination(Node2D *_par,Bot *bot, Node *level, const Vector2 &dest);
         void getPathToDestination();
         void traverse();
         ~Destination();

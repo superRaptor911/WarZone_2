@@ -27,6 +27,7 @@ func _on_timer_timeout():
 		clearShadows()
 		getWalls()
 		createShadows()
+		modifyBaseMap()
 		print("updated shadow map")
 
 
@@ -109,3 +110,8 @@ func createShadows():
 			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(1,1))
 		elif height_tileset.get_cell(i.x,i.y + 1) == -1:
 			shadow_tileset.set_cell(i.x,i.y + 1,0,false,false,false,Vector2(0,0))
+
+
+func modifyBaseMap():
+	for i in old_height_array:
+		set_cellv(i,-1)

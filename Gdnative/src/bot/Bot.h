@@ -20,6 +20,7 @@ namespace godot
 	private:
 
 		Node2D *_parent = nullptr;
+		Node   *_level;
 		int team_id = 0;
 		std::unique_ptr<navigate> navigation_state;
 		std::unique_ptr<Attack> attack_state;
@@ -30,7 +31,6 @@ namespace godot
 
 	public:
 
-		Navigation2D *nav = nullptr;
 		Array visible_enemies;
 		Array visible_friends;
 
