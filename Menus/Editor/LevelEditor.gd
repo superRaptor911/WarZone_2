@@ -6,6 +6,8 @@ var wall_tileset : TileSet = preload("res://Sprites/Tilesets/dust_height.tres")
 
 var cur_tileset : TileSet
 
+enum TOOLS {PEN, AREA, RUBBER}
+var current_tool = TOOLS.PEN
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -78,4 +80,4 @@ func _on_Joystick_Joystick_Updated(vector):
 
 
 func _process(delta):
-	camera.position += -joystick.joystick_vector * 200 * delta
+	camera.position += -joystick.joystick_vector * 400 * delta

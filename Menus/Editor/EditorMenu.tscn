@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Menus/Editor/EditorMenu.gd" type="Script" id=2]
+
+[node name="EditorMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 0.111
+anchor_top = 0.115
+anchor_right = 0.889
+anchor_bottom = 0.885
+margin_left = -0.0800171
+margin_top = 0.199997
+margin_right = 0.0799561
+margin_bottom = -0.200012
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 989.0
+margin_bottom = 547.0
+
+[node name="mapList" type="ItemList" parent="PanelContainer/Panel"]
+anchor_left = 0.051
+anchor_top = 0.152
+anchor_right = 0.949
+anchor_bottom = 0.848
+margin_left = 0.430019
+margin_top = 0.103989
+margin_right = -0.430054
+margin_bottom = -0.104004
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PanelContainer/Panel"]
+anchor_left = 0.409
+anchor_right = 0.591
+anchor_bottom = 0.069
+margin_left = 0.362
+margin_right = -0.362
+margin_bottom = -0.260002
+custom_fonts/font = ExtResource( 1 )
+text = "Your Maps"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="edit" type="Button" parent="PanelContainer/Panel"]
+anchor_left = 0.8
+anchor_top = 0.888
+anchor_right = 0.965
+anchor_bottom = 0.967
+margin_left = 0.465698
+margin_top = -0.269623
+margin_right = 0.43573
+margin_bottom = 0.0703735
+custom_fonts/font = ExtResource( 1 )
+text = "EDIT MAP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="create" type="Button" parent="PanelContainer/Panel"]
+anchor_left = 0.57
+anchor_top = 0.888
+anchor_right = 0.751
+anchor_bottom = 0.967
+margin_left = 0.376343
+margin_top = -0.269623
+margin_right = -15.3657
+margin_bottom = 0.0703735
+custom_fonts/font = ExtResource( 1 )
+text = "Create Map"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="PanelContainer/Panel/create" to="." method="_on_create_pressed"]
