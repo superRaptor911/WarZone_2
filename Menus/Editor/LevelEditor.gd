@@ -20,6 +20,8 @@ var current_tool = TOOLS.PEN
 func _ready():
 	$UILayer/TileTabContainer/tileset.select(0)
 	_on_tileset_item_selected(0)
+	$UILayer/SettingsContainer/Options/mapName.text = game_server.serverInfo.map
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 
 static func delete_children(node):
 	for n in node.get_children():
@@ -130,3 +132,10 @@ func _on_mapSize_text_entered(new_text):
 			print(strings[0],",",strings[1])
 	$UILayer/SettingsContainer/Options/mapSize.text = String(map_size.x) + "x" + String(map_size.y)
 		
+
+func _on_back_pressed():
+	Logger.notice.showNotice($UILayer, "Map Saved", 
+			"Your Map Was Saved", 
+			Color.red)
+	yield(get_tree().create_timer(2), "timeout")
+	MenuManager.changeScene("EMS/LevelEditorMenu")

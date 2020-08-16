@@ -27,29 +27,19 @@ func _on_ok_btn_pressed():
 
 
 func getMapNames():
-	var map_dir_exist = false
 	var dir = Directory.new()
-	dir.open("user://")
-	
-	dir.list_dir_begin()
-	var file_name = dir.get_next()
-	while file_name != "":
-		if dir.current_is_dir() and file_name == map_dir_name:
-			map_dir_exist = true
-			break
-	
-	if not map_dir_exist:
-		dir.make_dir(map_dir_name)
+	dir.make_dir("user://" + map_dir_name)
 	
 	dir.open("user://" + map_dir_name)
 	dir.list_dir_begin()
-	file_name = dir.get_next()
+	var file_name = dir.get_next()
 	
 	while file_name != "":
-		if not dir.current_is_dir():
+		if not dir.current_is_dir() and file_name.get_extension() == "map":
 			mapList.add_item(file_name)
+		file_name = dir.get_next()
 
 
 
 func _on_mapList_item_selected(index):
-	mapList.get_item_at_position(index)
+	mapList.get_item_at_position(Vector2(0,index))
