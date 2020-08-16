@@ -1,0 +1,87 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=2]
+[ext_resource path="res://Menus/Editor/LevelEditorMenu.gd" type="Script" id=3]
+
+[node name="LevelEditorMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 0.175
+anchor_top = 0.09
+anchor_right = 0.825
+anchor_bottom = 0.91
+margin_left = 0.499985
+margin_top = 0.199997
+margin_right = -0.5
+margin_bottom = -0.200012
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 824.0
+margin_bottom = 583.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Panel"]
+anchor_left = 0.161
+anchor_top = 0.269
+anchor_right = 0.839
+anchor_bottom = 0.731
+margin_left = -0.114014
+margin_top = -0.029007
+margin_right = 0.113953
+margin_bottom = 0.0289917
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mapEditor" type="Button" parent="PanelContainer/Panel/VBoxContainer"]
+margin_right = 554.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = ExtResource( 1 )
+text = "MAP EDITOR"
+
+[node name="SpawnEditor" type="Button" parent="PanelContainer/Panel/VBoxContainer"]
+margin_top = 100.0
+margin_right = 554.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = ExtResource( 1 )
+text = "SPAWN EDITOR"
+
+[node name="ObjectEditor" type="Button" parent="PanelContainer/Panel/VBoxContainer"]
+margin_top = 200.0
+margin_right = 554.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = ExtResource( 1 )
+disabled = true
+text = "OBJECT EDITOR(SOON)"
+
+[node name="Button" type="Button" parent="PanelContainer/Panel"]
+margin_left = 548.0
+margin_top = 479.0
+margin_right = 699.0
+margin_bottom = 537.0
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "BACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="PanelContainer/Panel/VBoxContainer/mapEditor" to="." method="_on_mapEditor_pressed"]

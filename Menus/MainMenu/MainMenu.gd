@@ -69,4 +69,4 @@ func _on_extras_pressed():
 
 func _on_lev_edit_pressed():
 	MusicMan.click()
-	MenuManager.changeScene("levelEditor")
+	MenuManager.changeScene("EditorMapSelector")

@@ -95,16 +95,16 @@ func _on_minimap_update_timer_timeout():
 func _draw():
 	if draw_grid:
 		var LINE_COLOR = Color(255, 255, 255)
-		var LINE_WIDTH = 2
-		var window_size = OS.get_window_size()
+		var LINE_WIDTH = 1
+		#var window_size = OS.get_window_size()
 	
-		for x in range(size.x / 64 * repeat_factor):
+		for x in range(editor.map_size.x + 1):
 			var col_pos = x * 64
-			var limit = size.y * repeat_factor
+			var limit = editor.map_size.y * 64
 			draw_line(Vector2(col_pos, 0), Vector2(col_pos, limit), LINE_COLOR, LINE_WIDTH)
-		for y in range(size.y / 64 * repeat_factor):
+		for y in range(editor.map_size.y + 1):
 			var row_pos = y * 64
-			var limit = size.x * repeat_factor
+			var limit = editor.map_size.x * 64
 			draw_line(Vector2(0, row_pos), Vector2(limit, row_pos), LINE_COLOR, LINE_WIDTH)
 	
 	if draw_selection_rect:
@@ -121,7 +121,7 @@ func _draw():
 		else:
 			pos.y += 64
 
-		var size = (end - pos)
-		var rect = Rect2(pos, size)
+		var rectSize = (end - pos)
+		var rect = Rect2(pos, rectSize)
 		draw_rect(rect,Color8(21,38,217,108))
 		
