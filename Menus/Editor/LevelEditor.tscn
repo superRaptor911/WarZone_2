@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Menus/Editor/LevelEditor.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Tilesets/dust_height.tres" type="TileSet" id=2]
@@ -7,6 +7,17 @@
 [ext_resource path="res://Maps/shadowMaker.gd" type="Script" id=5]
 [ext_resource path="res://Menus/Editor/Map.gd" type="Script" id=6]
 [ext_resource path="res://Sprites/Tilesets/dust_base.tres" type="TileSet" id=7]
+[ext_resource path="res://Fonts/ARIALBD.TTF" type="DynamicFontData" id=8]
+[ext_resource path="res://Menus/Editor/SettingsContainer.gd" type="Script" id=9]
+[ext_resource path="res://Menus/Editor/icons8-pencil-52.png" type="Texture" id=10]
+[ext_resource path="res://Menus/Editor/rect.png" type="Texture" id=11]
+[ext_resource path="res://Menus/Editor/eraser.png" type="Texture" id=12]
+[ext_resource path="res://Menus/Editor/toolsContainer.gd" type="Script" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+use_filter = true
+font_data = ExtResource( 8 )
 
 [node name="LevelEditor" type="Control"]
 script = ExtResource( 1 )
@@ -19,9 +30,11 @@ __meta__ = {
 [node name="TileTabContainer" type="TabContainer" parent="UILayer"]
 anchor_right = 0.22
 anchor_bottom = 1.001
+margin_top = 214.0
 margin_right = 0.399994
 margin_bottom = 0.279968
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -48,12 +61,225 @@ margin_bottom = -4.0
 [node name="grid" type="GridContainer" parent="UILayer/TileTabContainer/Walls"]
 columns = 4
 
+[node name="SettingsContainer" type="TabContainer" parent="UILayer"]
+anchor_top = 0.009
+anchor_right = 0.219
+anchor_bottom = 0.282
+margin_left = 1.0
+margin_top = 0.52
+margin_right = -0.320007
+margin_bottom = -0.0400085
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Editor" type="Panel" parent="UILayer/SettingsContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="drawGrid" type="CheckButton" parent="UILayer/SettingsContainer/Editor"]
+anchor_left = 0.011
+anchor_top = 0.036
+anchor_right = 0.967
+anchor_bottom = 0.28
+margin_left = -0.0189779
+margin_top = 0.042037
+margin_right = -0.0509949
+margin_bottom = 0.0260353
+rect_min_size = Vector2( 260, 40 )
+custom_fonts/font = SubResource( 1 )
+pressed = true
+text = "Draw Grid"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="zslider" type="HSlider" parent="UILayer/SettingsContainer/Editor"]
+anchor_left = 0.063
+anchor_top = 0.685
+anchor_right = 0.912
+anchor_bottom = 0.959
+margin_left = -0.135002
+margin_top = 0.0310898
+margin_right = -0.0640106
+margin_bottom = 0.0791016
+min_value = 0.25
+max_value = 4.0
+step = 0.25
+value = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UILayer/SettingsContainer/Editor/zslider"]
+anchor_left = 0.391
+anchor_top = -0.391
+anchor_right = 0.611
+anchor_bottom = 0.091
+margin_left = 0.0113373
+margin_top = 0.160213
+margin_right = 0.378342
+margin_bottom = 0.00619102
+custom_fonts/font = SubResource( 1 )
+text = "Zoom"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="clear" type="Button" parent="UILayer/SettingsContainer/Editor"]
+anchor_left = 0.731
+anchor_top = 0.325
+anchor_right = 0.941
+anchor_bottom = 0.494
+margin_left = -0.100998
+margin_top = -3.8147e-06
+margin_right = -3.01102
+margin_bottom = -2.04
+custom_fonts/font = SubResource( 1 )
+text = "Clear"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UILayer/SettingsContainer/Editor/clear"]
+anchor_left = -3.324
+anchor_top = 0.125
+anchor_right = -1.236
+anchor_bottom = 1.0
+margin_left = -0.0124817
+margin_top = -0.00761414
+margin_right = -0.0284805
+margin_bottom = -2.63261
+custom_fonts/font = SubResource( 1 )
+text = "Clear All Tiles"
+
 [node name="Joystick" parent="UILayer" instance=ExtResource( 3 )]
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = -252.0
+margin_top = -221.0
 margin_right = 0.0
+margin_bottom = 0.0
 radius = 80.0
+
+[node name="minimap" type="TextureRect" parent="UILayer"]
+self_modulate = Color( 1, 1, 1, 0.721569 )
+anchor_left = 0.75
+anchor_right = 1.0
+anchor_bottom = 0.319
+margin_left = -6.10352e-05
+margin_bottom = 0.320007
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="toolsContainer" type="PanelContainer" parent="UILayer"]
+anchor_left = 0.417
+anchor_top = 0.016
+anchor_right = 0.583
+anchor_bottom = 0.106
+margin_left = -0.26001
+margin_top = -0.193508
+margin_right = 0.26001
+margin_bottom = 0.00648499
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tools" type="Panel" parent="UILayer/toolsContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 206.0
+margin_bottom = 58.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/toolsContainer/tools"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = -20.0
+margin_right = 80.0
+margin_bottom = 20.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="pen" type="TextureButton" parent="UILayer/toolsContainer/tools/HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture_normal = ExtResource( 10 )
+expand = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/toolsContainer/tools/HBoxContainer/pen"]
+modulate = Color( 0, 0.768627, 0.972549, 0.431373 )
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="area" type="TextureButton" parent="UILayer/toolsContainer/tools/HBoxContainer"]
+margin_left = 60.0
+margin_right = 100.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture_normal = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/toolsContainer/tools/HBoxContainer/area"]
+visible = false
+modulate = Color( 0, 0.768627, 0.972549, 0.431373 )
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rubber" type="TextureButton" parent="UILayer/toolsContainer/tools/HBoxContainer"]
+margin_left = 120.0
+margin_right = 160.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture_normal = ExtResource( 12 )
+expand = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/toolsContainer/tools/HBoxContainer/rubber"]
+visible = false
+modulate = Color( 0, 0.768627, 0.972549, 0.431373 )
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Map" type="Node2D" parent="."]
 z_index = -4
@@ -82,3 +308,25 @@ tile_data = PoolIntArray( -65405926, 0, 196609, -65340391, 0, 0, -65340390, 0, 1
 [node name="Camera2D" type="Camera2D" parent="Map"]
 anchor_mode = 0
 current = true
+
+[node name="Viewport" type="Viewport" parent="Map"]
+size = Vector2( 1280, 920 )
+handle_input_locally = false
+usage = 0
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="Map/Viewport"]
+anchor_mode = 0
+current = true
+
+[node name="minimap_update_timer" type="Timer" parent="Map"]
+wait_time = 6.0
+autostart = true
+[connection signal="toggled" from="UILayer/SettingsContainer/Editor/drawGrid" to="UILayer/SettingsContainer" method="_on_drawGrid_toggled"]
+[connection signal="value_changed" from="UILayer/SettingsContainer/Editor/zslider" to="UILayer/SettingsContainer" method="_on_zslider_value_changed"]
+[connection signal="pressed" from="UILayer/SettingsContainer/Editor/clear" to="UILayer/SettingsContainer" method="_on_clear_pressed"]
+[connection signal="pressed" from="UILayer/toolsContainer/tools/HBoxContainer/pen" to="UILayer/toolsContainer" method="_on_pen_pressed"]
+[connection signal="pressed" from="UILayer/toolsContainer/tools/HBoxContainer/area" to="UILayer/toolsContainer" method="_on_area_pressed"]
+[connection signal="pressed" from="UILayer/toolsContainer/tools/HBoxContainer/rubber" to="UILayer/toolsContainer" method="_on_rubber_pressed"]
+[connection signal="timeout" from="Map/minimap_update_timer" to="Map" method="_on_minimap_update_timer_timeout"]

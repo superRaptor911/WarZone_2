@@ -65,3 +65,8 @@ func tweenTransition():
 func _on_extras_pressed():
 	MusicMan.click()
 	MenuManager.changeScene("extras")
+
+
+func _on_lev_edit_pressed():
+	MusicMan.click()
+	MenuManager.changeScene("levelEditor")
