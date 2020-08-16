@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Menus/Editor/EditorMenu.gd" type="Script" id=2]
+[ext_resource path="res://Menus/Editor/EditorMapSelector.gd" type="Script" id=2]
 
-[node name="EditorMenu" type="Control"]
+[node name="EditorMapSelector" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
@@ -86,4 +86,70 @@ text = "Create Map"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="createMenu" type="PanelContainer" parent="."]
+visible = false
+anchor_left = 0.246
+anchor_top = 0.302
+anchor_right = 0.754
+anchor_bottom = 0.698
+margin_left = 0.619995
+margin_top = 0.0599823
+margin_right = -0.619995
+margin_bottom = -0.0599976
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="createMenu"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 642.0
+margin_bottom = 278.0
+
+[node name="LineEdit" type="LineEdit" parent="createMenu/Panel"]
+anchor_left = 0.137
+anchor_top = 0.395
+anchor_right = 0.863
+anchor_bottom = 0.605
+margin_left = 0.00499725
+margin_top = -0.0450058
+margin_right = -0.00500488
+margin_bottom = 0.0449982
+custom_fonts/font = ExtResource( 1 )
+text = "No_name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="createMenu/Panel"]
+anchor_left = 0.363
+anchor_right = 0.637
+anchor_bottom = 0.137
+margin_left = -0.00500488
+margin_right = 0.00497437
+margin_bottom = -0.127003
+custom_fonts/font = ExtResource( 1 )
+text = "MAP NAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ok_btn" type="Button" parent="createMenu/Panel"]
+anchor_left = 0.458
+anchor_top = 0.716
+anchor_right = 0.584
+anchor_bottom = 0.915
+margin_left = 0.169983
+margin_top = -0.0360107
+margin_right = 0.159973
+margin_bottom = 0.0349884
+custom_fonts/font = ExtResource( 1 )
+text = "OK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="item_selected" from="PanelContainer/Panel/mapList" to="." method="_on_mapList_item_selected"]
 [connection signal="pressed" from="PanelContainer/Panel/create" to="." method="_on_create_pressed"]
+[connection signal="pressed" from="createMenu/Panel/ok_btn" to="." method="_on_ok_btn_pressed"]

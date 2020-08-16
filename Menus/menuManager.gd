@@ -26,7 +26,7 @@ func loadMenu():
 	addMenu("stats","res://Menus/MainMenu/Stats.tscn")
 	addMenu("summary","res://Menus/Misc/Summary.tscn")
 	addMenu("extras", "res://Menus/MainMenu/ExtrasMenu.tscn")
-	addMenu("levelEditor","res://Menus/Editor/LevelEditor.tscn")
+	addMenu("EditorMapSelector","res://Menus/Editor/EditorMapSelector.tscn")
 	
 	
 	#sub menu of store menu
@@ -40,6 +40,10 @@ func loadMenu():
 	
 	#sub menu of settings
 	addMenu("set/logViewer", "res://Menus/Misc/LogViewer.tscn")
+	
+	#Sub menu of Editor map selector
+	addMenu("EMS/LevelEditorMenu","res://Menus/Editor/LevelEditorMenu.tscn")
+	addMenu("EMS/LEM/LevelEditor", "res://Menus/Editor/LevelEditor.tscn")
 	
 	finishLoading()
 

@@ -6,18 +6,31 @@ var wall_tileset : TileSet = preload("res://Sprites/Tilesets/dust_height.tres")
 
 var cur_tileset : TileSet
 
+var tilesets = [
+	{g = preload("res://Sprites/Tilesets/dust_base.tres"), w = preload("res://Sprites/Tilesets/dust_height.tres")},
+	{g = preload("res://Sprites/Tilesets/ground_dark.tres"), w = preload("res://Sprites/Tilesets/height.tres")}
+]
+
+var map_size = Vector2(64,64)
+
 enum TOOLS {PEN, AREA, RUBBER}
 var current_tool = TOOLS.PEN
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	setupTileset()
+	$UILayer/TileTabContainer/tileset.select(0)
+	_on_tileset_item_selected(0)
+
+static func delete_children(node):
+	for n in node.get_children():
+		n.queue_free()
 
 # Function to load/set tileset
 func setupTileset():
 	cur_tileset = ground_tileset
 	var tileAtalas = cur_tileset.get_tiles_ids()
 	var gridContainer = $UILayer/TileTabContainer/ground/grid
+	delete_children(gridContainer)
 	
 	for i in tileAtalas:
 		var ground_texture = cur_tileset.tile_get_texture(i)
@@ -40,6 +53,7 @@ func setupTileset():
 	cur_tileset = wall_tileset
 	tileAtalas = cur_tileset.get_tiles_ids()
 	gridContainer = $UILayer/TileTabContainer/Walls/grid
+	delete_children(gridContainer)
 	
 	for i in tileAtalas:
 		var ground_texture = cur_tileset.tile_get_texture(i)
@@ -81,3 +95,38 @@ func _on_Joystick_Joystick_Updated(vector):
 
 func _process(delta):
 	camera.position += -joystick.joystick_vector * 400 * delta
+
+var notice_shown = false
+
+func _on_tileset_item_selected(index):
+	ground_tileset = tilesets[index].g
+	wall_tileset = tilesets[index].w
+	setupTileset()
+	if index != 0 and not notice_shown:
+		Logger.notice.showNotice($UILayer, "Warning !", 
+			"Changing tileset without clearing previous tiles may cause undesired effects.", 
+			Color.red)
+		notice_shown = true
+		
+	
+	$Map/BaseMap.tile_set = ground_tileset
+	$Map/BaseMap/height.tile_set = wall_tileset
+
+
+
+func _on_mapName_text_changed(new_text):
+	game_server.serverInfo.map = new_text
+
+
+func _on_mapSize_text_entered(new_text):
+	var strings = new_text.split("x")
+	if strings.size() == 2:
+		strings[0].erase(strings[0].length() - 1, 1)
+		if strings[0].is_valid_integer() and strings[1].is_valid_integer():
+			map_size = Vector2(int(strings[0]), int(strings[1]))
+			$Map.update()
+			return
+		else:
+			print(strings[0],",",strings[1])
+	$UILayer/SettingsContainer/Options/mapSize.text = String(map_size.x) + "x" + String(map_size.y)
+		

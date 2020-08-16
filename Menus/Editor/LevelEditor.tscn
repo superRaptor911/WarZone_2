@@ -1,23 +1,28 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Menus/Editor/LevelEditor.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Tilesets/dust_height.tres" type="TileSet" id=2]
+[ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://controls/JoyStickx.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Sprites/Tilesets/shadows.tres" type="TileSet" id=4]
 [ext_resource path="res://Maps/shadowMaker.gd" type="Script" id=5]
 [ext_resource path="res://Menus/Editor/Map.gd" type="Script" id=6]
-[ext_resource path="res://Sprites/Tilesets/dust_base.tres" type="TileSet" id=7]
 [ext_resource path="res://Fonts/ARIALBD.TTF" type="DynamicFontData" id=8]
 [ext_resource path="res://Menus/Editor/SettingsContainer.gd" type="Script" id=9]
 [ext_resource path="res://Menus/Editor/icons8-pencil-52.png" type="Texture" id=10]
 [ext_resource path="res://Menus/Editor/rect.png" type="Texture" id=11]
 [ext_resource path="res://Menus/Editor/eraser.png" type="Texture" id=12]
 [ext_resource path="res://Menus/Editor/toolsContainer.gd" type="Script" id=13]
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 18
 use_filter = true
 font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
 
 [node name="LevelEditor" type="Control"]
 script = ExtResource( 1 )
@@ -38,7 +43,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="tileset" type="ItemList" parent="UILayer/TileTabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_fonts/font = ExtResource( 14 )
+items = [ "Dust", null, false, "Facility", null, false ]
+
 [node name="ground" type="ScrollContainer" parent="UILayer/TileTabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -62,16 +78,17 @@ margin_bottom = -4.0
 columns = 4
 
 [node name="SettingsContainer" type="TabContainer" parent="UILayer"]
-anchor_top = 0.009
+anchor_left = 0.001
+anchor_top = 0.01
 anchor_right = 0.219
 anchor_bottom = 0.282
-margin_left = 1.0
-margin_top = 0.52
+margin_left = -0.28
+margin_top = -0.2
 margin_right = -0.320007
 margin_bottom = -0.0400085
 script = ExtResource( 9 )
 __meta__ = {
-"_edit_group_": true,
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -82,6 +99,7 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+rect_min_size = Vector2( 271, 160 )
 
 [node name="drawGrid" type="CheckButton" parent="UILayer/SettingsContainer/Editor"]
 anchor_left = 0.011
@@ -159,6 +177,74 @@ margin_bottom = -2.63261
 custom_fonts/font = SubResource( 1 )
 text = "Clear All Tiles"
 
+[node name="Options" type="Panel" parent="UILayer/SettingsContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+rect_min_size = Vector2( 271, 160 )
+
+[node name="mapName" type="LineEdit" parent="UILayer/SettingsContainer/Options"]
+anchor_left = 0.421
+anchor_top = 0.125
+anchor_right = 0.956
+anchor_bottom = 0.319
+margin_left = -0.0752029
+margin_top = -0.0293884
+margin_right = -0.0602112
+margin_bottom = -0.0693893
+custom_fonts/font = SubResource( 2 )
+text = "dust2"
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UILayer/SettingsContainer/Options/mapName"]
+anchor_left = -0.713
+anchor_top = 0.129
+anchor_right = -0.107
+anchor_bottom = 0.807
+margin_left = -0.0650635
+margin_top = 0.00551629
+margin_right = 0.0649281
+margin_bottom = -0.0124855
+custom_fonts/font = SubResource( 2 )
+text = "Map Name"
+
+[node name="mapSize" type="LineEdit" parent="UILayer/SettingsContainer/Options"]
+anchor_left = 0.421
+anchor_top = 0.125
+anchor_right = 0.956
+anchor_bottom = 0.319
+margin_left = -0.0752029
+margin_top = 59.0
+margin_right = -0.0602112
+margin_bottom = 58.96
+custom_fonts/font = SubResource( 2 )
+text = "64x64"
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UILayer/SettingsContainer/Options/mapSize"]
+anchor_left = -0.713
+anchor_top = 0.129
+anchor_right = -0.107
+anchor_bottom = 0.807
+margin_left = -0.0650635
+margin_top = 0.00551629
+margin_right = 0.0649281
+margin_bottom = -0.0124855
+custom_fonts/font = SubResource( 2 )
+text = "Map size"
+
 [node name="Joystick" parent="UILayer" instance=ExtResource( 3 )]
 anchor_left = 1.0
 anchor_top = 1.0
@@ -193,6 +279,7 @@ margin_right = 0.26001
 margin_bottom = 0.00648499
 script = ExtResource( 13 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -287,7 +374,6 @@ script = ExtResource( 6 )
 
 [node name="BaseMap" type="TileMap" parent="Map"]
 z_index = -1
-tile_set = ExtResource( 7 )
 cell_quadrant_size = 4
 format = 1
 script = ExtResource( 5 )
@@ -295,7 +381,6 @@ force_update = true
 
 [node name="height" type="TileMap" parent="Map/BaseMap"]
 z_index = 4
-tile_set = ExtResource( 2 )
 cell_quadrant_size = 4
 format = 1
 
@@ -323,9 +408,12 @@ current = true
 [node name="minimap_update_timer" type="Timer" parent="Map"]
 wait_time = 6.0
 autostart = true
+[connection signal="item_selected" from="UILayer/TileTabContainer/tileset" to="." method="_on_tileset_item_selected"]
 [connection signal="toggled" from="UILayer/SettingsContainer/Editor/drawGrid" to="UILayer/SettingsContainer" method="_on_drawGrid_toggled"]
 [connection signal="value_changed" from="UILayer/SettingsContainer/Editor/zslider" to="UILayer/SettingsContainer" method="_on_zslider_value_changed"]
 [connection signal="pressed" from="UILayer/SettingsContainer/Editor/clear" to="UILayer/SettingsContainer" method="_on_clear_pressed"]
+[connection signal="text_changed" from="UILayer/SettingsContainer/Options/mapName" to="." method="_on_mapName_text_changed"]
+[connection signal="text_entered" from="UILayer/SettingsContainer/Options/mapSize" to="." method="_on_mapSize_text_entered"]
 [connection signal="pressed" from="UILayer/toolsContainer/tools/HBoxContainer/pen" to="UILayer/toolsContainer" method="_on_pen_pressed"]
 [connection signal="pressed" from="UILayer/toolsContainer/tools/HBoxContainer/area" to="UILayer/toolsContainer" method="_on_area_pressed"]
 [connection signal="pressed" from="UILayer/toolsContainer/tools/HBoxContainer/rubber" to="UILayer/toolsContainer" method="_on_rubber_pressed"]
