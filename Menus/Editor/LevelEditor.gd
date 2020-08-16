@@ -131,11 +131,37 @@ func _on_mapSize_text_entered(new_text):
 		else:
 			print(strings[0],",",strings[1])
 	$UILayer/SettingsContainer/Options/mapSize.text = String(map_size.x) + "x" + String(map_size.y)
+
+
+func loadMap():
+	var file = File.new()
+	if file.file_exists("user://custom_maps/maps/" + game_server.serverInfo.map + ".tscn"):
+		var base_map = $Map/BaseMap
+		$Map.remove_child(base_map)
+		base_map.queue_free()
+		base_map = load("user://custom_maps/maps/" + game_server.serverInfo.map + ".tscn").instance()
+		base_map.name = "BaseMap"
+		$Map.add_child(base_map)
+		$Map.ground = $Map/BaseMap
+		$Map.walls = $Map/BaseMap/height
 		
+func saveLevel():
+	var packed_scene = PackedScene.new()
+	var base_map = $Map/BaseMap
+	$Map.remove_child(base_map)
+	var result = packed_scene.pack(base_map)
+	if result == OK:
+		ResourceSaver.save("user://custom_maps/maps/" + game_server.serverInfo.map + ".tscn",packed_scene)
+	else:
+		push_error("An error occurred while saving the scene to disk.")
+	
 
 func _on_back_pressed():
+	# stop the timer for safety
+	$Map/minimap_update_timer.stop()
 	Logger.notice.showNotice($UILayer, "Map Saved", 
 			"Your Map Was Saved", 
 			Color.red)
+	saveLevel()
 	yield(get_tree().create_timer(2), "timeout")
 	MenuManager.changeScene("EMS/LevelEditorMenu")
