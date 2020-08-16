@@ -40,6 +40,7 @@ margin_left = 0.430019
 margin_top = 0.103989
 margin_right = -0.430054
 margin_bottom = -0.104004
+custom_fonts/font = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

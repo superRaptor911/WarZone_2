@@ -29,14 +29,17 @@ func _on_ok_btn_pressed():
 func getMapNames():
 	var dir = Directory.new()
 	dir.make_dir("user://" + map_dir_name)
+	dir.make_dir("user://" + map_dir_name + "/maps")
+	dir.make_dir("user://" + map_dir_name + "/gameModes")
+	dir.make_dir("user://" + map_dir_name + "/minimaps")
 	
-	dir.open("user://" + map_dir_name)
+	dir.open("user://" + map_dir_name + "/maps")
 	dir.list_dir_begin()
 	var file_name = dir.get_next()
 	
 	while file_name != "":
-		if not dir.current_is_dir() and file_name.get_extension() == "map":
-			mapList.add_item(file_name)
+		if not dir.current_is_dir():
+			mapList.add_item(file_name.get_basename())
 		file_name = dir.get_next()
 
 
