@@ -12,6 +12,7 @@ var map_dir_name = "custom_maps"
 func _ready():
 	UiAnim.animLeftToRight([menu])
 	getMapNames()
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 	
 
 func _on_create_pressed():
@@ -31,6 +32,8 @@ func getMapNames():
 	dir.make_dir("user://" + map_dir_name)
 	dir.make_dir("user://" + map_dir_name + "/maps")
 	dir.make_dir("user://" + map_dir_name + "/gameModes")
+	dir.make_dir("user://" + map_dir_name + "/gameModes/TDM")
+	dir.make_dir("user://" + map_dir_name + "/gameModes/Zombie")
 	dir.make_dir("user://" + map_dir_name + "/minimaps")
 	
 	dir.open("user://" + map_dir_name + "/maps")
@@ -52,3 +55,7 @@ func _on_mapList_item_selected(index):
 func _on_edit_pressed():
 	MusicMan.click()
 	MenuManager.changeScene("EMS/LevelEditorMenu")
+
+func _on_back_pressed():
+	MusicMan.click()
+	MenuManager.changeScene("mainMenu")
