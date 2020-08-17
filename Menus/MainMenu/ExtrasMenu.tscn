@@ -59,14 +59,14 @@ __meta__ = {
 }
 
 [node name="src_code" type="Button" parent="."]
-anchor_left = 0.362
-anchor_top = 0.442
+anchor_left = 0.36
+anchor_top = 0.333
 anchor_right = 0.637
-anchor_bottom = 0.558
-margin_left = 0.639984
-margin_top = 0.259979
-margin_right = 0.639954
-margin_bottom = -0.26001
+anchor_bottom = 0.448
+margin_left = -0.163696
+margin_top = -0.304291
+margin_right = -2.72369
+margin_bottom = -0.104248
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
@@ -76,18 +76,36 @@ __meta__ = {
 }
 
 [node name="bug" type="Button" parent="."]
-anchor_left = 0.314
-anchor_top = 0.679
+anchor_left = 0.31
+anchor_top = 0.528
 anchor_right = 0.686
-anchor_bottom = 0.804
-margin_left = 0.0799866
-margin_top = -0.076416
-margin_right = -0.0800781
-margin_bottom = -0.076416
+anchor_bottom = 0.647
+margin_left = 0.200012
+margin_top = -0.160004
+margin_right = -4.07996
+margin_bottom = 0.160004
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
 text = "Report Bugs / Feature Request"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="msgDev" type="Button" parent="."]
+visible = false
+anchor_left = 0.336
+anchor_top = 0.728
+anchor_right = 0.666
+anchor_bottom = 0.848
+margin_left = -0.582031
+margin_top = 0.359741
+margin_right = 0.0180054
+margin_bottom = -0.0402832
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "Message Dev"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -110,4 +128,5 @@ __meta__ = {
 }
 [connection signal="pressed" from="src_code" to="." method="_on_src_code_pressed"]
 [connection signal="pressed" from="bug" to="." method="_on_bug_pressed"]
+[connection signal="pressed" from="msgDev" to="." method="_on_bug_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]

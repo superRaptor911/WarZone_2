@@ -104,7 +104,7 @@ func _on_round_start_dl_timeout():
 		current_round = 1
 		
 	rpc("P_roundStarted", current_round)	
-	if current_round % 3 == 0:
+	if current_round % 3 == 0 and current_round < 10:
 		bossRound(current_round / 3)
 		return
 		
@@ -139,6 +139,8 @@ remotesync func P_roundStarted(r : int):
 
 # Local Function (client side)
 remotesync func P_roundEnd():
+	if current_round == 9:
+		showLabel("You are the best of the best!.", Color.blue)
 	showLabel("You survived this wave.", Color.green)
 	
 # Local Function (client side)
@@ -170,7 +172,7 @@ remotesync func P_restart():
 func createBots():
 	Logger.Log("Creating bots")
 	var bots = Array()
-	var bot_count = min(game_server.bot_settings.bot_count, 6)
+	var bot_count = min(game_server.bot_settings.bot_count, 10)
 	print("Bot count = ",game_server.bot_settings.bot_count)
 	game_server.bot_settings.index = 0
 	var level = get_tree().get_nodes_in_group("Level")[0]
@@ -248,7 +250,7 @@ remotesync func P_BossRound_1():
 	showLabel("Boss Round ! Gargantua is comming", Color.red)
 	var boss0 = zombieBossScenes[1].instance()
 	var boss1 = zombieBossScenes[1].instance()
-	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
+	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoint")
 	var level = get_tree().get_nodes_in_group("Level")[0]
 	boss0.name = "gargantua0"
 	boss1.name = "gargantua1"
@@ -262,7 +264,7 @@ remotesync func P_BossRound_2():
 	showLabel("Boss Round ! Scp 682 is set free", Color.red)
 	var boss0 = zombieBossScenes[0].instance()
 	var boss1 = zombieBossScenes[0].instance()
-	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
+	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoint")
 	var level = get_tree().get_nodes_in_group("Level")[0]
 	boss0.name = "zBullsqid0"
 	boss1.name = "zBullsqid1"
@@ -278,7 +280,7 @@ remotesync func P_BossRound_3():
 	var boss1 = zombieBossScenes[1].instance()
 	var boss2 = zombieBossScenes[0].instance()
 	var boss3 = zombieBossScenes[0].instance()
-	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
+	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoint")
 	var level = get_tree().get_nodes_in_group("Level")[0]
 	boss0.name = "gargantua0"
 	boss1.name = "gargantua1"
