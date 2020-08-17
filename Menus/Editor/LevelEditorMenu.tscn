@@ -56,13 +56,13 @@ rect_min_size = Vector2( 0, 50 )
 custom_fonts/font = ExtResource( 1 )
 text = "MAP EDITOR"
 
-[node name="SpawnEditor" type="Button" parent="PanelContainer/Panel/VBoxContainer"]
+[node name="gameMode" type="Button" parent="PanelContainer/Panel/VBoxContainer"]
 margin_top = 100.0
 margin_right = 554.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 0, 50 )
 custom_fonts/font = ExtResource( 1 )
-text = "SPAWN EDITOR"
+text = "GAME MODE EDITOR"
 
 [node name="ObjectEditor" type="Button" parent="PanelContainer/Panel/VBoxContainer"]
 margin_top = 200.0

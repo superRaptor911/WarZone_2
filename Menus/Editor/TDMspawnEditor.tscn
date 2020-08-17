@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Menus/Editor/TDMspawnEditor.gd" type="Script" id=1]
+[ext_resource path="res://controls/JoyStickx.tscn" type="PackedScene" id=2]
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Menus/Editor/CT_icon.png" type="Texture" id=4]
+[ext_resource path="res://Menus/Editor/T_icon.png" type="Texture" id=5]
+
+[node name="TDMspawnEditor" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="uiLayer" type="CanvasLayer" parent="."]
+
+[node name="ItemList" type="ItemList" parent="uiLayer"]
+anchor_left = 0.35
+anchor_top = 0.696
+anchor_right = 0.627
+anchor_bottom = 0.933
+margin_left = -3.05176e-05
+margin_top = -0.120026
+margin_right = 0.439941
+margin_bottom = 0.23999
+custom_fonts/font = ExtResource( 3 )
+items = [ "Terrorist", ExtResource( 5 ), false, "Counter Terrorist", ExtResource( 4 ), false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Joystick" parent="uiLayer" instance=ExtResource( 2 )]
+anchor_left = 0.803
+anchor_top = 0.693
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.159912
+margin_top = 0.039978
+margin_right = 0.0
+margin_bottom = 0.0
+
+[node name="spawns" type="Node" parent="."]

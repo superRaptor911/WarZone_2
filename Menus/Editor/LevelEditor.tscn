@@ -257,6 +257,7 @@ margin_bottom = 0.0
 radius = 80.0
 
 [node name="minimap" type="TextureRect" parent="UILayer"]
+visible = false
 self_modulate = Color( 1, 1, 1, 0.721569 )
 anchor_left = 0.75
 anchor_right = 1.0
@@ -399,7 +400,8 @@ size = Vector2( 1280, 920 )
 handle_input_locally = false
 usage = 0
 render_target_v_flip = true
-render_target_update_mode = 3
+render_target_clear_mode = 1
+render_target_update_mode = 0
 
 [node name="Camera2D" type="Camera2D" parent="Map/Viewport"]
 anchor_mode = 0
@@ -407,7 +409,6 @@ current = true
 
 [node name="minimap_update_timer" type="Timer" parent="Map"]
 wait_time = 6.0
-autostart = true
 [connection signal="item_selected" from="UILayer/TileTabContainer/tileset" to="." method="_on_tileset_item_selected"]
 [connection signal="toggled" from="UILayer/SettingsContainer/Editor/drawGrid" to="UILayer/SettingsContainer" method="_on_drawGrid_toggled"]
 [connection signal="value_changed" from="UILayer/SettingsContainer/Editor/zslider" to="UILayer/SettingsContainer" method="_on_zslider_value_changed"]
