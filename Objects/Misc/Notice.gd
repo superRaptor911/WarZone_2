@@ -2,6 +2,8 @@ extends CanvasLayer
 
 var parent
 
+signal notice_closed
+
 #show notice 
 #set heading and desc with custom colors
 func showNotice(par, Heading, info, h_clr = Color.white, i_clr = Color.white):
@@ -18,4 +20,5 @@ func showNotice(par, Heading, info, h_clr = Color.white, i_clr = Color.white):
 func _on_Button_pressed():
 	UiAnim.animZoomOut([$Notice])
 	yield(get_tree().create_timer(0.5 * UiAnim.anim_scale), "timeout")
+	emit_signal("notice_closed")
 	parent.remove_child(self)

@@ -22,6 +22,7 @@ func _ready():
 	_on_tileset_item_selected(0)
 	$UILayer/SettingsContainer/Options/mapName.text = game_server.serverInfo.map
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
+	loadMap()
 
 static func delete_children(node):
 	for n in node.get_children():
@@ -104,7 +105,7 @@ func _on_tileset_item_selected(index):
 	ground_tileset = tilesets[index].g
 	wall_tileset = tilesets[index].w
 	setupTileset()
-	if index != 0 and not notice_shown:
+	if index != 0 and not notice_shown and false:
 		Logger.notice.showNotice($UILayer, "Warning !", 
 			"Changing tileset without clearing previous tiles may cause undesired effects.", 
 			Color.red)
@@ -141,19 +142,45 @@ func loadMap():
 		base_map.queue_free()
 		base_map = load("user://custom_maps/maps/" + game_server.serverInfo.map + ".tscn").instance()
 		base_map.name = "BaseMap"
+		base_map.force_update = true
 		$Map.add_child(base_map)
 		$Map.ground = $Map/BaseMap
 		$Map.walls = $Map/BaseMap/height
 		
+		var sz = tilesets.size()
+		for i in range(sz):
+			if tilesets[i].g.tile_get_texture(0) == base_map.tile_set.tile_get_texture(0):
+				print ("match found")
+				sz = i
+				break
+		$UILayer/TileTabContainer/tileset.select(sz)
+		_on_tileset_item_selected(sz)
+
+
 func saveLevel():
 	var packed_scene = PackedScene.new()
 	var base_map = $Map/BaseMap
 	$Map.remove_child(base_map)
+	base_map.get_child(0).owner = base_map
+	base_map.get_child(1).owner = base_map
 	var result = packed_scene.pack(base_map)
+	var save_path = "user://custom_maps/maps/" + game_server.serverInfo.map + ".tscn"
 	if result == OK:
-		ResourceSaver.save("user://custom_maps/maps/" + game_server.serverInfo.map + ".tscn",packed_scene)
+		ResourceSaver.save(save_path, packed_scene)
 	else:
 		push_error("An error occurred while saving the scene to disk.")
+	# Save minimap
+	var viewport = $Map/Viewport
+	viewport.render_target_clear_mode = Viewport.CLEAR_MODE_ALWAYS
+	viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
+	viewport.size = base_map.get_used_rect().size * 64
+	viewport.add_child(base_map)
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	var minimap_path = "user://custom_maps/minimaps/" + game_server.serverInfo.map + ".png"
+	var image = viewport.get_texture().get_data()
+	image.resize(viewport.size.x / 8,  viewport.size.y / 8)
+	image.save_png(minimap_path)
 	
 
 func _on_back_pressed():

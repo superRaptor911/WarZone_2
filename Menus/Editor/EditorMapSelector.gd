@@ -45,4 +45,10 @@ func getMapNames():
 
 
 func _on_mapList_item_selected(index):
-	mapList.get_item_at_position(Vector2(0,index))
+	game_server.serverInfo.map = mapList.get_item_text(index)
+	$PanelContainer/Panel/edit.disabled = false
+
+
+func _on_edit_pressed():
+	MusicMan.click()
+	MenuManager.changeScene("EMS/LevelEditorMenu")
