@@ -41,9 +41,11 @@ func loadMenu():
 	#sub menu of settings
 	addMenu("set/logViewer", "res://Menus/Misc/LogViewer.tscn")
 	
-	#Sub menu of Editor map selector
+	#Sub menus of Editor map selector
 	addMenu("EMS/LevelEditorMenu","res://Menus/Editor/LevelEditorMenu.tscn")
 	addMenu("EMS/LEM/LevelEditor", "res://Menus/Editor/LevelEditor.tscn")
+	addMenu("EMS/LEM/GameModesMenu", "res://Menus/Editor/GameModesMenu.tscn")
+	addMenu("EMS/LEM/GMM/TDM", "res://Menus/Editor/TDMspawnEditor.tscn")
 	
 	finishLoading()
 

@@ -6,13 +6,8 @@
 [ext_resource path="res://Menus/Editor/CT_icon.png" type="Texture" id=4]
 [ext_resource path="res://Menus/Editor/T_icon.png" type="Texture" id=5]
 
-[node name="TDMspawnEditor" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="TDMspawnEditor" type="Node"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="uiLayer" type="CanvasLayer" parent="."]
 
@@ -41,4 +36,41 @@ margin_top = 0.039978
 margin_right = 0.0
 margin_bottom = 0.0
 
+[node name="spawn_option" type="Panel" parent="uiLayer"]
+visible = false
+anchor_right = 0.158
+anchor_bottom = 0.076
+margin_right = -0.240005
+margin_bottom = 56.28
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="uiLayer/spawn_option"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -87.5
+margin_top = -24.0
+margin_right = 87.5
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="spawn_delete" type="Button" parent="uiLayer/spawn_option/VBoxContainer"]
+margin_right = 175.0
+margin_bottom = 43.0
+custom_fonts/font = ExtResource( 3 )
+text = "Delete"
+
+[node name="editorSpawns" type="Node" parent="."]
+
 [node name="spawns" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+[connection signal="item_selected" from="uiLayer/ItemList" to="." method="_on_ItemList_item_selected"]
+[connection signal="pressed" from="uiLayer/spawn_option/VBoxContainer/spawn_delete" to="." method="_on_spawn_delete_pressed"]

@@ -73,7 +73,7 @@ custom_fonts/font = ExtResource( 1 )
 disabled = true
 text = "OBJECT EDITOR(SOON)"
 
-[node name="Button" type="Button" parent="PanelContainer/Panel"]
+[node name="back" type="Button" parent="PanelContainer/Panel"]
 margin_left = 548.0
 margin_top = 479.0
 margin_right = 699.0
@@ -85,3 +85,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="PanelContainer/Panel/VBoxContainer/mapEditor" to="." method="_on_mapEditor_pressed"]
+[connection signal="pressed" from="PanelContainer/Panel/VBoxContainer/gameMode" to="." method="_on_gameMode_pressed"]
+[connection signal="pressed" from="PanelContainer/Panel/back" to="." method="_on_back_pressed"]
