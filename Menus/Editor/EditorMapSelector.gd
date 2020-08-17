@@ -35,6 +35,7 @@ func getMapNames():
 	dir.make_dir("user://" + map_dir_name + "/gameModes/TDM")
 	dir.make_dir("user://" + map_dir_name + "/gameModes/Zombie")
 	dir.make_dir("user://" + map_dir_name + "/minimaps")
+	dir.make_dir("user://" + map_dir_name + "/levels")
 	
 	dir.open("user://" + map_dir_name + "/maps")
 	dir.list_dir_begin()

@@ -9,7 +9,8 @@ func _on_TDM_pressed():
 
 
 func _on_ZOMBIE_pressed():
-	pass # Replace with function body.
+	MusicMan.click()
+	MenuManager.changeScene("EMS/LEM/GMM/ZM")
 
 
 func _on_back_pressed():

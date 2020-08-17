@@ -95,6 +95,9 @@ func saveSpawnPoints() -> bool:
 		point.owner = spawn_parent
 	
 	if teams[0] == 0 or teams[1] == 0:
+		var spawns = $spawns.get_children()
+		for i in spawns:
+			i.queue_free()
 		return false
 	
 	remove_child(spawn_parent)
@@ -114,7 +117,7 @@ func _on_back_pressed():
 	if saveSpawnPoints():
 		MenuManager.changeScene("EMS/LEM/GameModesMenu")
 	else:
-		 Logger.notice($uiLayer, "Error", "Add atleast 1 spawn point for each team.", Color.red)
+		 Logger.notice.showNotice($uiLayer, "Error", "Add atleast 1 spawn point for each team.", Color.red)
 
 
 func _on_spawn_delete_pressed():

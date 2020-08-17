@@ -140,9 +140,7 @@ texture = ExtResource( 11 )
 position = Vector2( 1913.09, 2003.24 )
 texture = ExtResource( 9 )
 
-[node name="zspawn" type="Node" parent="." groups=[
-"ZspawnPoints",
-]]
+[node name="zspawn" type="Node" parent="."]
 
 [node name="zombieSpawner2" parent="zspawn" instance=ExtResource( 4 )]
 position = Vector2( 181.779, 1511.38 )

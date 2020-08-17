@@ -13,7 +13,7 @@ var obj_id = 0
 var timer
 
 onready var wait_time : float = 1.0 / frequency
-onready var level = get_tree().get_nodes_in_group("Level")[0]
+var level
 
 
 func set_frequency(f):
@@ -24,6 +24,10 @@ func set_frequency(f):
 
 
 func _ready():
+	var levels = get_tree().get_nodes_in_group("Level")
+	if levels.size() > 0:
+		level = levels[0]
+	
 	if get_tree().is_network_server():
 		timer = Timer.new()
 		timer.one_shot = true
