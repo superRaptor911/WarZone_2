@@ -59,7 +59,7 @@ func _ready():
 		prop_parent = props[0].get_parent()
 	
 	if get_tree().is_network_server():
-		zombie_spawns = get_tree().get_nodes_in_group("ZspawnPoints")[0].get_children()
+		zombie_spawns = get_tree().get_nodes_in_group("ZspawnPoint")
 		var teams = get_tree().get_nodes_in_group("Team")
 		
 		for i in teams:

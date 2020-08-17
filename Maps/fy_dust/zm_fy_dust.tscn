@@ -26,9 +26,7 @@ team_id = 1
 position = Vector2( 1818.42, 1062.98 )
 team_id = 1
 
-[node name="zspawn" type="Node" parent="." groups=[
-"ZspawnPoints",
-]]
+[node name="zspawn" type="Node" parent="."]
 
 [node name="zombieSpawner" parent="zspawn" instance=ExtResource( 4 )]
 position = Vector2( 184.084, 166.124 )

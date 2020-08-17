@@ -46,7 +46,7 @@ __meta__ = {
 }
 
 [node name="TDM" type="Button" parent="PanelContainer/Panel/VBoxContainer"]
-margin_right = 560.0
+margin_right = 559.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_fonts/font = ExtResource( 1 )
@@ -54,7 +54,7 @@ text = "TDM"
 
 [node name="ZOMBIE" type="Button" parent="PanelContainer/Panel/VBoxContainer"]
 margin_top = 100.0
-margin_right = 560.0
+margin_right = 559.0
 margin_bottom = 160.0
 rect_min_size = Vector2( 0, 60 )
 custom_fonts/font = ExtResource( 1 )

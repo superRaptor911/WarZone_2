@@ -15,6 +15,7 @@ func _ready():
 	game_server.bot_settings.bot_count = 0
 	game_server.bot_settings.bot_difficulty = 1
 	loadLevelInfos()
+	loadCustomMaps()
 	network.connect("player_removed", self, "_on_player_removed")
 	#show IP address 
 	for i in IP.get_local_addresses():
@@ -42,7 +43,25 @@ func loadLevelInfos():
 		Logger.LogError("loadLevelInfos", "Failed to load levels")
 
 func loadCustomMaps():
-	pass
+	var dir = Directory.new()
+	dir.open("user://custom_maps/")
+	dir.list_dir_begin()
+	var file_name : String= dir.get_next()
+	
+	while file_name != "":
+		if not dir.current_is_dir():
+			if file_name.get_extension() == "dat":
+				var data = game_states.load_data("user://custom_maps/"+file_name, false)
+				var img = Image.new()
+				img.load(data.icon)
+				print(data.icon)
+				var img_tex = ImageTexture.new()
+				img_tex.create_from_image(img)
+				data.icon = img_tex
+				levels.append(data)
+				
+		file_name = dir.get_next()
+
 
 func setLevelInfo(info):
 	if selected_level != info:
