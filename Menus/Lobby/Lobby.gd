@@ -41,6 +41,8 @@ func loadLevelInfos():
 	else:
 		Logger.LogError("loadLevelInfos", "Failed to load levels")
 
+func loadCustomMaps():
+	pass
 
 func setLevelInfo(info):
 	if selected_level != info:

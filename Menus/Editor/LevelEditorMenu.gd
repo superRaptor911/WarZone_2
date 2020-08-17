@@ -23,3 +23,37 @@ func _on_gameMode_pressed():
 func _on_back_pressed():
 	MusicMan.click()
 	MenuManager.changeScene("EditorMapSelector")
+
+
+func _on_convert_pressed():
+	var levelInfo = {
+		name = "Dust II",
+		minimap = "",
+		game_modes = [
+				{bombing = "" },
+				{FFA = ""}
+			],
+		desc = "",
+		debug = false
+	}
+	
+	var base_map = null
+	var game_modes = [null, null]
+	var map_name = game_server.serverInfo.map
+	
+	var file = File.new()
+	var file_name = "user://custom_maps/maps/" + map_name + ".tscn"
+	if file.file_exists(file_name):
+		base_map = load(file_name).instance()
+		base_map.name = "BaseMap"
+		base_map.force_update = false
+	
+	file_name = "user://custom_maps/gameModes/TDM/" + map_name + ".tscn"
+	if file.file_exists(file_name):
+		game_modes[0] = load(file_name).instance()
+
+	file_name = "user://custom_maps/gameModes/Zombie/" + map_name + ".tscn"
+	if file.file_exists(file_name):
+		game_modes[1] = load(file_name).instance()
+	
+	var level_node = Node2D.new()

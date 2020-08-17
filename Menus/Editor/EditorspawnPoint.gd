@@ -4,7 +4,12 @@ var team_id = 0
 var red_circle = preload("res://Menus/Editor/T_icon.png")
 var blue_circle = preload("res://Menus/Editor/CT_icon.png")
 
+var camera
+
 signal selected(spawn_point)
+
+func _ready():
+	camera = get_parent().get_parent().camera
 
 
 func setTeamID(id):
@@ -20,7 +25,7 @@ func setTeamID(id):
 func _unhandled_input(event):
 	if event is InputEventScreenTouch or event is InputEventMouseButton:
 		if event.pressed:
-			if (event.position - position).length() < 100:
+			if (event.position - (position - camera.position)).length() < 100:
 				emit_signal("selected", self)
 
 

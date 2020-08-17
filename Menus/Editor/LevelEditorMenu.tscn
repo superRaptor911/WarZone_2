@@ -36,14 +36,14 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/Panel"]
-anchor_left = 0.161
-anchor_top = 0.269
+anchor_left = 0.163
+anchor_top = 0.165
 anchor_right = 0.839
-anchor_bottom = 0.731
-margin_left = -0.114014
-margin_top = -0.029007
-margin_right = 0.113953
-margin_bottom = 0.0289917
+anchor_bottom = 0.627
+margin_left = -0.249725
+margin_top = -0.0572891
+margin_right = 1.61224
+margin_bottom = 0.000701904
 custom_constants/separation = 50
 __meta__ = {
 "_edit_use_anchors_": false
@@ -73,17 +73,21 @@ custom_fonts/font = ExtResource( 1 )
 disabled = true
 text = "OBJECT EDITOR(SOON)"
 
-[node name="back" type="Button" parent="PanelContainer/Panel"]
-margin_left = 548.0
-margin_top = 479.0
-margin_right = 699.0
-margin_bottom = 537.0
+[node name="convert" type="Button" parent="PanelContainer/Panel"]
+anchor_left = 0.309
+anchor_top = 0.736
+anchor_right = 0.738
+anchor_bottom = 0.847
+margin_left = 0.322678
+margin_top = 0.161133
+margin_right = -0.170349
+margin_bottom = 0.225128
 custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = ExtResource( 1 )
-text = "BACK"
+text = "CONVERT TO LEVEL"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="PanelContainer/Panel/VBoxContainer/mapEditor" to="." method="_on_mapEditor_pressed"]
 [connection signal="pressed" from="PanelContainer/Panel/VBoxContainer/gameMode" to="." method="_on_gameMode_pressed"]
-[connection signal="pressed" from="PanelContainer/Panel/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="PanelContainer/Panel/convert" to="." method="_on_convert_pressed"]
