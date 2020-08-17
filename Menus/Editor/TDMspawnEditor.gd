@@ -77,16 +77,25 @@ func loadSpawnPoints():
 		points_node.queue_free()
 
 
-func saveSpawnPoints():
+func saveSpawnPoints() -> bool:
 	var spawn_parent = $spawns
 	var points = $editorSpawns.get_children()
+	
+	if points.size() == 0:
+		return false
+	
+	var teams = [0,0]
 	
 	for i in points:
 		var point = spawn_point.instance()
 		point.position = i.position
 		point.team_id = i.team_id
+		teams[i.team_id] += 1
 		spawn_parent.add_child(point)
 		point.owner = spawn_parent
+	
+	if teams[0] == 0 or teams[1] == 0:
+		return false
 	
 	remove_child(spawn_parent)
 	var packed_scene = PackedScene.new()
@@ -97,12 +106,15 @@ func saveSpawnPoints():
 	else:
 		push_error("An error occurred while saving the scene to disk.")
 	spawn_parent.queue_free()
+	return true
 
 
 func _on_back_pressed():
 	MusicMan.click()
-	saveSpawnPoints()
-	MenuManager.changeScene("EMS/LEM/GameModesMenu")
+	if saveSpawnPoints():
+		MenuManager.changeScene("EMS/LEM/GameModesMenu")
+	else:
+		 Logger.notice($uiLayer, "Error", "Add atleast 1 spawn point for each team.", Color.red)
 
 
 func _on_spawn_delete_pressed():
