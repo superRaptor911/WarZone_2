@@ -2,6 +2,7 @@
 #include <Bot.h>
 #include <SceneTree.hpp>
 #include <TileMap.hpp>
+#include <String.hpp>
 using namespace godot;
 
 navigate::navigate(Node2D *par, Bot *bot)
@@ -15,7 +16,7 @@ navigate::navigate(Node2D *par, Bot *bot)
     _rays.push_back(static_cast<RayCast2D *>(_parent->get_node("RayCast_right")));
 
     Node2D *level = _bot->get_tree()->get_nodes_in_group("Level")[0];
-    world_size = static_cast<TileMap *>(level->get_node("BaseMap/height"))->get_used_rect().get_size() * Vector2(64, 64);
+    world_size = static_cast<TileMap *>(level->get_node("BaseMap"))->get_used_rect().get_size() * Vector2(64, 64);
 }
     
 navigate::~navigate()
@@ -94,7 +95,7 @@ void navigate::followLeader()
 void navigate::getRandomLocation()
 {
     Vector2 random_position = Vector2(rand() % (int)world_size.x, rand() % (int)world_size.y);
-    random_position = static_cast<Vector2>(_level->call("getNearestPoint", random_position));
+    //random_position = static_cast<Vector2>(_level->call("getNearestPoint", random_position));
     addPlace(random_position);
 }
 

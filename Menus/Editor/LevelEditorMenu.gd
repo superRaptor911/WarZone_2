@@ -16,7 +16,8 @@ func _on_gameMode_pressed():
 		MusicMan.click()
 		MenuManager.changeScene("EMS/LEM/GameModesMenu")
 	else:
-		Logger.notice.showNotice(self, "Error", "You need to create a level first.", Color.red)
+		var notice  = Notice.new()
+		notice.showNotice(self, "Error", "You need to create a level first.", Color.red)
 
 
 func _on_back_pressed():
@@ -46,46 +47,58 @@ func _on_convert_pressed():
 		base_map.name = "BaseMap"
 		base_map.force_update = false
 	else:
-		base_map.queue_free()
-		Logger.notice.showNotice(self, "Failed", 
+		var notice = Notice.new()
+		notice.showNotice(self, "Failed", 
 		"Map not Found. Create Map by pressing MAP EDITOR.", Color.red)
 		return
-	# TDM
+	
+	# TDM MODE
 	file_name = "user://custom_maps/gameModes/TDM/" + map_name + ".tscn"
 	if file.file_exists(file_name):
 		var final_level = Node.new()
+		final_level.name = "TDM"
 		var level_node = Node2D.new()
-		level_node.add_to_group("Level", true)
+		level_node.name = "Level"
 		level_node.set_script(load("res://Maps/BaseLevel.gd"))
+		level_node.Level_Name = map_name
+		level_node.add_to_group("Level", true)
 		final_level.add_child(level_node)
 		level_node.owner = final_level
+		
 		level_node.add_child(base_map)
 		base_map.owner = final_level
 		game_modes[0] = load(file_name).instance()
+		game_modes[0].name = "GameMode"
 		final_level.add_child(game_modes[0])
 		game_modes[0].owner = final_level
 		# Save scene
 		var packed_scene = PackedScene.new()
 		var result = packed_scene.pack(final_level)
-		var save_path = "user://custom_maps/levels/TDM_" + game_server.serverInfo.map + ".tscn"
+		var save_path = "user://custom_maps/levels/TDM_" + map_name + ".tscn"
 		if result == OK:
 			ResourceSaver.save(save_path, packed_scene)
 		# Free resources
 		level_node.remove_child(base_map)
 		final_level.remove_child(game_modes[0])
 		final_level.queue_free()
+	
 	# Zombie Mod
 	file_name = "user://custom_maps/gameModes/Zombie/" + map_name + ".tscn"
 	if file.file_exists(file_name):
 		var final_level = Node.new()
+		final_level.name = "TDM"
 		var level_node = Node2D.new()
+		level_node.name = "Level"
 		level_node.set_script(load("res://Maps/BaseLevel.gd"))
+		level_node.Level_Name = map_name
 		level_node.add_to_group("Level", true)
 		final_level.add_child(level_node)
 		level_node.owner = final_level
+		
 		level_node.add_child(base_map)
 		base_map.owner = final_level
 		game_modes[1] = load(file_name).instance()
+		game_modes[1].name = "GameMode"
 		final_level.add_child(game_modes[1])
 		game_modes[1].owner = final_level
 		# Save scene
@@ -119,7 +132,8 @@ func _on_convert_pressed():
 	
 	base_map.queue_free()
 	if (not counter):
-		Logger.notice.showNotice(self, "Failed", 
+		var notice = Notice.new()
+		notice.showNotice(self, "Failed", 
 		"Game Mode not found. Create a Game Mode by pressing GAME MODE EDITOR.", Color.red)
 		return
 	var save_path = "user://custom_maps/" + game_server.serverInfo.map + ".dat"

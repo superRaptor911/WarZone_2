@@ -120,7 +120,8 @@ func _on_back_pressed():
 	if saveSpawnPoints():
 		MenuManager.changeScene("EMS/LEM/GameModesMenu")
 	else:
-		 Logger.notice.showNotice($uiLayer, "Error", "Add atleast 1 spawn point for each team.", Color.red)
+		var notice = Notice.new()
+		notice.showNotice($uiLayer, "Error", "Add atleast 1 spawn point for each team.", Color.red)
 
 
 func _on_spawn_delete_pressed():
