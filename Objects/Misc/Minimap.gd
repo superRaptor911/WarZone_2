@@ -28,6 +28,13 @@ func _ready():
 
 func loadMinimap(levl_name : String):
 	texture = load("res://Maps/" + levl_name +"/minimap.png")
+	if not texture:
+		var img = Image.new()
+		img.load("user://custom_maps/minimaps/" + levl_name + ".png")
+		var img_tex = ImageTexture.new()
+		img_tex.create_from_image(img)
+		texture = img_tex
+
 
 
 func moveMapWithPlayer():

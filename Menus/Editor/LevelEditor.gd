@@ -108,7 +108,8 @@ func _on_tileset_item_selected(index):
 	wall_tileset = tilesets[index].w
 	setupTileset()
 	if index != 0 and not notice_shown and false:
-		Logger.notice.showNotice($UILayer, "Warning !", 
+		var notice = Notice.new()
+		notice.showNotice($UILayer, "Warning !", 
 			"Changing tileset without clearing previous tiles may cause undesired effects.", 
 			Color.red)
 		notice_shown = true
@@ -187,19 +188,23 @@ func saveLevel():
 	viewport.add_child(base_map)
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
-	var minimap_path = "user://custom_maps/minimaps/" + game_server.serverInfo.map + ".png"
+	var minimap_path = "user://custom_maps/minimaps/" + map_name + ".png"
 	var image = viewport.get_texture().get_data()
 	image.resize(viewport.size.x / 8,  viewport.size.y / 8)
 	image.save_png(minimap_path)
-	
+
 
 func _on_back_pressed():
 	# stop the timer for safety
 	$Map/minimap_update_timer.stop()
-	Logger.notice.showNotice($UILayer, "Map Saved", 
-			"Your Map Was Saved", 
+	var notice = Notice.new()
+	notice.connect("notice_closed", self, "_on_notice_ok_pressed")
+	notice.showNotice($UILayer, "Map Saved",
+			"Your Map Was Saved",
 			Color.red)
-	
-	yield(get_tree().create_timer(2), "timeout")
+
+
+func _on_notice_ok_pressed():
 	saveLevel()
+	yield(get_tree().create_timer(0.5), "timeout")
 	MenuManager.changeScene("EMS/LevelEditorMenu")

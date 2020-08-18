@@ -7,6 +7,7 @@ export var activate : bool = false
 export var HP : int  = 100
 export var speed : int = 80
 
+var team_id = 0
 var zombies_spawned : int = 0
 var zombie_index : int = 0
 var obj_id = 0
@@ -27,6 +28,8 @@ func _ready():
 	var levels = get_tree().get_nodes_in_group("Level")
 	if levels.size() > 0:
 		level = levels[0]
+	else:
+		return
 	
 	if get_tree().is_network_server():
 		timer = Timer.new()
