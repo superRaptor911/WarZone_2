@@ -8,7 +8,6 @@ onready var mapList = $PanelContainer/Panel/mapList
 var map_dir_name = "custom_maps"
 
 
-
 func _ready():
 	UiAnim.animLeftToRight([menu])
 	getMapNames()
@@ -60,3 +59,7 @@ func _on_edit_pressed():
 func _on_back_pressed():
 	MusicMan.click()
 	MenuManager.changeScene("mainMenu")
+
+
+func _on_LineEdit_text_entered(new_text):
+	OS.hide_virtual_keyboard()

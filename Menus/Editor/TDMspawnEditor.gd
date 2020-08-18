@@ -10,7 +10,7 @@ export var gameMode = "TDM"
 
 onready var camera = $Camera2D
 onready var joystick = $uiLayer/Joystick
-
+onready var option_panel = $uiLayer/spawn_option
 
 func _ready():
 	loadMap()
@@ -45,6 +45,9 @@ func _unhandled_input(event):
 			for i in points:
 				if (i.position - pos).length() < 2 * 100:
 					return
+			if option_panel.visible:
+				option_panel.hide()
+				return
 			addSpawnPoint(pos)
 
 func addSpawnPoint(pos):
@@ -58,8 +61,8 @@ func addSpawnPoint(pos):
 func on_spawn_selected(spawn):
 	print("sdadsa")
 	selected_spawn = spawn
-	$uiLayer/spawn_option.rect_position = spawn.position - camera.position
-	$uiLayer/spawn_option.show()
+	option_panel.rect_position = spawn.position - camera.position
+	option_panel.show()
 
 func loadSpawnPoints():
 	var file = File.new()
@@ -123,4 +126,8 @@ func _on_back_pressed():
 func _on_spawn_delete_pressed():
 	if selected_spawn:
 		selected_spawn.queue_free()
-	$uiLayer/spawn_option.hide()
+	option_panel.hide()
+
+
+func _on_Joystick_Joystick_Updated(_vector):
+	option_panel.hide()

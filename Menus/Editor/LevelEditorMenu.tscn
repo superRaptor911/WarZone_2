@@ -84,7 +84,7 @@ margin_right = -0.170349
 margin_bottom = 0.225128
 custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = ExtResource( 1 )
-text = "CONVERT TO LEVEL"
+text = "GENERATE"
 __meta__ = {
 "_edit_use_anchors_": false
 }

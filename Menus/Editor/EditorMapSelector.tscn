@@ -155,4 +155,5 @@ __meta__ = {
 [connection signal="item_selected" from="PanelContainer/Panel/mapList" to="." method="_on_mapList_item_selected"]
 [connection signal="pressed" from="PanelContainer/Panel/edit" to="." method="_on_edit_pressed"]
 [connection signal="pressed" from="PanelContainer/Panel/create" to="." method="_on_create_pressed"]
+[connection signal="text_entered" from="createMenu/Panel/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="createMenu/Panel/ok_btn" to="." method="_on_ok_btn_pressed"]
