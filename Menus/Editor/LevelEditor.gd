@@ -1,8 +1,8 @@
 extends Control
 
 var tile = preload("res://Menus/Editor/Tile.tscn")
-var ground_tileset : TileSet = preload("res://Sprites/Tilesets/dust_base.tres")
-var wall_tileset : TileSet = preload("res://Sprites/Tilesets/dust_height.tres") 
+var ground_tileset : TileSet
+var wall_tileset : TileSet 
 
 var cur_tileset : TileSet
 
@@ -28,8 +28,9 @@ static func delete_children(node):
 	for n in node.get_children():
 		n.queue_free()
 
-# Function to load/set tileset
+# Function to load/set current tileset
 func setupTileset():
+	# Setup ground tileset
 	cur_tileset = ground_tileset
 	var tileAtalas = cur_tileset.get_tiles_ids()
 	var gridContainer = $UILayer/TileTabContainer/ground/grid
@@ -53,6 +54,7 @@ func setupTileset():
 				gridContainer.add_child(spr)
 				spr.connect("got_selected", self, "_on_tile_selected")
 	
+	# Setup Wall tileset
 	cur_tileset = wall_tileset
 	tileAtalas = cur_tileset.get_tiles_ids()
 	gridContainer = $UILayer/TileTabContainer/Walls/grid
@@ -110,7 +112,6 @@ func _on_tileset_item_selected(index):
 			"Changing tileset without clearing previous tiles may cause undesired effects.", 
 			Color.red)
 		notice_shown = true
-		
 	
 	$Map/BaseMap.tile_set = ground_tileset
 	$Map/BaseMap/height.tile_set = wall_tileset
@@ -129,18 +130,17 @@ func _on_mapSize_text_entered(new_text):
 			map_size = Vector2(int(strings[0]), int(strings[1]))
 			$Map.update()
 			return
-		else:
-			print(strings[0],",",strings[1])
 	$UILayer/SettingsContainer/Options/mapSize.text = String(map_size.x) + "x" + String(map_size.y)
 
 
 func loadMap():
 	var file = File.new()
-	if file.file_exists("user://custom_maps/maps/" + game_server.serverInfo.map + ".tscn"):
+	var file_name = "user://custom_maps/maps/" + game_server.serverInfo.map + ".tscn"
+	if file.file_exists(file_name):
 		var base_map = $Map/BaseMap
 		$Map.remove_child(base_map)
 		base_map.queue_free()
-		base_map = load("user://custom_maps/maps/" + game_server.serverInfo.map + ".tscn").instance()
+		base_map = load(file_name).instance()
 		base_map.name = "BaseMap"
 		base_map.force_update = true
 		$Map.add_child(base_map)
@@ -148,27 +148,37 @@ func loadMap():
 		$Map.walls = $Map/BaseMap/height
 		
 		var sz = tilesets.size()
+		var tileset_index = -1
 		for i in range(sz):
 			if tilesets[i].g.tile_get_texture(0) == base_map.tile_set.tile_get_texture(0):
-				print ("match found")
-				sz = i
+				tileset_index = i
 				break
-		$UILayer/TileTabContainer/tileset.select(sz)
-		_on_tileset_item_selected(sz)
+		if tileset_index != -1:
+			$UILayer/TileTabContainer/tileset.select(tileset_index)
+			_on_tileset_item_selected(tileset_index)
+		else:
+			Logger.LogError("Editor::loadMap", "Requested tileset not found")
+	else:
+		Logger.Log("Creating New map")
 
-
+# Function to save base_map and minimap
 func saveLevel():
-	var packed_scene = PackedScene.new()
+	var map_name = game_server.serverInfo.map
+	Logger.Log("Saving custom map %s" % [map_name])
+	
 	var base_map = $Map/BaseMap
 	$Map.remove_child(base_map)
 	base_map.get_child(0).owner = base_map
 	base_map.get_child(1).owner = base_map
-	var result = packed_scene.pack(base_map)
-	var save_path = "user://custom_maps/maps/" + game_server.serverInfo.map + ".tscn"
-	if result == OK:
-		ResourceSaver.save(save_path, packed_scene)
+	
+	var packed_scene = PackedScene.new()
+	var save_path = "user://custom_maps/maps/" + map_name + ".tscn"
+	if packed_scene.pack(base_map) == OK:
+		if ResourceSaver.save(save_path, packed_scene) != OK:
+			Logger.LogError("LEditor::saveLevel", "Unable to save packed scene")
 	else:
-		push_error("An error occurred while saving the scene to disk.")
+		Logger.LogError("LEditor::saveLevel", "Failed converting map in packed scene")
+	
 	# Save minimap
 	var viewport = $Map/Viewport
 	viewport.render_target_clear_mode = Viewport.CLEAR_MODE_ALWAYS
@@ -189,6 +199,7 @@ func _on_back_pressed():
 	Logger.notice.showNotice($UILayer, "Map Saved", 
 			"Your Map Was Saved", 
 			Color.red)
-	saveLevel()
+	
 	yield(get_tree().create_timer(2), "timeout")
+	saveLevel()
 	MenuManager.changeScene("EMS/LevelEditorMenu")

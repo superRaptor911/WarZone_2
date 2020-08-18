@@ -2,10 +2,9 @@ extends Node
 
 var template = {
 		name = "Dust II",
-		minimap = "",
+		icon = "",
 		game_modes = [
-				{bombing = "" },
-				{FFA = ""}
+
 			],
 		desc = "",
 		debug = false

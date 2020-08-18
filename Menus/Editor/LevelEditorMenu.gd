@@ -19,7 +19,6 @@ func _on_gameMode_pressed():
 		Logger.notice.showNotice(self, "Error", "You need to create a level first.", Color.red)
 
 
-
 func _on_back_pressed():
 	MusicMan.click()
 	MenuManager.changeScene("EditorMapSelector")

@@ -73,4 +73,5 @@ text = "Delete"
 anchor_mode = 0
 current = true
 [connection signal="item_selected" from="uiLayer/ItemList" to="." method="_on_ItemList_item_selected"]
+[connection signal="Joystick_Updated" from="uiLayer/Joystick" to="." method="_on_Joystick_Joystick_Updated"]
 [connection signal="pressed" from="uiLayer/spawn_option/VBoxContainer/spawn_delete" to="." method="_on_spawn_delete_pressed"]
