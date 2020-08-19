@@ -47,6 +47,10 @@ func loadMenu():
 	addMenu("EMS/LEM/GameModesMenu", "res://Menus/Editor/GameModesMenu.tscn")
 	addMenu("EMS/LEM/GMM/TDM", "res://Menus/Editor/TDMspawnEditor.tscn")
 	addMenu("EMS/LEM/GMM/ZM", "res://Menus/Editor/ZMspawnEditor.tscn")
+	
+	# Sub menu of extras
+	addMenu("Extras/MsgDev", "res://Menus/Misc/MsgDev.tscn")
+	
 	finishLoading()
 
 func addMenu(name,path):

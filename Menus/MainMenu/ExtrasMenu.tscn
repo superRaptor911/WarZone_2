@@ -59,14 +59,14 @@ __meta__ = {
 }
 
 [node name="src_code" type="Button" parent="."]
-anchor_left = 0.36
-anchor_top = 0.333
+anchor_left = 0.368
+anchor_top = 0.546
 anchor_right = 0.637
-anchor_bottom = 0.448
-margin_left = -0.163696
-margin_top = -0.304291
-margin_right = -2.72369
-margin_bottom = -0.104248
+anchor_bottom = 0.662
+margin_left = 0.499725
+margin_top = 0.25705
+margin_right = 8.17975
+margin_bottom = -0.26297
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
@@ -76,14 +76,14 @@ __meta__ = {
 }
 
 [node name="bug" type="Button" parent="."]
-anchor_left = 0.31
-anchor_top = 0.528
-anchor_right = 0.686
-anchor_bottom = 0.647
-margin_left = 0.200012
-margin_top = -0.160004
-margin_right = -4.07996
-margin_bottom = 0.160004
+anchor_left = 0.328
+anchor_top = 0.736
+anchor_right = 0.701
+anchor_bottom = 0.855
+margin_left = -0.16156
+margin_top = 0.010498
+margin_right = -0.601562
+margin_bottom = 0.330505
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
@@ -93,15 +93,14 @@ __meta__ = {
 }
 
 [node name="msgDev" type="Button" parent="."]
-visible = false
 anchor_left = 0.336
-anchor_top = 0.728
+anchor_top = 0.327
 anchor_right = 0.666
-anchor_bottom = 0.848
-margin_left = -0.582031
-margin_top = 0.359741
-margin_right = 0.0180054
-margin_bottom = -0.0402832
+anchor_bottom = 0.447
+margin_left = 0.242157
+margin_top = 0.258316
+margin_right = 0.842224
+margin_bottom = -0.141693
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
@@ -128,5 +127,5 @@ __meta__ = {
 }
 [connection signal="pressed" from="src_code" to="." method="_on_src_code_pressed"]
 [connection signal="pressed" from="bug" to="." method="_on_bug_pressed"]
-[connection signal="pressed" from="msgDev" to="." method="_on_bug_pressed"]
+[connection signal="pressed" from="msgDev" to="." method="_on_msgDev_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
