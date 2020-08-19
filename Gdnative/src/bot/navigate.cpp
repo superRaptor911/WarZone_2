@@ -95,7 +95,7 @@ void navigate::followLeader()
 void navigate::getRandomLocation()
 {
     Vector2 random_position = Vector2(rand() % (int)world_size.x, rand() % (int)world_size.y);
-    //random_position = static_cast<Vector2>(_level->call("getNearestPoint", random_position));
+    random_position = static_cast<Vector2>(_level->call("getNearestPoint", random_position));
     addPlace(random_position);
 }
 
