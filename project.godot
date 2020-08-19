@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/Character.gd"
 }, {
+"base": "Node",
+"class": "DataUploader",
+"language": "GDScript",
+"path": "res://Objects/scripts/Datauploader.gd"
+}, {
 "base": "Node2D",
 "class": "Gun",
 "language": "GDScript",
@@ -68,6 +73,7 @@ _global_script_class_icons={
 "AdMob": "res://admob-lib/icon.png",
 "Bot": "",
 "Character": "",
+"DataUploader": "",
 "Gun": "",
 "Model": "",
 "Notice": "",
