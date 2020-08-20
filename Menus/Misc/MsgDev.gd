@@ -1,5 +1,7 @@
 extends Control
 
+var screen_height = ProjectSettings.get_setting("display/window/size/height")
+
 var data = {
 	id = "",
 	name = "",
@@ -13,6 +15,7 @@ func _ready():
 
 
 func _on_name_text_entered(_new_text):
+	print("pressed")
 	OS.hide_virtual_keyboard()
 
 
@@ -71,3 +74,19 @@ func on_upload_failed():
 func _on_back_pressed():
 	MusicMan.click()
 	MenuManager.changeScene("extras")
+
+
+func _on_name_text_changed(new_text):
+	print(new_text)
+
+onready var label = $Label
+
+func _on_message_text_changed():
+	label.show()
+	label.rect_size.y = OS.window_size.y - OS.get_virtual_keyboard_height()
+	label.get_node("Label").text = $PanelContainer/Panel/message.text
+
+
+func _process(delta):
+	if OS.get_virtual_keyboard_height() <= 0:
+		label.hide()
