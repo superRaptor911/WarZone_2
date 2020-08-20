@@ -1,13 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://Menus/Misc/MsgDev.gd" type="Script" id=3]
 
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+
 [sub_resource type="DynamicFont" id=1]
 size = 18
 use_filter = true
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.913725, 0.886275, 0.886275, 1 )
 
 [node name="MsgDev" type="Control"]
 anchor_right = 1.0
@@ -32,6 +38,7 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 1091.0
 margin_bottom = 632.0
+custom_styles/panel = SubResource( 2 )
 
 [node name="name" type="LineEdit" parent="PanelContainer/Panel"]
 anchor_left = 0.275
@@ -150,6 +157,23 @@ text = "Uploading... (my server is slow)"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="text_entered" from="PanelContainer/Panel/name" to="." method="_on_name_text_entered"]
+
+[node name="Label" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+margin_bottom = 56.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Label"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+autowrap = true
+[connection signal="text_changed" from="PanelContainer/Panel/name" to="." method="_on_name_text_changed"]
 [connection signal="text_entered" from="PanelContainer/Panel/subject" to="." method="_on_subject_text_entered"]
+[connection signal="text_changed" from="PanelContainer/Panel/message" to="." method="_on_message_text_changed"]
 [connection signal="pressed" from="PanelContainer/Panel/send" to="." method="_on_send_pressed"]
