@@ -14,6 +14,7 @@ var _admob_load_fail_count = [0, 0, 0]
 signal back_pressed
 
 func _ready():
+	setupAds()
 	if !get_tree().get_nodes_in_group("LoadMenu").empty():
 		loading_menu = get_tree().get_nodes_in_group("LoadMenu")[0]
 		loading_menu.connect("loading_complete",self, "on_loaded")
@@ -68,6 +69,7 @@ func finishLoading():
 func changeScene(new_scene):
 	if menu.get(new_scene):
 		get_tree().change_scene_to(menu.get(new_scene))
+		admob.hide_banner()
 	else:
 		print("Error changing scene to ", new_scene)
 

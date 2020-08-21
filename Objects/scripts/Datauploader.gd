@@ -9,15 +9,21 @@ signal upload_failed
 
 var one_time_use = true
 
+const host_site = "projectwarzone2.000webhostapp.com"
+
+
 func _init(one_time = true):
 	one_time_use = one_time
 
 
-func uploadData(data : Dictionary, php_file : String):
+func uploadData(data : Dictionary, php_file : String, host = ""):
 	var HTTP = HTTPClient.new()
 	var url = "/" + php_file
-	var RESPONSE = HTTP.connect_to_host("projectwarzone2.000webhostapp.com",80)
 	
+	if host == "":
+		host = host_site
+	
+	var RESPONSE = HTTP.connect_to_host(host, 80)
 	while(HTTP.get_status() == HTTPClient.STATUS_CONNECTING or HTTP.get_status() == HTTPClient.STATUS_RESOLVING):
 		HTTP.poll()
 		OS.delay_msec(300)

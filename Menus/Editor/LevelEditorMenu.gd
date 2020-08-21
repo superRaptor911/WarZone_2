@@ -138,3 +138,102 @@ func _on_convert_pressed():
 		return
 	var save_path = "user://custom_maps/" + game_server.serverInfo.map + ".dat"
 	game_states.save_data(save_path, levelInfo, false)
+
+
+func _on_more_pressed():
+	UiAnim.animZoomOut([$PanelContainer])
+	$PanelContainer2.show()
+	UiAnim.animZoomIn([$PanelContainer2])
+
+
+func _on_Delete_pressed():
+	var dir = Directory.new()
+	var map_name = game_server.serverInfo.map
+	dir.remove("user://custom_maps/" + map_name + ".dat")
+	dir.remove("user://custom_maps/gameModes/Zombie/" + map_name + ".tscn")
+	dir.remove("user://custom_maps/gameModes/TDM/" + map_name + ".tscn")
+	dir.remove("user://custom_maps/maps/" + map_name + ".tscn")
+	
+	var notice = Notice.new()
+	notice.showNotice(self, "Done !", "Your map was deleted")
+	notice.connect("notice_closed", self, "on_delete_notice_Closed")
+
+
+
+func on_delete_notice_Closed():
+	MenuManager.changeScene("EditorMapSelector")
+
+
+func _on_More_back_pressed():
+	$PanelContainer.show()
+	UiAnim.animZoomIn([$PanelContainer])
+	UiAnim.animZoomOut([$PanelContainer2])
+
+
+
+func _on_upload_pressed():
+	var file = File.new()
+	var map_name = game_server.serverInfo.map
+	var file_names = [
+		"user://custom_maps/maps/" + map_name + ".tscn",
+		"user://custom_maps/gameModes/TDM/" + map_name + ".tscn",
+		"user://custom_maps/gameModes/Zombie/" + map_name + ".tscn"
+	]
+	
+	var success_rate = 0
+	for i in file_names:
+		if file.file_exists(i):
+			success_rate += 1
+	
+	if success_rate < 2:
+		var notice = Notice.new()
+		notice.showNotice(self, "Error", "You need to create atleast 1 game mode", Color.red)
+		return
+	
+	var data_dict = {
+		id = String(OS.get_unique_id()),
+		lvl_name = map_name
+	}
+	
+	for i in file_names:
+		file.open(i, File.READ)
+		var data = file.get_as_text()
+		file.close()
+		
+		var sub_strings : Array = i.split("/")
+		if sub_strings.has("maps"):
+			data_dict["map"] = data
+			print("map")
+		elif sub_strings.has("TDM"):
+			data_dict["TDM"] = data
+			print("tdm")
+		elif sub_strings.has("Zombie"):
+			data_dict["Zombie"] = data
+			print("zombie")
+	
+	$PanelContainer3.show()
+	$PanelContainer2.hide()
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	
+	var uploader = DataUploader.new()
+	uploader.connect("connection_failed",  self, "on_upload_failed")
+	uploader.connect("upload_finished", self, "on_upload_successful")
+	uploader.connect("upload_failed", self, "on_upload_failed")
+	uploader.uploadData(data_dict, "levelReceiver.php")
+
+
+
+func on_upload_successful():
+	var notice = Notice.new()
+	notice.showNotice(self, "Done", "Your map was uploaded and may feature in comming update",
+	 Color.white, Color.green)
+	notice.connect("notice_closed", $PanelContainer2, "show")
+	$PanelContainer3.hide()
+
+
+func on_upload_failed():
+	var notice = Notice.new()
+	notice.showNotice(self, "Failed", "Your map was not uploaded.", Color.red)
+	notice.connect("notice_closed", $PanelContainer2, "show")
+	$PanelContainer3.hide()
