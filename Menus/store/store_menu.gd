@@ -53,15 +53,15 @@ func initialTween():
 func _on_cash_pressed():
 	if MenuManager.admob._is_rewarded_video_loaded:
 		MenuManager.admob.show_rewarded_video()
-		MenuManager.admob.connect("rewarded", self, "_on_AdMob_rewarded")
+		if not MenuManager.admob.is_connected("rewarded", self, "_on_AdMob_rewarded"):
+			MenuManager.admob.connect("rewarded", self, "_on_AdMob_rewarded")
 	else:
 		var notice = Notice.new()
 		notice.showNotice(self,"Error", "Failed to load reward video", Color.red)
+		print("showing notice")
 
 
 func _on_AdMob_rewarded(_currency, _ammount):
 	game_states.player_data.cash += 500
 	game_states.savePlayerData()
 	$PopupPanel.popup()
-	MenuManager.admob.disconnect("rewarded", self, "_on_AdMob_rewarded")
-

@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=2]
 [ext_resource path="res://Menus/store/skinSelect.gd" type="Script" id=3]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=4]
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=5]
-[ext_resource path="res://admob-lib/admob.gd" type="Script" id=6]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
@@ -390,14 +389,8 @@ __meta__ = {
 autoplay = "initalAnim"
 playback_speed = 2.0
 anims/initalAnim = SubResource( 5 )
-
-[node name="AdMob" type="Node" parent="."]
-script = ExtResource( 6 )
-is_real = true
-max_ad_content_rate = "T"
 [connection signal="pressed" from="T/portrait/Tnext" to="." method="_on_Tnext_pressed"]
 [connection signal="pressed" from="T/portrait/Tprev" to="." method="_on_Tprev_pressed"]
 [connection signal="pressed" from="CT/portrait/CTnext" to="." method="_on_CTnext_pressed"]
 [connection signal="pressed" from="CT/portrait/CTprev" to="." method="_on_CTprev_pressed"]
 [connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]
-[connection signal="interstitial_loaded" from="AdMob" to="." method="_on_AdMob_interstitial_loaded"]

@@ -61,5 +61,5 @@ func _on_back_pressed():
 	MenuManager.changeScene("mainMenu")
 
 
-func _on_LineEdit_text_entered(new_text):
+func _on_LineEdit_text_entered(_new_text):
 	OS.hide_virtual_keyboard()

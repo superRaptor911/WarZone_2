@@ -11,7 +11,7 @@ var cur_ct_skin = 0
 func _ready():
 	loadSkins()
 	MenuManager.connect("back_pressed", self,"_on_Back_pressed")
-	MenuButton.admob.load_interstitial()
+	MenuManager.admob.load_interstitial()
 
 
 func loadSkins():

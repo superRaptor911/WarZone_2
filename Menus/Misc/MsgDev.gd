@@ -87,6 +87,6 @@ func _on_message_text_changed():
 	label.get_node("Label").text = $PanelContainer/Panel/message.text
 
 
-func _process(delta):
+func _process(_delta):
 	if OS.get_virtual_keyboard_height() <= 0:
 		label.hide()
