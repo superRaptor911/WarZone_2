@@ -53,6 +53,9 @@ func _unhandled_input(event):
 
 
 func fillTile(pos):
+	if pos.x < 0 or pos.y < 0:
+		return
+
 	if editor.current_tool == editor.TOOLS.RUBBER:
 		walls.set_cellv(pos,-1)
 		ground.set_cellv(pos,-1)
