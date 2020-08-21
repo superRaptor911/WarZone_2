@@ -7,12 +7,11 @@ var ct_skins = Array()
 var cur_t_skin = 0
 var cur_ct_skin = 0
 
-onready var admob = $AdMob
 
 func _ready():
 	loadSkins()
 	MenuManager.connect("back_pressed", self,"_on_Back_pressed")
-	admob.load_interstitial()
+	MenuButton.admob.load_interstitial()
 
 
 func loadSkins():
@@ -92,6 +91,3 @@ func _on_Back_pressed():
 	MenuManager.changeScene("storeMenu")
 	queue_free()
 
-
-func _on_AdMob_interstitial_loaded():
-	admob.show_interstitial()

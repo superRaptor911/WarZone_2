@@ -7,6 +7,10 @@ var max_menus = 10
 var menu_loaded = 0
 var loading_menu
 
+var admob : AdMob = null
+var _admob_max_load_fails = 5
+var _admob_load_fail_count = [0, 0, 0]
+
 signal back_pressed
 
 func _ready():
@@ -81,4 +85,75 @@ func _notification(what):
 		_on_Back_pressed()
 		
 func _on_Back_pressed():
+	admob.hide_banner()
 	emit_signal("back_pressed")
+
+func setupAds():
+	randomize()
+	var banners = [
+		"ca-app-pub-9443221640471166/9049742329",
+		"ca-app-pub-9443221640471166/6136808642"
+		]
+	var interstitials = [
+		"ca-app-pub-9443221640471166/1781147462",
+		"ca-app-pub-9443221640471166/1978071782"
+	]
+	var videos = [
+		"ca-app-pub-9443221640471166/2680609241"
+	]
+	
+	if admob:
+		admob.queue_free()
+	
+	admob = AdMob.new()
+	admob.is_real = false
+	admob.max_ad_content_rate = "MA"
+	admob.banner_id = banners[randi() % banners.size()]
+	admob.interstitial_id = interstitials[randi() % interstitials.size()]
+	admob.rewarded_id = videos[randi() % videos.size()]
+	add_child(admob)
+	admob.load_banner()
+	admob.load_interstitial()
+	admob.load_rewarded_video()
+	admob.hide_banner()
+	admob.connect("interstitial_closed", self, "on_interstitial_closed")
+	admob.connect("rewarded_video_closed", self, "on_video_closed")
+	
+	admob.connect("banner_loaded", self, "on_banner_loaded")
+	admob.connect("interstitial_loaded", self, "on_interstitial_loaded")
+	admob.connect("rewarded_video_loaded", self, "on_video_loaded")
+	
+	admob.connect("banner_failed_to_load", self, "on_banner_failed")
+	admob.connect("interstitial_failed_to_load", self , "on_interstitial_failed")
+	admob.connect("rewarded_video_failed_to_load", self, "on_video_failed")
+
+
+func on_interstitial_closed():
+	admob.load_interstitial()
+
+func on_video_closed():
+	admob.load_rewarded_video()
+
+func on_banner_loaded():
+	_admob_load_fail_count[0] = 0
+
+func on_interstitial_loaded():
+	_admob_load_fail_count[1] = 0
+
+func on_video_loaded():
+	_admob_load_fail_count[2] = 0
+
+func on_banner_failed():
+	_admob_load_fail_count[0] += 1
+	if _admob_load_fail_count[0] < _admob_max_load_fails:
+		admob.load_banner()
+
+func  on_interstitial_failed():
+	_admob_load_fail_count[1] += 1
+	if _admob_load_fail_count[1] < _admob_max_load_fails:
+		admob.load_interstitial()
+
+func on_video_failed():
+	_admob_load_fail_count[2] += 1
+	if _admob_load_fail_count[2] < _admob_max_load_fails:
+		admob.load_rewarded_video()

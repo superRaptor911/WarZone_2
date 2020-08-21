@@ -30,6 +30,7 @@ export(String, "G", "PG", "T", "MA") var max_ad_content_rate
 var _admob_singleton = null
 var _is_interstitial_loaded:bool = false
 var _is_rewarded_video_loaded:bool = false
+var _is_banner_loaded: bool = false
 
 
 func _enter_tree():
@@ -133,9 +134,11 @@ func get_banner_dimension() -> Vector2:
 # callbacks
 
 func _on_admob_ad_loaded() -> void:
+	_is_banner_loaded = true
 	emit_signal("banner_loaded")
 	
 func _on_admob_banner_failed_to_load(error_code:int) -> void:
+	_is_banner_loaded = false
 	emit_signal("banner_failed_to_load", error_code)
 	
 func _on_interstitial_failed_to_load(error_code:int) -> void:
@@ -147,6 +150,7 @@ func _on_interstitial_loaded() -> void:
 	emit_signal("interstitial_loaded")
 
 func _on_interstitial_close() -> void:
+	_is_interstitial_loaded = false
 	emit_signal("interstitial_closed")
 
 func _on_rewarded_video_ad_loaded() -> void:
@@ -154,6 +158,7 @@ func _on_rewarded_video_ad_loaded() -> void:
 	emit_signal("rewarded_video_loaded")
 
 func _on_rewarded_video_ad_closed() -> void:
+	_is_rewarded_video_loaded = false
 	emit_signal("rewarded_video_closed")
 
 func _on_rewarded(currency:String, amount:int) -> void:

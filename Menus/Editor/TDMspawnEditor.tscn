@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Menus/Editor/TDMspawnEditor.gd" type="Script" id=1]
 [ext_resource path="res://controls/JoyStickx.tscn" type="PackedScene" id=2]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Menus/Editor/CT_icon.png" type="Texture" id=4]
 [ext_resource path="res://Menus/Editor/T_icon.png" type="Texture" id=5]
+[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=6]
+[ext_resource path="res://Fonts/ARIALBD.TTF" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+use_filter = true
+font_data = ExtResource( 7 )
 
 [node name="TDMspawnEditor" type="Node"]
 script = ExtResource( 1 )
@@ -65,6 +72,22 @@ margin_bottom = 43.0
 custom_fonts/font = ExtResource( 3 )
 text = "Delete"
 
+[node name="saveNExit" type="Button" parent="uiLayer"]
+anchor_left = 0.851
+anchor_top = 0.023
+anchor_right = 0.983
+anchor_bottom = 0.101
+margin_left = 0.577393
+margin_top = 0.0726128
+margin_right = 0.617432
+margin_bottom = -0.0873871
+custom_styles/normal = ExtResource( 6 )
+custom_fonts/font = SubResource( 1 )
+text = "Save and Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="editorSpawns" type="Node" parent="."]
 
 [node name="spawns" type="Node" parent="."]
@@ -75,3 +98,4 @@ current = true
 [connection signal="item_selected" from="uiLayer/ItemList" to="." method="_on_ItemList_item_selected"]
 [connection signal="Joystick_Updated" from="uiLayer/Joystick" to="." method="_on_Joystick_Joystick_Updated"]
 [connection signal="pressed" from="uiLayer/spawn_option/VBoxContainer/spawn_delete" to="." method="_on_spawn_delete_pressed"]
+[connection signal="pressed" from="uiLayer/saveNExit" to="." method="_on_saveNExit_pressed"]

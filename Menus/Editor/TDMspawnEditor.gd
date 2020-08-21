@@ -132,3 +132,7 @@ func _on_spawn_delete_pressed():
 
 func _on_Joystick_Joystick_Updated(_vector):
 	option_panel.hide()
+
+
+func _on_saveNExit_pressed():
+	_on_back_pressed()

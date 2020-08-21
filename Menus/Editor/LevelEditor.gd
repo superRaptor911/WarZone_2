@@ -208,3 +208,7 @@ func _on_notice_ok_pressed():
 	saveLevel()
 	yield(get_tree().create_timer(0.5), "timeout")
 	MenuManager.changeScene("EMS/LevelEditorMenu")
+
+
+func _on_saveNexit_pressed():
+	_on_back_pressed()
