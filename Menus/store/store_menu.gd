@@ -10,8 +10,7 @@ extends CanvasLayer
 func _ready():
 	initialTween()
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
-	$AdMob.load_interstitial()
-	$AdMob.load_rewarded_video()
+	MenuManager.admob.show_banner()
 
 
 func _on_back_pressed():
@@ -51,23 +50,18 @@ func initialTween():
 	$Tween.start()
 
 
-
-
-
-
 func _on_cash_pressed():
-	$Admob.show_rewarded_video()
+	if MenuManager.admob._is_rewarded_video_loaded:
+		MenuManager.admob.show_rewarded_video()
+		MenuManager.admob.connect("rewarded", self, "_on_AdMob_rewarded")
+	else:
+		var notice = Notice.new()
+		notice.showNotice(self,"Error", "Failed to load reward video", Color.red)
 
 
-func _on_AdMob_interstitial_loaded():
-	$AdMob.show_interstitial()
-
-
-func _on_AdMob_rewarded(currency, ammount):
+func _on_AdMob_rewarded(_currency, _ammount):
 	game_states.player_data.cash += 500
 	game_states.savePlayerData()
 	$PopupPanel.popup()
+	MenuManager.admob.disconnect("rewarded", self, "_on_AdMob_rewarded")
 
-
-func _on_AdMob_rewarded_video_loaded():
-	pass
