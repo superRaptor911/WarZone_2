@@ -12,6 +12,7 @@ func _ready():
 	UiAnim.animLeftToRight([menu])
 	getMapNames()
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
+	MenuManager.admob.show_banner()
 	
 
 func _on_create_pressed():

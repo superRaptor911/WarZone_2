@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Menus/Editor/EditorMapSelector.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
 
 [node name="EditorMapSelector" type="Control"]
 anchor_right = 1.0
@@ -30,6 +33,7 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 989.0
 margin_bottom = 547.0
+custom_styles/panel = SubResource( 1 )
 
 [node name="mapList" type="ItemList" parent="PanelContainer/Panel"]
 anchor_left = 0.051

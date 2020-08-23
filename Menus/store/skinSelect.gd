@@ -12,7 +12,7 @@ func _ready():
 	loadSkins()
 	MenuManager.connect("back_pressed", self,"_on_Back_pressed")
 	MenuManager.admob.load_interstitial()
-
+	MenuManager.admob.show_banner()
 
 func loadSkins():
 	for i in game_states.player_data.skins:

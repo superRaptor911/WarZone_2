@@ -19,7 +19,7 @@ func _ready():
 	getGuns()
 	selectSelectedWeapons()
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
-	MenuManager.admob.show_interstitial()
+	MenuManager.admob.show_banner()
 
 #get all purchased guns
 func getGuns():

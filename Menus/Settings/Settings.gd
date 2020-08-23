@@ -12,6 +12,7 @@ func _ready():
 	#$Admob.load_banner()
 	UiAnim.animLeftToRight([$TabContainer])
 	MenuManager.connect("back_pressed", self,"_on_Button_pressed")
+	MenuManager.admob.show_interstitial()
 
 func _on_music_toggled(button_pressed):
 	MusicMan.click()

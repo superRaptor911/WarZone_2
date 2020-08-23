@@ -15,6 +15,7 @@ func _ready():
 	startingTween()
 	#$Admob.load_banner()
 	MenuManager.connect("back_pressed", self,"_on_back_button_pressed")
+	MenuManager.admob.show_banner()
 
 func _on_join_fail():
 	print("Failed to join server")

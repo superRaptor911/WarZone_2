@@ -7,7 +7,7 @@ func _ready():
 	network.connect("server_created",self,"_join_lobby")
 	UiAnim.animTopToBottom([$panel])
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
-
+	MenuManager.admob.show_banner()
 
 func _join_lobby():
 	MenuManager.changeScene("HM/lobby")
