@@ -219,10 +219,10 @@ __meta__ = {
 [node name="g_version" type="Label" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -50.1084
-margin_top = 5.35143
-margin_right = -10.1084
-margin_bottom = 19.3514
+margin_left = -65.9546
+margin_top = 16.6364
+margin_right = -18.9546
+margin_bottom = 30.6364
 text = "V 1.35"
 __meta__ = {
 "_edit_use_anchors_": false

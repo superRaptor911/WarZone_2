@@ -4,6 +4,7 @@ extends CanvasLayer
 func _ready():
 	UiAnim.animZoomIn([$Panel])
 	MenuManager.connect("back_pressed", self,"_on_Button3_pressed")
+	MenuManager.admob.show_banner()
 
 
 func _on_Button_pressed():

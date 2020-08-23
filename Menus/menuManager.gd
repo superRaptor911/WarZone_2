@@ -8,7 +8,7 @@ var menu_loaded = 0
 var loading_menu
 
 var admob : AdMob = null
-var _admob_max_load_fails = 5
+var _admob_max_load_fails = 10
 var _admob_load_fail_count = [0, 0, 0]
 
 signal back_pressed
@@ -108,7 +108,7 @@ func setupAds():
 		admob.queue_free()
 	
 	admob = AdMob.new()
-	admob.is_real = false
+	admob.is_real = true
 	admob.max_ad_content_rate = "MA"
 	admob.banner_id = banners[randi() % banners.size()]
 	admob.interstitial_id = interstitials[randi() % interstitials.size()]
