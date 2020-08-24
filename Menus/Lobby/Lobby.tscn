@@ -1,42 +1,17 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=4]
+[ext_resource path="res://Sprites/bg/bg2.jpg" type="Texture" id=4]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=6]
 [ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/UI/next_white.png" type="Texture" id=8]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=9]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
-shadow_size = 6
-
-[sub_resource type="StyleBoxFlat" id=2]
-content_margin_left = 40.0
-content_margin_right = 40.0
-content_margin_top = 15.0
-content_margin_bottom = 15.0
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-
-[sub_resource type="StyleBoxFlat" id=3]
-content_margin_left = 40.0
-content_margin_right = 40.0
-content_margin_top = 15.0
-content_margin_bottom = 15.0
-bg_color = Color( 0, 0, 0, 1 )
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-
-[sub_resource type="StyleBoxFlat" id=4]
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 32
@@ -48,16 +23,15 @@ size = 24
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=7]
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+[sub_resource type="DynamicFont" id=8]
+size = 18
+use_filter = true
+font_data = ExtResource( 6 )
 
 [node name="Lobby" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="bg" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 4 )
@@ -71,11 +45,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -601.0
-margin_top = -332.5
-margin_right = 601.0
-margin_bottom = 332.5
-custom_styles/panel = SubResource( 1 )
+margin_left = -603.0
+margin_top = -341.0
+margin_right = 603.0
+margin_bottom = 341.0
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -85,24 +59,20 @@ anchor_left = 0.522
 anchor_top = 0.5
 anchor_right = 0.522
 anchor_bottom = 0.5
-margin_left = -459.444
-margin_top = -27.5
-margin_right = 459.556
-margin_bottom = 319.5
-custom_styles/tab_fg = SubResource( 2 )
-custom_styles/tab_bg = SubResource( 3 )
-custom_styles/panel = SubResource( 4 )
+margin_left = -493.532
+margin_top = -53.0
+margin_right = 425.468
+margin_bottom = 324.0
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="Game" type="Tabs" parent="Panel/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 48.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_top = 24.0
 
 [node name="ffire" type="Label" parent="Panel/TabContainer/Game"]
 margin_left = 204.149
@@ -264,30 +234,29 @@ __meta__ = {
 }
 
 [node name="portrait" type="Panel" parent="Panel"]
-anchor_left = 0.5
-anchor_top = 0.195
-anchor_right = 0.5
-anchor_bottom = 0.195
-margin_left = -180.0
-margin_top = -122.675
-margin_right = 181.0
-margin_bottom = 122.325
+anchor_left = 0.359
+anchor_right = 0.641
+anchor_bottom = 0.337
+margin_left = 0.0459595
+margin_right = -0.0460205
+margin_bottom = 0.166
 custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="level_name" type="Label" parent="Panel/portrait"]
-anchor_left = 0.5
-anchor_top = 0.429
-anchor_right = 0.5
-anchor_bottom = 0.429
-margin_left = -94.2
-margin_top = 153.545
-margin_right = 103.8
-margin_bottom = 192.545
-custom_fonts/font = ExtResource( 5 )
+anchor_left = 0.334
+anchor_top = 1.047
+anchor_right = 0.666
+anchor_bottom = 1.138
+margin_left = -0.0965652
+margin_top = -0.0642395
+margin_right = 0.0234375
+margin_bottom = 0.00576782
+custom_fonts/font = SubResource( 8 )
 text = "LEVEL NAME"
 align = 1
 __meta__ = {
@@ -295,24 +264,28 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="Panel/portrait"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -175.5
-margin_top = -119.5
-margin_right = 175.5
-margin_bottom = 119.5
+anchor_left = 0.029
+anchor_top = 0.022
+anchor_right = 0.971
+anchor_bottom = 0.978
+margin_left = 0.139999
+margin_top = -0.0600085
+margin_right = -0.140015
+margin_bottom = 0.0600128
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="next_map" type="TextureButton" parent="Panel/portrait"]
-margin_left = 363.0
-margin_top = 16.0
-margin_right = 553.0
-margin_bottom = 227.0
+anchor_left = 0.871
+anchor_top = 0.091
+anchor_right = 1.43
+anchor_bottom = 1.0
+margin_left = 0.0841675
+margin_top = 0.0699978
+margin_right = 0.0241699
+margin_bottom = 1.99998
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 8 )
 texture_hover = ExtResource( 7 )
@@ -323,10 +296,14 @@ __meta__ = {
 }
 
 [node name="prev_map" type="TextureButton" parent="Panel/portrait"]
-margin_left = -3.31543
-margin_top = 16.0
-margin_right = 186.685
-margin_bottom = 227.0
+anchor_left = -0.424
+anchor_top = 0.091
+anchor_right = 0.135
+anchor_bottom = 1.009
+margin_left = 189.982
+margin_top = 0.0699978
+margin_right = 189.922
+margin_bottom = -0.0700226
 rect_scale = Vector2( -1, 1 )
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 8 )
