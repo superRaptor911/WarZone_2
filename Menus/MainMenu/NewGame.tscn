@@ -2,7 +2,7 @@
 
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=2]
-[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=3]
+[ext_resource path="res://Sprites/bg/bg.jpg" type="Texture" id=3]
 [ext_resource path="res://Menus/MainMenu/NewGame.gd" type="Script" id=4]
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=6]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=7]

@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Menus/community/Maps/ComMapsMenu.gd" type="Script" id=1]
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+
+[node name="ComMapsMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -569.0
+margin_top = -317.5
+margin_right = 569.0
+margin_bottom = 317.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemList" type="ItemList" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1131.0
+margin_bottom = 628.0
+custom_styles/bg = SubResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+custom_constants/hseparation = 50

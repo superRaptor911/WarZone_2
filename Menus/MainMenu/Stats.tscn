@@ -2,8 +2,7 @@
 
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=3]
-[ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=4]
+[ext_resource path="res://Sprites/bg/bg3.jpg" type="Texture" id=3]
 [ext_resource path="res://Menus/MainMenu/Stats.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -24,10 +23,18 @@ size = 32
 use_filter = true
 font_data = ExtResource( 1 )
 
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.129412, 0.733333, 0.239216, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+shadow_size = 4
+
 [node name="Stats" type="CanvasLayer"]
 script = ExtResource( 5 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="bg" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 3 )
@@ -41,10 +48,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -327.0
-margin_top = -284.0
-margin_right = 400.0
-margin_bottom = 268.0
+margin_left = -409.408
+margin_top = -280.636
+margin_right = 440.592
+margin_bottom = 345.364
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -72,11 +79,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -236.0
-margin_top = -167.5
+margin_top = -209.545
 margin_right = 236.0
-margin_bottom = 167.5
+margin_bottom = 125.455
 custom_constants/separation = 30
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -215,19 +223,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="back" type="Button" parent="Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -56.6047
-margin_top = 210.775
-margin_right = 56.3953
-margin_bottom = 250.775
-custom_styles/normal = ExtResource( 4 )
+[node name="up_data" type="Button" parent="Panel"]
+margin_left = 241.811
+margin_top = 525.189
+margin_right = 417.811
+margin_bottom = 593.189
+custom_styles/normal = SubResource( 4 )
 custom_fonts/font = ExtResource( 2 )
-text = "Back"
+text = "UPLOAD"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="Panel/back" to="." method="_on_back_pressed"]
+
+[node name="down_data" type="Button" parent="Panel"]
+margin_left = 517.0
+margin_top = 525.0
+margin_right = 693.0
+margin_bottom = 593.0
+custom_styles/normal = SubResource( 4 )
+custom_fonts/font = ExtResource( 2 )
+text = "RESTORE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
