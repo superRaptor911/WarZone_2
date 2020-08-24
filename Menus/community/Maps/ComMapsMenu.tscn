@@ -1,10 +1,30 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Menus/community/Maps/ComMapsMenu.gd" type="Script" id=1]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Sprites/bg/bg.jpg" type="Texture" id=3]
+[ext_resource path="res://Sprites/misc/icons8-no-image-100.png" type="Texture" id=4]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.215686, 0.192157, 0.501961, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.501961, 0.192157, 0.192157, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="ComMapsMenu" type="Control"]
 anchor_right = 1.0
@@ -14,24 +34,132 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -569.0
-margin_top = -317.5
-margin_right = 569.0
-margin_bottom = 317.5
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ItemList" type="ItemList" parent="PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 1131.0
-margin_bottom = 628.0
-custom_styles/bg = SubResource( 1 )
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -556.5
+margin_top = -315.5
+margin_right = 556.5
+margin_bottom = 315.5
+custom_styles/panel = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="header" type="Panel" parent="Panel"]
+anchor_right = 1.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 50 )
+custom_styles/panel = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/header"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -146.5
+margin_top = -18.5
+margin_right = 146.5
+margin_bottom = 18.5
+custom_fonts/font = ExtResource( 2 )
+text = "COMMUNITY MAPS"
+
+[node name="mapList" type="ItemList" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -405.0
+margin_top = -248.0
+margin_right = 405.0
+margin_bottom = 248.0
+custom_styles/bg = SubResource( 7 )
 custom_fonts/font = ExtResource( 2 )
 custom_constants/hseparation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mapInfo" type="Panel" parent="."]
+visible = false
+anchor_left = 0.209
+anchor_top = 0.143
+anchor_right = 0.791
+anchor_bottom = 0.857
+margin_left = 0.47998
+margin_top = 0.0399933
+margin_right = -0.47998
+margin_bottom = -0.0400391
+custom_styles/panel = SubResource( 7 )
+
+[node name="TextureRect" type="TextureRect" parent="mapInfo"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -64.0
+margin_right = 64.0
+margin_bottom = 122.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Label" type="Label" parent="mapInfo"]
+anchor_left = 0.083
+anchor_top = 0.338
+anchor_right = 0.969
+anchor_bottom = 0.718
+margin_left = -0.116749
+margin_top = 0.0825653
+margin_right = -0.300781
+margin_bottom = -0.237457
+custom_fonts/font = ExtResource( 2 )
+text = "Map name:
+Author :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="install" type="Button" parent="mapInfo"]
+anchor_left = 0.275
+anchor_top = 0.839
+anchor_right = 0.476
+anchor_bottom = 0.948
+margin_left = -0.235321
+margin_top = -0.177673
+margin_right = 0.220673
+margin_bottom = -0.203674
+custom_styles/pressed = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+custom_fonts/font = ExtResource( 2 )
+text = "INSTALL"
+
+[node name="back" type="Button" parent="mapInfo"]
+anchor_left = 0.626
+anchor_top = 0.839
+anchor_right = 0.828
+anchor_bottom = 0.948
+margin_left = 0.154266
+margin_top = -0.177673
+margin_right = -0.133728
+margin_bottom = -0.203674
+custom_styles/pressed = SubResource( 7 )
+custom_styles/normal = SubResource( 9 )
+custom_fonts/font = ExtResource( 2 )
+text = "BACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="item_selected" from="Panel/mapList" to="." method="_on_mapList_item_selected"]
+[connection signal="pressed" from="mapInfo/install" to="." method="_on_install_pressed"]
+[connection signal="pressed" from="mapInfo/back" to="." method="_onMapinfo_back_pressed"]
