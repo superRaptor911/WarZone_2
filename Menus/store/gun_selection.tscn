@@ -10,20 +10,19 @@
 [ext_resource path="res://Sprites/UI/mag.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/UI/next_white.png" type="Texture" id=9]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-shadow_size = 6
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=8]
 size = 24
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_left = 2
 border_width_top = 2
@@ -31,12 +30,12 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=10]
 size = 28
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 draw_center = false
 border_width_left = 3
@@ -45,7 +44,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=12]
 resource_name = "buy_popup"
 tracks/0/type = "value"
 tracks/0/path = NodePath("buy:rect_scale")
@@ -156,7 +155,7 @@ tracks/8/keys = {
 "values": [ 0.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=13]
 tracks/0/type = "value"
 tracks/0/path = NodePath("weapons:rect_position")
 tracks/0/interp = 1
@@ -254,7 +253,7 @@ tracks/7/keys = {
 "values": [ 0.0, 0.0 ]
 }
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=14]
 bg_color = Color( 0.0941176, 0.0823529, 0.0823529, 0.976471 )
 border_width_left = 4
 border_width_top = 4
@@ -262,24 +261,24 @@ border_width_right = 4
 border_width_bottom = 4
 shadow_size = 6
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=15]
 size = 24
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=16]
 bg_color = Color( 0.109804, 0.65098, 0.0156863, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=17]
 size = 24
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=18]
 size = 28
 use_filter = true
 font_data = ExtResource( 2 )
@@ -304,7 +303,7 @@ anchor_bottom = 1.0
 margin_left = -600.0
 margin_top = -460.0
 margin_right = -70.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -319,7 +318,7 @@ margin_left = -153.321
 margin_top = -20.6677
 margin_right = 152.679
 margin_bottom = 20.3323
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 8 )
 text = "Selected as Primary gun"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -334,7 +333,7 @@ margin_left = -108.082
 margin_top = 0.000940084
 margin_right = 108.918
 margin_bottom = 171.001
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -354,13 +353,14 @@ margin_left = 50.0
 margin_top = 182.0
 margin_right = 151.0
 margin_bottom = 214.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 8 )
 text = "Ak47"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="prim_laser" type="Button" parent="primary_gun"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.617
 anchor_right = 0.5
@@ -373,13 +373,14 @@ custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 10 )
 text = "Buy Laser sight"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="prim_clip_ext" type="Button" parent="primary_gun"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.793
 anchor_right = 0.5
@@ -392,7 +393,7 @@ custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 10 )
 text = "Buy clip extender"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -406,7 +407,7 @@ anchor_bottom = 1.0
 margin_left = 20.0001
 margin_top = -460.0
 margin_right = 560.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -421,7 +422,7 @@ margin_left = -153.321
 margin_top = -20.6677
 margin_right = 152.679
 margin_bottom = 20.3323
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 8 )
 text = "Selected as Secondary gun"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -436,7 +437,7 @@ margin_left = -108.082
 margin_top = 0.000940084
 margin_right = 108.918
 margin_bottom = 171.001
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -456,13 +457,14 @@ margin_left = 50.0
 margin_top = 182.0
 margin_right = 151.0
 margin_bottom = 214.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 8 )
 text = "Ak47"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sec_laser" type="Button" parent="sec_gun"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.617
 anchor_right = 0.5
@@ -475,13 +477,14 @@ custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 10 )
 text = "Buy Laser sight"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="sec_clip_ext" type="Button" parent="sec_gun"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.793
 anchor_right = 0.5
@@ -494,7 +497,7 @@ custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 10 )
 text = "Buy clip extender"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -507,7 +510,7 @@ margin_left = -505.0
 margin_top = -250.0
 margin_right = 505.0
 margin_bottom = -24.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -559,7 +562,7 @@ __meta__ = {
 margin_right = 205.0
 margin_bottom = 165.0
 rect_min_size = Vector2( 205, 165 )
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -578,7 +581,7 @@ margin_left = 245.0
 margin_right = 450.0
 margin_bottom = 165.0
 rect_min_size = Vector2( 205, 165 )
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -597,7 +600,7 @@ margin_left = 490.0
 margin_right = 695.0
 margin_bottom = 165.0
 rect_min_size = Vector2( 205, 165 )
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -616,7 +619,7 @@ margin_left = 735.0
 margin_right = 940.0
 margin_bottom = 165.0
 rect_min_size = Vector2( 205, 165 )
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -633,8 +636,8 @@ stretch_mode = 6
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "initial_anim"
 playback_speed = 2.0
-anims/buy_popup = SubResource( 6 )
-anims/initial_anim = SubResource( 7 )
+anims/buy_popup = SubResource( 12 )
+anims/initial_anim = SubResource( 13 )
 
 [node name="buy" type="Panel" parent="."]
 visible = false
@@ -647,7 +650,7 @@ margin_top = -234.0
 margin_right = 256.0
 margin_bottom = 234.0
 rect_pivot_offset = Vector2( 256, 252.692 )
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 14 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -658,7 +661,7 @@ margin_left = 57.0
 margin_top = 292.0
 margin_right = 241.0
 margin_bottom = 324.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 15 )
 text = "Cost :"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -669,7 +672,7 @@ margin_left = 57.0
 margin_top = 346.737
 margin_right = 241.0
 margin_bottom = 378.737
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 15 )
 text = "Cash :"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -696,7 +699,7 @@ margin_left = 27.1737
 margin_top = 193.692
 margin_right = 172.174
 margin_bottom = 225.692
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 15 )
 text = "Laser Sight"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -707,11 +710,11 @@ margin_left = 51.413
 margin_top = 416.834
 margin_right = 162.413
 margin_bottom = 452.834
-custom_styles/hover = SubResource( 10 )
-custom_styles/pressed = SubResource( 10 )
-custom_styles/focus = SubResource( 10 )
-custom_styles/normal = SubResource( 10 )
-custom_fonts/font = SubResource( 11 )
+custom_styles/hover = SubResource( 16 )
+custom_styles/pressed = SubResource( 16 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/normal = SubResource( 16 )
+custom_fonts/font = SubResource( 17 )
 text = "Buy"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -726,7 +729,7 @@ custom_styles/hover = ExtResource( 6 )
 custom_styles/pressed = ExtResource( 6 )
 custom_styles/focus = ExtResource( 6 )
 custom_styles/normal = ExtResource( 6 )
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 17 )
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -745,7 +748,7 @@ custom_styles/hover = ExtResource( 6 )
 custom_styles/pressed = ExtResource( 6 )
 custom_styles/focus = ExtResource( 6 )
 custom_styles/normal = ExtResource( 6 )
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 18 )
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false

@@ -1,21 +1,20 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=1]
+[ext_resource path="res://Sprites/bg/bg3.jpg" type="Texture" id=1]
 [ext_resource path="res://Menus/store/SkinBuy.gd" type="Script" id=2]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=4]
 [ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=5]
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=6]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-shadow_size = 6
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=8]
 draw_center = false
 border_width_left = 3
 border_width_top = 3
@@ -23,40 +22,39 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=9]
 size = 28
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.277344, 0.153839, 0.153839, 0.745098 )
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=11]
 size = 24
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=12]
 size = 28
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=13]
 size = 42
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=14]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="Animation" id=9]
-resource_name = "initialAnim"
+[sub_resource type="Animation" id=15]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Panel:rect_position")
 tracks/0/interp = 1
@@ -151,7 +149,7 @@ margin_left = -379.5
 margin_top = -312.0
 margin_right = 379.5
 margin_bottom = 312.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -163,7 +161,7 @@ margin_left = -136.0
 margin_top = 3.34496
 margin_right = 136.0
 margin_bottom = 213.345
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -183,7 +181,7 @@ margin_left = 60.9048
 margin_top = 218.132
 margin_right = 209.905
 margin_bottom = 255.132
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 9 )
 text = "Skin name"
 align = 1
 __meta__ = {
@@ -224,7 +222,7 @@ margin_left = -335.777
 margin_top = -127.615
 margin_right = 335.223
 margin_bottom = 92.3846
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -234,7 +232,7 @@ margin_left = 15.0
 margin_top = 15.0
 margin_right = 657.0
 margin_bottom = 120.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 11 )
 autowrap = true
 clip_text = true
 
@@ -243,7 +241,7 @@ margin_left = 15.0
 margin_top = 131.0
 margin_right = 432.0
 margin_bottom = 206.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 11 )
 text = "Team : Terrorist
 Price : $500"
 autowrap = true
@@ -262,7 +260,7 @@ custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 12 )
 text = "Purchase"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -273,7 +271,7 @@ margin_left = 21.0
 margin_top = 21.0
 margin_right = 254.0
 margin_bottom = 117.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color = Color( 0.101961, 0.713726, 0.254902, 1 )
 text = "$5555"
 clip_text = true
@@ -294,7 +292,7 @@ custom_styles/hover = ExtResource( 6 )
 custom_styles/pressed = ExtResource( 6 )
 custom_styles/focus = ExtResource( 6 )
 custom_styles/normal = ExtResource( 6 )
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 14 )
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -303,7 +301,7 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "initialAnim"
 playback_speed = 2.0
-anims/initialAnim = SubResource( 9 )
+anims/initialAnim = SubResource( 15 )
 [connection signal="pressed" from="Panel/portrait/nextButton" to="." method="_on_nextButton_pressed"]
 [connection signal="pressed" from="Panel/portrait/prevButton" to="." method="_on_prevButton_pressed"]
 [connection signal="pressed" from="Panel/purchase" to="." method="_on_purchase_pressed"]

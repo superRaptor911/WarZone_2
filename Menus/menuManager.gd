@@ -108,7 +108,7 @@ func setupAds():
 		admob.queue_free()
 	
 	admob = AdMob.new()
-	admob.is_real = true
+	admob.is_real = false
 	admob.max_ad_content_rate = "MA"
 	admob.banner_id = banners[randi() % banners.size()]
 	admob.interstitial_id = interstitials[randi() % interstitials.size()]
