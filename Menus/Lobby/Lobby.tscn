@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
@@ -12,6 +12,29 @@
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=9]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id=10]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color( 0, 0, 0, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="DynamicFont" id=8]
+size = 18
+use_filter = true
+font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 32
@@ -22,11 +45,6 @@ font_data = ExtResource( 3 )
 size = 24
 use_filter = true
 font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=8]
-size = 18
-use_filter = true
-font_data = ExtResource( 6 )
 
 [node name="Lobby" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -63,7 +81,10 @@ margin_left = -493.532
 margin_top = -53.0
 margin_right = 425.468
 margin_bottom = 324.0
+custom_styles/tab_fg = SubResource( 9 )
+custom_styles/tab_bg = SubResource( 10 )
 custom_styles/panel = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -72,7 +93,7 @@ __meta__ = {
 [node name="Game" type="Tabs" parent="Panel/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 24.0
+margin_top = 31.0
 
 [node name="ffire" type="Label" parent="Panel/TabContainer/Game"]
 margin_left = 204.149
@@ -315,6 +336,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = 41.0
 margin_top = 40.0
 margin_right = 392.0

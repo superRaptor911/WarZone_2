@@ -3,23 +3,22 @@
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=2]
 [ext_resource path="res://Menus/store/skinSelect.gd" type="Script" id=3]
-[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=4]
+[ext_resource path="res://Sprites/bg/bg3.jpg" type="Texture" id=4]
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=5]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.6, 0.6, 0.666667 )
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-shadow_size = 6
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=8]
 size = 28
 use_filter = true
 font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=9]
 draw_center = false
 border_width_left = 2
 border_width_top = 2
@@ -27,12 +26,12 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=10]
 size = 28
 use_filter = true
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=11]
 tracks/0/type = "value"
 tracks/0/path = NodePath("T:rect_position")
 tracks/0/interp = 1
@@ -109,7 +108,7 @@ tracks/5/keys = {
 [node name="skinSelect" type="CanvasLayer"]
 script = ExtResource( 3 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="bg" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 4 )
@@ -123,7 +122,7 @@ margin_left = 74.7135
 margin_top = 151.801
 margin_right = 586.714
 margin_bottom = 554.801
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -132,6 +131,7 @@ __meta__ = {
 [node name="Header" type="Panel" parent="T"]
 anchor_right = 1.0
 margin_bottom = 65.0
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -145,7 +145,7 @@ margin_left = -97.5
 margin_top = -18.5
 margin_right = 97.5
 margin_bottom = 18.5
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 8 )
 text = "Selected Skin"
 valign = 1
 __meta__ = {
@@ -173,7 +173,7 @@ margin_left = -97.5
 margin_top = -18.5
 margin_right = 97.5
 margin_bottom = 18.5
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 8 )
 text = "Terrorist"
 align = 1
 __meta__ = {
@@ -185,7 +185,7 @@ margin_left = 132.754
 margin_top = 100.0
 margin_right = 375.754
 margin_bottom = 278.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -199,7 +199,7 @@ margin_left = -99.922
 margin_top = 97.0255
 margin_right = 95.078
 margin_bottom = 134.025
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 8 )
 text = "S.A.S"
 align = 1
 __meta__ = {
@@ -247,7 +247,7 @@ margin_left = 693.593
 margin_top = 151.801
 margin_right = 1205.59
 margin_bottom = 554.801
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -256,6 +256,7 @@ __meta__ = {
 [node name="Header" type="Panel" parent="CT"]
 anchor_right = 1.0
 margin_bottom = 65.0
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -269,7 +270,7 @@ margin_left = -97.5
 margin_top = -18.5
 margin_right = 97.5
 margin_bottom = 18.5
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 8 )
 text = "Selected Skin"
 valign = 1
 __meta__ = {
@@ -297,7 +298,7 @@ margin_left = -127.5
 margin_top = -18.5
 margin_right = 127.5
 margin_bottom = 18.5
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 8 )
 text = "Counter Terrorist"
 align = 1
 __meta__ = {
@@ -309,7 +310,7 @@ margin_left = 132.754
 margin_top = 100.0
 margin_right = 375.754
 margin_bottom = 278.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -323,7 +324,7 @@ margin_left = -99.922
 margin_top = 97.0255
 margin_right = 95.078
 margin_bottom = 134.025
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 8 )
 text = "S.A.S"
 align = 1
 __meta__ = {
@@ -379,7 +380,7 @@ custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 10 )
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -388,7 +389,7 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "initalAnim"
 playback_speed = 2.0
-anims/initalAnim = SubResource( 5 )
+anims/initalAnim = SubResource( 11 )
 [connection signal="pressed" from="T/portrait/Tnext" to="." method="_on_Tnext_pressed"]
 [connection signal="pressed" from="T/portrait/Tprev" to="." method="_on_Tprev_pressed"]
 [connection signal="pressed" from="CT/portrait/CTnext" to="." method="_on_CTnext_pressed"]

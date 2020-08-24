@@ -1,38 +1,48 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Menus/MainMenu/host_menu.gd" type="Script" id=1]
-[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
+[ext_resource path="res://Sprites/bg/bg3.jpg" type="Texture" id=2]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.141176, 0.12549, 0.447059, 1 )
 shadow_size = 6
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 1, 0.0313726, 0.0313726, 1 )
 shadow_size = 6
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=12]
 size = 28
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.6, 0.6, 0.6, 0.686275 )
-shadow_size = 6
+[sub_resource type="StyleBoxFlat" id=9]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="DynamicFont" id=13]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=14]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=15]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
@@ -40,7 +50,7 @@ font_data = ExtResource( 3 )
 [node name="host_menu" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="Panel" type="TextureRect" parent="."]
+[node name="bg" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 2 )
@@ -49,23 +59,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="create" type="Button" parent="Panel"]
-anchor_left = 0.888
-anchor_top = 0.899
-anchor_right = 0.888
-anchor_bottom = 0.899
-margin_left = -119.64
-margin_top = -49.28
-margin_right = 119.36
-margin_bottom = 49.72
-custom_styles/normal = SubResource( 1 )
+[node name="create" type="Button" parent="bg"]
+anchor_left = 0.795
+anchor_top = 0.851
+anchor_right = 0.981
+anchor_bottom = 0.968
+margin_left = -0.600037
+margin_top = 0.279968
+margin_right = 0.319946
+margin_bottom = 0.039978
+custom_styles/normal = SubResource( 10 )
 custom_fonts/font = ExtResource( 6 )
 text = "Create"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="back" type="Button" parent="Panel"]
+[node name="back" type="Button" parent="bg"]
 anchor_left = 0.098
 anchor_top = 0.938
 anchor_right = 0.098
@@ -74,36 +84,36 @@ margin_left = -62.3347
 margin_top = -22.571
 margin_right = 62.665
 margin_bottom = 22.429
-custom_styles/normal = SubResource( 2 )
-custom_fonts/font = SubResource( 3 )
+custom_styles/normal = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="panel" type="Panel" parent="."]
-anchor_left = 0.479
-anchor_top = 0.5
-anchor_right = 0.479
-anchor_bottom = 0.5
-margin_left = -372.232
-margin_top = -208.203
-margin_right = 371.768
-margin_bottom = 245.797
-custom_styles/panel = SubResource( 4 )
+anchor_left = 0.158
+anchor_top = 0.174
+anchor_right = 0.833
+anchor_bottom = 0.826
+margin_left = 11.76
+margin_top = -0.280006
+margin_right = -0.240112
+margin_bottom = 0.279968
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="contatiner" type="VBoxContainer" parent="panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -48.8264
-margin_top = -113.916
-margin_right = 315.174
-margin_bottom = 125.085
+anchor_left = 0.443
+anchor_top = 0.258
+anchor_right = 0.87
+anchor_bottom = 0.766
+margin_left = -0.262421
+margin_top = -0.17601
+margin_right = -0.06604
+margin_bottom = 0.0649719
 custom_constants/separation = 40
 __meta__ = {
 "_edit_group_": true,
@@ -112,8 +122,9 @@ __meta__ = {
 
 [node name="e1" type="LineEdit" parent="panel/contatiner"]
 margin_right = 364.0
-margin_bottom = 53.0
-custom_fonts/font = SubResource( 5 )
+margin_bottom = 43.0
+custom_styles/normal = SubResource( 7 )
+custom_fonts/font = SubResource( 13 )
 text = "My Server"
 max_length = 64
 
@@ -122,17 +133,18 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 14 )
 text = "Server Name"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="e2" type="LineEdit" parent="panel/contatiner"]
-margin_top = 93.0
+margin_top = 83.0
 margin_right = 364.0
-margin_bottom = 146.0
-custom_fonts/font = SubResource( 5 )
+margin_bottom = 126.0
+custom_styles/normal = SubResource( 7 )
+custom_fonts/font = SubResource( 13 )
 text = "8"
 max_length = 64
 
@@ -141,17 +153,18 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 14 )
 text = "Max Players"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="e3" type="LineEdit" parent="panel/contatiner"]
-margin_top = 186.0
+margin_top = 166.0
 margin_right = 364.0
-margin_bottom = 239.0
-custom_fonts/font = SubResource( 5 )
+margin_bottom = 209.0
+custom_styles/normal = SubResource( 7 )
+custom_fonts/font = SubResource( 13 )
 text = "6569"
 max_length = 64
 
@@ -160,7 +173,7 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 14 )
 text = "Port"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -169,6 +182,7 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="panel"]
 anchor_right = 1.0
 margin_bottom = 45.0
+custom_styles/panel = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -182,7 +196,7 @@ margin_left = -89.0
 margin_top = -21.5
 margin_right = 89.0
 margin_bottom = 21.5
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 15 )
 text = "Host Menu"
-[connection signal="pressed" from="Panel/create" to="." method="_on_create_pressed"]
-[connection signal="pressed" from="Panel/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="bg/create" to="." method="_on_create_pressed"]
+[connection signal="pressed" from="bg/back" to="." method="_on_back_pressed"]
