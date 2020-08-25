@@ -10,28 +10,28 @@
 [ext_resource path="res://Sprites/UI/next_white.png" type="Texture" id=8]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=9]
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=2]
 content_margin_left = 15.0
 content_margin_right = 15.0
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=3]
 content_margin_left = 15.0
 content_margin_right = 15.0
 bg_color = Color( 0, 0, 0, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=4]
 size = 18
 use_filter = true
 font_data = ExtResource( 6 )
@@ -67,7 +67,7 @@ margin_left = -603.0
 margin_top = -341.0
 margin_right = 603.0
 margin_bottom = 341.0
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -81,10 +81,10 @@ margin_left = -493.532
 margin_top = -53.0
 margin_right = 425.468
 margin_bottom = 324.0
-custom_styles/tab_fg = SubResource( 9 )
-custom_styles/tab_bg = SubResource( 10 )
-custom_styles/panel = SubResource( 7 )
-custom_fonts/font = SubResource( 8 )
+custom_styles/tab_fg = SubResource( 2 )
+custom_styles/tab_bg = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
+custom_fonts/font = SubResource( 4 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -150,10 +150,7 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 48.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_top = 31.0
 
 [node name="bot_no" type="Label" parent="Panel/TabContainer/Bots"]
 margin_left = 97.1293
@@ -261,7 +258,7 @@ anchor_bottom = 0.337
 margin_left = 0.0459595
 margin_right = -0.0460205
 margin_bottom = 0.166
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true,
@@ -277,7 +274,7 @@ margin_left = -0.0965652
 margin_top = -0.0642395
 margin_right = 0.0234375
 margin_bottom = 0.00576782
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 4 )
 text = "LEVEL NAME"
 align = 1
 __meta__ = {
