@@ -8,26 +8,26 @@
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=8]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=9]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.596078, 0.305882, 0.305882, 1 )
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.305882, 0.317647, 0.596078, 1 )
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=3]
 size = 40
 use_filter = true
 font_data = ExtResource( 9 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.6, 0.6, 0.6, 0.658824 )
 border_width_left = 2
 border_width_top = 2
@@ -69,8 +69,8 @@ __meta__ = {
 margin_right = 393.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 60 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/normal = SubResource( 3 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 8 )
 text = "New Game"
 
@@ -97,7 +97,7 @@ margin_left = -62.0
 margin_top = -26.0
 margin_right = 62.0
 margin_bottom = 26.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "Stats"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -108,8 +108,8 @@ margin_top = 95.0
 margin_right = 393.0
 margin_bottom = 155.0
 rect_min_size = Vector2( 0, 60 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/normal = SubResource( 3 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 8 )
 text = "Loadout"
 
@@ -118,8 +118,8 @@ margin_top = 190.0
 margin_right = 393.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 0, 60 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/normal = SubResource( 3 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 8 )
 text = "Options"
 
@@ -128,8 +128,8 @@ margin_top = 285.0
 margin_right = 393.0
 margin_bottom = 345.0
 rect_min_size = Vector2( 0, 60 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/normal = SubResource( 3 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 8 )
 text = "Level Editor"
 
@@ -138,8 +138,8 @@ margin_top = 380.0
 margin_right = 393.0
 margin_bottom = 440.0
 rect_min_size = Vector2( 0, 60 )
-custom_styles/pressed = SubResource( 4 )
-custom_styles/normal = SubResource( 3 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 8 )
 text = "Community"
 
@@ -173,7 +173,7 @@ margin_right = 0.285889
 margin_bottom = -0.0102539
 grow_horizontal = 2
 grow_vertical = 2
-custom_styles/normal = SubResource( 2 )
+custom_styles/normal = SubResource( 4 )
 custom_fonts/font = ExtResource( 8 )
 text = "EXTRAS"
 __meta__ = {
