@@ -7,10 +7,14 @@ signal connection_failed
 signal upload_finished
 signal upload_failed
 
+signal download_finished
+signal download_failed
+
 var one_time_use = true
 
 #const host_site = "projectwarzone2.000webhostapp.com"
-const host_site = "127.0.0.1"
+#const host_site = "127.0.0.1"
+const host_site = "35.239.53.71"
 
 func _init(one_time = true):
 	one_time_use = one_time
@@ -59,7 +63,7 @@ func uploadData(data : Dictionary, php_file : String, host = ""):
 		queue_free()
 
 
-func getData(php_file : String, query : Dictionary = {a = "a"} , host = "") -> Dictionary:
+func getData(php_file : String, query : Dictionary = {a = "a"} , host = ""):
 	var dict = {}
 	var HTTP = HTTPClient.new()
 	var url = "/" + php_file
@@ -73,12 +77,13 @@ func getData(php_file : String, query : Dictionary = {a = "a"} , host = "") -> D
 		OS.delay_msec(300)
 	
 	if HTTP.get_status() == HTTPClient.STATUS_CONNECTED:
+		print("connection pass")
 		emit_signal("connection_successful")
 	else:
 		emit_signal("connection_failed")
 		if one_time_use:
 			queue_free()
-		return {}
+		return null
 	
 	var QUERY = to_json(query)
 	var HEADERS = ["User-Agent: Pirulo/1.0 (Godot)", "Content-Type: application/json", "Content-Length: " + str(QUERY.length())]
@@ -115,5 +120,13 @@ func getData(php_file : String, query : Dictionary = {a = "a"} , host = "") -> D
 				rb = rb + chunk # Append to read buffer.
 
 		dict = parse_json(rb.get_string_from_ascii())
-		
+	else:
+		emit_signal("download_failed")
+		return null
+	
+	if dict == null:
+		emit_signal("download_failed")
+	else:
+		emit_signal("download_finished")
+	
 	return dict
