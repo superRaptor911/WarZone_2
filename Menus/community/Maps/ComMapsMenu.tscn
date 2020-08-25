@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Menus/community/Maps/ComMapsMenu.gd" type="Script" id=1]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=2]
@@ -7,6 +7,13 @@
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.14902, 0.0705882, 0.572549, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -21,6 +28,13 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0.501961, 0.192157, 0.192157, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.164706, 0.211765, 0.352941, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -93,6 +107,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="refresh_list" type="Button" parent="Panel"]
+margin_left = 961.0
+margin_top = 569.0
+margin_right = 1100.0
+margin_bottom = 619.0
+custom_styles/pressed = SubResource( 7 )
+custom_styles/normal = SubResource( 11 )
+custom_fonts/font = ExtResource( 2 )
+text = "Refresh"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="mapInfo" type="Panel" parent="."]
 visible = false
 anchor_left = 0.209
@@ -160,6 +187,35 @@ text = "BACK"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="info" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -247.5
+margin_top = -69.5
+margin_right = 247.5
+margin_bottom = 69.5
+custom_styles/panel = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="info"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -201.5
+margin_top = -42.0
+margin_right = 201.5
+margin_bottom = 42.0
+custom_fonts/font = ExtResource( 2 )
+text = "Loading . . . . . "
+align = 1
 [connection signal="item_selected" from="Panel/mapList" to="." method="_on_mapList_item_selected"]
+[connection signal="pressed" from="Panel/refresh_list" to="." method="_on_refresh_list_pressed"]
 [connection signal="pressed" from="mapInfo/install" to="." method="_on_install_pressed"]
 [connection signal="pressed" from="mapInfo/back" to="." method="_onMapinfo_back_pressed"]
