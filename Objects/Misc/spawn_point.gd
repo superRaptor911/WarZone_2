@@ -6,8 +6,11 @@ export var active : bool = true
 var entity_count : int = 0
 
 func _ready():
-	connect("body_entered", self,"_on_spawn_point_body_entered")
-	connect("body_exited", self, "_on_spawn_point_body_exited")
+	if not is_connected("body_entered", self,"_on_spawn_point_body_entered"):
+		connect("body_entered", self,"_on_spawn_point_body_entered")
+	if not is_connected("body_exited", self, "_on_spawn_point_body_exited"):
+		connect("body_exited", self, "_on_spawn_point_body_exited")
+		print("haha")
 
 func _on_spawn_point_body_entered(body):
 	if body.is_in_group("Actor"):

@@ -83,6 +83,7 @@ func _on_install_pressed():
 	
 	# Chk data
 	if data == {} or data == null:
+		print(cur_map)
 		return
 	
 	var base_dir = "user://downloads/" + cur_map.author + "/custom_maps/"
@@ -190,6 +191,7 @@ func installMap():
 	
 	if not counter:
 		base_map.queue_free()
+		print(cur_map.game_modes)
 		on_map_not_installed()
 		return
 
