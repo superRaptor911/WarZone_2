@@ -59,14 +59,14 @@ __meta__ = {
 }
 
 [node name="src_code" type="Button" parent="."]
-anchor_left = 0.368
-anchor_top = 0.546
-anchor_right = 0.637
-anchor_bottom = 0.662
-margin_left = 0.499725
-margin_top = 0.25705
-margin_right = 8.17975
-margin_bottom = -0.26297
+anchor_left = 0.369
+anchor_top = 0.511
+anchor_right = 0.643
+anchor_bottom = 0.594
+margin_left = 0.554565
+margin_top = 0.0950928
+margin_right = 1.83459
+margin_bottom = 0.335083
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
@@ -76,14 +76,14 @@ __meta__ = {
 }
 
 [node name="bug" type="Button" parent="."]
-anchor_left = 0.328
-anchor_top = 0.736
-anchor_right = 0.701
-anchor_bottom = 0.855
-margin_left = -0.16156
-margin_top = 0.010498
-margin_right = -0.601562
-margin_bottom = 0.330505
+anchor_left = 0.322
+anchor_top = 0.669
+anchor_right = 0.695
+anchor_bottom = 0.753
+margin_left = -0.160034
+margin_top = 0.319977
+margin_right = -0.600098
+margin_bottom = -0.160034
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
@@ -92,15 +92,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="rate" type="Button" parent="."]
+anchor_left = 0.32
+anchor_top = 0.832
+anchor_right = 0.695
+anchor_bottom = 0.915
+margin_left = 0.399963
+margin_top = -0.0400391
+margin_right = -0.600098
+margin_bottom = 0.200012
+custom_styles/pressed = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "Rate "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="msgDev" type="Button" parent="."]
 anchor_left = 0.336
 anchor_top = 0.327
-anchor_right = 0.666
-anchor_bottom = 0.447
+anchor_right = 0.667
+anchor_bottom = 0.425
 margin_left = 0.242157
 margin_top = 0.258316
-margin_right = 0.842224
-margin_bottom = -0.141693
+margin_right = -0.437927
+margin_bottom = -0.301697
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
@@ -127,5 +144,6 @@ __meta__ = {
 }
 [connection signal="pressed" from="src_code" to="." method="_on_src_code_pressed"]
 [connection signal="pressed" from="bug" to="." method="_on_bug_pressed"]
+[connection signal="pressed" from="rate" to="." method="_on_rate_pressed"]
 [connection signal="pressed" from="msgDev" to="." method="_on_msgDev_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]

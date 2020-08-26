@@ -32,6 +32,7 @@ func loadMenu():
 	addMenu("summary","res://Menus/Misc/Summary.tscn")
 	addMenu("extras", "res://Menus/MainMenu/ExtrasMenu.tscn")
 	addMenu("EditorMapSelector","res://Menus/Editor/EditorMapSelector.tscn")
+	addMenu("CommunityMenu", "res://Menus/community/comMenu.tscn")
 	
 	
 	#sub menu of store menu
@@ -52,6 +53,9 @@ func loadMenu():
 	addMenu("EMS/LEM/GameModesMenu", "res://Menus/Editor/GameModesMenu.tscn")
 	addMenu("EMS/LEM/GMM/TDM", "res://Menus/Editor/TDMspawnEditor.tscn")
 	addMenu("EMS/LEM/GMM/ZM", "res://Menus/Editor/ZMspawnEditor.tscn")
+	
+	#sub Menu of Community menu
+	addMenu("CM/ComMapMenu", "res://Menus/community/Maps/ComMapsMenu.tscn")
 	
 	# Sub menu of extras
 	addMenu("Extras/MsgDev", "res://Menus/Misc/MsgDev.tscn")
@@ -94,11 +98,13 @@ func setupAds():
 	randomize()
 	var banners = [
 		"ca-app-pub-9443221640471166/9049742329",
-		"ca-app-pub-9443221640471166/6136808642"
+		"ca-app-pub-9443221640471166/6136808642",
+		"ca-app-pub-9443221640471166/1591918779"
 		]
 	var interstitials = [
 		"ca-app-pub-9443221640471166/1781147462",
-		"ca-app-pub-9443221640471166/1978071782"
+		"ca-app-pub-9443221640471166/1978071782",
+		"ca-app-pub-9443221640471166/7774183742"
 	]
 	var videos = [
 		"ca-app-pub-9443221640471166/2680609241"
@@ -108,7 +114,7 @@ func setupAds():
 		admob.queue_free()
 	
 	admob = AdMob.new()
-	admob.is_real = false
+	admob.is_real = true
 	admob.max_ad_content_rate = "MA"
 	admob.banner_id = banners[randi() % banners.size()]
 	admob.interstitial_id = interstitials[randi() % interstitials.size()]

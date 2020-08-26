@@ -183,6 +183,9 @@ func restartGameMode():
 	var level = get_tree().get_nodes_in_group("Level")[0]
 	level.S_restartLevel()
 	rpc("P_restartGameMode")
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	createBots()
 
 
 remotesync func P_restartGameMode():

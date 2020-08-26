@@ -8,6 +8,9 @@ signal bot_removed(bot)
 
 export var Level_Name = "no_name"
 export var capture_mod = false
+# author , INC = "preinstalled"
+export var author = "INC"
+
 
 var team1 = preload("res://Objects/scripts/Team.gd").new(0,self)
 var team2 = preload("res://Objects/scripts/Team.gd").new(1,self)

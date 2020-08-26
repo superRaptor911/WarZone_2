@@ -196,5 +196,5 @@ __meta__ = {
 [connection signal="pressed" from="VBoxContainer/store" to="." method="_on_store_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
 [connection signal="pressed" from="VBoxContainer/lev_edit" to="." method="_on_lev_edit_pressed"]
-[connection signal="pressed" from="VBoxContainer/community" to="." method="_on_lev_edit_pressed"]
+[connection signal="pressed" from="VBoxContainer/community" to="." method="_on_community_pressed"]
 [connection signal="pressed" from="extras" to="." method="_on_extras_pressed"]
