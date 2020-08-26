@@ -310,6 +310,7 @@ __meta__ = {
 }
 
 [node name="admin_menu" type="Button" parent="pause_menu/container"]
+visible = false
 margin_top = 180.0
 margin_right = 260.0
 margin_bottom = 230.0

@@ -61,6 +61,7 @@ func _on_convert_pressed():
 		level_node.name = "Level"
 		level_node.set_script(load("res://Maps/BaseLevel.gd"))
 		level_node.Level_Name = map_name
+		level_node.author = String(OS.get_unique_id())
 		level_node.add_to_group("Level", true)
 		final_level.add_child(level_node)
 		level_node.owner = final_level
@@ -91,6 +92,7 @@ func _on_convert_pressed():
 		level_node.name = "Level"
 		level_node.set_script(load("res://Maps/BaseLevel.gd"))
 		level_node.Level_Name = map_name
+		level_node.author = String(OS.get_unique_id())
 		level_node.add_to_group("Level", true)
 		final_level.add_child(level_node)
 		level_node.owner = final_level
@@ -138,6 +140,11 @@ func _on_convert_pressed():
 		return
 	var save_path = "user://custom_maps/" + game_server.serverInfo.map + ".dat"
 	game_states.save_data(save_path, levelInfo, false)
+	
+	var notice = Notice.new()
+	notice.showNotice(self, "Generated !", 
+	"Your map was generated. You can now play your map in New Game", Color.white, Color.green)
+
 
 
 func _on_more_pressed():

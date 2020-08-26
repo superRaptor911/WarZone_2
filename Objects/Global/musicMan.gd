@@ -14,9 +14,9 @@ func loadMusic():
 	add_child(music_player)
 	add_child(ui_player)
 	
-	music_player.stream = load("res://Sfx/music/XTaKeRuX_-_03_-_One_Of_Them.ogg")
+	music_player.stream = load("res://Sfx/music/surrounded.ogg")
 	ui_player.stream = ui_clk
-	music_player.volume_db = -10.0
+	music_player.volume_db = -8.0
 	ui_player.volume_db = 2.0
 	
 	if game_states.game_settings.music_enabled:

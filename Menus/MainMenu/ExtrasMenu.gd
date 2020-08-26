@@ -25,3 +25,7 @@ func _on_msgDev_pressed():
 	UiAnim.animZoomOut([$bug, $back])
 	yield(get_tree().create_timer(0.5 * UiAnim.anim_scale), "timeout")
 	MenuManager.changeScene("Extras/MsgDev")
+
+
+func _on_rate_pressed():
+	OS.shell_open("https://play.google.com/store/apps/details?id=com.raptor.inc")

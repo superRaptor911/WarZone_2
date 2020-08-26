@@ -7,8 +7,9 @@ var serverInfo : = {
 	"game_mode" : "FFA",
 	"max_p" : "6",
 	"map" : "",
+	"map_author" : "INC",
 	"version" : game_states.current_game_version,
-	"min_v" : 1.35
+	"min_v" : 1.43
 }
 
 #time is in minutes

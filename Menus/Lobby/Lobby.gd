@@ -9,13 +9,12 @@ var selected_gameMode = ["",""]
 var selected_gameMode_id = 0
 
 
-
-
 func _ready():
 	game_server.bot_settings.bot_count = 0
 	game_server.bot_settings.bot_difficulty = 1
 	loadLevelInfos()
 	loadCustomMaps()
+	loadDownloadedMaps()
 	network.connect("player_removed", self, "_on_player_removed")
 	#show IP address 
 	for i in IP.get_local_addresses():
@@ -54,13 +53,46 @@ func loadCustomMaps():
 				var data = game_states.load_data("user://custom_maps/"+file_name, false)
 				var img = Image.new()
 				img.load(data.icon)
-				print(data.icon)
 				var img_tex = ImageTexture.new()
 				img_tex.create_from_image(img)
 				data.icon = img_tex
+				data.author = String(OS.get_unique_id())
 				levels.append(data)
 				
 		file_name = dir.get_next()
+
+
+func loadDownloadedMaps():
+	print("Loading Download")
+	var download_dir = "user://downloads/"
+	var authors_dir = Directory.new()
+	authors_dir.open(download_dir)
+	
+	authors_dir.list_dir_begin()
+	var author_id = authors_dir.get_next()
+	
+	while author_id != "":
+		if authors_dir.current_is_dir() and author_id != "." and author_id != "..":
+			var dir = Directory.new()
+			dir.open(download_dir + author_id + "/custom_maps/")
+			dir.list_dir_begin()
+			var file_name : String= dir.get_next()
+			
+			while file_name != "":
+				if not dir.current_is_dir() and file_name != "." and file_name != "..":
+					if file_name.get_extension() == "dat":
+						var data = game_states.load_data(download_dir + author_id + "/custom_maps/" + file_name, false)
+						var img = Image.new()
+						img.load(data.icon)
+						print(download_dir + author_id + "/custom_maps/" + file_name)
+						var img_tex = ImageTexture.new()
+						img_tex.create_from_image(img)
+						data.icon = img_tex
+						data.author = author_id
+						levels.append(data)
+						
+				file_name = dir.get_next()
+		author_id = authors_dir.get_next()
 
 
 func setLevelInfo(info):
@@ -91,6 +123,9 @@ func setGameModeInfo(info):
 func _start_game():
 	game_server.serverInfo.map = selected_level.name
 	game_server.serverInfo.game_mode = selected_gameMode[0]
+	if selected_level.has("author"):
+		game_server.serverInfo.author = selected_level.author
+	
 	network.serverAvertiser.serverInfo = game_server.serverInfo
 	network.add_child(network.serverAvertiser)
 	get_tree().change_scene(selected_gameMode[1])

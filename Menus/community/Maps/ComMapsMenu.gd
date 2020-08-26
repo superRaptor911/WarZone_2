@@ -7,6 +7,7 @@ func _ready():
 	UiAnim.animLeftToRight([$Panel])
 	yield(get_tree().create_timer(UiAnim.getAnimDuration() + 0.2), "timeout")
 	fillMapList()
+	MenuManager.connect("back_pressed", self, "on_back_pressed")
 
 
 func fillMapList():
@@ -77,23 +78,24 @@ func _on_install_pressed():
 	downloader.connect("connection_failed", self , "on_connection_failed")
 	downloader.connect("download_failed", self , "on_download_failed")
 	downloader.connect("download_finished", $info, "hide")
+	# Download cur_map
 	var data = downloader.getData("levelDownloader.php", cur_map)
 	
+	# Chk data
 	if data == {} or data == null:
 		return
 	
+	var base_dir = "user://downloads/" + cur_map.author + "/custom_maps/"
 	# Make custom dirs
 	var dir = Directory.new()
-	dir.make_dir("user://custom_maps/")
-	dir.make_dir("user://custom_maps/maps")
-	dir.make_dir("user://custom_maps/gameModes")
-	dir.make_dir("user://custom_maps/gameModes/TDM")
-	dir.make_dir("user://custom_maps/gameModes/Zombie")
-	dir.make_dir("user://custom_maps//minimaps")
-	dir.make_dir("user://custom_maps/levels")
+	dir.make_dir_recursive(base_dir)
+	dir.make_dir(base_dir + "maps")
+	dir.make_dir(base_dir + "gameModes")
+	dir.make_dir(base_dir + "minimaps")
+	dir.make_dir(base_dir + "levels")
 	
-	var map_file_name = cur_map.author + cur_map.name + ".tscn"
-	var map_path = "user://custom_maps/maps/" + map_file_name
+	var map_file_name = cur_map.name + ".tscn"
+	var map_path = base_dir + "maps/" + map_file_name
 	# Save base map
 	var file = File.new()
 	file.open(map_path, File.WRITE)
@@ -101,7 +103,8 @@ func _on_install_pressed():
 	file.close()
 	# Save game modes
 	for i in data.game_modes:
-		var mode_file = "user://custom_maps/gameModes/" + i + "/" + map_file_name
+		dir.make_dir(base_dir + "gameModes/" + i)
+		var mode_file = base_dir + "gameModes/" + i + "/" + map_file_name
 		file.open(mode_file, File.WRITE)
 		file.store_string(data.game_modes.get(i))
 		file.close()
@@ -115,18 +118,17 @@ func installMap():
 		name = "Dust II",
 		icon = "",
 		game_modes = [
-
 			],
 		desc = "",
 		debug = false
 	}
 	
 	var base_map = null
-	var game_modes = [null, null]
-	var map_name = cur_map.author + cur_map.name
+	var map_name = cur_map.name
+	var base_dir = "user://downloads/" + cur_map.author + "/custom_maps/"
 	
 	var file = File.new()
-	var file_name = "user://custom_maps/maps/" + map_name + ".tscn"
+	var file_name = base_dir + "maps/" + map_name + ".tscn"
 	if file.file_exists(file_name):
 		base_map = load(file_name).instance()
 		base_map.name = "BaseMap"
@@ -137,109 +139,78 @@ func installMap():
 		"Map not Found. Create Map by pressing MAP EDITOR.", Color.red)
 		return
 	
-	# TDM MODE
-	file_name = "user://custom_maps/gameModes/TDM/" + map_name + ".tscn"
-	if file.file_exists(file_name):
-		var final_level = Node.new()
-		final_level.name = "TDM"
-		var level_node = Node2D.new()
-		level_node.name = "Level"
-		level_node.set_script(load("res://Maps/BaseLevel.gd"))
-		level_node.Level_Name = map_name
-		level_node.add_to_group("Level", true)
-		final_level.add_child(level_node)
-		level_node.owner = final_level
-		
-		level_node.add_child(base_map)
-		base_map.owner = final_level
-		game_modes[0] = load(file_name).instance()
-		game_modes[0].name = "GameMode"
-		final_level.add_child(game_modes[0])
-		game_modes[0].owner = final_level
-		# Save scene
-		var packed_scene = PackedScene.new()
-		var result = packed_scene.pack(final_level)
-		var save_path = "user://custom_maps/levels/TDM_" + map_name + ".tscn"
-		if result == OK:
-			ResourceSaver.save(save_path, packed_scene)
-		# Free resources
-		level_node.remove_child(base_map)
-		final_level.remove_child(game_modes[0])
-		final_level.queue_free()
-	
-	# Zombie Mod
-	file_name = "user://custom_maps/gameModes/Zombie/" + map_name + ".tscn"
-	if file.file_exists(file_name):
-		var final_level = Node.new()
-		final_level.name = "TDM"
-		var level_node = Node2D.new()
-		level_node.name = "Level"
-		level_node.set_script(load("res://Maps/BaseLevel.gd"))
-		level_node.Level_Name = map_name
-		level_node.add_to_group("Level", true)
-		final_level.add_child(level_node)
-		level_node.owner = final_level
-		
-		level_node.add_child(base_map)
-		base_map.owner = final_level
-		game_modes[1] = load(file_name).instance()
-		game_modes[1].name = "GameMode"
-		final_level.add_child(game_modes[1])
-		game_modes[1].owner = final_level
-		# Save scene
-		var packed_scene = PackedScene.new()
-		var result = packed_scene.pack(final_level)
-		var save_path = "user://custom_maps/levels/ZM_" + map_name + ".tscn"
-		if result == OK:
-			ResourceSaver.save(save_path, packed_scene)
-		# Free resources
-		level_node.remove_child(base_map)
-		final_level.remove_child(game_modes[1])
-		final_level.queue_free()
+	# Add modes
+	for mode in cur_map.game_modes:
+		file_name = base_dir + "gameModes/" + mode + "/" + map_name + ".tscn"
+		if file.file_exists(file_name):
+			var final_level = Node.new()
+			final_level.name = mode
+			var level_node = Node2D.new()
+			level_node.name = "Level"
+			level_node.set_script(load("res://Maps/BaseLevel.gd"))
+			
+			level_node.Level_Name = map_name
+			level_node.author = cur_map.author
+			level_node.add_to_group("Level", true)
+			final_level.add_child(level_node)
+			level_node.owner = final_level
+			
+			level_node.add_child(base_map)
+			base_map.owner = final_level
+			var game_mode_scn = load(file_name).instance()
+			game_mode_scn.name = "GameMode"
+			final_level.add_child(game_mode_scn)
+			game_mode_scn.owner = final_level
+			
+			# Save scene
+			var packed_scene = PackedScene.new()
+			var result = packed_scene.pack(final_level)
+			var save_path = base_dir + "levels/" + mode + "_" + map_name + ".tscn"
+			if result == OK:
+				ResourceSaver.save(save_path, packed_scene)
+			# Free resources
+			level_node.remove_child(base_map)
+			final_level.queue_free()
 	
 	# Write config
 	levelInfo.name = cur_map.name
-	levelInfo.icon= "user://custom_maps/minimaps/" + map_name + ".png"
+	levelInfo.icon= base_dir + "minimaps/" + map_name + ".png"
 	
 	var counter = false
 	
-	if game_modes[0]:
+	if cur_map.game_modes.has("TDM"):
 		levelInfo.game_modes.append("TDM")
-		levelInfo.game_modes.append("user://custom_maps/levels/TDM_" + map_name + ".tscn")
-		game_modes[0].queue_free()
+		levelInfo.game_modes.append(base_dir + "levels/TDM_" + map_name + ".tscn")
 		counter = true
 	
-	if game_modes[1]:
+	if cur_map.game_modes.has("Zombie"):
 		levelInfo.game_modes.append("Zombie Mod")
-		levelInfo.game_modes.append("user://custom_maps/levels/ZM_" + map_name + ".tscn")
-		game_modes[1].queue_free()
+		levelInfo.game_modes.append(base_dir + "levels/Zombie_" + map_name + ".tscn")
 		counter = true
 	
-	base_map.queue_free()
-	if (not counter):
-		var notice = Notice.new()
+	if not counter:
+		base_map.queue_free()
 		on_map_not_installed()
 		return
-	var save_path = "user://custom_maps/" + map_name + ".dat"
+
+	var save_path = base_dir + map_name + ".dat"
 	game_states.save_data(save_path, levelInfo, false)
 	
 	var viewport = Viewport.new()
 	add_child(viewport)
-	var map = load("user://custom_maps/maps/" + map_name + ".tscn").instance()
 	
-	# Gen Minimap	
+	# Gen Minimap
 	viewport.render_target_clear_mode = Viewport.CLEAR_MODE_ALWAYS
 	viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
-	viewport.size = map.get_used_rect().size * 64
-	viewport.add_child(map)
+	viewport.size = base_map.get_used_rect().size * 64
+	viewport.add_child(base_map)
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
-	var minimap_path = "user://custom_maps/minimaps/" + map_name + ".png"
+	var minimap_path = base_dir + "minimaps/" + map_name + ".png"
 	var image = viewport.get_texture().get_data()
 	image.resize(viewport.size.x / 8,  viewport.size.y / 8)
 	image.save_png(minimap_path)
 	viewport.queue_free()
-	
 	on_map_installed()
 
 ################################################################################
@@ -272,3 +243,6 @@ func on_map_installed():
 func _on_refresh_list_pressed():
 	yield(get_tree().create_timer(0.2), "timeout")
 	fillMapList()
+
+func on_back_pressed():
+	MenuManager.changeScene("CommunityMenu")
