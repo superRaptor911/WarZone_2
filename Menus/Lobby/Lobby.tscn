@@ -10,38 +10,38 @@
 [ext_resource path="res://Sprites/UI/next_white.png" type="Texture" id=8]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=9]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=5]
 content_margin_left = 15.0
 content_margin_right = 15.0
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=6]
 content_margin_left = 15.0
 content_margin_right = 15.0
 bg_color = Color( 0, 0, 0, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=8]
 size = 18
 use_filter = true
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=9]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=10]
 size = 24
 use_filter = true
 font_data = ExtResource( 3 )
@@ -67,7 +67,7 @@ margin_left = -603.0
 margin_top = -341.0
 margin_right = 603.0
 margin_bottom = 341.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -81,10 +81,10 @@ margin_left = -493.532
 margin_top = -53.0
 margin_right = 425.468
 margin_bottom = 324.0
-custom_styles/tab_fg = SubResource( 2 )
-custom_styles/tab_bg = SubResource( 3 )
-custom_styles/panel = SubResource( 1 )
-custom_fonts/font = SubResource( 4 )
+custom_styles/tab_fg = SubResource( 5 )
+custom_styles/tab_bg = SubResource( 6 )
+custom_styles/panel = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -157,7 +157,7 @@ margin_left = 97.1293
 margin_top = 165.208
 margin_right = 267.129
 margin_bottom = 208.209
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 9 )
 text = "Bot Count"
 __meta__ = {
 "_edit_group_": true,
@@ -194,7 +194,7 @@ margin_left = 34.5
 margin_top = 28.334
 margin_right = 78.5
 margin_bottom = 60.334
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 10 )
 text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -205,7 +205,7 @@ margin_left = 96.9681
 margin_top = 65.4239
 margin_right = 319.968
 margin_bottom = 108.424
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 9 )
 text = "Bot Difficulty"
 __meta__ = {
 "_edit_group_": true,
@@ -245,7 +245,7 @@ margin_left = -22.0
 margin_top = -16.0
 margin_right = 22.0
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 10 )
 text = "1"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -258,7 +258,7 @@ anchor_bottom = 0.337
 margin_left = 0.0459595
 margin_right = -0.0460205
 margin_bottom = 0.166
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true,
@@ -274,7 +274,7 @@ margin_left = -0.0965652
 margin_top = -0.0642395
 margin_right = 0.0234375
 margin_bottom = 0.00576782
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 8 )
 text = "LEVEL NAME"
 align = 1
 __meta__ = {

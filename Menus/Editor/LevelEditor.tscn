@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Menus/Editor/LevelEditor.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=2]
@@ -14,6 +14,35 @@
 [ext_resource path="res://Menus/Editor/eraser.png" type="Texture" id=12]
 [ext_resource path="res://Menus/Editor/toolsContainer.gd" type="Script" id=13]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=14]
+[ext_resource path="res://Menus/Editor/dropper.png" type="Texture" id=15]
+
+[sub_resource type="StyleBoxFlat" id=8]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color( 0.192157, 0.188235, 0.529412, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id=6]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color( 0, 0, 0, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=9]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color( 0.807843, 0.152941, 0.152941, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
 
 [sub_resource type="DynamicFont" id=1]
 size = 18
@@ -24,6 +53,9 @@ font_data = ExtResource( 8 )
 size = 18
 use_filter = true
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.701961, 0.666667, 0.262745, 0.592157 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 18
@@ -44,6 +76,9 @@ anchor_bottom = 1.001
 margin_top = 214.0
 margin_right = 0.399994
 margin_bottom = 0.279968
+custom_styles/tab_fg = SubResource( 8 )
+custom_styles/tab_bg = SubResource( 6 )
+custom_styles/panel = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -52,10 +87,8 @@ __meta__ = {
 [node name="tileset" type="ItemList" parent="UILayer/TileTabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_top = 24.0
+custom_styles/bg = SubResource( 8 )
 custom_fonts/font = ExtResource( 14 )
 items = [ "Dust", null, false, "Facility", null, false ]
 
@@ -67,8 +100,11 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+custom_styles/bg = SubResource( 8 )
 
 [node name="grid" type="GridContainer" parent="UILayer/TileTabContainer/ground"]
+margin_left = 15.0
+margin_right = 15.0
 columns = 4
 
 [node name="Walls" type="ScrollContainer" parent="UILayer/TileTabContainer"]
@@ -79,8 +115,11 @@ margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+custom_styles/bg = SubResource( 8 )
 
 [node name="grid" type="GridContainer" parent="UILayer/TileTabContainer/Walls"]
+margin_left = 15.0
+margin_right = 15.0
 columns = 4
 
 [node name="SettingsContainer" type="TabContainer" parent="UILayer"]
@@ -92,6 +131,9 @@ margin_left = -0.28
 margin_top = -0.2
 margin_right = -0.320007
 margin_bottom = -0.0400085
+custom_styles/tab_fg = SubResource( 9 )
+custom_styles/tab_bg = SubResource( 6 )
+custom_styles/panel = SubResource( 7 )
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_lock_": true,
@@ -101,11 +143,9 @@ __meta__ = {
 [node name="Editor" type="Panel" parent="UILayer/SettingsContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_top = 24.0
 rect_min_size = Vector2( 271, 160 )
+custom_styles/panel = SubResource( 9 )
 
 [node name="drawGrid" type="CheckButton" parent="UILayer/SettingsContainer/Editor"]
 anchor_left = 0.011
@@ -192,6 +232,7 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 rect_min_size = Vector2( 271, 160 )
+custom_styles/panel = SubResource( 9 )
 
 [node name="mapName" type="LineEdit" parent="UILayer/SettingsContainer/Options"]
 anchor_left = 0.421
@@ -278,12 +319,12 @@ __meta__ = {
 [node name="toolsContainer" type="PanelContainer" parent="UILayer"]
 anchor_left = 0.417
 anchor_top = 0.016
-anchor_right = 0.583
+anchor_right = 0.618
 anchor_bottom = 0.106
-margin_left = -0.26001
-margin_top = -0.193508
-margin_right = 0.26001
-margin_bottom = 0.00648499
+margin_left = 0.23999
+margin_top = -0.52
+margin_right = -0.0400391
+margin_bottom = -0.320007
 script = ExtResource( 13 )
 __meta__ = {
 "_edit_group_": true,
@@ -293,8 +334,9 @@ __meta__ = {
 [node name="tools" type="Panel" parent="UILayer/toolsContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 206.0
+margin_right = 250.0
 margin_bottom = 58.0
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -304,9 +346,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -80.0
+margin_left = -110.0
 margin_top = -20.0
-margin_right = 80.0
+margin_right = 110.0
 margin_bottom = 20.0
 custom_constants/separation = 20
 __meta__ = {
@@ -367,6 +409,27 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="UILayer/toolsContainer/tools/HBoxContainer/rubber"]
+visible = false
+modulate = Color( 0, 0.768627, 0.972549, 0.431373 )
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="picker" type="TextureButton" parent="UILayer/toolsContainer/tools/HBoxContainer"]
+margin_left = 180.0
+margin_right = 220.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture_normal = ExtResource( 15 )
+expand = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/toolsContainer/tools/HBoxContainer/picker"]
 visible = false
 modulate = Color( 0, 0.768627, 0.972549, 0.431373 )
 margin_right = 40.0
@@ -440,5 +503,6 @@ wait_time = 6.0
 [connection signal="pressed" from="UILayer/toolsContainer/tools/HBoxContainer/pen" to="UILayer/toolsContainer" method="_on_pen_pressed"]
 [connection signal="pressed" from="UILayer/toolsContainer/tools/HBoxContainer/area" to="UILayer/toolsContainer" method="_on_area_pressed"]
 [connection signal="pressed" from="UILayer/toolsContainer/tools/HBoxContainer/rubber" to="UILayer/toolsContainer" method="_on_rubber_pressed"]
+[connection signal="pressed" from="UILayer/toolsContainer/tools/HBoxContainer/picker" to="UILayer/toolsContainer" method="_on_picker_pressed"]
 [connection signal="pressed" from="UILayer/saveNexit" to="." method="_on_saveNexit_pressed"]
 [connection signal="timeout" from="Map/minimap_update_timer" to="Map" method="_on_minimap_update_timer_timeout"]

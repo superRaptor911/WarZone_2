@@ -5,7 +5,8 @@ onready var editor = get_parent().get_parent()
 onready var col_rects = [
 	$tools/HBoxContainer/pen/ColorRect,
 	$tools/HBoxContainer/area/ColorRect,
-	$tools/HBoxContainer/rubber/ColorRect
+	$tools/HBoxContainer/rubber/ColorRect,
+	$tools/HBoxContainer/picker/ColorRect
 ]
  
 
@@ -27,7 +28,15 @@ func _on_rubber_pressed():
 	hideAllRects()
 	col_rects[2].show()
 
+func _on_picker_pressed():
+	MusicMan.playButtonClick()
+	editor.current_tool = editor.TOOLS.PICKER
+	hideAllRects()
+	col_rects[3].show()
+
 
 func hideAllRects():
 	for i in col_rects:
 		i.hide()
+
+

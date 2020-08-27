@@ -16,58 +16,105 @@ var draw_selection_rect = false
 var repeat_factor = 2
 
 
-var is_pressed = false
+var was_pressed = false
 var press_pos = Vector2()
 var cur_pos = Vector2()
 
 func _unhandled_input(event):
 	if event is InputEventScreenTouch or event is InputEventMouseButton:
-		is_pressed = event.pressed
+		was_pressed = event.pressed	
 		if event.pressed:
 			press_pos = event.position
-			var pos = (event.position + camera.position / camera.zoom)
-			pos = Vector2(int(pos.x / (64 / camera.zoom.x) ), int(pos.y / (64 / camera.zoom.x)))
-			
-			if editor.current_tool == editor.TOOLS.PEN or editor.current_tool == editor.TOOLS.RUBBER:
-				fillTile(pos)
-		
-		elif editor.current_tool == editor.TOOLS.AREA:
-			draw_selection_rect = false
-			update()
-			for i in range(press_pos.x, event.position.x, sign(event.position.x - press_pos.x)):
-				for j in range(press_pos.y, event.position.y, sign(event.position.y - press_pos.y)):
-					var pos = (Vector2(i , j) + camera.position / camera.zoom)
-					pos = Vector2(int(pos.x / (64 / camera.zoom.x) ), int(pos.y / (64 / camera.zoom.x)))
-					fillTile(pos)
-		
-	elif event is InputEventScreenDrag or ((event is InputEventMouseMotion) and is_pressed):
-		var pos = (event.position + camera.position / camera.zoom)
-		pos = Vector2(int(pos.x / (64 / camera.zoom.x) ), int(pos.y / (64 / camera.zoom.x)))
-		if editor.current_tool == editor.TOOLS.PEN or editor.current_tool == editor.TOOLS.RUBBER:
-			fillTile(pos)
-		if editor.current_tool == editor.TOOLS.AREA:
-			draw_selection_rect = true
-			cur_pos = event.position
-			update()
+			handlePressOperation(event)
+		else:
+			handleReleaseOperation(event)
+	elif event is InputEventScreenDrag or ((event is InputEventMouseMotion) and was_pressed):
+		handleDragOperation(event)
 
+
+func handlePressOperation(event):
+	var pos = (event.position + camera.position / camera.zoom)
+	pos = Vector2(int(pos.x / (64 / camera.zoom.x) ), int(pos.y / (64 / camera.zoom.x)))
+	
+	if editor.current_tool == editor.TOOLS.PEN:
+		fillTile(pos)
+	elif editor.current_tool == editor.TOOLS.RUBBER:
+		removeTile(pos)
+	elif editor.current_tool == editor.TOOLS.PICKER:
+		pickTile(pos)
+
+
+func handleReleaseOperation(event):
+	if editor.current_tool == editor.TOOLS.AREA:
+		areaFillTile(event)
+
+
+func handleDragOperation(event):
+	var pos = (event.position + camera.position / camera.zoom)
+	pos = Vector2(int(pos.x / (64 / camera.zoom.x) ), int(pos.y / (64 / camera.zoom.x)))
+	
+	if editor.current_tool == editor.TOOLS.PEN:
+		fillTile(pos)
+	elif editor.current_tool == editor.TOOLS.RUBBER:
+		removeTile(pos)
+	elif editor.current_tool == editor.TOOLS.AREA:
+		draw_selection_rect = true
+		cur_pos = event.position
+		update()
 
 
 func fillTile(pos):
 	if pos.x < 0 or pos.y < 0:
 		return
-
-	if editor.current_tool == editor.TOOLS.RUBBER:
-		walls.set_cellv(pos,-1)
-		ground.set_cellv(pos,-1)
-	
-	elif editor.selected_tile:
+	if editor.selected_tile:
 		if editor.selected_tile.is_Wall:
 			walls.set_cell(pos.x, pos.y, editor.selected_tile.tile_id,false,
 				false,false, editor.selected_tile.auto_tile_coord)
 		else:
+			walls.set_cell(pos.x, pos.y, -1)
 			ground.set_cell(pos.x, pos.y, editor.selected_tile.tile_id,false,
 				false,false, editor.selected_tile.auto_tile_coord)
 
+
+func removeTile(pos):
+	if pos.x < 0 or pos.y < 0:
+		return
+	walls.set_cellv(pos,-1)
+	ground.set_cellv(pos,-1)
+
+
+func areaFillTile(event):
+	draw_selection_rect = false
+	update()
+	for i in range(press_pos.x, event.position.x, sign(event.position.x - press_pos.x)):
+		for j in range(press_pos.y, event.position.y, sign(event.position.y - press_pos.y)):
+			var pos = (Vector2(i , j) + camera.position / camera.zoom)
+			pos = Vector2(int(pos.x / (64 / camera.zoom.x) ), int(pos.y / (64 / camera.zoom.x)))
+			fillTile(pos)
+
+
+func pickTile(pos):
+	if pos.x < 0 or pos.y < 0:
+		return
+	if walls.get_cellv(pos) != -1:
+		var tid = walls.get_cellv(pos)
+		var coord = walls.get_cell_autotile_coord(pos.x, pos.y)
+		var tiles = editor.get_node("UILayer/TileTabContainer/Walls/grid").get_children()
+		
+		for i in tiles:
+			if i.tile_id == tid and i.auto_tile_coord == coord:
+				editor.selected_tile = i
+				return
+	elif ground.get_cellv(pos) != -1:
+		var tid = ground.get_cellv(pos)
+		var coord = ground.get_cell_autotile_coord(pos.x, pos.y)
+		var tiles = editor.get_node("UILayer/TileTabContainer/ground/grid").get_children()
+		
+		for i in tiles:
+			if i.tile_id == tid and i.auto_tile_coord == coord:
+				editor.selected_tile = i
+				return
+	
 
 func _on_minimap_update_timer_timeout():
 	var map = $BaseMap

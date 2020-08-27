@@ -16,3 +16,5 @@ func _on_zslider_value_changed(value):
 func _on_clear_pressed():
 	map.get_node("BaseMap/height").clear()
 	map.get_node("BaseMap").clear()
+
+

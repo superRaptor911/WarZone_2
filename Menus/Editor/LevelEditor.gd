@@ -13,7 +13,7 @@ var tilesets = [
 
 var map_size = Vector2(64,64)
 
-enum TOOLS {PEN, AREA, RUBBER}
+enum TOOLS {PEN, AREA, RUBBER, PICKER}
 var current_tool = TOOLS.PEN
 
 # Called when the node enters the scene tree for the first time.
