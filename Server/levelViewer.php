@@ -9,15 +9,15 @@ function displayLevels($Levels)
 	echo "<ol>";
 	foreach ($Levels as $key => $map)
 	{
-		$game_modes = "[";
-		if (array_key_exists('tdm', $map))
-			$game_modes = $game_modes . "TDM ";
-		if (array_key_exists('zm', $map))
-			$game_modes = $game_modes . "ZM";
-
+		$game_modes = "[ ";
+		foreach ($map['game_modes'] as $mode => $mode_file)
+		{
+			$game_modes = $game_modes . $mode . " ";
+		}
 		$game_modes = $game_modes . "]";
 		
-		$btn = "<form method=\"post\"><input type=\"submit\" name=\"". $key ."\" value =\"Download\"><br></form>";
+		$btn = "<form method=\"post\" ><button type=\"submit\" name=\"download\" value =\"".$key."\">Download</button> ";
+		$btn = $btn . "<button type=\"submit\" name=\"delete\" value =\"".$key."\">Delete</button></form>";
 		echo "<li>".$map['name']." ".$game_modes. $btn. "</li>";
 
 	}
@@ -28,53 +28,57 @@ $Levels = readLevels();
 
 displayLevels($Levels);
 
-
-
-foreach ($Levels as $key => $map)
+# Download Zip
+if (array_key_exists("download",$_POST)) 
 {
-	#spaces in _post are coverted into _
-	$m_key = str_replace(' ', '_', $key);
-	
-	if (array_key_exists($m_key,$_POST)) 
+	$map = $Levels[$_POST["download"]];
+	$z = new ZipArchive();
+	$zip_name = $map['name'] . ".zip";
+	$z->open($zip_name, ZIPARCHIVE::CREATE);
+	$z->addEmptyDir("maps");
+	$z->addFile($map['base_map'], "maps/".$map['name'].".tscn");
+	$z->addEmptyDir("gameModes");
+
+	foreach ($map['game_modes'] as $mode => $mode_file)
 	{
-		$z = new ZipArchive();
-		$zip_name = $map['name'] . ".zip";
-		$z->open($zip_name, ZIPARCHIVE::CREATE);
-		$z->addEmptyDir("maps");
-		$z->addFile($map['base_map'], "maps/".$map['name'].".tscn");
-		$z->addEmptyDir("gameModes");
-
-		if (array_key_exists("tdm", $map)) 
-		{
-			$z->addEmptyDir("gameModes/TDM");
-			$z->addFile($map['tdm'], "gameModes/TDM/".$map['name'].".tscn");
-		}
-		if (array_key_exists("zm", $map)) 
-		{
-			$z->addEmptyDir("gameModes/Zombie");
-			$z->addFile($map['zm'], "gameModes/Zombie/".$map['name'].".tscn");
-		}
-
-		$z->close();
-
-		$filename = $zip_name;
-		
-		if (file_exists($filename)) 
-		{
-			ob_clean();
-			ob_end_flush();
-			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-			header('Content-Type: application/zip;\n');
-			header("Content-Transfer-Encoding: Binary");
-			header("Content-Disposition: attachment; filename=\"".basename($filename)."\"");
-
-
-		  # ob_end_flush();
-		   readfile($filename);
-		   // delete file
-		   unlink($filename);
-		 }
+		$z->addEmptyDir("gameModes/$mode");
+		$z->addFile($mode_file, "gameModes/$mode/".$map['name'].".tscn");
 	}
+
+
+	$z->close();
+
+	$filename = $zip_name;
+	
+	if (file_exists($filename)) 
+	{
+		ob_clean();
+		ob_end_flush();
+		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+		header('Content-Type: application/zip;\n');
+		header("Content-Transfer-Encoding: Binary");
+		header("Content-Disposition: attachment; filename=\"".basename($filename)."\"");
+
+
+	  # ob_end_flush();
+	   readfile($filename);
+	   // delete file
+	   unlink($filename);
+	 }
+}
+
+# Delete Map
+if (array_key_exists("delete",$_POST)) 
+{
+	$map = $Levels[$_POST["delete"]];
+	
+	unlink($map['base_map']);
+	foreach ($map['game_modes'] as $mode => $mode_file)
+	{
+		unlink($mode_file);
+	}
+
+	header("Refresh:0");
 }
 
 ?>

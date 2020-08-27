@@ -24,23 +24,43 @@ function readLevels()
 			
 			$map = array();
 			$map['name']		= basename($map_name, '.tscn');
-			$map['base_map']	= $map_dir . $map_name;
-			$map['author']		= $user_name;
+            $map['base_map']	= $map_dir . $map_name;
+            $map['author']		= $user_name;
+            $map['time']        = filemtime($map['base_map']);
 
 			$tdm_mode = "$base/Data/$user_name/custom_maps/gameModes/TDM/$map_name";
 			$zm_mode  = "$base/Data/$user_name/custom_maps/gameModes/Zombie/$map_name";
-			
+            
+            $game_modes = array();
+            
 			if (file_exists($tdm_mode))
-				$map['tdm']	= $tdm_mode;
+				$game_modes['TDM']	= $tdm_mode;
 
 			if (file_exists($zm_mode))
-				$map['zm']	= $zm_mode;
+                $game_modes['Zombie']	= $zm_mode;
 
+            $map['game_modes'] = $game_modes;
 			$Levels[$user_name . $map['name']] = $map;
 		}
 	}
 
+    # Save cache
+    $file = fopen("$base/Data/Levels.json", 'w');
+    fclose($file);
+    $file = fopen("$base/Data/Levels.json", 'w');
+    fwrite($file, json_encode($Levels));
+    fclose($file);
+
 	return $Levels;
+}
+
+
+function readLevelsFromCache()
+{
+    $base =  $_SERVER['DOCUMENT_ROOT'];
+    $json = file_get_contents("$base/Data/Levels.json");
+    $Levels = json_decode($json, true);
+    return $Levels;
 }
 
 

@@ -156,8 +156,7 @@ void Bot::setBotDifficulty(int difficulty)
 		bot_attribute.spray_time = 0.4f;
 		bot_attribute.spray_delay = 0.6f;
 		bot_attribute.accuracy = 0.7f;
-		bot_attribute.enable_evasive_mov = true;
-		bot_attribute.enemy_get_mode = BotAttrib::EGetMode::NEAREST_AIM;
+		bot_attribute.enemy_get_mode = BotAttrib::EGetMode::NEAREST;
 	}
 	else if (difficulty == 3)
 	{
@@ -165,7 +164,6 @@ void Bot::setBotDifficulty(int difficulty)
 		bot_attribute.reaction_time = 0.5f;
 		bot_attribute.spray_time = 0.4f;
 		bot_attribute.accuracy = 0.5f;
-		bot_attribute.enable_evasive_mov = true;
 		bot_attribute.enemy_get_mode = BotAttrib::EGetMode::NEAREST_AIM;
 	}
 	else if (difficulty == 4)
