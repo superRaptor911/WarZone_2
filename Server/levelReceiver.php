@@ -1,5 +1,11 @@
 <?php
 
+# File name : levelReceiver.php
+# Task 		: Receive level from user and save level in server.
+# Coder 	: Raptor
+
+include 'php/logger.php';
+
 $data = json_decode( file_get_contents( 'php://input' ), true );
 
 $user_id = $data['id'];
@@ -21,6 +27,8 @@ fclose($file);
 $file = fopen($dir.$data['lvl_name'].".tscn", "w");
 fwrite($file, $data['map']);
 fclose($file);
+
+$logger->addLog("Got map ". $data['lvl_name']);
 
 # Game mode TDM
 if (array_key_exists('TDM', $data))

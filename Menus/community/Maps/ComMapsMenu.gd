@@ -199,18 +199,25 @@ func installMap():
 	game_states.save_data(save_path, levelInfo, false)
 	
 	var viewport = Viewport.new()
+	var camera = Camera2D.new()
 	add_child(viewport)
+	viewport.add_child(camera)
 	
 	# Gen Minimap
 	viewport.render_target_clear_mode = Viewport.CLEAR_MODE_ALWAYS
 	viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
-	viewport.size = base_map.get_used_rect().size * 64
+	viewport.render_target_v_flip = true
+	viewport.size = (base_map.get_used_rect().size + base_map.get_used_rect().position+Vector2(1,1)) * 8
 	viewport.add_child(base_map)
+	camera.current = true
+	camera.anchor_mode = Camera2D.ANCHOR_MODE_FIXED_TOP_LEFT
+	camera.position = Vector2(0,0)
+	camera.zoom = Vector2(1,1) * 8
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	var minimap_path = base_dir + "minimaps/" + map_name + ".png"
 	var image = viewport.get_texture().get_data()
-	image.resize(viewport.size.x / 8,  viewport.size.y / 8)
+	
 	image.save_png(minimap_path)
 	viewport.queue_free()
 	on_map_installed()

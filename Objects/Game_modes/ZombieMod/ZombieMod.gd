@@ -30,11 +30,8 @@ var Props = Array()
 func getZombieCount() -> int:
 	return 10 + 5 * current_round
 	
-func getZombieHealth() ->int:
-	return 100 + 10 * current_round
-
 func getZombieSpeed() -> int:
-	return 80 + 12 * current_round
+	return 60 + 5 * current_round
 
 func showLabel(text : String, clr = Color.white):
 	tween.interpolate_property(label, "modulate", Color(1,1,1,0) ,Color(1,1,1,1),
@@ -110,7 +107,7 @@ func _on_round_start_dl_timeout():
 		
 	z_count = getZombieCount()
 	var num = int(z_count / zombie_spawns.size())
-	var HP = getZombieHealth()
+	var HP = 100
 	var speed = getZombieSpeed()
 	# Ready zombie spawn
 	for i in zombie_spawns:

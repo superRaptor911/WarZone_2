@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Maps/BaseLevel.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Tilesets/shadows.tres" type="TileSet" id=2]
-[ext_resource path="res://Sprites/Tilesets/fear.tres" type="TileSet" id=3]
 [ext_resource path="res://Maps/shadowMaker.gd" type="Script" id=4]
 
 [node name="Level" type="Node2D" groups=[
@@ -18,10 +17,8 @@ script = ExtResource( 4 )
 
 [node name="height" type="TileMap" parent="BaseMap"]
 z_index = 4
-tile_set = ExtResource( 3 )
 cell_quadrant_size = 4
 format = 1
-tile_data = PoolIntArray( 131073, 11, 0, 131079, 11, 0, 131083, 11, 0, 196609, 11, 0, 196615, 11, 0, 196619, 11, 0, 262145, 11, 0, 262151, 11, 0, 262155, 11, 0, 327681, 11, 0, 327687, 11, 0, 327691, 11, 0, 393217, 11, 0, 393223, 11, 0, 393227, 11, 0, 458753, 11, 0, 458759, 11, 0, 524289, 11, 0, 524290, 11, 0, 524291, 11, 0, 524295, 11, 0, 524296, 11, 0, 524297, 11, 0, 524301, 11, 0, 524302, 11, 0, 524303, 11, 0, 524304, 11, 0, 524305, 11, 0, 524306, 11, 0, 589827, 11, 0, 589833, 11, 0, 589842, 11, 0, 655363, 11, 0, 655369, 11, 0, 655378, 11, 0, 720899, 11, 0, 720900, 11, 0, 720903, 11, 0, 720904, 11, 0, 720905, 11, 0, 720914, 11, 0, 786450, 11, 0, 851986, 11, 0, 917522, 11, 0, 983058, 11, 0, 1048594, 11, 0, 1114121, 11, 0, 1114122, 11, 0, 1114123, 11, 0, 1114124, 11, 0, 1114125, 11, 0, 1114126, 11, 0, 1114127, 11, 0, 1114128, 11, 0, 1114129, 11, 0, 1114130, 11, 0 )
 
 [node name="shadow" type="TileMap" parent="BaseMap"]
 tile_set = ExtResource( 2 )

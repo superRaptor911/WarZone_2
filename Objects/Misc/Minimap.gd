@@ -16,9 +16,9 @@ func _ready():
 	
 	if not lvls.empty():
 		var lvl = lvls[0]
-		var hmap = lvl.get_node("BaseMap/height")
+		var hmap = lvl.get_node("BaseMap")
 		Scale = Vector2(cell_size,cell_size) / hmap.cell_size
-		worldsize = hmap.get_used_rect().size * hmap.cell_size
+		worldsize = (hmap.get_used_rect().size + hmap.get_used_rect().position)* hmap.cell_size
 		var lvl_author = lvl.get("author")
 		loadMinimap(lvl.Level_Name, lvl_author)
 		getLocalPlayer()
@@ -34,13 +34,13 @@ func loadMinimap(levl_name : String, level_author):
 		var img = Image.new()
 		img.load("user://custom_maps/minimaps/" + levl_name + ".png")
 		var img_tex = ImageTexture.new()
-		img_tex.create_from_image(img)
+		img_tex.create_from_image(img, 0)
 		texture = img_tex
 	else:
 		var img = Image.new()
 		img.load("user://downloads/" + level_author + "/custom_maps/minimaps/" + levl_name + ".png")
 		var img_tex = ImageTexture.new()
-		img_tex.create_from_image(img)
+		img_tex.create_from_image(img, 0)
 		texture = img_tex
 
 

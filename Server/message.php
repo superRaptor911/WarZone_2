@@ -1,5 +1,8 @@
 <?php
-// Takes raw data from the request
+
+# File name : message.php
+# Task 		: Receive message from user and save message in server.
+# Coder 	: Raptor
 
 // Converts it into a PHP object
 $data = json_decode( file_get_contents( 'php://input' ), true );

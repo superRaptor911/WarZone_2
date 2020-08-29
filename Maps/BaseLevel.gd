@@ -555,12 +555,6 @@ func getPath(start, end) -> PoolVector2Array:
 
 
 func getNearestPoint(pos : Vector2) -> Vector2:
-	var min_d = 99999999
-	var point = Vector2(0,0)
-	for i in traversable_Tiles:
-		var d = ((i*64) - pos).length_squared()
-		if d < min_d:
-			min_d = d
-			point = i*64 + Vector2(32,32)
-	
-	return point
+	var id = astar.get_closest_point(Vector3(pos.x / 64, pos.y / 64, 0))
+	var point = astar.get_point_position(id)
+	return Vector2(point.x * 64, point.y * 64)

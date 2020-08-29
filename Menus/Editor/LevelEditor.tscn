@@ -90,7 +90,7 @@ anchor_bottom = 1.0
 margin_top = 24.0
 custom_styles/bg = SubResource( 8 )
 custom_fonts/font = ExtResource( 14 )
-items = [ "Dust", null, false, "Facility", null, false ]
+items = [ "Dust", null, false, "Facility", null, false, "Aztec", null, false ]
 
 [node name="ground" type="ScrollContainer" parent="UILayer/TileTabContainer"]
 visible = false
@@ -274,6 +274,7 @@ margin_right = -0.0602112
 margin_bottom = 58.96
 custom_fonts/font = SubResource( 2 )
 text = "64x64"
+editable = false
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true,
@@ -479,6 +480,7 @@ tile_data = PoolIntArray( -65405926, 0, 196609, -65340391, 0, 0, -65340390, 0, 1
 [node name="Camera2D" type="Camera2D" parent="Map"]
 anchor_mode = 0
 current = true
+editor_draw_screen = false
 
 [node name="Viewport" type="Viewport" parent="Map"]
 size = Vector2( 1280, 920 )

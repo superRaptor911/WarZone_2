@@ -181,28 +181,29 @@ func _on_More_back_pressed():
 func _on_upload_pressed():
 	var file = File.new()
 	var map_name = game_server.serverInfo.map
-	var file_names = [
+	var file_list = [
 		"user://custom_maps/maps/" + map_name + ".tscn",
 		"user://custom_maps/gameModes/TDM/" + map_name + ".tscn",
 		"user://custom_maps/gameModes/Zombie/" + map_name + ".tscn"
-	]
+		]
+	var files = []
 	
-	var success_rate = 0
-	for i in file_names:
+	for i in file_list:
 		if file.file_exists(i):
-			success_rate += 1
-	
-	if success_rate < 2:
+			files.append(i)
+	# Atleast 1 gamemode and a map should exist
+	if files.size() < 2:
 		var notice = Notice.new()
 		notice.showNotice(self, "Error", "You need to create atleast 1 game mode", Color.red)
 		return
-	
+	# Dict that will be uploaded
 	var data_dict = {
 		id = String(OS.get_unique_id()),
 		lvl_name = map_name
 	}
 	
-	for i in file_names:
+	# Read files
+	for i in files:
 		file.open(i, File.READ)
 		var data = file.get_as_text()
 		file.close()
@@ -210,37 +211,46 @@ func _on_upload_pressed():
 		var sub_strings : Array = i.split("/")
 		if sub_strings.has("maps"):
 			data_dict["map"] = data
-			print("map")
 		elif sub_strings.has("TDM"):
 			data_dict["TDM"] = data
-			print("tdm")
 		elif sub_strings.has("Zombie"):
 			data_dict["Zombie"] = data
-			print("zombie")
 	
 	$PanelContainer3.show()
 	$PanelContainer2.hide()
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
-	
-	var uploader = DataUploader.new()
+	# Upload Files
+	var uploader = DataUploader.new(false)
 	uploader.connect("connection_failed",  self, "on_upload_failed")
-	uploader.connect("upload_finished", self, "on_upload_successful")
 	uploader.connect("upload_failed", self, "on_upload_failed")
-	uploader.uploadData(data_dict, "levelReceiver.php")
+	var result = uploader.uploadData(data_dict, "levelReceiver.php")
+	# Upload Minimap
+	if result and file.file_exists("user://custom_maps/minimaps/" + map_name + "128.png"):
+		$PanelContainer3.show()
+		$PanelContainer3/Panel/Label.text = "uploading Minimap ..."
+		yield(get_tree(), "idle_frame")
+		yield(get_tree(), "idle_frame")
+		uploader.connect("upload_finished", self, "on_upload_successful")
+		uploader.uploadFile("user://custom_maps/minimaps/" + map_name + "128.png", "fileReceiver.php")
+	# Only map upload is also success
+	elif result:
+		on_upload_successful()
+	
+	uploader.queue_free()
 
 
-
+# Show success msg
 func on_upload_successful():
 	var notice = Notice.new()
-	notice.showNotice(self, "Done", "Your map was uploaded and may feature in comming update",
+	notice.showNotice(self, "Done", "Your map was uploaded and will feature in Community maps",
 	 Color.white, Color.green)
 	notice.connect("notice_closed", $PanelContainer2, "show")
 	$PanelContainer3.hide()
 
-
+# Show failure msg
 func on_upload_failed():
 	var notice = Notice.new()
-	notice.showNotice(self, "Failed", "Your map was not uploaded.", Color.red)
+	notice.showNotice(self, "Failed", "Your map was not uploaded. Check your connection and try again", Color.red)
 	notice.connect("notice_closed", $PanelContainer2, "show")
 	$PanelContainer3.hide()

@@ -5,7 +5,7 @@
 [ext_resource path="res://bin/Bot.gdns" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 706.249, 458.787 )
+extents = Vector2( 339.499, 194.01 )
 
 [node name="Bot" groups=[
 "Bot",
@@ -25,7 +25,7 @@ shape = SubResource( 1 )
 [node name="VisionTimer" type="Timer" parent="." index="8"]
 
 [node name="Camera2D" type="Camera2D" parent="." index="9"]
-zoom = Vector2( 0.75, 0.75 )
+zoom = Vector2( 0.5, 0.5 )
 
 [node name="RayCast_up" type="RayCast2D" parent="." index="10"]
 rotation = 3.14159

@@ -40,7 +40,7 @@ func _ready():
 	
 	if is_network_master():
 		if game_states.game_settings.dynamic_camera:
-			$Camera2D.position = Vector2(0,-150)
+			$Camera2D.position = Vector2(0,-120)
 		
 		$Camera2D.current = true
 		print("std::cout<<Hello world;")

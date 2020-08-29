@@ -22,3 +22,7 @@ func _on_chat_pressed():
 
 func on_back_pressed():
 	MenuManager.changeScene("mainMenu")
+
+
+func _on_profile_pressed():
+	pass # Replace with function body.

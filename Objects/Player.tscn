@@ -27,7 +27,7 @@ func _process(_delta):
 ] instance=ExtResource( 1 )]
 position = Vector2( 478.288, 270.546 )
 script = ExtResource( 2 )
-speed = 180.0
+speed = 120.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." index="0"]
 

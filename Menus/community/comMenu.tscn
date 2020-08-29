@@ -34,18 +34,29 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -187.0
-margin_top = -85.0
+margin_top = -140.0
 margin_right = 187.0
-margin_bottom = 85.0
+margin_bottom = 140.0
 custom_constants/separation = 50
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="maps" type="Button" parent="VBoxContainer"]
+[node name="profile" type="Button" parent="VBoxContainer"]
 margin_right = 374.0
 margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 1 )
+disabled = true
+text = "My Profile(soon)"
+
+[node name="maps" type="Button" parent="VBoxContainer"]
+margin_top = 110.0
+margin_right = 374.0
+margin_bottom = 170.0
 rect_min_size = Vector2( 0, 60 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 1 )
@@ -53,9 +64,9 @@ custom_fonts/font = ExtResource( 1 )
 text = "Community Maps"
 
 [node name="chat" type="Button" parent="VBoxContainer"]
-margin_top = 110.0
+margin_top = 220.0
 margin_right = 374.0
-margin_bottom = 170.0
+margin_bottom = 280.0
 rect_min_size = Vector2( 0, 60 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 1 )
@@ -72,5 +83,6 @@ text = "This Game is under development . I need to fix many core issues. Plz rat
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="VBoxContainer/profile" to="." method="_on_profile_pressed"]
 [connection signal="pressed" from="VBoxContainer/maps" to="." method="_on_maps_pressed"]
 [connection signal="pressed" from="VBoxContainer/chat" to="." method="_on_chat_pressed"]

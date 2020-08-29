@@ -1,5 +1,11 @@
 <?php
 
+# File name : levelDownloader.php
+# Task 		: Sent requested level to user.
+# Coder 	: Raptor
+
+include 'php/logger.php';
+
 $map_info = json_decode( file_get_contents( 'php://input' ), true );
 $map      = array();
 clearstatcache();
@@ -25,6 +31,8 @@ foreach ($map_info['game_modes'] as $mode => $filename)
 }
 
 $map['game_modes'] = $game_modes;
+
+$logger->addLog("Map ". $map_info['name']. " was downloaded");
 
 header('Content-Type: application/json');
 echo json_encode($map);

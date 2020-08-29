@@ -43,7 +43,9 @@ func loadLevelInfos():
 
 func loadCustomMaps():
 	var dir = Directory.new()
-	dir.open("user://custom_maps/")
+	if dir.open("user://custom_maps/") != OK:
+		return
+	
 	dir.list_dir_begin()
 	var file_name : String= dir.get_next()
 	
@@ -66,7 +68,8 @@ func loadDownloadedMaps():
 	print("Loading Download")
 	var download_dir = "user://downloads/"
 	var authors_dir = Directory.new()
-	authors_dir.open(download_dir)
+	if authors_dir.open(download_dir) != OK:
+		return
 	
 	authors_dir.list_dir_begin()
 	var author_id = authors_dir.get_next()

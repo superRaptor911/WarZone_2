@@ -8,7 +8,8 @@ var cur_tileset : TileSet
 
 var tilesets = [
 	{g = preload("res://Sprites/Tilesets/dust_base.tres"), w = preload("res://Sprites/Tilesets/dust_height.tres")},
-	{g = preload("res://Sprites/Tilesets/ground_dark.tres"), w = preload("res://Sprites/Tilesets/height.tres")}
+	{g = preload("res://Sprites/Tilesets/ground_dark.tres"), w = preload("res://Sprites/Tilesets/height.tres")},
+	{g = preload("res://Sprites/Tilesets/aztec_base.tres"), w = preload("res://Sprites/Tilesets/aztec_height.tres")}
 ]
 
 var map_size = Vector2(64,64)
@@ -184,15 +185,18 @@ func saveLevel():
 	var viewport = $Map/Viewport
 	viewport.render_target_clear_mode = Viewport.CLEAR_MODE_ALWAYS
 	viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
-	viewport.size = base_map.get_used_rect().size * 64
+	viewport.size = (base_map.get_used_rect().size + base_map.get_used_rect().position+Vector2(1,1)) * 8
 	viewport.add_child(base_map)
+	$Map/Viewport/Camera2D.position = Vector2(0,0)
+	$Map/Viewport/Camera2D.zoom = Vector2(1,1) * 8
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	var minimap_path = "user://custom_maps/minimaps/" + map_name + ".png"
 	var image = viewport.get_texture().get_data()
-	image.resize(viewport.size.x / 8,  viewport.size.y / 8)
 	image.save_png(minimap_path)
-
+	image.resize(128, 128)
+	minimap_path = "user://custom_maps/minimaps/" + map_name + "128.png"
+	image.save_png(minimap_path)
 
 func _on_back_pressed():
 	# stop the timer for safety

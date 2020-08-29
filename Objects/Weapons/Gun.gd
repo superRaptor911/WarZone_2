@@ -8,7 +8,7 @@ export var clip_size : int = 10
 export var gun_rating : int = 0
 export var rate_of_fire : float = 4
 export var reload_time : float = 1.0
-export var zoom_range : PoolRealArray = [0.75, 0.85]
+export var zoom_range : PoolRealArray = [0.5, 0.7]
 export var recoil_factor : float = 0.2
 export var spread : float = 2
 export var gun_portrait : Texture = preload("res://Sprites/Weapons/gun_p.png")
@@ -144,7 +144,7 @@ func _process(_delta):
 func _draw():
 	if fired:
 		draw_line(muzzle.position, (_ray_dest - muzzle.global_position).rotated(-global_rotation) + muzzle.position, 
-				Color(255,250,0),1.5)
+				Color(255,250,0),1.25)
 	
 	if _use_laser_sight:
 		draw_line(muzzle.position, (_ray_dest - raycast_2D.global_position).rotated(-global_rotation)
