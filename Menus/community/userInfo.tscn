@@ -1,0 +1,148 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Sprites/bg/bg3.jpg" type="Texture" id=2]
+[ext_resource path="res://Menus/community/userInfo.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.529412, 0.545098, 0.129412, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.215686, 0.180392, 0.501961, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="userInfo" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.149
+anchor_top = 0.135
+anchor_right = 0.851
+anchor_bottom = 0.865
+margin_left = 0.279999
+margin_top = 0.299995
+margin_right = -0.280029
+margin_bottom = -0.300049
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="name" type="LineEdit" parent="Panel"]
+anchor_left = 0.403
+anchor_top = 0.136
+anchor_right = 0.746
+anchor_bottom = 0.226
+margin_left = -0.321686
+margin_top = 0.245689
+margin_right = -0.335693
+margin_bottom = -0.00431824
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/name"]
+anchor_left = -1.003
+anchor_right = -0.494
+anchor_bottom = 0.787
+margin_left = -0.0759888
+margin_right = 0.152008
+margin_bottom = 0.0109978
+custom_fonts/font = ExtResource( 1 )
+text = "User Name"
+
+[node name="bio" type="LineEdit" parent="Panel"]
+anchor_left = 0.403
+anchor_top = 0.352
+anchor_right = 0.929
+anchor_bottom = 0.442
+margin_left = 0.105988
+margin_top = 0.199982
+margin_right = -0.242004
+margin_bottom = -0.0500183
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/bio"]
+anchor_left = -0.656
+anchor_right = -0.323
+anchor_bottom = 0.787
+margin_left = 0.204346
+margin_right = 0.0283356
+margin_bottom = 0.0109978
+custom_fonts/font = ExtResource( 1 )
+text = "Bio"
+
+[node name="update" type="Button" parent="Panel"]
+anchor_left = 0.403
+anchor_top = 0.847
+anchor_right = 0.592
+anchor_bottom = 0.942
+margin_left = 0.105988
+margin_top = -0.155182
+margin_right = 0.383972
+margin_bottom = -0.0301819
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = ExtResource( 1 )
+text = "UPDATE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="upStatus" type="Panel" parent="."]
+visible = false
+anchor_left = 0.364
+anchor_top = 0.472
+anchor_right = 0.655
+anchor_bottom = 0.585
+margin_left = 0.250732
+margin_top = 0.338684
+margin_right = -0.229248
+margin_bottom = -0.0213013
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="upStatus"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -165.0
+margin_top = -18.5
+margin_right = 172.0
+margin_bottom = 18.5
+custom_fonts/font = ExtResource( 1 )
+align = 1
+[connection signal="pressed" from="Panel/update" to="." method="_on_update_pressed"]
