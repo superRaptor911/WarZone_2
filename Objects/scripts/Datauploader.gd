@@ -146,7 +146,7 @@ func uploadFile(file_path : String, php_file : String, filename = ""):
 	file.close()
 	
 	if filename == "":
-		filename = file_path.get_basename()
+		filename = file_path.get_file()
 	
 	var body = PoolByteArray()
 	body.append_array("\r\n--WebKitFormBoundaryePkpFF7tjBAqx29L\r\n".to_utf8())
@@ -195,7 +195,74 @@ func uploadFile(file_path : String, php_file : String, filename = ""):
 	else:
 		emit_signal("upload_failed")
 	
-
 	if one_time_use:
 		queue_free()
 
+
+func getFile(php_file : String, query : Dictionary = {a = "a"} , host = ""):
+	var data = PoolByteArray()
+	var HTTP = HTTPClient.new()
+	var url = "/" + php_file
+	
+	if host == "":
+		host = host_site
+	
+	var RESPONSE = HTTP.connect_to_host(host, 80)
+	while(HTTP.get_status() == HTTPClient.STATUS_CONNECTING or HTTP.get_status() == HTTPClient.STATUS_RESOLVING):
+		HTTP.poll()
+		OS.delay_msec(300)
+	
+	if HTTP.get_status() == HTTPClient.STATUS_CONNECTED:
+		print("connection pass")
+		emit_signal("connection_successful")
+	else:
+		emit_signal("connection_failed")
+		if one_time_use:
+			queue_free()
+		return null
+	
+	var QUERY = to_json(query)
+	var HEADERS = ["User-Agent: Pirulo/1.0 (Godot)", "Content-Type: application/json", "Content-Length: " + str(QUERY.length())]
+	RESPONSE = HTTP.request(HTTPClient.METHOD_POST, url, HEADERS, QUERY)
+	
+	if RESPONSE != OK:
+		emit_signal("connection_failed")
+		if one_time_use:
+			queue_free()
+		return
+	
+	while (HTTP.get_status() == HTTPClient.STATUS_REQUESTING):
+		HTTP.poll()
+		OS.delay_msec(300)
+	
+	if HTTP.get_status() == HTTPClient.STATUS_BODY or HTTP.get_status() == HTTPClient.STATUS_CONNECTED:
+		print("upload fin")
+		emit_signal("upload_finished")
+	else:
+		emit_signal("upload_failed")
+
+	if HTTP.has_response():
+
+		if HTTP.is_response_chunked():
+			print("Response is Chunked!")
+		else:
+			var bl = HTTP.get_response_body_length()
+			print("Response Length: ", bl)
+			
+		var rb = PoolByteArray() # Array that will hold the data.
+		while HTTP.get_status() == HTTPClient.STATUS_BODY:
+			# While there is body left to be read
+			HTTP.poll()
+			var chunk = HTTP.read_response_body_chunk() # Get a chunk.
+			if chunk.size() == 0:
+				# Got nothing, wait for buffers to fill a bit.
+				OS.delay_usec(500)
+			else:
+				rb = rb + chunk # Append to read buffer.
+			
+		if rb.size() > 0:
+			emit_signal("download_finished")
+			return rb
+
+	emit_signal("download_failed")
+	return null

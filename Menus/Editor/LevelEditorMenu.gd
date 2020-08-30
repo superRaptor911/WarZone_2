@@ -198,7 +198,7 @@ func _on_upload_pressed():
 		return
 	# Dict that will be uploaded
 	var data_dict = {
-		id = String(OS.get_unique_id()),
+		id = OS.get_unique_id(),
 		lvl_name = map_name
 	}
 	
@@ -231,10 +231,10 @@ func _on_upload_pressed():
 		$PanelContainer3/Panel/Label.text = "uploading Minimap ..."
 		yield(get_tree(), "idle_frame")
 		yield(get_tree(), "idle_frame")
-		uploader.connect("upload_finished", self, "on_upload_successful")
-		uploader.uploadFile("user://custom_maps/minimaps/" + map_name + "128.png", "fileReceiver.php")
-	# Only map upload is also success
-	elif result:
+		result = uploader.uploadFile("user://custom_maps/minimaps/" + map_name + "128.png", "fileReceiver.php")
+		result = uploader.uploadData(data_dict, "minimapSetup.php")
+		
+	if result:
 		on_upload_successful()
 	
 	uploader.queue_free()

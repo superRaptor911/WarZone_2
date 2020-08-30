@@ -7,7 +7,7 @@ uniform float use = 0.0;
 
 void fragment()
 {
-	vec4 color = clr + abs(sin(TIME * 4.0)) * use;
+	vec4 color = clr * use;
 	vec2 size = out_size / tex_size * use;
     vec4 sprite_color = texture(TEXTURE, UV);
    
@@ -21,6 +21,6 @@ void fragment()
     alpha += texture(TEXTURE, UV + vec2(-size.x, 0.0)).a;
     alpha += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
    
-    vec3 final_color = mix(color.rgb, sprite_color.rgb, sprite_color.a);
+    vec3 final_color = mix(color.rgb, sprite_color.rgb, sprite_color.a + 0.3);
     COLOR = vec4(final_color, clamp(alpha, 0.0, 1.0));
 }

@@ -15,6 +15,9 @@ var close_chars = Array()
 
 onready var model : Model = $Model
 onready var movementNode = $movmtCPP
+onready var level = get_tree().get_nodes_in_group("Level")[0]
+
+var blood_spash_scn = preload("res://Objects/Graphics/bloodSplashDefault.tscn")
 
 signal char_killed
 signal char_born
@@ -27,6 +30,7 @@ signal char_fraged(type)
 
 func _ready():
 	emit_signal("char_born")
+	
 
 
 #process Character
@@ -51,9 +55,6 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 	#Attacker exist.
 	if _attacker_data:
 		attacker_ref = _attacker_data.ref
-		
-		#emit blood splash
-		_blood_splash(attacker_ref.position,position)
 	
 	#check if friendly fire	
 	if not (game_server.extraServerInfo.friendly_fire):
@@ -66,8 +67,7 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 		HP = max(0,HP - 0.25 * damage)
 	else:
 		HP = max(0,HP - damage)
-		
-	emit_signal("char_took_damage")
+	
 	# Sync with peers
 	rpc_unreliable("P_health",HP,AP)
 	
@@ -76,10 +76,9 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 		game_server.rpc("P_handleKills",name,attacker_id,weapon)
 		
 		if attacker_ref:
-			#attacker_ref.emit_signal("char_fraged", 0)
+			# attacker_ref.emit_signal("char_fraged", 0)
 			attacker_ref.emit_signal("char_fraged")
-		
-		#sync with everyone
+		# sync with everyone
 		rpc("P_death")
 
 
@@ -91,22 +90,19 @@ func killChar():
 	rpc("P_health",HP,AP)
 	rpc("P_death")
 
+var blood_spilled_timestamp = 0
+var blood_spill_interval = 1000 #in ms
 
-#emit blood when injured
-func _blood_splash(p1,p2):
-	var angle = (p2-p1).angle()
-	rpc_unreliable("P_blood_splash",angle)
-
-#peer function for emission of blood when injured
-remotesync func P_blood_splash(angle):
-	if game_states.game_settings.particle_effects:
-		$bloodSplash.global_rotation = angle
-		$bloodSplash.emitting = true
-
-
-remote func P_health(hp,ap):
+remotesync func P_health(hp,ap):
 	HP = hp
 	AP = ap
+	if game_states.game_settings.particle_effects and (
+	blood_spilled_timestamp + blood_spill_interval < OS.get_ticks_msec()):
+		var splash = blood_spash_scn.instance()
+		splash.rotation = rotation
+		splash.global_position = global_position
+		level.add_child(splash)
+		blood_spilled_timestamp = OS.get_ticks_msec()
 	emit_signal("char_took_damage")
 
 

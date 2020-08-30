@@ -35,6 +35,10 @@ var fired = false
 onready var _fire_delay = 1.0 / rate_of_fire
 onready var muzzle = $Muzzle
 onready var raycast_2D = $RayCast2D
+onready var level = get_tree().get_nodes_in_group("Level")[0]
+onready var fire_sfx = $fire
+
+var shell_scn = preload("res://Objects/Weapons/Shell.tscn")
 
 signal gun_fired
 signal gun_reloading
@@ -71,7 +75,13 @@ remotesync func P_gunFired(_cast_to):
 	#show muzzle flash for 3 frames
 	muzzle.get_node("muzzle_flash").show()
 	_muzzle_frame_id = 3
-	$fire.play()
+	fire_sfx.play()
+	# Shell effects
+	if game_states.game_settings.particle_effects:
+		var shell = shell_scn.instance()
+		shell.global_position = (muzzle.global_position + global_position) / 2
+		shell.global_rotation = global_rotation
+		level.add_child(shell)
 	
 	#render tracers
 	fired = true

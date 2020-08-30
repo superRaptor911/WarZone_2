@@ -134,11 +134,12 @@ margin_bottom = -0.0400391
 custom_styles/panel = SubResource( 1 )
 
 [node name="TextureRect" type="TextureRect" parent="mapInfo"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -64.0
-margin_right = 64.0
-margin_bottom = 122.0
+anchor_left = 0.414
+anchor_right = 0.707
+anchor_bottom = 0.3
+margin_left = -0.0160217
+margin_right = -0.00799561
+margin_bottom = -0.199982
 texture = ExtResource( 4 )
 expand = true
 

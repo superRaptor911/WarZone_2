@@ -116,7 +116,7 @@ resource_local_to_scene = true
 shader = ExtResource( 2 )
 shader_param/clr = null
 shader_param/tex_size = Vector2( 64, 64 )
-shader_param/out_size = 1.0
+shader_param/out_size = 0.1
 shader_param/use = 0.0
 
 [sub_resource type="Animation" id=5]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
 [sub_resource type="Curve" id=1]
-_data = [ Vector2( 0.025974, 0.157955 ), 0.0, 0.0, 0, 0, Vector2( 0.993506, 0.597727 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.482759, 0.746591 ), 0.0, 0.0, 0, 0 ]
 
 [node name="bloodSplash" type="CPUParticles2D" groups=[
 "Particle",

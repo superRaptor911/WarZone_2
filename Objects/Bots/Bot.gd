@@ -1,8 +1,6 @@
 class_name Bot
 extends "res://Objects/unit.gd"
 
-var level = null
-
 var _near_bodies = Array()
 
 var is_bomber = false

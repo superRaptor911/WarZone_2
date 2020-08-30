@@ -6,7 +6,6 @@ var path_to_dest = PoolVector2Array()
 var cur_path_id = 0
 var target_visible = false
 var is_server = false
-var level
 
 func _ready():
 	var teams = get_tree().get_nodes_in_group("Team")
@@ -26,7 +25,6 @@ func _ready():
 	
 	if get_tree().is_network_server():
 		is_server = true
-		level = get_tree().get_nodes_in_group("Level")[0]
 		$navTimer.wait_time += rand_range(-0.5, 0.6)
 		$navTimer.start()
 		connect("char_killed", self, "S_on_killed")
@@ -126,8 +124,6 @@ func takeDamage(damage : float, _weapon : String, attacker_id : String):
 	# Attacker exist.
 	if _attacker_data:
 		attacker_ref = _attacker_data.ref
-		# emit blood splash
-		_blood_splash(attacker_ref.position,position)
 	# check if friendly fire
 	if not (game_server.extraServerInfo.friendly_fire):
 		if attacker_ref and team.team_id == attacker_ref.team.team_id:
