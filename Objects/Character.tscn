@@ -5,7 +5,7 @@
 [ext_resource path="res://Sfx/die3.wav" type="AudioStream" id=3]
 [ext_resource path="res://bin/charMovement.gdns" type="Script" id=5]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 55.2816
 
 [node name="Character" type="KinematicBody2D" groups=[
@@ -44,7 +44,7 @@ max_distance = 800.0
 [node name="close_range" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="close_range"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="respawn_timer" type="Timer" parent="."]
 wait_time = 5.0

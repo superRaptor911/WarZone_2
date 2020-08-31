@@ -398,14 +398,14 @@ void Bot::zm_roam()
 		}
 	}
 	// Select leader (20 sec interval)
-	else if (time_elapsed - NavFlags.leader_srch_start_time > 20)
+	else if (time_elapsed - NavFlags.leader_srch_start_time > 30)
 	{
 		NavFlags.leader_srch_start_time = time_elapsed;
 		auto players = get_tree()->get_nodes_in_group("User");
 		int player_count = players.size();
 
-		// Select a random leader
-		if (player_count > 0)
+		// Select a random leader 50 % chance
+		if (player_count > 0 && chance(50))
 			NavFlags.leader = static_cast<Node2D *>(players[rand() % player_count]);		
 	}
 	
@@ -419,7 +419,7 @@ void Bot::zm_roam()
 		#ifdef DEBUG_MODE
 			DEBUG_PRINT("changing state to attack");
 		#endif
-	}	
+	}
 }
 
 void Bot::zm_followLeader()
