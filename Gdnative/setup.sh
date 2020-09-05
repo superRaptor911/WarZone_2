@@ -100,7 +100,7 @@ buildWarzonePlugins()
 main()
 {
 	installTools
-	#installGodotCpp
+	installGodotCpp
 	buildCppBindings
 	buildWarzonePlugins	
 }
