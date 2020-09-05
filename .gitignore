@@ -14,3 +14,4 @@ android/
 output/
 *.zip
 logs/
+.import/
