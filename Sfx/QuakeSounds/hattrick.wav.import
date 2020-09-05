@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/hattrick.wav-71d2b0a3514d59de9af456e4a636fff1.sample"
+
+[deps]
+
+source_file="res://Sfx/QuakeSounds/hattrick.wav"
+dest_files=[ "res://.import/hattrick.wav-71d2b0a3514d59de9af456e4a636fff1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

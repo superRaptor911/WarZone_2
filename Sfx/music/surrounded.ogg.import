@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/surrounded.ogg-f96f7323a2c8b01b483ef62e13e77ae8.oggstr"
+
+[deps]
+
+source_file="res://Sfx/music/surrounded.ogg"
+dest_files=[ "res://.import/surrounded.ogg-f96f7323a2c8b01b483ef62e13e77ae8.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

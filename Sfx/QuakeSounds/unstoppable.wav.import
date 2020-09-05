@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/unstoppable.wav-d1f6dc47dd0f127314d5564106fb597b.sample"
+
+[deps]
+
+source_file="res://Sfx/QuakeSounds/unstoppable.wav"
+dest_files=[ "res://.import/unstoppable.wav-d1f6dc47dd0f127314d5564106fb597b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

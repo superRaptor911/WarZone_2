@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/m249.wav-4aff15d7c3e81f568c6761228be5c1ef.sample"
+
+[deps]
+
+source_file="res://Sfx/weapons/rifle/m249.wav"
+dest_files=[ "res://.import/m249.wav-4aff15d7c3e81f568c6761228be5c1ef.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

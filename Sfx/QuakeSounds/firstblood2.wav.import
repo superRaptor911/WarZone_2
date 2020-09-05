@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/firstblood2.wav-88e59d8c510f0392b8e696451dbe5392.sample"
+
+[deps]
+
+source_file="res://Sfx/QuakeSounds/firstblood2.wav"
+dest_files=[ "res://.import/firstblood2.wav-88e59d8c510f0392b8e696451dbe5392.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

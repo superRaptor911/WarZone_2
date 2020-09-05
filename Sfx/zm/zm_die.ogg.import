@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/zm_die.ogg-5066ea6956191b499032bb80c257e22a.oggstr"
+
+[deps]
+
+source_file="res://Sfx/zm/zm_die.ogg"
+dest_files=[ "res://.import/zm_die.ogg-5066ea6956191b499032bb80c257e22a.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

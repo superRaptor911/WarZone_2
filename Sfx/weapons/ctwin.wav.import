@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ctwin.wav-89f077192cc44ebbf65863dbfaec787c.sample"
+
+[deps]
+
+source_file="res://Sfx/weapons/ctwin.wav"
+dest_files=[ "res://.import/ctwin.wav-89f077192cc44ebbf65863dbfaec787c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bombpl.wav-37e73a702bad9abbb80776c08dc65617.sample"
+
+[deps]
+
+source_file="res://Sfx/weapons/bombpl.wav"
+dest_files=[ "res://.import/bombpl.wav-37e73a702bad9abbb80776c08dc65617.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

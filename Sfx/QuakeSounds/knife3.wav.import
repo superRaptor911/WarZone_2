@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/knife3.wav-0fe2ef2868c6e7014933ab7952dc1ecd.sample"
+
+[deps]
+
+source_file="res://Sfx/QuakeSounds/knife3.wav"
+dest_files=[ "res://.import/knife3.wav-0fe2ef2868c6e7014933ab7952dc1ecd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
