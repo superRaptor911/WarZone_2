@@ -5,8 +5,6 @@ onready var size = get_viewport_rect().size
 onready var editor = get_parent()
 
 onready var minimap = editor.get_node("UILayer/minimap")
-onready var viewport = get_node("Viewport")
-onready var viewport_cam = get_node("Viewport/Camera2D")
 
 onready var ground = $BaseMap
 onready var walls = $BaseMap/height
@@ -115,33 +113,6 @@ func pickTile(pos):
 				editor.selected_tile = i
 				return
 	
-
-func _on_minimap_update_timer_timeout():
-	var map = $BaseMap
-	remove_child(map)
-	viewport.add_child(map)
-	map.set_owner(viewport)
-	viewport_cam.position = camera.position
-	
-	viewport.render_target_clear_mode = Viewport.CLEAR_MODE_ALWAYS
-	viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
-	
-	#yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
-
-	var img = viewport.get_texture().get_data()
-	var tex = ImageTexture.new()
-	tex.create_from_image(img)
-	minimap.texture = tex
-	
-	viewport.render_target_clear_mode = Viewport.CLEAR_MODE_NEVER
-	viewport.render_target_update_mode = Viewport.UPDATE_DISABLED
-	
-	viewport.remove_child(map)
-	add_child(map)
-	map.set_owner(self)
-
-
 func _draw():
 	if draw_grid:
 		var LINE_COLOR = Color(255, 255, 255)

@@ -109,7 +109,7 @@ remotesync func P_respawnUnit(pos):
 
 #Creates weapon drop, when killed
 func createDropedItems():
-	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+	var d_item_man = level.dropedItem_manager
 	#drop selected gun
 	d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(selected_gun))
 	

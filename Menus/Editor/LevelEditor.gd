@@ -182,13 +182,19 @@ func saveLevel():
 		Logger.LogError("LEditor::saveLevel", "Failed converting map in packed scene")
 	
 	# Save minimap
-	var viewport = $Map/Viewport
+	var viewport = Viewport.new()
+	var cam = Camera2D.new()
+	add_child(viewport)
+	viewport.add_child(cam)
+	cam.current = true
+	cam.anchor_mode = Camera2D.ANCHOR_MODE_FIXED_TOP_LEFT
+	viewport.render_target_v_flip = true
 	viewport.render_target_clear_mode = Viewport.CLEAR_MODE_ALWAYS
 	viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
 	viewport.size = (base_map.get_used_rect().size + base_map.get_used_rect().position+Vector2(1,1)) * 8
 	viewport.add_child(base_map)
-	$Map/Viewport/Camera2D.position = Vector2(0,0)
-	$Map/Viewport/Camera2D.zoom = Vector2(1,1) * 8
+	cam.position = Vector2(0,0)
+	cam.zoom = Vector2(1,1) * 8
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	var minimap_path = "user://custom_maps/minimaps/" + map_name + ".png"
@@ -197,10 +203,10 @@ func saveLevel():
 	image.resize(128, 128)
 	minimap_path = "user://custom_maps/minimaps/" + map_name + "128.png"
 	image.save_png(minimap_path)
+	viewport.queue_free()
+
 
 func _on_back_pressed():
-	# stop the timer for safety
-	$Map/minimap_update_timer.stop()
 	var notice = Notice.new()
 	notice.connect("notice_closed", self, "_on_notice_ok_pressed")
 	notice.showNotice($UILayer, "Map Saved",

@@ -1,8 +1,6 @@
 *.import
-*.so
 *.a
 *.o
-*.dll
 *.exe
 *.apk
 *.pck

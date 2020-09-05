@@ -59,3 +59,7 @@ func _on_player_killed():
 
 func _on_player_born():
 	alive_players += 1
+
+
+func addScore(val : int):
+	score += val

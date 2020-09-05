@@ -76,7 +76,7 @@ buildCppBindings()
 	echo "Please input Android NDK path (example : /home/raptor/Android/Sdk/ndk/21.0.6113669)"
 	read ndk_path
 
-	android_archs=(x86 x86_64 armv7 arm64v8)
+	android_archs=(armv7 arm64v8)
 	for i in ${android_archs[@]}; do
 		!(scons platform=android generate_bindings=yes ANDROID_NDK_ROOT="$ndk_path" target=release android_arch=$i -j4) && exit 1
 		printBuffer "Compiled for Android $i"
@@ -100,7 +100,7 @@ buildWarzonePlugins()
 main()
 {
 	installTools
-	installGodotCpp
+	#installGodotCpp
 	buildCppBindings
 	buildWarzonePlugins	
 }

@@ -44,7 +44,6 @@ var spawned_units_ids = Array()
 
 func _ready():
 	MusicMan.music_player.stop()
-
 	if capture_mod:
 		captureMap()
 		return
@@ -53,8 +52,7 @@ func _ready():
 		$BaseMap/shadow.hide()
 		
 	game_server.resetUnitData()
-		
-	#setup teams
+	# Setup teams
 	add_child(team1)
 	add_child(team2)
 	add_child(dropedItem_manager)
@@ -76,23 +74,9 @@ func _ready():
 	else:
 		rpc_id(1,"S_getExistingUnits", String(game_states.player_info.net_id))
 
+
 #this is used to capture minimap
 func captureMap():
-	var size = $BaseMap/height.get_used_rect().size * Vector2(64,64)
-	OS.window_size = size / Vector2(8,8)
-	var max_xy = min(size.x,size.y)
-	var ratio
-	if max_xy == size.x:
-		ratio = OS.window_size.x / max_xy
-	else:
-		ratio = OS.window_size.y / max_xy
-	
-	self.scale = Vector2(ratio,ratio)
-	
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
 	# Retrieve the captured Image using get_data()
 	var img = get_viewport().get_texture().get_data()
 	# Flip on the y axis
@@ -111,8 +95,8 @@ func loadGameMode():
 		game_mode = load("res://Objects/Game_modes/ZombieMod/ZombieMod.tscn").instance()
 	elif game_server.serverInfo.game_mode == "TDM":
 		game_mode = load("res://Objects/Game_modes/TDM/TDM.tscn").instance()
-	elif game_server.serverInfo.game_mode == "Bombing":
-		game_mode = load("res://Objects/Game_modes/BombDiffuse.tscn").instance()
+	#elif game_server.serverInfo.game_mode == "Bombing":
+		#game_mode = load("res://Objects/Game_modes/BombDiffuse.tscn").instance()
 	
 	#add game mode
 	if game_mode:

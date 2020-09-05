@@ -16,6 +16,7 @@ func _ready():
 		spawn_wait = 30
 		kits.append("med")
 		kits.append("kevlar")
+		kits.append("ammo")
 		$Timer.wait_time = spawn_wait
 		$Timer.start()
 

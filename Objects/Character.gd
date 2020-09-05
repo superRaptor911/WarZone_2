@@ -22,8 +22,7 @@ var blood_spash_scn = preload("res://Objects/Graphics/bloodSplashDefault.tscn")
 signal char_killed
 signal char_born
 signal char_took_damage
-# warning-ignore:unused_signal
-signal char_fraged(type)
+signal char_fraged(self_ref, victim_ref, wpn_name)
 
 #Note : P_ = peer, S_ = server only
 
@@ -77,7 +76,7 @@ func takeDamage(damage : float, weapon : String, attacker_id : String):
 		
 		if attacker_ref:
 			# attacker_ref.emit_signal("char_fraged", 0)
-			attacker_ref.emit_signal("char_fraged")
+			attacker_ref.emit_signal("char_fraged", attacker_ref, self, weapon)
 		# sync with everyone
 		rpc("P_death")
 

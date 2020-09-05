@@ -75,7 +75,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="bug" type="Button" parent="."]
+[node name="attrib" type="Button" parent="."]
 anchor_left = 0.322
 anchor_top = 0.669
 anchor_right = 0.695
@@ -87,7 +87,7 @@ margin_bottom = -0.160034
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
-text = "Report Bugs / Feature Request"
+text = "Attribution"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -143,7 +143,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="src_code" to="." method="_on_src_code_pressed"]
-[connection signal="pressed" from="bug" to="." method="_on_bug_pressed"]
+[connection signal="pressed" from="attrib" to="." method="_on_attrib_pressed"]
 [connection signal="pressed" from="rate" to="." method="_on_rate_pressed"]
 [connection signal="pressed" from="msgDev" to="." method="_on_msgDev_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]

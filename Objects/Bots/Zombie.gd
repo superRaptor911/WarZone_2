@@ -95,8 +95,29 @@ func _on_navTimer_timeout():
 		if target_visible and (T.ref.position - position).length() < 80:
 			rpc("zmAttack")
 
+
+#Creates weapon drop, when killed
+func createDropedItems():
+	var d_item_man = level.dropedItem_manager
+	# Drop health pack (2 % chance)
+	if randi() % 100 <= 2: 
+		var item_info = {type = "med",pos = position}
+		d_item_man.rpc_id(1,"serverMakeItem",item_info)
+	
+	#drop kevlar (10 % chance)
+	if randi() % 100 <= 2: 
+		var item_info = {type = "kevlar",pos = position}
+		d_item_man.rpc_id(1,"serverMakeItem",item_info)
+		
+	#drop ammo (10 % chance)
+	if randi() % 100 <= 10: 
+		var item_info = {type = "ammo",pos = position}
+		d_item_man.rpc_id(1,"serverMakeItem",item_info)
+
+
 func S_on_killed():
 	$navTimer.stop()
+	createDropedItems()
 
 func P_on_killed():
 	$body.show()
@@ -115,7 +136,7 @@ remotesync func P_freeZombie():
 
 
 #Function overide
-func takeDamage(damage : float, _weapon : String, attacker_id : String):
+func takeDamage(damage : float, weapon : String, attacker_id : String):
 	if not ( alive and get_tree().is_network_server() ):
 		return
 	var _attacker_data = game_server._unit_data_list.get(attacker_id)
@@ -140,10 +161,10 @@ func takeDamage(damage : float, _weapon : String, attacker_id : String):
 	rpc_unreliable("P_health",HP,AP)
 	# char dead
 	if HP <= 0:
-		game_server.rpc("P_handleKills", "Zombie",attacker_id, _weapon)
+		game_server.rpc("P_handleKills", "Zombie",attacker_id, weapon)
 		
 		if attacker_ref:
-			attacker_ref.emit_signal("char_fraged")
+			attacker_ref.emit_signal("char_fraged", attacker_ref, self, weapon)
 		#sync with everyone
 		rpc("P_death")
 		

@@ -13,8 +13,8 @@ signal download_failed
 var one_time_use = true
 
 #const host_site = "projectwarzone2.000webhostapp.com"
-const host_site = "127.0.0.1"
-#const host_site = "35.239.53.71"
+#const host_site = "127.0.0.1"
+const host_site = "35.239.53.71"
 
 func _init(one_time = true):
 	one_time_use = one_time

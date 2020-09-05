@@ -3,6 +3,7 @@ extends Node
 var wpn_drop = preload("res://Objects/Misc/WpnDrop.tscn")
 var med_drop = preload("res://Objects/Misc/Medkit.tscn")
 var kevlar_drop = preload("res://Objects/Misc/Kevlar.tscn")
+var ammo_drop = preload("res://Objects/Misc/ammoBox.tscn")
 
 var droped_item_id = 0
 var Items : Dictionary
@@ -20,6 +21,8 @@ remotesync func createDropedItem(item_data,item_id):
 		drop = med_drop.instance()
 	elif item_data.type == "kevlar":
 		drop = kevlar_drop.instance()
+	elif item_data.type == "ammo":
+		drop = ammo_drop.instance()
 	
 	if drop:
 		drop.set_name(item_data.type + String(item_id))

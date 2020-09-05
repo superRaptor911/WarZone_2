@@ -7,6 +7,9 @@ var max_menus = 10
 var menu_loaded = 0
 var loading_menu
 
+var prev_menu = null
+var cur_menu = null
+
 var admob : AdMob = null
 var _admob_max_load_fails = 10
 var _admob_load_fail_count = [0, 0, 0]
@@ -59,6 +62,7 @@ func loadMenu():
 	
 	# Sub menu of extras
 	addMenu("Extras/MsgDev", "res://Menus/Misc/MsgDev.tscn")
+	addMenu("Extras/Attrib", "res://Menus/Misc/Attrib.tscn")
 	
 	finishLoading()
 
@@ -72,10 +76,15 @@ func finishLoading():
 
 func changeScene(new_scene):
 	if menu.get(new_scene):
+		prev_menu = cur_menu
+		cur_menu = new_scene
 		get_tree().change_scene_to(menu.get(new_scene))
 		admob.hide_banner()
 	else:
 		print("Error changing scene to ", new_scene)
+
+func changeSceneToPrevious():
+	changeScene(prev_menu)
 
 func on_loaded():
 	if game_states.first_run:

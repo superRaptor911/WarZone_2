@@ -83,7 +83,7 @@ func P_on_player_killed():
 
 
 func pickItem(item_id = -1):
-	var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+	var d_item_man = level.dropedItem_manager
 	if item_id == -1:
 		d_item_man.rpc_id(1,"requestPickUp",name,cur_dropped_item_id)
 	else:
@@ -111,6 +111,9 @@ remotesync func pickUpItem(item):
 		HP = 100
 	elif item.type == "kevlar":
 		AP = 100
+	elif item.type == "ammo":
+		selected_gun.clip_count = 4
+		unselected_gun.clip_count = 4
 
 
 func S_on_player_killed():

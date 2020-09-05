@@ -47,7 +47,7 @@ class Player_stats:
 		quake_sound_q_ref = qs
 	
 	#on player killed someone
-	func _player_killed_someone():
+	func _player_killed_someone(_a, _b, _c):
 		kill_streak += 1
 		_check_quake_status()
 	
@@ -80,16 +80,21 @@ class Player_stats:
 			return "ultra_kill"
 		return ""
 
-#list of player stats
+# list of player stats
 var Players = Array()
-
-#stores the time elapsed.
+# stores the time elapsed.
 var time_elapsed  : float = 0
+
+onready var uptime_timer = $top_panel/uptime
+onready var timer_label = $top_panel/Label
+onready var ct_score_label = $top_panel/ct/Label
+onready var t_score_label = $top_panel/t/Label
+
 
 #update time panel every second
 func _on_uptime_timeout():
 	time_elapsed += 1
-	rpc("syncTime",time_elapsed)
+	rpc_unreliable("syncTime",time_elapsed)
 	
 	#end game
 	if time_elapsed >= game_server.extraServerInfo.time_limit * 60:
@@ -120,7 +125,7 @@ func _ready():
 		current_level.connect("player_created", self, "_on_unit_created")
 		current_level.connect("bot_created",self,"_on_unit_created")
 		$Label/Timer.start()
-		$Time_container/uptime.start()
+		uptime_timer.start()
 		createBots()
 
 
@@ -151,7 +156,7 @@ remotesync func syncTime(time_now):
 	var time_limit = game_server.extraServerInfo.time_limit * 60
 	var _min_ : int = (time_limit - time_now)/60.0
 	var _sec_ : int = int(time_limit - time_now) % 60
-	$Time_container/panel/Label.text = String(_min_) + " : " + String(_sec_)
+	timer_label.text = String(_min_) + " : " + String(_sec_)
 
 
 func _on_Timer_timeout():
@@ -164,6 +169,7 @@ func _on_unit_created(plr):
 	var p = Player_stats.new(plr.pname,quake_sound_queue)
 	plr.connect("char_killed",p,"_player_got_killed")
 	plr.connect("char_fraged",p,"_player_killed_someone")
+	plr.connect("char_fraged", self, "_on_player_killed_someone")
 	Players.push_back(p)
 	#connect
 	if plr.is_in_group("Bot"):
@@ -178,6 +184,26 @@ func _on_player_killed(plr):
 func _on_bot_killed(bot):
 	bot.get_node("respawn_timer").start()
 
+func _on_player_killed_someone(plr_ref, _victim_ref, _wpn_used):
+	if plr_ref:
+		var f_fire = false
+		# Check for friendly fire
+		if _victim_ref:
+			if plr_ref.team.team_id == _victim_ref.team.team_id:
+				f_fire = true
+		
+		if f_fire:
+			plr_ref.team.addScore(-2)
+		else:
+			plr_ref.team.addScore(2)
+		updateScore(plr_ref.team)
+
+
+func updateScore(team):
+	if team.team_id == 0:
+		t_score_label.text = String(team.score)
+	else:
+		ct_score_label.text = String(team.score)
 
 func restartGameMode():
 	var level = get_tree().get_nodes_in_group("Level")[0]

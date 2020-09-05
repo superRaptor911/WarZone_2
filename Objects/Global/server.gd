@@ -9,7 +9,7 @@ var serverInfo : = {
 	"map" : "",
 	"map_author" : "INC",
 	"version" : game_states.current_game_version,
-	"min_v" : 1.43
+	"min_v" : 1.44
 }
 
 #time is in minutes
