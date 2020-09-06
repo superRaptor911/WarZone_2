@@ -11,7 +11,7 @@ var prev_menu = null
 var cur_menu = null
 
 var admob : AdMob = null
-var _admob_max_load_fails = 10
+var _admob_max_load_fails = 4
 var _admob_load_fail_count = [0, 0, 0]
 
 signal back_pressed
@@ -131,7 +131,7 @@ func setupAds():
 	add_child(admob)
 	admob.load_banner()
 	admob.load_interstitial()
-	admob.load_rewarded_video()
+	#admob.load_rewarded_video()
 	admob.hide_banner()
 	admob.connect("interstitial_closed", self, "on_interstitial_closed")
 	admob.connect("rewarded_video_closed", self, "on_video_closed")
@@ -160,17 +160,17 @@ func on_interstitial_loaded():
 func on_video_loaded():
 	_admob_load_fail_count[2] = 0
 
-func on_banner_failed():
+func on_banner_failed(_code):
 	_admob_load_fail_count[0] += 1
 	if _admob_load_fail_count[0] < _admob_max_load_fails:
 		admob.load_banner()
 
-func  on_interstitial_failed():
+func  on_interstitial_failed(_code):
 	_admob_load_fail_count[1] += 1
 	if _admob_load_fail_count[1] < _admob_max_load_fails:
 		admob.load_interstitial()
 
-func on_video_failed():
+func on_video_failed(_code):
 	_admob_load_fail_count[2] += 1
 	if _admob_load_fail_count[2] < _admob_max_load_fails:
 		admob.load_rewarded_video()

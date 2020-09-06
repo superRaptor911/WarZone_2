@@ -5,44 +5,44 @@
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=6]
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.141176, 0.12549, 0.447059, 1 )
 shadow_size = 6
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 0.0313726, 0.0313726, 1 )
 shadow_size = 6
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=3]
 size = 28
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=4]
 content_margin_left = 15.0
 content_margin_right = 15.0
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=6]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=7]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=15]
+[sub_resource type="DynamicFont" id=8]
 size = 32
 use_filter = true
 font_data = ExtResource( 3 )
@@ -68,7 +68,7 @@ margin_left = -0.600037
 margin_top = 0.279968
 margin_right = 0.319946
 margin_bottom = 0.039978
-custom_styles/normal = SubResource( 10 )
+custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 6 )
 text = "Create"
 __meta__ = {
@@ -84,8 +84,8 @@ margin_left = -62.3347
 margin_top = -22.571
 margin_right = 62.665
 margin_bottom = 22.429
-custom_styles/normal = SubResource( 11 )
-custom_fonts/font = SubResource( 12 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -100,7 +100,7 @@ margin_left = 11.76
 margin_top = -0.280006
 margin_right = -0.240112
 margin_bottom = 0.279968
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -123,8 +123,8 @@ __meta__ = {
 [node name="e1" type="LineEdit" parent="panel/contatiner"]
 margin_right = 364.0
 margin_bottom = 43.0
-custom_styles/normal = SubResource( 7 )
-custom_fonts/font = SubResource( 13 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "My Server"
 max_length = 64
 
@@ -133,7 +133,7 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 7 )
 text = "Server Name"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -143,8 +143,8 @@ __meta__ = {
 margin_top = 83.0
 margin_right = 364.0
 margin_bottom = 126.0
-custom_styles/normal = SubResource( 7 )
-custom_fonts/font = SubResource( 13 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "8"
 max_length = 64
 
@@ -153,7 +153,7 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 7 )
 text = "Max Players"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -163,8 +163,8 @@ __meta__ = {
 margin_top = 166.0
 margin_right = 364.0
 margin_bottom = 209.0
-custom_styles/normal = SubResource( 7 )
-custom_fonts/font = SubResource( 13 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "6569"
 max_length = 64
 
@@ -173,7 +173,7 @@ margin_left = -266.225
 margin_top = 5.1694
 margin_right = -50.2255
 margin_bottom = 48.1694
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 7 )
 text = "Port"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -182,7 +182,7 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="panel"]
 anchor_right = 1.0
 margin_bottom = 45.0
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -196,7 +196,7 @@ margin_left = -89.0
 margin_top = -21.5
 margin_right = 89.0
 margin_bottom = 21.5
-custom_fonts/font = SubResource( 15 )
+custom_fonts/font = SubResource( 8 )
 text = "Host Menu"
 [connection signal="pressed" from="bg/create" to="." method="_on_create_pressed"]
 [connection signal="pressed" from="bg/back" to="." method="_on_back_pressed"]

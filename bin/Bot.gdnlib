@@ -1,3 +1,10 @@
+[general]
+
+singleton=false
+load_once=true
+symbol_prefix="godot_"
+reloadable=true
+
 [entry]
 
 Android.armeabi-v7a="res://bin/androidarmv7/libbot.so"
@@ -13,10 +20,3 @@ Android.arm64-v8a=[  ]
 Android.x86=[  ]
 Android.x86_64=[  ]
 X11.64=[  ]
-
-[general]
-
-singleton=false
-load_once=true
-symbol_prefix="godot_"
-reloadable=true

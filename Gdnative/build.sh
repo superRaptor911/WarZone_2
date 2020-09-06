@@ -44,7 +44,7 @@ build_targets()
 build_plugin()
 {
 	#Build only for first 4 platforms
-	for (( i = 0; i < 4; i++ )); do
+	for (( i = 0; i < 6; i++ )); do
 
 		if [ "$platforms" == "" ] || [ "$platforms" == "${plats[i]}" ]
 		then

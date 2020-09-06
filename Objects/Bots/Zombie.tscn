@@ -16,7 +16,7 @@ melee_damage = 35.0
 [node name="Model" parent="." index="0"]
 sk_name = "t1"
 
-[node name="die" parent="." index="5"]
+[node name="die" parent="." index="4"]
 stream = ExtResource( 3 )
 attenuation = 0.450625
 

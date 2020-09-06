@@ -8,6 +8,7 @@ func _ready():
 	UiAnim.animTopToBottom([$panel])
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 	MenuManager.admob.show_banner()
+	MenuManager.admob.show_interstitial()
 
 func _join_lobby():
 	MenuManager.changeScene("HM/lobby")

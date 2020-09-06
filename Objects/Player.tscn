@@ -56,7 +56,7 @@ smoothing_enabled = true
 
 [node name="aim_indicator" type="Sprite" parent="." index="11"]
 visible = false
-position = Vector2( 0, -350 )
+position = Vector2( 0, -250 )
 rotation = 1.5708
 z_index = 3
 texture = ExtResource( 5 )

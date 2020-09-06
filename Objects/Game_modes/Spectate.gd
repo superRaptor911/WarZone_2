@@ -6,6 +6,10 @@ var spec_id = 0
 
 signal leave_spec_mode
 
+func _enter_tree():
+	MenuManager.admob.show_banner()
+
+
 func _ready():
 	print("spectating")
 	specRandomPlayer()
@@ -75,3 +79,4 @@ func _on_menu_pressed():
 
 func _exit_tree():
 	selectPlayer(null)
+	MenuManager.admob.hide_banner()

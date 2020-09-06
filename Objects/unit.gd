@@ -113,15 +113,19 @@ func createDropedItems():
 	#drop selected gun
 	d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(selected_gun))
 	
-	#drop health pack (10 % chance)
-	if randi() % 100 <= 10: 
+	#drop health pack (5 % chance)
+	if randi() % 100 <= 5: 
 		var item_info = {type = "med",pos = position}
 		d_item_man.rpc_id(1,"serverMakeItem",item_info)
-	
-	#drop kevlar (20 % chance)
-	if randi() % 100 <= 20: 
+	# drop kevlar (20 % chance)
+	if randi() % 100 <= 10: 
 		var item_info = {type = "kevlar",pos = position}
 		d_item_man.rpc_id(1,"serverMakeItem",item_info)
+	# drop ammo (5 % chance)
+	if randi() % 100 <= 5: 
+		var item_info = {type = "ammo",pos = position}
+		d_item_man.rpc_id(1,"serverMakeItem",item_info)
+
 
 #function is called when unit is killed, this is used
 #to drop weapons on ground.
