@@ -1,7 +1,28 @@
+#TDM Game mode logic#
+#####################
 extends CanvasLayer
 
 var end_screen_scn = preload("res://Objects/Game_modes/TDM/endScreen.tscn")
+
+var mode_settings = {
+	time_limit = 5,
+	max_score = 50
+}
+
 var world_size : Vector2
+
+#queue of quake_sounds
+var quake_sound_queue  = Array()
+
+# list of player stats
+var Players = Array()
+# stores the time elapsed.
+var time_elapsed  : float = 0
+
+onready var uptime_timer = $top_panel/uptime
+onready var timer_label = $top_panel/Label
+onready var ct_score_label = $top_panel/ct/Label
+onready var t_score_label = $top_panel/t/Label
 
 #Quake sound class holds message that is to be displayed
 #and name of the sound that is to be played
@@ -13,9 +34,6 @@ class quake_sound:
 	func _init(_msg,_sound_name):
 		msg = _msg
 		sound_name = _sound_name
-
-#queue of quake_sounds
-var quake_sound_queue  = Array()
 
 #Holds player kill stats for quake sounds
 class Player_stats:
@@ -80,15 +98,21 @@ class Player_stats:
 			return "ultra_kill"
 		return ""
 
-# list of player stats
-var Players = Array()
-# stores the time elapsed.
-var time_elapsed  : float = 0
 
-onready var uptime_timer = $top_panel/uptime
-onready var timer_label = $top_panel/Label
-onready var ct_score_label = $top_panel/ct/Label
-onready var t_score_label = $top_panel/t/Label
+func _ready():
+	#only server handles quake events and sound
+	if get_tree().is_network_server():
+		var current_level = get_tree().get_nodes_in_group("Level")[0]
+		current_level.connect("player_created", self, "_on_unit_created")
+		current_level.connect("bot_created",self,"_on_unit_created")
+		$Label/Timer.start()
+		uptime_timer.start()
+		createBots()
+
+
+func _process(_delta):
+	if get_tree().is_network_server():
+		showQuakeKills()
 
 
 #update time panel every second
@@ -97,8 +121,7 @@ func _on_uptime_timeout():
 	rpc_unreliable("syncTime",time_elapsed)
 	
 	#end game
-	if time_elapsed >= game_server.extraServerInfo.time_limit * 60:
-		time_elapsed = 0
+	if time_elapsed >= mode_settings.time_limit * 60:
 		#var level = get_tree().get_nodes_in_group("Level")[0]
 		#level.S_restartLevel()
 		rpc("sync_endGame")
@@ -118,22 +141,6 @@ remotesync func sync_endGame():
 	$Time_container.hide()
 
 
-func _ready():
-	#only server handles quake events and sound
-	if get_tree().is_network_server():
-		var current_level = get_tree().get_nodes_in_group("Level")[0]
-		current_level.connect("player_created", self, "_on_unit_created")
-		current_level.connect("bot_created",self,"_on_unit_created")
-		$Label/Timer.start()
-		uptime_timer.start()
-		createBots()
-
-
-func _process(_delta):
-	if get_tree().is_network_server():
-		showQuakeKills()
-
-
 func showQuakeKills():
 	if quake_sound_queue.size():
 		var is_last_msg :bool = false
@@ -141,6 +148,7 @@ func showQuakeKills():
 			is_last_msg = true
 		rpc("syncQuakeKills",quake_sound_queue[0].msg, quake_sound_queue[0].sound_name, is_last_msg)
 		quake_sound_queue.erase(quake_sound_queue[0])
+
 
 remotesync func syncQuakeKills(msg,sound_name,is_last_msg : bool):
 	print("called")
@@ -204,6 +212,9 @@ func updateScore(team):
 		t_score_label.text = String(team.score)
 	else:
 		ct_score_label.text = String(team.score)
+	
+	if team.score >= mode_settings.max_score:
+		rpc("sync_endGame")
 
 func restartGameMode():
 	var level = get_tree().get_nodes_in_group("Level")[0]
@@ -211,6 +222,7 @@ func restartGameMode():
 	rpc("P_restartGameMode")
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
+	time_elapsed = 0
 	createBots()
 
 

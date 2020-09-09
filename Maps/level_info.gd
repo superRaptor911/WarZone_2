@@ -1,16 +1,5 @@
 extends Node
 
-var template = {
-		name = "Dust II",
-		icon = "",
-		game_modes = [
-
-			],
-		desc = "",
-		debug = false
-	}
-
-
 var levels = {
 	
 	l1 = {

@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-
+# Holds all level details
 var levels = Array()
 var selected_level = null
 var selected_level_id = 0
@@ -16,9 +16,10 @@ func _ready():
 	loadCustomMaps()
 	loadDownloadedMaps()
 	network.connect("player_removed", self, "_on_player_removed")
-	#show IP address 
+	
+	# Show IP address 
 	for i in IP.get_local_addresses():
-		if ( !(i.substr(0,3) == "169") ) and i.length() < 15:
+		if i.substr(0,3) != "127" and i.length() < 15:
 			$Label.text += "IP =" + i + "\n" 
 
 	UiAnim.animLeftToRight([$Panel])

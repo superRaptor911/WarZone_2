@@ -1,29 +1,28 @@
 extends Node
 
+# Dictionary of menu
 var menu : Dictionary
-var current_menu = null
-
-var max_menus = 10
-var menu_loaded = 0
-var loading_menu
-
 var prev_menu = null
 var cur_menu = null
 
+# Admob instance
 var admob : AdMob = null
-var _admob_max_load_fails = 4
+# Number of times to load ads if loading fails
+var _admob_max_load_fails = 2
+# Counter for each ad types [banner, intestitial, video]
 var _admob_load_fail_count = [0, 0, 0]
 
+# This signal is emitted when back button is pressed
 signal back_pressed
 
 func _ready():
 	setupAds()
-	if !get_tree().get_nodes_in_group("LoadMenu").empty():
-		loading_menu = get_tree().get_nodes_in_group("LoadMenu")[0]
-		loading_menu.connect("loading_complete",self, "on_loaded")
-		loadMenu()
+	loadMenus()
 
-func loadMenu():
+func addMenu(name,path):
+	menu[name] = load(path)
+
+func loadMenus():
 	addMenu("mainMenu","res://Menus/MainMenu/MainMenu.tscn")
 	addMenu("once","res://Menus/MainMenu/once.tscn")
 	addMenu("newGame","res://Menus/MainMenu/NewGame.tscn")
@@ -63,16 +62,7 @@ func loadMenu():
 	# Sub menu of extras
 	addMenu("Extras/MsgDev", "res://Menus/Misc/MsgDev.tscn")
 	addMenu("Extras/Attrib", "res://Menus/Misc/Attrib.tscn")
-	
-	finishLoading()
 
-func addMenu(name,path):
-	menu[name] = load(path)
-	menu_loaded += 1
-	loading_menu.get_node("ProgressBar").value = min((menu_loaded / max_menus) * 100.0, 99)
-
-func finishLoading():
-	loading_menu.get_node("ProgressBar").value = 100
 
 func changeScene(new_scene):
 	if menu.get(new_scene):
@@ -83,25 +73,24 @@ func changeScene(new_scene):
 	else:
 		print("Error changing scene to ", new_scene)
 
+
 func changeSceneToPrevious():
 	changeScene(prev_menu)
 
-func on_loaded():
-	if game_states.first_run:
-		changeScene("once")
-	else:
-		changeScene("mainMenu")
-		
+
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
 		_on_Back_pressed()
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		#get_tree().quit(0)
 		_on_Back_pressed()
-		
+
+
 func _on_Back_pressed():
 	admob.hide_banner()
 	emit_signal("back_pressed")
+
+######################################ADS######################################
 
 func setupAds():
 	randomize()

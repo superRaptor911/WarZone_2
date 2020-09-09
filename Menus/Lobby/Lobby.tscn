@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
@@ -46,6 +46,34 @@ size = 24
 use_filter = true
 font_data = ExtResource( 3 )
 
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+
+[sub_resource type="StyleBoxFlat" id=7]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color( 0, 0, 0, 0.607843 )
+corner_radius_top_left = 10
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color( 0, 0, 0, 0.607843 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id=12]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color( 0, 0, 0, 0.607843 )
+corner_radius_top_right = 10
+
 [node name="Lobby" type="CanvasLayer"]
 script = ExtResource( 1 )
 
@@ -63,10 +91,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -603.0
-margin_top = -341.0
-margin_right = 603.0
-margin_bottom = 341.0
+margin_left = -607.482
+margin_top = -353.126
+margin_right = 598.518
+margin_bottom = 328.874
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -77,10 +105,10 @@ anchor_left = 0.522
 anchor_top = 0.5
 anchor_right = 0.522
 anchor_bottom = 0.5
-margin_left = -493.532
-margin_top = -53.0
-margin_right = 425.468
-margin_bottom = 324.0
+margin_left = -171.257
+margin_top = 327.546
+margin_right = 747.743
+margin_bottom = 704.546
 custom_styles/tab_fg = SubResource( 2 )
 custom_styles/tab_bg = SubResource( 3 )
 custom_styles/panel = SubResource( 1 )
@@ -252,16 +280,17 @@ __meta__ = {
 }
 
 [node name="portrait" type="Panel" parent="Panel"]
-anchor_left = 0.359
+anchor_left = -0.036
+anchor_top = 0.2
 anchor_right = 0.641
 anchor_bottom = 0.337
-margin_left = 0.0459595
-margin_right = -0.0460205
-margin_bottom = 0.166
+margin_left = -531.584
+margin_top = -44.4
+margin_right = -1008.05
+margin_bottom = 92.166
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_group_": true,
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -331,6 +360,57 @@ stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="mapGroup" type="HBoxContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 0.078
+margin_bottom = -0.196003
+custom_constants/separation = 0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="standardMaps" type="Button" parent="Panel/mapGroup"]
+margin_right = 402.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 402, 50 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/disabled = SubResource( 8 )
+custom_styles/normal = SubResource( 7 )
+custom_fonts/font = ExtResource( 5 )
+toggle_mode = true
+pressed = true
+text = "Standard Maps"
+
+[node name="myMaps" type="Button" parent="Panel/mapGroup"]
+margin_left = 402.0
+margin_right = 804.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 402, 50 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
+custom_fonts/font = ExtResource( 5 )
+toggle_mode = true
+text = "My Maps"
+
+[node name="downloadedMaps" type="Button" parent="Panel/mapGroup"]
+margin_left = 804.0
+margin_right = 1206.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 402, 50 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
+custom_fonts/font = ExtResource( 5 )
+toggle_mode = true
+text = "Donloaded Maps"
+
+[node name="gameModesGroup" type="VBoxContainer" parent="Panel"]
+margin_left = 13.0
+margin_top = 126.0
+margin_right = 227.0
+margin_bottom = 661.0
 
 [node name="Label" type="Label" parent="."]
 visible = false
