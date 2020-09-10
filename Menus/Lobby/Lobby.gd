@@ -1,9 +1,10 @@
 extends CanvasLayer
 
-# Holds all level details
-var levels = Array()
+var standard_levels = Array()
+var my_levels = Array()
+var downloaded_levels = Array()
+
 var selected_level = null
-var selected_level_id = 0
 
 var selected_gameMode = ["",""]
 var selected_gameMode_id = 0
@@ -12,9 +13,9 @@ var selected_gameMode_id = 0
 func _ready():
 	game_server.bot_settings.bot_count = 0
 	game_server.bot_settings.bot_difficulty = 1
-	loadLevelInfos()
-	loadCustomMaps()
-	loadDownloadedMaps()
+	loadStandardLevelData()
+	loadMyLevelData()
+	loadDownloadedLevelData()
 	network.connect("player_removed", self, "_on_player_removed")
 	
 	# Show IP address 
@@ -26,27 +27,31 @@ func _ready():
 	$Panel/TabContainer/Bots/bot_difficulty/bot_diff.value = 2
 	$Panel/TabContainer/Bots/bot_no/HSlider.value = 10
 
-
-func loadLevelInfos():
+# Load Standard Level, i.e default lvls
+func loadStandardLevelData():
 	var level_info = load("res://Maps/level_info.gd").new()
 	var _levels = level_info.levels.values()
 	level_info.queue_free()
-	selected_level_id = 0
 	
+	var prev_level = null
 	for i in _levels:
 		if not (i.debug and game_states.is_android):
-			levels.append(i)
+			if prev_level:
+				i['prev'] = prev_level
+			standard_levels.append(i)
+			
 	
-	if not levels.empty():
-		setLevelInfo(levels[0])
+	if not standard_levels.empty():
+		setLevelInfo(standard_levels[0])
 	else:
 		Logger.LogError("loadLevelInfos", "Failed to load levels")
 
-func loadCustomMaps():
+# Load Levels created by user
+func loadMyLevelData():
 	var dir = Directory.new()
+	# Check if custom map dir exists
 	if dir.open("user://custom_maps/") != OK:
 		return
-	
 	dir.list_dir_begin()
 	var file_name : String= dir.get_next()
 	
@@ -60,12 +65,12 @@ func loadCustomMaps():
 				img_tex.create_from_image(img)
 				data.icon = img_tex
 				data.author = String(OS.get_unique_id())
-				levels.append(data)
+				my_levels.append(data)
 				
 		file_name = dir.get_next()
 
-
-func loadDownloadedMaps():
+# Load downloaded levels
+func loadDownloadedLevelData():
 	print("Loading Download")
 	var download_dir = "user://downloads/"
 	var authors_dir = Directory.new()
@@ -93,7 +98,7 @@ func loadDownloadedMaps():
 						img_tex.create_from_image(img)
 						data.icon = img_tex
 						data.author = author_id
-						levels.append(data)
+						downloaded_levels.append(data)
 						
 				file_name = dir.get_next()
 		author_id = authors_dir.get_next()

@@ -4,10 +4,6 @@ This game is inspired by counter strike and [CS2D](https://store.steampowered.co
 
 Play Store : [WarZone 2](https://play.google.com/store/apps/details?id=com.raptor.inc)
 
-![w](https://user-images.githubusercontent.com/58220198/92298269-a0b1db00-ef64-11ea-8ba4-3326e728c671.png)
-![w3](https://user-images.githubusercontent.com/58220198/92298267-9db6ea80-ef64-11ea-9211-d5664981e22e.png)
-
-
 <p align="center">
     <img src="https://img.shields.io/github/repo-size/superRaptor911/WarZone_2"/>
     <img src="https://img.shields.io/github/downloads/superRaptor911/WarZone_2/total?color=lightgreen"/>
@@ -22,6 +18,10 @@ Play Store : [WarZone 2](https://play.google.com/store/apps/details?id=com.rapto
     <img src="https://img.shields.io/github/stars/superRaptor911/WarZone_2?style=social"/>
     <img src="https://img.shields.io/github/watchers/superRaptor911/WarZone_2?style=social"/>
 </p>
+
+
+![w](https://user-images.githubusercontent.com/58220198/92298269-a0b1db00-ef64-11ea-8ba4-3326e728c671.png)
+![w3](https://user-images.githubusercontent.com/58220198/92298267-9db6ea80-ef64-11ea-9211-d5664981e22e.png)
 
 
 ## Installing

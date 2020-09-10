@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
@@ -74,6 +74,21 @@ content_margin_right = 15.0
 bg_color = Color( 0, 0, 0, 0.607843 )
 corner_radius_top_right = 10
 
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0, 0, 0, 0.607843 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0, 0, 0, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0, 0, 0, 0.607843 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+
 [node name="Lobby" type="CanvasLayer"]
 script = ExtResource( 1 )
 
@@ -91,10 +106,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -607.482
-margin_top = -353.126
-margin_right = 598.518
-margin_bottom = 328.874
+margin_left = -606.222
+margin_top = -351.866
+margin_right = 599.778
+margin_bottom = 330.134
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -105,10 +120,10 @@ anchor_left = 0.522
 anchor_top = 0.5
 anchor_right = 0.522
 anchor_bottom = 0.5
-margin_left = -171.257
-margin_top = 327.546
-margin_right = 747.743
-margin_bottom = 704.546
+margin_left = -174.254
+margin_top = 332.041
+margin_right = 744.747
+margin_bottom = 709.041
 custom_styles/tab_fg = SubResource( 2 )
 custom_styles/tab_bg = SubResource( 3 )
 custom_styles/panel = SubResource( 1 )
@@ -280,14 +295,14 @@ __meta__ = {
 }
 
 [node name="portrait" type="Panel" parent="Panel"]
-anchor_left = -0.036
-anchor_top = 0.2
-anchor_right = 0.641
-anchor_bottom = 0.337
-margin_left = -531.584
-margin_top = -44.4
-margin_right = -1008.05
-margin_bottom = 92.166
+anchor_left = 0.382
+anchor_top = 0.126
+anchor_right = 0.663
+anchor_bottom = 0.463
+margin_left = -0.59671
+margin_top = -0.288795
+margin_right = 0.517212
+margin_bottom = -0.122833
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_group_": true,
@@ -406,11 +421,48 @@ custom_fonts/font = ExtResource( 5 )
 toggle_mode = true
 text = "Donloaded Maps"
 
-[node name="gameModesGroup" type="VBoxContainer" parent="Panel"]
-margin_left = 13.0
-margin_top = 126.0
-margin_right = 227.0
-margin_bottom = 661.0
+[node name="Panel" type="Panel" parent="Panel"]
+anchor_left = 0.012
+anchor_top = 0.236
+anchor_right = 0.209
+anchor_bottom = 0.591
+margin_left = 0.528
+margin_top = 0.0479889
+margin_right = -0.0540009
+margin_bottom = -0.0620117
+custom_styles/panel = SubResource( 13 )
+
+[node name="Label" type="Label" parent="Panel/Panel"]
+show_behind_parent = true
+anchor_top = -0.068
+anchor_right = 1.0
+margin_left = -0.00787354
+margin_top = 0.0698624
+margin_right = -0.00787354
+margin_bottom = -0.386139
+custom_styles/normal = SubResource( 14 )
+text = "Modes"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gameModesList" type="ItemList" parent="Panel/Panel"]
+anchor_left = 0.038
+anchor_top = 0.027
+anchor_right = 0.962
+anchor_bottom = 0.973
+margin_left = -0.00600052
+margin_top = -0.0340004
+margin_right = 0.00598145
+margin_bottom = 0.0339813
+custom_styles/selected = SubResource( 15 )
+custom_styles/bg = SubResource( 16 )
+custom_fonts/font = ExtResource( 5 )
+items = [ "Classic", null, false, "TDM", null, false, "Zombie", null, false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -429,10 +481,10 @@ anchor_left = 0.774
 anchor_top = 0.843
 anchor_right = 0.774
 anchor_bottom = 0.843
-margin_left = -78.3629
-margin_top = -26.96
-margin_right = 77.6371
-margin_bottom = 27.04
+margin_left = 70.3079
+margin_top = 5.79791
+margin_right = 226.308
+margin_bottom = 59.7979
 custom_fonts/font = ExtResource( 2 )
 text = "Start"
 __meta__ = {

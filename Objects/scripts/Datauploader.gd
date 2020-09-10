@@ -10,14 +10,12 @@ signal upload_failed
 signal download_finished
 signal download_failed
 
-var one_time_use = true
-
 #const host_site = "projectwarzone2.000webhostapp.com"
 const host_site = "127.0.0.1"
 #const host_site = "35.239.53.71"
 
-func _init(one_time = true):
-	one_time_use = one_time
+func _init(_one_time = true):
+	pass
 
 
 func uploadData(data : Dictionary, php_file : String, host = "") ->bool:
@@ -36,8 +34,6 @@ func uploadData(data : Dictionary, php_file : String, host = "") ->bool:
 		emit_signal("connection_successful")
 	else:
 		emit_signal("connection_failed")
-		if one_time_use:
-			queue_free()
 		return false
 	
 	var QUERY = to_json(data)
@@ -46,8 +42,6 @@ func uploadData(data : Dictionary, php_file : String, host = "") ->bool:
 	
 	if RESPONSE != OK:
 		emit_signal("upload_failed")
-		if one_time_use:
-			queue_free()
 		return false
 
 	while (HTTP.get_status() == HTTPClient.STATUS_REQUESTING):
@@ -59,8 +53,6 @@ func uploadData(data : Dictionary, php_file : String, host = "") ->bool:
 	else:
 		emit_signal("upload_failed")
 	
-	if one_time_use:
-		queue_free()
 	return true
 
 
@@ -82,8 +74,6 @@ func getData(php_file : String, query : Dictionary = {a = "a"} , host = ""):
 		emit_signal("connection_successful")
 	else:
 		emit_signal("connection_failed")
-		if one_time_use:
-			queue_free()
 		return null
 	
 	var QUERY = to_json(query)
@@ -92,8 +82,6 @@ func getData(php_file : String, query : Dictionary = {a = "a"} , host = ""):
 	
 	if RESPONSE != OK:
 		emit_signal("connection_failed")
-		if one_time_use:
-			queue_free()
 		return
 	
 	while (HTTP.get_status() == HTTPClient.STATUS_REQUESTING):
@@ -170,16 +158,12 @@ func uploadFile(file_path : String, php_file : String, filename = ""):
 		emit_signal("connection_successful")
 	else:
 		emit_signal("connection_failed")
-		if one_time_use:
-			queue_free()
 		return null
 
 	var err = http.request_raw(HTTPClient.METHOD_POST, "/"+php_file , headers, body)
 
 	if err != OK:
 		emit_signal("upload_failed")
-		if one_time_use:
-			queue_free()
 		return
 
 	while http.get_status() == HTTPClient.STATUS_REQUESTING:
@@ -194,13 +178,9 @@ func uploadFile(file_path : String, php_file : String, filename = ""):
 		emit_signal("upload_finished")
 	else:
 		emit_signal("upload_failed")
-	
-	if one_time_use:
-		queue_free()
 
 
 func getFile(php_file : String, query : Dictionary = {a = "a"} , host = ""):
-	var data = PoolByteArray()
 	var HTTP = HTTPClient.new()
 	var url = "/" + php_file
 	
@@ -217,8 +197,6 @@ func getFile(php_file : String, query : Dictionary = {a = "a"} , host = ""):
 		emit_signal("connection_successful")
 	else:
 		emit_signal("connection_failed")
-		if one_time_use:
-			queue_free()
 		return null
 	
 	var QUERY = to_json(query)
@@ -227,8 +205,6 @@ func getFile(php_file : String, query : Dictionary = {a = "a"} , host = ""):
 	
 	if RESPONSE != OK:
 		emit_signal("connection_failed")
-		if one_time_use:
-			queue_free()
 		return
 	
 	while (HTTP.get_status() == HTTPClient.STATUS_REQUESTING):
