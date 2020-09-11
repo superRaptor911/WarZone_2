@@ -11,7 +11,7 @@ var selected_level_group = null
 var selected_level = null
 
 var selected_mode = "classic"
-var selected_gameMode_id = 0
+var selected_Mode_id = 0
 
 
 func _ready():
@@ -31,6 +31,7 @@ func _ready():
 	#$Panel/TabContainer/Bots/bot_difficulty/bot_diff.value = 2
 	#$Panel/TabContainer/Bots/bot_no/HSlider.value = 10
 	$Panel/Panel/gameModesList.select(0)
+	configGameModes()
 
 # Load Standard Level, i.e default lvls
 func loadStandardLevelData():
@@ -112,11 +113,23 @@ func loadDownloadedLevelData():
 		author_id = authors_dir.get_next()
 
 
+func configGameModes():
+	var mode_list = $Panel/Panel/gameModesList
+	mode_list.clear()
+	var count = selected_level.game_modes.size() / 2
+	for i in range(count):
+		var mode = selected_level.game_modes[i * 2]
+		mode_list.add_item(mode)
+	mode_list.select(0)
+	_on_gameModesList_item_selected(0)
+
+
 func setLevelInfo(info):
 	if selected_level != info:
 		selected_level = info
 		$Panel/portrait/TextureRect.texture = selected_level.icon
 		$Panel/portrait/level_name.text = selected_level.name
+		configGameModes()
 		
 		#$Panel/TabContainer/Game/mode/mode.text = selected_gameMode[0]
 
@@ -186,20 +199,23 @@ func _on_downloadedMaps_pressed():
 	selected_level_group = downloaded_levels
 	setLevelInfo(selected_level_group.first)
 
+
 func hideLevelSettings():
 	for i in $Panel/TabContainer/Game.get_children():
 		i.hide()
 
 
+
 func _on_gameModesList_item_selected(index):
-	hideLevelSettings()
-	match index:
-		0:
-			selected_mode = "classic"
+	var mode_name = $Panel/Panel/gameModesList.get_item_text(index)
+	selected_mode = mode_name
+	match mode_name:
+		"Classic":
+			hideLevelSettings()
 			$Panel/TabContainer/Game/classic.show()
-		1:
-			selected_mode = "TDM"
-			$Panel/TabContainer/Game/tdm.show()
-		2:
-			selected_mode = "Zombie Mod"
+		"TDM":
+				hideLevelSettings()
+				$Panel/TabContainer/Game/tdm.show()
+		"Zombie Mod":
+			hideLevelSettings()
 			$Panel/TabContainer/Game/classic.show()
