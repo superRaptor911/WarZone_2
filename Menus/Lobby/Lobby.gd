@@ -142,7 +142,7 @@ func _start_game():
 	
 	network.serverAvertiser.serverInfo = game_server.serverInfo
 	network.add_child(network.serverAvertiser)
-	#get_tree().change_scene(selected_gameMode[1])
+	get_tree().change_scene(selected_level.game_modes[selected_Mode_id * 2 + 1])
 	queue_free()
 
 
@@ -209,6 +209,7 @@ func hideLevelSettings():
 func _on_gameModesList_item_selected(index):
 	var mode_name = $Panel/Panel/gameModesList.get_item_text(index)
 	selected_mode = mode_name
+	selected_Mode_id = index
 	match mode_name:
 		"Classic":
 			hideLevelSettings()
