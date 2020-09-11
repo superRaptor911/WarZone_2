@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=6]
 [ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/UI/next_white.png" type="Texture" id=8]
-[ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=9]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
@@ -41,12 +40,7 @@ size = 32
 use_filter = true
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=6]
-size = 24
-use_filter = true
-font_data = ExtResource( 3 )
-
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 
@@ -56,37 +50,34 @@ content_margin_right = 15.0
 bg_color = Color( 0, 0, 0, 0.607843 )
 corner_radius_top_left = 10
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id=9]
 content_margin_left = 15.0
 content_margin_right = 15.0
 bg_color = Color( 0, 0, 0, 0.607843 )
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id=11]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color( 0, 0, 0, 0.607843 )
 corner_radius_top_right = 10
 
 [sub_resource type="StyleBoxFlat" id=12]
-content_margin_left = 15.0
-content_margin_right = 15.0
 bg_color = Color( 0, 0, 0, 0.607843 )
-corner_radius_top_right = 10
 
 [sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0, 0, 0, 0.607843 )
-
-[sub_resource type="StyleBoxFlat" id=14]
 bg_color = Color( 0, 0, 0, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id=15]
-bg_color = Color( 0, 0, 0, 0.607843 )
-
-[sub_resource type="StyleBoxFlat" id=16]
+[sub_resource type="StyleBoxFlat" id=14]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 
 [node name="Lobby" type="CanvasLayer"]
@@ -102,14 +93,14 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -606.222
-margin_top = -351.866
-margin_right = 599.778
-margin_bottom = 330.134
+anchor_left = 0.026
+anchor_top = 0.011
+anchor_right = 0.969
+anchor_bottom = 0.959
+margin_left = 0.498016
+margin_top = 0.214033
+margin_right = -0.541992
+margin_bottom = -0.346008
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -120,86 +111,218 @@ anchor_left = 0.522
 anchor_top = 0.5
 anchor_right = 0.522
 anchor_bottom = 0.5
-margin_left = -174.254
-margin_top = 332.041
-margin_right = 744.747
-margin_bottom = 709.041
+margin_left = -297.824
+margin_top = 36.2161
+margin_right = 269.176
+margin_bottom = 291.216
 custom_styles/tab_fg = SubResource( 2 )
 custom_styles/tab_bg = SubResource( 3 )
 custom_styles/panel = SubResource( 1 )
 custom_fonts/font = SubResource( 4 )
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Game" type="Tabs" parent="Panel/TabContainer"]
+[node name="Game" type="Panel" parent="Panel/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 31.0
+custom_styles/panel = SubResource( 1 )
 
-[node name="ffire" type="Label" parent="Panel/TabContainer/Game"]
-margin_left = 204.149
-margin_top = 47.6108
-margin_right = 383.149
-margin_bottom = 84.6108
+[node name="tdm" type="VBoxContainer" parent="Panel/TabContainer/Game"]
+visible = false
+anchor_left = 0.582
+anchor_top = 0.08
+anchor_right = 0.785
+anchor_bottom = 0.804
+margin_left = 0.00601196
+margin_top = 0.0800056
+margin_right = -0.0949707
+margin_bottom = -0.095932
+custom_constants/separation = 30
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="f_fire" type="CheckButton" parent="Panel/TabContainer/Game/tdm"]
+margin_right = 115.0
+margin_bottom = 45.0
+custom_fonts/font = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/TabContainer/Game/tdm/f_fire"]
+anchor_left = -2.191
+anchor_top = 0.127
+anchor_right = -0.635
+anchor_bottom = 0.95
+margin_left = -0.015686
+margin_top = 0.0148277
+margin_right = -33.9555
+margin_bottom = -0.0201797
 custom_fonts/font = ExtResource( 5 )
 text = "Friendly Fire"
 __meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time_limit" type="SpinBox" parent="Panel/TabContainer/Game/tdm"]
+margin_top = 75.0
+margin_right = 115.0
+margin_bottom = 99.0
+min_value = 2.0
+max_value = 15.0
+value = 5.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/TabContainer/Game/tdm/time_limit"]
+anchor_left = -2.191
+anchor_top = -0.344
+anchor_right = -0.93
+anchor_bottom = 1.198
+margin_left = -0.015686
+margin_top = 0.00470257
+margin_right = -0.0305099
+margin_bottom = -0.00329971
+custom_fonts/font = ExtResource( 5 )
+text = "Time Limit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score_limit" type="SpinBox" parent="Panel/TabContainer/Game/tdm"]
+margin_top = 129.0
+margin_right = 115.0
+margin_bottom = 153.0
+min_value = 30.0
+max_value = 200.0
+value = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/TabContainer/Game/tdm/score_limit"]
+anchor_left = -2.191
+anchor_top = -0.397
+anchor_right = -0.774
+anchor_bottom = 1.145
+margin_left = -0.015686
+margin_top = 0.00360107
+margin_right = 0.0292892
+margin_bottom = -0.00440216
+custom_fonts/font = ExtResource( 5 )
+text = "Score Limit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="classic" type="VBoxContainer" parent="Panel/TabContainer/Game"]
+anchor_left = 0.582
+anchor_top = 0.08
+anchor_right = 0.785
+anchor_bottom = 0.804
+margin_left = 0.00601196
+margin_top = 0.0800056
+margin_right = -0.0949707
+margin_bottom = -0.095932
+custom_constants/separation = 30
+__meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="CheckButton" type="CheckButton" parent="Panel/TabContainer/Game/ffire"]
-margin_left = 302.349
-margin_top = -11.2253
-margin_right = 378.349
-margin_bottom = 28.7747
-rect_scale = Vector2( 1.5, 1.5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="mode" type="Label" parent="Panel/TabContainer/Game"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 204.149
-margin_top = 147.857
-margin_right = -539.851
-margin_bottom = -74.1426
+[node name="f_fire" type="CheckButton" parent="Panel/TabContainer/Game/classic"]
+margin_right = 115.0
+margin_bottom = 45.0
 custom_fonts/font = ExtResource( 5 )
-text = "Game Mode"
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="mode" type="Button" parent="Panel/TabContainer/Game/mode"]
-margin_left = 282.851
-margin_top = -6.85742
-margin_right = 463.851
-margin_bottom = 47.1426
-custom_styles/hover = ExtResource( 9 )
-custom_styles/pressed = ExtResource( 9 )
-custom_styles/focus = ExtResource( 9 )
-custom_styles/normal = ExtResource( 9 )
+[node name="Label" type="Label" parent="Panel/TabContainer/Game/classic/f_fire"]
+anchor_left = -2.191
+anchor_top = 0.127
+anchor_right = -0.635
+anchor_bottom = 0.95
+margin_left = -0.015686
+margin_top = 0.0148277
+margin_right = -33.9555
+margin_bottom = -0.0201759
 custom_fonts/font = ExtResource( 5 )
-text = "FFA"
+text = "Friendly Fire"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Bots" type="Tabs" parent="Panel/TabContainer"]
+[node name="round_time" type="SpinBox" parent="Panel/TabContainer/Game/classic"]
+margin_top = 75.0
+margin_right = 115.0
+margin_bottom = 99.0
+min_value = 2.0
+max_value = 15.0
+value = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/TabContainer/Game/classic/round_time"]
+anchor_left = -2.191
+anchor_top = -0.344
+anchor_right = -0.722
+anchor_bottom = 1.208
+margin_left = -0.0349731
+margin_top = 0.256001
+margin_right = 0.0300064
+margin_bottom = 0.00799942
+custom_fonts/font = ExtResource( 5 )
+text = "Round Time"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="round_limit" type="SpinBox" parent="Panel/TabContainer/Game/classic"]
+margin_top = 129.0
+margin_right = 115.0
+margin_bottom = 153.0
+min_value = 2.0
+max_value = 20.0
+value = 5.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/TabContainer/Game/classic/round_limit"]
+anchor_left = -2.191
+anchor_top = -0.397
+anchor_right = -0.713
+anchor_bottom = 1.145
+margin_left = -0.015686
+margin_top = 0.00360107
+margin_right = -6.9857
+margin_bottom = -0.00440216
+custom_fonts/font = ExtResource( 5 )
+text = "Round Limit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bots" type="ScrollContainer" parent="Panel/TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 31.0
 
-[node name="bot_no" type="Label" parent="Panel/TabContainer/Bots"]
-margin_left = 97.1293
-margin_top = 165.208
-margin_right = 267.129
-margin_bottom = 208.209
+[node name="Control" type="Control" parent="Panel/TabContainer/Bots"]
+
+[node name="bot_no" type="Label" parent="Panel/TabContainer/Bots/Control"]
+margin_left = 10.6908
+margin_top = 11.5817
+margin_right = 180.691
+margin_bottom = 54.5817
 custom_fonts/font = SubResource( 5 )
 text = "Bot Count"
 __meta__ = {
@@ -207,47 +330,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSlider" type="HSlider" parent="Panel/TabContainer/Bots/bot_no"]
-margin_left = 309.0
-margin_top = 10.0
-margin_right = 427.0
-margin_bottom = 26.0
-rect_scale = Vector2( 2, 2 )
-max_value = 24.0
-rounded = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="Panel/TabContainer/Bots/bot_no"]
-margin_left = 581.446
-margin_top = 10.0
-margin_right = 631.446
-margin_bottom = 37.0
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="count" type="Label" parent="Panel/TabContainer/Bots/bot_no/Panel"]
-anchor_left = -0.63
-anchor_top = -1.142
-anchor_right = -0.63
-anchor_bottom = -1.142
-margin_left = 34.5
-margin_top = 28.334
-margin_right = 78.5
-margin_bottom = 60.334
-custom_fonts/font = SubResource( 6 )
+[node name="OptionButton" type="OptionButton" parent="Panel/TabContainer/Bots/Control/bot_no"]
+margin_left = 319.533
+margin_right = 462.533
+margin_bottom = 46.0
+custom_styles/pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 5 )
+custom_constants/hseparation = 0
 text = "0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+items = [ "0", null, false, 0, null, "5", null, false, 1, null, "10", null, false, 2, null, "15", null, false, 3, null ]
+selected = 0
 
-[node name="bot_difficulty" type="Label" parent="Panel/TabContainer/Bots"]
-margin_left = 96.9681
-margin_top = 65.4239
-margin_right = 319.968
-margin_bottom = 108.424
+[node name="bot_difficulty" type="Label" parent="Panel/TabContainer/Bots/Control"]
+margin_left = 10.6908
+margin_top = 84.7487
+margin_right = 233.691
+margin_bottom = 127.749
 custom_fonts/font = SubResource( 5 )
 text = "Bot Difficulty"
 __meta__ = {
@@ -255,41 +354,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="bot_diff" type="HSlider" parent="Panel/TabContainer/Bots/bot_difficulty"]
-margin_left = 310.0
-margin_top = 12.0
-margin_right = 427.0
-margin_bottom = 28.0
-rect_scale = Vector2( 2, 2 )
-min_value = 1.0
-max_value = 4.0
-value = 1.0
-rounded = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="Panel/TabContainer/Bots/bot_difficulty"]
-margin_left = 584.477
-margin_top = 14.128
-margin_right = 634.477
-margin_bottom = 41.128
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="count" type="Label" parent="Panel/TabContainer/Bots/bot_difficulty/Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -22.0
-margin_top = -16.0
-margin_right = 22.0
-margin_bottom = 16.0
-custom_fonts/font = SubResource( 6 )
-text = "1"
+[node name="OptionButton2" type="OptionButton" parent="Panel/TabContainer/Bots/Control/bot_difficulty"]
+margin_left = 319.533
+margin_top = 1.44086
+margin_right = 462.533
+margin_bottom = 47.4409
+custom_styles/pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 5 )
+custom_constants/hseparation = 0
+text = "0"
+items = [ "0", null, false, 0, null, "5", null, false, 1, null, "10", null, false, 2, null, "15", null, false, 3, null ]
+selected = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -298,11 +374,11 @@ __meta__ = {
 anchor_left = 0.382
 anchor_top = 0.126
 anchor_right = 0.663
-anchor_bottom = 0.463
-margin_left = -0.59671
-margin_top = -0.288795
-margin_right = 0.517212
-margin_bottom = -0.122833
+anchor_bottom = 0.433
+margin_left = -0.691986
+margin_top = 0.0680008
+margin_right = 0.421936
+margin_bottom = -0.30603
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_group_": true,
@@ -389,10 +465,10 @@ __meta__ = {
 
 [node name="standardMaps" type="Button" parent="Panel/mapGroup"]
 margin_right = 402.0
-margin_bottom = 53.0
+margin_bottom = 52.0
 rect_min_size = Vector2( 402, 50 )
-custom_styles/pressed = SubResource( 8 )
-custom_styles/disabled = SubResource( 8 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/disabled = SubResource( 6 )
 custom_styles/normal = SubResource( 7 )
 custom_fonts/font = ExtResource( 5 )
 toggle_mode = true
@@ -402,10 +478,10 @@ text = "Standard Maps"
 [node name="myMaps" type="Button" parent="Panel/mapGroup"]
 margin_left = 402.0
 margin_right = 804.0
-margin_bottom = 53.0
+margin_bottom = 52.0
 rect_min_size = Vector2( 402, 50 )
-custom_styles/pressed = SubResource( 9 )
-custom_styles/normal = SubResource( 10 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
 custom_fonts/font = ExtResource( 5 )
 toggle_mode = true
 text = "My Maps"
@@ -413,24 +489,28 @@ text = "My Maps"
 [node name="downloadedMaps" type="Button" parent="Panel/mapGroup"]
 margin_left = 804.0
 margin_right = 1206.0
-margin_bottom = 53.0
+margin_bottom = 52.0
 rect_min_size = Vector2( 402, 50 )
-custom_styles/pressed = SubResource( 11 )
-custom_styles/normal = SubResource( 12 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
 custom_fonts/font = ExtResource( 5 )
 toggle_mode = true
 text = "Donloaded Maps"
 
 [node name="Panel" type="Panel" parent="Panel"]
-anchor_left = 0.012
-anchor_top = 0.236
-anchor_right = 0.209
-anchor_bottom = 0.591
-margin_left = 0.528
-margin_top = 0.0479889
-margin_right = -0.0540009
-margin_bottom = -0.0620117
-custom_styles/panel = SubResource( 13 )
+anchor_left = 0.02
+anchor_top = 0.488
+anchor_right = 0.215
+anchor_bottom = 0.843
+margin_left = -1.24247
+margin_top = 0.16037
+margin_right = 0.587524
+margin_bottom = 0.050354
+custom_styles/panel = SubResource( 12 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Panel/Panel"]
 show_behind_parent = true
@@ -440,7 +520,7 @@ margin_left = -0.00787354
 margin_top = 0.0698624
 margin_right = -0.00787354
 margin_bottom = -0.386139
-custom_styles/normal = SubResource( 14 )
+custom_styles/normal = SubResource( 13 )
 text = "Modes"
 align = 1
 __meta__ = {
@@ -456,8 +536,7 @@ margin_left = -0.00600052
 margin_top = -0.0340004
 margin_right = 0.00598145
 margin_bottom = 0.0339813
-custom_styles/selected = SubResource( 15 )
-custom_styles/bg = SubResource( 16 )
+custom_styles/bg = SubResource( 14 )
 custom_fonts/font = ExtResource( 5 )
 items = [ "Classic", null, false, "TDM", null, false, "Zombie", null, false ]
 __meta__ = {
@@ -477,23 +556,23 @@ __meta__ = {
 }
 
 [node name="start" type="Button" parent="."]
-anchor_left = 0.774
-anchor_top = 0.843
-anchor_right = 0.774
-anchor_bottom = 0.843
-margin_left = 70.3079
-margin_top = 5.79791
-margin_right = 226.308
-margin_bottom = 59.7979
+anchor_left = 0.87
+anchor_top = 0.844
+anchor_right = 0.954
+anchor_bottom = 0.919
+margin_left = -0.0700684
+margin_top = 0.207397
+margin_right = -0.590088
+margin_bottom = 0.207458
 custom_fonts/font = ExtResource( 2 )
 text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="toggled" from="Panel/TabContainer/Game/ffire/CheckButton" to="." method="_on_CheckButton_toggled"]
-[connection signal="pressed" from="Panel/TabContainer/Game/mode/mode" to="." method="_on_mode_pressed"]
-[connection signal="value_changed" from="Panel/TabContainer/Bots/bot_no/HSlider" to="." method="_on_HSlider_value_changed"]
-[connection signal="value_changed" from="Panel/TabContainer/Bots/bot_difficulty/bot_diff" to="." method="_on_bot_diff_value_changed"]
 [connection signal="pressed" from="Panel/portrait/next_map" to="." method="_on_next_map_pressed"]
 [connection signal="pressed" from="Panel/portrait/prev_map" to="." method="_on_prev_map_pressed"]
+[connection signal="pressed" from="Panel/mapGroup/standardMaps" to="." method="_on_standardMaps_pressed"]
+[connection signal="pressed" from="Panel/mapGroup/myMaps" to="." method="_on_myMaps_pressed"]
+[connection signal="pressed" from="Panel/mapGroup/downloadedMaps" to="." method="_on_downloadedMaps_pressed"]
+[connection signal="item_selected" from="Panel/Panel/gameModesList" to="." method="_on_gameModesList_item_selected"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]

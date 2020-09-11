@@ -1,12 +1,16 @@
 extends CanvasLayer
 
-var standard_levels = Array()
-var my_levels = Array()
-var downloaded_levels = Array()
+# Level Groups
+var standard_levels = LinkedList.new()
+var my_levels = LinkedList.new()
+var downloaded_levels = LinkedList.new()
 
+# Selected group
+var selected_level_group = null
+# Selected Level
 var selected_level = null
 
-var selected_gameMode = ["",""]
+var selected_mode = "classic"
 var selected_gameMode_id = 0
 
 
@@ -24,37 +28,38 @@ func _ready():
 			$Label.text += "IP =" + i + "\n" 
 
 	UiAnim.animLeftToRight([$Panel])
-	$Panel/TabContainer/Bots/bot_difficulty/bot_diff.value = 2
-	$Panel/TabContainer/Bots/bot_no/HSlider.value = 10
+	#$Panel/TabContainer/Bots/bot_difficulty/bot_diff.value = 2
+	#$Panel/TabContainer/Bots/bot_no/HSlider.value = 10
+	$Panel/Panel/gameModesList.select(0)
 
 # Load Standard Level, i.e default lvls
 func loadStandardLevelData():
 	var level_info = load("res://Maps/level_info.gd").new()
 	var _levels = level_info.levels.values()
 	level_info.queue_free()
-	
-	var prev_level = null
+	# Fill list
 	for i in _levels:
+		# Dont include debug levels for android
 		if not (i.debug and game_states.is_android):
-			if prev_level:
-				i['prev'] = prev_level
-			standard_levels.append(i)
-			
-	
-	if not standard_levels.empty():
-		setLevelInfo(standard_levels[0])
+			standard_levels.addElement(i)
+	# Select first level in list
+	if not standard_levels.is_empty:
+		setLevelInfo(standard_levels.first)
 	else:
 		Logger.LogError("loadLevelInfos", "Failed to load levels")
+		$Panel/mapGroup/standardMaps.disabled = true
+	selected_level_group = standard_levels
 
 # Load Levels created by user
 func loadMyLevelData():
+	$Panel/mapGroup/myMaps.disabled = true
 	var dir = Directory.new()
 	# Check if custom map dir exists
 	if dir.open("user://custom_maps/") != OK:
 		return
 	dir.list_dir_begin()
 	var file_name : String= dir.get_next()
-	
+	# Read config files
 	while file_name != "":
 		if not dir.current_is_dir():
 			if file_name.get_extension() == "dat":
@@ -65,13 +70,14 @@ func loadMyLevelData():
 				img_tex.create_from_image(img)
 				data.icon = img_tex
 				data.author = String(OS.get_unique_id())
-				my_levels.append(data)
+				my_levels.addElement(data)
+				$Panel/mapGroup/myMaps.disabled = false
 				
 		file_name = dir.get_next()
 
 # Load downloaded levels
 func loadDownloadedLevelData():
-	print("Loading Download")
+	$Panel/mapGroup/downloadedMaps.disabled = true
 	var download_dir = "user://downloads/"
 	var authors_dir = Directory.new()
 	if authors_dir.open(download_dir) != OK:
@@ -79,14 +85,15 @@ func loadDownloadedLevelData():
 	
 	authors_dir.list_dir_begin()
 	var author_id = authors_dir.get_next()
-	
+	# Levels are saved ad downloads/author_id/custom_maps/
+	# iterate over anuthor_ids
 	while author_id != "":
 		if authors_dir.current_is_dir() and author_id != "." and author_id != "..":
 			var dir = Directory.new()
 			dir.open(download_dir + author_id + "/custom_maps/")
 			dir.list_dir_begin()
 			var file_name : String= dir.get_next()
-			
+			# Read config files
 			while file_name != "":
 				if not dir.current_is_dir() and file_name != "." and file_name != "..":
 					if file_name.get_extension() == "dat":
@@ -98,7 +105,8 @@ func loadDownloadedLevelData():
 						img_tex.create_from_image(img)
 						data.icon = img_tex
 						data.author = author_id
-						downloaded_levels.append(data)
+						downloaded_levels.addElement(data)
+						$Panel/mapGroup/downloadedMaps.disabled = false
 						
 				file_name = dir.get_next()
 		author_id = authors_dir.get_next()
@@ -110,34 +118,18 @@ func setLevelInfo(info):
 		$Panel/portrait/TextureRect.texture = selected_level.icon
 		$Panel/portrait/level_name.text = selected_level.name
 		
-		if selected_gameMode[0] == "":
-			selected_gameMode[0] = selected_level.game_modes[0]
-			selected_gameMode[1] = selected_level.game_modes[1]
-			selected_gameMode_id = 0
-
-		elif not selected_level.game_modes.has(selected_gameMode):
-			selected_gameMode[0] = selected_level.game_modes[0]
-			selected_gameMode[1] = selected_level.game_modes[1]
-			selected_gameMode_id = 0
-		
-		$Panel/TabContainer/Game/mode/mode.text = selected_gameMode[0]
-
-
-func setGameModeInfo(info):
-	if selected_gameMode != info:
-		selected_gameMode = info
-		$gameMode/Panel/Label.text = info.name
+		#$Panel/TabContainer/Game/mode/mode.text = selected_gameMode[0]
 
 
 func _start_game():
 	game_server.serverInfo.map = selected_level.name
-	game_server.serverInfo.game_mode = selected_gameMode[0]
+	game_server.serverInfo.game_mode = selected_mode
 	if selected_level.has("author"):
 		game_server.serverInfo.author = selected_level.author
 	
 	network.serverAvertiser.serverInfo = game_server.serverInfo
 	network.add_child(network.serverAvertiser)
-	get_tree().change_scene(selected_gameMode[1])
+	#get_tree().change_scene(selected_gameMode[1])
 	queue_free()
 
 
@@ -156,55 +148,58 @@ func _on_bot_diff_value_changed(value):
 	$Panel/TabContainer/Bots/bot_difficulty/Panel/count.text = String(value)
 
 func _on_prev_map_pressed():
-	if levels.size() > 1:
+	if not selected_level_group.is_empty:
 		MusicMan.click()
-		if selected_level_id == 0:
-			selected_level_id = levels.size()
-		selected_level_id -= 1
-		setLevelInfo(levels[selected_level_id])
+		setLevelInfo(selected_level['prev'])
 
 
 func _on_next_map_pressed():
-	if levels.size() > 1:
+	if not selected_level_group.is_empty:
 		MusicMan.click()
-		if selected_level_id + 1 == levels.size():
-			selected_level_id = -1
-		selected_level_id += 1
-		setLevelInfo(levels[selected_level_id])
-
-
-
-
-func _on_prev_mode_pressed():
-	if selected_level and selected_level.gameModes.size() > 1:
-		MusicMan.click()
-		if selected_gameMode_id == 0:
-			selected_gameMode_id = selected_level.gameModes.size()
-		selected_gameMode_id -= 1
-		setGameModeInfo(selected_level.gameModes[selected_gameMode_id])
-
-
-func _on_next_mode_pressed():
-	if selected_level and selected_level.gameModes.size() > 1:
-		MusicMan.click()
-		if selected_gameMode_id + 1 == selected_level.gameModes.size():
-			selected_gameMode_id = -1
-		selected_gameMode_id += 1
-		setGameModeInfo(selected_level.gameModes[selected_gameMode_id])
-
-
-
-
-
-func _on_mode_pressed():
-	selected_gameMode_id += 2
-	if selected_level.game_modes.size() <= selected_gameMode_id:
-		selected_gameMode_id = 0
-	
-	selected_gameMode[0] = selected_level.game_modes[selected_gameMode_id]
-	selected_gameMode[1] = selected_level.game_modes[selected_gameMode_id + 1]
-	$Panel/TabContainer/Game/mode/mode.text = selected_gameMode[0]
+		setLevelInfo(selected_level['next'])
 
 
 func _on_CheckButton_toggled(button_pressed):
 	game_server.extraServerInfo.friendly_fire = button_pressed
+
+func deselectButtons():
+	for i in $Panel/mapGroup.get_children():
+		i.pressed = false
+
+func _on_standardMaps_pressed():
+	deselectButtons()
+	$Panel/mapGroup/standardMaps.pressed = true
+	selected_level_group = standard_levels
+	setLevelInfo(selected_level_group.first)
+
+
+func _on_myMaps_pressed():
+	deselectButtons()
+	$Panel/mapGroup/myMaps.pressed = true
+	selected_level_group = my_levels
+	setLevelInfo(selected_level_group.first)
+
+
+func _on_downloadedMaps_pressed():
+	deselectButtons()
+	$Panel/mapGroup/downloadedMaps.pressed = true
+	selected_level_group = downloaded_levels
+	setLevelInfo(selected_level_group.first)
+
+func hideLevelSettings():
+	for i in $Panel/TabContainer/Game.get_children():
+		i.hide()
+
+
+func _on_gameModesList_item_selected(index):
+	hideLevelSettings()
+	match index:
+		0:
+			selected_mode = "classic"
+			$Panel/TabContainer/Game/classic.show()
+		1:
+			selected_mode = "TDM"
+			$Panel/TabContainer/Game/tdm.show()
+		2:
+			selected_mode = "Zombie Mod"
+			$Panel/TabContainer/Game/classic.show()
