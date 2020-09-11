@@ -1,0 +1,230 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Sprites/bg/bg3.jpg" type="Texture" id=1]
+[ext_resource path="res://controls/Godot_TouchScreen_Joysticks_Joy.png" type="Texture" id=2]
+[ext_resource path="res://controls/Godot_TouchScreen_Joysticks_JoyBG.png" type="Texture" id=3]
+[ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=4]
+[ext_resource path="res://Menus/Settings/JoySettings.gd" type="Script" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.6, 0.0666667, 0.0666667, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 118.751, 107.908 )
+
+[node name="JoySettings" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="settings" type="Panel" parent="."]
+visible = false
+anchor_left = 0.301
+anchor_top = 0.131
+anchor_right = 0.699
+anchor_bottom = 0.56
+margin_left = -0.280029
+margin_top = 0.679993
+margin_right = 0.279907
+margin_bottom = -0.200012
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="out_ring" type="HSlider" parent="settings"]
+anchor_left = 0.347
+anchor_top = 0.11
+anchor_right = 0.898
+anchor_bottom = 0.292
+margin_left = -0.193268
+margin_top = 0.0611305
+margin_right = -0.203308
+margin_bottom = 0.00512695
+
+[node name="Label" type="Label" parent="settings/out_ring"]
+anchor_left = -0.56
+anchor_top = 0.302
+anchor_right = -0.108
+anchor_bottom = 0.677
+margin_left = 0.0721588
+margin_top = 0.00885201
+margin_right = 0.0601597
+margin_bottom = 0.0088501
+custom_fonts/font = SubResource( 2 )
+text = "Outer Ring Size"
+
+[node name="inner_ring" type="HSlider" parent="settings"]
+anchor_left = 0.347
+anchor_top = 0.34
+anchor_right = 0.898
+anchor_bottom = 0.521
+margin_left = -0.193268
+margin_top = -0.143585
+margin_right = -0.203308
+margin_bottom = 0.108414
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="settings/inner_ring"]
+anchor_left = -0.56
+anchor_top = 0.302
+anchor_right = -0.108
+anchor_bottom = 0.677
+margin_left = 0.0721588
+margin_top = 0.00885201
+margin_right = 0.0601597
+margin_bottom = 0.0088501
+custom_fonts/font = SubResource( 2 )
+text = "Inner Ring Size"
+
+[node name="radius" type="HSlider" parent="settings"]
+anchor_left = 0.347
+anchor_top = 0.58
+anchor_right = 0.898
+anchor_bottom = 0.762
+margin_left = -0.193268
+margin_top = 0.0988159
+margin_right = -0.203308
+margin_bottom = 0.0428162
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="settings/radius"]
+anchor_left = -0.56
+anchor_top = 0.302
+anchor_right = -0.108
+anchor_bottom = 0.677
+margin_left = 0.0721588
+margin_top = 0.00885201
+margin_right = 0.0601597
+margin_bottom = 0.0088501
+custom_fonts/font = SubResource( 2 )
+text = "Radius"
+
+[node name="Button" type="Button" parent="settings"]
+anchor_left = 0.433
+anchor_top = 0.835
+anchor_right = 0.612
+anchor_bottom = 0.952
+margin_left = 0.233521
+margin_top = -0.0210876
+margin_right = -0.056488
+margin_bottom = -0.0570679
+custom_styles/pressed = SubResource( 3 )
+custom_styles/normal = SubResource( 3 )
+text = "RESET"
+
+[node name="joy1" type="Area2D" parent="."]
+position = Vector2( 73.6222, 462.044 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="joy1"]
+position = Vector2( 102.768, 99.5895 )
+z_index = 3
+shape = SubResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="joy1"]
+visible = false
+margin_left = -11.6222
+margin_top = -1.04431
+margin_right = 219.378
+margin_bottom = 199.956
+color = Color( 0.458824, 0.0823529, 0.87451, 0.337255 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="j1" type="TextureRect" parent="joy1"]
+margin_right = 200.0
+margin_bottom = 200.0
+mouse_filter = 0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="j2" type="TextureRect" parent="joy1/j1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = -80.0
+margin_right = 80.0
+margin_bottom = 80.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="joy2" type="Area2D" parent="."]
+position = Vector2( 1028.72, 468.894 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="j1" type="TextureRect" parent="joy2"]
+margin_right = 200.0
+margin_bottom = 200.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="j2" type="TextureRect" parent="joy2/j1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = -80.0
+margin_right = 80.0
+margin_bottom = 80.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="joy2"]
+position = Vector2( 102.768, 99.5895 )
+shape = SubResource( 4 )
+[connection signal="input_event" from="joy1" to="." method="_on_joy1_input_event"]

@@ -37,7 +37,7 @@ func _enter_tree():
 		return
 	# Reset everything, and if we are using a portion of the screen, then become
 	# invisible
-	joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2);
+	joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2 );
 	joystick_vector = Vector2(0, 0);
 	
 	joystick_touch_id = null;
@@ -54,7 +54,7 @@ func _exit_tree():
 	joystick_active = false
 
 func _ready():
-	
+	radius *= rect_scale.x
 	# This code will only run in game!
 	if (Engine.editor_hint == false):
 		
@@ -62,7 +62,7 @@ func _ready():
 		joystick_ring = get_node("Joystick_Ring");
 		
 		# Move the inner ring to the center of the joystick
-		joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2);
+		joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2 );
 		# Reset the joystick vector to zero (since the joystick is in the center)
 		joystick_vector = Vector2(0, 0);
 		
@@ -97,7 +97,7 @@ func _draw():
 
 func get_center_of_joystick():
 	# Return the center position of the joystick texture.
-	return (get_rect().position + get_rect().size/2) - rect_global_position;
+	return (get_rect().position + get_rect().size/2 ) - rect_global_position;
 
 
 func _input(event):
@@ -143,7 +143,7 @@ func _input(event):
 						
 						# Move the joystick to the event position so the joystick
 						# appears under the mouse/touch.
-						rect_global_position = event_position - (rect_size/2);
+						rect_global_position = event_position - (rect_size/2 );
 						
 						# Set the joystick event ID.
 						joystick_touch_id = event_ID;
@@ -153,7 +153,7 @@ func _input(event):
 						visible = true;
 						
 						# Place the joystick ring in the center, since the joystick has just become active.
-						joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2);
+						joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2 );
 						
 						# Reset the joystick vector (since the joystick ring is in the center)
 						joystick_vector = Vector2(0,0);
@@ -192,7 +192,7 @@ func _input(event):
 						joystick_vector = ((get_center_of_joystick() + rect_global_position) - event_position) / radius;
 						
 						# Set the joystick's position
-						joystick_ring.rect_global_position = event_position - (joystick_ring.rect_size/2);
+						joystick_ring.rect_global_position = event_position - (joystick_ring.rect_size/2 );
 						
 						# Now the joystick has just been activated, emit Joystick_Start.
 						emit_signal("Joystick_Start");
@@ -219,7 +219,7 @@ func _input(event):
 					
 					# Reset everything, and if we are using a portion of the screen, then become
 					# invisible
-					joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2);
+					joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2 );
 					joystick_vector = Vector2(0, 0);
 					
 					joystick_touch_id = null;
@@ -274,7 +274,7 @@ func _input(event):
 				else:
 					joystick_vector = ((get_center_of_joystick() + rect_global_position) - event_position).normalized()
 					
-					joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2);
+					joystick_ring.rect_global_position = get_center_of_joystick() + rect_global_position - (joystick_ring.rect_size/2 );
 					joystick_ring.rect_global_position -= joystick_vector * radius;
 					
 					emit_signal("Joystick_Updated",-joystick_vector);
