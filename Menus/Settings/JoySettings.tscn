@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Sprites/bg/bg3.jpg" type="Texture" id=1]
 [ext_resource path="res://controls/Godot_TouchScreen_Joysticks_Joy.png" type="Texture" id=2]
 [ext_resource path="res://controls/Godot_TouchScreen_Joysticks_JoyBG.png" type="Texture" id=3]
 [ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=4]
@@ -33,11 +32,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 1 )
-expand = true
+color = Color( 0.415686, 0.6, 0.164706, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -137,7 +135,7 @@ margin_bottom = 0.0088501
 custom_fonts/font = SubResource( 2 )
 text = "Radius"
 
-[node name="Button" type="Button" parent="settings"]
+[node name="reset" type="Button" parent="settings"]
 anchor_left = 0.433
 anchor_top = 0.835
 anchor_right = 0.612
@@ -230,5 +228,6 @@ __meta__ = {
 [connection signal="value_changed" from="settings/out_ring" to="." method="_on_out_ring_value_changed"]
 [connection signal="value_changed" from="settings/inner_ring" to="." method="_on_inner_ring_value_changed"]
 [connection signal="value_changed" from="settings/radius" to="." method="_on_radius_value_changed"]
+[connection signal="pressed" from="settings/reset" to="." method="_on_reset_pressed"]
 [connection signal="gui_input" from="j1" to="." method="_on_j1_gui_input"]
 [connection signal="gui_input" from="j2" to="." method="_on_j2_gui_input"]
