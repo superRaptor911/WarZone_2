@@ -11,14 +11,14 @@ signal controller_selected
 
 var default_config = {
 	j1 = {
-		pos = Vector2(96, 452),
+		pos = [96, 452],
 		out_size = 200,
 		in_size = 160,
 		radius = 90
 	},
 	
 	j2 = {
-		pos = Vector2(996, 452),
+		pos = [996, 452],
 		out_size = 200,
 		in_size = 160,
 		radius = 90
@@ -27,14 +27,14 @@ var default_config = {
 
 var config = {
 	j1 = {
-		pos = Vector2(),
+		pos = [0, 0],
 		out_size = 0,
 		in_size = 0,
 		radius = 0
 	},
 	
 	j2 = {
-		pos = Vector2(),
+		pos = [0, 0],
 		out_size = 0,
 		in_size = 0,
 		radius = 0
@@ -44,20 +44,19 @@ var config = {
 func _ready():
 	connect("controller_selected", self, "on_joy_selected")
 	var _config = game_states.load_data("user://controls.dat", false)
-	config = default_config
+	config = default_config.duplicate()
 	game_states.safe_cpy_dict(config, _config)
 	
-	$j1.rect_position = config.j1.pos  
-	$j1.rect_size.x = config.j1.out_size
-	$j1.get_node("j2").rect_size.x = config.j1.in_size
-	radius[0] = config.j1.radius
+	$j1.rect_position = Vector2(config.j1.pos[0], config.j1.pos[1])
+	$j1.rect_size = Vector2.ONE * config.j1.out_size
+	$j1.get_node("j2").rect_size = Vector2.ONE * config.j1.in_size
+	radius[0] = float(config.j1.radius)
 	
-	$j2.rect_position = config.j2.pos
-	$j2.rect_size.x = config.j2.out_size
-	$j2.get_node("j2").rect_size.x = config.j2.in_size
-	radius[1] = config.j2.radius
-	
-	
+	$j2.rect_position = Vector2(config.j2.pos[0], config.j2.pos[1])
+	$j2.rect_size = Vector2.ONE * config.j2.out_size
+	$j2.get_node("j2").rect_size = Vector2.ONE * config.j2.in_size
+	radius[1] = float(config.j2.radius)
+	MenuManager.connect("back_pressed", self,"on_back_pressed")
 
 
 func _on_j1_gui_input(event):
@@ -135,12 +134,14 @@ func _on_radius_value_changed(value):
 
 
 func on_back_pressed():
-	config.j1.pos = $j1.rect_position
+	config.j1.pos[0] = $j1.rect_position.x
+	config.j1.pos[1] = $j1.rect_position.y
 	config.j1.out_size = $j1.rect_size.x
 	config.j1.in_size = $j1.get_node("j2").rect_size.x
 	config.j1.radius = radius[0]
 	
-	config.j2.pos = $j2.rect_position
+	config.j2.pos[0] = $j2.rect_position.x
+	config.j2.pos[1] = $j2.rect_position.y
 	config.j2.out_size = $j2.rect_size.x
 	config.j2.in_size = $j2.get_node("j2").rect_size.x
 	config.j2.radius = radius[1]
@@ -149,14 +150,14 @@ func on_back_pressed():
 
 
 func _on_reset_pressed():
-	config = default_config
+	config = default_config.duplicate()
 	
-	$j1.rect_position = config.j1.pos  
-	$j1.rect_size.x = config.j1.out_size
-	$j1.get_node("j2").rect_size.x = config.j1.in_size
-	radius[0] = config.j1.radius
+	$j1.rect_position = Vector2(config.j1.pos[0], config.j1.pos[1])
+	$j1.rect_size = Vector2.ONE * config.j1.out_size
+	$j1.get_node("j2").rect_size = Vector2.ONE * config.j1.in_size
+	radius[0] = float(config.j1.radius)
 	
-	$j2.rect_position = config.j2.pos
-	$j2.rect_size.x = config.j2.out_size
-	$j2.get_node("j2").rect_size.x = config.j2.in_size
-	radius[1] = config.j2.radius
+	$j2.rect_position = Vector2(config.j2.pos[0], config.j2.pos[1])
+	$j2.rect_size = Vector2.ONE * config.j2.out_size
+	$j2.get_node("j2").rect_size = Vector2.ONE * config.j2.in_size
+	radius[1] = float(config.j2.radius)

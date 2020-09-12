@@ -8,6 +8,22 @@ var enabled : bool = true
 onready var aim = $aim_joy
 onready var mov = $mov_joy
 
+var config = {
+	j1 = {
+		pos = Vector2(96, 452),
+		out_size = 200,
+		in_size = 160,
+		radius = 90
+	},
+	
+	j2 = {
+		pos = Vector2(996, 452),
+		out_size = 200,
+		in_size = 160,
+		radius = 90
+	}
+}
+
 func _ready():
 	aim.connect("Joystick_Updated",self,"_on_joy2_move")
 	#if not game_states.game_settings.static_dpad:
@@ -15,6 +31,17 @@ func _ready():
 		#$aim_joy.use_screen_rectangle = true
 	mov.modulate.a8 = game_states.game_settings.dpad_transparency
 	aim.modulate.a8 = game_states.game_settings.dpad_transparency
+	var _config = game_states.load_data("user://controls.dat", false)
+	game_states.safe_cpy_dict(config, _config)
+	
+	$mov_joy.rect_position = config.j1.pos
+	$aim_joy.rect_position = config.j2.pos
+	$mov_joy.rect_size = config.j1.out_size
+	$aim_joy.rect_size = config.j2.out_size
+	$mov_joy/Joystick_Ring.rect_size = config.j1.in_size
+	$aim_joy/Joystick_Ring.rect_size = config.j2.in_size
+	
+	$mov_joy.radius = config.j1.out_size
 
 
 func _process(_delta):

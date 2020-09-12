@@ -147,6 +147,9 @@ margin_bottom = -0.0570679
 custom_styles/pressed = SubResource( 3 )
 custom_styles/normal = SubResource( 3 )
 text = "RESET"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="j1" type="TextureRect" parent="."]
 margin_left = 73.6222
