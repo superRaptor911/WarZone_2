@@ -19,7 +19,7 @@ func _on_Button_pressed():
 	game_states.saveSettings()
 	#UiAnim.animZoomOut([$TabContainer])
 	yield(get_tree().create_timer(0.5 * UiAnim.anim_scale), "timeout")
-	MenuManager.changeSceneToPrevious()
+	MenuManager.changeScene("mainMenu")
 
 
 

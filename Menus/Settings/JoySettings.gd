@@ -147,6 +147,7 @@ func on_back_pressed():
 	config.j2.radius = radius[1]
 	
 	game_states.save_data("user://controls.dat", config, false)
+	MenuManager.changeSceneToPrevious()
 
 
 func _on_reset_pressed():

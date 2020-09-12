@@ -34,14 +34,15 @@ func _ready():
 	var _config = game_states.load_data("user://controls.dat", false)
 	game_states.safe_cpy_dict(config, _config)
 	
-	$mov_joy.rect_position = config.j1.pos
-	$aim_joy.rect_position = config.j2.pos
-	$mov_joy.rect_size = config.j1.out_size
-	$aim_joy.rect_size = config.j2.out_size
-	$mov_joy/Joystick_Ring.rect_size = config.j1.in_size
-	$aim_joy/Joystick_Ring.rect_size = config.j2.in_size
+	$mov_joy.rect_position = Vector2(config.j1.pos[0], config.j1.pos[1])
+	$aim_joy.rect_position = Vector2(config.j2.pos[0], config.j2.pos[1])
+	$mov_joy.rect_size = Vector2.ONE * config.j1.out_size
+	$aim_joy.rect_size = Vector2.ONE * config.j2.out_size
+	$mov_joy/Joystick_Ring.rect_size = Vector2.ONE * config.j1.in_size
+	$aim_joy/Joystick_Ring.rect_size = Vector2.ONE * config.j2.in_size
 	
-	$mov_joy.radius = config.j1.out_size
+	$mov_joy.radius = (config.j1.out_size / 2) * (config.j1.radius / 100)
+	$aim_joy.radius = (config.j2.out_size / 2) * (config.j2.radius / 100)
 
 
 func _process(_delta):
