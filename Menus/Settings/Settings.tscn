@@ -1,50 +1,24 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Menus/Settings/Settings.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=3]
-[ext_resource path="res://hg.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Menus/resources/red_btn.tres" type="StyleBox" id=5]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=7]
-[ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 15.0
-content_margin_right = 15.0
-bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-
-[sub_resource type="StyleBoxFlat" id=2]
-content_margin_left = 15.0
-content_margin_right = 15.0
-bg_color = Color( 0, 0, 0, 0.607843 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-
-[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.266667, 0.266667, 0.266667, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_size = 4
-
-[sub_resource type="DynamicFont" id=5]
-size = 24
-use_filter = true
-font_data = ExtResource( 4 )
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.705882, 0.741176, 0.278431, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Settings" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -58,274 +32,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TabContainer" type="TabContainer" parent="."]
-anchor_left = 0.089
-anchor_top = 0.047
-anchor_right = 0.911
-anchor_bottom = 0.953
-margin_left = 0.580002
-margin_top = 0.16
-margin_right = -0.580078
-margin_bottom = -0.160034
-custom_styles/tab_fg = SubResource( 1 )
-custom_styles/tab_bg = SubResource( 2 )
-custom_styles/panel = SubResource( 3 )
-custom_fonts/font = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Basic" type="Tabs" parent="TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 47.0
-custom_fonts/font = ExtResource( 7 )
-tab_align = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Basic"]
-anchor_left = 0.205
-anchor_top = 0.098
-anchor_right = 0.737
-anchor_bottom = 0.667
-margin_left = -0.208328
-margin_top = 0.117821
-margin_right = -128.084
-margin_bottom = -78.5757
-rect_scale = Vector2( 1.3, 1.3 )
-custom_constants/separation = 30
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="particles" type="Panel" parent="TabContainer/Basic/VBoxContainer"]
-margin_right = 431.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="TabContainer/Basic/VBoxContainer/particles"]
-margin_left = 14.9753
-margin_top = 1.95422
-margin_right = 213.975
-margin_bottom = 33.9542
-custom_fonts/font = SubResource( 5 )
-text = "Enable Particles"
-
-[node name="particles" type="CheckButton" parent="TabContainer/Basic/VBoxContainer/particles"]
-margin_left = 336.729
-margin_right = 412.729
-margin_bottom = 40.0
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="music" type="Panel" parent="TabContainer/Basic/VBoxContainer"]
-margin_top = 70.0
-margin_right = 431.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="TabContainer/Basic/VBoxContainer/music"]
-margin_left = 14.9753
-margin_top = 1.95422
-margin_right = 213.975
-margin_bottom = 33.9542
-custom_fonts/font = SubResource( 5 )
-text = "Music"
-
-[node name="music" type="CheckButton" parent="TabContainer/Basic/VBoxContainer/music"]
-margin_left = 336.729
-margin_right = 412.729
-margin_bottom = 40.0
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="camera" type="Panel" parent="TabContainer/Basic/VBoxContainer"]
-margin_top = 140.0
-margin_right = 431.0
-margin_bottom = 180.0
-rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="TabContainer/Basic/VBoxContainer/camera"]
-margin_left = 14.9753
-margin_top = 1.95422
-margin_right = 213.975
-margin_bottom = 33.9542
-custom_fonts/font = SubResource( 5 )
-text = "Dynamic Camera"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="camera" type="CheckButton" parent="TabContainer/Basic/VBoxContainer/camera"]
-margin_left = 336.729
-margin_right = 412.729
-margin_bottom = 40.0
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="shadows" type="Panel" parent="TabContainer/Basic/VBoxContainer"]
-margin_top = 210.0
-margin_right = 431.0
-margin_bottom = 250.0
-rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="TabContainer/Basic/VBoxContainer/shadows"]
-margin_left = 14.9753
-margin_top = 1.95422
-margin_right = 213.975
-margin_bottom = 33.9542
-custom_fonts/font = SubResource( 5 )
-text = "Shadows"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="shadows" type="CheckButton" parent="TabContainer/Basic/VBoxContainer/shadows"]
-margin_left = 336.729
-margin_right = 412.729
-margin_bottom = 40.0
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Advanced" type="Tabs" parent="TabContainer"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 47.0
-custom_fonts/font = ExtResource( 7 )
-tab_align = 0
-
-[node name="container" type="VBoxContainer" parent="TabContainer/Advanced"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -281.382
-margin_top = -198.698
-margin_right = 145.618
-margin_bottom = -29.6984
-rect_scale = Vector2( 1.3, 1.3 )
-custom_constants/separation = 30
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="log" type="Panel" parent="TabContainer/Advanced/container"]
-margin_right = 427.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="TabContainer/Advanced/container/log"]
-margin_left = 14.9753
-margin_top = 1.95422
-margin_right = 213.975
-margin_bottom = 33.9542
-custom_fonts/font = SubResource( 5 )
-text = "Enable logging"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="log" type="CheckButton" parent="TabContainer/Advanced/container/log"]
-margin_left = 336.729
-margin_right = 412.729
-margin_bottom = 40.0
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="fps" type="Panel" parent="TabContainer/Advanced/container"]
-margin_top = 70.0
-margin_right = 427.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 427, 40 )
-custom_styles/panel = SubResource( 4 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="TabContainer/Advanced/container/fps"]
-margin_left = 14.9753
-margin_top = 1.95422
-margin_right = 213.975
-margin_bottom = 33.9542
-custom_fonts/font = SubResource( 5 )
-text = "Show Fps"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="fps" type="CheckButton" parent="TabContainer/Advanced/container/fps"]
-margin_left = 336.729
-margin_right = 412.729
-margin_bottom = 40.0
-pressed = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="view_logs" type="Button" parent="TabContainer/Advanced"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -92.5
-margin_top = -26.0
-margin_right = 92.5
-margin_bottom = 26.0
-custom_styles/hover = ExtResource( 8 )
-custom_styles/pressed = ExtResource( 8 )
-custom_styles/focus = ExtResource( 8 )
-custom_styles/normal = ExtResource( 8 )
-custom_fonts/font = ExtResource( 7 )
-text = "View Logs"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Button" type="Button" parent="."]
-anchor_left = 0.685
-anchor_top = 0.862
-anchor_right = 0.685
-anchor_bottom = 0.862
-margin_left = -63.8
-margin_top = -33.64
-margin_right = 67.2
-margin_bottom = 32.36
+anchor_left = 0.812
+anchor_top = 0.841
+anchor_right = 0.915
+anchor_bottom = 0.932
+margin_left = 0.491211
+margin_top = -0.319092
+margin_right = -0.348755
+margin_bottom = 0.160889
 custom_styles/hover = ExtResource( 5 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
@@ -335,11 +50,61 @@ text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="toggled" from="TabContainer/Basic/VBoxContainer/particles/particles" to="." method="_on_particles_toggled"]
-[connection signal="toggled" from="TabContainer/Basic/VBoxContainer/music/music" to="." method="_on_music_toggled"]
-[connection signal="toggled" from="TabContainer/Basic/VBoxContainer/camera/camera" to="." method="_on_camera_toggled"]
-[connection signal="toggled" from="TabContainer/Basic/VBoxContainer/shadows/shadows" to="." method="_on_shadows_toggled"]
-[connection signal="toggled" from="TabContainer/Advanced/container/log/log" to="." method="_on_log_toggled"]
-[connection signal="toggled" from="TabContainer/Advanced/container/fps/fps" to="." method="_on_fps_toggled"]
-[connection signal="pressed" from="TabContainer/Advanced/view_logs" to="." method="_on_view_logs_pressed"]
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.238
+anchor_top = 0.139
+anchor_right = 0.761
+anchor_bottom = 0.774
+margin_left = -2.15985
+margin_top = 0.0569077
+margin_right = -0.599915
+margin_bottom = -0.143127
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.2
+anchor_top = 0.226
+anchor_right = 0.8
+anchor_bottom = 0.774
+margin_left = -0.199997
+margin_top = 0.217995
+margin_right = 0.200012
+margin_bottom = -0.218018
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="display" type="Button" parent="Panel/VBoxContainer"]
+margin_right = 403.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 7 )
+text = "Display"
+
+[node name="sound" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 100.0
+margin_right = 403.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 50 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 7 )
+text = "Sound"
+
+[node name="contols" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 200.0
+margin_right = 403.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 0, 50 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 7 )
+text = "Contol"
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/display" to="." method="_on_display_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/sound" to="." method="_on_sound_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/contols" to="." method="_on_contols_pressed"]

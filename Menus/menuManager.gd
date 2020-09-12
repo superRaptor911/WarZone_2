@@ -62,6 +62,9 @@ func loadMenus():
 	# Sub menu of extras
 	addMenu("Extras/MsgDev", "res://Menus/Misc/MsgDev.tscn")
 	addMenu("Extras/Attrib", "res://Menus/Misc/Attrib.tscn")
+	
+	# Sub menu of settings
+	addMenu("settings/control", "res://Menus/Settings/JoySettings.tscn")
 
 
 func changeScene(new_scene):

@@ -36,6 +36,9 @@ margin_bottom = 184.0
 texture = ExtResource( 4 )
 expand = true
 stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="aim_joy" type="TextureRect" parent="."]
 anchor_left = 0.778
