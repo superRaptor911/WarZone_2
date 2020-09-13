@@ -64,6 +64,7 @@ func loadMenus():
 	addMenu("Extras/Attrib", "res://Menus/Misc/Attrib.tscn")
 	
 	# Sub menu of settings
+	addMenu("settings/display", "res://Menus/Settings/DisplaySettings.tscn")
 	addMenu("settings/control", "res://Menus/Settings/JoySettings.tscn")
 
 

@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/bg/bg3.jpg" type="Texture" id=1]
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Menus/Settings/DisplaySettings.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="DisplaySettings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.255
+anchor_top = 0.178
+anchor_right = 0.745
+anchor_bottom = 0.822
+margin_left = -0.400024
+margin_top = -0.160004
+margin_right = 0.399902
+margin_bottom = 0.159973
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -212.5
+margin_top = -150.0
+margin_right = 212.5
+margin_bottom = 150.0
+custom_constants/separation = 40
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shadows" type="CheckButton" parent="Panel/VBoxContainer"]
+margin_right = 425.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 425, 0 )
+custom_fonts/font = ExtResource( 2 )
+text = "Enable Shadows"
+
+[node name="particles" type="CheckButton" parent="Panel/VBoxContainer"]
+margin_top = 85.0
+margin_right = 425.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 425, 0 )
+custom_fonts/font = ExtResource( 2 )
+text = "Enable Particles"
+
+[node name="fps" type="CheckButton" parent="Panel/VBoxContainer"]
+margin_top = 170.0
+margin_right = 425.0
+margin_bottom = 215.0
+rect_min_size = Vector2( 425, 0 )
+custom_fonts/font = ExtResource( 2 )
+text = "Show FPS"
+
+[node name="camera" type="CheckButton" parent="Panel/VBoxContainer"]
+margin_top = 255.0
+margin_right = 425.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 425, 0 )
+custom_fonts/font = ExtResource( 2 )
+text = "Dynamic Camera"
+[connection signal="toggled" from="Panel/VBoxContainer/shadows" to="." method="_on_shadows_toggled"]
+[connection signal="toggled" from="Panel/VBoxContainer/particles" to="." method="_on_particles_toggled"]
+[connection signal="toggled" from="Panel/VBoxContainer/fps" to="." method="_on_fps_toggled"]
+[connection signal="toggled" from="Panel/VBoxContainer/camera" to="." method="_on_camera_toggled"]

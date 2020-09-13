@@ -80,7 +80,7 @@ __meta__ = {
 }
 
 [node name="display" type="Button" parent="Panel/VBoxContainer"]
-margin_right = 403.0
+margin_right = 402.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/normal = SubResource( 2 )
@@ -89,16 +89,17 @@ text = "Display"
 
 [node name="sound" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 100.0
-margin_right = 403.0
+margin_right = 402.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 7 )
-text = "Sound"
+disabled = true
+text = "Sound(Soon)"
 
 [node name="contols" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 200.0
-margin_right = 403.0
+margin_right = 402.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/normal = SubResource( 2 )
