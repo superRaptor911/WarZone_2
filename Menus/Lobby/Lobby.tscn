@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Menus/Lobby/Lobby.gd" type="Script" id=1]
 [ext_resource path="res://font.tres" type="DynamicFont" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=6]
 [ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/UI/next_white.png" type="Texture" id=8]
+[ext_resource path="res://Objects/Ui/customSpinBox.tscn" type="PackedScene" id=9]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
@@ -136,12 +137,11 @@ anchor_top = 0.08
 anchor_right = 0.785
 anchor_bottom = 0.804
 margin_left = 0.00601196
-margin_top = 0.0800056
+margin_top = 0.0800095
 margin_right = -0.0949707
-margin_bottom = -0.095932
+margin_bottom = 22.9041
 custom_constants/separation = 30
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -161,59 +161,57 @@ anchor_bottom = 0.95
 margin_left = -0.015686
 margin_top = 0.0148277
 margin_right = -33.9555
-margin_bottom = -0.0201797
+margin_bottom = -0.0201759
 custom_fonts/font = ExtResource( 5 )
 text = "Friendly Fire"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="time_limit" type="SpinBox" parent="Panel/TabContainer/Game/tdm"]
+[node name="time_limit" parent="Panel/TabContainer/Game/tdm" instance=ExtResource( 9 )]
 margin_top = 75.0
 margin_right = 115.0
-margin_bottom = 99.0
+margin_bottom = 115.0
+rect_min_size = Vector2( 0, 40 )
+value = 4.0
+max_value = 20.0
 min_value = 2.0
-max_value = 15.0
-value = 5.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+increment = 2.0
 
 [node name="Label" type="Label" parent="Panel/TabContainer/Game/tdm/time_limit"]
 anchor_left = -2.191
-anchor_top = -0.344
-anchor_right = -0.93
-anchor_bottom = 1.198
-margin_left = -0.015686
-margin_top = 0.00470257
-margin_right = -0.0305099
-margin_bottom = -0.00329971
+anchor_top = -0.069
+anchor_right = -0.722
+anchor_bottom = 0.906
+margin_left = -0.0349731
+margin_top = 0.00267601
+margin_right = 0.0300064
+margin_bottom = 0.0026741
 custom_fonts/font = ExtResource( 5 )
 text = "Time Limit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="score_limit" type="SpinBox" parent="Panel/TabContainer/Game/tdm"]
-margin_top = 129.0
+[node name="max_score" parent="Panel/TabContainer/Game/tdm" instance=ExtResource( 9 )]
+margin_top = 145.0
 margin_right = 115.0
-margin_bottom = 153.0
-min_value = 30.0
-max_value = 200.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 0, 40 )
 value = 50.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+max_value = 200.0
+min_value = 15.0
+increment = 5.0
 
-[node name="Label" type="Label" parent="Panel/TabContainer/Game/tdm/score_limit"]
+[node name="Label" type="Label" parent="Panel/TabContainer/Game/tdm/max_score"]
 anchor_left = -2.191
-anchor_top = -0.397
-anchor_right = -0.774
-anchor_bottom = 1.145
-margin_left = -0.015686
-margin_top = 0.00360107
-margin_right = 0.0292892
-margin_bottom = -0.00440216
+anchor_top = -0.069
+anchor_right = -0.722
+anchor_bottom = 0.906
+margin_left = -0.0349731
+margin_top = 0.00267601
+margin_right = 0.0300064
+margin_bottom = 0.0026741
 custom_fonts/font = ExtResource( 5 )
 text = "Score Limit"
 __meta__ = {
@@ -221,6 +219,7 @@ __meta__ = {
 }
 
 [node name="classic" type="VBoxContainer" parent="Panel/TabContainer/Game"]
+visible = false
 anchor_left = 0.582
 anchor_top = 0.08
 anchor_right = 0.785
@@ -231,7 +230,6 @@ margin_right = -0.0949707
 margin_bottom = -0.095932
 custom_constants/separation = 30
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -258,54 +256,50 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="round_time" type="SpinBox" parent="Panel/TabContainer/Game/classic"]
+[node name="round_time" parent="Panel/TabContainer/Game/classic" instance=ExtResource( 9 )]
 margin_top = 75.0
 margin_right = 115.0
-margin_bottom = 99.0
-min_value = 2.0
-max_value = 15.0
+margin_bottom = 115.0
+rect_min_size = Vector2( 0, 40 )
 value = 2.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+max_value = 5.0
+min_value = 1.0
 
 [node name="Label" type="Label" parent="Panel/TabContainer/Game/classic/round_time"]
 anchor_left = -2.191
-anchor_top = -0.344
+anchor_top = -0.069
 anchor_right = -0.722
-anchor_bottom = 1.208
+anchor_bottom = 0.906
 margin_left = -0.0349731
-margin_top = 0.256001
+margin_top = 0.00267601
 margin_right = 0.0300064
-margin_bottom = 0.00799942
+margin_bottom = 0.0026741
 custom_fonts/font = ExtResource( 5 )
 text = "Round Time"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="round_limit" type="SpinBox" parent="Panel/TabContainer/Game/classic"]
-margin_top = 129.0
+[node name="round_count" parent="Panel/TabContainer/Game/classic" instance=ExtResource( 9 )]
+margin_top = 145.0
 margin_right = 115.0
-margin_bottom = 153.0
-min_value = 2.0
-max_value = 20.0
+margin_bottom = 185.0
+rect_min_size = Vector2( 0, 40 )
 value = 5.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+max_value = 20.0
+min_value = 2.0
 
-[node name="Label" type="Label" parent="Panel/TabContainer/Game/classic/round_limit"]
+[node name="Label" type="Label" parent="Panel/TabContainer/Game/classic/round_count"]
 anchor_left = -2.191
-anchor_top = -0.397
-anchor_right = -0.713
-anchor_bottom = 1.145
-margin_left = -0.015686
-margin_top = 0.00360107
-margin_right = -6.9857
-margin_bottom = -0.00440216
+anchor_top = -0.069
+anchor_right = -0.722
+anchor_bottom = 0.906
+margin_left = -0.0349731
+margin_top = 0.00267601
+margin_right = 0.0300064
+margin_bottom = 0.0026741
 custom_fonts/font = ExtResource( 5 )
-text = "Round Limit"
+text = "Rounds"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -338,9 +332,9 @@ custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 5 )
 custom_constants/hseparation = 0
-text = "0"
+text = "5"
 items = [ "0", null, false, 0, null, "5", null, false, 1, null, "10", null, false, 2, null, "15", null, false, 3, null ]
-selected = 0
+selected = 1
 
 [node name="bot_difficulty" type="Label" parent="Panel/TabContainer/Bots/Control"]
 margin_left = 10.6908
@@ -354,7 +348,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionButton2" type="OptionButton" parent="Panel/TabContainer/Bots/Control/bot_difficulty"]
+[node name="OptionButton" type="OptionButton" parent="Panel/TabContainer/Bots/Control/bot_difficulty"]
 margin_left = 319.533
 margin_top = 1.44086
 margin_right = 462.533
@@ -363,9 +357,9 @@ custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 5 )
 custom_constants/hseparation = 0
-text = "0"
-items = [ "0", null, false, 0, null, "5", null, false, 1, null, "10", null, false, 2, null, "15", null, false, 3, null ]
-selected = 0
+text = "2"
+items = [ "1", null, false, 1, null, "2", null, false, 2, null, "3", null, false, 3, null, "4", null, false, 4, null ]
+selected = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

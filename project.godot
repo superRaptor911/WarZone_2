@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/Character.gd"
 }, {
+"base": "Label",
+"class": "CustomSpinButton",
+"language": "GDScript",
+"path": "res://Objects/Ui/customSpinBox.gd"
+}, {
 "base": "Node",
 "class": "DataUploader",
 "language": "GDScript",
@@ -78,6 +83,7 @@ _global_script_class_icons={
 "AdMob": "res://admob-lib/icon.png",
 "Bot": "",
 "Character": "",
+"CustomSpinButton": "",
 "DataUploader": "",
 "Gun": "",
 "LinkedList": "",

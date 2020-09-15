@@ -24,6 +24,7 @@ var extraServerInfo = {
 	tick_rate = 25
 }
 
+var game_mode_settings = {}
 
 #####################Update rate######################
 var update_rate = 25 setget set_update_rate

@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/UI/up.png" type="Texture" id=1]
+[ext_resource path="res://Objects/Ui/customSpinBox.gd" type="Script" id=2]
+
+[node name="customSpinBox" type="Label"]
+margin_right = 80.0
+margin_bottom = 40.0
+text = "0"
+align = 1
+valign = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="up" type="TextureButton" parent="."]
+anchor_left = 0.989
+anchor_right = 0.989
+margin_left = 0.0350723
+margin_top = -7.60548
+margin_right = 26.0351
+margin_bottom = 18.3945
+texture_normal = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="down" type="TextureButton" parent="."]
+anchor_left = 0.989
+anchor_top = 1.0
+anchor_right = 0.989
+anchor_bottom = 1.0
+margin_left = 0.0350723
+margin_top = 8.27131
+margin_right = 26.0351
+margin_bottom = 34.2713
+rect_scale = Vector2( 1, -1 )
+texture_normal = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="up" to="." method="_on_up_pressed"]
+[connection signal="pressed" from="down" to="." method="_on_down_pressed"]

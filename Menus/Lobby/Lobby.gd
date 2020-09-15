@@ -133,12 +133,39 @@ func setLevelInfo(info):
 		
 		#$Panel/TabContainer/Game/mode/mode.text = selected_gameMode[0]
 
+func getModeSettings() -> Dictionary:
+	var settings = {}
+	match selected_mode:
+		"Classic":
+			var mode_sett = $Panel/TabContainer/Game/classic
+			settings["round_count"] = mode_sett.get_node("round_count").value
+			settings['round_time'] = mode_sett.get_node("round_time").value  
+		"TDM":
+			var mode_sett = $Panel/TabContainer/Game/tdm
+			settings["time_limit"] = mode_sett.get_node("time_limit").value
+			settings['max_score'] = mode_sett.get_node("max_score").value
+		"Zombie Mod":
+			var mode_sett = $Panel/TabContainer/Game/tdm
+			settings["time_limit"] = mode_sett.get_node("time_limit").value
+			settings['max_score'] = mode_sett.get_node("max_score").value
+		
+	return settings
+
 
 func _start_game():
 	game_server.serverInfo.map = selected_level.name
 	game_server.serverInfo.game_mode = selected_mode
+	game_server.game_mode_settings = getModeSettings()
+	
+	var selected_id = $Panel/TabContainer/Bots/Control/bot_no/OptionButton.get_selected_id()
+	game_server.bot_settings.bot_count = int($Panel/TabContainer/Bots/Control/bot_no/OptionButton.get_item_text(selected_id))
+	
+	selected_id = $Panel/TabContainer/Bots/Control/bot_difficulty/OptionButton.get_selected_id()
+	game_server.bot_settings.bot_difficulty = int($Panel/TabContainer/Bots/Control/bot_difficulty/OptionButton.get_item_text(selected_id))
+	
 	if selected_level.has("author"):
 		game_server.serverInfo.author = selected_level.author
+	
 	
 	network.serverAvertiser.serverInfo = game_server.serverInfo
 	network.add_child(network.serverAvertiser)

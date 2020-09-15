@@ -102,6 +102,7 @@ class Player_stats:
 func _ready():
 	#only server handles quake events and sound
 	if get_tree().is_network_server():
+		mode_settings = game_server.game_mode_settings
 		var current_level = get_tree().get_nodes_in_group("Level")[0]
 		current_level.connect("player_created", self, "_on_unit_created")
 		current_level.connect("bot_created",self,"_on_unit_created")
