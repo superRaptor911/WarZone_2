@@ -116,7 +116,7 @@ func setupAds():
 		admob.queue_free()
 	
 	admob = AdMob.new()
-	admob.is_real = true
+	admob.is_real = false
 	admob.max_ad_content_rate = "MA"
 	admob.banner_id = banners[randi() % banners.size()]
 	admob.interstitial_id = interstitials[randi() % interstitials.size()]
@@ -167,3 +167,12 @@ func on_video_failed(_code):
 	_admob_load_fail_count[2] += 1
 	if _admob_load_fail_count[2] < _admob_max_load_fails:
 		admob.load_rewarded_video()
+
+
+func showInterstitialAd():
+	if admob._is_interstitial_loaded:
+		admob.show_interstitial()
+
+func showBannerAds():
+	if admob._is_banner_loaded:
+		admob.show_banner()

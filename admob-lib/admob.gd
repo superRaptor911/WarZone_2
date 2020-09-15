@@ -112,12 +112,10 @@ func hide_banner() -> void:
 func show_interstitial() -> void:
 	if _admob_singleton != null:
 		_admob_singleton.showInterstitial()
-		_is_interstitial_loaded = false
-		
+	
 func show_rewarded_video() -> void:
 	if _admob_singleton != null:
 		_admob_singleton.showRewardedVideo()
-		_is_rewarded_video_loaded = false
 
 # resize
 

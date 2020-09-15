@@ -10,14 +10,14 @@ onready var mov = $mov_joy
 
 var config = {
 	j1 = {
-		pos = Vector2(96, 452),
+		pos = [96, 452],
 		out_size = 200,
 		in_size = 160,
 		radius = 90
 	},
 	
 	j2 = {
-		pos = Vector2(996, 452),
+		pos = [996, 452],
 		out_size = 200,
 		in_size = 160,
 		radius = 90

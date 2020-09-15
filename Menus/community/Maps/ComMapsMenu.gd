@@ -47,14 +47,14 @@ func _on_mapList_item_selected(index):
 	var lvl_name = levels[index].name
 	var author_name = "unknown"
 	
-	var downloader = DataUploader.new()
-	var dat = downloader.getFile("minimapDownloader.php", levels[index])
-	var image = Image.new()
-	if image.load_png_from_buffer(dat) != OK:
-		print("An error occurred while trying to display the image.")
-	var texture = ImageTexture.new()
-	texture.create_from_image(image)
-	$mapInfo/TextureRect.texture = texture
+#	var downloader = DataUploader.new()
+#	var dat = downloader.getFile("minimapDownloader.php", levels[index])
+#	var image = Image.new()
+#	if image.load_png_from_buffer(dat) != OK:
+#		print("An error occurred while trying to display the image.")
+#	var texture = ImageTexture.new()
+#	texture.create_from_image(image)
+#	$mapInfo/TextureRect.texture = texture
 	
 	if levels[index].has("author_name") and levels[index].author_name != "":
 		author_name = levels[index].author_name
