@@ -15,6 +15,7 @@ signal rewarded_video_left_application
 signal rewarded_video_failed_to_load(error_code)
 signal rewarded_video_opened
 signal rewarded_video_started
+signal interstitial_requested
 
 # properties
 export var is_real:bool setget is_real_set
@@ -102,7 +103,7 @@ func is_rewarded_video_loaded() -> bool:
 # show / hide
 
 func show_banner() -> void:
-	if _admob_singleton != null:
+	if _admob_singleton != null and _is_banner_loaded:
 		_admob_singleton.showBanner()
 		
 func hide_banner() -> void:
@@ -110,11 +111,13 @@ func hide_banner() -> void:
 		_admob_singleton.hideBanner()
 
 func show_interstitial() -> void:
-	if _admob_singleton != null:
+	if _admob_singleton != null and _is_interstitial_loaded:
 		_admob_singleton.showInterstitial()
+	else:
+		emit_signal("interstitial_requested")
 	
 func show_rewarded_video() -> void:
-	if _admob_singleton != null:
+	if _admob_singleton != null and _is_rewarded_video_loaded:
 		_admob_singleton.showRewardedVideo()
 
 # resize

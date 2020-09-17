@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Menus/MainMenu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/bg/bg2.jpg" type="Texture" id=2]
@@ -33,6 +33,13 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -191,6 +198,60 @@ text = "V 1.35"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="quitPanel" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -271.0
+margin_top = -122.0
+margin_right = 271.0
+margin_bottom = 122.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="quitPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -131.135
+margin_top = -87.4741
+margin_right = 116.865
+margin_bottom = -50.4741
+custom_fonts/font = ExtResource( 8 )
+text = "Quit Warzone 2 ?"
+
+[node name="yes" type="Button" parent="quitPanel"]
+anchor_left = 0.688
+anchor_top = 0.668
+anchor_right = 0.688
+anchor_bottom = 0.668
+margin_left = -49.896
+margin_top = 1.008
+margin_right = 49.104
+margin_bottom = 44.008
+custom_fonts/font = ExtResource( 8 )
+text = "Yes"
+
+[node name="no" type="Button" parent="quitPanel"]
+anchor_left = 0.229
+anchor_top = 0.76
+anchor_right = 0.229
+anchor_bottom = 0.76
+margin_left = -49.618
+margin_top = -21.44
+margin_right = 49.382
+margin_bottom = 21.56
+custom_fonts/font = ExtResource( 8 )
+text = "No"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="VBoxContainer/stats" to="." method="_on_stats_pressed"]
 [connection signal="pressed" from="VBoxContainer/store" to="." method="_on_store_pressed"]
@@ -198,3 +259,5 @@ __meta__ = {
 [connection signal="pressed" from="VBoxContainer/lev_edit" to="." method="_on_lev_edit_pressed"]
 [connection signal="pressed" from="VBoxContainer/community" to="." method="_on_community_pressed"]
 [connection signal="pressed" from="extras" to="." method="_on_extras_pressed"]
+[connection signal="pressed" from="quitPanel/yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="quitPanel/no" to="." method="_on_no_pressed"]

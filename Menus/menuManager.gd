@@ -8,7 +8,7 @@ var cur_menu = null
 # Admob instance
 var admob : AdMob = null
 # Number of times to load ads if loading fails
-var _admob_max_load_fails = 2
+var _admob_max_load_fails = 1
 # Counter for each ad types [banner, intestitial, video]
 var _admob_load_fail_count = [0, 0, 0]
 
@@ -96,6 +96,8 @@ func _on_Back_pressed():
 
 ######################################ADS######################################
 
+var stop_ad_loading = false
+
 func setupAds():
 	randomize()
 	var banners = [
@@ -116,7 +118,7 @@ func setupAds():
 		admob.queue_free()
 	
 	admob = AdMob.new()
-	admob.is_real = false
+	admob.is_real = true
 	admob.max_ad_content_rate = "MA"
 	admob.banner_id = banners[randi() % banners.size()]
 	admob.interstitial_id = interstitials[randi() % interstitials.size()]
@@ -136,13 +138,17 @@ func setupAds():
 	admob.connect("banner_failed_to_load", self, "on_banner_failed")
 	admob.connect("interstitial_failed_to_load", self , "on_interstitial_failed")
 	admob.connect("rewarded_video_failed_to_load", self, "on_video_failed")
+	
+	admob.connect("interstitial_requested", self, "on_interstitial_requested")
 
 
 func on_interstitial_closed():
-	admob.load_interstitial()
+	if not stop_ad_loading:
+		admob.load_interstitial()
 
 func on_video_closed():
-	admob.load_rewarded_video()
+	if not stop_ad_loading:
+		admob.load_rewarded_video()
 
 func on_banner_loaded():
 	_admob_load_fail_count[0] = 0
@@ -167,6 +173,9 @@ func on_video_failed(_code):
 	_admob_load_fail_count[2] += 1
 	if _admob_load_fail_count[2] < _admob_max_load_fails:
 		admob.load_rewarded_video()
+
+func on_interstitial_requested():
+	admob.load_interstitial()
 
 
 func showInterstitialAd():

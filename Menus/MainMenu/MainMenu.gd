@@ -47,7 +47,13 @@ func goToNextScene():
 
 
 func _on_back_pressed():
-	get_tree().quit(0)
+	if MenuManager.admob._is_interstitial_loaded:
+		MenuManager.stop_ad_loading = true
+		MenuManager.admob.show_interstitial()
+		#yield(MenuManager.admob, "interstitial_closed")
+		$quitPanel.show()
+	else:
+		get_tree().quit(0)
 
 #########################Tweeeening############################
 func tweenTransition():
@@ -74,3 +80,12 @@ func _on_lev_edit_pressed():
 
 func _on_community_pressed():
 	MenuManager.changeScene("CommunityMenu")
+
+
+func _on_yes_pressed():
+	get_tree().quit(0)
+
+
+func _on_no_pressed():
+	$quitPanel.hide()
+	MenuManager.stop_ad_loading = false

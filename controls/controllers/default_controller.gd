@@ -8,21 +8,21 @@ var enabled : bool = true
 onready var aim = $aim_joy
 onready var mov = $mov_joy
 
-var config = {
-	j1 = {
-		pos = [96, 452],
-		out_size = 200,
-		in_size = 160,
-		radius = 90
-	},
-	
-	j2 = {
-		pos = [996, 452],
-		out_size = 200,
-		in_size = 160,
-		radius = 90
-	}
-}
+#var config = {
+#	j1 = {
+#		pos = [96,452],
+#		out_size = 200,
+#		in_size = 160,
+#		radius = 90,
+#	},
+#
+#	j2 = {
+#		pos = [996,452],
+#		out_size = 200,
+#		in_size = 160,
+#		radius = 90,
+#	}
+#}
 
 func _ready():
 	aim.connect("Joystick_Updated",self,"_on_joy2_move")
@@ -31,6 +31,7 @@ func _ready():
 		#$aim_joy.use_screen_rectangle = true
 	mov.modulate.a8 = game_states.game_settings.dpad_transparency
 	aim.modulate.a8 = game_states.game_settings.dpad_transparency
+	var config = parse_json('{"j1":{"pos":[96,452],"out_size":200,"in_size":160,"radius":90},"j2":{"pos":[996,452],"out_size":200,"in_size":160,"radius":90}}')
 	var _config = game_states.load_data("user://controls.dat", false)
 	game_states.safe_cpy_dict(config, _config)
 	
