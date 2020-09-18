@@ -438,11 +438,11 @@ pressed = ExtResource( 13 )
 shape = SubResource( 11 )
 
 [node name="Minimap" type="Panel" parent="."]
-anchor_left = 0.799
+anchor_left = 0.999
 anchor_top = 0.19
 anchor_right = 0.999
 anchor_bottom = 0.407
-margin_left = 0.109924
+margin_left = -255.89
 margin_top = 0.271805
 margin_right = 0.109985
 margin_bottom = 0.0317993
