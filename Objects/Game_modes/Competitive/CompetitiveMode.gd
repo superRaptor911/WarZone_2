@@ -24,6 +24,16 @@ func _ready():
 		for i in teams:
 			i.connect("team_eliminated", self, "S_On_team_eliminated")
 		
+		createBots()
+		$Timer.start()
+		time_elasped = 0
+		is_wait_time = true
+		freezeEveryone()
+		$delays/round_start_dl.start(mode_settings.wait_time)
+		
+	# Peer
+	else:
+		pass
 
 
 # Update current time
@@ -46,7 +56,7 @@ remotesync func P_syncTime(time : int):
 	var time_limit = mode_settings.round_time * 60
 	var _min_ : int = (time_limit - time)/60.0
 	var _sec_ : int = int(time_limit - time) % 60
-	timer_label.text = String(_min_) + " : " + String(_sec_)
+	timer_label.text = String(_min_) + " : " + String(max(_sec_,0))
 
 
 # local function to sync wait time
@@ -55,7 +65,7 @@ remotesync func P_syncWaitTime(time : int):
 	var time_limit = mode_settings.wait_time
 	var _min_ : int = (time_limit - time)/60.0
 	var _sec_ : int = int(time_limit - time) % 60
-	timer_label.text = String(_min_) + " : " + String(_sec_)
+	timer_label.text = String(_min_) + " : " + String(max(_sec_,0))
 
 
 func S_On_team_eliminated(team):
@@ -89,6 +99,7 @@ func _on_round_end_dl_timeout():
 	time_elasped = 0
 	is_wait_time = true
 	freezeEveryone()
+	$delays/round_start_dl.start(mode_settings.wait_time)
 
 
 # Respawns everyone
@@ -111,7 +122,10 @@ func unfreezeEveryone():
 
 # Swap teams
 func swapTeam():
-	pass
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	var units = get_tree().get_nodes_in_group("Unit")
+	for i in units:
+		level.rpc_id(1,"S_changeUnitTeam", i.name, not i.team.team_id)
 
 
 # Game ends
@@ -119,7 +133,54 @@ func endGame():
 	pass
 
 
-
 func _on_round_start_dl_timeout():
 	unfreezeEveryone()
 
+
+func createBots():
+	Logger.Log("Creating bots")
+	var bots = Array()
+	var bot_count = game_server.bot_settings.bot_count
+	print("Bot count = ",game_server.bot_settings.bot_count)
+	game_server.bot_settings.index = 0
+	var ct = false
+	var level = get_tree().get_nodes_in_group("Level")[0]
+	
+	if bot_count > game_states.bot_profiles.bot.size():
+		Logger.Log("Not enough bot profiles. Required %d , Got %d" % [bot_count, game_states.bot_profiles.bot.size()])
+	
+	for i in game_states.bot_profiles.bot:
+		i.is_in_use = false
+		if game_server.bot_settings.index < bot_count:
+			i.is_in_use = true
+			var data = level.unit_data_dict.duplicate(true)
+			data.pn = i.bot_name
+			data.g1 = i.bot_primary_gun
+			data.g2 = i.bot_sec_gun
+			data.b = true
+			data.k = 0
+			data.d = 0
+			data.scr = 0
+			data.pg = i.bot_primary_gun
+			data.sg = i.bot_sec_gun
+			
+			#assign team
+			if ct:
+				data.tId = 1
+				data.s = i.bot_ct_skin
+				ct = false
+			else:
+				data.tId = 0
+				data.s = i.bot_t_skin
+				ct = true
+			
+			data.p = level.getSpawnPosition(data.tId)
+			#giving unique node name
+			data.n = "bot" + String(69 + game_server.bot_settings.index)
+			bots.append(data)
+			game_server.bot_settings.index += 1
+	
+	#spawn bot
+	for i in bots:
+		level.createUnit(i)
+		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])

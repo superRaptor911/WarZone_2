@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Objects/Game_modes/BombDiffuse/C4Bomb.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Weapons/plantedbomb_d.bmp" type="Texture" id=2]
+[ext_resource path="res://Sfx/weapons/c4_disarm.wav" type="AudioStream" id=3]
+[ext_resource path="res://Sfx/weapons/c4_explode.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sfx/weapons/c4.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sprites/Weapons/c4indicator.png" type="Texture" id=6]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 72.9259
+
+[node name="C4Bomb" type="Sprite" groups=[
+"C4Bomb",
+]]
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[node name="bomb_timer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+
+[node name="bom_beep" type="Timer" parent="bomb_timer"]
+wait_time = 0.5
+
+[node name="bomb_explosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="bomb_diffuse" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+
+[node name="bomb_plant_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="bomb_diffuse_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="c4indicator" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 1, 0.54902, 1 )
+position = Vector2( -0.916112, -5.98555 )
+scale = Vector2( 1.54058, 1.12652 )
+texture = ExtResource( 6 )
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="bomb_timer/bom_beep" to="." method="_on_bom_beep_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

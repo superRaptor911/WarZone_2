@@ -7,7 +7,7 @@ var levels = {
 		icon = preload("res://Maps/Dust/minimap.png"),
 		game_modes = [
 				"Zombie Mod", "res://Maps/Dust/Zm_Dust.tscn",
-				#"Bombing", "res://Maps/Dust/Bombing.tscn" ,
+				"Competitive", "res://Maps/Dust/DustComp.tscn",
 				"TDM","res://Maps/Dust/TDM.tscn"
 			],
 		desc = "",
