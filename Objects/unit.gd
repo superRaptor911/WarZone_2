@@ -86,8 +86,9 @@ func switchToSecondaryGun():
 
 #respawn player, server only
 func S_respawnUnit():
-	position = get_tree().get_nodes_in_group("Level")[0].getSpawnPosition(team.team_id)
+	position = level.getSpawnPosition(team.team_id)
 	rpc("P_respawnUnit",position)
+
 
 #respawn unit to a new position
 remotesync func P_respawnUnit(pos):
@@ -135,3 +136,10 @@ func P_on_unit_killed():
 func _on_respawn_timer_timeout():
 	if get_tree().is_network_server():
 		S_respawnUnit()
+
+# Freeze player
+func S_freezeUnit(val = true):
+	rpc("P_freezeUnit", val)
+
+remotesync func P_freezeUnit(val):
+	paused = val

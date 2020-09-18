@@ -8,6 +8,7 @@ export var speed : float = 80
 export var melee_damage : float = 300
 
 var alive : bool = true
+var paused : bool = false
 var movement_vector : Vector2
 var team : Team = null
 var close_chars = Array()
@@ -34,7 +35,7 @@ func _ready():
 
 #process Character
 func _process(delta):
-	if alive:
+	if alive and not paused:
 		# handele movement
 		movementNode.movement(delta)
 	else:

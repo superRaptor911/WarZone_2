@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/terwin.wav-1b1b247da8b8d4412b4d5b9e20a824a4.sample"
+path="res://.import/bombdef.wav-b914ed93c36b4860c55fa36fb3cd627b.sample"
 
 [deps]
 
-source_file="res://Sfx/weapons/terwin.wav"
-dest_files=[ "res://.import/terwin.wav-1b1b247da8b8d4412b4d5b9e20a824a4.sample" ]
+source_file="res://Sfx/radio/bombdef.wav"
+dest_files=[ "res://.import/bombdef.wav-b914ed93c36b4860c55fa36fb3cd627b.sample" ]
 
 [params]
 

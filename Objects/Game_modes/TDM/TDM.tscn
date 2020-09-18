@@ -1,30 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/Game_modes/TDM/TDM.gd" type="Script" id=1]
-[ext_resource path="res://font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Objects/Game_modes/TDM/top_panel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Antaro.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Sfx/QuakeSounds/triplekill.wav" type="AudioStream" id=6]
 [ext_resource path="res://Sfx/QuakeSounds/multikill.wav" type="AudioStream" id=7]
 [ext_resource path="res://Sfx/QuakeSounds/rampage.wav" type="AudioStream" id=8]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.117647, 0.278431, 0.760784, 0.607843 )
-corner_radius_top_left = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.760784, 0.117647, 0.117647, 0.607843 )
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=1]
 size = 32
 use_filter = true
 font_data = ExtResource( 5 )
@@ -32,96 +15,14 @@ font_data = ExtResource( 5 )
 [node name="TDM_MODE" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="top_panel" type="Panel" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -54.5
-margin_right = 54.5
-margin_bottom = 54.0
-custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="top_panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -21.5
-margin_top = -12.0
-margin_right = 21.5
-margin_bottom = 12.0
-custom_fonts/font = ExtResource( 4 )
-text = "5:10"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="uptime" type="Timer" parent="top_panel"]
-
-[node name="ct" type="Panel" parent="top_panel"]
-anchor_left = -0.688
-anchor_top = 0.111
-anchor_right = -0.009
-anchor_bottom = 0.852
-margin_left = -0.00799561
-margin_top = 0.00599957
-margin_right = -0.0189999
-margin_bottom = -0.00800323
-custom_styles/panel = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="top_panel/ct"]
-anchor_left = 0.027
-anchor_top = 0.2
-anchor_right = 0.973
-anchor_bottom = 0.8
-margin_left = 0.0289999
-margin_right = -0.029007
-custom_fonts/font = ExtResource( 4 )
-text = "0"
-align = 1
-
-[node name="t" type="Panel" parent="top_panel"]
-anchor_left = 1.013
-anchor_top = 0.111
-anchor_right = 1.683
-anchor_bottom = 0.852
-margin_left = -0.00275421
-margin_top = 0.00599957
-margin_right = -0.0327606
-margin_bottom = -0.00800323
-custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="top_panel/t"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -12.0
-margin_right = 32.0
-margin_bottom = 12.0
-custom_fonts/font = ExtResource( 4 )
-text = "0"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="top_panel" parent="." instance=ExtResource( 2 )]
 
 [node name="Label" type="Label" parent="."]
 margin_left = 466.226
 margin_top = 145.871
 margin_right = 773.226
 margin_bottom = 177.871
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -149,5 +50,4 @@ stream = ExtResource( 8 )
 [node name="mega_kill" type="AudioStreamPlayer" parent="quake_sounds"]
 
 [node name="ultra_kill" type="AudioStreamPlayer" parent="quake_sounds"]
-[connection signal="timeout" from="top_panel/uptime" to="." method="_on_uptime_timeout"]
 [connection signal="timeout" from="Label/Timer" to="." method="_on_Timer_timeout"]

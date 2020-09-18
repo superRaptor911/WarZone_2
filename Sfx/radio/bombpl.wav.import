@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/ctwin.wav-89f077192cc44ebbf65863dbfaec787c.sample"
+path="res://.import/bombpl.wav-b757d3b6a2e1cbaa54ce8e22398f770f.sample"
 
 [deps]
 
-source_file="res://Sfx/weapons/ctwin.wav"
-dest_files=[ "res://.import/ctwin.wav-89f077192cc44ebbf65863dbfaec787c.sample" ]
+source_file="res://Sfx/radio/bombpl.wav"
+dest_files=[ "res://.import/bombpl.wav-b757d3b6a2e1cbaa54ce8e22398f770f.sample" ]
 
 [params]
 
