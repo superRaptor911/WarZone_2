@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Objects/Game_modes/Competitive/CompetitiveMode.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Game_modes/TDM/top_panel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sfx/radio/terwin.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sfx/radio/ctwin.wav" type="AudioStream" id=4]
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Sfx/radio/letsgo.wav" type="AudioStream" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="CompetitiveMode" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -20,6 +29,9 @@ stream = ExtResource( 3 )
 [node name="CTWin" type="AudioStreamPlayer" parent="audio"]
 stream = ExtResource( 4 )
 
+[node name="LetsGo" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource( 6 )
+
 [node name="delays" type="Node" parent="."]
 
 [node name="round_end_dl" type="Timer" parent="delays"]
@@ -28,6 +40,35 @@ one_shot = true
 
 [node name="round_start_dl" type="Timer" parent="delays"]
 one_shot = true
+
+[node name="roundPanel" type="Panel" parent="."]
+visible = false
+anchor_left = 0.286
+anchor_top = 0.163
+anchor_right = 0.714
+anchor_bottom = 0.304
+margin_left = 0.419983
+margin_top = -0.30101
+margin_right = -0.420044
+margin_bottom = 0.17897
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="roundPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -63.5
+margin_top = -18.5
+margin_right = 63.5
+margin_bottom = 18.5
+custom_fonts/font = ExtResource( 5 )
+text = "ROUND 1"
+align = 1
+valign = 1
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="delays/round_end_dl" to="." method="_on_round_end_dl_timeout"]
 [connection signal="timeout" from="delays/round_start_dl" to="." method="_on_round_start_dl_timeout"]

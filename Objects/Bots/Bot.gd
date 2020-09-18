@@ -133,7 +133,7 @@ func _on_bomb_planted():
 	brain.onBombPlanted()
 
 func _process(delta):
-	if brain:
+	if brain and not paused:
 		brain.think(delta)
 
 func plantBomb():

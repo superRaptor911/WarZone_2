@@ -7,12 +7,13 @@ var mode_settings = {
 }
 
 var time_elasped = 0
-var cur_round = 0
+var cur_round = 1
 var half_time = false
 var is_wait_time = false
 
 
 onready var timer_label = $top_panel/Label
+onready var level = get_tree().get_nodes_in_group("Level")[0]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,16 +25,25 @@ func _ready():
 		for i in teams:
 			i.connect("team_eliminated", self, "S_On_team_eliminated")
 		
+		level.connect("player_created", self, "on_player_joined")
+		
 		createBots()
 		$Timer.start()
 		time_elasped = 0
 		is_wait_time = true
 		freezeEveryone()
 		$delays/round_start_dl.start(mode_settings.wait_time)
-		
 	# Peer
 	else:
 		pass
+
+
+func on_player_joined(plr):
+	if is_wait_time:
+		plr.S_freezeUnit(true)
+		rpc_id(int(plr.name), "on_new_round", cur_round)
+	else:
+		plr.killChar()
 
 
 # Update current time
@@ -100,6 +110,7 @@ func _on_round_end_dl_timeout():
 	is_wait_time = true
 	freezeEveryone()
 	$delays/round_start_dl.start(mode_settings.wait_time)
+	rpc("on_new_round", cur_round)
 
 
 # Respawns everyone
@@ -122,7 +133,6 @@ func unfreezeEveryone():
 
 # Swap teams
 func swapTeam():
-	var level = get_tree().get_nodes_in_group("Level")[0]
 	var units = get_tree().get_nodes_in_group("Unit")
 	for i in units:
 		level.rpc_id(1,"S_changeUnitTeam", i.name, not i.team.team_id)
@@ -135,6 +145,7 @@ func endGame():
 
 func _on_round_start_dl_timeout():
 	unfreezeEveryone()
+	rpc("on_wait_time_over")
 
 
 func createBots():
@@ -144,7 +155,6 @@ func createBots():
 	print("Bot count = ",game_server.bot_settings.bot_count)
 	game_server.bot_settings.index = 0
 	var ct = false
-	var level = get_tree().get_nodes_in_group("Level")[0]
 	
 	if bot_count > game_states.bot_profiles.bot.size():
 		Logger.Log("Not enough bot profiles. Required %d , Got %d" % [bot_count, game_states.bot_profiles.bot.size()])
@@ -184,3 +194,13 @@ func createBots():
 	for i in bots:
 		level.createUnit(i)
 		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])
+
+
+remotesync func on_new_round(Round : int):
+	cur_round = Round
+	$roundPanel.show()
+	UiAnim.animZoomIn([$roundPanel])
+
+remotesync func on_wait_time_over():
+	$roundPanel.hide()
+	$audio/LetsGo.play()
