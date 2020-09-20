@@ -26,7 +26,8 @@ var extraServerInfo = {
 
 var game_config = {
 	override_default_spectator = false,
-	overide_default_team_selector = false
+	overide_default_team_selector = false,
+	overide_default_HUD = false
 }
 
 # settings for game modes (like time limit, round limit . . .)

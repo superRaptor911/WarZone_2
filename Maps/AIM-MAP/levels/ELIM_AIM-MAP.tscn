@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Maps/AIM-MAP/maps/AIM-MAP.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Maps/BaseLevel.gd" type="Script" id=3]
+
+[node name="ELIM_AIM-MAP" type="Node"]
+
+[node name="Level" type="Node2D" parent="." groups=[
+"Level",
+]]
+script = ExtResource( 3 )
+
+[node name="BaseMap" parent="Level" instance=ExtResource( 2 )]
+
+[node name="spawns" type="Node" parent="."]
+
+[node name="spawn_point" parent="spawns" instance=ExtResource( 1 )]
+position = Vector2( 720.67, 1868.46 )
+
+[node name="spawn_point3" parent="spawns" instance=ExtResource( 1 )]
+position = Vector2( 834.834, 1668.67 )
+
+[node name="spawn_point4" parent="spawns" instance=ExtResource( 1 )]
+position = Vector2( 844.059, 320.139 )
+team_id = 1
+
+[node name="spawn_point5" parent="spawns" instance=ExtResource( 1 )]
+position = Vector2( 689.334, 152.715 )
+team_id = 1
+
+[node name="spawn_point6" parent="spawns" instance=ExtResource( 1 )]
+position = Vector2( 991.241, 157.972 )
+team_id = 1
+
+[node name="spawn_point2" parent="spawns" instance=ExtResource( 1 )]
+position = Vector2( 1013.22, 1866.08 )
+
+[node name="POI" type="Node" parent="." groups=[
+"POI",
+]]
+
+[node name="Node2D" type="Node2D" parent="POI"]
+position = Vector2( 830.27, 878.325 )
+
+[node name="Node2D2" type="Node2D" parent="POI"]
+position = Vector2( 822.261, 1204.03 )
+
+[node name="Node2D3" type="Node2D" parent="POI"]
+position = Vector2( 125.475, 1014.48 )
+
+[node name="Node2D4" type="Node2D" parent="POI"]
+position = Vector2( 1559.09, 1019.82 )

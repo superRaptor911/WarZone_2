@@ -15,9 +15,11 @@ var spectate = preload("res://Objects/Game_modes/Spectate.tscn").instance()
 var team_selector = null
 var _pause_cntrl : bool = false
 
+var is_spectating = false
+
 var cur_dropped_item_id = 0
 
-onready var canvas = get_node("CanvasModulate")
+onready var canvas_modulate = get_node("CanvasModulate")
 
 signal player_killed(player)
 signal gun_picked
@@ -43,7 +45,6 @@ func _ready():
 			$Camera2D.position = Vector2(0,-120)
 		
 		$Camera2D.current = true
-		print("std::cout<<Hello world;")
 		connect("char_killed",self,"P_on_player_killed")
 		#connect("char_fraged", self, "getKillRewards")
 		hud = load("res://Menus/HUD/Hud.tscn").instance()
@@ -81,6 +82,7 @@ func P_on_player_killed():
 		get_parent().add_child(spectate)
 		# Connect signals
 		spectate.connect("leave_spec_mode", self, "P_on_team_menu_selected")
+		is_spectating = true
 	remove_child(hud)
 
 
@@ -91,6 +93,7 @@ func pickItem(item_id = -1):
 		d_item_man.rpc_id(1,"requestPickUp",name,cur_dropped_item_id)
 	else:
 		d_item_man.rpc_id(1,"requestPickUp",name,item_id)
+
 
 remotesync func pickUpItem(item):
 	if item.type == "wpn":
@@ -133,7 +136,9 @@ func P_on_team_menu_selected():
 func P_on_spectate_selected():
 	if not alive:
 		get_parent().remove_child(team_selector)
-		get_parent().add_child(spectate)
+		if not game_server.game_config.override_default_spectator:
+			get_parent().add_child(spectate)
+			is_spectating = true
 	else:
 		Logger.notice.showNotice(get_parent(), "OOPS!", "You are alive and you need to be dead to spectate")
 
@@ -167,10 +172,8 @@ func getWpnAttachments():
 
 
 func _process(delta):
-	HP = min(100,HP + regen_rate * delta)
 	_get_inputs()
-	if is_network_master() and HP < 50:
-		canvas.color = Color(1.0, 0.01 * HP, 0.01 * HP)
+
 
 
 func _get_inputs():

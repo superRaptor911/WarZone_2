@@ -1,13 +1,35 @@
 extends Node
 
 var levels = {
+	l4 = {
+			debug = false, 
+			desc = "",
+			game_modes = [
+							"TDM", "res://Maps/AIM-MAP/levels/TDM_AIM-MAP.tscn",
+							"Zombie Mod", "res://Maps/AIM-MAP/levels/Zombie_AIM-MAP.tscn",
+							"Elimination", "res://Maps/AIM-MAP/levels/ELIM_AIM-MAP.tscn"
+						 ],
+			icon = preload("res://Maps/AIM-MAP/minimaps/AIM-MAP.png"),
+			name = "AIM-MAP"
+		},
+
+	l3 = {
+		name = "fy Dust",
+		icon = preload("res://Maps/fy_dust/minimap.png"),
+		game_modes = [
+				"Zombie Mod", "res://Maps/fy_dust/zm_fy_dust.tscn",
+				"TDM", "res://Maps/fy_dust/fy_dust_tdm.tscn"
+			],
+		desc = "",
+		debug = false
+	},
 	
 	l1 = {
 		name = "Dust II",
 		icon = preload("res://Maps/Dust/minimap.png"),
 		game_modes = [
 				"Zombie Mod", "res://Maps/Dust/Zm_Dust.tscn",
-				"Competitive", "res://Maps/Dust/DustComp.tscn",
+				"Elimination", "res://Maps/Dust/DustComp.tscn",
 				"TDM","res://Maps/Dust/TDM.tscn"
 			],
 		desc = "",
@@ -23,17 +45,7 @@ var levels = {
 		desc = "Test Map!!!",
 		debug  = true
 	},
-	
-	l3 = {
-		name = "fy Dust",
-		icon = preload("res://Maps/fy_dust/minimap.png"),
-		game_modes = [
-				"Zombie Mod", "res://Maps/fy_dust/zm_fy_dust.tscn",
-				"TDM", "res://Maps/fy_dust/fy_dust_tdm.tscn"
-			],
-		desc = "",
-		debug = false
-	}
+
 }
 
 

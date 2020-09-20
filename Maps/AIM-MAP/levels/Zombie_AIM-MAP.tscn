@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Game_modes/ZombieMod/zombieSpawner.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Maps/BaseLevel.gd" type="Script" id=3]
+[ext_resource path="res://Maps/AIM-MAP/maps/AIM-MAP.tscn" type="PackedScene" id=4]
+
+[node name="Zombie" type="Node"]
+
+[node name="Level" type="Node2D" parent="." groups=[
+"Level",
+]]
+script = ExtResource( 3 )
+Level_Name = "AIM-MAP"
+author = "c533d3d60758497e"
+
+[node name="BaseMap" parent="Level" instance=ExtResource( 4 )]
+force_update = false
+
+[node name="GameMode" type="Node" parent="."]
+
+[node name="zombieSpawner" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 681.384, 1058.28 )
+
+[node name="@zombieSpawner@291" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 1014.38, 1054.28 )
+
+[node name="@zombieSpawner@292" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 716.284, 1388.65 )
+
+[node name="@zombieSpawner@293" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 966.284, 1382.65 )
+
+[node name="@zombieSpawner@294" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 492.9, 1279.52 )
+
+[node name="@zombieSpawner@295" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 1146.09, 1279.9 )
+
+[node name="@zombieSpawner@296" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 1135.65, 857.01 )
+
+[node name="@zombieSpawner@297" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 520.65, 848.01 )
+
+[node name="@zombieSpawner@298" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 952.65, 747.01 )
+
+[node name="@zombieSpawner@299" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 700.65, 739.01 )
+
+[node name="@zombieSpawner@300" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 836.65, 534.01 )
+
+[node name="@zombieSpawner@301" parent="GameMode" instance=ExtResource( 2 )]
+position = Vector2( 844.138, 1592.33 )
+
+[node name="spawn_point" parent="GameMode" instance=ExtResource( 1 )]
+position = Vector2( 680.304, 180.625 )
+team_id = 1
+
+[node name="@spawn_point@302" parent="GameMode" instance=ExtResource( 1 )]
+position = Vector2( 947.304, 172.625 )
+team_id = 1
+
+[node name="@spawn_point@303" parent="GameMode" instance=ExtResource( 1 )]
+position = Vector2( 191.574, 631.214 )
+team_id = 1
+
+[node name="@spawn_point@304" parent="GameMode" instance=ExtResource( 1 )]
+position = Vector2( 1472.77, 635.515 )
+team_id = 1
+
+[node name="@spawn_point@305" parent="GameMode" instance=ExtResource( 1 )]
+position = Vector2( 1472.69, 1401.66 )
+team_id = 1
+
+[node name="@spawn_point@306" parent="GameMode" instance=ExtResource( 1 )]
+position = Vector2( 1033.79, 1882.57 )
+team_id = 1
+
+[node name="@spawn_point@307" parent="GameMode" instance=ExtResource( 1 )]
+position = Vector2( 618.79, 1893.57 )
+team_id = 1
+
+[node name="@spawn_point@308" parent="GameMode" instance=ExtResource( 1 )]
+position = Vector2( 176.177, 1420.45 )
+team_id = 1

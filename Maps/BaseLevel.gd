@@ -61,7 +61,7 @@ func _ready():
 	spawn_points = get_tree().get_nodes_in_group("SpawnPoint")
 	network.connect("disconnected", self, "_on_disconnected")
 	loadGameMode()
-	
+
 	#handle team selector
 	add_child(teamSelector)
 	teamSelector.connect("team_selected",self,"_on_player_selected_team")
@@ -95,8 +95,8 @@ func loadGameMode():
 		game_mode = load("res://Objects/Game_modes/ZombieMod/ZombieMod.tscn").instance()
 	elif game_server.serverInfo.game_mode == "TDM":
 		game_mode = load("res://Objects/Game_modes/TDM/TDM.tscn").instance()
-	elif game_server.serverInfo.game_mode == "Competitive":
-		game_mode = load("res://Objects/Game_modes/Competitive/CompetitiveMode.tscn").instance()
+	elif game_server.serverInfo.game_mode == "Elimination":
+		game_mode = load("res://Objects/Game_modes/Elimination/Elimination.tscn").instance()
 	#elif game_server.serverInfo.game_mode == "Bombing":
 		#game_mode = load("res://Objects/Game_modes/BombDiffuse.tscn").instance()
 	
@@ -111,10 +111,11 @@ func loadGameMode():
 		if ts:
 			teamSelector = load(ts).instance()
 			Logger.Log("Using custom team selector from %s" % [ts])
+			print("Loading not default team selector")
 		#switch to default team selector
 		else:
 			teamSelector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
-	
+			print("Loading default team selector")
 	else:
 		teamSelector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 		Logger.LogError("loadGameMode", "Unable to load game mode")
