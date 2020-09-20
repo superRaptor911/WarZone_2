@@ -2,18 +2,20 @@ extends CanvasLayer
 
 var mode_settings = {
 	round_time = 2, # Round time limit in minutes
-	max_rounds = 1, #
-	wait_time = 5	# Wait time(sec) before players can move
+	max_rounds = 5, # Maximum rounds in 1 half
 }
 
-var time_elasped = 0
-var cur_round = 1
-var half_time = false
-var is_wait_time = false
+
+var time_elasped = 0		# Elasped time
+var cur_round = 1			# Current round
+var half_time = false		# Counter for tracking half time
+var is_wait_time = false	# Counter for wait time
+var wait_duration = 5.0		# Wait time duration
 
 
 onready var timer_label = $top_panel/Label
 onready var level = get_tree().get_nodes_in_group("Level")[0]
+onready var teams = get_tree().get_nodes_in_group("Team")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,16 +34,16 @@ func _ready():
 		time_elasped = 0
 		is_wait_time = true
 		freezeEveryone()
-		$delays/round_start_dl.start(mode_settings.wait_time)
+		$delays/round_start_dl.start(wait_duration)
 	# Peer
 	else:
 		pass
 
-
+# Handle player connection
 func on_player_joined(plr):
 	if is_wait_time:
 		plr.S_freezeUnit(true)
-		rpc_id(int(plr.name), "on_new_round", cur_round)
+		rpc_id(int(plr.name), "P_on_new_round", cur_round)
 	else:
 		plr.killChar()
 
@@ -54,7 +56,7 @@ func _on_Timer_timeout():
 		rpc_unreliable("P_syncTime", time_elasped)
 	else:
 		rpc_unreliable("P_syncWaitTime", time_elasped)
-		if time_elasped > mode_settings.wait_time:
+		if time_elasped > wait_duration:
 			is_wait_time = false
 			time_elasped = 0
 
@@ -72,7 +74,7 @@ remotesync func P_syncTime(time : int):
 # local function to sync wait time
 remotesync func P_syncWaitTime(time : int):
 	# Show time remaining in panel
-	var time_limit = mode_settings.wait_time
+	var time_limit = wait_duration
 	var _min_ : int = (time_limit - time)/60.0
 	var _sec_ : int = int(time_limit - time) % 60
 	timer_label.text = String(_min_) + " : " + String(max(_sec_,0))
@@ -86,6 +88,23 @@ func S_On_team_eliminated(team):
 	# CT
 	else:
 		$audio/TWin.play()
+	
+	# Get winning team and add score
+	var winner = teams[0]
+	if winner.team_id == team.team_id:
+		winner = teams[1]
+	winner.addScore(2)
+	
+	# Update scores
+	var t_score
+	var ct_score
+	if teams[0].team_id == 0:
+		t_score = teams[0].score
+		ct_score = teams[1].score
+	else:
+		t_score = teams[1].score
+		ct_score = teams[0].score
+	rpc("P_updateScores", t_score, ct_score)
 	$delays/round_end_dl.start()
 	$Timer.stop()
 
@@ -106,7 +125,7 @@ func _on_round_end_dl_timeout():
 			yield(get_tree(), "idle_frame")
 			freezeEveryone()
 			$delays/half_time_timer.start()
-			rpc("on_half_time")
+			rpc("P_on_half_time_starts")
 			return
 		# Game ends
 		else:
@@ -120,8 +139,8 @@ func _on_round_end_dl_timeout():
 	time_elasped = 0
 	is_wait_time = true
 	freezeEveryone()
-	$delays/round_start_dl.start(mode_settings.wait_time)
-	rpc("on_new_round", cur_round)
+	$delays/round_start_dl.start(wait_duration)
+	rpc("P_on_new_round", cur_round)
 
 
 # Respawns everyone
@@ -131,34 +150,44 @@ func respawnEveryone():
 		i.S_respawnUnit()
 
 
+# Freeze everyone, prevents from moving
 func freezeEveryone():
 	var players = get_tree().get_nodes_in_group("Unit")
 	for i in players:
 		i.S_freezeUnit(true)
 
 
+# Un-Freeze everyone
 func unfreezeEveryone():
 	var players = get_tree().get_nodes_in_group("Unit")
 	for i in players:
 		i.S_freezeUnit(false)
+
 
 # Swap teams
 func swapTeam():
 	var units = get_tree().get_nodes_in_group("Unit")
 	for i in units:
 		level.rpc_id(1,"S_changeUnitTeam", i.name, abs(i.team.team_id - 1), false)
+	# Swap scores
+	var temp = teams[0].score
+	teams[0].score = teams[1].score
+	teams[1].score = temp
 
 
-# Game ends
+
+# Game ends, called when game ends
 func endGame():
 	pass
 
 
+# Called when wait time is over, Server side
 func _on_round_start_dl_timeout():
 	unfreezeEveryone()
-	rpc("on_wait_time_over")
+	rpc("P_on_wait_time_over")
 
 
+# Function to create bots
 func createBots():
 	Logger.Log("Creating bots")
 	var bots = Array()
@@ -207,32 +236,48 @@ func createBots():
 		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])
 
 
-remotesync func on_new_round(Round : int):
+# Called every round on peers
+remotesync func P_on_new_round(Round : int):
 	cur_round = Round
-	var round_label = $round_label
+	# Show message
+	var round_label = $main_label
 	round_label.show()
-	round_label.text = "Round " + String(cur_round)
+	if Round == mode_settings.max_rounds:
+		if not half_time:
+			round_label.text = "Last Round of this half"
+		else:
+			round_label.text = "Last Round"
+	else:
+		round_label.text = "Round " + String(cur_round)
 	UiAnim.animZoomIn([round_label])
 
 
-remotesync func on_wait_time_over():
-	$round_label.hide()
+# Called when wait time is over
+remotesync func P_on_wait_time_over():
+	$main_label.hide()
 	$audio/LetsGo.play()
 
 
-remotesync func on_half_time():
-	var half_time_label = $first_half_label
+# Called when half time starts
+remotesync func P_on_half_time_starts():
+	half_time = true
+	# Show message
+	var half_time_label = $main_label
 	half_time_label.show()
+	half_time_label.text = "End of First Half"
 	UiAnim.animZoomIn([half_time_label])
-	var plr = level.get_node(String(game_states.player_info.net_id))
+	# apply gray tint
+	var plr = game_server._unit_data_list.get(String(game_states.player_info.net_id))
 	if plr:
-		plr.canvas_modulate.color = Color.gray
+		plr.ref.canvas_modulate.color = Color.gray
 	else:
 		print("Local player not found ", game_states.player_info.net_id)
 
 
-remotesync func on_half_time_ends():
-	$first_half_label.hide()
+# Called when half time ends
+remotesync func P_on_half_time_ends():
+	$main_label.hide()
+	# Remove gray tint gradually
 	var plr = game_server._unit_data_list.get(String(game_states.player_info.net_id))
 	if plr:
 		$Tween.interpolate_property(plr.ref.canvas_modulate, "color", Color.gray,
@@ -240,11 +285,17 @@ remotesync func on_half_time_ends():
 		$Tween.start()
 
 
-
+# Called when half time ends, Server side
 func _on_half_time_timer_timeout():
 	$Timer.start()
 	time_elasped = 0
 	is_wait_time = true
-	$delays/round_start_dl.start(mode_settings.wait_time)
-	rpc("on_half_time_ends")
-	rpc("on_new_round", cur_round)
+	$delays/round_start_dl.start(wait_duration)
+	rpc("P_on_half_time_ends")
+	rpc("P_on_new_round", cur_round)
+
+
+# Update and show scores in the panel
+remotesync func P_updateScores(t_score, ct_score):
+	$top_panel/t/Label.text = String(t_score)
+	$top_panel/ct/Label.text = String(ct_score)

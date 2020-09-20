@@ -46,7 +46,7 @@ one_shot = true
 wait_time = 4.0
 one_shot = true
 
-[node name="first_half_label" type="Label" parent="."]
+[node name="main_label" type="Label" parent="."]
 visible = false
 anchor_left = 0.286
 anchor_top = 0.163
@@ -59,25 +59,6 @@ margin_bottom = -0.301025
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 1 )
 text = "End of First Half"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="round_label" type="Label" parent="."]
-visible = false
-anchor_left = 0.286
-anchor_top = 0.163
-anchor_right = 0.721
-anchor_bottom = 0.338
-margin_left = 0.419983
-margin_top = -0.30101
-margin_right = 0.619995
-margin_bottom = -0.301025
-custom_styles/normal = SubResource( 1 )
-custom_fonts/font = ExtResource( 1 )
-text = "Round 1"
 align = 1
 valign = 1
 __meta__ = {
