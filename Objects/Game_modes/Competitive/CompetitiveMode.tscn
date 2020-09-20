@@ -43,7 +43,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="half_time_timer" type="Timer" parent="delays"]
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 
 [node name="first_half_label" type="Label" parent="."]

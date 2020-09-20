@@ -45,7 +45,7 @@ func _ready():
 		$Camera2D.current = true
 		print("std::cout<<Hello world;")
 		connect("char_killed",self,"P_on_player_killed")
-		connect("char_fraged", self, "getKillRewards")
+		#connect("char_fraged", self, "getKillRewards")
 		hud = load("res://Menus/HUD/Hud.tscn").instance()
 		add_child(hud)
 		hud.setUser(self)
@@ -74,12 +74,15 @@ func P_on_player_killed():
 	$aim_indicator.hide()
 	pause_controls(true)
 	streak = 0
-	# Add spectate mode to level node after 3 seconds
-	yield(get_tree().create_timer(3), "timeout")
-	get_parent().add_child(spectate)
+	
+	if not game_server.game_config.override_default_spectator:
+		# Add spectate mode to level node after 3 seconds
+		yield(get_tree().create_timer(3), "timeout")
+		get_parent().add_child(spectate)
+		# Connect signals
+		spectate.connect("leave_spec_mode", self, "P_on_team_menu_selected")
 	remove_child(hud)
-	# Connect signals
-	spectate.connect("leave_spec_mode", self, "P_on_team_menu_selected")
+
 
 
 func pickItem(item_id = -1):
@@ -126,12 +129,14 @@ func P_on_team_menu_selected():
 	#team_selector.connect("team_selected", self, "P_on_team_selected")
 	#team_selector.connect("spectate_mode", self, "P_on_spectate_selected")
 
+
 func P_on_spectate_selected():
 	if not alive:
 		get_parent().remove_child(team_selector)
 		get_parent().add_child(spectate)
 	else:
 		Logger.notice.showNotice(get_parent(), "OOPS!", "You are alive and you need to be dead to spectate")
+
 
 func P_on_team_selected(team_id):
 	# New team selected
@@ -148,6 +153,7 @@ func P_on_team_selected(team_id):
 		Logger.Log("Team not changed, You are already in selected team")
 		Logger.notice.showNotice(get_parent(), "OOPS!", "You are already in selected team")
 
+
 func getWpnAttachments():
 	for i in game_states.player_data.guns:
 		if i.gun_name == gun_1.gun_name:
@@ -159,11 +165,13 @@ func getWpnAttachments():
 			gun_2.extended_mag = i.mag_ext
 			gun_2.extendMag()
 
+
 func _process(delta):
 	HP = min(100,HP + regen_rate * delta)
 	_get_inputs()
 	if is_network_master() and HP < 50:
 		canvas.color = Color(1.0, 0.01 * HP, 0.01 * HP)
+
 
 func _get_inputs():
 	if not is_network_master() or _pause_cntrl or game_states.is_android:
@@ -193,6 +201,7 @@ func _get_inputs():
 		get_node("Camera2D").zoom = selected_gun.getNextZoom()
 	rotation = (get_global_mouse_position()  - global_position).angle() + 1.57
 
+
 remotesync func server_throwGrenade():
 	if get_tree().is_network_server():
 		#bad code
@@ -200,6 +209,7 @@ remotesync func server_throwGrenade():
 		rpc("_sync_throwGrenade",nam)
 	else:
 		print("Error : called on peer")
+
 
 remotesync func _sync_throwGrenade(nam):
 	var g = grenade.instance()
@@ -210,7 +220,8 @@ remotesync func _sync_throwGrenade(nam):
 	g.user = self.name
 	g.throwGrenade(dir)
 
-#called when player is respawned
+
+# Called when player is respawned
 func on_player_respawned():
 	pause_controls(false)
 	if is_network_master():
@@ -219,10 +230,12 @@ func on_player_respawned():
 		get_parent().remove_child(spectate)
 		add_child(hud)
 
+
 func pause_controls(val : bool):
 	_pause_cntrl = val
 	if game_states.is_android and is_network_master():
 		hud.get_node("controller").enabled = !val
+
 
 func getKillRewards():
 	if game_server.serverInfo.game_mode == "Zombie Mod":

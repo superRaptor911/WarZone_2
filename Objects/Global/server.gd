@@ -9,7 +9,7 @@ var serverInfo : = {
 	"map" : "",
 	"map_author" : "INC",
 	"version" : game_states.current_game_version,
-	"min_v" : 1.44
+	"min_v" : 1.47
 }
 
 #time is in minutes
@@ -24,6 +24,12 @@ var extraServerInfo = {
 	tick_rate = 25
 }
 
+var game_config = {
+	override_default_spectator = false,
+	overide_default_team_selector = false
+}
+
+# settings for game modes (like time limit, round limit . . .)
 var game_mode_settings = {}
 
 #####################Update rate######################

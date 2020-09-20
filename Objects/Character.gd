@@ -90,9 +90,11 @@ func killChar():
 	rpc("P_health",HP,AP)
 	rpc("P_death")
 
+
 var blood_spilled_timestamp = 0
 var blood_spill_interval = 1000 #in ms
 
+# Function to sync health
 remotesync func P_health(hp,ap):
 	HP = hp
 	AP = ap
@@ -106,6 +108,7 @@ remotesync func P_health(hp,ap):
 	emit_signal("char_took_damage")
 
 
+# Function to sync death
 remotesync func P_death():
 	# scream chance 1/4 
 	if randi() % 4 == 0:

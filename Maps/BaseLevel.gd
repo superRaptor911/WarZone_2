@@ -379,7 +379,7 @@ remotesync func P_restartLevel():
 	add_child(teamSelector)
 
 
-remotesync func S_changeUnitTeam(unit_id : String, team_id : int):
+remotesync func S_changeUnitTeam(unit_id : String, team_id : int, kill_unit = true):
 	if get_tree().is_network_server():
 		var unit = game_server._unit_data_list.get(unit_id)
 		if not unit:
@@ -390,7 +390,9 @@ remotesync func S_changeUnitTeam(unit_id : String, team_id : int):
 			Logger.Log("Failed to change team. Already in team %d" % [team_id])
 			return
 		
-		unit.ref.killChar()
+		if kill_unit:
+			unit.ref.killChar()
+		
 		rpc("P_changeUnitTeam", unit_id, team_id)
 
 

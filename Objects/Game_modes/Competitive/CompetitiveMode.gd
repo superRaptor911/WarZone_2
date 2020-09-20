@@ -78,6 +78,7 @@ remotesync func P_syncWaitTime(time : int):
 	timer_label.text = String(_min_) + " : " + String(max(_sec_,0))
 
 
+# Called when a team is wiped out
 func S_On_team_eliminated(team):
 	# Terrorist
 	if team.team_id == 0:
@@ -94,11 +95,12 @@ func _on_round_end_dl_timeout():
 	cur_round += 1
 	# round chk
 	if cur_round > mode_settings.max_rounds:
-		# Half time
+		# Half time, swap sides
 		if not half_time:
-			cur_round = 0
-			swapTeam()
+			cur_round = 1
+			time_elasped = 0
 			half_time = true
+			swapTeam()
 			respawnEveryone()
 			yield(get_tree(), "idle_frame")
 			yield(get_tree(), "idle_frame")
@@ -144,7 +146,7 @@ func unfreezeEveryone():
 func swapTeam():
 	var units = get_tree().get_nodes_in_group("Unit")
 	for i in units:
-		level.rpc_id(1,"S_changeUnitTeam", i.name, abs(i.team.team_id - 1))
+		level.rpc_id(1,"S_changeUnitTeam", i.name, abs(i.team.team_id - 1), false)
 
 
 # Game ends
@@ -212,6 +214,7 @@ remotesync func on_new_round(Round : int):
 	round_label.text = "Round " + String(cur_round)
 	UiAnim.animZoomIn([round_label])
 
+
 remotesync func on_wait_time_over():
 	$round_label.hide()
 	$audio/LetsGo.play()
@@ -233,7 +236,7 @@ remotesync func on_half_time_ends():
 	var plr = level.get_node(String(game_states.player_info.net_id))
 	if plr:
 		$Tween.interpolate_property(plr.get_node("CanvasModulate"), "color", Color.gray,
-			Color.white, 2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 1)
+			Color.white, 3, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 1)
 		$Tween.start()
 		#plr.get_node("CanvasModulate").color = Color(1,1,1,1)
 
