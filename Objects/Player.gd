@@ -162,7 +162,7 @@ func getWpnAttachments():
 func _process(delta):
 	HP = min(100,HP + regen_rate * delta)
 	_get_inputs()
-	if is_network_master():
+	if is_network_master() and HP < 50:
 		canvas.color = Color(1.0, 0.01 * HP, 0.01 * HP)
 
 func _get_inputs():

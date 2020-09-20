@@ -232,7 +232,11 @@ remotesync func on_half_time_ends():
 	$first_half_label.hide()
 	var plr = level.get_node(String(game_states.player_info.net_id))
 	if plr:
-		plr.get_node("CanvasModulate").color = Color(1,1,1,1)
+		$Tween.interpolate_property(plr.get_node("CanvasModulate"), "color", Color.gray,
+			Color.white, 2, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 1)
+		$Tween.start()
+		#plr.get_node("CanvasModulate").color = Color(1,1,1,1)
+
 
 func _on_half_time_timer_timeout():
 	$Timer.start()
