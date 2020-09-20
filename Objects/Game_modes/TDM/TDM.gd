@@ -139,7 +139,7 @@ remotesync func sync_endGame():
 	$Tween.interpolate_property(end_scr,"rect_scale",Vector2(0,0),Vector2(1,1),1,
 		Tween.TRANS_QUAD,Tween.EASE_OUT,2)
 	$Tween.start()
-	$Time_container.hide()
+	#$Time_container.hide()
 
 
 func showQuakeKills():

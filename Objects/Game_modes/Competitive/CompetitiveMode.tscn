@@ -35,40 +35,57 @@ stream = ExtResource( 6 )
 [node name="delays" type="Node" parent="."]
 
 [node name="round_end_dl" type="Timer" parent="delays"]
-wait_time = 5.0
+wait_time = 6.0
 one_shot = true
 
 [node name="round_start_dl" type="Timer" parent="delays"]
+wait_time = 5.0
 one_shot = true
 
-[node name="roundPanel" type="Panel" parent="."]
+[node name="half_time_timer" type="Timer" parent="delays"]
+wait_time = 3.0
+one_shot = true
+
+[node name="first_half_label" type="Label" parent="."]
 visible = false
 anchor_left = 0.286
 anchor_top = 0.163
-anchor_right = 0.714
-anchor_bottom = 0.304
+anchor_right = 0.721
+anchor_bottom = 0.338
 margin_left = 0.419983
 margin_top = -0.30101
-margin_right = -0.420044
-margin_bottom = 0.17897
-custom_styles/panel = SubResource( 1 )
+margin_right = 0.619995
+margin_bottom = -0.301025
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "End of First Half"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="roundPanel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -63.5
-margin_top = -18.5
-margin_right = 63.5
-margin_bottom = 18.5
+[node name="round_label" type="Label" parent="."]
+visible = false
+anchor_left = 0.286
+anchor_top = 0.163
+anchor_right = 0.721
+anchor_bottom = 0.338
+margin_left = 0.419983
+margin_top = -0.30101
+margin_right = 0.619995
+margin_bottom = -0.301025
+custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 5 )
-text = "ROUND 1"
+text = "Round 1"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="delays/round_end_dl" to="." method="_on_round_end_dl_timeout"]
 [connection signal="timeout" from="delays/round_start_dl" to="." method="_on_round_start_dl_timeout"]
+[connection signal="timeout" from="delays/half_time_timer" to="." method="_on_half_time_timer_timeout"]

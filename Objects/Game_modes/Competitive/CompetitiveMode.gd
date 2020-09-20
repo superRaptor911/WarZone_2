@@ -2,7 +2,7 @@ extends CanvasLayer
 
 var mode_settings = {
 	round_time = 2, # Round time limit in minutes
-	max_rounds = 5, #
+	max_rounds = 1, #
 	wait_time = 5	# Wait time(sec) before players can move
 }
 
@@ -93,18 +93,27 @@ func S_On_team_eliminated(team):
 func _on_round_end_dl_timeout():
 	cur_round += 1
 	# round chk
-	if cur_round >= mode_settings.max_rounds:
+	if cur_round > mode_settings.max_rounds:
 		# Half time
 		if not half_time:
 			cur_round = 0
 			swapTeam()
 			half_time = true
+			respawnEveryone()
+			yield(get_tree(), "idle_frame")
+			yield(get_tree(), "idle_frame")
+			freezeEveryone()
+			$delays/half_time_timer.start()
+			rpc("on_half_time")
+			return
 		# Game ends
 		else:
 			endGame()
 			return
 			
 	respawnEveryone()
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
 	$Timer.start()
 	time_elasped = 0
 	is_wait_time = true
@@ -135,7 +144,7 @@ func unfreezeEveryone():
 func swapTeam():
 	var units = get_tree().get_nodes_in_group("Unit")
 	for i in units:
-		level.rpc_id(1,"S_changeUnitTeam", i.name, not i.team.team_id)
+		level.rpc_id(1,"S_changeUnitTeam", i.name, abs(i.team.team_id - 1))
 
 
 # Game ends
@@ -198,9 +207,37 @@ func createBots():
 
 remotesync func on_new_round(Round : int):
 	cur_round = Round
-	$roundPanel.show()
-	UiAnim.animZoomIn([$roundPanel])
+	var round_label = $round_label
+	round_label.show()
+	round_label.text = "Round " + String(cur_round)
+	UiAnim.animZoomIn([round_label])
 
 remotesync func on_wait_time_over():
-	$roundPanel.hide()
+	$round_label.hide()
 	$audio/LetsGo.play()
+
+
+remotesync func on_half_time():
+	var half_time_label = $first_half_label
+	half_time_label.show()
+	UiAnim.animZoomIn([half_time_label])
+	var plr = level.get_node(String(game_states.player_info.net_id))
+	if plr:
+		plr.get_node("CanvasModulate").color = Color.gray
+	else:
+		print("Local player not found ", game_states.player_info.net_id)
+	
+
+remotesync func on_half_time_ends():
+	$first_half_label.hide()
+	var plr = level.get_node(String(game_states.player_info.net_id))
+	if plr:
+		plr.get_node("CanvasModulate").color = Color(1,1,1,1)
+
+func _on_half_time_timer_timeout():
+	$Timer.start()
+	time_elasped = 0
+	is_wait_time = true
+	$delays/round_start_dl.start(mode_settings.wait_time)
+	rpc("on_half_time_ends")
+	rpc("on_new_round", cur_round)
