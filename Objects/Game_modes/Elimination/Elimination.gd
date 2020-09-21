@@ -23,7 +23,6 @@ func _ready():
 	if get_tree().is_network_server():
 		$Timer.start()		# Start Time keeping
 		# Handle team eliminated signal
-		var teams = get_tree().get_nodes_in_group("Team")
 		for i in teams:
 			i.connect("team_eliminated", self, "S_On_team_eliminated")
 		
@@ -81,14 +80,7 @@ remotesync func P_syncWaitTime(time : int):
 
 
 # Called when a team is wiped out
-func S_On_team_eliminated(team):
-	# Terrorist
-	if team.team_id == 0:
-		$audio/CTWin.play()
-	# CT
-	else:
-		$audio/TWin.play()
-	
+func S_On_team_eliminated(team):	
 	# Get winning team and add score
 	var winner = teams[0]
 	if winner.team_id == team.team_id:
@@ -104,7 +96,7 @@ func S_On_team_eliminated(team):
 	else:
 		t_score = teams[1].score
 		ct_score = teams[0].score
-	rpc("P_updateScores", t_score, ct_score)
+	rpc("P_updateScores", t_score, ct_score, winner.team_id)
 	$delays/round_end_dl.start()
 	$Timer.stop()
 
@@ -296,6 +288,22 @@ func _on_half_time_timer_timeout():
 
 
 # Update and show scores in the panel
-remotesync func P_updateScores(t_score, ct_score):
+remotesync func P_updateScores(t_score, ct_score, winner_id):
 	$top_panel/t/Label.text = String(t_score)
 	$top_panel/ct/Label.text = String(ct_score)
+	# Play audio
+	# Terrorist
+	if winner_id == 0:
+		$audio/TWin.play()
+		var label = $main_label
+		label.text = "Terrorists win"
+		label.show()
+		UiAnim.animZoomIn([label])
+	# CT
+	else:
+		$audio/CTWin.play()
+		var label = $main_label
+		label.text = "CT win"
+		label.show()
+		UiAnim.animZoomIn([label])	
+	
