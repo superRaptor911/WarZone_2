@@ -14,6 +14,8 @@ onready var Reloading_text = $reloading_txt
 onready var Cash_label = $cash
 onready var Pause_menu_panel = $pause_menu
 onready var Pick_button = $pick
+onready var HP_label = $HP_AP/HP/Label
+onready var AP_label = $HP_AP/AP/Label
 
 func _ready():
 	if not game_states.is_android:
@@ -39,6 +41,8 @@ func setUser(u):
 	user.connect("gun_picked",self,"_on_gun_picked")
 	user.connect("gun_loaded", self, "setWeaponInfo")
 	user.connect("gun_switched", self, "setWeaponInfo")
+	user.connect("char_took_damage", self, "on_damaged")
+	user.connect("respawned", self, "on_damaged")
 
 # Show mags remaining in hud
 func setClipCount(count):
@@ -289,3 +293,9 @@ func _on_pic_touch_pressed():
 	if user.alive:
 		user.pickItem()
 		Pick_button.hide()
+
+
+# Called when user took damage, This updates HP / AP in HUD
+func on_damaged():
+	HP_label.text = String(int(user.HP))
+	AP_label.text = String(int(user.AP))

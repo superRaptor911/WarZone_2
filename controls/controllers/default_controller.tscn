@@ -10,13 +10,13 @@ script = ExtResource( 1 )
 
 [node name="mov_joy" type="TextureRect" parent="."]
 anchor_left = 0.075
-anchor_top = 0.629
+anchor_top = 0.588
 anchor_right = 0.231
-anchor_bottom = 0.906
+anchor_bottom = 0.866
 margin_left = 7.62939e-06
-margin_top = -0.879974
+margin_top = 0.323761
 margin_right = 0.320099
-margin_bottom = -0.679016
+margin_bottom = -0.195312
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
@@ -41,14 +41,14 @@ __meta__ = {
 }
 
 [node name="aim_joy" type="TextureRect" parent="."]
-anchor_left = 0.778
-anchor_top = 0.629
+anchor_left = 0.779
+anchor_top = 0.588
 anchor_right = 0.934
-anchor_bottom = 0.906
-margin_left = 0.160095
-margin_top = -0.879974
-margin_right = 0.483154
-margin_bottom = -0.320007
+anchor_bottom = 0.866
+margin_left = 0.56189
+margin_top = 0.323761
+margin_right = 2.16504
+margin_bottom = 0.163696
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6

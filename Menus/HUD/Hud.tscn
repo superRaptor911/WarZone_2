@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Menus/HUD/Hud.gd" type="Script" id=1]
 [ext_resource path="res://Menus/resources/white.png" type="Texture" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://controls/controllers/default_controller.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Fonts/ARIALBD.TTF" type="DynamicFontData" id=15]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=16]
+[ext_resource path="res://Sprites/UI/plus_HP.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/UI/sheild_AP.png" type="Texture" id=18]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 98.0
@@ -82,6 +84,13 @@ extents = Vector2( 70, 25 )
 size = 36
 use_filter = true
 font_data = ExtResource( 10 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Hud" type="CanvasLayer" groups=[
 "Hud",
@@ -524,6 +533,65 @@ margin_bottom = 0.200989
 custom_fonts/font = ExtResource( 16 )
 custom_colors/font_color = Color( 0.890196, 0.858824, 0.0705882, 1 )
 text = "Reloading . . ."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HP_AP" type="Panel" parent="."]
+margin_left = 4.0
+margin_top = 629.0
+margin_right = 327.0
+margin_bottom = 720.0
+custom_styles/panel = SubResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HP" type="TextureRect" parent="HP_AP"]
+margin_right = 96.0
+margin_bottom = 96.0
+texture = ExtResource( 17 )
+
+[node name="Label" type="Label" parent="HP_AP/HP"]
+anchor_left = 1.0
+anchor_top = 0.469
+anchor_right = 1.0
+anchor_bottom = 0.469
+margin_left = 1.498
+margin_top = -22.024
+margin_right = 83.498
+margin_bottom = 21.976
+custom_fonts/font = ExtResource( 16 )
+text = "100"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AP" type="TextureRect" parent="HP_AP"]
+anchor_left = 0.63
+anchor_top = 0.527
+anchor_right = 0.63
+anchor_bottom = 0.527
+margin_left = -49.49
+margin_top = -47.27
+margin_right = 46.51
+margin_bottom = 48.73
+texture = ExtResource( 18 )
+expand = true
+
+[node name="Label" type="Label" parent="HP_AP/AP"]
+anchor_left = 1.0
+anchor_top = 0.469
+anchor_right = 1.0
+anchor_bottom = 0.469
+margin_left = 1.498
+margin_top = -22.024
+margin_right = 83.498
+margin_bottom = 21.976
+custom_fonts/font = ExtResource( 16 )
+text = "100"
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
