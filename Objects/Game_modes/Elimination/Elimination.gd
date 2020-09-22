@@ -305,5 +305,9 @@ remotesync func P_updateScores(t_score, ct_score, winner_id):
 		var label = $main_label
 		label.text = "CT win"
 		label.show()
-		UiAnim.animZoomIn([label])	
+		UiAnim.animZoomIn([label])
 	
+
+
+func _on_game_end_timer_timeout():
+	pass

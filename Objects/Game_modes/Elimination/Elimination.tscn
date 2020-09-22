@@ -46,6 +46,8 @@ one_shot = true
 wait_time = 4.0
 one_shot = true
 
+[node name="game_end_timer" type="Timer" parent="delays"]
+
 [node name="main_label" type="Label" parent="."]
 visible = false
 anchor_left = 0.286
@@ -70,3 +72,4 @@ __meta__ = {
 [connection signal="timeout" from="delays/round_end_dl" to="." method="_on_round_end_dl_timeout"]
 [connection signal="timeout" from="delays/round_start_dl" to="." method="_on_round_start_dl_timeout"]
 [connection signal="timeout" from="delays/half_time_timer" to="." method="_on_half_time_timer_timeout"]
+[connection signal="timeout" from="delays/game_end_timer" to="." method="_on_game_end_timer_timeout"]

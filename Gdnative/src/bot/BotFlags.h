@@ -1,6 +1,7 @@
 #ifndef BOTFLAGS_H
 #define BOTFLAGS_H
 
+#include <vector>
 #include <Vector2.hpp>
 #include <Array.hpp>
 #include <PoolArrays.hpp>
@@ -15,6 +16,7 @@ namespace godot
         float leader_srch_start_time = 0.f;
         int evasive_mov_dir = 1;
         Node2D *leader = nullptr;
+        std::vector<Vector2> POIs;
 
         void resetFlags()
         {

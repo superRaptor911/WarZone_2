@@ -66,22 +66,16 @@ namespace godot
 		void setBotDifficulty(int difficulty);
 		void setGameMode(String gmod);
 		void gamemodeDeathmath();
-		void gamemodeBombing();
 		void gamemodeZm();
-
-		//bombing mode functions
-		void on_new_round_starts();
-		void on_selected_as_bomber();
-		void on_bomber_selected(Node2D *bomber);
-		void on_bomb_dropped();
-		void on_bomb_planted();
 
 
 		// States
+		//	DM	
 		void dm_roam();
 		void dm_attack();
 		void dm_scout();
 
+		//	ZM
 		void zm_roam();
 		void zm_followLeader();
 		void zm_attack();
