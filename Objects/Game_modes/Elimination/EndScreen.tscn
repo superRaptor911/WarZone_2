@@ -1,14 +1,41 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Objects/Game_modes/Elimination/EndScreen.gd" type="Script" id=2]
+[ext_resource path="res://hg.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.67451, 0.141176, 0.141176, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.282353, 0.533333, 0.109804, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.588235, 0.568627, 0.0352941, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 
 [node name="EndScreen" type="Control"]
 anchor_right = 1.0
@@ -18,10 +45,80 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="playerList" type="ItemList" parent="."]
-margin_left = 247.0
-margin_top = 126.0
-margin_right = 1034.0
-margin_bottom = 570.0
-custom_styles/bg = SubResource( 5 )
+[node name="winner_label" type="Label" parent="."]
+anchor_left = 0.503
+anchor_top = 0.233
+anchor_right = 0.503
+anchor_bottom = 0.233
+margin_left = -62.08
+margin_top = -37.2268
+margin_right = 57.92
+margin_bottom = -0.226807
 custom_fonts/font = ExtResource( 1 )
+text = "Winners"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="playerList" type="ItemList" parent="."]
+anchor_left = 0.193
+anchor_top = 0.245
+anchor_right = 0.808
+anchor_bottom = 0.792
+margin_left = -0.0400085
+margin_top = 0.0537567
+margin_right = -0.23999
+margin_bottom = 50.2137
+custom_styles/bg = SubResource( 1 )
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="You_Lost" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -274.0
+margin_right = 274.0
+margin_bottom = 102.0
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
+text = "You Lost"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="You_win" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -274.0
+margin_right = 274.0
+margin_bottom = 102.0
+custom_styles/normal = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
+text = "You Win"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tie" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -274.0
+margin_right = 274.0
+margin_bottom = 102.0
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
+text = "Tie"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

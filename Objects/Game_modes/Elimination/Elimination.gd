@@ -17,6 +17,10 @@ onready var timer_label = $top_panel/Label
 onready var level = get_tree().get_nodes_in_group("Level")[0]
 onready var teams = get_tree().get_nodes_in_group("Team")
 
+
+var end_screen = preload("res://Objects/Game_modes/Elimination/EndScreen.tscn").instance()
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Server side
@@ -170,7 +174,7 @@ func swapTeam():
 
 # Game ends, called when game ends
 func endGame():
-	pass
+	$delays/game_end_timer.start()
 
 
 # Called when wait time is over, Server side
@@ -306,8 +310,15 @@ remotesync func P_updateScores(t_score, ct_score, winner_id):
 		label.text = "CT win"
 		label.show()
 		UiAnim.animZoomIn([label])
-	
+
 
 
 func _on_game_end_timer_timeout():
-	pass
+	rpc("P_on_game_ends")
+
+
+
+remotesync func P_on_game_ends():
+	add_child(end_screen)
+	end_screen.showScreen()
+	$top_panel.hide()

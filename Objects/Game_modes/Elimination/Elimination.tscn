@@ -47,6 +47,8 @@ wait_time = 4.0
 one_shot = true
 
 [node name="game_end_timer" type="Timer" parent="delays"]
+wait_time = 5.0
+one_shot = true
 
 [node name="main_label" type="Label" parent="."]
 visible = false
