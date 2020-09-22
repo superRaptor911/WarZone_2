@@ -50,6 +50,10 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
+[node name="game_restart_timer" type="Timer" parent="delays"]
+wait_time = 6.0
+one_shot = true
+
 [node name="main_label" type="Label" parent="."]
 visible = false
 anchor_left = 0.286
@@ -75,3 +79,4 @@ __meta__ = {
 [connection signal="timeout" from="delays/round_start_dl" to="." method="_on_round_start_dl_timeout"]
 [connection signal="timeout" from="delays/half_time_timer" to="." method="_on_half_time_timer_timeout"]
 [connection signal="timeout" from="delays/game_end_timer" to="." method="_on_game_end_timer_timeout"]
+[connection signal="timeout" from="delays/game_restart_timer" to="." method="_on_game_restart_timer_timeout"]

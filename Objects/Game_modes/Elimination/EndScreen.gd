@@ -20,7 +20,7 @@ func showScreen():
 	var local_player_id = String(game_states.player_info.net_id)
 	var local_player = game_server._unit_data_list.get(local_player_id)
 	if local_player:
-		if winning_team.team_id == local_player.ref.team_id:
+		if winning_team.team_id == local_player.ref.team.team_id:
 			$You_win.show()
 		else:
 			$You_Lost.show()

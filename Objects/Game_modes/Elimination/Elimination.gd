@@ -2,7 +2,7 @@ extends CanvasLayer
 
 var mode_settings = {
 	round_time = 2, # Round time limit in minutes
-	max_rounds = 5, # Maximum rounds in 1 half
+	max_rounds = 2, # Maximum rounds in 1 half
 }
 
 
@@ -315,6 +315,7 @@ remotesync func P_updateScores(t_score, ct_score, winner_id):
 
 func _on_game_end_timer_timeout():
 	rpc("P_on_game_ends")
+	$delays/game_restart_timer.start()
 
 
 
@@ -322,3 +323,31 @@ remotesync func P_on_game_ends():
 	add_child(end_screen)
 	end_screen.showScreen()
 	$top_panel.hide()
+	$main_label.hide()
+
+
+
+func _on_game_restart_timer_timeout():
+	rpc("P_game_restart")
+	half_time = false
+	cur_round = 0
+	respawnEveryone()
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	$Timer.start()
+	time_elasped = 0
+	is_wait_time = true
+	freezeEveryone()
+	$delays/round_start_dl.start(wait_duration)
+	rpc("P_on_new_round", cur_round)
+	# Reset scores
+	for i in teams:
+		i.score = 0
+
+
+
+remotesync func P_game_restart():
+	remove_child(end_screen)
+	$top_panel.show()
+	$top_panel/t/Label.text = String(0)
+	$top_panel/ct/Label.text = String(0)
