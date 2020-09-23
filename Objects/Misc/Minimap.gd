@@ -30,6 +30,8 @@ func _ready():
 func loadMinimap(levl_name : String, level_author):
 	if level_author == "INC":
 		texture = load("res://Maps/" + levl_name +"/minimap.png")
+		if not texture:
+			texture = load("res://Maps/" + levl_name +"/minimaps/" + levl_name +".png")
 	elif level_author == String(OS.get_unique_id()) or level_author == null:
 		var img = Image.new()
 		img.load("user://custom_maps/minimaps/" + levl_name + ".png")

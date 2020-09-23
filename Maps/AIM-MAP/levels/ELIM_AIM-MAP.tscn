@@ -10,6 +10,7 @@
 "Level",
 ]]
 script = ExtResource( 3 )
+Level_Name = "AIM-MAP"
 
 [node name="BaseMap" parent="Level" instance=ExtResource( 2 )]
 
