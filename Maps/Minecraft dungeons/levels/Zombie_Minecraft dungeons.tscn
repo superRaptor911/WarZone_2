@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Maps/BaseLevel.gd" type="Script" id=3]
+[ext_resource path="res://Maps/Minecraft dungeons/gameModes/Zombie/Minecraft dungeons.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Maps/Minecraft dungeons/maps/Minecraft dungeons.tscn" type="PackedScene" id=5]
+
+[node name="Zombie" type="Node"]
+
+[node name="Level" type="Node2D" parent="." groups=[
+"Level",
+]]
+script = ExtResource( 3 )
+Level_Name = "Minecraft dungeons"
+
+[node name="BaseMap" parent="Level" instance=ExtResource( 5 )]
+force_update = false
+
+[node name="GameMode" parent="." instance=ExtResource( 4 )]

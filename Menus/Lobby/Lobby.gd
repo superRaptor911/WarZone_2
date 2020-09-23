@@ -129,6 +129,7 @@ func setLevelInfo(info):
 		selected_level = info
 		$Panel/portrait/TextureRect.texture = selected_level.icon
 		$Panel/portrait/level_name.text = selected_level.name
+		$Panel/TabContainer/about/Label.text = selected_level.desc
 		configGameModes()
 		
 		#$Panel/TabContainer/Game/mode/mode.text = selected_gameMode[0]

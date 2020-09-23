@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Misc/spawn_point.gd" type="Script" id=2]
+
+[node name="spawns" type="Node"]
+
+[node name="spawn_point" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 1 )]
+position = Vector2( 3179.97, 2219.51 )
+script = ExtResource( 2 )
+radius = 100
+team_id = 0
+active = true
+
+[node name="@spawn_point@143" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 1 )]
+position = Vector2( 3000.97, 2116.51 )
+script = ExtResource( 2 )
+radius = 100
+team_id = 0
+active = true
+
+[node name="@spawn_point@144" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 1 )]
+position = Vector2( 1186.59, 222.486 )
+script = ExtResource( 2 )
+radius = 100
+team_id = 1
+active = true
+
+[node name="@spawn_point@145" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 1 )]
+position = Vector2( 952.589, 218.486 )
+script = ExtResource( 2 )
+radius = 100
+team_id = 1
+active = true
+[connection signal="body_entered" from="spawn_point" to="spawn_point" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="spawn_point" to="spawn_point" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="@spawn_point@143" to="@spawn_point@143" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="@spawn_point@143" to="@spawn_point@143" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="@spawn_point@144" to="@spawn_point@144" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="@spawn_point@144" to="@spawn_point@144" method="_on_spawn_point_body_exited"]
+[connection signal="body_entered" from="@spawn_point@145" to="@spawn_point@145" method="_on_spawn_point_body_entered"]
+[connection signal="body_exited" from="@spawn_point@145" to="@spawn_point@145" method="_on_spawn_point_body_exited"]

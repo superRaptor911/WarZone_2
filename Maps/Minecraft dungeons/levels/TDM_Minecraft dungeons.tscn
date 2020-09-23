@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Maps/BaseLevel.gd" type="Script" id=3]
+[ext_resource path="res://Maps/Minecraft dungeons/maps/Minecraft dungeons.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Maps/Minecraft dungeons/gameModes/TDM/Minecraft dungeons.tscn" type="PackedScene" id=5]
+
+[node name="TDM" type="Node"]
+
+[node name="Level" type="Node2D" parent="." groups=[
+"Level",
+]]
+script = ExtResource( 3 )
+Level_Name = "Minecraft dungeons"
+
+[node name="BaseMap" parent="Level" instance=ExtResource( 4 )]
+force_update = false
+
+[node name="GameMode" parent="." instance=ExtResource( 5 )]
+
+[node name="POI" type="Node" parent="." groups=[
+"POI",
+]]
+
+[node name="Node2D" type="Node2D" parent="POI"]
+position = Vector2( 1708.14, 1278.16 )
+
+[node name="Node2D2" type="Node2D" parent="POI"]
+position = Vector2( 276.333, 2058.28 )
+
+[node name="Node2D3" type="Node2D" parent="POI"]
+position = Vector2( 3293.51, 2058.28 )
+
+[node name="Node2D4" type="Node2D" parent="POI"]
+position = Vector2( 1335.94, 262.342 )
+
+[node name="Node2D5" type="Node2D" parent="POI"]
+position = Vector2( 3495.55, 320.71 )
+
+[node name="Node2D6" type="Node2D" parent="POI"]
+position = Vector2( 3320.45, 1146.84 )
+
+[node name="Node2D7" type="Node2D" parent="POI"]
+position = Vector2( 420.009, 904.39 )

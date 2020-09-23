@@ -15,6 +15,10 @@ var old_height_array = Array()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var par = get_parent()
+	if par and par.is_in_group("Level"):
+		force_update = false
+	
 	if Engine.editor_hint or force_update:
 		add_child(timer)
 		timer.connect("timeout",self,"_on_timer_timeout")

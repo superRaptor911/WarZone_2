@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Misc/spawn_point.gd" type="Script" id=2]
+[ext_resource path="res://Objects/Game_modes/ZombieMod/zombieSpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Game_modes/ZombieMod/zombieSpawner.gd" type="Script" id=4]
+
+[node name="spawns" type="Node"]
+
+[node name="spawn_point" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 1 )]
+position = Vector2( 1190.16, 1608.08 )
+script = ExtResource( 2 )
+radius = 100
+team_id = 1
+active = true
+
+[node name="@spawn_point@13" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 1 )]
+position = Vector2( 1504.16, 1522.08 )
+script = ExtResource( 2 )
+radius = 100
+team_id = 1
+active = true
+
+[node name="@spawn_point@14" type="Area2D" parent="." groups=[
+"SpawnPoint",
+] instance=ExtResource( 1 )]
+position = Vector2( 1537.09, 1725.65 )
+script = ExtResource( 2 )
+radius = 100
+team_id = 1
+active = true
+
+[node name="zombieSpawner" type="Node2D" parent="." groups=[
+"ZspawnPoint",
+] instance=ExtResource( 3 )]
+position = Vector2( 819.392, 2586.01 )
+script = ExtResource( 4 )
+max_zombies = 10
+frequency = 0.25
+activate = false
+HP = 100
+speed = 80

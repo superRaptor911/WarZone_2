@@ -128,6 +128,7 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 31.0
+rect_min_size = Vector2( 567, 224 )
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -365,6 +366,31 @@ custom_constants/hseparation = 0
 text = "2"
 items = [ "1", null, false, 1, null, "2", null, false, 2, null, "3", null, false, 3, null, "4", null, false, 4, null ]
 selected = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="about" type="Panel" parent="Panel/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 31.0
+margin_right = -527.0
+margin_bottom = -184.0
+rect_min_size = Vector2( 567, 224 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="Label" type="Label" parent="Panel/TabContainer/about"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -277.0
+margin_top = -106.0
+margin_right = 277.0
+margin_bottom = 106.0
+custom_fonts/font = ExtResource( 5 )
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

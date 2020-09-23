@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Maps/BaseLevel.gd" type="Script" id=1]
+[ext_resource path="res://Maps/Minecraft dungeons/maps/Minecraft dungeons.tscn" type="PackedScene" id=2]
+
+[node name="ELIM_MINECRAFT" type="Node"]
+
+[node name="Level" type="Node2D" parent="." groups=[
+"Level",
+]]
+script = ExtResource( 1 )
+Level_Name = "Minecraft dungeons"
+
+[node name="BaseMap" parent="Level" instance=ExtResource( 2 )]
+
+[node name="Spawn" type="Node" parent="."]

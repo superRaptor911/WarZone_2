@@ -38,3 +38,25 @@ team_id = 1
 [node name="@spawn_point@264" parent="GameMode" instance=ExtResource( 1 )]
 position = Vector2( 831.939, 1776.87 )
 team_id = 1
+
+[node name="POI" type="Node" parent="." groups=[
+"POI",
+]]
+
+[node name="Node2D" type="Node2D" parent="POI"]
+position = Vector2( 533.969, 1241.69 )
+
+[node name="Node2D2" type="Node2D" parent="POI"]
+position = Vector2( 1110.32, 1216.26 )
+
+[node name="Node2D3" type="Node2D" parent="POI"]
+position = Vector2( 148.325, 1017.08 )
+
+[node name="Node2D4" type="Node2D" parent="POI"]
+position = Vector2( 1534.1, 1017.08 )
+
+[node name="Node2D5" type="Node2D" parent="POI"]
+position = Vector2( 860.284, 1470.53 )
+
+[node name="Node2D6" type="Node2D" parent="POI"]
+position = Vector2( 864.521, 495.828 )

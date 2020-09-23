@@ -3,7 +3,7 @@ extends Node
 var levels = {
 	l4 = {
 			debug = false, 
-			desc = "",
+			desc = "Community map made by an user. Small map, Ideal for close combat",
 			game_modes = [
 							"TDM", "res://Maps/AIM-MAP/levels/TDM_AIM-MAP.tscn",
 							"Zombie Mod", "res://Maps/AIM-MAP/levels/Zombie_AIM-MAP.tscn",
@@ -13,6 +13,28 @@ var levels = {
 			name = "AIM-MAP"
 		},
 
+	l5 = {
+		debug = false,
+		desc = "",
+		game_modes = [
+						"TDM", "res://Maps/Minecraft dungeons/levels/TDM_Minecraft dungeons.tscn",
+						"Zombie Mod", "res://Maps/Minecraft dungeons/levels/Zombie_Minecraft dungeons.tscn"
+					],
+		icon  = preload("res://Maps/Minecraft dungeons/minimaps/Minecraft dungeons.png"),
+		name = "Minecraft dungeons"
+	},
+	
+	l6 = {
+		debug = "false",
+		desc = "",
+		game_modes = [
+						"TDM", "res://Maps/the center of house/levels/TDM_the center of house.tscn"
+					 ],
+		icon = preload("res://Maps/the center of house/minimaps/the center of house.png"),
+		name = "the center of house"
+	},
+
+
 	l3 = {
 		name = "fy Dust",
 		icon = preload("res://Maps/fy_dust/minimap.png"),
@@ -20,7 +42,7 @@ var levels = {
 				"Zombie Mod", "res://Maps/fy_dust/zm_fy_dust.tscn",
 				"TDM", "res://Maps/fy_dust/fy_dust_tdm.tscn"
 			],
-		desc = "",
+		desc = "Standard Map",
 		debug = false
 	},
 	
@@ -32,7 +54,7 @@ var levels = {
 				"Elimination", "res://Maps/Dust/DustComp.tscn",
 				"TDM","res://Maps/Dust/TDM.tscn"
 			],
-		desc = "",
+		desc = "Standard Map Inspired by dust 2.",
 		debug = false
 	},
 	
