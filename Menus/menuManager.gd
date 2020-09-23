@@ -96,7 +96,6 @@ func _on_Back_pressed():
 
 ######################################ADS######################################
 
-var stop_ad_loading = false
 
 func setupAds():
 	randomize()
@@ -143,12 +142,10 @@ func setupAds():
 
 
 func on_interstitial_closed():
-	if not stop_ad_loading:
-		admob.load_interstitial()
+	admob.load_interstitial()
 
 func on_video_closed():
-	if not stop_ad_loading:
-		admob.load_rewarded_video()
+	admob.load_rewarded_video()
 
 func on_banner_loaded():
 	_admob_load_fail_count[0] = 0

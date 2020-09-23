@@ -32,6 +32,7 @@ var _admob_singleton = null
 var _is_interstitial_loaded:bool = false
 var _is_rewarded_video_loaded:bool = false
 var _is_banner_loaded: bool = false
+var _pause_ads : bool = false
 
 
 func _enter_tree():
@@ -79,11 +80,11 @@ func init() -> bool:
 # load
 
 func load_banner() -> void:
-	if _admob_singleton != null:
+	if _admob_singleton != null and not _pause_ads:
 		_admob_singleton.loadBanner(banner_id, banner_on_top)
 
 func load_interstitial() -> void:
-	if _admob_singleton != null:
+	if _admob_singleton != null and not _pause_ads:
 		_admob_singleton.loadInterstitial(interstitial_id)
 		
 func is_interstitial_loaded() -> bool:
@@ -92,7 +93,7 @@ func is_interstitial_loaded() -> bool:
 	return false
 		
 func load_rewarded_video() -> void:
-	if _admob_singleton != null:
+	if _admob_singleton != null and not _pause_ads:
 		_admob_singleton.loadRewardedVideo(rewarded_id)
 		
 func is_rewarded_video_loaded() -> bool:

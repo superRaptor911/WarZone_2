@@ -23,6 +23,7 @@ onready var canvas_modulate = get_node("CanvasModulate")
 
 signal player_killed(player)
 signal gun_picked
+#signal ammo_picked
 
 
 
@@ -115,11 +116,20 @@ remotesync func pickUpItem(item):
 		emit_signal("gun_picked")
 	elif item.type == "med":
 		HP = 100
+		# Update HP in hud
+		if hud:
+			hud.on_damaged()
 	elif item.type == "kevlar":
 		AP = 100
+		# Update AP in hud
+		if hud:
+			hud.on_damaged()
 	elif item.type == "ammo":
 		selected_gun.clip_count = 4
 		unselected_gun.clip_count = 4
+		# Update clip count in hud
+		if hud:
+			hud.setClipCount(4)
 
 
 func S_on_player_killed():
@@ -171,7 +181,7 @@ func getWpnAttachments():
 			gun_2.extendMag()
 
 
-func _process(delta):
+func _process(_delta):
 	_get_inputs()
 
 

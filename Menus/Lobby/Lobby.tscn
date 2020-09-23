@@ -145,6 +145,7 @@ margin_right = -0.0949707
 margin_bottom = 22.9041
 custom_constants/separation = 30
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -233,6 +234,7 @@ margin_right = -0.0949707
 margin_bottom = -0.095932
 custom_constants/separation = 30
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 

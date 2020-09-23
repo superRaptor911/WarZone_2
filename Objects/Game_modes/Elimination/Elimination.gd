@@ -23,6 +23,7 @@ var end_screen = preload("res://Objects/Game_modes/Elimination/EndScreen.tscn").
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	mode_settings = game_server.game_mode_settings
 	# Server side
 	if get_tree().is_network_server():
 		$Timer.start()		# Start Time keeping
@@ -117,8 +118,7 @@ func _on_round_end_dl_timeout():
 			half_time = true
 			swapTeam()
 			respawnEveryone()
-			yield(get_tree(), "idle_frame")
-			yield(get_tree(), "idle_frame")
+			yield(get_tree().create_timer(0.125), "timeout")
 			freezeEveryone()
 			$delays/half_time_timer.start()
 			rpc("P_on_half_time_starts")
@@ -129,8 +129,7 @@ func _on_round_end_dl_timeout():
 			return
 			
 	respawnEveryone()
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	yield(get_tree().create_timer(0.125), "timeout")
 	$Timer.start()
 	time_elasped = 0
 	is_wait_time = true
@@ -332,8 +331,7 @@ func _on_game_restart_timer_timeout():
 	half_time = false
 	cur_round = 0
 	respawnEveryone()
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	yield(get_tree().create_timer(0.125), "timeout")
 	$Timer.start()
 	time_elasped = 0
 	is_wait_time = true

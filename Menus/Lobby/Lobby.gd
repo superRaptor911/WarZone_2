@@ -148,6 +148,10 @@ func getModeSettings() -> Dictionary:
 			var mode_sett = $Panel/TabContainer/Game/tdm
 			settings["time_limit"] = mode_sett.get_node("time_limit").value
 			settings['max_score'] = mode_sett.get_node("max_score").value
+		"Elimination":
+			var mode_sett = $Panel/TabContainer/Game/classic
+			settings["max_rounds"] = mode_sett.get_node("round_count").value
+			settings['round_time'] = mode_sett.get_node("round_time").value  
 		
 	return settings
 
@@ -242,8 +246,11 @@ func _on_gameModesList_item_selected(index):
 			hideLevelSettings()
 			$Panel/TabContainer/Game/classic.show()
 		"TDM":
-				hideLevelSettings()
-				$Panel/TabContainer/Game/tdm.show()
+			hideLevelSettings()
+			$Panel/TabContainer/Game/tdm.show()
 		"Zombie Mod":
+			hideLevelSettings()
+			$Panel/TabContainer/Game/classic.show()
+		"Elimination":
 			hideLevelSettings()
 			$Panel/TabContainer/Game/classic.show()
