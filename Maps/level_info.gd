@@ -5,9 +5,9 @@ var levels = {
 			debug = false, 
 			desc = "Community map made by an user. Small map, Ideal for close combat",
 			game_modes = [
+							"Elimination", "res://Maps/AIM-MAP/levels/ELIM_AIM-MAP.tscn",
 							"TDM", "res://Maps/AIM-MAP/levels/TDM_AIM-MAP.tscn",
-							"Zombie Mod", "res://Maps/AIM-MAP/levels/Zombie_AIM-MAP.tscn",
-							"Elimination", "res://Maps/AIM-MAP/levels/ELIM_AIM-MAP.tscn"
+							"Zombie Mod", "res://Maps/AIM-MAP/levels/Zombie_AIM-MAP.tscn"
 						 ],
 			icon = preload("res://Maps/AIM-MAP/minimaps/AIM-MAP.png"),
 			name = "AIM-MAP"
@@ -17,6 +17,7 @@ var levels = {
 		debug = false,
 		desc = "",
 		game_modes = [
+						"Elimination", "res://Maps/Minecraft dungeons/levels/ELIM_MINECRAFT.tscn",
 						"TDM", "res://Maps/Minecraft dungeons/levels/TDM_Minecraft dungeons.tscn",
 						"Zombie Mod", "res://Maps/Minecraft dungeons/levels/Zombie_Minecraft dungeons.tscn"
 					],
@@ -25,9 +26,10 @@ var levels = {
 	},
 	
 	l6 = {
-		debug = "false",
+		debug = false,
 		desc = "",
 		game_modes = [
+						"Elimination", "res://Maps/the center of house/levels/ELIM_CENTRE_OF_HOUSE.tscn",
 						"TDM", "res://Maps/the center of house/levels/TDM_the center of house.tscn"
 					 ],
 		icon = preload("res://Maps/the center of house/minimaps/the center of house.png"),

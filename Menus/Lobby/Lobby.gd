@@ -161,11 +161,9 @@ func _start_game():
 	game_server.serverInfo.map = selected_level.name
 	game_server.serverInfo.game_mode = selected_mode
 	game_server.game_mode_settings = getModeSettings()
+	game_server.bot_settings.bot_count = $Panel/TabContainer/Bots/Control/bot_no/count.value
 	
-	var selected_id = $Panel/TabContainer/Bots/Control/bot_no/OptionButton.get_selected_id()
-	game_server.bot_settings.bot_count = int($Panel/TabContainer/Bots/Control/bot_no/OptionButton.get_item_text(selected_id))
-	
-	selected_id = $Panel/TabContainer/Bots/Control/bot_difficulty/OptionButton.get_selected_id()
+	var selected_id = $Panel/TabContainer/Bots/Control/bot_difficulty/OptionButton.get_selected_id()
 	game_server.bot_settings.bot_difficulty = int($Panel/TabContainer/Bots/Control/bot_difficulty/OptionButton.get_item_text(selected_id))
 	
 	if selected_level.has("author"):

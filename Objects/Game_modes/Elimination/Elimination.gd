@@ -58,6 +58,8 @@ func _on_Timer_timeout():
 	# Sync with peers
 	if not is_wait_time:
 		rpc_unreliable("P_syncTime", time_elasped)
+		if time_elasped > mode_settings.round_time * 60:
+			pass
 	else:
 		rpc_unreliable("P_syncWaitTime", time_elasped)
 		if time_elasped > wait_duration:
@@ -102,6 +104,14 @@ func S_On_team_eliminated(team):
 		t_score = teams[1].score
 		ct_score = teams[0].score
 	rpc("P_updateScores", t_score, ct_score, winner.team_id)
+	$delays/round_end_dl.start()
+	$Timer.stop()
+
+
+func on_round_time_timeout():
+	teams[0].score += 1
+	teams[1].score += 1
+	rpc("P_updateScores", teams[0].score, teams[1].score, -1)
 	$delays/round_end_dl.start()
 	$Timer.stop()
 
@@ -303,10 +313,15 @@ remotesync func P_updateScores(t_score, ct_score, winner_id):
 		label.show()
 		UiAnim.animZoomIn([label])
 	# CT
-	else:
+	elif winner_id == 1:
 		$audio/CTWin.play()
 		var label = $main_label
 		label.text = "CT win"
+		label.show()
+		UiAnim.animZoomIn([label])
+	else:
+		var label = $main_label
+		label.text = "TIE"
 		label.show()
 		UiAnim.animZoomIn([label])
 

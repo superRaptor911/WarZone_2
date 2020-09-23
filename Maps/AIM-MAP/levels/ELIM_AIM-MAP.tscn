@@ -13,29 +13,30 @@ script = ExtResource( 3 )
 Level_Name = "AIM-MAP"
 
 [node name="BaseMap" parent="Level" instance=ExtResource( 2 )]
+force_update = false
 
 [node name="spawns" type="Node" parent="."]
 
 [node name="spawn_point" parent="spawns" instance=ExtResource( 1 )]
-position = Vector2( 720.67, 1868.46 )
+position = Vector2( 687.372, 1885.11 )
 
 [node name="spawn_point3" parent="spawns" instance=ExtResource( 1 )]
 position = Vector2( 834.834, 1668.67 )
 
 [node name="spawn_point4" parent="spawns" instance=ExtResource( 1 )]
-position = Vector2( 844.059, 320.139 )
+position = Vector2( 848.789, 352.244 )
 team_id = 1
 
 [node name="spawn_point5" parent="spawns" instance=ExtResource( 1 )]
-position = Vector2( 689.334, 152.715 )
+position = Vector2( 676.635, 168.589 )
 team_id = 1
 
 [node name="spawn_point6" parent="spawns" instance=ExtResource( 1 )]
-position = Vector2( 991.241, 157.972 )
+position = Vector2( 999.178, 157.972 )
 team_id = 1
 
 [node name="spawn_point2" parent="spawns" instance=ExtResource( 1 )]
-position = Vector2( 1013.22, 1866.08 )
+position = Vector2( 1032.25, 1877.97 )
 
 [node name="POI" type="Node" parent="." groups=[
 "POI",

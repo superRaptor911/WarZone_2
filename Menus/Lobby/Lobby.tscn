@@ -326,21 +326,17 @@ margin_bottom = 54.5817
 custom_fonts/font = SubResource( 5 )
 text = "Bot Count"
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="OptionButton" type="OptionButton" parent="Panel/TabContainer/Bots/Control/bot_no"]
+[node name="count" parent="Panel/TabContainer/Bots/Control/bot_no" instance=ExtResource( 9 )]
 margin_left = 319.533
-margin_right = 462.533
-margin_bottom = 46.0
-custom_styles/pressed = SubResource( 1 )
-custom_styles/normal = SubResource( 1 )
-custom_fonts/font = ExtResource( 5 )
-custom_constants/hseparation = 0
-text = "5"
-items = [ "0", null, false, 0, null, "5", null, false, 1, null, "10", null, false, 2, null, "15", null, false, 3, null ]
-selected = 1
+margin_top = 6.4183
+margin_right = 434.533
+margin_bottom = 46.4183
+rect_min_size = Vector2( 0, 40 )
+value = 8.0
+max_value = 24.0
 
 [node name="bot_difficulty" type="Label" parent="Panel/TabContainer/Bots/Control"]
 margin_left = 10.6908
@@ -375,8 +371,6 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 31.0
-margin_right = -527.0
-margin_bottom = -184.0
 rect_min_size = Vector2( 567, 224 )
 custom_styles/panel = SubResource( 1 )
 
