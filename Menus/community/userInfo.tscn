@@ -78,30 +78,35 @@ margin_bottom = 0.0109978
 custom_fonts/font = ExtResource( 1 )
 text = "User Name"
 
-[node name="bio" type="LineEdit" parent="Panel"]
+[node name="bio_label" type="Label" parent="Panel"]
+anchor_left = 0.059
+anchor_top = 0.352
+anchor_right = 0.311
+anchor_bottom = 0.423
+margin_left = -0.409676
+margin_top = 0.200012
+margin_right = 0.294312
+margin_bottom = -0.0749817
+custom_fonts/font = ExtResource( 1 )
+text = "Bio"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bio" type="TextEdit" parent="Panel"]
 anchor_left = 0.403
 anchor_top = 0.352
 anchor_right = 0.929
-anchor_bottom = 0.442
+anchor_bottom = 0.728
 margin_left = 0.105988
-margin_top = 0.199982
+margin_top = 0.200027
 margin_right = -0.242004
-margin_bottom = -0.0500183
+margin_bottom = -0.199982
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Label" type="Label" parent="Panel/bio"]
-anchor_left = -0.656
-anchor_right = -0.323
-anchor_bottom = 0.787
-margin_left = 0.204346
-margin_right = 0.0283356
-margin_bottom = 0.0109978
-custom_fonts/font = ExtResource( 1 )
-text = "Bio"
 
 [node name="update" type="Button" parent="Panel"]
 anchor_left = 0.403

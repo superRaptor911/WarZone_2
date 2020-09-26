@@ -99,6 +99,7 @@ var weaponResource = {
 #player data/stats
 var player_data = {
 	name = "player",
+	desc = "",
 	kills = 0,
 	deaths = 0,
 	cash = 500,

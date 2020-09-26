@@ -11,8 +11,6 @@ func _ready():
 	MenuManager.connect("back_pressed" , self , "on_back_pressed")
 
 
-
-
 func _on_maps_pressed():
 	MenuManager.changeScene("CM/ComMapMenu")
 

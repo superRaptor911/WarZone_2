@@ -50,8 +50,7 @@ rect_min_size = Vector2( 0, 60 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 1 )
-disabled = true
-text = "My Profile(soon)"
+text = "My Profile"
 
 [node name="maps" type="Button" parent="VBoxContainer"]
 margin_top = 110.0
