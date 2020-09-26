@@ -51,9 +51,6 @@ func _ready():
 	$Reload_time.wait_time = reload_time
 	if rounds_left == 0:
 		reload()
-	#if it does not have parent/user then force get parent
-	if user_id == "":
-		print_debug("user id not set")
 
 
 

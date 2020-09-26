@@ -32,6 +32,11 @@ func showPlayersInMap():
 						dotsList[sp_index].modulate = Color8(50,255,50,255)
 						dotsList[sp_index].show()
 						dotsList[sp_index].position = rel_pos
+					elif i.last_fired_timestamp + 5 > OS.get_ticks_msec() / 1000 or i.spotted_by_enimies:
+						dotsList[sp_index].modulate = Color8(255,0,0,255)
+						dotsList[sp_index].show()
+						dotsList[sp_index].position = rel_pos
 					sp_index += 1
 					if sp_index >= 12:
 						break
+						

@@ -13,8 +13,11 @@ var deaths : int = 0
 var score : int = 0
 var ping : int = 0
 var last_attacker_id : String = ""
+var last_fired_timestamp = 0
 var prim_gun = ""
 var sec_gun = ""
+var spotted_by_enimies = false
+
 
 #weapons
 var gun_1 : Gun = null
@@ -66,6 +69,8 @@ func setSelectedGun():
 	model.switchGun(selected_gun)
 	selected_gun.user_id = name
 	selected_gun.position = Vector2.ZERO
+	if not selected_gun.is_connected("gun_fired", self, "on_gun_fired"):
+		selected_gun.connect("gun_fired", self, "on_gun_fired")
 
 #switch gun
 remotesync func switchGun():
@@ -143,3 +148,7 @@ func S_freezeUnit(val = true):
 
 remotesync func P_freezeUnit(val):
 	paused = val
+
+
+func on_gun_fired():
+	last_fired_timestamp = OS.get_ticks_msec() / 1000
