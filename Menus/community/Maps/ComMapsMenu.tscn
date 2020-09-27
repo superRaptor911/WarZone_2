@@ -104,6 +104,7 @@ margin_bottom = 248.0
 custom_styles/bg = SubResource( 1 )
 custom_fonts/font = ExtResource( 2 )
 custom_constants/hseparation = 50
+fixed_icon_size = Vector2( 128, 128 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -116,7 +117,7 @@ margin_bottom = 619.0
 custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 2 )
-text = "Refresh"
+text = "Update"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -217,6 +218,7 @@ margin_bottom = 42.0
 custom_fonts/font = ExtResource( 2 )
 text = "Loading . . . . . "
 align = 1
+autowrap = true
 [connection signal="item_selected" from="Panel/mapList" to="." method="_on_mapList_item_selected"]
 [connection signal="pressed" from="Panel/refresh_list" to="." method="_on_refresh_list_pressed"]
 [connection signal="pressed" from="mapInfo/install" to="." method="_on_install_pressed"]

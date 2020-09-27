@@ -1,16 +1,22 @@
 extends Control
 
 var Levels_dict = {}
+var no_img_tex = preload("res://Sprites/misc/icons8-no-image-100.png")
 var cur_map = null
+
 
 func _ready():
 	UiAnim.animLeftToRight([$Panel])
 	yield(get_tree().create_timer(UiAnim.getAnimDuration() + 0.2), "timeout")
-	fillMapList()
+	fillMapList(true)
 	MenuManager.connect("back_pressed", self, "on_back_pressed")
 
-
-func fillMapList():
+# Load Level data and Fill Menu
+func fillMapList(use_cache = false):
+	if use_cache:
+		if loadFromCache():
+			return
+		
 	Levels_dict = {}
 	$info.show()
 	yield(get_tree(), "idle_frame")
@@ -21,6 +27,7 @@ func fillMapList():
 	downloader.connect("connection_failed", self , "on_connection_failed")
 	downloader.connect("download_failed", self , "on_download_failed")
 	downloader.connect("download_finished", $info, "hide")
+	# Download map list
 	Levels_dict = downloader.getData("getLevelInfo.php")
 	
 	var itemList = $Panel/mapList
@@ -29,13 +36,75 @@ func fillMapList():
 	if Levels_dict == {} or Levels_dict == null:
 		return
 	
+	$info/Label.text = "Loading images (%d/ %d)\nWait will take time" % [0 , Levels_dict.size()]
+	$info.show()
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
+	
+	# Cache Dir
+	var base_dir = "user://Cache/Levels/"
+	var dir = Directory.new()
+	dir.make_dir_recursive(base_dir)
+	game_states.save_data(base_dir + "lvls.dat", Levels_dict, false)
+	var count = 0
+	# Download images and fill menu
 	for i in Levels_dict:
+		count += 1		#Increase count
 		var lvl_info = Levels_dict.get(i)
+		# Show available game modes
 		var text = "   " + lvl_info.name + " [ "
 		for m in lvl_info.game_modes:
 			text += m + " "
 		text += "]"
-		itemList.add_item(text)
+		
+		# Downlaod image
+		var dat = downloader.getFile("minimapDownloader.php", lvl_info)
+		# Show progress
+		$info/Label.text = "Loading images (%d/ %d)\nWait will take time" % [count , Levels_dict.size()]
+		$info.show()
+		yield(get_tree(), "idle_frame")
+		yield(get_tree(), "idle_frame")
+		# Convert Image into texture
+		var image = Image.new()
+		if image.load_png_from_buffer(dat) != OK:
+			print("An error occurred while trying to display the image.")
+			itemList.add_item(text, no_img_tex)
+			continue
+		# Save image cache
+		image.save_png(base_dir + lvl_info.author + lvl_info.name + ".png")
+		# Fill menu
+		var texture = ImageTexture.new()
+		texture.create_from_image(image)
+		itemList.add_item(text, texture)
+		$info.hide()
+
+# Load Level data from cache
+func loadFromCache() -> bool:
+	Levels_dict = game_states.load_data("user://Cache/Levels/lvls.dat", false)
+	if not Levels_dict:
+		return false
+		
+	for i in Levels_dict:
+		var lvl_info = Levels_dict.get(i)
+		# Show available game modes
+		var text = "   " + lvl_info.name + " [ "
+		for m in lvl_info.game_modes:
+			text += m + " "
+		text += "]"
+		
+		# Convert Image into texture
+		var image = Image.new()
+		if image.load("user://Cache/Levels/" + lvl_info.author + lvl_info.name+ ".png") != OK:
+			print("An error occurred while trying to display the image.")
+			$Panel/mapList.add_item(text, no_img_tex)
+			continue
+		# Fill menu
+		var texture = ImageTexture.new()
+		texture.create_from_image(image)
+		$Panel/mapList.add_item(text, texture)
+		$info.hide()
+	return true
+	
 
 
 func _on_mapList_item_selected(index):
