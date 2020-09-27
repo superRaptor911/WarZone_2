@@ -23,20 +23,20 @@ func showPlayersInMap():
 			var i = game_server._unit_data_list[u].ref
 			if i.alive:
 				var rel_pos = (i.position - ref_pos) * Scale
-				if rel_pos.x > 0 && rel_pos.y > 0 && rel_pos.x < rect_size.x && rel_pos.y < rect_size.y:
-					if i == local_player:
-						dotsList[sp_index].modulate = Color8(255,255,255,255)
-						dotsList[sp_index].show()
-						dotsList[sp_index].position = rel_pos
-					elif i.team.team_id == local_player.team.team_id:
-						dotsList[sp_index].modulate = Color8(50,255,50,255)
-						dotsList[sp_index].show()
-						dotsList[sp_index].position = rel_pos
-					elif i.last_fired_timestamp + 5 > OS.get_ticks_msec() / 1000 or i.spotted_by_enimies:
-						dotsList[sp_index].modulate = Color8(255,0,0,255)
-						dotsList[sp_index].show()
-						dotsList[sp_index].position = rel_pos
-					sp_index += 1
-					if sp_index >= 12:
-						break
-						
+				rel_pos.x = clamp(rel_pos.x, 0, rect_size.x)
+				rel_pos.y = clamp(rel_pos.y, 0, rect_size.y)
+				if i == local_player:
+					dotsList[sp_index].modulate = Color8(255,255,255,255)
+					dotsList[sp_index].show()
+					dotsList[sp_index].position = rel_pos
+				elif i.team.team_id == local_player.team.team_id:
+					dotsList[sp_index].modulate = Color8(50,255,50,255)
+					dotsList[sp_index].show()
+					dotsList[sp_index].position = rel_pos
+				elif i.last_fired_timestamp + 5 > OS.get_ticks_msec() / 1000 or i.spotted_by_enimies:
+					dotsList[sp_index].modulate = Color8(255,0,0,255)
+					dotsList[sp_index].show()
+					dotsList[sp_index].position = rel_pos
+				sp_index += 1
+				if sp_index >= 14:
+					break

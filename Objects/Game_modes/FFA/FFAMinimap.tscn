@@ -81,3 +81,11 @@ texture = ExtResource( 2 )
 [node name="13" type="Sprite" parent="."]
 position = Vector2( 17.1665, 16.4338 )
 texture = ExtResource( 2 )
+
+[node name="14" type="Sprite" parent="."]
+position = Vector2( 17.1665, 16.4338 )
+texture = ExtResource( 2 )
+
+[node name="15" type="Sprite" parent="."]
+position = Vector2( 17.1665, 16.4338 )
+texture = ExtResource( 2 )

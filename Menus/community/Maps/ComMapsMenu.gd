@@ -76,7 +76,8 @@ func fillMapList(use_cache = false):
 		var texture = ImageTexture.new()
 		texture.create_from_image(image)
 		itemList.add_item(text, texture)
-		$info.hide()
+	$info.hide()
+
 
 # Load Level data from cache
 func loadFromCache() -> bool:
