@@ -30,8 +30,8 @@ Open terminal at desired directory and enter
 git clone --depth 1 https://github.com/superRaptor911/WarZone_2.git
 cd WarZone_2
 ```
-
-You can build gdnative plugins (Optional), you’ll need run `setup.sh` script present in `Gdnative` folder :
+## Optional
+You can build gdnative plugins, you’ll need run `setup.sh` script present in `Gdnative` folder :
 This script will install required tools and will build plugins.
 
 ```
@@ -47,3 +47,6 @@ Then import as Godot project.
 ## Tools Used
 * [Gimp] (https://www.gimp.org/) - GNU IMAGE MANIPULATION PROGRAM
 * [Audacity] (https://www.audacityteam.org) - Free, open source, cross-platform audio software
+
+## Discord Group
+* [Discord] (https://discord.gg/VH5Q6A)
