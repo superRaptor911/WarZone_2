@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Game_modes/CheckPoints/checkpoint.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Maps/Dust/Dust.tscn" type="PackedScene" id=3]
+
+[node name="CheckPointsDUST" type="Node"]
+
+[node name="Level" parent="." instance=ExtResource( 3 )]
+
+[node name="points" type="Node" parent="."]
+
+[node name="checkpoint" parent="points" instance=ExtResource( 2 )]
+position = Vector2( 1041.43, 1916.55 )
+
+[node name="checkpoint2" parent="points" instance=ExtResource( 2 )]
+position = Vector2( 3026.35, 2554.43 )
+id = 1
+
+[node name="spawns" type="Node" parent="."]
+
+[node name="spawn_point" parent="spawns" instance=ExtResource( 1 )]
+position = Vector2( 1093.61, 2635.75 )
+
+[node name="spawn_point2" parent="spawns" instance=ExtResource( 1 )]
+position = Vector2( 337.659, 1945.32 )
+team_id = 1

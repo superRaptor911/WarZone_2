@@ -134,27 +134,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="c1" type="ColorRect" parent="top_panel/points"]
+[node name="0" type="ColorRect" parent="top_panel/points"]
 margin_right = 50.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 color = Color( 0.121569, 0.4, 0.670588, 1 )
 
-[node name="c2" type="ColorRect" parent="top_panel/points"]
+[node name="1" type="ColorRect" parent="top_panel/points"]
 margin_left = 58.0
 margin_right = 108.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 color = Color( 0.121569, 0.4, 0.670588, 1 )
 
-[node name="c3" type="ColorRect" parent="top_panel/points"]
+[node name="2" type="ColorRect" parent="top_panel/points"]
 margin_left = 116.0
 margin_right = 166.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 color = Color( 0.121569, 0.4, 0.670588, 1 )
 
-[node name="c4" type="ColorRect" parent="top_panel/points"]
+[node name="3" type="ColorRect" parent="top_panel/points"]
 margin_left = 174.0
 margin_right = 224.0
 margin_bottom = 50.0
@@ -162,6 +162,7 @@ rect_min_size = Vector2( 50, 50 )
 color = Color( 0.121569, 0.4, 0.670588, 1 )
 
 [node name="ProgressBar" type="ProgressBar" parent="top_panel"]
+visible = false
 anchor_left = 0.459
 anchor_top = 2.608
 anchor_right = 0.459

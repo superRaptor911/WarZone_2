@@ -54,7 +54,8 @@ var levels = {
 		game_modes = [
 				"Zombie Mod", "res://Maps/Dust/Zm_Dust.tscn",
 				"Elimination", "res://Maps/Dust/DustComp.tscn",
-				"TDM","res://Maps/Dust/TDM.tscn"
+				"TDM","res://Maps/Dust/TDM.tscn",
+				"CheckPoints", "res://Maps/Dust/CheckPointsDUST.tscn"
 			],
 		desc = "Standard Map Inspired by dust 2.",
 		debug = false

@@ -97,6 +97,8 @@ func loadGameMode():
 		game_mode = load("res://Objects/Game_modes/TDM/TDM.tscn").instance()
 	elif game_server.serverInfo.game_mode == "Elimination":
 		game_mode = load("res://Objects/Game_modes/Elimination/Elimination.tscn").instance()
+	elif game_server.serverInfo.game_mode == "CheckPoints":
+		game_mode = load("res://Objects/Game_modes/CheckPoints/CheckPoints.tscn").instance()
 	#elif game_server.serverInfo.game_mode == "Bombing":
 		#game_mode = load("res://Objects/Game_modes/BombDiffuse.tscn").instance()
 	
