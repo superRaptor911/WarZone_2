@@ -6,6 +6,8 @@ var mode_settings = {
 	max_score = 500
 }
 
+var CP_minimap = preload("res://Objects/Game_modes/CheckPoints/CPMinimap.tscn")
+
 var time_elasped = 0
 var checkpoints = Array()
 var focused_point = null
@@ -13,6 +15,7 @@ var focused_point = null
 onready var timer_label = $top_panel/Label
 onready var points_node = $top_panel/points
 onready var progress_bar = $top_panel/ProgressBar
+onready var level = get_tree().get_nodes_in_group("Level")[0]
 
 func _ready():
 	checkpoints = get_tree().get_nodes_in_group("CheckPoint")
@@ -20,7 +23,8 @@ func _ready():
 		i.connect("team_captured_point", self, "P_on_team_captured_point")
 		i.connect("local_player_entered", self, "P_on_local_player_entered")
 		i.connect("local_player_exited", self, "P_on_local_player_exited")
-		
+	
+	level.connect("player_created", self, "P_on_player_joined")
 
 
 func _on_Timer_timeout():
@@ -61,3 +65,13 @@ func _process(_delta):
 	if focused_point:
 		progress_bar.value = focused_point.value
 
+
+func P_on_player_joined(plr):
+	if plr.is_network_master():
+		var minimap_panel = plr.hud.get_node("Minimap")
+		var minimap = minimap_panel.get_node("Minimap")
+		minimap.queue_free()
+		minimap = CP_minimap.instance()
+		minimap.name = "Minimap"
+		minimap_panel.add_child(minimap)
+		print("Loaded Custom minimap")

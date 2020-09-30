@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Objects/Game_modes/FFA/FFAMinimap.gd" type="Script" id=1]
-[ext_resource path="res://Objects/Game_modes/FFA/dot.png" type="Texture" id=2]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -29,63 +28,3 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="1" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="2" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="3" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="4" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="5" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="6" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="7" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="8" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="9" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="10" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="11" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="12" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="13" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="14" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
-
-[node name="15" type="Sprite" parent="."]
-position = Vector2( 17.1665, 16.4338 )
-texture = ExtResource( 2 )
