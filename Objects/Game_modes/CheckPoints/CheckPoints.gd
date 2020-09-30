@@ -70,8 +70,9 @@ func P_on_player_joined(plr):
 	if plr.is_network_master():
 		var minimap_panel = plr.hud.get_node("Minimap")
 		var minimap = minimap_panel.get_node("Minimap")
+		var new_minimap = CP_minimap.instance()
+		new_minimap.name = "Minimap"
+		new_minimap.rect_size = minimap.rect_size
 		minimap.queue_free()
-		minimap = CP_minimap.instance()
-		minimap.name = "Minimap"
-		minimap_panel.add_child(minimap)
+		minimap_panel.add_child(new_minimap)
 		print("Loaded Custom minimap")
