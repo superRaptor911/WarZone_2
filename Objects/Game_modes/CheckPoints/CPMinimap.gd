@@ -4,6 +4,8 @@ extends "res://Objects/Misc/Minimap.gd"
 #run Minimap at lower refresh rate
 export var update_at_frame : int = 4
 
+onready var minimap_icons = $Minimap_icons
+
 var current_frame : int  = 0
 var draw_data = Array()
 
@@ -29,13 +31,9 @@ func showPlayersInMap():
 					draw_data.append({p = rel_pos, c = Color8(50,255,50,255)})
 				elif i.last_fired_timestamp + 5 > OS.get_ticks_msec() / 1000 or i.spotted_by_enimies:
 					draw_data.append({p = rel_pos, c = Color8(255,0,0,255)})
-		update()
+		minimap_icons.update()
 
 
-func _draw():
-	for i in draw_data:
-		draw_circle(i.p, 2, i.c)
-	draw_data.clear()
 
 
 func showCapturePoints():
