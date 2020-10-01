@@ -179,4 +179,10 @@ __meta__ = {
 }
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Delays" type="Node" parent="."]
+
+[node name="updateScore_dl" type="Timer" parent="Delays"]
+wait_time = 4.0
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Delays/updateScore_dl" to="." method="_on_updateScore_dl_timeout"]

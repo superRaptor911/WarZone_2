@@ -9,22 +9,38 @@ var mode_settings = {
 var CP_minimap = preload("res://Objects/Game_modes/CheckPoints/CPMinimap.tscn")
 
 var time_elasped = 0
-var checkpoints = Array()
 var focused_point = null
+var teams = Array()
 
 onready var timer_label = $top_panel/Label
 onready var points_node = $top_panel/points
 onready var progress_bar = $top_panel/ProgressBar
+onready var t_score_label = $top_panel/t/Label
+onready var ct_score_label = $top_panel/ct/Label 
 onready var level = get_tree().get_nodes_in_group("Level")[0]
+onready var checkpoints = get_tree().get_nodes_in_group("CheckPoint")
+
 
 func _ready():
-	checkpoints = get_tree().get_nodes_in_group("CheckPoint")
+	# Get teams and index them acording to team_id
+	var _teams = get_tree().get_nodes_in_group("Team")
+	if _teams[0].team_id == 0:
+		teams = _teams
+	else:
+		teams.append(_teams[1])
+		teams.append(_teams[0])
+	
 	for i in checkpoints:
 		i.connect("team_captured_point", self, "P_on_team_captured_point")
 		i.connect("local_player_entered", self, "P_on_local_player_entered")
 		i.connect("local_player_exited", self, "P_on_local_player_exited")
 	
 	level.connect("player_created", self, "P_on_player_joined")
+	
+	if get_tree().is_network_server():
+		level.connect("player_created", self, "S_on_unit_joined")
+		level.connect("bot_created", self, "S_on_unit_joined")
+		$Delays/updateScore_dl.start()
 
 
 func _on_Timer_timeout():
@@ -76,3 +92,36 @@ func P_on_player_joined(plr):
 		minimap.queue_free()
 		minimap_panel.add_child(new_minimap)
 		print("Loaded Custom minimap")
+
+
+
+func S_on_unit_joined(unit):
+	if unit.is_in_group("Bot"):
+		unit.connect("bot_killed",self,"S_on_unit_killed")
+	else:
+		unit.connect("player_killed",self,"S_on_unit_killed")
+
+
+func S_on_unit_killed(unit):
+	unit.get_node("respawn_timer").start()
+
+
+
+func _on_updateScore_dl_timeout():
+	for i in checkpoints:
+		if teams[0].team_id == i.holding_team:
+			teams[0].score += 1
+		elif teams[1].team_id == i.holding_team:
+			teams[1].score += 1
+	
+	rpc("P_update_displayScore", teams[0].score, teams[1].score)
+
+
+
+remotesync func P_update_displayScore(t_scr, ct_scr):
+	teams[0].score = t_scr
+	teams[1].score = ct_scr
+	
+	t_score_label.text = String(t_scr)
+	ct_score_label.text = String(ct_scr)
+
