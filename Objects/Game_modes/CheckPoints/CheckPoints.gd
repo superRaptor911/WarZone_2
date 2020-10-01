@@ -3,7 +3,8 @@ extends CanvasLayer
 
 var mode_settings = {
 	round_time = 8, # Round time limit in minutes
-	max_score = 500
+	max_score = 500,
+	respawn_time = 8
 }
 
 var CP_minimap = preload("res://Objects/Game_modes/CheckPoints/CPMinimap.tscn")
@@ -41,6 +42,9 @@ func _ready():
 		level.connect("player_created", self, "S_on_unit_joined")
 		level.connect("bot_created", self, "S_on_unit_joined")
 		$Delays/updateScore_dl.start()
+		createBots()
+		$Timer.start()
+		
 
 
 func _on_Timer_timeout():
@@ -106,6 +110,54 @@ func S_on_unit_killed(unit):
 	unit.get_node("respawn_timer").start()
 
 
+func createBots():
+	Logger.Log("Creating bots")
+	var bots = Array()
+	var bot_count = game_server.bot_settings.bot_count
+	print("Bot count = ",game_server.bot_settings.bot_count)
+	game_server.bot_settings.index = 0
+	var ct = false
+	
+	if bot_count > game_states.bot_profiles.bot.size():
+		Logger.Log("Not enough bot profiles. Required %d , Got %d" % [bot_count, game_states.bot_profiles.bot.size()])
+	
+	for i in game_states.bot_profiles.bot:
+		i.is_in_use = false
+		if game_server.bot_settings.index < bot_count:
+			i.is_in_use = true
+			var data = level.unit_data_dict.duplicate(true)
+			data.pn = i.bot_name
+			data.g1 = i.bot_primary_gun
+			data.g2 = i.bot_sec_gun
+			data.b = true
+			data.k = 0
+			data.d = 0
+			data.scr = 0
+			data.pg = i.bot_primary_gun
+			data.sg = i.bot_sec_gun
+			
+			#assign team
+			if ct:
+				data.tId = 1
+				data.s = i.bot_ct_skin
+				ct = false
+			else:
+				data.tId = 0
+				data.s = i.bot_t_skin
+				ct = true
+			
+			data.p = level.getSpawnPosition(data.tId)
+			#giving unique node name
+			data.n = "bot" + String(69 + game_server.bot_settings.index)
+			bots.append(data)
+			game_server.bot_settings.index += 1
+	
+	#spawn bot
+	for i in bots:
+		level.createUnit(i)
+		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])
+
+
 
 func _on_updateScore_dl_timeout():
 	for i in checkpoints:
@@ -124,4 +176,3 @@ remotesync func P_update_displayScore(t_scr, ct_scr):
 	
 	t_score_label.text = String(t_scr)
 	ct_score_label.text = String(ct_scr)
-

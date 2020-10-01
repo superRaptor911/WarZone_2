@@ -25,9 +25,10 @@ namespace godot
 		std::unique_ptr<navigate> navigation_state;
 		std::unique_ptr<Attack> attack_state;
 
-		enum class GMODE {DM, ZM, BOMBING};
-		enum class STATE {ROAM, ATTACK, SCOUT, FLEE, FOLLOW, CAMP, BOMB_PLANT, BOMB_DIFF};
-	private:
+		enum class GMODE {DM, ZM, BOMBING, CP};
+
+		enum class STATE {ROAM, ATTACK, SCOUT, FLEE, FOLLOW, 
+						  CAMP, BOMB_PLANT, BOMB_DIFF, DEFEND};
 
 	public:
 
@@ -44,7 +45,7 @@ namespace godot
 		float time_elapsed = 0.f;
 
 		BotNavFlags NavFlags;
-		BotBombingFlags BombFlags;
+		BotCPFlags CP_Flags;
 		
 	public:
 
@@ -67,6 +68,7 @@ namespace godot
 		void setGameMode(String gmod);
 		void gamemodeDeathmath();
 		void gamemodeZm();
+		void gamemodeCP();
 
 
 		// States
@@ -79,6 +81,16 @@ namespace godot
 		void zm_roam();
 		void zm_followLeader();
 		void zm_attack();
+
+		// CP
+		void cp_attack();
+		void cp_roam();
+		void cp_defend();
+		bool cp_get_uncaped_chkPt();
+		bool cp_get_caped_chkPt();
+		//void cp_on_born();
+		void cp_on_chkPt_captured(Node *_point);
+
 	};
 
 

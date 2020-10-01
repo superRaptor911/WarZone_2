@@ -30,6 +30,9 @@ void Bot::_register_methods()
 	register_method("think",&Bot::think);
 	register_method("on_unit_removed",&Bot::on_unit_removed);
 
+	// CP
+	register_method("cp_on_chkPt_captured", &Bot::cp_on_chkPt_captured);
+
 	register_property<Bot, Array> ("visible_enemies", &Bot::visible_enemies, Array());
 	register_property<Bot, Array> ("visible_friends", &Bot::visible_friends, Array());
 }
@@ -95,6 +98,8 @@ void Bot::think(float delta)
 		gamemodeDeathmath();
 	else if (game_mode == GMODE::ZM)
 		gamemodeZm();
+	else if (game_mode == GMODE::CP)
+		gamemodeCP();
 }
 
 void Bot::updateVision()
@@ -182,6 +187,7 @@ void Bot::setBotDifficulty(int difficulty)
 	attack_state->resetTimers();
 }
 
+
 void Bot::setGameMode(String gmod)
 {
 	if (gmod == "TDM")
@@ -200,6 +206,12 @@ void Bot::setGameMode(String gmod)
 		// Set enemy get mode to nearest
 		bot_attribute.enemy_get_mode = BotAttrib::EGetMode::NEAREST;
 	}
+	else if (gmod == "CheckPoints")
+	{
+		game_mode = GMODE::CP;
+		CP_Flags.check_points = get_tree()->get_nodes_in_group("CheckPoint");
+	}
+	
 }
 
 
@@ -463,7 +475,237 @@ void Bot::zm_attack()
 }
 
 
+void Bot::gamemodeCP()
+{
+	switch (current_state)
+	{
+	case STATE::ROAM:
+		cp_roam();
+		break;
+	
+	case STATE::ATTACK:
+		cp_attack();
+		break;
+	
+	case STATE::SCOUT:
+		dm_scout();
+		break;
+	
+	case STATE::DEFEND:
+		cp_defend();
+		break;
+	
+	default:
+		cp_roam();
+		break;
+	}
+}
+
+void Bot::cp_attack()
+{
+	// Do evasive movement during fire fight.
+	if (bot_attribute.enable_evasive_mov)
+	{
+		if (time_elapsed - NavFlags.evasive_mov_start_time > 2.f)
+		{
+			NavFlags.evasive_mov_dir *= -1;
+			NavFlags.evasive_mov_start_time = time_elapsed;
+		}
+		_parent->set("movement_vector",_parent->get_transform().get_axis(0) * NavFlags.evasive_mov_dir);		
+	}
+	
+	// Attack enemies
+	attack_state->engageEnemy();
+	
+	// If no enemy
+	if (!attack_state->current_enemy)
+	{
+		navigation_state->clearPlaces();
+		navigation_state->addPlace(attack_state->enemy_position);
+		
+		// Look for enemies (scout)
+		if (chance(40))
+		{
+			current_state = STATE::SCOUT;
+			NavFlags.scout_start_time = time_elapsed;
+		}
+		// Go to CP
+		else
+		{
+			current_state = STATE::ROAM;
+			navigation_state->clearPlaces();
+			if (!CP_Flags.cur_chk_pt)
+			{
+				if (!cp_get_uncaped_chkPt())
+					cp_get_caped_chkPt();
+			}
+
+			if (CP_Flags.cur_chk_pt)
+				navigation_state->addPlace(CP_Flags.cur_chk_pt->get_position());
+		}
+	}
+}
+
+
+void Bot::cp_roam()
+{
+	navigation_state->move();
+	if (navigation_state->on_final_destination)
+	{
+		// No target CP, Get New CP
+		if (!CP_Flags.cur_chk_pt)
+		{
+			if (!cp_get_uncaped_chkPt())
+				cp_get_caped_chkPt();
+
+			if (CP_Flags.cur_chk_pt)
+				navigation_state->addPlace(CP_Flags.cur_chk_pt->get_position());
+		}
+		// Reached Enemy controlled CP
+		else if (CP_Flags.cur_chk_pt_holding_team != team_id)
+		{
+			// Do Nothing
+		}
+		else
+		{
+			if (!cp_get_uncaped_chkPt())
+				cp_get_caped_chkPt();
+
+			navigation_state->clearPlaces();
+			if (CP_Flags.cur_chk_pt)
+				navigation_state->addPlace(CP_Flags.cur_chk_pt->get_position());
+		}
+	}
+
+	if (!visible_enemies.empty())
+	{
+		current_state = STATE::ATTACK;
+	}
+}
+
+
+void Bot::cp_defend()
+{
+	if (time_elapsed - CP_Flags.defend_start_time > CP_Flags.defend_time)
+	{
+		current_state = STATE::ROAM;
+		navigation_state->clearPlaces();
+		if (!CP_Flags.cur_chk_pt)
+		{
+			if (!cp_get_uncaped_chkPt())
+				cp_get_caped_chkPt();
+		}
+
+		if (CP_Flags.cur_chk_pt)
+			navigation_state->addPlace(CP_Flags.cur_chk_pt->get_position());
+	}
+
+	if (!visible_enemies.empty())
+	{
+		current_state = STATE::ATTACK;
+		#ifdef DEBUG_MODE
+			DEBUG_PRINT("changing state to attack");
+		#endif
+	}
+}
+
+
+// Function to get uncaptured CP
+bool Bot::cp_get_uncaped_chkPt()
+{
+	Array un_caps;
+	for(int i = 0; i < CP_Flags.check_points.size(); i++)
+	{
+		int chk_pt_team_id = static_cast<Node *>(CP_Flags.check_points[i])->get("holding_team");
+		if (chk_pt_team_id != team_id)
+		{
+			un_caps.append(CP_Flags.check_points[i]);
+		}
+	}
+
+	if (un_caps.empty())
+	{
+		return false;
+	}
+
+	if (CP_Flags.cur_chk_pt)
+	{
+		if (CP_Flags.cur_chk_pt->is_connected("team_captured_point", this, "cp_on_chkPt_captured"))
+		{
+			CP_Flags.cur_chk_pt->disconnect("team_captured_point", this, "cp_on_chkPt_captured");
+		}
+	}
+	
+	
+	int rnd_id = rand() % un_caps.size();
+	CP_Flags.cur_chk_pt = static_cast<Node2D*>(un_caps[rnd_id]);
+	CP_Flags.cur_chk_pt->connect("team_captured_point", this, "cp_on_chkPt_captured");
+	CP_Flags.cur_chk_pt_holding_team = (1 - team_id);
+	return true;
+}
+
+
+// Function to get captured CP
+bool Bot::cp_get_caped_chkPt()
+{
+	Array caped_pts;
+	for(int i = 0; i < CP_Flags.check_points.size(); i++)
+	{
+		int chk_pt_team_id = static_cast<Node *>(CP_Flags.check_points[i])->get("holding_team");
+		if (chk_pt_team_id == team_id)
+		{
+			caped_pts.append(CP_Flags.check_points[i]);
+		}
+	}
+
+	if (caped_pts.empty())
+	{
+		return false;
+	}
+
+	if (CP_Flags.cur_chk_pt)
+	{
+		if (CP_Flags.cur_chk_pt->is_connected("team_captured_point", this, "cp_on_chkPt_captured"))
+		{
+			CP_Flags.cur_chk_pt->disconnect("team_captured_point", this, "cp_on_chkPt_captured");
+		}
+	}
+	
+	
+	int rnd_id = rand() % caped_pts.size();
+	CP_Flags.cur_chk_pt = static_cast<Node2D*>(caped_pts[rnd_id]);
+	CP_Flags.cur_chk_pt->connect("team_captured_point", this, "cp_on_chkPt_captured");
+	CP_Flags.cur_chk_pt_holding_team = team_id;
+	return true;
+}
+
+
+
+// Called when selected CP gets captured
+void Bot::cp_on_chkPt_captured(Node *_point)
+{
+	// Switch holding team
+	CP_Flags.cur_chk_pt_holding_team = 1 - CP_Flags.cur_chk_pt_holding_team;
+
+	// Enimies captureed our CP, Head towards CP
+	if (CP_Flags.cur_chk_pt_holding_team != team_id)
+		return;
+	
+	// CP captured by our Team, Select new CP
+	CP_Flags.cur_chk_pt->disconnect("team_captured_point", this, "cp_on_chkPt_captured");
+	CP_Flags.cur_chk_pt = nullptr;
+
+	if (!cp_get_uncaped_chkPt())
+		cp_get_caped_chkPt();
+
+	current_state = STATE::ROAM;
+	
+	navigation_state->clearPlaces();
+	if (CP_Flags.cur_chk_pt)
+		navigation_state->addPlace(CP_Flags.cur_chk_pt->get_position());
+}
+
+
 Bot::~Bot()
 {
-
 }

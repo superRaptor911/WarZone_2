@@ -43,5 +43,7 @@ func showCapturePoints():
 		var rel_pos = (i.position - ref_pos) * Scale
 		rel_pos.x = clamp(rel_pos.x, 0, rect_size.x)
 		rel_pos.y = clamp(rel_pos.y, 0, rect_size.y)
-		var clr = Color8(255 * (1 - i.holding_team) , 0, 255 * i.holding_team)
+		var clr = Color.white
+		if i.i.holding_team != -1:
+			clr = Color8(255 * (1 - i.holding_team) , 0, 255 * i.holding_team)
 		draw_data.append({p = rel_pos, sz = 8, c = clr})

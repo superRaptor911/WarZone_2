@@ -20,7 +20,9 @@ signal local_player_exited
 
 func _ready():
 	# value for T = max_points, CT = 0
-	value = max_points - max_points * holding_team
+	value = max_points / 2
+	if holding_team != -1:
+		value = max_points - max_points * holding_team
 	on_new_team_captured()
 
 
