@@ -33,7 +33,7 @@ namespace godot
         int cur_chk_pt_holding_team = -1;
 
         float defend_start_time = 0.f;
-        float defend_time = 15.f;
+        const float defend_time = 25.f;
     
     };
 

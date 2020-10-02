@@ -8,6 +8,7 @@ var mode_settings = {
 }
 
 var CP_minimap = preload("res://Objects/Game_modes/CheckPoints/CPMinimap.tscn")
+var end_screen = preload("res://Objects/Game_modes/Elimination/EndScreen.tscn").instance()
 
 var time_elasped = 0
 var focused_point = null
@@ -17,7 +18,9 @@ onready var timer_label = $top_panel/Label
 onready var points_node = $top_panel/points
 onready var progress_bar = $top_panel/ProgressBar
 onready var t_score_label = $top_panel/t/Label
-onready var ct_score_label = $top_panel/ct/Label 
+onready var ct_score_label = $top_panel/ct/Label
+onready var label_node = $Label
+onready var label_hide_timer = $Delays/hide_Label_dl
 onready var level = get_tree().get_nodes_in_group("Level")[0]
 onready var checkpoints = get_tree().get_nodes_in_group("CheckPoint")
 
@@ -35,6 +38,7 @@ func _ready():
 		i.connect("team_captured_point", self, "P_on_team_captured_point")
 		i.connect("local_player_entered", self, "P_on_local_player_entered")
 		i.connect("local_player_exited", self, "P_on_local_player_exited")
+		P_on_team_captured_point(i, false)
 	
 	level.connect("player_created", self, "P_on_player_joined")
 	
@@ -50,6 +54,12 @@ func _ready():
 func _on_Timer_timeout():
 	time_elasped += 1
 	rpc_unreliable("P_syncTime", time_elasped)
+	
+	if time_elasped > mode_settings.round_time * 60:
+		$Timer.stop()
+		$Delays/updateScore_dl.stop()
+		$Delays/game_end_dl.start()
+		rpc("P_showWinners")
 
 
 remotesync func P_syncTime(time : int):
@@ -61,12 +71,20 @@ remotesync func P_syncTime(time : int):
 	timer_label.text = String(_min_) + " : " + String(max(_sec_,0))
 
 
-func P_on_team_captured_point(point):
+func P_on_team_captured_point(point, show_msg = true):
 	var rect = points_node.get_node(String(point.id))
+	var team_name = "Terrorists"
 	if point.holding_team == 0:
 		rect.color = Color8(201, 55, 31)
 	else:
+		team_name = "CT"
 		rect.color = Color8(17,64, 194)
+	
+	if show_msg:
+		label_node.show()
+		label_node.text = "%s captured Point %d" % [team_name, point.id]
+		label_hide_timer.start()
+		
 
 
 func P_on_local_player_entered(point):
@@ -176,3 +194,59 @@ remotesync func P_update_displayScore(t_scr, ct_scr):
 	
 	t_score_label.text = String(t_scr)
 	ct_score_label.text = String(ct_scr)
+
+
+remotesync func P_showWinners():
+	label_node.show()
+	if teams[0].score > teams[1].score:
+		$Sfx/t_win.play()
+		label_node.text = "Terrorists win"
+	elif teams[0].score < teams[1].score:
+		$Sfx/ct_win.play()
+		label_node.text = "CT win"
+	else:
+		label_node.text = "Tie"
+	
+	yield(get_tree().create_timer(2), "timeout")
+	label_node.hide()
+
+
+func _on_game_end_dl_timeout():
+	rpc("P_endGame")
+	$Delays/game_restart_dl.start()
+
+
+
+remotesync func P_endGame():
+	add_child(end_screen)
+	end_screen.showScreen()
+	$top_panel.hide()
+	label_node.hide()
+
+
+func _on_game_restart_dl_timeout():
+	rpc("P_game_restart")
+	respawnEveryone()
+	$Timer.start()
+	$Delays/updateScore_dl.start()
+	for i in teams:
+		i.score = 0
+
+
+
+remotesync func P_game_restart():
+	remove_child(end_screen)
+	$top_panel.show()
+	$top_panel/t/Label.text = String(0)
+	$top_panel/ct/Label.text = String(0)
+	time_elasped = 0
+
+
+func respawnEveryone():
+	var players = get_tree().get_nodes_in_group("Unit")
+	for i in players:
+		i.S_respawnUnit()
+
+
+func _on_hide_Label_dl_timeout():
+	label_node.hide()

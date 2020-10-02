@@ -159,8 +159,8 @@ void Bot::setBotDifficulty(int difficulty)
 	}
 	else if (difficulty == 2)
 	{
-		bot_attribute.rotational_speed = 2.f;
-		bot_attribute.reaction_time = 1.2f;
+		bot_attribute.rotational_speed = 2.5f;
+		bot_attribute.reaction_time = 0.8f;
 		bot_attribute.spray_time = 0.4f;
 		bot_attribute.spray_delay = 0.6f;
 		bot_attribute.accuracy = 0.7f;
@@ -524,7 +524,7 @@ void Bot::cp_attack()
 		navigation_state->addPlace(attack_state->enemy_position);
 		
 		// Look for enemies (scout)
-		if (chance(40))
+		if (chance(10))
 		{
 			current_state = STATE::SCOUT;
 			NavFlags.scout_start_time = time_elapsed;
@@ -569,7 +569,16 @@ void Bot::cp_roam()
 		else
 		{
 			if (!cp_get_uncaped_chkPt())
-				cp_get_caped_chkPt();
+			{
+				if (chance(40))
+				{
+					current_state = STATE::SCOUT;
+					NavFlags.scout_start_time = time_elapsed;	
+					return;
+				}
+				else
+					cp_get_caped_chkPt();
+			}
 
 			navigation_state->clearPlaces();
 			if (CP_Flags.cur_chk_pt)
@@ -696,7 +705,9 @@ void Bot::cp_on_chkPt_captured(Node *_point)
 	CP_Flags.cur_chk_pt = nullptr;
 
 	if (!cp_get_uncaped_chkPt())
+	{
 		cp_get_caped_chkPt();
+	}		
 
 	current_state = STATE::ROAM;
 	
