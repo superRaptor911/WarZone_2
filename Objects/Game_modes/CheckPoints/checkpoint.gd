@@ -10,6 +10,7 @@ const update_frames = 5
 var value = 0
 var units_in_chkPt = Array()
 var frame = 0
+var local_spawns = Array()
 
 onready var is_server = get_tree().is_network_server()
 
@@ -24,7 +25,17 @@ func _ready():
 	if holding_team != -1:
 		value = max_points - max_points * holding_team
 	on_new_team_captured()
-
+	
+	var node = get_node("local_spawns")
+	if node:
+		local_spawns = node.get_children()
+	
+	for i in local_spawns:
+		i.team_id = -2
+		if holding_team == 0:
+			i.team_id = 0
+		if holding_team == 1:
+			i.team_id = 1
 
 func _on_checkpoint_body_entered(body):
 	if body.is_in_group("Unit"):
@@ -71,3 +82,6 @@ func on_new_team_captured():
 		$Sprite.modulate = Color8(17,64, 194)
 	else:
 		$Sprite.modulate = Color8(201, 55, 31)
+	
+	for i in local_spawns:
+		i.team_id = holding_team

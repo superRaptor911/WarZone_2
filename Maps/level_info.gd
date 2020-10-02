@@ -17,6 +17,7 @@ var levels = {
 		debug = false,
 		desc = "",
 		game_modes = [
+						"CheckPoints", "res://Maps/Minecraft dungeons/levels/CP_MINECRAFT_DUNGEONS.tscn",
 						"Elimination", "res://Maps/Minecraft dungeons/levels/ELIM_MINECRAFT.tscn",
 						"TDM", "res://Maps/Minecraft dungeons/levels/TDM_Minecraft dungeons.tscn",
 						"Zombie Mod", "res://Maps/Minecraft dungeons/levels/Zombie_Minecraft dungeons.tscn"
@@ -53,9 +54,9 @@ var levels = {
 		icon = preload("res://Maps/Dust/minimap.png"),
 		game_modes = [
 				"Zombie Mod", "res://Maps/Dust/Zm_Dust.tscn",
+				"CheckPoints", "res://Maps/Dust/CheckPointsDUST.tscn",
 				"Elimination", "res://Maps/Dust/DustComp.tscn",
-				"TDM","res://Maps/Dust/TDM.tscn",
-				"CheckPoints", "res://Maps/Dust/CheckPointsDUST.tscn"
+				"TDM","res://Maps/Dust/TDM.tscn"
 			],
 		desc = "Standard Map Inspired by dust 2.",
 		debug = false

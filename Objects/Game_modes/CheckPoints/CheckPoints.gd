@@ -34,6 +34,10 @@ func _ready():
 		teams.append(_teams[1])
 		teams.append(_teams[0])
 	
+	
+	for i in $top_panel/points.get_children():
+		i.hide()
+	
 	for i in checkpoints:
 		i.connect("team_captured_point", self, "P_on_team_captured_point")
 		i.connect("local_player_entered", self, "P_on_local_player_entered")
@@ -73,12 +77,15 @@ remotesync func P_syncTime(time : int):
 
 func P_on_team_captured_point(point, show_msg = true):
 	var rect = points_node.get_node(String(point.id))
+	rect.show()
 	var team_name = "Terrorists"
 	if point.holding_team == 0:
 		rect.color = Color8(201, 55, 31)
-	else:
+	elif point.holding_team == 1:
 		team_name = "CT"
 		rect.color = Color8(17,64, 194)
+	else:
+		rect.color = Color.white
 	
 	if show_msg:
 		label_node.show()

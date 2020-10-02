@@ -118,7 +118,7 @@ func setupAds():
 	
 	admob = AdMob.new()
 	admob.is_real = true
-	admob.max_ad_content_rate = "MA"
+	admob.max_ad_content_rate = "T"
 	admob.banner_id = banners[randi() % banners.size()]
 	admob.interstitial_id = interstitials[randi() % interstitials.size()]
 	admob.rewarded_id = videos[randi() % videos.size()]
@@ -127,8 +127,6 @@ func setupAds():
 	admob.load_interstitial()
 	#admob.load_rewarded_video()
 	admob.hide_banner()
-	admob.connect("interstitial_closed", self, "on_interstitial_closed")
-	admob.connect("rewarded_video_closed", self, "on_video_closed")
 	
 	admob.connect("banner_loaded", self, "on_banner_loaded")
 	admob.connect("interstitial_loaded", self, "on_interstitial_loaded")
@@ -140,12 +138,6 @@ func setupAds():
 	
 	admob.connect("interstitial_requested", self, "on_interstitial_requested")
 
-
-func on_interstitial_closed():
-	admob.load_interstitial()
-
-func on_video_closed():
-	admob.load_rewarded_video()
 
 func on_banner_loaded():
 	_admob_load_fail_count[0] = 0

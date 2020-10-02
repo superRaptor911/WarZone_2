@@ -82,10 +82,12 @@ func init() -> bool:
 func load_banner() -> void:
 	if _admob_singleton != null and not _pause_ads:
 		_admob_singleton.loadBanner(banner_id, banner_on_top)
+		print("Loading Banner")
 
 func load_interstitial() -> void:
 	if _admob_singleton != null and not _pause_ads:
 		_admob_singleton.loadInterstitial(interstitial_id)
+		print("Loading Interstitial")
 		
 func is_interstitial_loaded() -> bool:
 	if _admob_singleton != null:
@@ -106,6 +108,7 @@ func is_rewarded_video_loaded() -> bool:
 func show_banner() -> void:
 	if _admob_singleton != null and _is_banner_loaded:
 		_admob_singleton.showBanner()
+		print("showing banner")
 		
 func hide_banner() -> void:
 	if _admob_singleton != null:
@@ -114,6 +117,7 @@ func hide_banner() -> void:
 func show_interstitial() -> void:
 	if _admob_singleton != null and _is_interstitial_loaded:
 		_admob_singleton.showInterstitial()
+		print("showing Interstitial")
 	else:
 		emit_signal("interstitial_requested")
 	
@@ -137,18 +141,22 @@ func get_banner_dimension() -> Vector2:
 
 func _on_admob_ad_loaded() -> void:
 	_is_banner_loaded = true
+	print("banner loaded")
 	emit_signal("banner_loaded")
 	
 func _on_admob_banner_failed_to_load(error_code:int) -> void:
 	_is_banner_loaded = false
 	emit_signal("banner_failed_to_load", error_code)
+	print("banner failed to loaded ", error_code)
 	
 func _on_interstitial_failed_to_load(error_code:int) -> void:
 	_is_interstitial_loaded = false
+	print("interstitial failed to loaded ", error_code)
 	emit_signal("interstitial_failed_to_load", error_code)
 
 func _on_interstitial_loaded() -> void:
 	_is_interstitial_loaded = true
+	print("Interstitial loadedzz")
 	emit_signal("interstitial_loaded")
 
 func _on_interstitial_close() -> void:

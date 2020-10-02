@@ -18,6 +18,7 @@ func _ready():
 	var par = get_parent()
 	if par and par.is_in_group("Level"):
 		force_update = false
+		print("No update")
 	
 	if Engine.editor_hint or force_update:
 		add_child(timer)
