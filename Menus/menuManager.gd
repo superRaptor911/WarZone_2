@@ -166,11 +166,3 @@ func on_video_failed(_code):
 func on_interstitial_requested():
 	admob.load_interstitial()
 
-
-func showInterstitialAd():
-	if admob._is_interstitial_loaded:
-		admob.show_interstitial()
-
-func showBannerAds():
-	if admob._is_banner_loaded:
-		admob.show_banner()

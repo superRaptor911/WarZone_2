@@ -7,7 +7,7 @@
 [ext_resource path="res://Sfx/radio/letsgo.wav" type="AudioStream" id=5]
 [ext_resource path="res://Objects/Game_modes/TDM/top_panel.tscn" type="PackedScene" id=6]
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -64,7 +64,7 @@ margin_left = 0.419983
 margin_top = -0.30101
 margin_right = 0.619995
 margin_bottom = -0.301025
-custom_styles/normal = SubResource( 6 )
+custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 1 )
 text = "End of First Half"
 align = 1
