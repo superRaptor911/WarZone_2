@@ -23,6 +23,7 @@ onready var uptime_timer = $top_panel/uptime
 onready var timer_label = $top_panel/Label
 onready var ct_score_label = $top_panel/ct/Label
 onready var t_score_label = $top_panel/t/Label
+onready var is_network_server = get_tree().is_network_server()
 
 #Quake sound class holds message that is to be displayed
 #and name of the sound that is to be played
@@ -100,9 +101,9 @@ class Player_stats:
 
 
 func _ready():
+	game_states.safe_cpy_dict(mode_settings, game_server.game_mode_settings)
 	#only server handles quake events and sound
 	if get_tree().is_network_server():
-		mode_settings = game_server.game_mode_settings
 		var current_level = get_tree().get_nodes_in_group("Level")[0]
 		current_level.connect("player_created", self, "_on_unit_created")
 		current_level.connect("bot_created",self,"_on_unit_created")
@@ -112,7 +113,7 @@ func _ready():
 
 
 func _process(_delta):
-	if get_tree().is_network_server():
+	if is_network_server:
 		showQuakeKills()
 
 
@@ -126,6 +127,7 @@ func _on_uptime_timeout():
 		#var level = get_tree().get_nodes_in_group("Level")[0]
 		#level.S_restartLevel()
 		rpc("sync_endGame")
+		Logger.Log("Reached game end")
 
 
 remotesync func sync_endGame():

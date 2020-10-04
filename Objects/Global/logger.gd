@@ -7,6 +7,7 @@ var notice = preload("res://Objects/Misc/Notice.tscn").instance()
 var max_logs = 8
 
 var print_to_console = true
+var output_to_file = true
 
 var path = "user://"
 var final_path = path + "logs/"
@@ -72,7 +73,7 @@ func LogError(func_name : String, msg : String):
 
 
 func saveLogs():
-	if not logs.empty():
+	if not logs.empty() and output_to_file:
 		#
 		if file.file_exists(file_name):
 			file.open(file_name,File.READ_WRITE)
@@ -84,7 +85,7 @@ func saveLogs():
 		for i in logs:
 			file.store_line(i)
 		file.close()
-		logs.clear()
+	logs.clear()
 
 
 func getLogFilesCount() -> int:

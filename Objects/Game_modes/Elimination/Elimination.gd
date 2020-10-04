@@ -23,7 +23,7 @@ var end_screen = preload("res://Objects/Game_modes/Elimination/EndScreen.tscn").
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	mode_settings = game_server.game_mode_settings
+	game_states.safe_cpy_dict(mode_settings, game_server.game_mode_settings)
 	# Server side
 	if get_tree().is_network_server():
 		$Timer.start()		# Start Time keeping

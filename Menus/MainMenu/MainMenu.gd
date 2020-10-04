@@ -6,6 +6,11 @@ var add_shown = false
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
+	if game_states.is_server:
+		get_tree().change_scene("res://Server/ServerMain.tscn")
+		queue_free()
+		return
+		
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 	Logger.Log("Game Loaded")
 	add_shown = false

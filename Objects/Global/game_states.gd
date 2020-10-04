@@ -5,6 +5,7 @@ extends Node
 
 #is exporting for android or not
 var is_android : bool = true
+var is_server : bool = false
 const current_game_version : float = 1.47
 const invalid_position = Vector2(-999,-999)
 var first_run = false
@@ -44,7 +45,7 @@ var game_settings = {
 	# Misc
 	dynamic_camera = true,
 	music_enabled = true,
-	enable_logging = false
+	enable_logging = (false || is_server)
 }
 
 #control types available
@@ -137,28 +138,33 @@ func getLevelFromXP(xp : int) -> int:
 
 
 func _ready():
-	var gameStatus : Dictionary = load_data("user://status.dat",false)
-	Logger.Log("Loading status.dat")
-	# Check for existance and validity of savegame
-	if not gameStatus.has("game_version"):
-		first_run = true
-		saveSettings()
-		savePlayerData()
-		save_data("user://status.dat",game_status,false)
-	else:
-		safe_cpy_dict(game_settings, load_data("user://settings.dat"))
-		safe_cpy_dict(player_data, load_data("user://pinfo.dat"))
+	if not is_server:
+		var gameStatus : Dictionary = load_data("user://status.dat",false)
+		Logger.Log("Loading status.dat")
+		# Check for existance and validity of savegame
+		if not gameStatus.has("game_version"):
+			first_run = true
+			saveSettings()
+			savePlayerData()
+			save_data("user://status.dat",game_status,false)
+		else:
+			safe_cpy_dict(game_settings, load_data("user://settings.dat"))
+			safe_cpy_dict(player_data, load_data("user://pinfo.dat"))
 		
 	_init_setup()
 
 func safe_cpy_dict(dest_D : Dictionary, src_D : Dictionary):
+	if not src_D:
+		return
 	var keys = src_D.keys()
 	for i in keys:
 		if dest_D.has(i):
 			dest_D[i] = src_D[i]
 
+
 #setup player info
 func _init_setup():
+	print("Initing")
 	player_info.name = player_data.name
 	player_info.t_model = player_data.t_model
 	player_info.ct_model = player_data.ct_model
