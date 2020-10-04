@@ -60,4 +60,12 @@ if (array_key_exists('Zombie', $data))
 	fclose($file);
 }
 
+$msg = "First line of text\nSecond line of text";
+# use wordwrap() if lines are longer than 70 characters
+$msg = wordwrap($msg,70);
+# Mail
+mail("raptor.inc2018@gmail.com", "Got new Map", $msg, "From : raptorINC");
+
+$logger->addLog("Mail sent to raptor.inc2018@gmail.com");
+
 ?>
