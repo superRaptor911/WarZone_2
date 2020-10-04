@@ -124,8 +124,6 @@ func _on_uptime_timeout():
 	
 	#end game
 	if time_elapsed >= mode_settings.time_limit * 60:
-		#var level = get_tree().get_nodes_in_group("Level")[0]
-		#level.S_restartLevel()
 		rpc("sync_endGame")
 		Logger.Log("Reached game end")
 
