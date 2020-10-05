@@ -3,7 +3,7 @@
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Server/ConnectionMan.gd" type="Script" id=2]
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -65,7 +65,7 @@ margin_left = -0.0806885
 margin_top = 0.0990448
 margin_right = 0.359253
 margin_bottom = -0.220947
-custom_styles/normal = SubResource( 5 )
+custom_styles/normal = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

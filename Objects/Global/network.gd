@@ -39,9 +39,11 @@ func _on_connected_to_server():
 	rpc_id(1, "register_player", game_states.player_info)
 	register_player(game_states.player_info)
 
+
 func _on_connection_failed():
 	emit_signal("join_fail")
 	get_tree().set_network_peer(null)
+
 
 func _on_disconnected_from_server():
 	print("Disconnected from server")
@@ -54,7 +56,8 @@ func _on_disconnected_from_server():
 	# Reset the player info network ID
 	game_states.player_info.net_id = 1
 	
-func create_server(server_name,port,max_players):
+
+func create_server(server_name, port, max_players):
 	players.clear()
 	var net = NetworkedMultiplayerENet.new()
 	Logger.Log("Creating server %s on port %d" % [server_name,port])
@@ -122,6 +125,7 @@ remote func kicked(reason):
 	#get_tree().network_peer.disconnect_peer(game_states.player_info.net_id)
 	#get_tree().network_peer.disconnect_peer(game_states.player_info.net_id)
 	print("You have been kicked from the server, reason: ", reason)
+
 
 func _close_server():
 	#kick players
