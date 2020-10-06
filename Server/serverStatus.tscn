@@ -50,10 +50,10 @@ custom_fonts/font = ExtResource( 1 )
 text = "Current Mode"
 
 [node name="Button" type="Button" parent="."]
-margin_left = 579.959
-margin_top = 617.508
-margin_right = 746.959
-margin_bottom = 674.508
+margin_left = 295.959
+margin_top = 507.508
+margin_right = 462.959
+margin_bottom = 564.508
 custom_fonts/font = ExtResource( 1 )
 text = "RELOAD"
 
@@ -62,3 +62,17 @@ margin_left = 187.247
 margin_top = 304.156
 margin_right = 353.247
 margin_bottom = 345.156
+custom_fonts/font = ExtResource( 1 )
+text = "Players 10/20 (5 bots)"
+
+[node name="back" type="Button" parent="."]
+margin_left = 750.519
+margin_top = 507.508
+margin_right = 869.519
+margin_bottom = 560.508
+custom_fonts/font = ExtResource( 1 )
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

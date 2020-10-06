@@ -55,6 +55,9 @@ margin_right = -106.349
 margin_bottom = 9.58829
 custom_fonts/font = ExtResource( 1 )
 text = "Connect"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="status" type="Label" parent="."]
 anchor_left = 0.046
@@ -69,3 +72,4 @@ custom_styles/normal = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="connect" to="." method="_on_connect_pressed"]

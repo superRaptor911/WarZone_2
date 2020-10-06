@@ -54,3 +54,13 @@ func on_server_closed(ip):
 func echo(msg : String):
 	print(msg)
 	status_label.text += '\n' + msg
+
+
+func _on_connect_pressed():
+	if servers.empty():
+		print("No server found")
+		return
+	
+	var cur_server = servers[$server_list.get_selected_id()]
+	network.join_server(cur_server.ip, int(cur_server.port))
+	get_tree().change_scene("res://Server/serverStatus.tscn")
