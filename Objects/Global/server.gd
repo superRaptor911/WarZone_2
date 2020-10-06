@@ -4,7 +4,7 @@ var serverInfo : = {
 	"name": "Raptors LAN Game",
 	"ip" : "127.0.0.1",
 	"port" : "6969",
-	"game_mode" : "FFA",
+	"game_mode" : "",
 	"max_p" : "6",
 	"map" : "",
 	"map_author" : "INC",

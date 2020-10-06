@@ -95,6 +95,7 @@ func join_server(ip, port):
 	Logger.Log("Connected to %s:%s" % [ip, port])
 	get_tree().set_network_peer(net)
 
+
 # Register Player
 remotesync func register_player(pinfo):
 	# Server side
