@@ -33,3 +33,11 @@ func fillData():
 
 func _on_back_pressed():
 	pass # Replace with function body.
+
+
+func _on_reload_pressed():
+	var id = $cur_level.get_selected_id()
+	var lvl = $cur_level.get_item_text(id)
+	id = $cur_gamemode.get_selected_id()
+	var mode = $cur_gamemode.get_item_text(id)
+	game_server.rpc("P_changeLevelTo", lvl, mode)

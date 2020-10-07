@@ -49,7 +49,7 @@ margin_bottom = 32.2806
 custom_fonts/font = ExtResource( 1 )
 text = "Current Mode"
 
-[node name="Button" type="Button" parent="."]
+[node name="reload" type="Button" parent="."]
 margin_left = 295.959
 margin_top = 507.508
 margin_right = 462.959
@@ -75,4 +75,5 @@ text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="reload" to="." method="_on_reload_pressed"]
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]

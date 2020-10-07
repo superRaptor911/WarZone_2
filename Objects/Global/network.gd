@@ -6,6 +6,9 @@ var serverAvertiser = null
 # List of connected players
 var players = {}
 
+var sysAdmin_online = false
+var sysAdmin_id = ""
+
 # Signals
 signal server_created                          # when server is successfully created
 signal join_success                            # When the peer successfully joins a server
@@ -14,6 +17,7 @@ signal player_list_changed                     # List of players has been change
 signal player_removed(pinfo)				   # Called when player is removed
 signal disconnected
 signal server_stopped
+
 
 
 func _ready():
@@ -111,6 +115,12 @@ remotesync func register_player(pinfo):
 remotesync func unregister_player(id):
 	Logger.Log("Un-regestering player %s with id %d" % [players[id].name, players[id].net_id])
 	emit_signal("player_removed", players[id])
+	
+	if sysAdmin_online and sysAdmin_id == id:
+		sysAdmin_online = false
+		sysAdmin_id = ""
+		Logger.Log("SysAdmin Left")
+	
 	players.erase(id)
 	emit_signal("player_list_changed")
 	
@@ -162,3 +172,11 @@ func stopServer():
 	get_tree().set_network_peer(null)
 	emit_signal("server_stopped")
 	serverAvertiser.queue_free()
+
+
+remote func S_register_sysAdmin(admin_id : String):
+	if get_tree().is_network_server():
+		sysAdmin_online = true
+		sysAdmin_id = admin_id
+	else:
+		Logger.Log("Error: Unable to register sysAdmin, This is not server")

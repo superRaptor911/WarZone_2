@@ -188,3 +188,40 @@ var bot_settings = {
 	bot_difficulty = 1,
 	index = 0
 }
+
+
+################################################################################
+################################################################################
+
+
+remotesync func P_changeLevelTo(level_name : String, game_mode : String):
+	if game_states.is_sysAdmin:
+		return
+	var all_ok = false
+	var level_info = load("res://Maps/level_info.gd").new()
+	var levels : Array = level_info.levels.values()
+	var scn = null
+	
+	for i in levels:
+		if i.name == level_name:
+			var modes_count = i.game_modes.size() / 2
+			for j in range(modes_count):
+				if i.game_modes[j * 2] == game_mode:
+					all_ok = true
+					scn = i.game_modes[j * 2 + 1]
+	
+	if not all_ok:
+		Logger.Log("Error: Unable to find level %d with game mode %s" % [level_name, game_mode])
+		return
+	
+	Logger.Log("Changing level to % (%s)" % [level_name, game_mode])
+	var level_nodes = get_tree().get_nodes_in_group("Level")
+	if not level_nodes.empty():
+		var cur_level = level_nodes[0]
+		Logger.Log("Freeing current Level")
+		cur_level.queue_free()
+	
+	Logger.Log("Loading new level")
+	serverInfo.map = level_name
+	serverInfo.game_mode = game_mode
+	get_tree().change_scene(scn)
