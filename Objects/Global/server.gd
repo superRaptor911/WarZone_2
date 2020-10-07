@@ -225,3 +225,11 @@ remotesync func P_changeLevelTo(level_name : String, game_mode : String):
 	serverInfo.map = level_name
 	serverInfo.game_mode = game_mode
 	get_tree().change_scene(scn)
+	
+	if get_tree().is_network_server() and network.sysAdmin_online:
+		rpc_id(int(network.sysAdmin_id), "A_levelChange_confirmation", serverInfo)
+
+
+remote func A_levelChange_confirmation(new_serverInfo):
+	Logger.Log("Level chnaged successfully")
+	serverInfo = new_serverInfo
