@@ -62,5 +62,13 @@ func _on_connect_pressed():
 		return
 	
 	var cur_server = servers[$server_list.get_selected_id()]
+	game_server.serverInfo = cur_server
 	network.join_server(cur_server.ip, int(cur_server.port))
+	network.connect("join_success", self, "on_connected")
+
+
+
+func on_connected():
+	game_states.is_sysAdmin = true
+	network.rpc_id(1, "S_register_sysAdmin", String(game_states.player_info.net_id))
 	get_tree().change_scene("res://Server/serverStatus.tscn")

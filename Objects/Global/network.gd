@@ -40,10 +40,10 @@ func _on_player_disconnected(id):
 
 # Called when connected to server
 func _on_connected_to_server():
-	emit_signal("join_success")
 	Logger.Log("Connected to server")
 	game_states.player_info.net_id = get_tree().get_network_unique_id()
 	rpc("register_player", game_states.player_info)
+	emit_signal("join_success")
 
 
 func _on_connection_failed():

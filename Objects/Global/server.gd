@@ -214,7 +214,7 @@ remotesync func P_changeLevelTo(level_name : String, game_mode : String):
 		Logger.Log("Error: Unable to find level %d with game mode %s" % [level_name, game_mode])
 		return
 	
-	Logger.Log("Changing level to % (%s)" % [level_name, game_mode])
+	Logger.Log("Changing level to %s (%s)" % [level_name, game_mode])
 	var level_nodes = get_tree().get_nodes_in_group("Level")
 	if not level_nodes.empty():
 		var cur_level = level_nodes[0]
@@ -233,3 +233,4 @@ remotesync func P_changeLevelTo(level_name : String, game_mode : String):
 remote func A_levelChange_confirmation(new_serverInfo):
 	Logger.Log("Level chnaged successfully")
 	serverInfo = new_serverInfo
+	

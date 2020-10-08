@@ -14,7 +14,7 @@ func fillData():
 	var mode_list = $cur_gamemode
 	var id_lvl = 0
 	
-	print("current game mode ", game_server.serverInfo.game_mode)
+	print("current game mode ", game_server.serverInfo)
 	# Fill list
 	for i in levels:
 		level_list.add_item(i.name)
@@ -25,7 +25,7 @@ func fillData():
 			var id_mode = 0
 			for j in modes_count:
 				mode_list.add_item(i.game_modes[j * 2])
-				if i.game_modes[j * 2] == game_server.game_mode:
+				if i.game_modes[j * 2] == game_server.serverInfo.game_mode:
 					mode_list.select(id_mode)
 				id_mode += 1
 		id_lvl += 1
