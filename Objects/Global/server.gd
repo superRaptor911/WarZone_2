@@ -192,7 +192,7 @@ var bot_settings = {
 
 ################################################################################
 ################################################################################
-
+###############SYSADMIN###########SYSADMIN######################################
 
 remotesync func P_changeLevelTo(level_name : String, game_mode : String):
 	if game_states.is_sysAdmin:
@@ -231,6 +231,6 @@ remotesync func P_changeLevelTo(level_name : String, game_mode : String):
 
 
 remote func A_levelChange_confirmation(new_serverInfo):
-	Logger.Log("Level chnaged successfully")
+	Logger.Log("Level changed successfully")
 	serverInfo = new_serverInfo
 	

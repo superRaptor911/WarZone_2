@@ -7,7 +7,7 @@ var serverAvertiser = null
 var players = {}
 
 var sysAdmin_online = false
-var sysAdmin_id = ""
+var sysAdmin_id = 0
 
 # Signals
 signal server_created                          # when server is successfully created
@@ -174,7 +174,7 @@ func stopServer():
 	serverAvertiser.queue_free()
 
 
-remote func S_register_sysAdmin(admin_id : String):
+remote func S_register_sysAdmin(admin_id):
 	if get_tree().is_network_server():
 		sysAdmin_online = true
 		sysAdmin_id = admin_id
