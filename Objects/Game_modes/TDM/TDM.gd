@@ -24,6 +24,7 @@ onready var timer_label = $top_panel/Label
 onready var ct_score_label = $top_panel/ct/Label
 onready var t_score_label = $top_panel/t/Label
 onready var is_network_server = get_tree().is_network_server()
+onready var teams = get_tree().get_nodes_in_group("Team")
 
 #Quake sound class holds message that is to be displayed
 #and name of the sound that is to be played
@@ -101,7 +102,18 @@ class Player_stats:
 
 
 func _ready():
+	# Sort team
+	if teams[0].team_id == 1:
+		var temp = teams[0]
+		teams[0] = teams[1]
+		teams[1] = temp
+	
 	game_states.safe_cpy_dict(mode_settings, game_server.game_mode_settings)
+	print("##################Game Mode TDM###############")
+	print("time limit : ",mode_settings.time_limit * 60)
+	print("max score : ",mode_settings.max_score)
+	print("##################Game Mode TDM###############")
+	
 	#only server handles quake events and sound
 	if get_tree().is_network_server():
 		var current_level = get_tree().get_nodes_in_group("Level")[0]
@@ -209,13 +221,18 @@ func _on_player_killed_someone(plr_ref, _victim_ref, _wpn_used):
 
 
 func updateScore(team):
-	if team.team_id == 0:
-		t_score_label.text = String(team.score)
-	else:
-		ct_score_label.text = String(team.score)
-	
+	rpc("P_syncScore", teams[0].score, teams[1].score)
 	if team.score >= mode_settings.max_score:
 		rpc("sync_endGame")
+
+
+remotesync func P_syncScore(t_scr, ct_scr):
+	t_score_label.text = String(t_scr)
+	ct_score_label.text = String(ct_scr)
+	teams[0].score = t_scr
+	teams[1].score = ct_scr
+
+
 
 func restartGameMode():
 	var level = get_tree().get_nodes_in_group("Level")[0]
@@ -224,6 +241,8 @@ func restartGameMode():
 	yield(get_tree(), "idle_frame")
 	yield(get_tree(), "idle_frame")
 	time_elapsed = 0
+	teams[0].score = 0
+	teams[1].score = 0
 	createBots()
 
 
@@ -232,6 +251,7 @@ remotesync func P_restartGameMode():
 	$Tween.interpolate_property(level,"modulate",Color8(0,0,0,0),Color8(255,255,255,255),
 		2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
 	$Tween.start()
+
 
 func createBots():
 	Logger.Log("Creating bots")

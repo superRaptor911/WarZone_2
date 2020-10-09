@@ -5,7 +5,7 @@ extends Node
 
 #is exporting for android or not
 var is_android : bool = true
-var is_server : bool = true
+var is_server : bool = false
 var is_sysAdmin : bool = false
 
 const current_game_version : float = 1.47
