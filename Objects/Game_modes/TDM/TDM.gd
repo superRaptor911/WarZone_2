@@ -14,8 +14,7 @@ var world_size : Vector2
 #queue of quake_sounds
 var quake_sound_queue  = Array()
 
-# list of player stats
-var Players = Array()
+
 # stores the time elapsed.
 var time_elapsed  : float = 0
 
@@ -25,6 +24,7 @@ onready var ct_score_label = $top_panel/ct/Label
 onready var t_score_label = $top_panel/t/Label
 onready var is_network_server = get_tree().is_network_server()
 onready var teams = get_tree().get_nodes_in_group("Team")
+onready var level = get_tree().get_nodes_in_group("Level")[0]
 
 #Quake sound class holds message that is to be displayed
 #and name of the sound that is to be played
@@ -114,14 +114,15 @@ func _ready():
 	print("max score : ",mode_settings.max_score)
 	print("##################Game Mode TDM###############")
 	
-	#only server handles quake events and sound
+	# Server Side
 	if get_tree().is_network_server():
-		var current_level = get_tree().get_nodes_in_group("Level")[0]
-		current_level.connect("player_created", self, "_on_unit_created")
-		current_level.connect("bot_created",self,"_on_unit_created")
+		level.connect("player_created", self, "_on_unit_created")
+		level.connect("bot_created",self,"_on_unit_created")
+		level.connect("player_removed", self, "on_Player_leaves")
+		
+		uptime_timer.connect("timeout", self, "_on_uptime_timeout")
 		$Label/Timer.start()
 		uptime_timer.start()
-		createBots()
 
 
 func _process(_delta):
@@ -133,25 +134,22 @@ func _process(_delta):
 func _on_uptime_timeout():
 	time_elapsed += 1
 	rpc_unreliable("syncTime",time_elapsed)
-	
-	#end game
+	# Timeout, end game
 	if time_elapsed >= mode_settings.time_limit * 60:
-		rpc("sync_endGame")
+		rpc("P_gameEnds")
 		Logger.Log("Reached game end")
 
 
-remotesync func sync_endGame():
+remotesync func P_gameEnds():
+	# Show end Label
 	var end_scr = end_screen_scn.instance()
 	if get_tree().is_network_server():
 		end_scr.connect("ok",self,"restartGameMode")
 	add_child(end_scr)
-	end_scr.rect_scale = Vector2(0,0)
-	$Tween.interpolate_property(get_tree().get_nodes_in_group("Level")[0],"modulate",
-		Color8(255,255,255,255),Color8(0,0,0,0),2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
-	$Tween.interpolate_property(end_scr,"rect_scale",Vector2(0,0),Vector2(1,1),1,
-		Tween.TRANS_QUAD,Tween.EASE_OUT,2)
-	$Tween.start()
-	#$Time_container.hide()
+	teams[0].score = 0
+	teams[1].score = 0
+	time_elapsed = 0
+
 
 
 func showQuakeKills():
@@ -191,20 +189,30 @@ func _on_unit_created(plr):
 	plr.connect("char_killed",p,"_player_got_killed")
 	plr.connect("char_fraged",p,"_player_killed_someone")
 	plr.connect("char_fraged", self, "_on_player_killed_someone")
-	Players.push_back(p)
-	#connect
+	# connect Death signals
 	if plr.is_in_group("Bot"):
-		plr.connect("bot_killed",self,"_on_bot_killed")
+		plr.connect("bot_killed",self,"_on_unit_killed")
 	else:
-		plr.connect("player_killed",self,"_on_player_killed")
+		plr.connect("player_killed",self,"_on_unit_killed")
+		# Create bots when first user joins
+		if get_tree().get_nodes_in_group("User").size() == 1:
+			print("Player joined , Creating bots")
+			createBots()
 
 
-func _on_player_killed(plr):
+func on_Player_leaves(_plr):
+	if get_tree().get_nodes_in_group("User").size() == 1:
+		print("No player to play removing bots")
+		level.removeAllBot()
+
+
+# Called when unit is killed
+func _on_unit_killed(plr):
+	# Start repawn timer
 	plr.get_node("respawn_timer").start()
 	
-func _on_bot_killed(bot):
-	bot.get_node("respawn_timer").start()
 
+# Called when Unit kills someone
 func _on_player_killed_someone(plr_ref, _victim_ref, _wpn_used):
 	if plr_ref:
 		var f_fire = false
@@ -220,12 +228,14 @@ func _on_player_killed_someone(plr_ref, _victim_ref, _wpn_used):
 		updateScore(plr_ref.team)
 
 
+# Update score
 func updateScore(team):
 	rpc("P_syncScore", teams[0].score, teams[1].score)
 	if team.score >= mode_settings.max_score:
-		rpc("sync_endGame")
+		rpc("P_gameEnds")
 
 
+# Sync score
 remotesync func P_syncScore(t_scr, ct_scr):
 	t_score_label.text = String(t_scr)
 	ct_score_label.text = String(ct_scr)
@@ -233,26 +243,23 @@ remotesync func P_syncScore(t_scr, ct_scr):
 	teams[1].score = ct_scr
 
 
-
+# Restart Game
 func restartGameMode():
-	var level = get_tree().get_nodes_in_group("Level")[0]
 	level.S_restartLevel()
 	rpc("P_restartGameMode")
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+
 	time_elapsed = 0
 	teams[0].score = 0
 	teams[1].score = 0
-	createBots()
 
 
+# Sync Restart
 remotesync func P_restartGameMode():
-	var level = get_tree().get_nodes_in_group("Level")[0]
-	$Tween.interpolate_property(level,"modulate",Color8(0,0,0,0),Color8(255,255,255,255),
-		2,Tween.TRANS_LINEAR,Tween.EASE_OUT)
-	$Tween.start()
+	t_score_label.text = String(0)
+	ct_score_label.text = String(0)
 
 
+# Function to create bots
 func createBots():
 	Logger.Log("Creating bots")
 	var bots = Array()
@@ -260,8 +267,7 @@ func createBots():
 	print("Bot count = ",game_server.bot_settings.bot_count)
 	game_server.bot_settings.index = 0
 	var ct = false
-	var level = get_tree().get_nodes_in_group("Level")[0]
-	
+		
 	if bot_count > game_states.bot_profiles.bot.size():
 		Logger.Log("Not enough bot profiles. Required %d , Got %d" % [bot_count, game_states.bot_profiles.bot.size()])
 	
@@ -298,5 +304,5 @@ func createBots():
 	
 	#spawn bot
 	for i in bots:
-		level.createUnit(i)
+		level.rpc("P_createUnit", i)
 		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])

@@ -227,7 +227,10 @@ remote func P_createUnits(player_dict):
 
 #Function to create an Unit
 func createUnit(data):
-	assert(!spawned_units_ids.has(data.n), "Duplicate Unit found")
+	if spawned_units_ids.has(data.n):
+		print("Fatal error: Duplicate Unit found")
+		print("already spawned player ", data.n)
+		return
 	var unit
 	if data.b:
 		unit = game_states.classResource.bot.instance()
@@ -275,6 +278,9 @@ func createUnit(data):
 		unit.gun_1.clip_count = 999
 		unit.gun_2.clip_count = 999
 
+
+remotesync func P_createUnit(data):
+	createUnit(data)
 
 
 #spawn a single bot to requested team
