@@ -22,3 +22,7 @@ func _on_Button2_pressed():
 func _on_Button3_pressed():
 	MenuManager.changeScene("mainMenu")
 
+
+
+func _on_Join_online_pressed():
+	pass # Replace with function body.

@@ -33,53 +33,73 @@ __meta__ = {
 
 [node name="Panel" type="Panel" parent="."]
 anchor_left = 0.295
-anchor_top = 0.222
+anchor_top = 0.138
 anchor_right = 0.705
-anchor_bottom = 0.778
+anchor_bottom = 0.862
 margin_left = 0.399963
-margin_top = 0.159988
+margin_top = 0.139992
 margin_right = -0.400024
-margin_bottom = -0.160034
+margin_bottom = -0.140015
 rect_pivot_offset = Vector2( 265.194, 202.474 )
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 anchor_left = 0.207
-anchor_top = 0.602
+anchor_top = 0.116
 anchor_right = 0.793
-anchor_bottom = 0.794
+anchor_bottom = 0.884
 margin_left = 0.0319901
-margin_top = -0.102783
-margin_right = -0.0320435
-margin_bottom = 0.0970154
+margin_top = 0.0639992
+margin_right = -0.0320129
+margin_bottom = -0.0640259
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Join_online" type="Button" parent="Panel/VBoxContainer"]
+margin_right = 307.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 307, 100 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = SubResource( 2 )
+text = "Join Online"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 150.0
+margin_right = 307.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 307, 100 )
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 2 )
+custom_styles/focus = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+custom_fonts/font = SubResource( 2 )
+text = "Host Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 300.0
+margin_right = 307.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 307, 100 )
 custom_styles/hover = ExtResource( 2 )
 custom_styles/pressed = ExtResource( 2 )
 custom_styles/focus = ExtResource( 2 )
 custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = SubResource( 2 )
 text = "Join Lan"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button2" type="Button" parent="Panel"]
-anchor_left = 0.207
-anchor_top = 0.17
-anchor_right = 0.793
-anchor_bottom = 0.363
-margin_left = 0.0320053
-margin_top = 0.0612411
-margin_right = -0.0320129
-margin_bottom = -0.138748
-custom_styles/hover = ExtResource( 2 )
-custom_styles/pressed = ExtResource( 2 )
-custom_styles/focus = ExtResource( 2 )
-custom_styles/normal = ExtResource( 2 )
-custom_fonts/font = SubResource( 2 )
-text = "New Game"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -102,6 +122,7 @@ text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="Panel/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Join_online" to="." method="_on_Join_online_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Button3" to="." method="_on_Button3_pressed"]
