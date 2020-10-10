@@ -14,6 +14,10 @@ var bot_difficulty = 2
 func _ready():
 	loadStandardLevelData()
 	network.create_server(server_name, 6969 , 10)
+	print("Creating server at port 6969")
+	for i in IP.get_local_addresses():
+		print("Address : ", i)
+	
 	loadLevel()
 
 

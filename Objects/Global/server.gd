@@ -48,6 +48,19 @@ func no_set(_r):
 	pass
 
 
+###############################################################################
+signal synced_serverInfo
+
+remote func getServerInfo(peer_id):
+	rpc_id(peer_id, "syncServerInfo", serverInfo)
+	print("Sending sever configuration to peer ", peer_id)
+
+
+remote func syncServerInfo(s_info):
+	serverInfo = s_info
+	print("Got Server Configuration from server")
+	emit_signal("synced_serverInfo")
+
 
 #######################Score board##############
 

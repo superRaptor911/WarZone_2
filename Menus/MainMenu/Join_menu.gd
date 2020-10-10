@@ -8,7 +8,8 @@ var level_info = preload("res://Maps/level_info.gd").new()
 
 func _ready():
 	network.connect("join_fail", self, "_on_join_fail")
-	network.connect("join_success", self, "_join_game")
+	network.connect("join_success", self, "on_server_joined")
+	game_server.connect("synced_serverInfo", self, "_join_game")
 	add_child(serverListener)
 	serverListener.connect("new_server",self,"on_server_found")
 	serverListener.connect("remove_server", self, "on_server_closed")
@@ -17,14 +18,20 @@ func _ready():
 	MenuManager.connect("back_pressed", self,"_on_back_button_pressed")
 	MenuManager.admob.show_banner()
 
+
 func _on_join_fail():
 	print("Failed to join server")
 	$pop.show()
 	$con.hide()
 
+
+func on_server_joined():
+	game_server.rpc_id(1, "getServerInfo", game_states.player_info.net_id)
+
+
 func _join_game():
 	$con.hide()
-	game_server.serverInfo = current_server
+	current_server = game_server.serverInfo
 	var l_info = level_info.getLevelInfo(current_server.map)
 	
 	if l_info == {}:
@@ -36,8 +43,8 @@ func _join_game():
 	if l_path == "":
 		Logger.LogError("_join_game", "Map %s does not have game mode %s" % [current_server.map, current_server.game_mode])
 		return
-	
 	get_tree().change_scene(l_path)
+
 
 func _on_back_button_pressed():
 	MusicMan.click()
@@ -81,10 +88,11 @@ func _on_auto_pressed():
 
 func _on_join_button_pressed():
 	MusicMan.click()
-	if current_server.min_v > game_states.current_game_version:
-		Logger.LogError("on_join_button_pressed", "Server is running on higher game version")
-		Logger.notice.showNotice(self, "Join Failed", "Server is running on newer version of game. Update to Version %d" % [current_server.min_v])
-		return
+	if current_server:
+		if current_server.min_v > game_states.current_game_version:
+			Logger.LogError("on_join_button_pressed", "Server is running on higher game version")
+			Logger.notice.showNotice(self, "Join Failed", "Server is running on newer version of game. Update to Version %d" % [current_server.min_v])
+			return
 	$con.show()
 	var port = int($manual_ip/container/port.text)
 	var ip = $manual_ip/container/ip.text
