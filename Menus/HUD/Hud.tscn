@@ -539,13 +539,13 @@ __meta__ = {
 }
 
 [node name="HP_AP" type="Panel" parent="."]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchor_left = 0.374
+anchor_top = 0.874
+anchor_right = 0.626
 anchor_bottom = 1.0
-margin_left = -161.5
-margin_top = -91.0
-margin_right = 161.5
+margin_left = -0.220032
+margin_top = -0.280029
+margin_right = 0.219971
 custom_styles/panel = SubResource( 15 )
 __meta__ = {
 "_edit_group_": true,

@@ -141,6 +141,9 @@ func _on_player_removed(pinfo):
 	S_removeUnit(String(pinfo.net_id))
 
 
+###############################UTILITY #########################################
+
+# Get Spawn Point
 func getSpawnPosition(team_id : int) -> Vector2:
 	if spawn_points.empty():
 		print("Error : No spawn points available")
@@ -159,7 +162,8 @@ func getSpawnPosition(team_id : int) -> Vector2:
 			print("Error : No spawn point for selected team")
 	return game_states.invalid_position
 
-#get data from server
+
+# Get existing player data from server
 remote func S_getExistingUnits(peer_id : String):
 	Logger.Log("Sending existing player data to [%s] " % [peer_id])
 	#get spawned players
@@ -190,13 +194,16 @@ remote func S_getExistingUnits(peer_id : String):
 	#send data to peer
 	rpc_id(int(peer_id), "P_createUnits", data_list)
 
-#create player , server side 
+
+# create player , server side 
 remotesync func S_createPlayer(pinfo,team : int):
-	assert(get_tree().is_network_server(),"Not server")
-	rpc("P_createPlayer",pinfo,getSpawnPosition(team),team)
+	if get_tree().is_network_server():
+		rpc("P_createPlayer",pinfo,getSpawnPosition(team),team)
+	else:
+		print("Error : S_createPlayer called on client")
 
 
-#create player, client
+# create player, client side
 remotesync func P_createPlayer(pinfo, pos : Vector2, team_id : int):
 	var data = unit_data_dict.duplicate(true)
 	data.n = String(pinfo.net_id)
@@ -219,13 +226,13 @@ remotesync func P_createPlayer(pinfo, pos : Vector2, team_id : int):
 	createUnit(data)
 	
 
-#create multiple players, client side
+# create multiple players, client side
 remote func P_createUnits(player_dict):
 	for i in player_dict:
 		createUnit(i)
 
 
-#Function to create an Unit
+# Universal Function to create an Unit
 func createUnit(data):
 	if spawned_units_ids.has(data.n):
 		print("Fatal error: Duplicate Unit found")
@@ -279,6 +286,7 @@ func createUnit(data):
 		unit.gun_2.clip_count = 999
 
 
+# Client side function to create unit
 remotesync func P_createUnit(data):
 	createUnit(data)
 
@@ -322,6 +330,7 @@ func spawnBot(team_id : int = 0):
 		print_debug("unable to add bot no profile available")
 
 
+# Function to remove Unit, server side
 func S_removeUnit(uid : String):
 	if get_tree().is_network_server():
 		rpc("P_removeUnit", uid)
@@ -329,19 +338,23 @@ func S_removeUnit(uid : String):
 		Logger.LogError("S_removeUnit", "Not network server")
 
 
-#Remove unit from game, client side
+# Remove unit from game, client side
 remotesync func P_removeUnit(uid : String):
 	var unit = get_node(uid)
 	if unit:
-		assert(unit.is_in_group("Unit"), "Tried to remove non unit node")
+		# check type
+		if not unit.is_in_group("Unit"):
+			print("Tried to remove non unit node")
+			return
+			
 		if unit.is_in_group("Bot"):
 			#deactivate bot profile
 			for i in game_states.bot_profiles.bot:
 				if i.bot_name == unit.pname:
 					i.is_in_use = false
 					break
-			
 			emit_signal("bot_removed", unit)
+		
 		else:
 			emit_signal("player_removed", unit)
 		
@@ -351,11 +364,14 @@ remotesync func P_removeUnit(uid : String):
 
 #Kick/remove all the bots from game
 func removeAllBot():
-	assert(get_tree().is_network_server(),"Not server")
-	#get all bots
-	var bots = get_tree().get_nodes_in_group("Bot")
-	for i in bots:
-		S_removeUnit(i.name)
+	if get_tree().is_network_server():
+		#get all bots
+		var bots = get_tree().get_nodes_in_group("Bot")
+		for i in bots:
+			S_removeUnit(i.name)
+	else:
+		print("Error : removeAllBot called on client")
+
 
 
 func _on_disconnected():
@@ -363,12 +379,13 @@ func _on_disconnected():
 	queue_free()
 
 
-#restart level, server side 
+# restart level, server side 
 func S_restartLevel():
-	assert(get_tree().is_network_server(),"Not server")
-	rpc("P_restartLevel")
-	yield(get_tree(), "idle_frame")
-	#createBots()
+	if get_tree().is_network_server():
+		rpc("P_restartLevel")
+	else:
+		print("Error : S_restartLevel called on client")
+
 
 #restart level, client side
 remotesync func P_restartLevel():
@@ -387,7 +404,7 @@ remotesync func P_restartLevel():
 	spawned_units_ids.clear()
 	add_child(teamSelector)
 
-
+# Func to change player's team
 remotesync func S_changeUnitTeam(unit_id : String, team_id : int, kill_unit = true):
 	if get_tree().is_network_server():
 		var unit = game_server._unit_data_list.get(unit_id)
@@ -437,6 +454,8 @@ remotesync func P_changeUnitTeam(unit_id : String, team_id : int):
 			#CT team
 			else:
 				unit.ref.get_node("Model").setSkin(data.ct_model)
+
+
 
 
 ################################################################################

@@ -1,5 +1,8 @@
 extends Node
 
+var use_server_advertiser = true
+
+# Server configuration
 var serverInfo : = {
 	"name": "Raptors LAN Game",
 	"ip" : "127.0.0.1",
@@ -9,10 +12,10 @@ var serverInfo : = {
 	"map" : "",
 	"map_author" : "INC",
 	"version" : game_states.current_game_version,
-	"min_v" : 1.47
+	"min_v" : 1.48
 }
 
-#time is in minutes
+# Time is in minutes
 var extraServerInfo = {
 	friendly_fire = false,
 	kill_messages = true,
@@ -23,6 +26,7 @@ var extraServerInfo = {
 	auto_teambalance = true,
 	tick_rate = 25
 }
+
 
 var game_config = {
 	override_default_spectator = false,
@@ -207,6 +211,9 @@ var bot_settings = {
 ################################################################################
 ###############SYSADMIN###########SYSADMIN######################################
 
+#Utiltiy#######################################################################
+
+# Function to change Level
 remotesync func P_changeLevelTo(level_name : String, game_mode : String):
 	if game_states.is_sysAdmin:
 		return
@@ -246,4 +253,4 @@ remotesync func P_changeLevelTo(level_name : String, game_mode : String):
 remote func A_levelChange_confirmation(new_serverInfo):
 	Logger.Log("Level changed successfully")
 	serverInfo = new_serverInfo
-	
+
