@@ -111,6 +111,7 @@ __meta__ = {
 }
 
 [node name="melee" type="TouchScreenButton" parent="Control"]
+position = Vector2( -340.116, -92.895 )
 scale = Vector2( 0.754964, 0.465095 )
 normal = ExtResource( 4 )
 pressed = ExtResource( 4 )
@@ -215,14 +216,14 @@ position = Vector2( 1.1376, -4.55041 )
 shape = SubResource( 4 )
 
 [node name="HE" type="TextureButton" parent="."]
-anchor_left = 0.38
-anchor_top = 0.837
-anchor_right = 0.447
-anchor_bottom = 0.972
-margin_left = -0.335999
-margin_top = -0.0880127
-margin_right = 12.904
-margin_bottom = -13.288
+anchor_left = 0.243
+anchor_top = 0.548
+anchor_right = 0.32
+anchor_bottom = 0.675
+margin_left = 12.7715
+margin_top = -6.13528
+margin_right = 13.2114
+margin_bottom = -13.5753
 rect_rotation = 8.39806
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 6 )
@@ -538,12 +539,16 @@ __meta__ = {
 }
 
 [node name="HP_AP" type="Panel" parent="."]
-margin_left = 4.0
-margin_top = 629.0
-margin_right = 327.0
-margin_bottom = 720.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -161.5
+margin_top = -91.0
+margin_right = 161.5
 custom_styles/panel = SubResource( 15 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 

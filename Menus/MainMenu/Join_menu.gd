@@ -50,6 +50,8 @@ func _on_back_button_pressed():
 	MusicMan.click()
 	MenuManager.changeScene("mainMenu")
 
+
+
 func on_server_found(server_info):
 	current_server = server_info
 	$manual_ip/container/port.text = server_info.port
@@ -59,6 +61,8 @@ func on_server_found(server_info):
 		servers.append(server_info)
 		updateServerList()
 
+
+
 func on_server_closed(ip):
 	for i in servers:
 		if i.ip == ip:
@@ -66,6 +70,8 @@ func on_server_closed(ip):
 			print("removing ",ip)
 			updateServerList()
 			break
+
+
 
 func updateServerList():
 	var slots = $serverList/serverList.get_children()

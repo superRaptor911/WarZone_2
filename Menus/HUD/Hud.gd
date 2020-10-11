@@ -275,7 +275,7 @@ func _on_admin_menu_closed():
 
 
 func _on_fps_timer_timeout():
-	$fps.text = "Fps : " + String(frames)
+	$fps.text = "Fps : " + String(frames) + " Ping : " + String(game_states.player_info.ping)
 	frames = 0
 
 

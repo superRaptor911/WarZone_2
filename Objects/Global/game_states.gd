@@ -4,7 +4,7 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android : bool = true
+var is_android : bool = false
 var is_server : bool = false
 var is_sysAdmin : bool = false
 
@@ -23,7 +23,8 @@ var player_info = {
 	ct_model = "ct1",
 	primary_gun_name = "MP5",
 	sec_gun_name = "default_gun",
-	XP = 0
+	XP = 0,
+	ping = -1,
 }
 
 

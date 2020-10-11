@@ -204,8 +204,8 @@ void CharMovement::_client_process_vectors()
 	Vector2 movement_vector = _parent->get("movement_vector");
 
 	_changeState(last_state,movement_vector,_parent->get_rotation(),_current_input_id);
+
 	//#if movement update position and animation
-	
 	if (movement_vector.length())
 	{
 		Tween *ptween = _tween;

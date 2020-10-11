@@ -5,6 +5,8 @@ extends Node2D
 var serverAvertiser = null
 # List of connected players
 var players = {}
+var ping_timer = null
+var ping_time_stamp = 0
 
 var sysAdmin_online = false
 var sysAdmin_id = 0
@@ -26,16 +28,18 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_on_connected_to_server")
 	get_tree().connect("connection_failed", self, "_on_connection_failed")
 	get_tree().connect("server_disconnected", self, "_on_disconnected_from_server")
-
+	connect("server_stopped", self, "on_server_stopped")
+	
 
 func _on_player_connected(_id):
 	pass
 
 # Called when player disconnects
 func _on_player_disconnected(id):
-	print("Player ", players[id].name, " disconnected from server")
-	if get_tree().is_network_server():
-		rpc("unregister_player", id)
+	if players.has(id):
+		print("Player ", players[id].name, " disconnected from server")
+		if get_tree().is_network_server():
+			rpc("unregister_player", id)
 
 
 # Called when connected to server
@@ -85,6 +89,42 @@ func create_server(server_name, port, max_players):
 	game_server.serverInfo.name = server_name
 	game_server.serverInfo.plrs = String(1)
 	
+	ping_timer = Timer.new()
+	ping_timer.wait_time = 1.0
+	add_child(ping_timer)
+	ping_timer.connect("timeout", self, "on_ping_timer_timeout")
+	ping_timer.start()
+
+
+# Ping Update timer
+func on_ping_timer_timeout():
+	# Send prev ping data
+	var prev_ping_data = {}
+	for i in players:
+		prev_ping_data[i] = players[i].ping
+	rpc("P_getPingValues", prev_ping_data)
+	
+	# Get timestamp
+	ping_time_stamp = OS.get_ticks_msec()
+	# Send ping msg
+	rpc("P_sendPing_msg")
+
+
+# Sent ping msg to server
+remote func P_sendPing_msg():
+	rpc_id(1, "S_replyPing_msg", game_states.player_info.net_id)
+	
+# Calculate ping for client
+remotesync func S_replyPing_msg(id):
+	players[id].ping = (OS.get_ticks_msec() - ping_time_stamp)
+
+
+# Get ping values for clients
+remote func P_getPingValues(data):
+	for i in players:
+		if data.has(i):
+			players[i].ping = data[i]
+
 
 # Join server
 func join_server(ip, port):
@@ -180,3 +220,9 @@ remote func S_register_sysAdmin(admin_id):
 		sysAdmin_id = admin_id
 	else:
 		Logger.Log("Error: Unable to register sysAdmin, This is not server")
+
+
+func on_server_stopped():
+	if ping_timer:
+		ping_timer.queue_free()
+		ping_timer = null
