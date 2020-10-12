@@ -8,9 +8,13 @@ var max_logs = 8
 
 var print_to_console = true
 var output_to_file = true
+var console_out = false
 
 var path = "user://"
 var final_path = path + "logs/"
+
+
+signal got_new_msg(msg)
 
 
 func _ready():
@@ -36,13 +40,6 @@ func _ready():
 	file_name = final_path + String(log_index) + ".txt"
 	Log("Created log file %s" % [file_name])
 
-	var timer = Timer.new()
-	timer.one_shot = false
-	timer.wait_time = 1
-	add_child(timer)
-	timer.connect("timeout", self, "saveLogs")
-	timer.start()
-
 
 
 func Log(msg : String, instant_save = false):
@@ -51,11 +48,15 @@ func Log(msg : String, instant_save = false):
 		var message : String = ("%02d:%02d:%02d " % [dt.hour,dt.minute,dt.second]) + msg
 		logs.append(message)
 	
+		if console_out:
+			emit_signal("got_new_msg", msg)
+	
 		if print_to_console:
 			print(message)
 	
-		if instant_save:
+		if logs.size() > 50 or instant_save:
 			saveLogs()
+
 
 
 func LogError(func_name : String, msg : String):
@@ -70,6 +71,9 @@ func LogError(func_name : String, msg : String):
 		if print_to_console:
 			print(message)
 			print("-----> %s" % [msg])
+
+		if console_out:
+			emit_signal("got_new_msg", msg)
 
 
 func saveLogs():

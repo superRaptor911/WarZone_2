@@ -50,7 +50,7 @@ func fillData():
 
 
 func _on_back_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://Server/serverManMenu.tscn")
 
 
 func _on_reload_pressed():

@@ -3,10 +3,11 @@
 [ext_resource path="res://Objects/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Player.gd" type="Script" id=2]
 [ext_resource path="res://Objects/Weapons/Gun.tscn" type="PackedScene" id=3]
-[ext_resource path="res://calibrib.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=4]
 [ext_resource path="res://Sprites/Weapons/aim_indicator.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
+size = 18
 use_filter = true
 font_data = ExtResource( 4 )
 

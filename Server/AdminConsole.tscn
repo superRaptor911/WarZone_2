@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/ARIAL.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://Server/AdminConsole.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="AdminConsole" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="input" type="LineEdit" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.065
+margin_bottom = -22.8
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="output" type="TextEdit" parent="input"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 15.319
+margin_bottom = 0.00695801
+custom_fonts/font = SubResource( 1 )
+readonly = true
+[connection signal="text_entered" from="input" to="." method="_on_input_text_entered"]
