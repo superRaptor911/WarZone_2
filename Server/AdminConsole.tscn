@@ -35,6 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 15.319
 margin_bottom = 0.00695801
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.2, 0.52549, 0.117647, 1 )
 readonly = true
 [connection signal="gui_input" from="input" to="." method="_on_input_gui_input"]
 [connection signal="text_entered" from="input" to="." method="_on_input_text_entered"]

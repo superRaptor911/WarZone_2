@@ -10,27 +10,32 @@ var cur_history_id = 0
 var config = {
 	serverInfo = {
 		ref = self, fun = "getServerInfo", is_remote = false, min_arg = 0, max_arg = 0, 
-		args_types = []
+		args_types = [], help = "Get Server config dictionary"
 	},
 	
 	clear = {
 		ref = self, fun = "clearOutputBox", is_remote = false, min_arg = 0, max_arg = 0, 
-		args_types = []
+		args_types = [], help = "Clears the console"
 	},
 	
 	exit = {
 		ref = self, fun = "exitConsole", is_remote = false, min_arg = 0, max_arg = 1, 
-		args_types = ['i']
+		args_types = ['i'], help = "Exit terminal"
 	},
 	
 	echo = {
 		ref = self, fun = "consoleResponse", is_remote = false, min_arg = 0, max_arg = 1, 
-		args_types = ['s']
+		args_types = ['s'], help = "output text to terminal"
 	},
 	
 	changeLevel = {
 		ref = game_server, fun = "S_changeLevelTo", is_remote = true, min_arg = 2, max_arg = 2, 
-		args_types = ['s', 's']
+		args_types = ['s', 's'], help = "Change level and game mode"
+	},
+	
+	help = {
+		ref = self, fun = "showHelp", is_remote = false, min_arg = 0, max_arg = 0, 
+		args_types = [], help = "Shows help"
 	},
 }
 
@@ -176,4 +181,7 @@ func exitConsole(code = 0):
 	get_tree().quit(code)
 
 
-
+func showHelp():
+	consoleResponse("Warzone 2 Admin console.\t\t Raptor inc 2020\n")
+	for i in config:
+		consoleResponse("%s   \t\t\t-%s" % [i, config[i].help])
