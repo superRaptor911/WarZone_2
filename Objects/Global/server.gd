@@ -213,6 +213,17 @@ var bot_settings = {
 
 #Utiltiy#######################################################################
 
+func messageAdmin(msg):
+	if get_tree().is_network_server() and network.sysAdmin_online:
+		Logger.rpc_id(int(network.sysAdmin_id), "remoteMsg", msg)
+
+
+
+remote func S_changeLevelTo(level_name : String, game_mode : String):
+	if get_tree().is_network_server():
+		rpc("P_changeLevelTo", level_name, game_mode)
+
+
 # Function to change Level
 remotesync func P_changeLevelTo(level_name : String, game_mode : String):
 	if game_states.is_sysAdmin:
@@ -231,27 +242,32 @@ remotesync func P_changeLevelTo(level_name : String, game_mode : String):
 					scn = i.game_modes[j * 2 + 1]
 	
 	if not all_ok:
-		Logger.Log("Error: Unable to find level %d with game mode %s" % [level_name, game_mode])
+		Logger.Log("Error: Unable to find level %s with game mode %s" % [level_name, game_mode])
+		messageAdmin("Error: Unable to find level %s with game mode %s" % [level_name, game_mode])
 		return
 	
 	Logger.Log("Changing level to %s (%s)" % [level_name, game_mode])
+	messageAdmin("Changing level to %s (%s)" % [level_name, game_mode])
 	var level_nodes = get_tree().get_nodes_in_group("Level")
 	if not level_nodes.empty():
 		var cur_level = level_nodes[0]
 		Logger.Log("Freeing current Level")
+		messageAdmin("Freeing current Level")
 		cur_level.queue_free()
 	
 	Logger.Log("Loading new level")
+	messageAdmin("Loading new level")
 	serverInfo.map = level_name
 	serverInfo.game_mode = game_mode
 	get_tree().change_scene(scn)
 	
 	if get_tree().is_network_server() and network.sysAdmin_online:
+		messageAdmin("Level changed to \"%s\"." % [serverInfo.map])
+		messageAdmin("current level : %s current mode %s" % [serverInfo.map, serverInfo.game_mode])
 		rpc_id(int(network.sysAdmin_id), "A_levelChange_confirmation", serverInfo)
 
 
-remote func A_levelChange_confirmation(new_serverInfo):
-	Logger.Log("Level changed successfully")
-	serverInfo = new_serverInfo
 
+remote func A_levelChange_confirmation(new_serverInfo):
+	serverInfo = new_serverInfo
 

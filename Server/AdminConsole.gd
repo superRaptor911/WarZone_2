@@ -3,6 +3,9 @@ extends Control
 onready var output_box = $input/output
 onready var input_box = $input
 
+var history = PoolStringArray()
+var cur_history_id = 0
+
 # Function configuration
 var config = {
 	serverInfo = {
@@ -19,12 +22,21 @@ var config = {
 		ref = self, fun = "exitConsole", is_remote = false, min_arg = 0, max_arg = 1, 
 		args_types = ['i']
 	},
+	
+	echo = {
+		ref = self, fun = "consoleResponse", is_remote = false, min_arg = 0, max_arg = 1, 
+		args_types = ['s']
+	},
+	
+	changeLevel = {
+		ref = game_server, fun = "S_changeLevelTo", is_remote = true, min_arg = 2, max_arg = 2, 
+		args_types = ['s', 's']
+	},
 }
 
 
 # Connect Response signals
 func _ready():
-	Logger.console_out = true
 	Logger.connect("got_new_msg", self, "consoleResponse")
 
 
@@ -32,7 +44,9 @@ func _ready():
 # Parse input
 func _on_input_text_entered(new_text : String):
 	input_box.clear()
-	var strings = new_text.split(" ")
+	history.append(new_text)
+	cur_history_id = history.size() - 1
+	var strings = splitArgs(new_text)
 	if strings.empty():
 		return
 	
@@ -82,11 +96,42 @@ func _on_input_text_entered(new_text : String):
 			func_inf.ref.rpc_id(1, func_inf.fun, args[0], args[1], args[2])
 
 
+func splitArgs(text : String, del = ' ') -> Array:
+	var arr = Array()
+	var quotes_enabled  = false
+	var string : String = ""
+	for i in text:
+		if i == '"' or i == "'":
+			quotes_enabled = not quotes_enabled
+			continue
+		if i == del and not quotes_enabled:
+			if string != "":
+				arr.append(string)
+				string = ""
+			continue
+		
+		string += i
+	
+	if string != "":
+		arr.append(string)
+	
+	return arr
+
+
 func consoleResponse(msg):
 	output_box.text += msg + "\n"
 
 
+func _on_input_gui_input(event):
+	if event is InputEventKey:
+		if event.pressed and event.scancode == KEY_UP:
+			if not history.empty():
+				input_box.text = history[cur_history_id]
+				cur_history_id = max(0, cur_history_id - 1)
+
+
 ###############################################################################
+
 
 func getServerInfo():
 	consoleResponse("Server info -> " + String(game_server.serverInfo))
@@ -98,3 +143,6 @@ func clearOutputBox():
 
 func exitConsole(code = 0):
 	get_tree().quit(code)
+
+
+

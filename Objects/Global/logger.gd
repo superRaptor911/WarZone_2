@@ -8,7 +8,7 @@ var max_logs = 8
 
 var print_to_console = true
 var output_to_file = true
-var console_out = false
+var console_msg = ""
 
 var path = "user://"
 var final_path = path + "logs/"
@@ -47,10 +47,7 @@ func Log(msg : String, instant_save = false):
 		var dt = OS.get_datetime()
 		var message : String = ("%02d:%02d:%02d " % [dt.hour,dt.minute,dt.second]) + msg
 		logs.append(message)
-	
-		if console_out:
-			emit_signal("got_new_msg", msg)
-	
+		
 		if print_to_console:
 			print(message)
 	
@@ -71,9 +68,6 @@ func LogError(func_name : String, msg : String):
 		if print_to_console:
 			print(message)
 			print("-----> %s" % [msg])
-
-		if console_out:
-			emit_signal("got_new_msg", msg)
 
 
 func saveLogs():
@@ -110,6 +104,9 @@ func getLogsFromFileID(id : int) -> String:
 		file.open(fpath, file.READ)
 		log_data = file.get_as_text()
 		file.close()
-
 	
 	return log_data
+
+
+remote func remoteMsg(msg : String):
+	emit_signal("got_new_msg", msg)

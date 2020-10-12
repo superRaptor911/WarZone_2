@@ -33,4 +33,5 @@ anchor_bottom = 15.319
 margin_bottom = 0.00695801
 custom_fonts/font = SubResource( 1 )
 readonly = true
+[connection signal="gui_input" from="input" to="." method="_on_input_gui_input"]
 [connection signal="text_entered" from="input" to="." method="_on_input_text_entered"]
