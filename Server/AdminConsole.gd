@@ -33,6 +33,21 @@ var config = {
 		args_types = ['s', 's'], help = "Change level and game mode"
 	},
 	
+	listLevels = {
+		ref = game_server, fun = "S_getAvailableMaps", is_remote = true, min_arg = 0, max_arg = 0, 
+		args_types = [], help = "Lists available levels"
+	},
+	
+	bot_count = {
+		ref = game_server, fun = "S_getBotCount", is_remote = true, min_arg = 0, max_arg = 0, 
+		args_types = [], help = "Number of bots in server"
+	},
+	
+	player_count = {
+		ref = game_server, fun = "S_getPlayerCount", is_remote = true, min_arg = 0, max_arg = 0, 
+		args_types = [], help = "Number of players in server"
+	},
+	
 	help = {
 		ref = self, fun = "showHelp", is_remote = false, min_arg = 0, max_arg = 0, 
 		args_types = [], help = "Shows help"
@@ -184,4 +199,7 @@ func exitConsole(code = 0):
 func showHelp():
 	consoleResponse("Warzone 2 Admin console.\t\t Raptor inc 2020\n")
 	for i in config:
-		consoleResponse("%s   \t\t\t-%s" % [i, config[i].help])
+		var space = ""
+		for j in range(40 - i.length()):
+			space += " "
+		consoleResponse("%s%s-%s" % [i, space, config[i].help])

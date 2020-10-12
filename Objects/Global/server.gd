@@ -271,3 +271,22 @@ remotesync func P_changeLevelTo(level_name : String, game_mode : String):
 remote func A_levelChange_confirmation(new_serverInfo):
 	serverInfo = new_serverInfo
 
+
+remote func S_getBotCount():
+	messageAdmin("Bot count = %d" %[get_tree().get_nodes_in_group("Bot").size()])
+
+
+remote func S_getPlayerCount():
+	messageAdmin("Player count = %d" %[get_tree().get_nodes_in_group("User").size()])
+
+
+remote func S_getAvailableMaps():
+	var level_info = load("res://Maps/level_info.gd").new()
+	var levels : Array = level_info.levels.values()
+	var lvl_names = ""
+	for i in levels:
+		lvl_names += i.name + "\n"
+	
+	messageAdmin("Available Levels :-\n %s" %[lvl_names])
+	level_info.queue_free()
+	
