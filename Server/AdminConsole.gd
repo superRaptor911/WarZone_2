@@ -43,6 +43,8 @@ func _ready():
 
 # Parse input
 func _on_input_text_entered(new_text : String):
+	if new_text == "":
+		return
 	input_box.clear()
 	history.append(new_text)
 	cur_history_id = history.size() - 1
@@ -127,8 +129,37 @@ func _on_input_gui_input(event):
 		if event.pressed and event.scancode == KEY_UP:
 			if not history.empty():
 				input_box.text = history[cur_history_id]
+				input_box.caret_position = input_box.text.length()
 				cur_history_id = max(0, cur_history_id - 1)
+		elif event.pressed and event.scancode == KEY_DOWN:
+			if not history.empty():
+				cur_history_id = min(cur_history_id + 1, history.size() -1)
+				input_box.text = history[cur_history_id]
+				input_box.caret_position = input_box.text.length()
+		elif event.pressed and event.scancode == KEY_TAB:
+			autoComplete()
 
+
+func autoComplete():
+	var txt : String = input_box.text
+	var keys = config.keys()
+	
+	var near_match = ""
+	var max_char_matched = 0
+	for i in keys:
+		if i.length() < txt.length() or i.length() < max_char_matched:
+			continue
+		for c in range(txt.length()):
+			if i[c] != txt[c] or c == txt.length() - 1:
+				if max_char_matched < c:
+					near_match = i
+					max_char_matched = c
+				break
+		
+	
+	if near_match != "":
+		input_box.text = near_match
+		input_box.caret_position = near_match.length()
 
 ###############################################################################
 

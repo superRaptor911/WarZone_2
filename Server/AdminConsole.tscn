@@ -21,7 +21,10 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 0.065
 margin_bottom = -22.8
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
 custom_fonts/font = ExtResource( 1 )
+caret_blink = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
