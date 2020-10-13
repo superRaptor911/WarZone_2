@@ -24,6 +24,9 @@ margin_top = 121.868
 margin_right = 646.774
 margin_bottom = 164.868
 custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="server_list"]
 margin_left = -252.434
@@ -69,6 +72,19 @@ margin_top = 0.0990448
 margin_right = 0.359253
 margin_bottom = -0.220947
 custom_styles/normal = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IP" type="LineEdit" parent="."]
+anchor_left = 0.259
+anchor_top = 0.065
+anchor_right = 0.5
+anchor_bottom = 0.132
+margin_left = -0.52002
+margin_top = 0.199997
+margin_bottom = -0.0400009
+custom_fonts/font = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

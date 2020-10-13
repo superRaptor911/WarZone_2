@@ -22,6 +22,7 @@ func _ready():
 	# Connect signals
 	serverListener.connect("new_server",self,"on_server_found")
 	serverListener.connect("remove_server", self, "on_server_closed")
+	getServers()
 
 
 # Called when a server is discovered
@@ -58,6 +59,11 @@ func echo(msg : String):
 
 
 func _on_connect_pressed():
+	if $IP.text != "":
+		network.join_server($IP.text, 6969)
+		network.connect("join_success", self, "on_connected")
+		return
+	
 	if servers.empty():
 		print("No server found")
 		return
@@ -73,3 +79,10 @@ func on_connected():
 	game_states.is_sysAdmin = true
 	network.rpc_id(1, "S_register_sysAdmin", game_states.player_info.net_id)
 	get_tree().change_scene("res://Server/serverStatus.tscn")
+
+
+func getServers():
+	var downloader = DataUploader.new()
+	var data = downloader.getData("getServerInfo.php")
+	print("got data")
+	print(data)

@@ -6,9 +6,9 @@ var use_server_advertiser = true
 var serverInfo : = {
 	"name": "Raptors LAN Game",
 	"ip" : "127.0.0.1",
-	"port" : "6969",
+	"port" : 6969,
 	"game_mode" : "",
-	"max_p" : "6",
+	"max_p" : 6,
 	"map" : "",
 	"map_author" : "INC",
 	"version" : game_states.current_game_version,
@@ -296,3 +296,17 @@ remote func S_getIP():
 	for i in IP.get_local_addresses():
 		ips += i + "\n"
 	messageAdmin(ips)
+
+
+remote func S_setIP(ip : String, port = 6969):
+	serverInfo.ip = ip
+	serverInfo.port = port
+	messageAdmin("serverInfo updated")
+
+
+remote func S_setServerName(sname : String):
+	serverInfo.name = sname
+	messageAdmin("serverInfo updated")
+	
+remote func s_getServerInfo():
+	messageAdmin(String(serverInfo))

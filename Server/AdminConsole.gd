@@ -57,6 +57,18 @@ var config = {
 		ref = game_server, fun = "S_getIP", is_remote = true, min_arg = 0, max_arg = 0, 
 		args_types = [], help = "IP address of server"
 	},
+	
+	set_IP_address = {
+		ref = game_server, fun = "S_setIP", is_remote = true, min_arg = 1, max_arg = 2, 
+		args_types = ['s', 'i'], help = "Set IP address in serverInfo"
+	},
+	
+	set_serverName = {
+		ref = game_server, fun = "S_setServerName", is_remote = true, min_arg = 1, max_arg = 1, 
+		args_types = ['s'], help = "Set server name in serverInfo"
+	},
+	
+
 }
 
 
@@ -190,7 +202,8 @@ func autoComplete():
 
 
 func getServerInfo():
-	consoleResponse("Server info -> " + String(game_server.serverInfo))
+	consoleResponse("Server info - :")
+	game_server.rpc_id(1, "s_getServerInfo")
 
 
 func clearOutputBox():

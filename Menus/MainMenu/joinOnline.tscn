@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Menus/MainMenu/joinOnline.gd" type="Script" id=1]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=2]
@@ -24,6 +24,13 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.490196, 0.188235, 0.470588, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="joinOnline" type="Control"]
 anchor_right = 1.0
@@ -144,3 +151,23 @@ margin_bottom = 38.024
 custom_styles/normal = SubResource( 3 )
 custom_fonts/font = ExtResource( 2 )
 text = "Join"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -140.5
+margin_top = -23.0
+margin_right = 140.5
+margin_bottom = 23.0
+custom_styles/normal = SubResource( 4 )
+custom_fonts/font = ExtResource( 2 )
+text = "Connecting . . . "
+align = 1
+valign = 1
+[connection signal="pressed" from="Panel/s1/join_s1" to="." method="_on_join_s1_pressed"]

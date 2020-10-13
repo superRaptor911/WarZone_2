@@ -36,6 +36,7 @@ func loadMenus():
 	addMenu("EditorMapSelector","res://Menus/Editor/EditorMapSelector.tscn")
 	addMenu("CommunityMenu", "res://Menus/community/comMenu.tscn")
 	
+	addMenu("NG/joinOnline", "res://Menus/MainMenu/joinOnline.tscn")
 	
 	#sub menu of store menu
 	addMenu("SM/gunStore","res://Menus/store/gun_store.tscn")
