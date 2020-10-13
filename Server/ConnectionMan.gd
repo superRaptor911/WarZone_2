@@ -78,7 +78,7 @@ func _on_connect_pressed():
 func on_connected():
 	game_states.is_sysAdmin = true
 	network.rpc_id(1, "S_register_sysAdmin", game_states.player_info.net_id)
-	get_tree().change_scene("res://Server/serverStatus.tscn")
+	get_tree().change_scene("res://Server/serverManMenu.tscn")
 
 
 func getServers():

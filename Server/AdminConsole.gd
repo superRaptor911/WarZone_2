@@ -68,7 +68,15 @@ var config = {
 		args_types = ['s'], help = "Set server name in serverInfo"
 	},
 	
+	get_gameModeSettings = {
+		ref = game_server, fun = "S_getGameModeSettings", is_remote = true, min_arg = 0, max_arg = 0, 
+		args_types = [], help = "get game configuration"
+	},
 
+	set_gameModeSettings = {
+		ref = game_server, fun = "S_setGameModeSettings", is_remote = true, min_arg = 1, max_arg = 1, 
+		args_types = ['s'], help = "set game configuration"
+	},
 }
 
 

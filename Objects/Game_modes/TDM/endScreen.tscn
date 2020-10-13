@@ -90,6 +90,9 @@ margin_right = 87.5
 margin_bottom = 26.0
 custom_fonts/font = SubResource( 2 )
 text = "RESULT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ok" type="Button" parent="."]
 anchor_left = 0.5

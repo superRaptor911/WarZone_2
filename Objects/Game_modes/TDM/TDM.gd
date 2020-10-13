@@ -138,6 +138,7 @@ func _on_uptime_timeout():
 	if time_elapsed >= mode_settings.time_limit * 60:
 		rpc("P_gameEnds")
 		Logger.Log("Reached game end")
+		freezeEveryone()
 
 
 remotesync func P_gameEnds():
@@ -172,7 +173,7 @@ remotesync func syncQuakeKills(msg,sound_name,is_last_msg : bool):
 
 
 remotesync func syncTime(time_now):
-	var time_limit = game_server.extraServerInfo.time_limit * 60
+	var time_limit = mode_settings.time_limit * 60
 	var _min_ : int = (time_limit - time_now)/60.0
 	var _sec_ : int = int(time_limit - time_now) % 60
 	timer_label.text = String(_min_) + " : " + String(_sec_)
@@ -233,6 +234,7 @@ func updateScore(team):
 	rpc("P_syncScore", teams[0].score, teams[1].score)
 	if team.score >= mode_settings.max_score:
 		rpc("P_gameEnds")
+		freezeEveryone()
 
 
 # Sync score
@@ -251,6 +253,7 @@ func restartGameMode():
 	time_elapsed = 0
 	teams[0].score = 0
 	teams[1].score = 0
+	unfreezeEveryone()
 
 
 # Sync Restart
@@ -306,3 +309,17 @@ func createBots():
 	for i in bots:
 		level.rpc("P_createUnit", i)
 		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])
+
+
+# Freeze everyone, prevents from moving
+func freezeEveryone():
+	var players = get_tree().get_nodes_in_group("Unit")
+	for i in players:
+		i.S_freezeUnit(true)
+
+
+# Un-Freeze everyone
+func unfreezeEveryone():
+	var players = get_tree().get_nodes_in_group("Unit")
+	for i in players:
+		i.S_freezeUnit(false)

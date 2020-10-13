@@ -5,7 +5,7 @@ extends Node
 
 #is exporting for android or not
 var is_android : bool = true
-var is_server : bool = false
+var is_server : bool = true
 var is_sysAdmin : bool = false
 
 const current_game_version : float = 1.48
@@ -164,6 +164,24 @@ func safe_cpy_dict(dest_D : Dictionary, src_D : Dictionary):
 		if dest_D.has(i):
 			dest_D[i] = src_D[i]
 
+
+func stringToType(string : String):
+	var type = 'i'
+	for i in string:
+		if i == '.':
+			type = 'f'
+			break
+		if not (i  >= '0' and i <= '9'):
+			type = 's'
+			break
+		
+	if type == 'f':
+		print("float")
+		return float(string)
+	if type == 'i':
+		print("int")
+		return int(string)
+	return string
 
 #setup player info
 func _init_setup():

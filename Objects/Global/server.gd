@@ -310,3 +310,40 @@ remote func S_setServerName(sname : String):
 	
 remote func s_getServerInfo():
 	messageAdmin(String(serverInfo))
+
+
+remote func S_getGameModeSettings():
+	var gameMode : Node = get_tree().get_nodes_in_group("GameMode")[0]
+	var mode_settings = gameMode.get("mode_settings")
+	if mode_settings:
+		messageAdmin(String(mode_settings))
+	else:
+		messageAdmin("Error: failed to get mode_settings")
+
+
+remote func S_setGameModeSettings(settings : String):
+	var strings = settings.split(",")
+	var dict = {}
+	for i in strings:
+		var kNv = i.split("=")
+		if kNv.size() != 2:
+			print("error parsing mode settings")
+			messageAdmin("error parsing mode settings")
+			messageAdmin("Error at : %s" % [i])
+			return 
+		dict[kNv[0]] = game_states.stringToType(kNv[1])
+		rpc("P_updateGameModeSettings", dict)
+	
+
+
+remotesync func P_updateGameModeSettings(new_settings):
+	if game_states.is_sysAdmin:
+		return
+	var gameMode : Node = get_tree().get_nodes_in_group("GameMode")[0]
+	var mode_settings = gameMode.get("mode_settings")
+	if mode_settings:
+		game_states.safe_cpy_dict(mode_settings, new_settings)
+		gameMode.set("mode_settings", mode_settings)
+		messageAdmin("Updated game mode settings")
+	else:
+		messageAdmin("Error: failed to get mode_settings")
