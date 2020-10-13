@@ -4,11 +4,11 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android : bool = false
+var is_android : bool = true
 var is_server : bool = true
 var is_sysAdmin : bool = false
 
-const current_game_version : float = 1.47
+const current_game_version : float = 1.48
 const invalid_position = Vector2(-999,-999)
 var first_run = false
 
@@ -40,7 +40,7 @@ var game_settings = {
 	dpad_transparency = 128,
 	particle_effects = true,
 	lighting_effects = true,
-	show_fps = false,
+	show_fps = true,
 	shadows = true,
 	use_rich_text = true,
 	body_stay_time = 10,

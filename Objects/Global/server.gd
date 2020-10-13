@@ -290,3 +290,9 @@ remote func S_getAvailableMaps():
 	messageAdmin("Available Levels :-\n %s" %[lvl_names])
 	level_info.queue_free()
 	
+
+remote func S_getIP():
+	var ips = ""
+	for i in IP.get_local_addresses():
+		ips += i + "\n"
+	messageAdmin(ips)

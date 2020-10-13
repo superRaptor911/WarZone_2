@@ -1,0 +1,146 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Menus/MainMenu/joinOnline.gd" type="Script" id=1]
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Sprites/bg/bg3.jpg" type="Texture" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.105882, 0.137255, 0.372549, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.0862745, 0.701961, 0.0509804, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="joinOnline" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.096
+anchor_top = 0.114
+anchor_right = 0.904
+anchor_bottom = 0.906
+margin_left = -0.380005
+margin_top = -14.08
+margin_right = 0.379883
+margin_bottom = -0.320007
+custom_styles/panel = SubResource( 1 )
+
+[node name="s1" type="Panel" parent="Panel"]
+anchor_left = 0.053
+anchor_top = 0.103
+anchor_right = 0.947
+anchor_bottom = 0.202
+margin_left = 0.144997
+margin_top = -0.0476341
+margin_right = -0.14502
+margin_bottom = 0.136368
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="s_name" type="Label" parent="Panel/s1"]
+anchor_left = 0.028
+anchor_top = 0.138
+anchor_right = 0.028
+anchor_bottom = 0.138
+margin_left = 0.32
+margin_top = -0.00400066
+margin_right = 212.32
+margin_bottom = 40.996
+custom_fonts/font = ExtResource( 2 )
+text = "Server 1 [US]"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gmode" type="Label" parent="Panel/s1"]
+anchor_left = 0.323
+anchor_top = 0.138
+anchor_right = 0.323
+anchor_bottom = 0.138
+margin_left = 0.224976
+margin_top = -0.00400066
+margin_right = 167.225
+margin_bottom = 40.996
+custom_fonts/font = ExtResource( 2 )
+text = "TDM"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="players" type="Label" parent="Panel/s1"]
+anchor_left = 0.71
+anchor_top = 0.138
+anchor_right = 0.71
+anchor_bottom = 0.138
+margin_left = 0.249939
+margin_top = -0.00400066
+margin_right = 93.2499
+margin_bottom = 40.996
+custom_fonts/font = ExtResource( 2 )
+text = "0/16"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="map" type="Label" parent="Panel/s1"]
+anchor_left = 0.5
+anchor_top = 0.138
+anchor_right = 0.5
+anchor_bottom = 0.138
+margin_left = 3.5
+margin_top = -0.00400066
+margin_right = 194.5
+margin_bottom = 40.996
+custom_fonts/font = ExtResource( 2 )
+text = "DUST2"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="join_s1" type="Button" parent="Panel/s1"]
+anchor_left = 0.856
+anchor_top = 0.172
+anchor_right = 0.856
+anchor_bottom = 0.172
+margin_left = 0.199951
+margin_top = 0.0239992
+margin_right = 115.2
+margin_bottom = 38.024
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = ExtResource( 2 )
+text = "Join"

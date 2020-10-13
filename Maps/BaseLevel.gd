@@ -73,6 +73,9 @@ func _ready():
 		genNavigation()
 	else:
 		rpc_id(1,"S_getExistingUnits", String(game_states.player_info.net_id))
+	
+	if game_states.is_server:
+		add_child(load("res://Objects/scripts/serverInfoUpdater.gd").new())
 
 
 #this is used to capture minimap

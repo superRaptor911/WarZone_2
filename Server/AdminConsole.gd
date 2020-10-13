@@ -52,6 +52,11 @@ var config = {
 		ref = self, fun = "showHelp", is_remote = false, min_arg = 0, max_arg = 0, 
 		args_types = [], help = "Shows help"
 	},
+	
+	IP_address = {
+		ref = game_server, fun = "S_getIP", is_remote = true, min_arg = 0, max_arg = 0, 
+		args_types = [], help = "IP address of server"
+	},
 }
 
 
