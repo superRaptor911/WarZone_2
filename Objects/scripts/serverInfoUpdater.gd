@@ -4,7 +4,7 @@ var timer = Timer.new()
 var thread = Thread.new()
 
 func _ready():
-	timer.wait_time = 45
+	timer.wait_time = 90
 	add_child(timer)
 	timer.connect("timeout", self, "_on_timer_timeout")
 	timer.start()
@@ -16,7 +16,6 @@ func _on_timer_timeout():
 
 
 func uploadServerInfo(_msg):
-	print("Uploading data")
 	var uploader = DataUploader.new()
 	uploader.connect("connection_failed", self, "update_failed")
 	uploader.connect("upload_failed", self, "update_failed")
@@ -25,7 +24,6 @@ func uploadServerInfo(_msg):
 
 
 func updated_ServerInfo():
-	print("ServerInfo Updated")
 	thread.wait_to_finish()
 
 func update_failed():

@@ -38,6 +38,11 @@ var config = {
 		args_types = [], help = "Lists available levels"
 	},
 	
+	listGameModes = {
+		ref = game_server, fun = "S_getAvailableGameModes", is_remote = true, min_arg = 0, max_arg = 1, 
+		args_types = ['s'], help = "Lists available game modes for current/ input level"
+	},
+	
 	bot_count = {
 		ref = game_server, fun = "S_getBotCount", is_remote = true, min_arg = 0, max_arg = 0, 
 		args_types = [], help = "Number of bots in server"

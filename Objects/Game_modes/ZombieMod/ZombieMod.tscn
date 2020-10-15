@@ -1,8 +1,32 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Game_modes/ZombieMod/ZombieMod.gd" type="Script" id=1]
 [ext_resource path="res://font_s28.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Sfx/zm/spawn.ogg" type="AudioStream" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.878431, 0.129412, 0.129412, 0.67451 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.133333, 0.317647, 0.835294, 0.764706 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.145098, 0.14902, 0.168627, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.121569, 0.482353, 0.745098, 1 )
 
 [node name="ZombieMod" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -37,5 +61,46 @@ one_shot = true
 
 [node name="roundStart" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+
+[node name="top_panel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -119.785
+margin_right = 25.2146
+margin_bottom = 40.0
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Zombies "
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="count" type="Label" parent="top_panel"]
+margin_left = 159.0
+margin_right = 232.0
+margin_bottom = 37.0
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="round" type="Label" parent="top_panel"]
+anchor_left = 0.839
+anchor_right = 0.839
+margin_left = -15.0188
+margin_top = 51.0
+margin_right = 24.9812
+margin_bottom = 90.0
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = ExtResource( 2 )
+text = "1"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="round_start_dl" to="." method="_on_round_start_dl_timeout"]
 [connection signal="timeout" from="restart_delay" to="." method="_on_restart_delay_timeout"]

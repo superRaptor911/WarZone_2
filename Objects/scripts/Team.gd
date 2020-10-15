@@ -11,6 +11,7 @@ var alive_players = 0
 var user_count = 0
 
 signal team_eliminated(team)
+signal player_count_changed(team)
 
 func _init(id,lvl):
 	team_id = id
@@ -54,6 +55,7 @@ func removePlayer(plr):
 
 func _on_player_killed():
 	alive_players -= 1
+	emit_signal("player_count_changed", self)
 	if alive_players == 0:
 		emit_signal("team_eliminated",self)
 

@@ -291,6 +291,30 @@ remote func S_getAvailableMaps():
 	level_info.queue_free()
 	
 
+remote func S_getAvailableGameModes(lvl = "current"):
+	if lvl == "current":
+		lvl = serverInfo.map
+	
+	var level_info = load("res://Maps/level_info.gd").new()
+	var levels : Array = level_info.levels.values()
+	var lvl_names = ""
+	
+	for i in levels:
+		if lvl == i.name:
+			var string = ""
+			var counter = true
+			for j in i.game_modes:
+				if counter:
+					string += j + "  "
+				counter = not counter
+			messageAdmin(string + "\n")
+			level_info.queue_free()
+			return
+	
+	messageAdmin("Error Level %s not found" % [lvl])
+	level_info.queue_free()
+
+
 remote func S_getIP():
 	var ips = ""
 	for i in IP.get_local_addresses():

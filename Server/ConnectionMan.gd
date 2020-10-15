@@ -86,4 +86,6 @@ func getServers():
 	var data = downloader.getData("getServerInfo.php")
 	print("got data")
 	print(data)
-	echo(String(data.ip))
+	data = data.values()
+	for i in data:
+		echo(String(i.ip))

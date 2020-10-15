@@ -7,7 +7,6 @@ var z_count = 0
 
 var zombie_spawns = Array()
 var selected_zombie_spawn = null
-var is_player_playing = false
 
 # Boss scenes
 var zombieBossScenes = [
@@ -17,6 +16,9 @@ var zombieBossScenes = [
 
 onready var tween =$Tween
 onready var label = $Label
+onready var cur_round_label = $top_panel/round
+onready var zm_count_label = $top_panel/count
+onready var level = get_tree().get_nodes_in_group("Level")[0]
 
 #Props are objects that can be destroyed / damaged
 var Props_scene = {
@@ -61,19 +63,29 @@ func _ready():
 		
 		for i in teams:
 			i.connect("team_eliminated", self, "on_team_eliminated")
+			if i.team_id == 0:
+				i.connect("player_count_changed", self, "on_zombie_killed")
 		
-		var level = get_tree().get_nodes_in_group("Level")[0]
 		level.connect("player_created", self, "on_player_created")
-		createBots()
 	else:
 		rpc_id(1, "S_getExistingZombies", String(game_states.player_info.net_id))
 
+
 func on_player_created(_plr):
-	if not is_player_playing:
-		is_player_playing = true
+	if get_tree().get_nodes_in_group("User").size() == 1:
+		print("Player created, spawning bots")
+		createBots()
 		$round_start_dl.start()
 	# Show msg
 	rpc_unreliable_id(int(_plr.name), "P_showMessage", "Survive 10 waves of zombies.")
+
+
+func on_Player_leaves(_plr):
+	if get_tree().get_nodes_in_group("User").size() == 1:
+		print("No player to play removing bots")
+		level.removeAllBot()
+		current_round = 0
+
 
 remotesync func P_showMessage(msg : String):
 	showLabel(msg)
@@ -94,6 +106,15 @@ func on_team_eliminated(team):
 	for i in zombie_spawns:
 		i.deactivateZ()
 
+
+func on_zombie_killed(team):
+	rpc("P_syncZcount", team.alive_players)
+
+
+remotesync func P_syncZcount(count):
+	zm_count_label.text = String(count)
+
+
 # Called when round starts ( server side)
 func _on_round_start_dl_timeout():
 	current_round += 1
@@ -106,6 +127,7 @@ func _on_round_start_dl_timeout():
 		return
 		
 	z_count = getZombieCount()
+	rpc("P_syncZcount", z_count)
 	var num = int(z_count / zombie_spawns.size())
 	var HP = 100
 	var speed = getZombieSpeed()
@@ -117,10 +139,12 @@ func _on_round_start_dl_timeout():
 		i.speed = speed
 		i.activateZ()
 
+
 # Local function (client side), called when a new round starts 
 remotesync func P_roundStarted(r : int):
 	showLabel("Round %d started. Get ready !!" % [r], Color.red)
-	$roundStart.play()	
+	$roundStart.play()
+	cur_round_label.text = String(r)
 	# Respawn destroyed props
 	for i in Props:
 		#Check existance of prop
@@ -133,6 +157,7 @@ remotesync func P_roundStarted(r : int):
 				prop.position = i.pos
 				prop_parent.add_child(prop)
 				i.ref = prop
+
 
 # Local Function (client side)
 remotesync func P_roundEnd():
@@ -169,11 +194,11 @@ remotesync func P_restart():
 func createBots():
 	Logger.Log("Creating bots")
 	var bots = Array()
-	var bot_count = min(game_server.bot_settings.bot_count, 10)
+	var bot_count = game_server.bot_settings.bot_count
 	print("Bot count = ",game_server.bot_settings.bot_count)
 	game_server.bot_settings.index = 0
-	var level = get_tree().get_nodes_in_group("Level")[0]
-	
+	var ct = false
+		
 	if bot_count > game_states.bot_profiles.bot.size():
 		Logger.Log("Not enough bot profiles. Required %d , Got %d" % [bot_count, game_states.bot_profiles.bot.size()])
 	
@@ -191,11 +216,10 @@ func createBots():
 			data.scr = 0
 			data.pg = i.bot_primary_gun
 			data.sg = i.bot_sec_gun
-			
-			#assign team
 			data.tId = 1
 			data.s = i.bot_ct_skin
-
+			ct = false
+			
 			data.p = level.getSpawnPosition(data.tId)
 			#giving unique node name
 			data.n = "bot" + String(69 + game_server.bot_settings.index)
@@ -204,8 +228,9 @@ func createBots():
 	
 	#spawn bot
 	for i in bots:
-		level.createUnit(i)
+		level.rpc("P_createUnit", i)
 		Logger.Log("Created bot [%s] with ID %s" % [i.pn, i.n])
+
 
 # Resawn Units ( Players + Bots)
 func respawnEveryOne():
@@ -231,7 +256,6 @@ remote func S_getExistingZombies(pid : String):
 # Local funtion to spawn existing Zombies.
 # Called when a new player joins and requests server for existing zms
 remote func P_spawnZombies(zData : Array):
-	var level = get_tree().get_nodes_in_group("Level")[0]
 	for i in zData:
 		var zm = game_states.classResource.get("zombie").instance()
 		zm.position = i.pos
@@ -248,7 +272,6 @@ remotesync func P_BossRound_1():
 	var boss0 = zombieBossScenes[1].instance()
 	var boss1 = zombieBossScenes[1].instance()
 	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoint")
-	var level = get_tree().get_nodes_in_group("Level")[0]
 	boss0.name = "gargantua0"
 	boss1.name = "gargantua1"
 	boss0.position = spawn_locs[randi() % spawn_locs.size()].position
@@ -262,7 +285,6 @@ remotesync func P_BossRound_2():
 	var boss0 = zombieBossScenes[0].instance()
 	var boss1 = zombieBossScenes[0].instance()
 	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoint")
-	var level = get_tree().get_nodes_in_group("Level")[0]
 	boss0.name = "zBullsqid0"
 	boss1.name = "zBullsqid1"
 	boss0.position = spawn_locs[randi() % spawn_locs.size()].position
@@ -278,7 +300,6 @@ remotesync func P_BossRound_3():
 	var boss2 = zombieBossScenes[0].instance()
 	var boss3 = zombieBossScenes[0].instance()
 	var spawn_locs = get_tree().get_nodes_in_group("ZspawnPoint")
-	var level = get_tree().get_nodes_in_group("Level")[0]
 	boss0.name = "gargantua0"
 	boss1.name = "gargantua1"
 	boss2.name = "zBullsqid0"
