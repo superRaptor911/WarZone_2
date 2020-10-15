@@ -86,3 +86,4 @@ func getServers():
 	var data = downloader.getData("getServerInfo.php")
 	print("got data")
 	print(data)
+	echo(String(data.ip))

@@ -117,7 +117,7 @@ margin_top = -0.00400066
 margin_right = 93.2499
 margin_bottom = 40.996
 custom_fonts/font = ExtResource( 2 )
-text = "0/16"
+text = "2/16"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false

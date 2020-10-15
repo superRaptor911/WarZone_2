@@ -4,6 +4,8 @@
 [ext_resource path="res://Sprites/Weapons/he.png" type="Texture" id=2]
 
 [sub_resource type="PhysicsMaterial" id=1]
+rough = true
+absorbent = true
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 4.45389
@@ -33,7 +35,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
-velocity = 500.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0

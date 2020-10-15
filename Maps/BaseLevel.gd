@@ -362,7 +362,9 @@ remotesync func P_removeUnit(uid : String):
 			emit_signal("player_removed", unit)
 		
 		game_server._unit_data_list.erase(uid)
+		spawned_units_ids.erase(unit.name)
 		unit.queue_free()
+		
 
 
 #Kick/remove all the bots from game

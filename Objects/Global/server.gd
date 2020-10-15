@@ -347,3 +347,17 @@ remotesync func P_updateGameModeSettings(new_settings):
 		messageAdmin("Updated game mode settings")
 	else:
 		messageAdmin("Error: failed to get mode_settings")
+
+
+remote func S_listPlayers():
+	var units = get_tree().get_nodes_in_group("Unit")
+	var string = ""
+	for i in units:
+		var type = "Bot"
+		if i.is_in_group("User"):
+			type = "User"
+		string += i.pname + "\t\t\t" + i.name + "\t\t\t" + type + "\n"
+	
+	messageAdmin(string)
+
+

@@ -21,7 +21,7 @@ func _ready():
 	if not game_states.is_android:
 		$controller.queue_free()
 	# Show Fps
-	if game_states.game_settings.show_fps:
+	if game_states.game_settings.show_fps or true:
 		$fps_timer.start()
 	# Create Slots for hud messages
 	kill_msg_slots = Kill_Message_slots.new(self,8)
@@ -102,7 +102,7 @@ func _on_zoom_pressed():
 	user.get_node("Camera2D").zoom = user.selected_gun.getNextZoom()
 
 func _on_HE_pressed():
-	if game_states.player_data.nade_count > 0:
+	if game_states.player_data.nade_count > 0 and user.alive:
 		game_states.player_data.nade_count -= 1
 		user.rpc_id(1,"server_throwGrenade")
 

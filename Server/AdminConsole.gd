@@ -48,6 +48,11 @@ var config = {
 		args_types = [], help = "Number of players in server"
 	},
 	
+	list_players = {
+		ref = game_server, fun = "S_listPlayers", is_remote = true, min_arg = 0, max_arg = 0, 
+		args_types = [], help = "List players and bots playing in the server"
+	},
+	
 	help = {
 		ref = self, fun = "showHelp", is_remote = false, min_arg = 0, max_arg = 0, 
 		args_types = [], help = "Shows help"

@@ -18,6 +18,9 @@ signal back_pressed
 func _ready():
 	setupAds()
 	loadMenus()
+	
+	if game_states.first_run:
+		MenuManager.changeScene("once")
 
 func addMenu(name,path):
 	menu[name] = load(path)

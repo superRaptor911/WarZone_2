@@ -143,7 +143,7 @@ func _on_b5_pressed():
 
 func updateServerInfo():
 	var serverInfoStr = serverInfoFormatStr % [current_server.name,current_server.game_mode,
-						current_server.map, current_server.plrs + "/" + current_server.max_p]
+						current_server.map, String(current_server.plrs) + "/" + String(current_server.max_p)]
 	$serverInfo/Label.text = serverInfoStr
 
 
