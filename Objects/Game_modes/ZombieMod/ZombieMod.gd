@@ -24,6 +24,8 @@ onready var level = get_tree().get_nodes_in_group("Level")[0]
 var Props_scene = {
 	barrel = preload("res://Objects/Weapons/barrel.tscn")
 }
+
+var zm_minimap = preload("res://Objects/Game_modes/ZombieMod/ZM_Minimap.tscn")
 var prop_parent = null
 var Props = Array()
 
@@ -56,6 +58,8 @@ func _ready():
 	
 	if props.size() != 0:
 		prop_parent = props[0].get_parent()
+		
+	level.connect("player_created", self, "P_on_player_joined")
 	
 	if get_tree().is_network_server():
 		zombie_spawns = get_tree().get_nodes_in_group("ZspawnPoint")
@@ -78,6 +82,18 @@ func on_player_created(_plr):
 		$round_start_dl.start()
 	# Show msg
 	rpc_unreliable_id(int(_plr.name), "P_showMessage", "Survive 10 waves of zombies.")
+
+
+func P_on_player_joined(plr):
+	if plr.is_network_master():
+		var minimap_panel = plr.hud.get_node("Minimap")
+		var minimap = minimap_panel.get_node("Minimap")
+		var new_minimap = zm_minimap.instance()
+		new_minimap.name = "Minimap"
+		new_minimap.rect_size = minimap.rect_size
+		minimap.queue_free()
+		minimap_panel.add_child(new_minimap)
+		print("Loaded Custom minimap")
 
 
 func on_Player_leaves(_plr):
