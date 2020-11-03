@@ -1,7 +1,7 @@
 extends Node
 
 var file : File = File.new()
-var file_name = ""
+var file_name = "user://logs.txt"
 var logs = Array()
 var notice = preload("res://Objects/Misc/Notice.tscn").instance()
 var max_logs = 8
@@ -10,34 +10,13 @@ var print_to_console = true
 var output_to_file = true
 var console_msg = ""
 
-var path = "user://"
-var final_path = path + "logs/"
-
 
 signal got_new_msg(msg)
 
 
 func _ready():
-	var dir = Directory.new()
-	dir.open(path)
-	dir.make_dir("logs")
-	var log_index = -1
-	
-	for i in range(max_logs):
-		if not file.file_exists(final_path + String(i) + ".txt"):
-			log_index = i
-			break
-	
 	if not game_states.game_settings.enable_logging:
 		return
-		
-	#reached max log files , delete them
-	if log_index == -1:
-		for i in range(16):
-			dir.remove(final_path + String(i) + ".txt")
-		log_index = 0
-
-	file_name = final_path + String(log_index) + ".txt"
 	Log("Created log file %s" % [file_name])
 
 
@@ -72,40 +51,14 @@ func LogError(func_name : String, msg : String):
 
 func saveLogs():
 	if not logs.empty() and output_to_file:
-		#
 		if file.file_exists(file_name):
 			file.open(file_name,File.READ_WRITE)
-			file.seek_end()
 		else:
 			file.open(file_name,File.WRITE)
-			
-
 		for i in logs:
 			file.store_line(i)
 		file.close()
-	logs.clear()
 
-
-func getLogFilesCount() -> int:
-	var count = 0
-	for i in range(max_logs):
-		if not file.file_exists(final_path + String(i) + ".txt"):
-			break
-		count += 1
-	
-	return count
-	
-
-func getLogsFromFileID(id : int) -> String:
-	var log_data : String
-	var fpath = final_path + String(id) + ".txt"
-	
-	if file.file_exists(fpath):
-		file.open(fpath, file.READ)
-		log_data = file.get_as_text()
-		file.close()
-	
-	return log_data
 
 
 remote func remoteMsg(msg : String):

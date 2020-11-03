@@ -9,6 +9,11 @@ func _ready():
 	network.connect("join_fail", self, "_on_join_fail")
 	network.connect("join_success", self, "on_server_joined")
 	game_server.connect("synced_serverInfo", self, "_join_game")
+	var notice = Notice.new()
+	notice.showNotice(self, "Warning !", 
+		"This is an experimental feature. Work is in progress.\nGame may crash", 
+		Color.red)
+	MenuManager.connect("back_pressed", self, "on_back_pressed")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,3 +54,13 @@ func _join_game():
 		Logger.LogError("_join_game", "Map %s does not have game mode %s" % [current_server.map, current_server.game_mode])
 		return
 	get_tree().change_scene(l_path)
+
+
+func _on_join_s2_pressed():
+	network.join_server("35.240.187.237",6969)
+	$Label.text = "Connecting . . ."
+	$Label.show()
+
+
+func on_back_pressed():
+	MenuManager.changeScene("newGame")

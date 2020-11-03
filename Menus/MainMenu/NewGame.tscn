@@ -61,7 +61,7 @@ __meta__ = {
 }
 
 [node name="Join_online" type="Button" parent="Panel/VBoxContainer"]
-margin_right = 307.0
+margin_right = 329.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 307, 100 )
 custom_styles/hover = ExtResource( 2 )
@@ -69,6 +69,7 @@ custom_styles/pressed = ExtResource( 2 )
 custom_styles/focus = ExtResource( 2 )
 custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = SubResource( 2 )
+disabled = true
 text = "Join Online"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -76,7 +77,7 @@ __meta__ = {
 
 [node name="Button2" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 150.0
-margin_right = 307.0
+margin_right = 329.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 307, 100 )
 custom_styles/hover = ExtResource( 2 )
@@ -91,7 +92,7 @@ __meta__ = {
 
 [node name="Button" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 300.0
-margin_right = 307.0
+margin_right = 329.0
 margin_bottom = 400.0
 rect_min_size = Vector2( 307, 100 )
 custom_styles/hover = ExtResource( 2 )
@@ -99,6 +100,7 @@ custom_styles/pressed = ExtResource( 2 )
 custom_styles/focus = ExtResource( 2 )
 custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = SubResource( 2 )
+disabled = true
 text = "Join Lan"
 __meta__ = {
 "_edit_use_anchors_": false

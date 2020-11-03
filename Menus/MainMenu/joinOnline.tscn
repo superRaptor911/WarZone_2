@@ -59,6 +59,9 @@ margin_top = -14.08
 margin_right = 0.379883
 margin_bottom = -0.320007
 custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="s1" type="Panel" parent="Panel"]
 anchor_left = 0.053
@@ -108,6 +111,7 @@ __meta__ = {
 }
 
 [node name="players" type="Label" parent="Panel/s1"]
+visible = false
 anchor_left = 0.71
 anchor_top = 0.138
 anchor_right = 0.71
@@ -133,13 +137,109 @@ margin_top = -0.00400066
 margin_right = 194.5
 margin_bottom = 40.996
 custom_fonts/font = ExtResource( 2 )
-text = "DUST2"
+text = "AIM-MAP"
 clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="join_s1" type="Button" parent="Panel/s1"]
+anchor_left = 0.856
+anchor_top = 0.172
+anchor_right = 0.856
+anchor_bottom = 0.172
+margin_left = 0.199951
+margin_top = 0.0239992
+margin_right = 115.2
+margin_bottom = 38.024
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = ExtResource( 2 )
+text = "Join"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="s2" type="Panel" parent="Panel"]
+anchor_left = 0.053
+anchor_top = 0.331
+anchor_right = 0.947
+anchor_bottom = 0.43
+margin_left = 0.144989
+margin_top = -0.00836182
+margin_right = -0.14502
+margin_bottom = 0.175644
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="s_name" type="Label" parent="Panel/s2"]
+anchor_left = 0.028
+anchor_top = 0.138
+anchor_right = 0.028
+anchor_bottom = 0.138
+margin_left = 0.100002
+margin_top = -0.00399971
+margin_right = 231.1
+margin_bottom = 40.996
+custom_fonts/font = ExtResource( 2 )
+text = "Server 2 [Asia]"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gmode" type="Label" parent="Panel/s2"]
+anchor_left = 0.323
+anchor_top = 0.138
+anchor_right = 0.323
+anchor_bottom = 0.138
+margin_left = 0.224976
+margin_top = -0.00400066
+margin_right = 167.225
+margin_bottom = 40.996
+custom_fonts/font = ExtResource( 2 )
+text = "Zombie"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="players" type="Label" parent="Panel/s2"]
+visible = false
+anchor_left = 0.71
+anchor_top = 0.138
+anchor_right = 0.71
+anchor_bottom = 0.138
+margin_left = 0.249939
+margin_top = -0.00400066
+margin_right = 93.2499
+margin_bottom = 40.996
+custom_fonts/font = ExtResource( 2 )
+text = "2/16"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="map" type="Label" parent="Panel/s2"]
+anchor_left = 0.5
+anchor_top = 0.138
+anchor_right = 0.5
+anchor_bottom = 0.138
+margin_left = 3.5
+margin_top = -0.00400066
+margin_right = 194.5
+margin_bottom = 40.996
+custom_fonts/font = ExtResource( 2 )
+text = "AIM-MAP"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="join_s2" type="Button" parent="Panel/s2"]
 anchor_left = 0.856
 anchor_top = 0.172
 anchor_right = 0.856
@@ -171,3 +271,4 @@ text = "Connecting . . . "
 align = 1
 valign = 1
 [connection signal="pressed" from="Panel/s1/join_s1" to="." method="_on_join_s1_pressed"]
+[connection signal="pressed" from="Panel/s2/join_s2" to="." method="_on_join_s2_pressed"]
