@@ -236,6 +236,6 @@ func showHelp():
 	consoleResponse("Warzone 2 Admin console.\t\t Raptor inc 2020\n")
 	for i in config:
 		var space = ""
-		for j in range(40 - i.length()):
+		for _j in range(40 - i.length()):
 			space += " "
 		consoleResponse("%s%s-%s" % [i, space, config[i].help])
