@@ -4,11 +4,11 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android : bool = false
+var is_android : bool = true
 var is_server : bool = false
 var is_sysAdmin : bool = false
 
-const current_game_version : float = 1.48
+const current_game_version : float = 1.481
 const invalid_position = Vector2(-999,-999)
 var first_run = false
 
@@ -48,7 +48,7 @@ var game_settings = {
 	# Misc
 	dynamic_camera = true,
 	music_enabled = true,
-	enable_logging = (false || is_server)
+	enable_logging = (true || is_server)
 }
 
 #control types available

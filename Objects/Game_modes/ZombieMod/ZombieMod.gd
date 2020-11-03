@@ -101,6 +101,12 @@ func on_Player_leaves(_plr):
 		print("No player to play removing bots")
 		level.removeAllBot()
 		current_round = 0
+		# Clear zombies
+		var zombies = get_tree().get_nodes_in_group("Monster")
+		for i in zombies:
+			i.team.removePlayer(i)
+			i.queue_free()
+
 
 
 remotesync func P_showMessage(msg : String):
@@ -143,6 +149,7 @@ func _on_round_start_dl_timeout():
 		return
 		
 	z_count = getZombieCount()
+	
 	rpc("P_syncZcount", z_count)
 	var num = int(z_count / zombie_spawns.size())
 	var HP = 100
@@ -294,6 +301,9 @@ remotesync func P_BossRound_1():
 	boss1.position = spawn_locs[randi() % spawn_locs.size()].position
 	level.add_child(boss0)
 	level.add_child(boss1)
+	
+	if get_tree().is_network_server():
+		rpc("P_syncZcount", 2)
 
 
 remotesync func P_BossRound_2():
@@ -307,6 +317,9 @@ remotesync func P_BossRound_2():
 	boss1.position = spawn_locs[randi() % spawn_locs.size()].position
 	level.add_child(boss0)
 	level.add_child(boss1)
+
+	if get_tree().is_network_server():
+		rpc("P_syncZcount", 2)
 
 
 remotesync func P_BossRound_3():
@@ -328,3 +341,6 @@ remotesync func P_BossRound_3():
 	level.add_child(boss1)
 	level.add_child(boss2)
 	level.add_child(boss3)
+
+	if get_tree().is_network_server():
+		rpc("P_syncZcount", 4)

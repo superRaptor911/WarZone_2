@@ -2,12 +2,6 @@ extends CanvasLayer
 
 
 func _ready():
-	#$TabContainer/Basic/VBoxContainer/music/music.pressed = game_states.game_settings.music_enabled
-	#$TabContainer/Basic/VBoxContainer/particles/particles.pressed = game_states.game_settings.particle_effects
-	#$TabContainer/Basic/VBoxContainer/camera/camera.pressed = game_states.game_settings.dynamic_camera
-	#$TabContainer/Basic/VBoxContainer/shadows/shadows.pressed = game_states.game_settings.shadows
-	#$TabContainer/Advanced/container/fps/fps.pressed = game_states.game_settings.show_fps
-	#$TabContainer/Advanced/container/log/log.pressed = game_states.game_settings.enable_logging
 	
 	#$Admob.load_banner()
 	#UiAnim.animLeftToRight([$TabContainer])
@@ -35,3 +29,7 @@ func _on_sound_pressed():
 func _on_contols_pressed():
 	MusicMan.click()
 	MenuManager.changeScene("settings/control")
+
+
+func _on_view_logs_pressed():
+	MenuManager.changeScene("settings/viewLogs")

@@ -105,7 +105,22 @@ rect_min_size = Vector2( 0, 50 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 7 )
 text = "Contol"
+
+[node name="view_logs" type="Button" parent="."]
+anchor_left = 0.927
+anchor_top = 0.062
+anchor_right = 0.927
+anchor_bottom = 0.062
+margin_left = -43.5601
+margin_top = -19.64
+margin_right = 42.4399
+margin_bottom = 19.36
+text = "View logs"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/display" to="." method="_on_display_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/sound" to="." method="_on_sound_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/contols" to="." method="_on_contols_pressed"]
+[connection signal="pressed" from="view_logs" to="." method="_on_view_logs_pressed"]

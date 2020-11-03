@@ -15,29 +15,27 @@ signal rewarded_video_left_application
 signal rewarded_video_failed_to_load(error_code)
 signal rewarded_video_opened
 signal rewarded_video_started
-signal interstitial_requested
 
 # properties
 export var is_real:bool setget is_real_set
 export var banner_on_top:bool = true
-export var banner_id:String = "ca-app-pub-9443221640471166/9049742329"
-export var interstitial_id:String = "ca-app-pub-9443221640471166/1781147462"
-export var rewarded_id:String = "ca-app-pub-9443221640471166/2680609241"
+export(String, "ADAPTIVE_BANNER", "SMART_BANNER", "BANNER", "LARGE_BANNER", "MEDIUM_RECTANGLE", "FULL_BANNER", "LEADERBOARD") var banner_size = "ADAPTIVE_BANNER"
+export var banner_id:String
+export var interstitial_id:String
+export var rewarded_id:String
 export var child_directed:bool = false
 export var is_personalized:bool = true
-export(String, "G", "PG", "T", "MA") var max_ad_content_rate
+export(String, "G", "PG", "T", "MA") var max_ad_content_rate = "G"
 
 # "private" properties
 var _admob_singleton = null
 var _is_interstitial_loaded:bool = false
 var _is_rewarded_video_loaded:bool = false
-var _is_banner_loaded: bool = false
-var _pause_ads : bool = false
 
 
 func _enter_tree():
 	if not init():
-		print("AdMob Java Singleton not found")
+		Logger.Log("AdMob Java Singleton not found. This plugin will only work on Android")
 
 # setters
 func is_real_set(new_val) -> void:
@@ -67,27 +65,44 @@ func max_ad_content_rate_set(new_val) -> void:
 func init() -> bool:
 	if(Engine.has_singleton("GodotAdMob")):
 		_admob_singleton = Engine.get_singleton("GodotAdMob")
+
+		# check if one signal is already connected
+		if not _admob_singleton.is_connected("on_admob_ad_loaded", self, "_on_admob_ad_loaded"):
+			connect_signals()
+
 		_admob_singleton.initWithContentRating(
 			is_real,
-			get_instance_id(),
 			child_directed,
 			is_personalized,
 			max_ad_content_rate
 		)
 		return true
 	return false
+
+# connect the AdMob Java signals
+func connect_signals() -> void:
+	_admob_singleton.connect("on_admob_ad_loaded", self, "_on_admob_ad_loaded")
+	_admob_singleton.connect("on_admob_banner_failed_to_load", self, "_on_admob_banner_failed_to_load")
+	_admob_singleton.connect("on_interstitial_failed_to_load", self, "_on_interstitial_failed_to_load")
+	_admob_singleton.connect("on_interstitial_loaded", self, "_on_interstitial_loaded")
+	_admob_singleton.connect("on_interstitial_close", self, "_on_interstitial_close")
+	_admob_singleton.connect("on_rewarded_video_ad_loaded", self, "_on_rewarded_video_ad_loaded")
+	_admob_singleton.connect("on_rewarded_video_ad_closed", self, "_on_rewarded_video_ad_closed")
+	_admob_singleton.connect("on_rewarded", self, "_on_rewarded")
+	_admob_singleton.connect("on_rewarded_video_ad_left_application", self, "_on_rewarded_video_ad_left_application")
+	_admob_singleton.connect("on_rewarded_video_ad_failed_to_load", self, "_on_rewarded_video_ad_failed_to_load")
+	_admob_singleton.connect("on_rewarded_video_ad_opened", self, "_on_rewarded_video_ad_opened")
+	_admob_singleton.connect("on_rewarded_video_started", self, "_on_rewarded_video_started")
 	
 # load
 
 func load_banner() -> void:
-	if _admob_singleton != null and not _pause_ads:
-		_admob_singleton.loadBanner(banner_id, banner_on_top)
-		print("Loading Banner")
+	if _admob_singleton != null:
+		_admob_singleton.loadBanner(banner_id, banner_on_top, banner_size)
 
 func load_interstitial() -> void:
-	if _admob_singleton != null and not _pause_ads:
+	if _admob_singleton != null:
 		_admob_singleton.loadInterstitial(interstitial_id)
-		print("Loading Interstitial")
 		
 func is_interstitial_loaded() -> bool:
 	if _admob_singleton != null:
@@ -95,7 +110,7 @@ func is_interstitial_loaded() -> bool:
 	return false
 		
 func load_rewarded_video() -> void:
-	if _admob_singleton != null and not _pause_ads:
+	if _admob_singleton != null:
 		_admob_singleton.loadRewardedVideo(rewarded_id)
 		
 func is_rewarded_video_loaded() -> bool:
@@ -106,24 +121,27 @@ func is_rewarded_video_loaded() -> bool:
 # show / hide
 
 func show_banner() -> void:
-	if _admob_singleton != null and _is_banner_loaded:
+	if _admob_singleton != null:
 		_admob_singleton.showBanner()
-		print("showing banner")
 		
 func hide_banner() -> void:
 	if _admob_singleton != null:
 		_admob_singleton.hideBanner()
 
+func move_banner(on_top: bool) -> void:
+	if _admob_singleton != null:
+		banner_on_top = on_top
+		_admob_singleton.move(banner_on_top)
+
 func show_interstitial() -> void:
-	if _admob_singleton != null and _is_interstitial_loaded:
+	if _admob_singleton != null:
 		_admob_singleton.showInterstitial()
-		print("showing Interstitial")
-	else:
-		emit_signal("interstitial_requested")
-	
+		_is_interstitial_loaded = false
+		
 func show_rewarded_video() -> void:
-	if _admob_singleton != null and _is_rewarded_video_loaded:
+	if _admob_singleton != null:
 		_admob_singleton.showRewardedVideo()
+		_is_rewarded_video_loaded = false
 
 # resize
 
@@ -140,27 +158,20 @@ func get_banner_dimension() -> Vector2:
 # callbacks
 
 func _on_admob_ad_loaded() -> void:
-	_is_banner_loaded = true
-	print("banner loaded")
 	emit_signal("banner_loaded")
 	
 func _on_admob_banner_failed_to_load(error_code:int) -> void:
-	_is_banner_loaded = false
 	emit_signal("banner_failed_to_load", error_code)
-	print("banner failed to loaded ", error_code)
 	
 func _on_interstitial_failed_to_load(error_code:int) -> void:
 	_is_interstitial_loaded = false
-	print("interstitial failed to loaded ", error_code)
 	emit_signal("interstitial_failed_to_load", error_code)
 
 func _on_interstitial_loaded() -> void:
 	_is_interstitial_loaded = true
-	print("Interstitial loadedzz")
 	emit_signal("interstitial_loaded")
 
 func _on_interstitial_close() -> void:
-	_is_interstitial_loaded = false
 	emit_signal("interstitial_closed")
 
 func _on_rewarded_video_ad_loaded() -> void:
@@ -168,7 +179,6 @@ func _on_rewarded_video_ad_loaded() -> void:
 	emit_signal("rewarded_video_loaded")
 
 func _on_rewarded_video_ad_closed() -> void:
-	_is_rewarded_video_loaded = false
 	emit_signal("rewarded_video_closed")
 
 func _on_rewarded(currency:String, amount:int) -> void:

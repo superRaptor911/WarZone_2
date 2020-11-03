@@ -53,7 +53,6 @@ func goToNextScene():
 
 func _on_back_pressed():
 	if MenuManager.admob._is_interstitial_loaded:
-		MenuManager.admob._pause_ads = true
 		MenuManager.admob.show_banner()
 		MenuManager.admob.show_interstitial()
 		#yield(MenuManager.admob, "interstitial_closed")
@@ -94,4 +93,3 @@ func _on_yes_pressed():
 
 func _on_no_pressed():
 	$quitPanel.hide()
-	MenuManager.admob._pause_ads = false
