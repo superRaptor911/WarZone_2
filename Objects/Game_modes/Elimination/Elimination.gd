@@ -45,6 +45,7 @@ func _ready():
 
 # Handle player connection
 func on_player_joined(plr):
+	# Freeze player
 	if is_wait_time:
 		plr.S_freezeUnit(true)
 		rpc_id(int(plr.name), "P_on_new_round", cur_round)

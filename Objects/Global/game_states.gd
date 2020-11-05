@@ -8,7 +8,7 @@ var is_android : bool = true
 var is_server : bool = false
 var is_sysAdmin : bool = false
 
-const current_game_version : float = 1.481
+const current_game_version : float = 1.49
 const invalid_position = Vector2(-999,-999)
 var first_run = false
 
@@ -106,14 +106,9 @@ var player_data = {
 	desc = "",
 	kills = 0,
 	deaths = 0,
-	cash = 500,
 	XP = 0,
 	
-	guns = [{gun_name = "MP5", laser = false, mag_ext = false}, 
-			{gun_name = "default_gun", laser = false, mag_ext = false}],
-	
 	skins = ["t1", "ct1"],
-	selected_guns = ["MP5", "default_gun"],
 	t_model = "t1",
 	ct_model = "ct1",
 	nade_count = 2
@@ -126,12 +121,14 @@ var bot_profiles = {
 
 
 #last match result of user
-var last_match_result = {
+var match_result = {
 	kills = 0,
 	deaths = 0,
-	cash = 0,
 	map = "",
-	xp = 0
+	mode = "",
+	cash = 0,	
+	xp = 0,
+	msg = ""
 }
 
 
@@ -156,6 +153,7 @@ func _ready():
 		
 	_init_setup()
 
+# Cpy contents of dictionary
 func safe_cpy_dict(dest_D : Dictionary, src_D : Dictionary):
 	if not src_D:
 		return
@@ -183,16 +181,14 @@ func stringToType(string : String):
 		return int(string)
 	return string
 
-#setup player info
+
+# setup player info
 func _init_setup():
 	print("Initing")
 	player_info.name = player_data.name
 	player_info.t_model = player_data.t_model
 	player_info.ct_model = player_data.ct_model
 	player_info.XP = player_data.XP
-	
-	player_info.primary_gun_name = player_data.selected_guns[0]
-	player_info.sec_gun_name = player_data.selected_guns[1]
 	generateBotProfiles()
 
 
@@ -203,6 +199,7 @@ func saveSettings():
 func savePlayerData():
 	save_data("user://pinfo.dat",player_data)
 
+# Save Data to file
 func save_data(save_path : String, data : Dictionary,use_enc = true) -> void:
 	var data_string = JSON.print(data)
 	var file = File.new()
@@ -221,6 +218,7 @@ func save_data(save_path : String, data : Dictionary,use_enc = true) -> void:
 	file.close()
 
 
+# Load Data from file
 func load_data(save_path : String = "user://game.dat", use_enc = true) -> Dictionary:
 	var file : File = File.new()
 	if not file.file_exists(save_path):

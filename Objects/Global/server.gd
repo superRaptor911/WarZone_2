@@ -71,7 +71,7 @@ remote func syncServerInfo(s_info):
 #holds info of player that is to be shown on scoreboard
 var _unit_data = {
 	p = 0,			#ping
-	ref = null		#Reference
+	ref = null,		#Reference
 }
 
 
@@ -297,8 +297,7 @@ remote func S_getAvailableGameModes(lvl = "current"):
 	
 	var level_info = load("res://Maps/level_info.gd").new()
 	var levels : Array = level_info.levels.values()
-	var lvl_names = ""
-	
+
 	for i in levels:
 		if lvl == i.name:
 			var string = ""

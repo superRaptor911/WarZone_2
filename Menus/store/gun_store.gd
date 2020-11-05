@@ -4,6 +4,9 @@ export var nade_img : Texture
 var gun_data_format = ("Name : %s\nGun Type : %s\nDamage : %d\nClip Size : %d\nCost : $%d\nRpm : %d")
 var grenade_cost = 50
 
+var user = null
+
+signal close_pressed
 
 class WeaponType:
 	var wpn_type = ""
@@ -20,13 +23,15 @@ class WeaponType:
 var weapon_types = Array()
 var current_type = null
 
+func _enter_tree():
+	$cash.text = "$" + String(user.cash)
+
 func _ready():
 	initWeaponTypes()
 	loadWeapons()
 	initialTween()
-	$cash.text = "$" + String(game_states.player_data.cash)
+	$cash.text = "$" + String(user.cash)
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
-	MenuManager.admob.load_interstitial()
 
 func initWeaponTypes():
 	var pistols = WeaponType.new("pistol")
@@ -131,10 +136,10 @@ func _on_purchase_pressed():
 
 func purchaseGun():
 	if current_type.wpn_type == "nades":
-		if game_states.player_data.cash >= grenade_cost:
-			game_states.player_data.cash -= grenade_cost
+		if user.cash >= grenade_cost:
+			user.cash -= grenade_cost
 			game_states.player_data.nade_count += 1
-			$cash.text = "$" + String(game_states.player_data.cash)
+			$cash.text = "$" + String(user.cash)
 			$gun_desc/Label.text = ("High Explosive grenade.\nPrice : " + String(grenade_cost)
 			+ "\nYou Have : " + String(game_states.player_data.nade_count))
 			game_states.savePlayerData()
@@ -147,13 +152,14 @@ func purchaseGun():
 			$purchase_fail.popup_centered()
 			return
 	
-	if game_states.player_data.cash >= current_type.current_wpn.wpn_cost:
-		game_states.player_data.cash -= current_type.current_wpn.wpn_cost
+	if user.cash >= current_type.current_wpn.wpn_cost:
+		user.cash -= current_type.current_wpn.wpn_cost
 		var gun = { gun_name = "", laser = false, mag_ext = false}
 		gun.gun_name = w
 		game_states.player_data.guns.append(gun)
 		$cash.text = "$" + String(game_states.player_data.cash)
 		game_states.savePlayerData()
+		get_parent().remove_child(self)
 	else:
 		$purchase_fail/Label.text = "Insufficient Funds"
 		$purchase_fail.popup_centered()
@@ -161,17 +167,19 @@ func purchaseGun():
 
 func _on_back_pressed():
 	MusicMan.click()
-	for i in weapon_types:
-		for j in i.weapons:
-			j.queue_free()
-		
-	MenuManager.changeScene("storeMenu")
+	emit_signal("close_pressed")
 
 
 func setNadeInfo():
 	$icon/TextureRect.texture = nade_img
 	$gun_desc/Label.text = ("High Explosive grenade.\nPrice : " + String(grenade_cost)
 	+ "\nYou Have : " + String(game_states.player_data.nade_count))
+
+
+func _exit_tree():
+	for i in weapon_types:
+		for j in i.weapons:
+			j.queue_free()
 
 ####################Tweening##########################
 

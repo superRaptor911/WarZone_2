@@ -139,6 +139,7 @@ func performMeleeAttack():
 	if model.doMelee():
 		rpc_id(1,"serverMeleeAttack")
 
+
 remotesync func serverMeleeAttack():
 	for i in close_chars:
 		if game_server.extraServerInfo.friendly_fire or (i.team.team_id != team.team_id):

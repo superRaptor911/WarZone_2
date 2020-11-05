@@ -26,14 +26,7 @@ signal gun_picked
 #signal ammo_picked
 
 
-
 func _ready():
-	game_states.last_match_result.map = game_server.serverInfo.map
-	game_states.last_match_result.cash = 0
-	game_states.last_match_result.kills = 0
-	game_states.last_match_result.death = 0
-	game_states.last_match_result.xp = 0
-
 	$Gun.queue_free()
 	$tag/name_tag.text = pname
 	connect("respawned",self,"on_player_respawned")
@@ -53,22 +46,20 @@ func _ready():
 		hud.setUser(self)
 		$aim_indicator.show()
 		
-		var game_modes = get_tree().get_nodes_in_group("GameMode")
-		if game_modes.size() != 0:
-			var game_mode = game_modes[0]
-			var ts = game_mode.get("Custom_teamSelector")
-			
-			#use custom team select
-			if ts:
-				team_selector = load(ts).instance()
-			#Use default team select
-			else:
-				team_selector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
+		var game_mode = get_tree().get_nodes_in_group("GameMode")[0]	
+		var ts = game_mode.get("Custom_teamSelector")
+		# Use custom team select
+		if ts:
+			team_selector = load(ts).instance()
+		# Use default team select
 		else:
 			team_selector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 		# Connect signals
 		team_selector.connect("team_selected", self, "P_on_team_selected")
 		team_selector.connect("spectate_mode", self, "P_on_spectate_selected")
+		
+		game_states.match_result.map = game_server.serverInfo.map
+		game_states.match_result.mode = game_server.serverInfo.game_mode
 
 
 func P_on_player_killed():
@@ -85,6 +76,10 @@ func P_on_player_killed():
 		spectate.connect("leave_spec_mode", self, "P_on_team_menu_selected")
 		is_spectating = true
 	remove_child(hud)
+
+	if is_network_master():
+		game_states.match_result.kills = kills
+		game_states.match_result.deaths = deaths
 
 
 
@@ -169,23 +164,12 @@ func P_on_team_selected(team_id):
 		Logger.notice.showNotice(get_parent(), "OOPS!", "You are already in selected team")
 
 
-func getWpnAttachments():
-	for i in game_states.player_data.guns:
-		if i.gun_name == gun_1.gun_name:
-			gun_1.laser_sight = i.laser
-			gun_1.extended_mag = i.mag_ext
-			gun_1.extendMag()
-		if i.gun_name == gun_2.gun_name:
-			gun_2.laser_sight = i.laser
-			gun_2.extended_mag = i.mag_ext
-			gun_2.extendMag()
-
 
 func _process(_delta):
 	_get_inputs()
 
 
-
+# Get input from keyboard
 func _get_inputs():
 	if not is_network_master() or _pause_cntrl or game_states.is_android:
 		return
@@ -224,6 +208,7 @@ remotesync func server_throwGrenade():
 		print("Error : called on peer")
 
 
+# Sync grenade throw
 remotesync func _sync_throwGrenade(nam):
 	var g = grenade.instance()
 	g.set_name(nam)
@@ -248,22 +233,3 @@ func pause_controls(val : bool):
 	_pause_cntrl = val
 	if game_states.is_android and is_network_master():
 		hud.get_node("controller").enabled = !val
-
-
-func getKillRewards():
-	if game_server.serverInfo.game_mode == "Zombie Mod":
-		xp += 10 
-		cash += 10
-		hud.addCash(10)
-	else:
-		xp += 10 + 10 * streak
-		var add = 25 + 25 * streak
-		cash += add
-		hud.addCash(add)
-		
-	kills += 1
-	game_states.last_match_result.kills = kills
-	game_states.last_match_result.deaths = deaths
-	game_states.last_match_result.cash = cash
-	game_states.last_match_result.xp = xp
-	streak += 1

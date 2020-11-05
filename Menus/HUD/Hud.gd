@@ -1,10 +1,16 @@
 extends CanvasLayer
 
-var user
-var kill_msg_slots : Kill_Message_slots
+# Score board Scene
+var score_board_scn = preload("res://Objects/Misc/ScoreBoard.tscn")
+# Buy Menu Scene
+var buy_menu_scn = preload("res://Menus/store/gun_store.tscn")
 var score_board = preload("res://Objects/Misc/ScoreBoard.tscn").instance()
-var admin_menu = null
-var frames : int = 0
+
+var kill_msg_slots : Kill_Message_slots = null		# Kill msg slots
+var user = null										# User (Player)
+var buy_menu = null									# Buy menu
+var admin_menu = null								# Admin Menu
+var frames : int = 0								# Frame count for displaying FPS
 
 onready var Reload_panel = $reload
 onready var Reload_progressBar = get_node("reload/TextureProgress")
@@ -17,6 +23,10 @@ onready var Pick_button = $pick
 onready var HP_label = $HP_AP/HP/Label
 onready var AP_label = $HP_AP/AP/Label
 
+# Reset Hud when it enters tree
+func _enter_tree():
+	resetHUD()
+
 func _ready():
 	if not game_states.is_android:
 		$controller.queue_free()
@@ -28,6 +38,7 @@ func _ready():
 	# Connect signals
 	score_board.connect("scoreboard_closed", self, "_on_scoreboard_closed")
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
+	buy_menu.connect("close_pressed", self, "closeBuyMenu")
 	# Enable admin menu if admin
 	if get_tree().is_network_server():
 		Pause_menu_panel.get_node("container/admin_menu").disabled = false
@@ -294,8 +305,34 @@ func _on_pic_touch_pressed():
 		user.pickItem()
 		Pick_button.hide()
 
+func _on_buyButton_pressed():
+	openBuyMenu()
+
 
 # Called when user took damage, This updates HP / AP in HUD
 func on_damaged():
 	HP_label.text = String(int(user.HP))
 	AP_label.text = String(int(user.AP))
+
+
+func openBuyMenu():
+	if buy_menu:
+		print("Fatal error : buy menu exist")
+	buy_menu = buy_menu_scn.instance()
+	buy_menu.user = user
+	add_child(buy_menu)
+
+func closeBuyMenu():
+	if buy_menu:
+		buy_menu.queue_free()
+		buy_menu = null
+
+func resetHUD():
+	if buy_menu:
+		buy_menu.queue_free()
+		buy_menu = null
+	if admin_menu and admin_menu.get_parent() == self:
+		remove_child(admin_menu)
+	if score_board and score_board.get_parent() == self:
+		remove_child(score_board)
+

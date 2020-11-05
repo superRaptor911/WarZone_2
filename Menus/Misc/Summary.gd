@@ -2,17 +2,17 @@ extends CanvasLayer
 var add_shown = false
 
 func _ready():
-	add_shown = false
-	var map = game_states.last_match_result.map
-	var kills = game_states.last_match_result.kills
-	var deaths = game_states.last_match_result.deaths
-	var cash = game_states.last_match_result.cash
-	var xp = game_states.last_match_result.xp
+	# add_shown = false
+	# var map = game_states.match_result.map
+	# var kills = game_states.match_result.kills
+	# var deaths = game_states.match_result.deaths
+	# var cash = game_states.match_result.cash
+	# var xp = game_states.match_result.xp
 	
-	setSummary(map,kills,deaths,cash,xp)
-	game_states.player_data.cash += cash
-	game_states.player_data.kills += kills
-	game_states.player_data.deaths += deaths
+	# setSummary(map,kills,deaths,cash,xp)
+	# game_states.player_data.cash += cash
+	# game_states.player_data.kills += kills
+	# game_states.player_data.deaths += deaths
 	
 	MenuManager.connect("back_pressed", self,"_on_Ok_pressed")
 	$AdMob.load_interstitial()

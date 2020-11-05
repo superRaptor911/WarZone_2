@@ -1,7 +1,6 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Menus/store/gun_store.gd" type="Script" id=1]
-[ext_resource path="res://Menus/resources/bg.jpg" type="Texture" id=2]
 [ext_resource path="res://Menus/resources/black_btn.tres" type="StyleBox" id=3]
 [ext_resource path="res://hg.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Sprites/UI/icons8-sort-right-100.png" type="Texture" id=5]
@@ -9,29 +8,29 @@
 [ext_resource path="res://new_font.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Sprites/Weapons/he.png" type="Texture" id=8]
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=1]
 size = 24
 use_filter = true
 font_data = ExtResource( 4 )
 
-[sub_resource type="StyleBoxFlat" id=7]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.290196, 0.290196, 0.290196, 0.607843 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=3]
 size = 28
 use_filter = true
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=4]
 size = 24
 use_filter = true
 font_data = ExtResource( 4 )
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=5]
 draw_center = false
 border_width_left = 4
 border_width_top = 4
@@ -39,7 +38,7 @@ border_width_right = 4
 border_width_bottom = 4
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=12]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.105882, 0.623529, 0.141176, 1 )
 border_width_left = 2
 border_width_top = 2
@@ -47,12 +46,12 @@ border_width_right = 2
 border_width_bottom = 2
 shadow_size = 6
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=7]
 size = 28
 use_filter = true
 font_data = ExtResource( 4 )
 
-[sub_resource type="StyleBoxFlat" id=14]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.937255, 0.211765, 0.211765, 0.54902 )
 border_width_left = 2
 border_width_top = 2
@@ -64,12 +63,9 @@ shadow_size = 6
 script = ExtResource( 1 )
 nade_img = ExtResource( 8 )
 
-[node name="BG" type="TextureRect" parent="."]
-self_modulate = Color( 1, 1, 1, 0.572549 )
+[node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 2 )
-expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -87,7 +83,7 @@ custom_styles/hover = ExtResource( 6 )
 custom_styles/pressed = ExtResource( 6 )
 custom_styles/focus = ExtResource( 6 )
 custom_styles/normal = ExtResource( 6 )
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 1 )
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -102,7 +98,7 @@ margin_left = -297.823
 margin_top = -141.944
 margin_right = 298.18
 margin_bottom = 142.056
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -112,7 +108,7 @@ margin_left = 22.0
 margin_top = 27.9499
 margin_right = 520.0
 margin_bottom = 161.95
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 3 )
 text = "efdfdf"
 autowrap = true
 __meta__ = {
@@ -128,7 +124,7 @@ margin_left = -165.51
 margin_top = -211.603
 margin_right = 166.49
 margin_bottom = 211.397
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -154,10 +150,10 @@ margin_right = 247.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = SubResource( 7 )
+custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = ExtResource( 3 )
-custom_styles/normal = SubResource( 7 )
-custom_fonts/font = SubResource( 10 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 text = "PISTOL"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -169,10 +165,10 @@ margin_right = 247.0
 margin_bottom = 130.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = SubResource( 7 )
+custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = ExtResource( 3 )
-custom_styles/normal = SubResource( 7 )
-custom_fonts/font = SubResource( 10 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 text = "SMG"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -184,10 +180,10 @@ margin_right = 247.0
 margin_bottom = 210.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = SubResource( 7 )
-custom_styles/focus = SubResource( 7 )
-custom_styles/normal = SubResource( 7 )
-custom_fonts/font = SubResource( 10 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 text = "RIFLE"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -199,10 +195,10 @@ margin_right = 247.0
 margin_bottom = 290.0
 rect_min_size = Vector2( 100, 50 )
 custom_styles/hover = ExtResource( 3 )
-custom_styles/pressed = SubResource( 7 )
+custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = ExtResource( 3 )
-custom_styles/normal = SubResource( 7 )
-custom_fonts/font = SubResource( 10 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 text = "GRENADES"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -218,7 +214,7 @@ custom_styles/hover = ExtResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 4 )
 text = "ARMOUR"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -233,7 +229,7 @@ margin_left = -195.134
 margin_top = -133.089
 margin_right = 195.87
 margin_bottom = 132.911
-custom_styles/panel = SubResource( 11 )
+custom_styles/panel = SubResource( 5 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -280,8 +276,8 @@ margin_left = -75.1001
 margin_top = -29.2681
 margin_right = 74.8999
 margin_bottom = 28.7319
-custom_styles/normal = SubResource( 12 )
-custom_fonts/font = SubResource( 13 )
+custom_styles/normal = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 text = "Puchase"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -292,7 +288,7 @@ margin_left = 1730.53
 margin_top = 367.836
 margin_right = 2391.53
 margin_bottom = 599.836
-custom_styles/panel = SubResource( 14 )
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
