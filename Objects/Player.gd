@@ -3,26 +3,29 @@
 class_name Player
 extends "res://Objects/unit.gd"
 
-var cash : int = 0
-var xp : int = 0
+var grenade_scn  = preload("res://Objects/Weapons/grenade.tscn")
+var spectate 	 = preload("res://Objects/Game_modes/Spectate.tscn").instance()
+
+# Stats
+var cash : int 	 = 0
+var xp : int	 = 0
 var streak : int = 0
 
-var timer_time : float = 0
-var hud = null
-
-var grenade = preload("res://Objects/Weapons/grenade.tscn")
-var spectate = preload("res://Objects/Game_modes/Spectate.tscn").instance()
-var team_selector = null
-var _pause_cntrl : bool = false
-
-var is_spectating = false
-
-var cur_dropped_item_id = 0
+# Vars
+var timer_time : float  = 0
+var hud 				= null		# Hud referance
+var team_selector 		= null		# team selector ref
+var _pause_cntrl : bool = false		# Counter
+var is_spectating 		= false		# Counter
+var cur_dropped_item_id = 0			# Id for picking things
 
 onready var canvas_modulate = get_node("CanvasModulate")
 
+# Signals
 signal player_killed(player)
 signal gun_picked
+signal entered_buy_zone
+signal exited_buy_zone
 #signal ammo_picked
 
 
@@ -40,7 +43,6 @@ func _ready():
 		
 		$Camera2D.current = true
 		connect("char_killed",self,"P_on_player_killed")
-		#connect("char_fraged", self, "getKillRewards")
 		hud = load("res://Menus/HUD/Hud.tscn").instance()
 		add_child(hud)
 		hud.setUser(self)
@@ -69,20 +71,19 @@ func P_on_player_killed():
 	streak = 0
 	
 	if not game_server.game_config.override_default_spectator:
-		# Add spectate mode to level node after 3 seconds
-		yield(get_tree().create_timer(3), "timeout")
+		# Add spectate mode to level node after 2 seconds
+		yield(get_tree().create_timer(2), "timeout")
 		get_parent().add_child(spectate)
 		# Connect signals
 		spectate.connect("leave_spec_mode", self, "P_on_team_menu_selected")
 		is_spectating = true
+	
 	remove_child(hud)
-
-	if is_network_master():
-		game_states.match_result.kills = kills
-		game_states.match_result.deaths = deaths
+	game_states.match_result.kills = kills
+	game_states.match_result.deaths = deaths
 
 
-
+# Pick item using item id from ground
 func pickItem(item_id = -1):
 	var d_item_man = level.dropedItem_manager
 	if item_id == -1:
@@ -91,6 +92,7 @@ func pickItem(item_id = -1):
 		d_item_man.rpc_id(1,"requestPickUp",name,item_id)
 
 
+# Pick up item
 remotesync func pickUpItem(item):
 	if item.type == "wpn":
 		var old_gun = selected_gun
@@ -104,7 +106,7 @@ remotesync func pickUpItem(item):
 			gun_2.rounds_left = item.bul
 			gun_2.clip_count = item.clps
 			selected_gun = gun_2
-		var d_item_man = get_tree().get_nodes_in_group("Level")[0].dropedItem_manager
+		var d_item_man = level.dropedItem_manager
 		d_item_man.rpc_id(1,"serverMakeItem",wpn_drop.getWpnInfo(old_gun))
 		old_gun.queue_free()
 		setSelectedGun()
@@ -131,6 +133,7 @@ func S_on_player_killed():
 	emit_signal("player_killed",self)
 
 
+# Called when change team pressed 
 func P_on_team_menu_selected():
 	get_parent().remove_child(spectate)
 	get_parent().add_child(team_selector)
@@ -138,6 +141,7 @@ func P_on_team_menu_selected():
 	#team_selector.connect("spectate_mode", self, "P_on_spectate_selected")
 
 
+# Called when spectate mode selected
 func P_on_spectate_selected():
 	if not alive:
 		get_parent().remove_child(team_selector)
@@ -148,10 +152,10 @@ func P_on_spectate_selected():
 		Logger.notice.showNotice(get_parent(), "OOPS!", "You are alive and you need to be dead to spectate")
 
 
+# Called when Team is selected in change team menu
 func P_on_team_selected(team_id):
 	# New team selected
 	if team_id != team.team_id:
-		var level = get_tree().get_nodes_in_group("Level")[0]
 		level.rpc_id(1,"S_changeUnitTeam", name, team_id)
 		get_parent().remove_child(team_selector)
 		#get_parent().add_child(spectate)
@@ -210,9 +214,9 @@ remotesync func server_throwGrenade():
 
 # Sync grenade throw
 remotesync func _sync_throwGrenade(nam):
-	var g = grenade.instance()
+	var g = grenade_scn.instance()
 	g.set_name(nam)
-	get_tree().get_nodes_in_group("Level")[0].add_child(g)
+	level.add_child(g)
 	var dir = (model.get("fist").global_position - global_position).normalized()
 	g.position = position + (Vector2(-1.509,-50.226)).rotated(rotation)
 	g.user = self.name
@@ -228,8 +232,14 @@ func on_player_respawned():
 		get_parent().remove_child(spectate)
 		add_child(hud)
 
-
+# Pause cntrl
 func pause_controls(val : bool):
 	_pause_cntrl = val
 	if game_states.is_android and is_network_master():
 		hud.get_node("controller").enabled = !val
+
+func enteredBuyZone():
+	emit_signal("entered_buy_zone")
+
+func exitedBuyZone():
+	emit_signal("exited_buy_zone")
