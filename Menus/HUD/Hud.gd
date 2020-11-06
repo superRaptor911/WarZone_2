@@ -3,13 +3,14 @@ extends CanvasLayer
 # Score board Scene
 var score_board_scn = preload("res://Objects/Misc/ScoreBoard.tscn")
 # Buy Menu Scene
-var buy_menu_scn = preload("res://Menus/store/gun_store.tscn")
-var score_board = preload("res://Objects/Misc/ScoreBoard.tscn").instance()
+var buy_menu_scn 	= preload("res://Menus/store/gun_store.tscn")
+
 
 var kill_msg_slots : Kill_Message_slots = null		# Kill msg slots
 var user = null										# User (Player)
 var buy_menu = null									# Buy menu
 var admin_menu = null								# Admin Menu
+var score_board = null
 var frames : int = 0								# Frame count for displaying FPS
 
 onready var Reload_panel = $reload
@@ -36,9 +37,7 @@ func _ready():
 	# Create Slots for hud messages
 	kill_msg_slots = Kill_Message_slots.new(self,8)
 	# Connect signals
-	score_board.connect("scoreboard_closed", self, "_on_scoreboard_closed")
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
-	buy_menu.connect("close_pressed", self, "closeBuyMenu")
 	# Enable admin menu if admin
 	if get_tree().is_network_server():
 		Pause_menu_panel.get_node("container/admin_menu").disabled = false
@@ -65,6 +64,7 @@ func setClipCount(count):
 	for i in range(count):
 		n.get_node("b" + String(i + 1)).show()
 
+# Runs every frame
 func _process(_delta):
 	frames += 1
 	Reload_progressBar.value =  user.selected_gun.rounds_left
@@ -93,31 +93,38 @@ class MyPlayerSorter:
 
 # Show scoreboard
 func _on_score_pressed():
-	UiAnim.animZoomOut([Pause_menu_panel])
-	updateScoreBoard()
-	yield(get_tree().create_timer(UiAnim.getAnimDuration()), "timeout")
+	# Err check
+	if score_board:
+		print("Error : Score board not freed in hud")
+		score_board.queue_free()
+	# Load Score board
 	Pause_menu_panel.hide()
+	score_board = score_board_scn.instance()
+	score_board.setBoardData(game_server._unit_data_list)
+	score_board.connect("scoreboard_closed", self, "_on_scoreboard_closed")
 	add_child(score_board)
 	UiAnim.animZoomIn([score_board])
 
-#remove scoreboard when closed
+
+# remove scoreboard when closed
 func _on_scoreboard_closed():
-	UiAnim.animZoomOut([score_board])
-	yield(get_tree().create_timer(UiAnim.getAnimDuration()), "timeout")
-	remove_child(score_board)
+	score_board.queue_free()
+	score_board = null
 
-func updateScoreBoard():
-	score_board.setBoardData(game_server._unit_data_list)
 
+# handle Zoom press
 func _on_zoom_pressed():
 	user.get_node("Camera2D").zoom = user.selected_gun.getNextZoom()
 
+
+# Throw grenade when pressed
 func _on_HE_pressed():
 	if game_states.player_data.nade_count > 0 and user.alive:
 		game_states.player_data.nade_count -= 1
 		user.rpc_id(1,"server_throwGrenade")
 
 
+# Add Cash animation
 func addCash(val):
 	Tween_node.stop_all()
 	Cash_label.visible = true
@@ -206,7 +213,7 @@ class Kill_Message_slots:
 			else:
 				labels.get_node(String(i + 1)).text = ""
 
-
+# Add new kill message
 func addKillMessage(msg):
 	kill_msg_slots.addKillMessage(msg)
 
@@ -235,10 +242,6 @@ func _on_nextGun_pressed():
 # Called when reloading is complete 
 func _on_gun_reload():
 	setClipCount(user.selected_gun.clip_count)
-	UiAnim.animZoomOut([Reloading_text])
-	var tree = get_tree()
-	if tree:
-		yield(tree.create_timer(UiAnim.getAnimDuration()), "timeout")
 	Reloading_text.hide()
 
 # Called when reloading starts
@@ -254,34 +257,23 @@ func _on_gun_picked():
 func _on_btn_pressed():
 	user.selected_gun.reload()
 
- 
+# Handle back press 
 func _on_back_pressed():
-	UiAnim.animZoomOut([Pause_menu_panel])	
-	var tree = get_tree()
-	if tree:
-		yield(tree.create_timer(UiAnim.getAnimDuration()), "timeout")
 	Pause_menu_panel.hide()
 
-# 
+
+# Handle team change press
 func _on_changeTeam_pressed():
 	user.P_on_team_menu_selected()
-	UiAnim.animZoomOut([Pause_menu_panel])
-	yield(get_tree().create_timer(UiAnim.getAnimDuration()), "timeout")
 	Pause_menu_panel.hide()
 
-
+# Handle Admin menu press
 func _on_admin_menu_pressed():
-	UiAnim.animZoomOut([Pause_menu_panel])
-	yield(get_tree().create_timer(UiAnim.getAnimDuration()), "timeout")
 	Pause_menu_panel.hide()
 	add_child(admin_menu)
 
-
+# Admin menu animation
 func _on_admin_menu_closed():
-	UiAnim.animZoomOut([admin_menu])
-	var tree = get_tree()
-	if tree:
-		yield(tree.create_timer(UiAnim.getAnimDuration()), "timeout")
 	remove_child(admin_menu)
 
 
@@ -317,9 +309,12 @@ func on_damaged():
 
 func openBuyMenu():
 	if buy_menu:
-		print("Fatal error : buy menu exist")
+		print("Fatal error : buy menu exists in Hud")
+		buy_menu.queue_free()
+
 	buy_menu = buy_menu_scn.instance()
 	buy_menu.user = user
+	buy_menu.connect("close_pressed", self, "closeBuyMenu")
 	add_child(buy_menu)
 
 func closeBuyMenu():
@@ -333,6 +328,7 @@ func resetHUD():
 		buy_menu = null
 	if admin_menu and admin_menu.get_parent() == self:
 		remove_child(admin_menu)
-	if score_board and score_board.get_parent() == self:
-		remove_child(score_board)
+	if score_board:
+		score_board.queue_free()
+		score_board = null
 

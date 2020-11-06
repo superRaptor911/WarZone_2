@@ -23,8 +23,6 @@ class WeaponType:
 var weapon_types = Array()
 var current_type = null
 
-func _enter_tree():
-	$cash.text = "$" + String(user.cash)
 
 func _ready():
 	initWeaponTypes()
