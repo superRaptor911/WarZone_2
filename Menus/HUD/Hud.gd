@@ -27,6 +27,8 @@ onready var AP_label = $HP_AP/AP/Label
 # Reset Hud when it enters tree
 func _enter_tree():
 	resetHUD()
+	if Cash_label:
+		Cash_label.visible = false
 
 func _ready():
 	if not game_states.is_android:
@@ -53,6 +55,8 @@ func setUser(u):
 	user.connect("gun_switched", self, "setWeaponInfo")
 	user.connect("char_took_damage", self, "on_damaged")
 	user.connect("respawned", self, "on_damaged")
+	user.connect("entered_buy_zone", $buyButton, "show")
+	user.connect("exited_buy_zone", $buyButton, "hide")
 
 # Show mags remaining in hud
 func setClipCount(count):

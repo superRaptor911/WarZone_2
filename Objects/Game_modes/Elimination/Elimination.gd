@@ -105,6 +105,7 @@ func S_On_team_eliminated(team):
 		t_score = teams[1].score
 		ct_score = teams[0].score
 	rpc("P_updateScores", t_score, ct_score, winner.team_id)
+	rpc("P_giveMoney", winner.team_id)
 	$delays/round_end_dl.start()
 	$Timer.stop()
 
@@ -113,6 +114,7 @@ func on_round_time_timeout():
 	teams[0].score += 1
 	teams[1].score += 1
 	rpc("P_updateScores", teams[0].score, teams[1].score, -1)
+	rpc("P_giveMoney", -1)
 	$delays/round_end_dl.start()
 	$Timer.stop()
 
@@ -365,3 +367,12 @@ remotesync func P_game_restart():
 	$top_panel.show()
 	$top_panel/t/Label.text = String(0)
 	$top_panel/ct/Label.text = String(0)
+
+
+remotesync func P_giveMoney(team_id):
+	var cash = 1000
+	var users = get_tree().get_nodes_in_group("User")
+	for i in users:
+		if i.team.team_id == team_id:
+			i.cash += cash
+		i.cash = min(i.cash + cash, 16000)

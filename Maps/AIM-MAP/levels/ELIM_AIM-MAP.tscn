@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Maps/AIM-MAP/maps/AIM-MAP.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Maps/BaseLevel.gd" type="Script" id=3]
+[ext_resource path="res://Objects/scripts/BuyZone.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 306.139, 233.247 )
 
 [node name="ELIM_AIM-MAP" type="Node"]
 
@@ -53,3 +57,27 @@ position = Vector2( 125.475, 1014.48 )
 
 [node name="Node2D4" type="Node2D" parent="POI"]
 position = Vector2( 1559.09, 1019.82 )
+
+[node name="t_buy" type="Area2D" parent="."]
+position = Vector2( 861.387, 1827.82 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="t_buy"]
+position = Vector2( -21.5874, -86.8314 )
+shape = SubResource( 1 )
+
+[node name="ct_buy" type="Area2D" parent="."]
+position = Vector2( 853.629, 409.972 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+team_id = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ct_buy"]
+position = Vector2( -21.5874, -86.8314 )
+shape = SubResource( 1 )

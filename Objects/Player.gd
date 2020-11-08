@@ -7,7 +7,7 @@ var grenade_scn  = preload("res://Objects/Weapons/grenade.tscn")
 var spectate 	 = preload("res://Objects/Game_modes/Spectate.tscn").instance()
 
 # Stats
-var cash : int 	 = 0
+var cash : int 	 = 1000 setget setCash
 var xp : int	 = 0
 var streak : int = 0
 
@@ -243,3 +243,8 @@ func enteredBuyZone():
 
 func exitedBuyZone():
 	emit_signal("exited_buy_zone")
+
+func setCash(val):
+	if hud and val > cash:
+		hud.addCash(val - cash)
+	cash = val
