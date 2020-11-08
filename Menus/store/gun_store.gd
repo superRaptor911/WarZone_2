@@ -140,24 +140,22 @@ func purchaseGun():
 			$cash.text = "$" + String(user.cash)
 			$gun_desc/Label.text = ("High Explosive grenade.\nPrice : " + String(grenade_cost)
 			+ "\nYou Have : " + String(game_states.player_data.nade_count))
-			game_states.savePlayerData()
 		return
 		
 	var w = current_type.current_wpn.gun_name
-	for i in game_states.player_data.guns:
-		if i.gun_name == w:
-			$purchase_fail/Label.text = "You own this"
-			$purchase_fail.popup_centered()
-			return
+	if user.prim_gun == w or user.sec_gun == w:
+		$purchase_fail/Label.text = "You own this"
+		$purchase_fail.popup_centered()
+		return
 	
 	if user.cash >= current_type.current_wpn.wpn_cost:
 		user.cash -= current_type.current_wpn.wpn_cost
-		var gun = { gun_name = "", laser = false, mag_ext = false}
-		gun.gun_name = w
-		game_states.player_data.guns.append(gun)
-		$cash.text = "$" + String(game_states.player_data.cash)
-		game_states.savePlayerData()
-		get_parent().remove_child(self)
+		if current_type.wpn_type == "pistol":
+			user.sec_gun = w
+		else:
+			user.prim_gun = w
+		user.rpc("P_loadGuns", user.prim_gun, user.sec_gun)
+		emit_signal("close_pressed")
 	else:
 		$purchase_fail/Label.text = "Insufficient Funds"
 		$purchase_fail.popup_centered()

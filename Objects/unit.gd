@@ -61,8 +61,13 @@ func loadGuns(nam : String , nam2 : String):
 	selected_gun = gun_1
 	unselected_gun = gun_2
 	setSelectedGun()
+	prim_gun = nam
+	sec_gun = nam2
 	emit_signal("gun_loaded")
 
+
+remotesync func P_loadGuns(g1, g2):
+	loadGuns(g1, g2)
 
 #show selected gun
 func setSelectedGun():
