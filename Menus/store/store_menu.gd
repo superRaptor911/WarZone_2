@@ -1,11 +1,5 @@
 extends CanvasLayer
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initialTween()
@@ -16,16 +10,6 @@ func _ready():
 func _on_back_pressed():
 	MusicMan.click()
 	MenuManager.changeScene("mainMenu")
-
-
-func _on_bw_pressed():
-	MusicMan.click()
-	MenuManager.changeScene("SM/gunStore")
-
-
-func _on_sw_pressed():
-	MusicMan.click()
-	MenuManager.changeScene("SM/gunSelection")
 
 
 func _on_bs_pressed():
@@ -60,8 +44,3 @@ func _on_cash_pressed():
 		notice.showNotice(self,"Error", "Failed to load reward video", Color.red)
 		print("showing notice")
 
-
-func _on_AdMob_rewarded(_currency, _ammount):
-	game_states.player_data.cash += 500
-	game_states.savePlayerData()
-	$PopupPanel.popup()
