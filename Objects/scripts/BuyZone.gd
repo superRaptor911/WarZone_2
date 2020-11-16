@@ -9,10 +9,10 @@ func _ready():
 
 # Player entered buy zone
 func on_body_entered(body):
-	if body.is_in_group("User") and body.team.team_id == team_id:
+	if body.is_in_group("User") and (body.team.team_id == team_id or team_id == -1):
 		body.enteredBuyZone()
 
 # Player exited buy zone
 func on_body_exited(body):
-	if body.is_in_group("User") and body.team.team_id == team_id:
+	if body.is_in_group("User") and (body.team.team_id == team_id or team_id == -1):
 		body.exitedBuyZone()

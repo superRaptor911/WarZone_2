@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Maps/BaseLevel.gd" type="Script" id=1]
 [ext_resource path="res://Maps/Minecraft dungeons/maps/Minecraft dungeons.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Game_modes/CheckPoints/checkpoint.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/scripts/BuyZone.gd" type="Script" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 481.274, 292.417 )
 
 [node name="CP_MINECRAFT_DUNGEONS" type="Node"]
 
@@ -62,3 +66,20 @@ team_id = 1
 [node name="spawn_point4" parent="spawns" instance=ExtResource( 3 )]
 position = Vector2( 2673.34, 2359.39 )
 team_id = 1
+
+[node name="tbuy" type="Area2D" parent="."]
+position = Vector2( 738.11, 377.55 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tbuy"]
+position = Vector2( -2.44899, 69.0814 )
+shape = SubResource( 1 )
+
+[node name="ctbuy" type="Area2D" parent="."]
+position = Vector2( 2833.51, 2280.4 )
+script = ExtResource( 5 )
+team_id = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ctbuy"]
+position = Vector2( 17.277, -73.319 )
+shape = SubResource( 1 )

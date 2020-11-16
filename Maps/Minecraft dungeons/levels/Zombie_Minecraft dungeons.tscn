@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://Objects/scripts/BuyZone.gd" type="Script" id=1]
 [ext_resource path="res://Maps/BaseLevel.gd" type="Script" id=3]
 [ext_resource path="res://Maps/Minecraft dungeons/gameModes/Zombie/Minecraft dungeons.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Maps/Minecraft dungeons/maps/Minecraft dungeons.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1813.51, 1425.22 )
 
 [node name="Zombie" type="Node"]
 
@@ -16,3 +20,11 @@ Level_Name = "Minecraft dungeons"
 force_update = false
 
 [node name="GameMode" parent="." instance=ExtResource( 4 )]
+
+[node name="buy" type="Area2D" parent="."]
+script = ExtResource( 1 )
+team_id = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="buy"]
+position = Vector2( 1930.03, 1330.58 )
+shape = SubResource( 1 )

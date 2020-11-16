@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://Objects/scripts/BuyZone.gd" type="Script" id=1]
 [ext_resource path="res://Maps/BaseLevel.gd" type="Script" id=3]
 [ext_resource path="res://Maps/Minecraft dungeons/maps/Minecraft dungeons.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Maps/Minecraft dungeons/gameModes/TDM/Minecraft dungeons.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 2011.54, 1308.42 )
 
 [node name="TDM" type="Node"]
 
@@ -41,3 +45,11 @@ position = Vector2( 3320.45, 1146.84 )
 
 [node name="Node2D7" type="Node2D" parent="POI"]
 position = Vector2( 420.009, 904.39 )
+
+[node name="buzone" type="Area2D" parent="."]
+script = ExtResource( 1 )
+team_id = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="buzone"]
+position = Vector2( 1943.82, 1349.97 )
+shape = SubResource( 1 )

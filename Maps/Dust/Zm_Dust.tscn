@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Maps/Dust/Dust.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=2]
@@ -15,6 +15,10 @@
 [ext_resource path="res://Objects/Misc/ItemSpawner.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Sprites/decals/noEsc.png" type="Texture" id=14]
 [ext_resource path="res://Objects/Weapons/barrel.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Objects/scripts/BuyZone.gd" type="Script" id=16]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1644.54, 1496.39 )
 
 [node name="Zm_Dust" type="Node"]
 
@@ -233,3 +237,11 @@ position = Vector2( 3070.81, 2740.68 )
 
 [node name="barrel6" parent="props" instance=ExtResource( 15 )]
 position = Vector2( 1623.62, 2366.79 )
+
+[node name="buy" type="Area2D" parent="."]
+script = ExtResource( 16 )
+team_id = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="buy"]
+position = Vector2( 1725.34, 1436.84 )
+shape = SubResource( 1 )

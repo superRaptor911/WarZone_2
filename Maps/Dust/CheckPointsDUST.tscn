@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Objects/Misc/spawn_point.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Objects/Game_modes/CheckPoints/checkpoint.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Maps/Dust/Dust.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/scripts/BuyZone.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 677.435, 375.542 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 432.456, 483.818 )
 
 [node name="CheckPointsDUST" type="Node"]
 
@@ -43,3 +50,20 @@ team_id = 1
 [node name="spawn_point3" parent="spawns" instance=ExtResource( 1 )]
 position = Vector2( 2978.34, 544.474 )
 team_id = 1
+
+[node name="ctBuy" type="Area2D" parent="."]
+position = Vector2( 894.826, 2646.81 )
+script = ExtResource( 4 )
+team_id = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ctBuy"]
+position = Vector2( -83.207, -9.98486 )
+shape = SubResource( 1 )
+
+[node name="tBuy" type="Area2D" parent="."]
+position = Vector2( 2809.1, 463.945 )
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tBuy"]
+position = Vector2( 80.3203, 125.891 )
+shape = SubResource( 2 )
