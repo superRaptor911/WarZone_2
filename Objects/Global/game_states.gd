@@ -4,7 +4,7 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android : bool = true
+var is_android : bool = false
 var is_server : bool = false
 var is_sysAdmin : bool = false
 

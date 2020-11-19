@@ -30,21 +30,21 @@ zoom = Vector2( 0.5, 0.5 )
 [node name="RayCast_up" type="RayCast2D" parent="." index="10"]
 rotation = 3.14159
 enabled = true
-cast_to = Vector2( 0, 60 )
+cast_to = Vector2( 0, 40 )
 
 [node name="RayCast_down" type="RayCast2D" parent="." index="11"]
 enabled = true
-cast_to = Vector2( 0, 60 )
+cast_to = Vector2( 0, 40 )
 
 [node name="RayCast_left" type="RayCast2D" parent="." index="12"]
 rotation = 1.5708
 enabled = true
-cast_to = Vector2( 0, 60 )
+cast_to = Vector2( 0, 40 )
 
 [node name="RayCast_right" type="RayCast2D" parent="." index="13"]
 rotation = -1.5708
 enabled = true
-cast_to = Vector2( 0, 60 )
+cast_to = Vector2( 0, 40 )
 
 [node name="buy_time" type="Timer" parent="." index="15"]
 one_shot = true
