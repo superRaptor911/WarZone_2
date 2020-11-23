@@ -79,7 +79,7 @@ rect_min_size = Vector2( 0, 60 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 8 )
-text = "New Game"
+text = "MENU_new_game"
 
 [node name="stats" type="TextureButton" parent="VBoxContainer"]
 visible = false
@@ -111,6 +111,7 @@ __meta__ = {
 }
 
 [node name="store" type="Button" parent="VBoxContainer"]
+visible = false
 margin_top = 95.0
 margin_right = 393.0
 margin_bottom = 155.0
@@ -118,9 +119,19 @@ rect_min_size = Vector2( 0, 60 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 8 )
-text = "Loadout"
+text = "MENU_loadout"
 
 [node name="Button3" type="Button" parent="VBoxContainer"]
+margin_top = 95.0
+margin_right = 393.0
+margin_bottom = 155.0
+rect_min_size = Vector2( 0, 60 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 8 )
+text = "MENU_options"
+
+[node name="lev_edit" type="Button" parent="VBoxContainer"]
 margin_top = 190.0
 margin_right = 393.0
 margin_bottom = 250.0
@@ -128,9 +139,9 @@ rect_min_size = Vector2( 0, 60 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 8 )
-text = "Options"
+text = "MENU_level_editor"
 
-[node name="lev_edit" type="Button" parent="VBoxContainer"]
+[node name="community" type="Button" parent="VBoxContainer"]
 margin_top = 285.0
 margin_right = 393.0
 margin_bottom = 345.0
@@ -138,17 +149,7 @@ rect_min_size = Vector2( 0, 60 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 8 )
-text = "Level Editor"
-
-[node name="community" type="Button" parent="VBoxContainer"]
-margin_top = 380.0
-margin_right = 393.0
-margin_bottom = 440.0
-rect_min_size = Vector2( 0, 60 )
-custom_styles/pressed = SubResource( 1 )
-custom_styles/normal = SubResource( 2 )
-custom_fonts/font = ExtResource( 8 )
-text = "Community"
+text = "MENU_community"
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.346
@@ -182,7 +183,7 @@ grow_horizontal = 2
 grow_vertical = 2
 custom_styles/normal = SubResource( 4 )
 custom_fonts/font = ExtResource( 8 )
-text = "EXTRAS"
+text = "MENU_extras"
 __meta__ = {
 "_edit_use_anchors_": false
 }

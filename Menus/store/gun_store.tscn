@@ -154,7 +154,7 @@ custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = SubResource( 4 )
-text = "PISTOL"
+text = "GUN_STORE_pistol"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -184,7 +184,7 @@ custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = SubResource( 4 )
-text = "RIFLE"
+text = "GUN_STORE_rifle"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -199,7 +199,8 @@ custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = SubResource( 4 )
-text = "GRENADES"
+text = "GUN_STORE_grenades"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

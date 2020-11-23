@@ -1,0 +1,117 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://font_s28.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Objects/Ui/TextButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Menus/Misc/LangSelector.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.0470588, 0.054902, 0.0196078, 0.607843 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.270588, 0.203922, 0.513726, 1 )
+shadow_size = 4
+
+[node name="LangSelector" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -116.5
+margin_right = 116.5
+margin_bottom = 37.0
+custom_fonts/font = ExtResource( 1 )
+text = "LANG_set_lang"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="GridContainer" parent="Panel"]
+margin_left = 138.0
+margin_top = 136.0
+margin_right = 1199.0
+margin_bottom = 573.0
+custom_constants/vseparation = 50
+custom_constants/hseparation = 100
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="en" parent="Panel/VBoxContainer" instance=ExtResource( 2 )]
+margin_right = 150.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 150, 60 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "English"
+value = "en"
+
+[node name="en2" parent="Panel/VBoxContainer" instance=ExtResource( 2 )]
+margin_left = 250.0
+margin_right = 400.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 150, 60 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "español"
+value = "es"
+
+[node name="en3" parent="Panel/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 110.0
+margin_right = 150.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 150, 60 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "português"
+value = "pt"
+
+[node name="en4" parent="Panel/VBoxContainer" instance=ExtResource( 2 )]
+margin_left = 250.0
+margin_top = 110.0
+margin_right = 400.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 150, 60 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "français"
+value = "fr"
+
+[node name="en5" parent="Panel/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 220.0
+margin_right = 150.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 150, 60 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "Russian"
+value = "ru"
+
+[node name="en6" parent="Panel/VBoxContainer" instance=ExtResource( 2 )]
+margin_left = 250.0
+margin_top = 220.0
+margin_right = 400.0
+margin_bottom = 280.0
+rect_min_size = Vector2( 150, 60 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "Indonesia"
+value = "id"

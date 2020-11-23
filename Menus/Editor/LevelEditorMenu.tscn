@@ -60,7 +60,8 @@ margin_right = 554.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_fonts/font = ExtResource( 1 )
-text = "MAP EDITOR"
+text = "EDITOR_map_editor"
+clip_text = true
 
 [node name="gameMode" type="Button" parent="PanelContainer/Panel/VBoxContainer"]
 margin_top = 100.0
@@ -68,7 +69,8 @@ margin_right = 554.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 0, 50 )
 custom_fonts/font = ExtResource( 1 )
-text = "GAME MODE EDITOR"
+text = "EDITOR_mode_editor"
+clip_text = true
 
 [node name="ObjectEditor" type="Button" parent="PanelContainer/Panel/VBoxContainer"]
 margin_top = 200.0
@@ -90,7 +92,8 @@ margin_right = -0.170349
 margin_bottom = 0.225128
 custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = ExtResource( 1 )
-text = "GENERATE"
+text = "EDITOR_generate"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -106,7 +109,8 @@ margin_right = -0.377747
 margin_bottom = 0.239624
 custom_styles/normal = ExtResource( 4 )
 custom_fonts/font = ExtResource( 1 )
-text = "More"
+text = "EDITOR_more"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -156,7 +160,8 @@ margin_bottom = 60.0
 rect_min_size = Vector2( 0, 60 )
 custom_fonts/font = ExtResource( 1 )
 custom_constants/hseparation = 40
-text = "DeleteMap"
+text = "EDITOR_map_del"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -168,7 +173,8 @@ margin_bottom = 160.0
 rect_min_size = Vector2( 0, 60 )
 custom_fonts/font = ExtResource( 1 )
 custom_constants/hseparation = 40
-text = "Upload Map"
+text = "EDITOR_upload"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -180,7 +186,8 @@ margin_bottom = 260.0
 rect_min_size = Vector2( 0, 60 )
 custom_fonts/font = ExtResource( 1 )
 custom_constants/hseparation = 40
-text = "Back"
+text = "MENU_back"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

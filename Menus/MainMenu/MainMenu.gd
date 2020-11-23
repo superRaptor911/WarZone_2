@@ -5,6 +5,7 @@ var _next_scene : String
 var add_shown = false
 
 func _ready():
+	TranslationServer.set_locale("ru")
 	get_tree().set_auto_accept_quit(false)
 	if game_states.is_server:
 		get_tree().change_scene("res://Server/ServerMain.tscn")

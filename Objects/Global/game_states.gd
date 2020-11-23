@@ -15,40 +15,40 @@ var first_run = false
 #for notice
 var notice_popup = preload("res://Objects/Misc/Notice.tscn")
 
-#player info (pinfo) used to send info about player in multiplayer
+# Player info (pinfo) used to send info about player in multiplayer
+# Temporary data
 var player_info = {
-	name = "Player",
-	net_id = 1,
-	t_model = "t1",
-	ct_model = "ct1",
-	primary_gun_name = "MP5",
-	sec_gun_name = "default_gun",
-	XP = 0,
-	ping = -1,
+	name 				= "Player",			# Player Name
+	net_id 				= 1,				# Player ID
+	t_model 			= "t1",				# T skin
+	ct_model 			= "ct1",			# ct Skin
+	primary_gun_name 	= "MP5",			# primary gun
+	sec_gun_name 		= "default_gun",	# secondary gun
+	XP 					= 0,				# player xp
+	ping 				= -1,				# Player ping
 }
 
-
+# Game Status
 var game_status = {
-	game_version = current_game_version,
-	runs = 0
+	game_version 	= current_game_version,
+	runs			= 0,
+	is_lang_set 	= false
 }
 
 #saved
 #game settings with default value
 var game_settings = {
-	# Graphics
-	dpad_transparency = 128,
-	particle_effects = true,
-	lighting_effects = true,
-	show_fps = true,
-	shadows = true,
-	use_rich_text = true,
-	body_stay_time = 10,
-	
-	# Misc
-	dynamic_camera = true,
-	music_enabled = true,
-	enable_logging = (true || is_server)
+	dpad_transparency	= 128,			# Dpad transparency
+	particle_effects	= true,			# Particle effects
+	lighting_effects 	= true,			# Lighting effects
+	show_fps 			= true,			# Show Fps counter
+	shadows 			= true,			# Shadows
+	use_rich_text 		= true,			# Use rich text
+	body_stay_time 		= 10,			# Body stay time
+	lang 				= 'en',			# Game Language
+	dynamic_camera 		= true,			# Dynamic cam
+	music_enabled 		= true,			# Enable music
+	enable_logging 		= (false || is_server),	# Enable event logging
 }
 
 #control types available
@@ -56,14 +56,14 @@ var control_types = {
 	default = "res://controls/controllers/default_controller.tscn"
 }
 
-# basic skins available
+# Skins available
 var skinResource = {
-	ct1 = preload("res://Sprites/Character/ct1.bmp"),
-	t1 = preload("res://Sprites/Character/t1.bmp"),
-	t2 = preload("res://Sprites/Character/t2.bmp"),
-	ct2 = preload("res://Sprites/Character/ct2.bmp"),
-	z1 = preload("res://Sprites/Character/zombie.png"),
-	z2 = preload("res://Sprites/Character/zombie2.png")
+	ct1		= preload("res://Sprites/Character/ct1.bmp"),
+	t1		= preload("res://Sprites/Character/t1.bmp"),
+	t2		= preload("res://Sprites/Character/t2.bmp"),
+	ct2		= preload("res://Sprites/Character/ct2.bmp"),
+	z1		= preload("res://Sprites/Character/zombie.png"),
+	z2		= preload("res://Sprites/Character/zombie2.png")
 }
 
 var skinStats = {
@@ -84,34 +84,33 @@ var classResource = {
 
 # Weapons
 var weaponResource = {
-	default_gun = preload("res://Objects/Weapons/Gun.tscn"),
-	AK47 = preload("res://Objects/Weapons/AK47.tscn"),
-	Aug = preload("res://Objects/Weapons/Aug.tscn"),
-	MP5 = preload("res://Objects/Weapons/MP5.tscn"),
-	deagle = preload("res://Objects/Weapons/deagle.tscn"),
-	Awm = preload("res://Objects/Weapons/Awm.tscn"),
-	Famas = preload("res://Objects/Weapons/Famas.tscn"),
-	M4A1 = preload("res://Objects/Weapons/M4A1.tscn"),
-	mac10 = preload("res://Objects/Weapons/mac10.tscn"),
-	P90 = preload("res://Objects/Weapons/P90.tscn"),
-	G3S1 = preload("res://Objects/Weapons/G3S1.tscn"),
-	Galil = preload("res://Objects/Weapons/Galil.tscn"),
-	M249 = preload("res://Objects/Weapons/M249.tscn")
+	default_gun 	= preload("res://Objects/Weapons/Gun.tscn"),
+	AK47 			= preload("res://Objects/Weapons/AK47.tscn"),
+	Aug				= preload("res://Objects/Weapons/Aug.tscn"),
+	MP5				= preload("res://Objects/Weapons/MP5.tscn"),
+	deagle			= preload("res://Objects/Weapons/deagle.tscn"),
+	Awm				= preload("res://Objects/Weapons/Awm.tscn"),
+	Famas			= preload("res://Objects/Weapons/Famas.tscn"),
+	M4A1			= preload("res://Objects/Weapons/M4A1.tscn"),
+	mac10			= preload("res://Objects/Weapons/mac10.tscn"),
+	P90				= preload("res://Objects/Weapons/P90.tscn"),
+	G3S1			= preload("res://Objects/Weapons/G3S1.tscn"),
+	Galil 			= preload("res://Objects/Weapons/Galil.tscn"),
+	M249 			= preload("res://Objects/Weapons/M249.tscn")
 }
 
-#saved
-#player data/stats
+# Saved data
+# Player data/stats
 var player_data = {
-	name = "player",
-	desc = "",
-	kills = 0,
-	deaths = 0,
-	XP = 0,
-	
-	skins = ["t1", "ct1"],
-	t_model = "t1",
-	ct_model = "ct1",
-	nade_count = 2
+	name		= "player",
+	desc		= "",
+	kills		= 0,
+	deaths		= 0,
+	XP			= 0,
+	skins		= ["t1", "ct1"],
+	t_model		= "t1",
+	ct_model	= "ct1",
+	nade_count	= 2
 }
 
 #bot profiles
@@ -120,15 +119,15 @@ var bot_profiles = {
 }
 
 
-#last match result of user
+# Last match result of user
 var match_result = {
-	kills = 0,
-	deaths = 0,
-	map = "",
-	mode = "",
-	cash = 0,	
-	xp = 0,
-	msg = ""
+	kills		= 0,
+	deaths		= 0,
+	map			= "",
+	mode		= "",
+	cash		= 0,	
+	xp			= 0,
+	msg			= ""
 }
 
 
@@ -149,8 +148,7 @@ func _ready():
 			save_data("user://status.dat",game_status,false)
 		else:
 			safe_cpy_dict(game_settings, load_data("user://settings.dat"))
-			safe_cpy_dict(player_data, load_data("user://pinfo.dat"))
-		
+			safe_cpy_dict(player_data, load_data("user://pinfo.dat"))	
 	_init_setup()
 
 # Cpy contents of dictionary

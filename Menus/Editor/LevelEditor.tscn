@@ -153,7 +153,8 @@ margin_bottom = 0.0260353
 rect_min_size = Vector2( 260, 40 )
 custom_fonts/font = SubResource( 5 )
 pressed = true
-text = "Draw Grid"
+text = "EDITOR_draw_grid"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -176,16 +177,18 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="UILayer/SettingsContainer/Editor/zslider"]
-anchor_left = 0.391
+anchor_left = 0.312
 anchor_top = -0.391
-anchor_right = 0.611
-anchor_bottom = 0.091
-margin_left = 0.0113373
-margin_top = 0.160213
-margin_right = 0.378342
-margin_bottom = 0.00619102
+anchor_right = 0.705
+anchor_bottom = 0.106
+margin_left = 0.0740967
+margin_top = 0.44582
+margin_right = -0.0441132
+margin_bottom = -0.000657558
 custom_fonts/font = SubResource( 5 )
-text = "Zoom"
+text = "EDITOR_zoom"
+align = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -215,7 +218,11 @@ margin_top = -0.00761414
 margin_right = -0.0284805
 margin_bottom = -2.63261
 custom_fonts/font = SubResource( 5 )
-text = "Clear All Tiles"
+text = "EDITOR_clear_tiles"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Options" type="Panel" parent="UILayer/SettingsContainer"]
 visible = false
@@ -441,7 +448,8 @@ margin_right = -0.120483
 margin_bottom = -0.0399933
 custom_styles/normal = ExtResource( 7 )
 custom_fonts/font = SubResource( 8 )
-text = "Save and Exit"
+text = "EDITOR_saveNexit"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

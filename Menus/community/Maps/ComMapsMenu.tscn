@@ -85,12 +85,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -146.5
-margin_top = -18.5
-margin_right = 146.5
-margin_bottom = 18.5
+margin_left = -187.5
+margin_top = -18.0
+margin_right = 194.5
+margin_bottom = 19.0
 custom_fonts/font = ExtResource( 2 )
-text = "COMMUNITY MAPS"
+text = "COMM_com_maps"
+align = 1
+clip_text = true
 
 [node name="mapList" type="ItemList" parent="Panel"]
 anchor_left = 0.5

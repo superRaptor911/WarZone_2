@@ -50,30 +50,33 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="PanelContainer/Panel"]
-anchor_left = 0.395
-anchor_right = 0.605
+anchor_left = 0.375
+anchor_right = 0.633
 anchor_bottom = 0.069
-margin_left = 0.109985
-margin_right = -0.110046
+margin_left = -0.250031
+margin_right = 0.393982
 margin_bottom = -0.260002
 custom_fonts/font = ExtResource( 1 )
-text = "Custom Maps"
+text = "EDITOR_custom_map"
+align = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="edit" type="Button" parent="PanelContainer/Panel"]
-anchor_left = 0.8
+anchor_left = 0.787
 anchor_top = 0.888
-anchor_right = 0.965
+anchor_right = 0.979
 anchor_bottom = 0.967
-margin_left = 0.465698
-margin_top = -0.269623
-margin_right = 0.43573
-margin_bottom = 0.0703735
+margin_left = 0.165955
+margin_top = -0.52002
+margin_right = -0.378052
+margin_bottom = -0.180054
 custom_fonts/font = ExtResource( 1 )
 disabled = true
-text = "EDIT MAP"
+text = "EDITOR_edit_map"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -88,7 +91,8 @@ margin_top = -0.269623
 margin_right = -15.3657
 margin_bottom = 0.0703735
 custom_fonts/font = ExtResource( 1 )
-text = "Create Map"
+text = "EDITOR_create_map"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

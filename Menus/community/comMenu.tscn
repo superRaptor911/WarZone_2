@@ -50,7 +50,8 @@ rect_min_size = Vector2( 0, 60 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "My Profile"
+text = "COMM_profile"
+clip_text = true
 
 [node name="maps" type="Button" parent="VBoxContainer"]
 margin_top = 110.0
@@ -60,7 +61,8 @@ rect_min_size = Vector2( 0, 60 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "Community Maps"
+text = "COMM_com_maps"
+clip_text = true
 
 [node name="chat" type="Button" parent="VBoxContainer"]
 margin_top = 220.0

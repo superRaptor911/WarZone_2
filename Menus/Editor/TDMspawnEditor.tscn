@@ -83,7 +83,8 @@ margin_right = 0.617432
 margin_bottom = -0.0873871
 custom_styles/normal = ExtResource( 6 )
 custom_fonts/font = SubResource( 1 )
-text = "Save and Exit"
+text = "EDITOR_saveNexit"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

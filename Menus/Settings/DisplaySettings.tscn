@@ -23,66 +23,109 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Panel" type="Panel" parent="."]
-anchor_left = 0.255
-anchor_top = 0.178
-anchor_right = 0.745
-anchor_bottom = 0.822
-margin_left = -0.400024
-margin_top = -0.160004
-margin_right = 0.399902
-margin_bottom = 0.159973
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -424.0
+margin_top = -278.0
+margin_right = 424.0
+margin_bottom = 278.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -212.5
-margin_top = -150.0
-margin_right = 212.5
-margin_bottom = 150.0
+[node name="Label" type="Label" parent="Panel"]
+anchor_left = 0.36
+anchor_right = 0.64
+anchor_bottom = 0.067
+margin_left = -0.279999
+margin_right = 0.279968
+margin_bottom = -0.252003
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.239216, 0.317647, 0.854902, 1 )
+text = "Display Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scrollPanel" type="ScrollContainer" parent="Panel"]
+anchor_left = 0.222
+anchor_top = 0.171
+anchor_right = 0.808
+anchor_bottom = 0.831
+margin_left = -0.256012
+margin_top = -0.076004
+margin_right = -0.184021
+margin_bottom = -0.0360107
+custom_styles/bg = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="VBoxContainer" parent="Panel/scrollPanel"]
+margin_right = 425.0
+margin_bottom = 377.0
 custom_constants/separation = 40
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="shadows" type="CheckButton" parent="Panel/VBoxContainer"]
+[node name="lang" type="Label" parent="Panel/scrollPanel/container"]
 margin_right = 425.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 425, 0 )
+margin_bottom = 37.0
 custom_fonts/font = ExtResource( 2 )
-text = "Enable Shadows"
+text = "Language"
 
-[node name="particles" type="CheckButton" parent="Panel/VBoxContainer"]
-margin_top = 85.0
-margin_right = 425.0
-margin_bottom = 130.0
-rect_min_size = Vector2( 425, 0 )
+[node name="Button" type="Button" parent="Panel/scrollPanel/container/lang"]
+anchor_right = 0.068
+margin_left = 355.0
+margin_right = 407.1
+margin_bottom = 43.0
 custom_fonts/font = ExtResource( 2 )
-text = "Enable Particles"
+text = "EN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="fps" type="CheckButton" parent="Panel/VBoxContainer"]
-margin_top = 170.0
+[node name="shadows" type="CheckButton" parent="Panel/scrollPanel/container"]
+margin_top = 77.0
 margin_right = 425.0
-margin_bottom = 215.0
+margin_bottom = 122.0
 rect_min_size = Vector2( 425, 0 )
 custom_fonts/font = ExtResource( 2 )
-text = "Show FPS"
+text = "SETTINGS_shadow"
+clip_text = true
 
-[node name="camera" type="CheckButton" parent="Panel/VBoxContainer"]
-margin_top = 255.0
+[node name="particles" type="CheckButton" parent="Panel/scrollPanel/container"]
+margin_top = 162.0
 margin_right = 425.0
-margin_bottom = 300.0
+margin_bottom = 207.0
 rect_min_size = Vector2( 425, 0 )
 custom_fonts/font = ExtResource( 2 )
-text = "Dynamic Camera"
-[connection signal="toggled" from="Panel/VBoxContainer/shadows" to="." method="_on_shadows_toggled"]
-[connection signal="toggled" from="Panel/VBoxContainer/particles" to="." method="_on_particles_toggled"]
-[connection signal="toggled" from="Panel/VBoxContainer/fps" to="." method="_on_fps_toggled"]
-[connection signal="toggled" from="Panel/VBoxContainer/camera" to="." method="_on_camera_toggled"]
+text = "SETTINGS_particles"
+clip_text = true
+
+[node name="fps" type="CheckButton" parent="Panel/scrollPanel/container"]
+margin_top = 247.0
+margin_right = 425.0
+margin_bottom = 292.0
+rect_min_size = Vector2( 425, 0 )
+custom_fonts/font = ExtResource( 2 )
+text = "SETTINGS_fps"
+
+[node name="camera" type="CheckButton" parent="Panel/scrollPanel/container"]
+margin_top = 332.0
+margin_right = 425.0
+margin_bottom = 377.0
+rect_min_size = Vector2( 425, 0 )
+rect_pivot_offset = Vector2( 1175.77, -255 )
+custom_fonts/font = ExtResource( 2 )
+text = "SETTINGS_dynamic_cam"
+clip_text = true

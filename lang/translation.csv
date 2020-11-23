@@ -1,0 +1,60 @@
+keys,en,es,pt,fr,ru,id
+MENU_new_game,New Game,Juego nuevo,Novo jogo,Nouveau jeu,Новая игра,Game Baru
+MENU_loadout,Loadout,Equipamiento,Carregamento,chargement,Комплектование,Loadout
+MENU_options,Settings,Configuración,Configurações,paramètres,Настройки,Pengaturan
+MENU_level_editor,Level Editor,Editor de niveles,Editor de níveis,éditeur de niveau,Редактор уровней,Editor Level
+MENU_community,Community,Comunidad,Comunidade,communauté,Сообщество,Komunitas
+MENU_extras,Extras,Extras,Extras,extras,Дополнения,Ekstra
+MENU_quit,Quit game?,¿Salir del juego ?,Sair do jogo ?,quitter le jeu ?,Выйти из игры ?,Keluar game ?
+MENU_yes,yes,sí,sim,oui,Да,ya
+MENU_no,no,no,não,non,Нет,tidak
+MENU_back,Back,Atrás,Voltar,retour,Назад,Kembali
+MENU_start,Start,Iniciar,Iniciar,démarrer,Начать,Mulai
+MENU_purchase,Purchase,Comprar,Comprar,acheter,Купить,Beli
+NEWGAME_join_online,Join Online,Unirse en línea,Entrar online,rejoindre en ligne,Присоединиться к сети,Gabung Online
+NEWGAME_join_lan,Join Local,Unirse local,Entrar no local,rejoindre local,Присоединиться к локальному,Gabung Lokal
+NEWGAME_create,Create Game,Crear juego,Criar jogo,créer un jeu,Создать игру,Buat Game
+LOBBY_standard_maps,Standard,Estándar,Padrão,standard,Стандарт,Standar
+LOBBY_my_maps,My maps,Mis mapas,Meus mapas,mes cartes,Мои карты,Petaku
+LOBBY_downloaded,Downloaded,Descargado,Baixado,téléchargé,Загружены,Diunduh
+LOBBY_level_name,Level Name,Nombre de nivel,Nome do nível,nom du niveau,Имя уровня,Nama Level
+STORE_select_skin,Select Skin,Seleccionar máscara,Selecionar tema,sélectionner la peau,Выбрать скин,Pilih Skin
+STORE_buy_skin,Buy Skin,Comprar máscara,Comprar Skin,Acheter la peau,Купить скин,Beli Skin
+SKIN_SELECT_sel_skin,Selected Skin,máscara seleccionada,Skin Selecionado,la peau sélectionnée,Выбранный скин,Skin Pilihan
+SKIN_SELECT_terrorist,Terrorist,terrorista,Terrorist,le terroriste,Террорист,Terrorist
+SKIN_SELECT_Cterrorist,Counter Terrorist,contraterrorista,Counter Terrorist,le contre-terrorisme,Контртеррорист,Counter Terrorist
+GUN_STORE_pistol,Pistol,pistola,Pistol,le pistolet,Пистолет,Pistol
+GUN_STORE_rifle,Rifle,rifle,Rifle,le fusil,Винтовка,Rifle
+GUN_STORE_grenades,Grenades,granadas,Grenades,les grenades,Гранаты,Grenades
+ONCE_welcome,Welcome,bienvenido,Welcome,la bienvenue,Добро пожаловать,Selamat Datang
+ONCE_name,Name,nombre,Name,le nom,Имя,Nama
+ONCE_msg1,You can change your name later in settings,puede cambiar su nombre más tarde en la configuración,Você pode alterar seu nome mais tarde nas configurações,vous pouvez changer votre nom plus tard dans les paramètres,Вы можете изменить свое имя позже в настройках,Anda dapat mengubah nama Anda nanti di pengaturan
+SETTINGS_display,Display,pantalla,Display,affichage,Дисплей,Tampilan
+SETTINGS_sound,Sound,sonido,Sound,son,Звук,Suara
+SETTINGS_controls,Controls,controles,Controls,commandes,Элементы управления,Kontrol
+SETTINGS_logs,View logs,ver registros,View logs,afficher les journaux,Просмотр журналов,Lihat log
+SETTINGS_shadow,Enable Shadows,habilitar sombras,Enable Shadows,activer les ombres,Включить тени,Aktifkan Bayangan
+SETTINGS_particles,Enable Particles,habilitar partículas,Enable Particles,activer les particules,Включить частицы,Aktifkan Partikel
+SETTINGS_fps,Show FPS,mostrar FPS,Show FPS,afficher FPS,Показать FPS,Tampilkan FPS
+SETTINGS_dynamic_cam,Dynamic Camera,cámara dinámica ,Dynamic Camera ,caméra dynamique ,Динамическая камера ,Kamera Dinamis 
+SETTINGS_outjoy_sz,Outer Ring Size,Tamaño del anillo exterior,Tamanho do anel externo,Taille de la bague extérieure,Размер внешнего кольца,Ukuran Cincin Luar
+SETTINGS_injoy_sz,Inner Ring Size,Tamaño del anillo interior,Tamanho do anel interno,Taille de la bague intérieure,Размер внутреннего кольца,Ukuran Cincin Dalam
+SETTINGS_radius_sz,Radius,Radio,Raio,Rayon,Радиус,Radius
+SETTINGS_joy_reset,RESET,RESET,RESET,RÉINITIALISER,СБРОС,RESET
+EDITOR_custom_map,Custom map,Mapa personalizado,Mapa personalizado,Carte personnalisée,Пользовательская карта,Peta kustom
+EDITOR_create_map,Create map,Crear mapa,Criar mapa,Créer une carte,Создать карту,Buat peta
+EDITOR_edit_map,Edit map,Editar mapa,Editar mapa,Modifier la carte,Изменить карту,Edit peta
+EDITOR_draw_grid,Draw Grid,Dibujar cuadrícula,Desenhar grade,Dessiner une grille,Нарисовать сетку,Gambar Kisi
+EDITOR_clear_tiles,Clear all tiles,Borrar todos los mosaicos,Limpar todos os blocos,Effacer toutes les tuiles,Очистить все плитки,Hapus semua ubin
+EDITOR_saveNexit,Save and exit,Guardar y salir,Salvar e sair,Enregistrer et quitter,Сохранить и выйти,Simpan dan keluar
+EDITOR_zoom,Zoom,Zoom,Zoom,Zoom,Масштаб,Zoom
+EDITOR_map_editor,Map Editor,Editor de mapas,Editor de mapa,Éditeur de carte,Редактор карты,Editor Peta
+EDITOR_mode_editor,Game Mode Editor,Editor de modo de juego,Editor de modo de jogo,Éditeur de mode de jeu,Редактор игрового режима,Editor Mode Game
+EDITOR_generate,Generate,Generar,Gerar,Générer,Создать,Hasilkan
+EDITOR_more,More,Más,Mais,Plus,Больше,Lainnya
+EDITOR_map_del,Delete Map,Eliminar mapa,Excluir mapa,Supprimer la carte,Удалить карту,Hapus Peta
+EDITOR_upload,Upload Map,Cargar Mapa,Carregar Mapa,Télécharger Carte,Загрузить Карта,Unggah Peta
+COMM_profile,My Profile,Mi perfil,Meu Perfil,Mon profil,Мой профиль,Profil Saya
+COMM_com_maps,Community Maps,Mapas comunitarios,Mapas da Comunidade,Cartes de la communauté,Карты сообщества,Peta Komunitas
+COMM_chat,Community Chat,Chat comunitario,Chat da Comunidade,Chat communautaire,Чат сообщества,Obrolan Komunitas
+LANG_set_lang,Select Language,Seleccionar idioma,Selecionar Idioma,Sélectionner la langue,Выбрать язык,Pilih Bahasa

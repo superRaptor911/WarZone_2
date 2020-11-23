@@ -46,7 +46,8 @@ custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 5 )
 custom_fonts/font = ExtResource( 2 )
-text = "Back"
+text = "MENU_back"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -85,7 +86,8 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 7 )
-text = "Display"
+text = "SETTINGS_display"
+clip_text = true
 
 [node name="sound" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 100.0
@@ -95,7 +97,8 @@ rect_min_size = Vector2( 0, 50 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 7 )
 disabled = true
-text = "Sound(Soon)"
+text = "SETTINGS_sound"
+clip_text = true
 
 [node name="contols" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 200.0
@@ -104,7 +107,8 @@ margin_bottom = 250.0
 rect_min_size = Vector2( 0, 50 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 7 )
-text = "Contol"
+text = "SETTINGS_controls"
+clip_text = true
 
 [node name="view_logs" type="Button" parent="."]
 anchor_left = 0.927
@@ -115,7 +119,8 @@ margin_left = -43.5601
 margin_top = -19.64
 margin_right = 42.4399
 margin_bottom = 19.36
-text = "View logs"
+text = "SETTINGS_logs"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

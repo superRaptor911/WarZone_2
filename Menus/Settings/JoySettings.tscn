@@ -77,7 +77,8 @@ margin_top = 0.00885201
 margin_right = 0.0601597
 margin_bottom = 0.0088501
 custom_fonts/font = SubResource( 2 )
-text = "Outer Ring Size"
+text = "SETTINGS_outjoy_sz"
+clip_text = true
 
 [node name="inner_ring" type="HSlider" parent="settings"]
 anchor_left = 0.347
@@ -105,7 +106,8 @@ margin_top = 0.00885201
 margin_right = 0.0601597
 margin_bottom = 0.0088501
 custom_fonts/font = SubResource( 2 )
-text = "Inner Ring Size"
+text = "SETTINGS_injoy_sz"
+clip_text = true
 
 [node name="radius" type="HSlider" parent="settings"]
 anchor_left = 0.347
@@ -133,7 +135,8 @@ margin_top = 0.00885201
 margin_right = 0.0601597
 margin_bottom = 0.0088501
 custom_fonts/font = SubResource( 2 )
-text = "Radius"
+text = "SETTINGS_radius_sz"
+clip_text = true
 
 [node name="reset" type="Button" parent="settings"]
 anchor_left = 0.433
@@ -146,7 +149,8 @@ margin_right = -0.056488
 margin_bottom = -0.0570679
 custom_styles/pressed = SubResource( 3 )
 custom_styles/normal = SubResource( 3 )
-text = "RESET"
+text = "SETTINGS_joy_reset"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -405,17 +405,18 @@ __meta__ = {
 }
 
 [node name="level_name" type="Label" parent="Panel/portrait"]
-anchor_left = 0.334
+anchor_left = 0.276
 anchor_top = 1.047
-anchor_right = 0.666
-anchor_bottom = 1.138
-margin_left = -0.0965652
-margin_top = -0.0642395
-margin_right = 0.0234375
-margin_bottom = 0.00576782
+anchor_right = 0.721
+anchor_bottom = 1.148
+margin_left = 0.160011
+margin_top = 0.177048
+margin_right = -0.139969
+margin_bottom = 0.0680695
 custom_fonts/font = SubResource( 4 )
-text = "LEVEL NAME"
+text = "LOBBY_level_name"
 align = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -491,7 +492,8 @@ custom_styles/normal = SubResource( 7 )
 custom_fonts/font = ExtResource( 5 )
 toggle_mode = true
 pressed = true
-text = "Standard Maps"
+text = "LOBBY_standard_maps"
+clip_text = true
 
 [node name="myMaps" type="Button" parent="Panel/mapGroup"]
 margin_left = 402.0
@@ -502,7 +504,8 @@ custom_styles/pressed = SubResource( 8 )
 custom_styles/normal = SubResource( 9 )
 custom_fonts/font = ExtResource( 5 )
 toggle_mode = true
-text = "My Maps"
+text = "LOBBY_my_maps"
+clip_text = true
 
 [node name="downloadedMaps" type="Button" parent="Panel/mapGroup"]
 margin_left = 804.0
@@ -513,7 +516,8 @@ custom_styles/pressed = SubResource( 10 )
 custom_styles/normal = SubResource( 11 )
 custom_fonts/font = ExtResource( 5 )
 toggle_mode = true
-text = "Donloaded Maps"
+text = "LOBBY_downloaded"
+clip_text = true
 
 [node name="Panel" type="Panel" parent="Panel"]
 anchor_left = 0.02
@@ -583,7 +587,7 @@ margin_top = 0.207397
 margin_right = -0.590088
 margin_bottom = 0.207458
 custom_fonts/font = ExtResource( 2 )
-text = "Start"
+text = "MENU_start"
 __meta__ = {
 "_edit_use_anchors_": false
 }

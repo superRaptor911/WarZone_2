@@ -192,6 +192,10 @@ zoom={
  ]
 }
 
+[locale]
+
+translations=PoolStringArray( "res://lang/translation.en.translation", "res://lang/translation.es.translation", "res://lang/translation.fr.translation", "res://lang/translation.pt.translation", "res://lang/translation.ru.translation", "res://lang/translation.id.translation" )
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
