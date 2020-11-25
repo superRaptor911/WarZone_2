@@ -1,5 +1,7 @@
 extends Control
 
+var lang_selector = preload("res://Menus/Misc/LangSelector.tscn").instance()
+
 onready var lang_btn 	= $Panel/scrollPanel/container/lang/Button
 onready var shadow_btn 	= $Panel/scrollPanel/container/shadows 
 onready var part_btn 	= $Panel/scrollPanel/container/particles
@@ -20,7 +22,11 @@ func _ready():
 	cam_btn.connect("toggled", self, "_on_camera_toggled")
 	lang_btn.connect("pressed", self, "_on_lang_btn_pressed")
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
-
+	lang_selector.connect("lang_changed", self, "_on_lang_changed")
+	
+	add_child(lang_selector)
+	lang_selector.hide()
+	
 
 func _on_shadows_toggled(button_pressed):
 	game_states.game_settings.shadows = button_pressed
@@ -39,8 +45,12 @@ func _on_camera_toggled(button_pressed):
 
 
 func _on_lang_btn_pressed():
-	pass
+	lang_selector.show()
 
+
+func _on_lang_changed():
+	lang_selector.hide()
+	lang_btn.text = game_states.game_settings.lang
 
 func _on_back_pressed():
 	game_states.saveSettings()

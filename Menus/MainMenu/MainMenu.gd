@@ -5,23 +5,25 @@ var _next_scene : String
 var add_shown = false
 
 func _ready():
-	TranslationServer.set_locale("ru")
+	TranslationServer.set_locale(game_states.game_settings.lang)
 	get_tree().set_auto_accept_quit(false)
+	
+	# Server side
 	if game_states.is_server:
 		get_tree().change_scene("res://Server/ServerMain.tscn")
 		queue_free()
 		return
 		
-	MenuManager.connect("back_pressed", self,"_on_back_pressed")
-	Logger.Log("Game Loaded")
-	add_shown = false
 	if game_states.game_settings.music_enabled and not MusicMan.music_player.playing:
 		MusicMan.music_player.play()
 		
+		
 	UiAnim.animLeftToRight([$VBoxContainer])
-	get_tree().paused = false
 	$Timer.connect("timeout",self,"goToNextScene")
 	$g_version.text = "V " + String(game_states.current_game_version)
+	MenuManager.connect("back_pressed", self,"_on_back_pressed")
+	Logger.Log("Game Loaded")
+	get_tree().paused = false
 
 
 func _on_Button2_pressed():

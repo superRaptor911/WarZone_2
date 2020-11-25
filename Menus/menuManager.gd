@@ -19,8 +19,9 @@ func _ready():
 	setupAds()
 	loadMenus()
 	
-	if game_states.first_run:
+	if game_states.first_run or not game_states.game_status.is_lang_set:
 		MenuManager.changeScene("once")
+
 
 func addMenu(name,path):
 	menu[name] = load(path)
@@ -108,13 +109,13 @@ func setupAds():
 		"ca-app-pub-9443221640471166/9049742329",
 		"ca-app-pub-9443221640471166/6136808642",
 		"ca-app-pub-9443221640471166/1591918779",
-		"ca-app-pub-9443221640471166/9860952690"
+#		"ca-app-pub-9443221640471166/9860952690"
 		]
 	var interstitials = [
 		"ca-app-pub-9443221640471166/1781147462",
 		"ca-app-pub-9443221640471166/1978071782",
 		"ca-app-pub-9443221640471166/7774183742",
-		"ca-app-pub-9443221640471166/1591918779",
+#		"ca-app-pub-9443221640471166/1591918779",
 	]
 	
 	if admob:

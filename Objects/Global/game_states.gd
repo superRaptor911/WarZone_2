@@ -4,9 +4,9 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android : bool = false
-var is_server : bool = false
-var is_sysAdmin : bool = false
+var is_android		= true
+var is_server		= false
+var is_sysAdmin		= false
 
 const current_game_version : float = 1.49
 const invalid_position = Vector2(-999,-999)
