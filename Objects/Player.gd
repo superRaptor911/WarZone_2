@@ -198,6 +198,8 @@ func _get_inputs():
 		return
 	if Input.is_action_just_pressed("drop"):
 		pickItem()
+	if Input.is_action_just_released("buy"):
+		hud.openBuyMenu()
 	if Input.is_action_just_pressed("zoom"):
 		get_node("Camera2D").zoom = selected_gun.getNextZoom()
 	rotation = (get_global_mouse_position()  - global_position).angle() + 1.57

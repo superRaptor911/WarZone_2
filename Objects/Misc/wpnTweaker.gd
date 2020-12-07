@@ -38,5 +38,5 @@ func applyUpdate():
 		
 
 func _on_print_pressed():
-	var format = "{ cost =  %d, dmg = %d, rof = %d, rec = %f, sprd = %f }"
+	var format = "{ cost =  %d, dmg = %d, rof = %d, rec = %.2f, sprd = %d }"
 	print(format % [plr.selected_gun.wpn_cost, dam.value, rof.value, rec.value, sprd.value])

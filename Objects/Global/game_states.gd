@@ -102,18 +102,19 @@ var weaponResource = {
 
 var weaponStats = {
 	default_gun 	= { cost =  400, dmg = 13, rof = 3, rec = 0.10, sprd = 1 },
-	AK47 			= { cost = 2500, dmg = 27, rof = 7, rec = 0.30, sprd = 2 },
-	Aug				= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
-	MP5				= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
-	deagle			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
-	Awm				= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
-	Famas			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
-	M4A1			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
-	mac10			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
-	P90				= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
-	G3S1			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
-	Galil 			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
-	M249 			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },	
+	AK47 			= { cost = 2500, dmg = 35, rof = 7, rec = 1.30, sprd = 1 },
+	Aug				= { cost = 2500, dmg = 27, rof = 9, rec = 0.70, sprd = 1 },
+	MP5				= { cost = 2500, dmg = 20, rof = 10, rec = 0.20, sprd = 3 },
+	deagle			= { cost = 2500, dmg = 60, rof = 2, rec = 0.20, sprd = 3 },
+	Awm				= { cost = 2500, dmg = 400, rof = 1, rec = 0.20, sprd = 1 },
+	Famas			= { cost = 2500, dmg = 22, rof = 8, rec = 0.20, sprd = 3 },
+	M4A1			= { cost = 2500, dmg = 27, rof = 9, rec = 0.30, sprd = 3 },
+	mac10			= { cost = 2500, dmg = 13, rof = 12, rec = 0.30, sprd = 4 },
+	P90				= { cost = 2500, dmg = 15, rof = 14, rec = 0.10, sprd = 4 },
+	G3S1			= { cost = 2500, dmg = 60, rof = 3, rec = 1.00, sprd = 2 },
+	Galil 			= { cost = 2500, dmg = 20, rof = 9, rec = 0.50, sprd = 3 },
+	M249 			= { cost = 2500, dmg = 26, rof = 12, rec = 0.30, sprd = 2 },
+	Tmp				= { cost = 1300, dmg = 15, rof = 12, rec = 0.20, sprd = 4 }	
 }
 
 

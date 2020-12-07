@@ -9,3 +9,4 @@ func _ready():
 func on_player_joined(plr):
 	plr.cash = 99999
 	plr.hud.add_child(preload("res://Objects/Misc/wpnTweaker.tscn").instance())
+	plr.HP = 9999
