@@ -66,7 +66,7 @@ var levels = {
 		name = "Test map",
 		icon = preload("res://Maps/WpnTest/minimap.png"),
 		game_modes = [
-				"Test", "res://Maps/WpnTest/TestingMode.tscn"
+				"TDM", "res://Maps/WpnTest/TestingMode.tscn"
 			],
 		desc = "Test Map!!!",
 		debug  = true

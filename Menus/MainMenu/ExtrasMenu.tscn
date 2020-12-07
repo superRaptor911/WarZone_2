@@ -70,7 +70,7 @@ margin_bottom = 0.335083
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
-text = "Source code"
+text = "EXTRAS_src"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -87,7 +87,7 @@ margin_bottom = -0.160034
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
-text = "Attribution"
+text = "EXTRAS_attrib"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -104,7 +104,7 @@ margin_bottom = 0.200012
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
-text = "Rate "
+text = "EXTRAS_rate"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -121,7 +121,8 @@ margin_bottom = -0.301697
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 2 )
 custom_fonts/font = ExtResource( 1 )
-text = "Message Dev"
+text = "EXTRAS_msg_dev"
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -138,7 +139,7 @@ margin_bottom = -0.320068
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 custom_fonts/font = ExtResource( 1 )
-text = "BACK"
+text = "MENU_back"
 __meta__ = {
 "_edit_use_anchors_": false
 }

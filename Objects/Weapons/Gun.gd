@@ -45,13 +45,23 @@ signal gun_reloading
 signal gun_reloaded
 
 
-func _ready():
-	#convert to radians
+func _ready():	
+	getWpnStats()
 	spread = spread * PI / 180
 	$Reload_time.wait_time = reload_time
 	if rounds_left == 0:
 		reload()
 
+func getWpnStats():
+	var stats = game_states.weaponStats.get(gun_name)
+	if stats:
+		damage = stats.dmg
+		wpn_cost = stats.cost
+		rate_of_fire = stats.rof
+		recoil_factor = stats.rec
+		spread = stats.sprd
+	else:
+		print("Gun stats not found for ", gun_name)
 
 
 #Try to fire gun

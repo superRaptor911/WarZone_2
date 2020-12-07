@@ -4,11 +4,11 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android		= true
+var is_android		= false
 var is_server		= false
 var is_sysAdmin		= false
 
-const current_game_version : float = 1.49
+const current_game_version : float = 1.50
 const invalid_position = Vector2(-999,-999)
 var first_run = false
 
@@ -96,8 +96,26 @@ var weaponResource = {
 	P90				= preload("res://Objects/Weapons/P90.tscn"),
 	G3S1			= preload("res://Objects/Weapons/G3S1.tscn"),
 	Galil 			= preload("res://Objects/Weapons/Galil.tscn"),
-	M249 			= preload("res://Objects/Weapons/M249.tscn")
+	M249 			= preload("res://Objects/Weapons/M249.tscn"),
+	Tmp				= preload("res://Objects/Weapons/Tmp.tscn"),
 }
+
+var weaponStats = {
+	default_gun 	= { cost =  400, dmg = 13, rof = 3, rec = 0.10, sprd = 1 },
+	AK47 			= { cost = 2500, dmg = 27, rof = 7, rec = 0.30, sprd = 2 },
+	Aug				= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
+	MP5				= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
+	deagle			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
+	Awm				= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
+	Famas			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
+	M4A1			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
+	mac10			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
+	P90				= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
+	G3S1			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
+	Galil 			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },
+	M249 			= { cost = 2500, dmg = 26, rof = 8, rec = 0.25, sprd = 2 },	
+}
+
 
 # Saved data
 # Player data/stats
@@ -149,6 +167,7 @@ func _ready():
 		else:
 			safe_cpy_dict(game_settings, load_data("user://settings.dat"))
 			safe_cpy_dict(player_data, load_data("user://pinfo.dat"))	
+			safe_cpy_dict(game_status, gameStatus)
 	_init_setup()
 
 # Cpy contents of dictionary

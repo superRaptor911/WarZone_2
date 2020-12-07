@@ -74,14 +74,15 @@ align = 1
 clip_text = true
 
 [node name="Label2" type="Label" parent="Panel/LineEdit"]
-margin_left = -297.886
-margin_top = 116.034
-margin_right = 384.114
-margin_bottom = 168.034
+margin_left = -418.0
+margin_top = 116.0
+margin_right = 480.0
+margin_bottom = 168.0
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.027451, 0.00784314, 0.00784314, 1 )
 text = "ONCE_msg1"
 align = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -49,6 +49,7 @@ func loadWeapons():
 	var values : Array = game_states.weaponResource.values()
 	for i in values:
 		var o = i.instance()
+		o.getWpnStats()
 		for j in weapon_types:
 			if j.wpn_type == o.gun_type:
 				j.weapons.append(o)
