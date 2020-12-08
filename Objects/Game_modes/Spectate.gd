@@ -7,7 +7,8 @@ var spec_id = 0
 signal leave_spec_mode
 
 func _enter_tree():
-	MenuManager.admob.show_banner()
+#	MenuManager.admob.show_banner()
+	pass
 
 
 func _ready():
