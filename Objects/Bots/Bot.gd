@@ -2,6 +2,7 @@ class_name Bot
 extends "res://Objects/unit.gd"
 
 var _near_bodies = Array()
+var gun_pref = []
 
 var is_bomber = false
 var is_on_bomb_site = false
@@ -26,6 +27,7 @@ func _ready():
 		$VisionTimer.wait_time = $VisionTimer.wait_time * (1.0 + rand_range(-0.5,0.5))
 		$VisionTimer.start()
 		connect("char_killed",self,"_on_bot_killed")
+		genGunPref()
 			
 		if game_server.serverInfo.game_mode == "Bombing":
 			var bomb_mode = get_tree().get_nodes_in_group("GameMode")[0]
@@ -37,6 +39,22 @@ func _ready():
 		brain.queue_free()
 		brain = null
 
+func genGunPref():
+	var t1_guns = ["deagle", "Usp"]
+	var t2_guns = ["Tmp", "mac10", "Galil"]
+	var t3_guns = ["MP5", "Ump45", "AK47", "M4A1"]
+	var t4_guns = ["Awm", "M249", "P90", "AUG", "G3S1"]
+	
+	var t4_id 		= randi() % t4_guns.size()
+	var t3_id 		= randi() % t3_guns.size()
+	var t2_id 		= randi() % t2_guns.size()
+	var t1_id 		= randi() % t1_guns.size()
+	
+	gun_pref.append(t4_guns[t4_id])
+	gun_pref.append(t3_guns[t3_id])
+	gun_pref.append(t2_guns[t2_id])
+	gun_pref.append(t1_guns[t1_id])
+	
 
 func _on_bot_killed():
 	emit_signal("bot_killed",self)

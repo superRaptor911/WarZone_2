@@ -287,7 +287,6 @@ func generateBotProfiles():
 		bot_sec_gun 	= "Glock",
 		bot_t_skin 		= "t1",
 		bot_ct_skin 	= "ct1",
-		gun_pref 		= "",
 		is_in_use 		= false
 	}
 	
@@ -318,20 +317,21 @@ func generateBotProfiles():
 		
 	var bot_t_skins = Array()
 	bot_t_skins.append("t1")
-	
 	var bot_ct_skins = Array()
 	bot_ct_skins.append("ct1")
 	
+
+	# Generate, Randomize
 	for b in bot_names:
-		var t_sk_id = randi() % bot_t_skins.size()
-		var ct_sk_id = randi() % bot_ct_skins.size()
+		var t_sk_id 	= randi() % bot_t_skins.size()
+		var ct_sk_id 	= randi() % bot_ct_skins.size()
 		
 		var new_bot_profile = bot_profile.duplicate(true)
 		new_bot_profile.bot_name = b
 		new_bot_profile.bot_primary_gun = ""
 		new_bot_profile.bot_sec_gun = "default_gun"
 		new_bot_profile.bot_t_skin = bot_t_skins[t_sk_id]
-		new_bot_profile.bot_ct_skin = bot_ct_skins[ct_sk_id]
+		new_bot_profile.bot_ct_skin = bot_ct_skins[ct_sk_id]	
 		bot_profiles.bot.append(new_bot_profile)
 	
 	Logger.Log("Generated %d bot profiles" % [bot_profiles.bot.size()])
