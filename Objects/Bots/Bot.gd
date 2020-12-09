@@ -3,7 +3,7 @@ extends "res://Objects/unit.gd"
 
 var _near_bodies = Array()
 var gun_pref = []
-
+var purchase_done = false
 var is_bomber = false
 var is_on_bomb_site = false
 
@@ -93,8 +93,15 @@ func S_respawnUnit():
 	.S_respawnUnit()
 
 
-func botBuyWeapon():
-	pass
+func onBotEnteredBuyZone():
+	if not purchase_done:
+		purchase_done = true
+		for i in gun_pref:
+			var cost = game_states.weaponStats[i].cost
+			if cost <= cash:
+				cash -= cost
+				loadGuns(i, sec_gun)
+				return
 
 ########################bot vision####################
 
