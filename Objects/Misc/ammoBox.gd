@@ -23,7 +23,7 @@ func _on_Timer_timeout():
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("User") and body.is_network_master():
-		if body.selected_gun.clip_count < 4 or body.unselected_gun.clip_count < 4:
+		if body.selected_gun.clip_count < 4:
 			body.pickItem(item_id)
 
 

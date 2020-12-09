@@ -371,8 +371,8 @@ remotesync func P_game_restart():
 
 remotesync func P_giveMoney(team_id):
 	var cash = 1000
-	var users = get_tree().get_nodes_in_group("User")
-	for i in users:
+	var units = get_tree().get_nodes_in_group("Unit")
+	for i in units:
 		if i.team.team_id == team_id:
 			i.cash += cash
 		i.cash = min(i.cash + cash, 16000)

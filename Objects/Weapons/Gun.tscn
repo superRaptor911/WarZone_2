@@ -13,7 +13,7 @@ position = Vector2( 213.783, 186.488 )
 rotation = -1.5708
 z_index = 1
 script = ExtResource( 1 )
-gun_name = "default_gun"
+gun_name = "Glock"
 gun_d_img = ExtResource( 6 )
 
 [node name="Timer" type="Timer" parent="."]

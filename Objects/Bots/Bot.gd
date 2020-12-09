@@ -74,6 +74,10 @@ func S_respawnUnit():
 	clearVision()
 	.S_respawnUnit()
 
+
+func botBuyWeapon():
+	pass
+
 ########################bot vision####################
 
 #handle player disconnection
@@ -84,7 +88,6 @@ func _on_player_left_server(plr):
 	#update vision if affected by player disconnection
 	if old_size != _near_bodies.size():
 		_on_VisionTimer_timeout()
-	print("remoing")
 	$Brain.on_unit_removed(plr)
 	
 

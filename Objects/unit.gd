@@ -4,19 +4,19 @@
 class_name Unit
 extends "res://Objects/Character.gd"
 
-export var regen_rate : float = 5
-
 #attributes
-var pname : String = ""
-var kills : int = 0
-var deaths : int = 0
-var score : int = 0
-var ping : int = 0
-var last_attacker_id : String = ""
-var last_fired_timestamp = 0
-var prim_gun = ""
-var sec_gun = ""
-var spotted_by_enimies = false
+var pname	 				= ""
+var kills					= 0
+var deaths					= 0
+var score		 			= 0
+var ping					= 0
+var last_attacker_id 		= ""
+var last_fired_timestamp 	= 0
+var prim_gun		 		= ""
+var sec_gun 				= ""
+var cash					= 1000
+var spotted_by_enimies 		= false
+
 
 
 #weapons
@@ -41,25 +41,31 @@ func _ready():
 #load new guns
 func loadGuns(nam : String , nam2 : String):
 	model.resetGunSelection()
-	var g = game_states.weaponResource[nam].instance()
+	var g = null
 	var g2 = game_states.weaponResource[nam2].instance()
+
+	if game_states.weaponResource.has(nam):
+		g = game_states.weaponResource[nam].instance()	
+		
 	selected_gun = null
-	unselected_gun = null
-	
+	unselected_gun = null	
 	if gun_1:
 		gun_1.queue_free()
 	if gun_2:
 		gun_2.queue_free()
-	
-	gun_1 = g
-	gun_2 = g2
-	gun_1.name = nam
-	gun_2.name = nam2
-	gun_1.user_id = name
-	gun_2.user_id = name
+	if g:
+		gun_1 = g
+		gun_1.name = nam
+		gun_1.user_id = name
+		selected_gun = gun_1
+		unselected_gun = g2
 
-	selected_gun = gun_1
-	unselected_gun = gun_2
+	gun_2 = g2
+	gun_2.name = nam2
+	gun_2.user_id = name		
+	if not selected_gun:
+		selected_gun = gun_2
+	
 	setSelectedGun()
 	prim_gun = nam
 	sec_gun = nam2
@@ -79,11 +85,12 @@ func setSelectedGun():
 
 #switch gun
 remotesync func switchGun():
-	var temp = selected_gun
-	selected_gun = unselected_gun
-	unselected_gun = temp
-	setSelectedGun()
-	emit_signal("gun_switched")
+	if unselected_gun:
+		var temp = selected_gun
+		selected_gun = unselected_gun
+		unselected_gun = temp
+		setSelectedGun()
+		emit_signal("gun_switched")
 
 
 func switchToPrimaryGun():
@@ -109,7 +116,7 @@ remotesync func P_respawnUnit(pos):
 	AP = 100
 	model.set_deferred("disabled",false)
 	$movmtCPP._teleportCharacter(pos)
-	loadGuns(prim_gun, sec_gun)
+	loadGuns("", "Glock")
 	model.revive()
 	$dtween.stop_all()
 	model.modulate = Color8(255,255,255,255)

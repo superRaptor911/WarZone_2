@@ -4,7 +4,7 @@ extends Node
 #contains key resouces
 
 #is exporting for android or not
-var is_android		= true
+var is_android		= false
 var is_server		= false
 var is_sysAdmin		= false
 
@@ -22,8 +22,8 @@ var player_info = {
 	net_id 				= 1,				# Player ID
 	t_model 			= "t1",				# T skin
 	ct_model 			= "ct1",			# ct Skin
-	primary_gun_name 	= "MP5",			# primary gun
-	sec_gun_name 		= "default_gun",	# secondary gun
+	primary_gun_name 	= "",				# primary gun
+	sec_gun_name 		= "Glock",	# secondary gun
 	XP 					= 0,				# player xp
 	ping 				= -1,				# Player ping
 }
@@ -84,7 +84,7 @@ var classResource = {
 
 # Weapons
 var weaponResource = {
-	default_gun 	= preload("res://Objects/Weapons/Gun.tscn"),
+	Glock 			= preload("res://Objects/Weapons/Gun.tscn"),
 	AK47 			= preload("res://Objects/Weapons/AK47.tscn"),
 	Aug				= preload("res://Objects/Weapons/Aug.tscn"),
 	MP5				= preload("res://Objects/Weapons/MP5.tscn"),
@@ -103,7 +103,7 @@ var weaponResource = {
 }
 
 var weaponStats = {
-	default_gun 	= { cost = 400, dmg = 13, rof = 3, rec = 0.10, sprd = 1 },
+	Glock 			= { cost = 400, dmg = 13, rof = 3, rec = 0.10, sprd = 1 },
 	Usp				= { cost = 600, dmg = 20, rof = 4, rec = 0.20, sprd = 3 },
 	deagle			= { cost = 800, dmg = 60, rof = 2, rec = 0.20, sprd = 3 },
 	mac10			= { cost = 1000, dmg = 13, rof = 12, rec = 0.30, sprd = 4 },
@@ -282,12 +282,13 @@ func is_Astar_ready() -> bool:
 
 func generateBotProfiles():
 	var bot_profile = {
-		bot_name = "",
-		bot_primary_gun = "MP5",
-		bot_sec_gun = "default_gun",
-		bot_t_skin = "t1",
-		bot_ct_skin = "ct1",
-		is_in_use = false
+		bot_name 		= "",
+		bot_primary_gun = "",
+		bot_sec_gun 	= "Glock",
+		bot_t_skin 		= "t1",
+		bot_ct_skin 	= "ct1",
+		gun_pref 		= "",
+		is_in_use 		= false
 	}
 	
 	var bot_names = Array()
@@ -315,17 +316,6 @@ func generateBotProfiles():
 	bot_names.append("Corona")
 	bot_names.append("Ebola")
 		
-	var bot_primary_weapons = Array()
-	bot_primary_weapons.append("MP5")
-	bot_primary_weapons.append("P90")
-	bot_primary_weapons.append("Famas")
-	bot_primary_weapons.append("mac10")
-	bot_primary_weapons.append("default_gun")
-	
-	var bot_sec_weapons = Array()
-	bot_sec_weapons.append("default_gun")
-	bot_sec_weapons.append("deagle")
-	
 	var bot_t_skins = Array()
 	bot_t_skins.append("t1")
 	
@@ -333,18 +323,15 @@ func generateBotProfiles():
 	bot_ct_skins.append("ct1")
 	
 	for b in bot_names:
-		var pg_id = randi() % bot_primary_weapons.size()
-		var sg_id = randi() % bot_sec_weapons.size()
 		var t_sk_id = randi() % bot_t_skins.size()
 		var ct_sk_id = randi() % bot_ct_skins.size()
 		
 		var new_bot_profile = bot_profile.duplicate(true)
 		new_bot_profile.bot_name = b
-		new_bot_profile.bot_primary_gun = bot_primary_weapons[pg_id]
-		new_bot_profile.bot_sec_gun = bot_sec_weapons[sg_id]
+		new_bot_profile.bot_primary_gun = ""
+		new_bot_profile.bot_sec_gun = "default_gun"
 		new_bot_profile.bot_t_skin = bot_t_skins[t_sk_id]
 		new_bot_profile.bot_ct_skin = bot_ct_skins[ct_sk_id]
 		bot_profiles.bot.append(new_bot_profile)
 	
 	Logger.Log("Generated %d bot profiles" % [bot_profiles.bot.size()])
-	

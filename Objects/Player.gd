@@ -6,8 +6,7 @@ extends "res://Objects/unit.gd"
 var grenade_scn  = preload("res://Objects/Weapons/grenade.tscn")
 var spectate 	 = preload("res://Objects/Game_modes/Spectate.tscn").instance()
 
-# Stats
-var cash : int 	 = 1000 setget setCash
+# Stats 
 var xp : int	 = 0
 var streak : int = 0
 
@@ -123,11 +122,11 @@ remotesync func pickUpItem(item):
 			hud.on_damaged()
 	elif item.type == "ammo":
 		selected_gun.clip_count = 4
-		unselected_gun.clip_count = 4
+		if unselected_gun:
+			unselected_gun.clip_count = 4
 		# Update clip count in hud
 		if hud:
 			hud.setClipCount(4)
-
 
 func S_on_player_killed():
 	emit_signal("player_killed",self)
