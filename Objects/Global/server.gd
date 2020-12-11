@@ -100,20 +100,23 @@ func getLocalPlayer():
 ################################################################################
 
 var wpn_kill_icons = {
-	default_gun = "res://Sprites/Weapons/elite_k.png",
-	AK47 = "res://Sprites/Weapons/ak47_k.png",
-	Aug = "res://Sprites/Weapons/aug_k.png",
-	Awm = "res://Sprites/Weapons/awp_k.png",
-	deagle = "res://Sprites/Weapons/deagle_k.png",
-	MP5 = "res://Sprites/Weapons/mp5_k.png",
-	Famas = "res://Sprites/Weapons/famas_k.png",
-	M4A1 = "res://Sprites/Weapons/m4a1_k.png",
-	P90 = "res://Sprites/Weapons/p90_k.png",
-	G3S1 = "res://Sprites/Weapons/g3sg1_k.png",
-	Galil = "res://Sprites/Weapons/galil_k.png",
-	M249 = "res://Sprites/Weapons/m249_k.png",
-	mac10 = "res://Sprites/Weapons/mac10_k.png",
-	Claw = "res://Sprites/Weapons/claw_k.png"
+	Glock 	= "res://Sprites/Weapons/elite_k.png",
+	AK47 	= "res://Sprites/Weapons/ak47_k.png",
+	Aug 	= "res://Sprites/Weapons/aug_k.png",
+	Awm 	= "res://Sprites/Weapons/awp_k.png",
+	deagle 	= "res://Sprites/Weapons/deagle_k.png",
+	MP5 	= "res://Sprites/Weapons/mp5_k.png",
+	Famas 	= "res://Sprites/Weapons/famas_k.png",
+	M4A1 	= "res://Sprites/Weapons/m4a1_k.png",
+	P90 	= "res://Sprites/Weapons/p90_k.png",
+	G3S1 	= "res://Sprites/Weapons/g3sg1_k.png",
+	Galil 	= "res://Sprites/Weapons/galil_k.png",
+	M249	= "res://Sprites/Weapons/m249_k.png",
+	mac10 	= "res://Sprites/Weapons/mac10_k.png",
+	Tmp		= "res://Sprites/Weapons/tmp_k.png",
+	Usp 	= "res://Sprites/Weapons/usp_k.png",
+	Ump45	= "res://Sprites/Weapons/ump45_k.png",
+	Claw 	= "res://Sprites/Weapons/claw_k.png"
 }
 
 var bbcode_format_good = "[color=green][b]%s[/b][/color] [img]%s[/img][color=red][b] %s[/b][/color]"

@@ -2,13 +2,13 @@ extends Node
 
 class_name Team
 
-var level = null
-var team_id : int = 0
-var team_name : String = ""
-var score : int = 0
-var player_count = 0
-var alive_players = 0
-var user_count = 0
+var level 			= null
+var team_id			= 0
+var team_name		= ""
+var score			= 0
+var player_count 	= 0
+var alive_players 	= 0
+var user_count 		= 0
 
 signal team_eliminated(team)
 signal player_count_changed(team)
@@ -26,6 +26,7 @@ func _ready():
 	level.connect("player_removed",self,"removePlayer")
 	level.connect("bot_removed",self,"removePlayer")
 
+
 func addPlayer(P):
 	player_count += 1
 	P.team = self
@@ -33,6 +34,7 @@ func addPlayer(P):
 	P.connect("char_born",self,"_on_player_born")
 	if P.is_in_group("User"):
 		user_count += 1
+
 
 func removePlayer(plr):
 	if plr.team.team_id == team_id:
@@ -49,15 +51,17 @@ func removePlayer(plr):
 		
 		if plr.alive:
 			alive_players -= 1
-		# Its fails
-		#assert(player_count >= 0, "Negative number of players")
+		# Error chk
+		if player_count < 0:
+			print("Error :  Negative number of players")
 
 
 func _on_player_killed():
 	alive_players -= 1
 	emit_signal("player_count_changed", self)
 	if alive_players == 0:
-		emit_signal("team_eliminated",self)
+		emit_signal("team_eliminated", self)
+
 
 func _on_player_born():
 	alive_players += 1

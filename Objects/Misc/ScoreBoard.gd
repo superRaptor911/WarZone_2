@@ -6,13 +6,15 @@ var red = Color8(222, 74, 23)
 var green = Color8(27, 148, 10)
 var max_slots = 7
 
+func _ready():
+	setBoardData()
 
 class custom_sorter:
 	static func sort(a,b) -> bool:
 		return a.ref.score > b.ref.score
 
-func setBoardData(data_dict : Dictionary):
-	var data = data_dict.values()
+func setBoardData():
+	var data = game_server._unit_data_list.values()
 	
 	data.sort_custom(custom_sorter,"sort")
 	

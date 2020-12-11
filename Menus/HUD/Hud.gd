@@ -38,6 +38,11 @@ func _ready():
 		$fps_timer.start()
 	# Create Slots for hud messages
 	kill_msg_slots = Kill_Message_slots.new(self,8)
+	
+	var custom_scoreboard = get_tree().get_nodes_in_group("GameMode")[0].get("scoreboard")
+	if custom_scoreboard:
+		score_board_scn = custom_scoreboard
+	
 	# Connect signals
 	MenuManager.connect("back_pressed", self,"_on_back_pressed")
 	# Enable admin menu if admin
@@ -104,7 +109,6 @@ func _on_score_pressed():
 	# Load Score board
 	Pause_menu_panel.hide()
 	score_board = score_board_scn.instance()
-	score_board.setBoardData(game_server._unit_data_list)
 	score_board.connect("scoreboard_closed", self, "_on_scoreboard_closed")
 	add_child(score_board)
 	UiAnim.animZoomIn([score_board])

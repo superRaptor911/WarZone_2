@@ -43,7 +43,7 @@ func genGunPref():
 	var t1_guns = ["deagle", "Usp"]
 	var t2_guns = ["Tmp", "mac10", "Galil"]
 	var t3_guns = ["MP5", "Ump45", "AK47", "M4A1"]
-	var t4_guns = ["Awm", "M249", "P90", "AUG", "G3S1"]
+	var t4_guns = ["Awm", "M249", "P90", "Aug", "G3S1"]
 	
 	var t4_id 		= randi() % t4_guns.size()
 	var t3_id 		= randi() % t3_guns.size()
@@ -89,6 +89,7 @@ remotesync func pickUpItem(item):
 
 #respawn player, server only , clear vision
 func S_respawnUnit():
+	purchase_done = false
 	clearVision()
 	.S_respawnUnit()
 

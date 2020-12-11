@@ -329,7 +329,7 @@ func generateBotProfiles():
 		var new_bot_profile = bot_profile.duplicate(true)
 		new_bot_profile.bot_name = b
 		new_bot_profile.bot_primary_gun = ""
-		new_bot_profile.bot_sec_gun = "default_gun"
+		new_bot_profile.bot_sec_gun = "Glock"
 		new_bot_profile.bot_t_skin = bot_t_skins[t_sk_id]
 		new_bot_profile.bot_ct_skin = bot_ct_skins[ct_sk_id]	
 		bot_profiles.bot.append(new_bot_profile)

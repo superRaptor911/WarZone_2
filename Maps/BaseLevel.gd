@@ -285,8 +285,6 @@ func createUnit(data):
 		emit_signal("player_created",unit)
 	else:
 		emit_signal("bot_created",unit)
-		unit.gun_1.clip_count = 999
-		unit.gun_2.clip_count = 999
 
 
 # Client side function to create unit

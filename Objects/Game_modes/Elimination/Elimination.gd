@@ -5,6 +5,7 @@ var mode_settings = {
 	max_rounds = 2, # Maximum rounds in 1 half
 }
 
+var scoreboard = preload("res://Objects/Ui/elimScoreboard.tscn")
 
 var time_elasped = 0		# Elasped time
 var cur_round = 1			# Current round
@@ -129,6 +130,7 @@ func _on_round_end_dl_timeout():
 			cur_round = 1
 			time_elasped = 0
 			half_time = true
+			# rpc("resetToDefaultWeapon")
 			swapTeam()
 			respawnEveryone()
 			yield(get_tree().create_timer(0.125), "timeout")
@@ -376,3 +378,10 @@ remotesync func P_giveMoney(team_id):
 		if i.team.team_id == team_id:
 			i.cash += cash
 		i.cash = min(i.cash + cash, 16000)
+
+
+remotesync func resetToDefaultWeapon():
+	var units = get_tree().get_nodes_in_group("Unit")
+	for i in units:
+		i.prim_gun = ""
+		i.sec_gun  = "Glock"

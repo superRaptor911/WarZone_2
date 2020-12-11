@@ -34,8 +34,14 @@ signal gun_loaded
 
 
 func _ready():
+	connect("char_killed",self,"on_unit_killed")
 	if is_network_master():
 		connect("char_killed",self,"P_on_unit_killed")
+
+# Reset to default loadout on death
+func on_unit_killed():
+	prim_gun = ""
+	sec_gun  = "Glock"
 
 
 #load new guns
@@ -116,7 +122,7 @@ remotesync func P_respawnUnit(pos):
 	AP = 100
 	model.set_deferred("disabled",false)
 	$movmtCPP._teleportCharacter(pos)
-	loadGuns("", "Glock")
+	loadGuns(prim_gun, sec_gun)
 	model.revive()
 	$dtween.stop_all()
 	model.modulate = Color8(255,255,255,255)
