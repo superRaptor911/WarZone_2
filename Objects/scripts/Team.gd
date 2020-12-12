@@ -43,17 +43,14 @@ func removePlayer(plr):
 		player_count -= 1
 		
 		if player_count == 0 and plr.alive:
-			alive_players = 1
 			emit_signal("team_eliminated",self)
 		
 		if plr.is_in_group("User"):
-			user_count -= 1
+			user_count -= 1		
 		
 		if plr.alive:
 			alive_players -= 1
-		# Error chk
-		if player_count < 0:
-			print("Error :  Negative number of players")
+			
 
 
 func _on_player_killed():

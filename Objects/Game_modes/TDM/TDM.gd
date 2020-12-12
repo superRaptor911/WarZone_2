@@ -2,7 +2,8 @@
 #####################
 extends CanvasLayer
 
-var end_screen_scn = preload("res://Objects/Game_modes/TDM/endScreen.tscn")
+var end_screen_scn  = preload("res://Objects/Game_modes/TDM/endScreen.tscn")
+var scoreboard 		= preload("res://Objects/Ui/elimScoreboard.tscn")
 
 var mode_settings = {
 	time_limit = 5,

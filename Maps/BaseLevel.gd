@@ -11,16 +11,15 @@ export var capture_mod = false
 # author , INC = "preinstalled"
 export var author = "INC"
 
+var team1 				= preload("res://Objects/scripts/Team.gd").new(0,self)
+var team2 				= preload("res://Objects/scripts/Team.gd").new(1,self)
+var teamSelector 		= load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn")
+var spec_mode 			= preload("res://Objects/Game_modes/Spectate.tscn").instance()
+var dropedItem_manager 	= preload("res://Objects/Misc/DropedItemManager.tscn").instance()
 
-var team1 = preload("res://Objects/scripts/Team.gd").new(0,self)
-var team2 = preload("res://Objects/scripts/Team.gd").new(1,self)
-
-var teamSelector = null
-var spec_mode = preload("res://Objects/Game_modes/Spectate.tscn").instance()
-var dropedItem_manager = preload("res://Objects/Misc/DropedItemManager.tscn").instance()
-
-var spawned_units = Array()
-var spawn_points = Array()
+var spawned_units 		= Array()
+var spawn_points 		= Array()
+var is_server			= false
 
 #Unit attiributes
 var unit_data_dict = {
@@ -44,10 +43,6 @@ var spawned_units_ids = Array()
 
 func _ready():
 	MusicMan.music_player.stop()
-	if capture_mod:
-		captureMap()
-		return
-	
 	if not game_states.game_settings.shadows:
 		$BaseMap/shadow.hide()
 		
@@ -60,20 +55,22 @@ func _ready():
 	game_server._unit_data_list.clear()
 	spawn_points = get_tree().get_nodes_in_group("SpawnPoint")
 	network.connect("disconnected", self, "_on_disconnected")
+	
 	loadGameMode()
-
 	#handle team selector
 	add_child(teamSelector)
 	teamSelector.connect("team_selected",self,"_on_player_selected_team")
 	teamSelector.connect("spectate_mode",self,"_on_specmode_selected")
 	spec_mode.connect("leave_spec_mode",self,"_on_spec_mode_leave")
 	
-	if (get_tree().is_network_server()):
+	is_server = get_tree().is_network_server()
+	if is_server:
 		network.connect("player_removed", self, "_on_player_removed")
 		genNavigation()
 	else:
 		rpc_id(1,"S_getExistingUnits", String(game_states.player_info.net_id))
 	
+	# For remote server
 	if game_states.is_server:
 		add_child(load("res://Objects/scripts/serverInfoUpdater.gd").new())
 
@@ -102,8 +99,6 @@ func loadGameMode():
 		game_mode = load("res://Objects/Game_modes/Elimination/Elimination.tscn").instance()
 	elif game_server.serverInfo.game_mode == "CheckPoints":
 		game_mode = load("res://Objects/Game_modes/CheckPoints/CheckPoints.tscn").instance()
-	#elif game_server.serverInfo.game_mode == "Bombing":
-		#game_mode = load("res://Objects/Game_modes/BombDiffuse.tscn").instance()
 	
 	#add game mode
 	if game_mode:
@@ -111,13 +106,12 @@ func loadGameMode():
 		add_child(game_mode)
 		
 		#Use custom team selector, if exist
-		var ts = game_mode.get("Custom_teamSelector")
+		var ts = game_mode.get("team_selector")
 		
 		if ts:
-			teamSelector = load(ts).instance()
-			Logger.Log("Using custom team selector from %s" % [ts])
-			print("Loading not default team selector")
-		#switch to default team selector
+			teamSelector = ts.instance()
+			Logger.Log("Using custom team selector from %s")
+		# Switch to default team selector
 		else:
 			teamSelector = load("res://Objects/Game_modes/BombDiffuse/BomTeamSelect.tscn").instance()
 			print("Loading default team selector")
@@ -200,7 +194,7 @@ remote func S_getExistingUnits(peer_id : String):
 
 # create player , server side 
 remotesync func S_createPlayer(pinfo,team : int):
-	if get_tree().is_network_server():
+	if is_server:
 		rpc("P_createPlayer",pinfo,getSpawnPosition(team),team)
 	else:
 		print("Error : S_createPlayer called on client")
@@ -333,7 +327,7 @@ func spawnBot(team_id : int = 0):
 
 # Function to remove Unit, server side
 func S_removeUnit(uid : String):
-	if get_tree().is_network_server():
+	if is_server:
 		rpc("P_removeUnit", uid)
 	else:
 		Logger.LogError("S_removeUnit", "Not network server")
@@ -367,7 +361,7 @@ remotesync func P_removeUnit(uid : String):
 
 #Kick/remove all the bots from game
 func removeAllBot():
-	if get_tree().is_network_server():
+	if is_server:
 		#get all bots
 		var bots = get_tree().get_nodes_in_group("Bot")
 		for i in bots:
@@ -384,7 +378,7 @@ func _on_disconnected():
 
 # restart level, server side 
 func S_restartLevel():
-	if get_tree().is_network_server():
+	if is_server:
 		rpc("P_restartLevel")
 	else:
 		print("Error : S_restartLevel called on client")
@@ -409,7 +403,7 @@ remotesync func P_restartLevel():
 
 # Func to change player's team
 remotesync func S_changeUnitTeam(unit_id : String, team_id : int, kill_unit = true):
-	if get_tree().is_network_server():
+	if is_server:
 		var unit = game_server._unit_data_list.get(unit_id)
 		if not unit:
 			Logger.LogError("S_changeUnitTeam", "Unit with id %s not found" % [unit_id])
@@ -458,6 +452,10 @@ remotesync func P_changeUnitTeam(unit_id : String, team_id : int):
 			else:
 				unit.ref.get_node("Model").setSkin(data.ct_model)
 
+
+func S_swapTeams():
+	if is_server:
+		pass
 
 
 

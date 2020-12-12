@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var Custom_teamSelector = "res://Objects/Game_modes/ZombieMod/Zm_TeamSelect.tscn"
+var team_selector = preload("res://Objects/Game_modes/ZombieMod/Zm_TeamSelect.tscn")
 
 var current_round = 0
 var z_count = 0

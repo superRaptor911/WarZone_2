@@ -6,6 +6,7 @@ var mode_settings = {
 }
 
 var scoreboard = preload("res://Objects/Ui/elimScoreboard.tscn")
+var end_screen = preload("res://Objects/Game_modes/Elimination/EndScreen.tscn").instance()
 
 var time_elasped = 0		# Elasped time
 var cur_round = 1			# Current round
@@ -17,9 +18,6 @@ var wait_duration = 5.0		# Wait time duration
 onready var timer_label = $top_panel/Label
 onready var level = get_tree().get_nodes_in_group("Level")[0]
 onready var teams = get_tree().get_nodes_in_group("Team")
-
-
-var end_screen = preload("res://Objects/Game_modes/Elimination/EndScreen.tscn").instance()
 
 
 # Called when the node enters the scene tree for the first time.
@@ -178,7 +176,7 @@ func unfreezeEveryone():
 func swapTeam():
 	var units = get_tree().get_nodes_in_group("Unit")
 	for i in units:
-		level.rpc_id(1,"S_changeUnitTeam", i.name, abs(i.team.team_id - 1), false)
+		level.rpc_id(1,"S_changeUnitTeam", i.name, abs(i.team.team_id - 1), true)
 	# Swap scores
 	var temp = teams[0].score
 	teams[0].score = teams[1].score

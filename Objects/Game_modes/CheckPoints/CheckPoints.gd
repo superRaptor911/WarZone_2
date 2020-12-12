@@ -9,10 +9,12 @@ var mode_settings = {
 
 var CP_minimap = preload("res://Objects/Game_modes/CheckPoints/CPMinimap.tscn")
 var end_screen = preload("res://Objects/Game_modes/Elimination/EndScreen.tscn").instance()
+var scoreboard = preload("res://Objects/Ui/elimScoreboard.tscn")
 
 var time_elasped = 0
 var focused_point = null
 var teams = Array()
+
 
 onready var timer_label = $top_panel/Label
 onready var points_node = $top_panel/points
