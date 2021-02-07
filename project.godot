@@ -8,112 +8,17 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Node",
-"class": "AdMob",
-"language": "GDScript",
-"path": "res://admob-lib/admob.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Bot",
-"language": "GDScript",
-"path": "res://Objects/Bots/Bot.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Character",
-"language": "GDScript",
-"path": "res://Objects/Character.gd"
-}, {
-"base": "Label",
-"class": "CustomSpinButton",
-"language": "GDScript",
-"path": "res://Objects/Ui/customSpinBox.gd"
-}, {
-"base": "Node",
-"class": "DataUploader",
-"language": "GDScript",
-"path": "res://Objects/scripts/Datauploader.gd"
-}, {
-"base": "Node2D",
-"class": "Gun",
-"language": "GDScript",
-"path": "res://Objects/Weapons/Gun.gd"
-}, {
-"base": "Node",
-"class": "LinkedList",
-"language": "GDScript",
-"path": "res://Objects/scripts/LinkedList.gd"
-}, {
-"base": "CollisionShape2D",
-"class": "Model",
-"language": "GDScript",
-"path": "res://Objects/Models/Model.gd"
-}, {
-"base": "CanvasLayer",
-"class": "Notice",
-"language": "GDScript",
-"path": "res://Objects/Misc/Notice.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Player",
-"language": "GDScript",
-"path": "res://Objects/Player.gd"
-}, {
-"base": "Node",
-"class": "ServerAdvertiser",
-"language": "GDScript",
-"path": "res://Objects/Global/ServerAdvertiser.gd"
-}, {
-"base": "Node",
-"class": "ServerListener",
-"language": "GDScript",
-"path": "res://Objects/Global/ServerListener.gd"
-}, {
-"base": "Node",
-"class": "Team",
-"language": "GDScript",
-"path": "res://Objects/scripts/Team.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Unit",
-"language": "GDScript",
-"path": "res://Objects/unit.gd"
-} ]
+_global_script_classes=[  ]
 _global_script_class_icons={
-"AdMob": "res://admob-lib/icon.png",
-"Bot": "",
-"Character": "",
-"CustomSpinButton": "",
-"DataUploader": "",
-"Gun": "",
-"LinkedList": "",
-"Model": "",
-"Notice": "",
-"Player": "",
-"ServerAdvertiser": "",
-"ServerListener": "",
-"Team": "",
-"Unit": ""
+
 }
 
 [application]
 
 config/name="WarZone_2"
-run/main_scene="res://Menus/MainMenu/MainMenu.tscn"
-boot_splash/image="res://Sprites/qq.png"
 boot_splash/fullsize=false
 config/icon="res://Sprites/WARZONE-512.png"
 config/quit_on_go_back=false
-
-[autoload]
-
-Logger="*res://Objects/Global/logger.gd"
-game_states="*res://Objects/Global/game_states.gd"
-network="*res://Objects/Global/network.gd"
-game_server="*res://Objects/Global/server.gd"
-MenuManager="*res://Menus/menuManager.gd"
-MusicMan="*res://Objects/Global/musicMan.gd"
-UiAnim="*res://Objects/Global/ui_anim.gd"
 
 [debug]
 

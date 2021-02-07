@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resources/fonts/fontData/ARIAL.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=2]
+[ext_resource path="res://resources/images/background.jpg" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="heading" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_top = 20.0
+margin_right = 20.0
+margin_bottom = 14.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 1 )
+text = "WarZone 2"
+align = 1
+valign = 1
+
+[node name="game_version" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -50.0
+margin_top = 5.0
+margin_bottom = 14.0
+grow_horizontal = 0
+text = "warZone v2.0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="links_container" type="VBoxContainer" parent="."]
+anchor_left = 0.037
+anchor_top = 0.287
+anchor_right = 0.412
+anchor_bottom = 0.872
+margin_left = -0.360001
+margin_top = -0.639999
+margin_right = -0.360046
+margin_bottom = 0.159973
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="new_game" type="Button" parent="links_container"]
+margin_right = 480.0
+margin_bottom = 50.0
+grow_horizontal = 2
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = ExtResource( 2 )
+text = "New Game"
+
+[node name="settings" type="Button" parent="links_container"]
+margin_top = 100.0
+margin_right = 480.0
+margin_bottom = 150.0
+grow_horizontal = 2
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = ExtResource( 2 )
+text = "Settings"
+
+[node name="level_editor" type="Button" parent="links_container"]
+margin_top = 200.0
+margin_right = 480.0
+margin_bottom = 250.0
+grow_horizontal = 2
+rect_min_size = Vector2( 0, 50 )
+custom_fonts/font = ExtResource( 2 )
+text = "Level Editor"
