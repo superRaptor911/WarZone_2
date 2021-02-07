@@ -164,6 +164,8 @@ remotesync func P_handleKills(victim_id : String, killer_id : String, weapon_use
 			killer.ref.kills += 1
 			killer.ref.score += 4			
 			killer.ref.cash  =	min(killer.ref.cash + 300, 16000)
+			if killer.ref.is_in_group("User"):
+				killer.ref.addCashAnim(300)
 	else:
 		killer_name = killer_id
 		Logger.Log("--> Killer %s not found" % [killer_id])

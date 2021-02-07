@@ -8,7 +8,7 @@ var is_android		= true
 var is_server		= false
 var is_sysAdmin		= false
 
-const current_game_version : float = 1.51
+const current_game_version : float = 1.52
 const invalid_position = Vector2(-999,-999)
 var first_run = false
 
@@ -106,7 +106,7 @@ var weaponStats = {
 	Glock 			= { cost = 400, dmg = 13, rof = 3, rec = 0.10, sprd = 1 },
 	Usp				= { cost = 600, dmg = 20, rof = 4, rec = 0.20, sprd = 3 },
 	deagle			= { cost = 800, dmg = 60, rof = 2, rec = 0.20, sprd = 3 },
-	mac10			= { cost = 1000, dmg = 13, rof = 12, rec = 0.30, sprd = 4 },
+	mac10			= { cost = 1050, dmg = 13, rof = 12, rec = 0.30, sprd = 4 },
 	Tmp				= { cost = 1300, dmg = 15, rof = 12, rec = 0.20, sprd = 4 },
 	MP5				= { cost = 2000, dmg = 20, rof = 10, rec = 0.20, sprd = 3 },
 	Ump45			= { cost = 2300, dmg = 20, rof = 10, rec = 0.20, sprd = 3 },

@@ -14,7 +14,7 @@ func _ready():
 # Sort by score
 class custom_sorter:
 	static func sort(a,b) -> bool:
-		return a.ref.score > b.ref.score
+		return a.ref.kills > b.ref.kills
 
 func updateScoreboard():
 	var data = game_server._unit_data_list.values()
@@ -47,7 +47,7 @@ func updateScoreboard():
 				p_ref = ct_panels[ct_counter - 1]
 		
 		p_ref.get_node("name").text		= i.ref.pname
-		p_ref.get_node("score").text 	= String(i.ref.score)
+		p_ref.get_node("score").text 	= String(i.ref.kills)
 		p_ref.get_node("deaths").text 	= String(i.ref.deaths)
 		p_ref.get_node("index").text 	= String(index)
 	

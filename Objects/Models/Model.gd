@@ -86,7 +86,8 @@ func switchGun(gun : Gun):
 #returns true if did melee attack
 func doMelee() -> bool:
 	if $mele_delay.is_stopped():
-		parent.pause_controls(true)
+		if parent.is_in_group("User"):
+			parent.pause_controls(true)
 		$AnimationPlayer.play("melee")
 		$mele_delay.start()
 		return true
@@ -128,7 +129,8 @@ func revive():
 #function called when melee animation is finished
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "melee":
-		parent.pause_controls(false)
+		if parent.is_in_group("User"):
+			parent.pause_controls(false)
 	elif anim_name == "zombie_attk":
 		emit_signal("zm_attk_finished")
 		

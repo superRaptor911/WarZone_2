@@ -245,7 +245,7 @@ func enteredBuyZone():
 func exitedBuyZone():
 	emit_signal("exited_buy_zone")
 
-func setCash(val):
-	if hud and val > cash:
-		hud.addCash(val - cash)
-	cash = val
+
+func addCashAnim(val):
+	if hud:
+		hud.addCash(val)
