@@ -65,7 +65,7 @@ __meta__ = {
 }
 
 [node name="new_game" type="Button" parent="links_container"]
-margin_right = 480.0
+margin_right = 479.0
 margin_bottom = 50.0
 grow_horizontal = 2
 rect_min_size = Vector2( 0, 50 )
@@ -74,7 +74,7 @@ text = "New Game"
 
 [node name="settings" type="Button" parent="links_container"]
 margin_top = 100.0
-margin_right = 480.0
+margin_right = 479.0
 margin_bottom = 150.0
 grow_horizontal = 2
 rect_min_size = Vector2( 0, 50 )
@@ -83,7 +83,7 @@ text = "Settings"
 
 [node name="level_editor" type="Button" parent="links_container"]
 margin_top = 200.0
-margin_right = 480.0
+margin_right = 479.0
 margin_bottom = 250.0
 grow_horizontal = 2
 rect_min_size = Vector2( 0, 50 )

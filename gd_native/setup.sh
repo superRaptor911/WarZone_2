@@ -27,11 +27,11 @@ installGodotCpp()
 	fi
 
 	cd godot-cpp
-	wget -O "master.zip" "https://github.com/GodotNativeTools/godot_headers/archive/ddf67cc7b8274c5fb77a71c828bab2991f1ee12a.zip"
+	wget -O "master.zip" "https://github.com/godotengine/godot_headers/archive/f2122198d51f230d903f9585527248f6cf411494.zip"
 	if [[ $? -eq 0 ]]; then
 		unzip master.zip
 		rm -rf godot_headers
-		mv godot_headers-ddf67cc7b8274c5fb77a71c828bab2991f1ee12a godot_headers
+		mv godot_headers-f2122198d51f230d903f9585527248f6cf411494 godot_headers
 		rm master.zip
 	else
 		printBuffer "Error : failed to download godot cpp bindings"
@@ -44,7 +44,7 @@ installGodotCpp()
 
 installTools()
 {
-	tools=(unzip scons g++-mingw-w64-x86-64)
+	tools=(unzip scons)
 	for i in ${tools[@]}; do
 		if ! [ -x "$(command -v $i)" ]; then
 			printBuffer "$i not installed .. Installing $i"
@@ -63,8 +63,8 @@ buildCppBindings()
 	cd godot-cpp
 	printBuffer "Compiling for Linux"
 	!(scons platform=linux generate_bindings=yes bits=64 target=release -j4) && exit 1
-	printBuffer "Compiling for Windows"
-	!(scons platform=windows generate_bindings=yes bits=64 target=release -j4) && exit 1
+	# printBuffer "Compiling for Windows"
+	# !(scons platform=windows generate_bindings=yes bits=64 target=release -j4) && exit 1
 	clear
 	echo "Do you want to generate bindings for android? (y/n)"
 	read ans

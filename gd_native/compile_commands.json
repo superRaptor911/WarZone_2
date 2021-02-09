@@ -1,0 +1,24 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-o",
+      "src/movement/Movement.os",
+      "-c",
+      "-std=c++17",
+      "-fPIC",
+      "-O3",
+      "-fPIC",
+      "-I.",
+      "-Igodot-cpp/godot_headers",
+      "-Igodot-cpp/include",
+      "-Igodot-cpp/include/core",
+      "-Igodot-cpp/include/gen",
+      "-Isrc/movement",
+      "src/movement/Movement.cpp"
+    ],
+    "directory": "/home/raptor/program/godot/WarZone_2/gd_native",
+    "file": "/home/raptor/program/godot/WarZone_2/gd_native/src/movement/Movement.cpp",
+    "output": "/home/raptor/program/godot/WarZone_2/gd_native/src/movement/Movement.os"
+  }
+]

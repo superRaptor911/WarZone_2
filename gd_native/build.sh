@@ -31,56 +31,56 @@ result=()
 
 build_targets() 
 {
-	scons $1 -j4
-	if [ $? -eq 0 ]; then
-		result+="operation $2 completed successfully ( ${plats[i]} )\n"
-		build_result+=1
-		echo "Done ............."
-	else
-	    exit 1
-	fi
+    scons $1 -j4
+    if [ $? -eq 0 ]; then
+        result+="operation $2 completed successfully ( ${plats[i]} )\n"
+        build_result+=1
+        echo "Done ............."
+    else
+        exit 1
+    fi
 }
 
 build_plugin()
 {
-	#Build only for first 4 platforms
-	for (( i = 0; i < 6; i++ )); do
+    #Build only for first 4 platforms
+    for (( i = 0; i < 6; i++ )); do
 
-		if [ "$platforms" == "" ] || [ "$platforms" == "${plats[i]}" ]
-		then
-			echo "$platforms"
-			build_targets "${args[i]}" "${i}"
-		fi
-	done
+        if [ "$platforms" == "" ] || [ "$platforms" == "${plats[i]}" ]
+        then
+            echo "$platforms"
+            build_targets "${args[i]}" "${i}"
+        fi
+    done
 
-	echo
-	echo
-	echo operation result -----------------------------------
+    echo
+    echo
+    echo operation result -----------------------------------
 
-	for (( i = 0; i < 4; i++ )); do
-		printf "${result[i]}"
-	done
+    for (( i = 0; i < 4; i++ )); do
+        printf "${result[i]}"
+    done
 
-	echo operation result -----------------------------------
-	echo
-	echo
+    echo operation result -----------------------------------
+    echo
+    echo
 
-	if [[ build_result -ne 0 ]]; then
-		cp -r output/bin ${copy_dest}
-		echo copied libs to ${copy_dest}
-	fi	
+    if [[ build_result -ne 0 ]]; then
+        cp -r output/bin ${copy_dest}
+        echo copied libs to ${copy_dest}
+    fi	
 }
 
 zip_N_upload()
 {
-	if [ "$ZipAndUpload" == "y" ] || [ "$ZipAndUpload" == "yes" ]
-	then
-		echo -e "bin.zip will be uploaded\n\t\tThis will take time........"
-		cd ../
-		zip -r Gdnative/tools/bin.zip bin && cd Gdnative/tools/ && ./uploadBinZip
-		rm bin.zip
-	fi
-	
+    if [ "$ZipAndUpload" == "y" ] || [ "$ZipAndUpload" == "yes" ]
+    then
+        echo -e "bin.zip will be uploaded\n\t\tThis will take time........"
+        cd ../
+        zip -r Gdnative/tools/bin.zip bin && cd Gdnative/tools/ && ./uploadBinZip
+        rm bin.zip
+    fi
+
 }
 
 ##############################Starts here#######################
@@ -91,7 +91,7 @@ rm -rf output
 mkdir -p output/bin
 
 build_plugin
-zip_N_upload
+# zip_N_upload
 
 end_time=`date +%s`
 runtime=$((end_time-start_time))

@@ -16,6 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="WarZone_2"
+run/main_scene="res://ui/mainMenu/MainMenu.tscn"
 boot_splash/fullsize=false
 config/icon="res://Sprites/WARZONE-512.png"
 config/quit_on_go_back=false
@@ -104,7 +105,7 @@ buy={
 
 [locale]
 
-translations=PoolStringArray( "res://lang/translation.en.translation", "res://lang/translation.es.translation", "res://lang/translation.fr.translation", "res://lang/translation.pt.translation", "res://lang/translation.ru.translation", "res://lang/translation.id.translation" )
+translations=PoolStringArray(  )
 
 [rendering]
 
