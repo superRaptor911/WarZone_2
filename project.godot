@@ -8,9 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node",
+"class": "Movement",
+"language": "NativeScript",
+"path": "res://bin/Movement.gdns"
+} ]
 _global_script_class_icons={
-
+"Movement": ""
 }
 
 [application]
@@ -20,6 +25,10 @@ run/main_scene="res://ui/mainMenu/MainMenu.tscn"
 boot_splash/fullsize=false
 config/icon="res://Sprites/WARZONE-512.png"
 config/quit_on_go_back=false
+
+[autoload]
+
+UImanager="*res://scripts/autoload/UImanager.gd"
 
 [debug]
 

@@ -39,6 +39,7 @@ namespace godot {
             float update_delta        = 1.f / 25.f;
             float time                = 0.f;
             State current_state;
+            State old_state;
             std::vector<State> history;
 
             bool is_server = false;

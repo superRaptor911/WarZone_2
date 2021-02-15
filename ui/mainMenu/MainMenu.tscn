@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://resources/fonts/fontData/ARIAL.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=2]
 [ext_resource path="res://resources/images/background.jpg" type="Texture" id=3]
+[ext_resource path="res://ui/mainMenu/MainMenu.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -12,6 +13,7 @@ font_data = ExtResource( 1 )
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

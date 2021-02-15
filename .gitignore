@@ -1,4 +1,5 @@
 .import
+*.vim
 *.a
 *.o
 *.exe

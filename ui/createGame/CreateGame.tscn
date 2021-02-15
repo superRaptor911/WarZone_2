@@ -1,0 +1,121 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ui/createGame/CreateGame.gd" type="Script" id=3]
+[ext_resource path="res://ui/createGame/failed2connect_dialog.tscn" type="PackedScene" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.2, 0.2, 0.2, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="CreateGame" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="horizontal" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -630.0
+margin_top = -350.0
+margin_right = 630.0
+margin_bottom = 350.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="config" type="Panel" parent="horizontal"]
+margin_right = 800.0
+margin_bottom = 700.0
+rect_min_size = Vector2( 800, 0 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="container" type="VBoxContainer" parent="horizontal/config"]
+anchor_right = 1.0
+margin_left = 118.794
+margin_top = 104.581
+margin_right = -462.206
+margin_bottom = 168.581
+custom_constants/separation = 50
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="select_level" type="Label" parent="horizontal/config/container"]
+margin_right = 219.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 1 )
+text = "Select Level"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionButton" type="OptionButton" parent="horizontal/config/container/select_level"]
+margin_left = 385.693
+margin_right = 551.693
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 1 )
+text = "Dust 2"
+items = [ "Dust 2", null, false, 0, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="select_gamemode" type="Label" parent="horizontal/config/container"]
+margin_top = 80.0
+margin_right = 219.0
+margin_bottom = 110.0
+custom_fonts/font = ExtResource( 1 )
+text = "Select Game Mode"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionButton" type="OptionButton" parent="horizontal/config/container/select_gamemode"]
+margin_left = 385.693
+margin_top = 2.0
+margin_right = 551.693
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 1 )
+text = "TDM"
+items = [ "TDM", null, false, 0, null, "Zombie", null, false, 1, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="start" type="Button" parent="horizontal/config"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -62.2061
+margin_top = -79.0397
+margin_right = 50.7939
+margin_bottom = -32.0397
+custom_fonts/font = ExtResource( 2 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="failed2connect_dialog" parent="." instance=ExtResource( 4 )]
+visible = false

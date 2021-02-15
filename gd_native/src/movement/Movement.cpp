@@ -12,6 +12,8 @@ using namespace godot;
 void Movement::_register_methods() {
     register_method("_process", &Movement::_process);
     register_method("_ready", &Movement::_ready);
+	register_method("Server_processInput", &Movement::Server_processInput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
+	register_method("sync_serverOutput", &Movement::sync_serverOutput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
 }
 
 Movement::Movement() {
@@ -28,9 +30,10 @@ void Movement::_ready() {
 
 
 void Movement::_process(float delta) {
-    lerp(parent->get_position(), current_state.position, 0.5f);
-    Math::lerp_angle(parent->get_rotation(), current_state.rotation, 0.5f);
     time += delta;
+    float weight = time / update_delta;
+    parent->set_position(lerp(old_state.position, current_state.position, weight));
+    Math::lerp_angle(parent->get_rotation(), current_state.rotation, weight);
     if (time < update_delta)
         return;
 
@@ -109,7 +112,8 @@ State Movement::getStateFromState(const State &state) {
 }
 
 void Movement::Client_processInput(const ServerIn &input) {
-    State state = getStateFromInput(input);
+    State state   = getStateFromInput(input);
+    old_state     = current_state;
     current_state = state;
 
     // Server player don't have to keep history
@@ -145,7 +149,8 @@ void Movement::sync_serverOutput(int id, float rotation, Vector2 position) {
     new_state.input_id = id;
     new_state.position = position;
     new_state.rotation = rotation;
-
+    
+    old_state = current_state;
     if (is_local && !is_server) {
         checkForErrors(new_state);
     } else {

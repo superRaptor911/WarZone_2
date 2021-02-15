@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ui/createGame/failed2connect_dialog.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.345098, 0.345098, 0.345098, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="failed2connect_dialog" type="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -123.0
+margin_right = 286.0
+margin_bottom = 121.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -172.5
+margin_top = -18.0
+margin_right = 172.5
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 1 )
+text = "Failed To Create Server"
+
+[node name="ok_button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -30.3568
+margin_top = -60.0
+margin_right = 28.6432
+margin_bottom = -24.0
+custom_fonts/font = ExtResource( 2 )
+text = "OK"

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/map/shadow.gd" type="Script" id=2]
+[ext_resource path="res://resources/tilesets/shadows.tres" type="TileSet" id=3]
+
+[node name="Map" type="TileMap"]
+format = 1
+
+[node name="shadow" type="TileMap" parent="."]
+self_modulate = Color( 0, 0, 0, 1 )
+tile_set = ExtResource( 3 )
+format = 1
+tile_data = PoolIntArray( -65405926, 0, 196609, -65340391, 0, 0, -65340390, 0, 131072 )
+script = ExtResource( 2 )

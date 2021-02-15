@@ -4,8 +4,8 @@ onready var player = get_parent()
 
 
 func _ready():
-    if player && !player.is_in_group("Players"):
-        player = null
+	if player && !player.is_in_group("Players"):
+		player = null
 
 
 func getInputs():
@@ -24,4 +24,4 @@ func getInputs():
 
 
 func _process(_delta):
-    getInputs()
+	getInputs()
