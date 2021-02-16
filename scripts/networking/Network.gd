@@ -61,12 +61,12 @@ func _connectSignals():
 
 
 func _on_peer_disconnected(id):
-	print("Network::Client disconnected")
+	print("Network::Client disconnected id=%d" % [id])
 	emit_signal("client_disconnected", id)
 
 
 func _on_peer_connected(id):
-	print("Network::Client Connected")
+	print("Network::Client Connected id=%d" % [id])
 	emit_signal("client_connected", id)
 
 

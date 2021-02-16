@@ -3,7 +3,8 @@ extends Node
 var menus = {
 	main_menu   = "res://ui/mainMenu/MainMenu.tscn",
 	new_game    = "res://ui/newGame/NewGame.tscn",
-	create_game = "res://ui/createGame/CreateGame.tscn"
+	create_game = "res://ui/createGame/CreateGame.tscn",
+	join_game	= "res://ui/joinGame/JoinGame.tscn"
 }
 
 

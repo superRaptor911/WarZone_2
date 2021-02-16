@@ -29,3 +29,16 @@ func changeLevelTo(level_name):
 	pass
 
 
+########################################### Network Code ########################################
+func query_levelSettings():
+	rpc_id(1, "S_levelSettings", get_tree().get_network_unique_id())
+
+
+remote func S_levelSettings(peer_id : int):
+	rpc_id(peer_id, "C_levelSettings", settings)
+
+
+remote func C_levelSettings(data):
+	settings = data
+	print("LevelManager::Got Level info from the server")
+	loadLevel()

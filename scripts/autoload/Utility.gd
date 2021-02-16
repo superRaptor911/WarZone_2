@@ -46,3 +46,29 @@ func dictionaryCpy(dest_D : Dictionary, src_D : Dictionary):
     for i in keys:
         if dest_D.has(i):
             dest_D[i] = src_D[i]
+
+
+# Check if directory exists
+func dirExists(path : String):
+	var dir = Directory.new()
+	return dir.dir_exists(path)
+
+# Get contetnts of a directory, modes [a = dirs and files, d= dir only, f = files only]
+func scanDir(path : String , mode = 'a') -> Array:
+	var list = []
+	var dir = Directory.new()
+	if dir.open(path) == OK:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name != "." && file_name != "..":
+				if mode == 'a':
+					list.append(file_name)
+				elif mode == 'f' && !dir.current_is_dir():
+					list.append(file_name)
+				elif mode == 'd' && dir.current_is_dir():
+					list.append(file_name)
+			file_name = dir.get_next()
+	else:
+		print("An error occurred when trying to access the path.")
+	return list

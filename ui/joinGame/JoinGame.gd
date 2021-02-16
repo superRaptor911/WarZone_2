@@ -11,10 +11,11 @@ func _ready():
 
 
 func _on_connect_pressed():
-	network = load("res://res://scripts/networking/Network.gd").new()
+	network = load("res://scripts/networking/Network.gd").new()
 	get_tree().root.add_child(network)
 	network.connect("connection_failed", self, "_on_connection_failed")
 	network.connect("connection_success", self, "_on_connection_success")
+	network.connectToServer(ip_address.text)
 
 
 func _on_connection_failed():
