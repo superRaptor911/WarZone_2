@@ -8,12 +8,12 @@ func _ready():
 	level_node = get_tree().get_nodes_in_group("Levels")[0]
 
 
-func spawnPlayer(id : String):
-	if level_node.node_exists(id):
-		print("SpawnManager::Error::Player %s already exists" % [id])
+func spawnPlayer(id : int):
+	if level_node.node_exists(String(id)):
+		print("SpawnManager::Error::Player %d already exists" % [id])
 		return
 	var player = player_scene.instance()
-	player.name = id
+	player.name = String(id)
 	level_node.add_child(player)
 
 

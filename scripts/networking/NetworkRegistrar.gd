@@ -16,7 +16,10 @@ func _connectSignals():
 
 
 func _on_client_connected(id):
-	network.player_register[id] = {}
+	network.player_register[id] = {
+			id   = id,
+			name = ""
+		}
 
 
 func _on_client_disconnected(id):

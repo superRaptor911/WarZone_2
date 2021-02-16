@@ -33,7 +33,7 @@ func _on_server_creation_success():
 	var level_manager = load("res://scripts/general/LevelManager.gd").new()
 	level_manager.settings = getLevelSettings()
 	get_tree().root.add_child(level_manager)
-	level_manager.loadLevel()
+	# level_manager.loadLevel()
 	queue_free()
 	
 

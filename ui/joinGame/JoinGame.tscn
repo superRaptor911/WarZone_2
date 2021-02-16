@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ui/joinGame/JoinGame.gd" type="Script" id=3]
+
+[node name="JoinGame" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="container" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -261.5
+margin_top = -72.0
+margin_right = 261.5
+margin_bottom = 72.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ip_address" type="LineEdit" parent="container"]
+margin_right = 523.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 2 )
+placeholder_text = "Enter IP"
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.522
+anchor_top = 0.425
+anchor_right = 0.522
+anchor_bottom = 0.425
+margin_left = -103.66
+margin_top = 126.0
+margin_right = 53.34
+margin_bottom = 185.0
+custom_fonts/font = ExtResource( 1 )
+text = "Connect"
