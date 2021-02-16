@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
 [ext_resource path="res://resources/images/background.jpg" type="Texture" id=2]
+[ext_resource path="res://ui/newGame/NewGame.gd" type="Script" id=3]
 
 [node name="NewGame" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -39,6 +41,7 @@ margin_right = 500.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 custom_fonts/font = ExtResource( 1 )
+disabled = true
 text = "Single Player"
 
 [node name="create_server" type="Button" parent="container"]

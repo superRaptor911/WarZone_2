@@ -3,6 +3,7 @@ extends Node
 onready var network = get_parent()
 
 func _ready():
+	name = "NetworkRegistrar"
 	if network && !network.is_in_group("Network"):
 		print("NetworkRegistrar::Error::parent not Network")
 		network = null
@@ -20,3 +21,4 @@ func _on_client_connected(id):
 
 func _on_client_disconnected(id):
 	network.player_register.erase(id)
+

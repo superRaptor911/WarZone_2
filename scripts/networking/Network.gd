@@ -3,7 +3,7 @@ extends Node
 var network_registrar = preload("res://scripts/networking/NetworkRegistrar.gd").new()
 
 const Port        = 6969
-const Max_Players = 6969
+const Max_Players = 32
 
 # Server only
 signal server_creation_failed
@@ -21,6 +21,7 @@ signal disconnected
 var player_register = {}
 
 func _ready():
+	name = "NetworkManager"
 	add_to_group("Network")
 	add_child(network_registrar)
 	_connectSignals()

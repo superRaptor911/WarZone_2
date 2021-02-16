@@ -10,4 +10,4 @@ func _connectSignals():
 	new_game_button.connect("pressed", self, "_on_new_game_button_pressed")
 
 func _on_new_game_button_pressed():
-	UImanager.changeMenuTO("new_game")
+	UImanager.changeMenuTo("new_game")
