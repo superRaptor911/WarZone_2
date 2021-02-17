@@ -16,6 +16,6 @@ func getLevels() -> Array:
 func getLevelModes(level_name) -> Dictionary:
 	for i in level_dirs:
 		if Utility.dirExists(i + level_name):
-			var mode_info = Utility.loadDictionary(i + level_name + "/level_info.rjs")
-			return mode_info.keys()
+			var level_info = Utility.loadDictionary(i + level_name + "/level_info.json")
+			return level_info.modes.keys()
 	return {}

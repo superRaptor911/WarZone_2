@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Movement",
 "language": "NativeScript",
-"path": "res://bin/Movement.gdns"
+"path": "res://objects/characters/unit/movement.gdns"
 } ]
 _global_script_class_icons={
 "Movement": ""

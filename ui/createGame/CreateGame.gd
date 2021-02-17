@@ -12,6 +12,7 @@ func _ready():
 	_connectSignals()
 	_fillLevels()
 
+
 func _connectSignals():
 	start_game.connect("pressed", self, "_on_start_pressed")
 	level_options.connect("item_selected", self, "_on_level_selected")
@@ -46,7 +47,7 @@ func _on_server_creation_success():
 func getLevelSettings():
 	var node = get_node("horizontal/config/container/select_gamemode/OptionButton")
 	var game_mode = node.get_item_text(node.selected)
-	node = get_node("horizontal/config/container/select_gamemode/OptionButton")
+	node = get_node("horizontal/config/container/select_level/OptionButton")
 	var level_name = node.get_item_text(node.selected)
 
 	var settings = {
@@ -63,6 +64,9 @@ func _fillLevels():
 	var levels = level_reader.getLevels()
 	for i in levels:
 		level_options.add_item(i)
+	# Select first level
+	if !levels.empty():
+		_on_level_selected(0)
 
 
 func _on_level_selected(id):

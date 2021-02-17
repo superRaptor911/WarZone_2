@@ -28,4 +28,5 @@ func _on_connection_success():
 	print("JoinGame::Connected to server")
 	var level_manager = load("res://scripts/general/LevelManager.gd").new()
 	get_tree().root.add_child(level_manager)
+	level_manager.joinLevel()
 	queue_free()

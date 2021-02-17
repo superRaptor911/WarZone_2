@@ -1,0 +1,5 @@
+{
+    "modes" : {
+        "Tdm" : "res://resources/levels/Aztec/Aztec_tdm.tscn"
+    }
+}
