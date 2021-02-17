@@ -9,6 +9,8 @@ func _ready():
 
 
 func getInputs():
+	if !player.is_network_master():
+		return
 	var input_vector = Vector2.ZERO
 	if Input.is_action_pressed('ui_up'):
 		input_vector.y += -1

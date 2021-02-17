@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
+[ext_resource path="res://objects/game_modes/tdm/Tdm_select_team.gd" type="Script" id=2]
+
+[node name="Tdm_select_team" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -338.0
+margin_top = -200.0
+margin_right = 338.0
+margin_bottom = 200.0
+
+[node name="container" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -239.0
+margin_top = -103.0
+margin_right = 239.0
+margin_bottom = 103.0
+custom_constants/separation = 40
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="t" type="Button" parent="Panel/container"]
+margin_right = 478.0
+margin_bottom = 42.0
+custom_fonts/font = ExtResource( 1 )
+text = "Terrorist"
+
+[node name="ct" type="Button" parent="Panel/container"]
+margin_top = 82.0
+margin_right = 478.0
+margin_bottom = 124.0
+custom_fonts/font = ExtResource( 1 )
+text = "Counter Terrorist"
+
+[node name="spectate" type="Button" parent="Panel/container"]
+margin_top = 164.0
+margin_right = 478.0
+margin_bottom = 206.0
+custom_fonts/font = ExtResource( 1 )
+text = "Spectate"

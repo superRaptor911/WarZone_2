@@ -2,9 +2,10 @@ extends Node
 
 onready var level = get_tree().get_nodes_in_group("Levels")[0]
 
+
 func _ready():
 	createTeams()
-
+	loadTeamSelector()
 
 
 func createTeams():
@@ -24,3 +25,7 @@ func createTeams():
 	level.call_deferred("add_child",counter_terrorist)
 
 
+
+func loadTeamSelector():
+	var team_select = load("res://objects/game_modes/tdm/Tdm_select_team.tscn").instance()
+	level.call_deferred("add_child",team_select)
