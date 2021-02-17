@@ -13,7 +13,8 @@ func _ready():
 
 
 func _connectSignals():
-	pass
+	var network = get_tree().root.get_node("Network")
+	network.connect("client_disconnected", self, "_on_client_disconnected")
 
 
 func addPlayer(player_ref):
@@ -28,6 +29,12 @@ func addPlayer(player_ref):
 			deaths = 0,
 			ping   = 0
 		}
+
+
+func _on_client_disconnected(id : int):
+	if players.has(String(id)):
+		players.erase((id))
+		print("Team::Removing Player %d from Team %s" % [id, team_name])
 
 
 func on_player_killed(victim_name, _killer_name, _weapon_name):

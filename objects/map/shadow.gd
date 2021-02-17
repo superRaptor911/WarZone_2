@@ -16,8 +16,7 @@ func _ready():
 		timer.connect("timeout", self, "_on_timeout")
 		add_child(timer)
 		timer.start()
-	else:
-		main()
+
 
 
 func _isWall(tile_coord : Vector2) -> bool:

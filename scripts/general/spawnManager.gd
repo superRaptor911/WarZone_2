@@ -1,13 +1,10 @@
 extends Node
 
 var player_scene = preload("res://objects/characters/player/Player.tscn")
-var level_node	 = null
-
-onready var level_manager = get_tree().root.get_node("LevelManager")
+onready var level_node = get_tree().get_nodes_in_group("Levels")[0] 
 
 func _ready():
 	name = "SpawnManager"
-	level_manager.connect("level_loaded", self, "_on_level_loaded")
 
 
 func spawnPlayer(id : int):
@@ -18,11 +15,6 @@ func spawnPlayer(id : int):
 	player.name = String(id)
 	level_node.add_child(player)
 	player.set_network_master(id)
-
-
-func _on_level_loaded():
-	level_node = get_tree().get_nodes_in_group("Levels")[0]
-
 
 
 # Networking
