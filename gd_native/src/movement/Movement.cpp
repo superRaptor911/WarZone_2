@@ -12,8 +12,8 @@ using namespace godot;
 void Movement::_register_methods() {
     register_method("_process", &Movement::_process);
     register_method("_ready", &Movement::_ready);
-	register_method("Server_processInput", &Movement::Server_processInput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
-	register_method("sync_serverOutput", &Movement::sync_serverOutput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
+    register_method("Server_processInput", &Movement::Server_processInput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
+    register_method("sync_serverOutput", &Movement::sync_serverOutput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
 }
 
 Movement::Movement() {
@@ -31,12 +31,13 @@ void Movement::_ready() {
 
 void Movement::_process(float delta) {
     time += delta;
-    float weight = time / update_delta;
+    float weight = std::min(time / update_delta, 1.f);
     parent->set_position(lerp(old_state.position, current_state.position, weight));
     Math::lerp_angle(parent->get_rotation(), current_state.rotation, weight);
-    if (time < update_delta)
+    if (time <= update_delta)
         return;
 
+    old_state = current_state;
     time -= update_delta;
     checkForInput();
 }
@@ -149,7 +150,7 @@ void Movement::sync_serverOutput(int id, float rotation, Vector2 position) {
     new_state.input_id = id;
     new_state.position = position;
     new_state.rotation = rotation;
-    
+
     old_state = current_state;
     if (is_local && !is_server) {
         checkForErrors(new_state);

@@ -1,10 +1,68 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/models/CharacterModel.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/characters/ct1.bmp" type="Texture" id=2]
+[ext_resource path="res://resources/sprites/characters/foot/legs.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 30.9337
+
+[sub_resource type="Animation" id=2]
+resource_name = "stop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("leg_1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 6.67601, 12.8452 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("leg_2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -0.30649, 12.3808 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "walk"
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("leg_1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 14.0466, 12.9229 ), Vector2( 13.6721, -2.43474 ), Vector2( 9.302, 11.2997 ), Vector2( 10.176, 26.3452 ), Vector2( 14.0466, 12.9229 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("leg_2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -7.67881, 18.5416 ), Vector2( -7.30423, 26.7823 ), Vector2( -7.42909, 14.6709 ), Vector2( -5.30649, -5.11919 ), Vector2( -7.67881, 18.5416 ) ]
+}
 
 [node name="CharacterModel" type="CollisionShape2D"]
 shape = SubResource( 1 )
@@ -14,3 +72,20 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 2
+
+[node name="leg_1" type="Sprite" parent="."]
+position = Vector2( 6.67601, 12.8452 )
+scale = Vector2( 1.60869, 2.07691 )
+z_index = -1
+texture = ExtResource( 3 )
+
+[node name="leg_2" type="Sprite" parent="."]
+position = Vector2( -0.30649, 12.3808 )
+scale = Vector2( 1.60869, 1.70233 )
+z_index = -1
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "stop"
+anims/stop = SubResource( 2 )
+anims/walk = SubResource( 3 )

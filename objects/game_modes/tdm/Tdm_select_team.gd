@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-onready var spawn_manager = get_tree().root.get_node("SpawnManager")
 onready var terrorist_button : Button = get_node("Panel/container/t")
 onready var counter_terrorist_button : Button = get_node("Panel/container/ct")
 onready var spectate_button : Button = get_node("Panel/container/spectate")

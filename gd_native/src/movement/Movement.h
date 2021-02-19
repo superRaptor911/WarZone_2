@@ -36,7 +36,7 @@ namespace godot {
             KinematicBody2D *parent;
 
             int   input_id            = 0;
-            float update_delta        = 1.f / 25.f;
+            float update_delta        = 1.f / 20.f;
             float time                = 0.f;
             State current_state;
             State old_state;
