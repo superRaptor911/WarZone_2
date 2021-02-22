@@ -15,12 +15,12 @@ func _ready():
 	pass # Replace with function body.
 
 
-func takeDamageFrom(value : float, armour_damage : float = 0, attacker : String = "", wpn_name : String = ""):
+func takeDamage(damage : float, penetration_ratio : float = 1, attacker : String = "", wpn_name : String = ""):
 	if alive:
-		if armour == 0:
-			value += armour_damage
-		armour = max(0, armour - armour_damage)
-		health = max(0, health - value)
+		if armour != 0:
+			damage *= penetration_ratio
+			armour = max(0, armour - damage * 0.1)
+		health = max(0, health - damage)
 		emit_signal('entity_took_damage', attacker)
 		# Handle Death
 		if health == 0:

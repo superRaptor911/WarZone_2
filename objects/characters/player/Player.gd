@@ -1,4 +1,4 @@
-extends "res://objects/characters/entity/Entity.gd"
+extends "res://objects/characters/unit/Unit.gd"
 
 onready var camera : Camera2D = get_node("camera")
 

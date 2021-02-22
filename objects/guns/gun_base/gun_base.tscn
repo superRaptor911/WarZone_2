@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resources/sprites/weapons/glock.bmp" type="Texture" id=1]
+[ext_resource path="res://objects/guns/gun_base/gun_base.gd" type="Script" id=2]
+
+[node name="gun_base" type="Sprite"]
+texture = ExtResource( 1 )
+offset = Vector2( 0, -18 )
+script = ExtResource( 2 )
+
+[node name="muzzle" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( -0.396851, -21.8268 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="reload_timer" type="Timer" parent="."]
+one_shot = true
