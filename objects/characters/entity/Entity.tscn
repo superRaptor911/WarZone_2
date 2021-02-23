@@ -3,6 +3,7 @@
 [ext_resource path="res://objects/characters/entity/Entity.gd" type="Script" id=1]
 
 [node name="Entity" type="KinematicBody2D" groups=[
+"Destructable",
 "Entities",
 ]]
 script = ExtResource( 1 )
