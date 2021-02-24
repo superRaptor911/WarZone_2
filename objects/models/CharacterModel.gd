@@ -1,6 +1,7 @@
 extends CollisionShape2D
 
 onready var entity = get_parent()
+onready var fist : Node2D = get_node("fist")
 onready var anim_player : AnimationPlayer = get_node("AnimationPlayer")
 
 
@@ -25,10 +26,21 @@ func _on_killed(_victim_name, _killer):
 	pass
 
 
+func changePose(pose_name):
+	anim_player.play(pose_name)
+
+
+func holdWeapon(weapon):
+	for i in fist.get_children():
+		i.remove_child(i)
+	fist.add_child(weapon)
+	changePose(weapon.type)
+
+
 func _process(_delta):
 	if anim_player.current_animation == "walk":
 		if entity.direction.length_squared() == 0:
 			anim_player.play("stop")
 	elif entity.direction.length_squared() != 0:
-			anim_player.play("walk")
+		anim_player.play("walk")
 

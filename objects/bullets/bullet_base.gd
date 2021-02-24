@@ -14,7 +14,7 @@ var distance : float	 = 0   # Distance covered
 
 
 # Init with values from gun
-func _init(dir : Vector2, dam : float, usr : String, wpn_name : String):
+func init(dir : Vector2, dam : float, usr : String, wpn_name : String):
 	direction = dir
 	damage = dam
 	user_name = usr

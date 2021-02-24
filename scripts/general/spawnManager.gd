@@ -21,6 +21,7 @@ func createPlayer(id : int, team_id : int):
 	player.set_network_master(id)
 	level_node.add_child(player)
 	findTeam(team_id).addPlayer(player)
+	player.equipGun("glock18")
 
 
 func findTeam(team_id):

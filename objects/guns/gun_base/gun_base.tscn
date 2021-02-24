@@ -16,3 +16,5 @@ one_shot = true
 
 [node name="reload_timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="reload_sfx" type="AudioStreamPlayer2D" parent="."]

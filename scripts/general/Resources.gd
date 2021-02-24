@@ -6,6 +6,11 @@ var bullets = {
 	_9mm_ap = preload("res://objects/bullets/9mm_fmj.tscn"),
 	}
 
+var guns = {
+	glock18 = preload("res://objects/guns/Glock18.tscn")
+	}
+
+
 var bullet_stats = {}	# Dictionary for keeping bullet stats
 var gun_stats    = {}	# Dictionary for keeping gun stats 
 

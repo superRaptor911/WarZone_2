@@ -5,4 +5,17 @@ var gun_2 = null
 var cur_gun = null
 
 func equipGun(gun_name : String):
-	pass
+	var resource = get_tree().root.get_node("Resources")
+	if !gun_1:
+		gun_1 = resource.guns.get(gun_name).instance()
+		gun_1.init(name)
+		switchToGun(gun_1)
+	elif !gun_2:
+		gun_2 = resource.guns.get(gun_name).instance()
+		gun_2.init(name)
+		switchToGun(gun_2)
+
+
+func switchToGun(gun):
+	cur_gun = gun
+	get_node("CharacterModel").holdWeapon(cur_gun)

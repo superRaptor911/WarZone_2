@@ -2,6 +2,7 @@
 extends Sprite
 
 export var wpn_name : String    = "" # Gun name
+var type : String        = "rifle"   # Gun type, pistol , rifle and smg
 var user_name : String   = ""        # Name of gun user
 var damage : int         = 0         # Damage it will cause
 var rate_of_fire : float = 0         # How much bullets it can fire per seconds
@@ -22,11 +23,14 @@ onready var muzzle_sfx : AudioStreamPlayer2D = get_node("muzzle")
 onready var level = get_tree().get_nodes_in_group("Levels")[0]
 onready var resource = get_tree().root.get_node("Resources")
 
+func init(usr_name):
+	user_name = usr_name
+
 func _ready():
 	_loadStats()
 	timer.wait_time = 1.0 / rate_of_fire
 	reload_timer.wait_time = reload_time
-	reload_timer.connect("Timeout", self, "_on_reload_complete")
+	reload_timer.connect("timeout", self, "_on_reload_complete")
 
 
 func _loadStats():
@@ -37,12 +41,13 @@ func _loadStats():
 	mag_size     = stats.mag_size
 	accuracy     = stats.accuracy
 	recoil       = stats.recoil
+	type         = stats.type
 
 
 func fireGun():
 	if !is_reloading && timer.is_stopped():
 		timer.start()
-		_fire()
+		rpc("_fire")
 
 
 func reload():
@@ -62,11 +67,13 @@ func _reload():
 	is_reloading = false
 
 
-func _fire():
-	var bullet = resource.bullets.get(cur_bullet_type).instance(-global_transform.y, damage,
-		user_name, wpn_name)
+
+
+# Networking
+
+remotesync func _fire():
+	var bullet = resource.bullets.get(cur_bullet_type).instance()
+	bullet.init(-global_transform.y, damage, user_name, wpn_name)
 	bullet.position = muzzle_sfx.global_position
 	level.add_child(bullet)
 	muzzle_sfx.play()
-
-

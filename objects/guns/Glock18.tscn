@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://objects/guns/gun_base/gun_base.tscn" type="PackedScene" id=1]
+
+[node name="Glock18" instance=ExtResource( 1 )]
+wpn_name = "glock18"
