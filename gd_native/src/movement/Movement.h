@@ -34,12 +34,12 @@ namespace godot {
         GODOT_CLASS(Movement, Node)
         private:
             KinematicBody2D *parent;
+            Tween *tween;
 
             int   input_id            = 0;
-            float update_delta        = 1.f / 20.f;
+            float update_delta        = 1.f / 30.f;
             float time                = 0.f;
             State current_state;
-            State old_state;
             std::vector<State> history;
 
             bool is_server = false;

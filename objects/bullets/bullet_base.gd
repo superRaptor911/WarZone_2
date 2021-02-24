@@ -53,4 +53,5 @@ func _process(delta):
 func _on_body_entered(body):
 	if body.is_in_group("Destructible"):
 		body.takeDamage(damage, penetration_ratio, user_name, weapon_name)
-		queue_free()
+	queue_free()
+

@@ -24,6 +24,7 @@ Movement::Movement() {
 
 void Movement::_ready() {
     parent    = static_cast<KinematicBody2D *> (get_parent());
+    tween = static_cast<Tween *>(parent->get_node("Tween"));
     is_server = get_tree()->is_network_server();
     is_local  = parent->is_network_master();
 }
@@ -31,13 +32,9 @@ void Movement::_ready() {
 
 void Movement::_process(float delta) {
     time += delta;
-    float weight = std::min(time / update_delta, 1.f);
-    parent->set_position(lerp(old_state.position, current_state.position, weight));
-    Math::lerp_angle(parent->get_rotation(), current_state.rotation, weight);
     if (time <= update_delta)
         return;
 
-    old_state = current_state;
     time -= update_delta;
     checkForInput();
 }
@@ -114,8 +111,9 @@ State Movement::getStateFromState(const State &state) {
 
 void Movement::Client_processInput(const ServerIn &input) {
     State state   = getStateFromInput(input);
-    old_state     = current_state;
     current_state = state;
+    tween->interpolate_property(parent, "position", parent->get_position(), state.position, update_delta, Tween::TRANS_LINEAR, Tween::EASE_OUT);
+    tween->start();
 
     // Server player don't have to keep history
     if (!is_server) {
@@ -151,11 +149,13 @@ void Movement::sync_serverOutput(int id, float rotation, Vector2 position) {
     new_state.position = position;
     new_state.rotation = rotation;
 
-    old_state = current_state;
     if (is_local && !is_server) {
         checkForErrors(new_state);
     } else {
         current_state = new_state;
+        tween->interpolate_property(parent, "position", parent->get_position(), position, update_delta, Tween::TRANS_LINEAR, Tween::EASE_OUT);
+        tween->interpolate_property(parent, "rotation", parent->get_rotation(), rotation, update_delta, Tween::TRANS_LINEAR, Tween::EASE_OUT);;
+        tween->start();
     }
 }
 

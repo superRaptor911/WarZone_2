@@ -11,6 +11,7 @@ func _ready():
 func getInputs():
 	if !player.is_network_master():
 		return
+	player.rotation = (player.get_global_mouse_position()  - player.global_position).angle() + 1.57
 	var input_vector = Vector2.ZERO
 	if Input.is_action_pressed('ui_up'):
 		input_vector.y += -1
@@ -20,6 +21,9 @@ func getInputs():
 		input_vector.x += -1
 	if Input.is_action_pressed('ui_right'):
 		input_vector.x += +1
+	if Input.is_action_pressed('ui_fire'):
+		if player.cur_gun:
+			player.cur_gun.fireGun()
 
 	if player:
 		player.direction = input_vector

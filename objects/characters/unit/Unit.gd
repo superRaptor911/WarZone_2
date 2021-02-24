@@ -19,3 +19,11 @@ func equipGun(gun_name : String):
 func switchToGun(gun):
 	cur_gun = gun
 	get_node("CharacterModel").holdWeapon(cur_gun)
+
+
+func switchGun():
+	if gun_1 && gun_2:
+		if cur_gun == gun_1:
+			switchToGun(gun_2)
+		else:
+			switchToGun(gun_1)
