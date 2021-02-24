@@ -17,7 +17,7 @@ func createTeams():
 	terrorist.name      = "team_Terrorist"
 	terrorist.team_name = "Terrorist"
 	
-	counter_terrorist.team_id   = 0
+	counter_terrorist.team_id   = 1
 	counter_terrorist.name      = "team_CounterTerrorist"
 	counter_terrorist.team_name = "Counter Terrorist"
 

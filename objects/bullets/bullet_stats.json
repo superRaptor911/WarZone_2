@@ -1,0 +1,7 @@
+{
+    "_9mm_fmj" : {
+        "speed"             : 400,
+        "max_range"         : 800,
+        "penetration_ratio" : 0.3
+    }
+}

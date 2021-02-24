@@ -89,3 +89,6 @@ texture = ExtResource( 3 )
 autoplay = "stop"
 anims/stop = SubResource( 2 )
 anims/walk = SubResource( 3 )
+
+[node name="fist" type="Node2D" parent="."]
+position = Vector2( 10, -5.5 )

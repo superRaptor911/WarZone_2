@@ -12,7 +12,7 @@
 
 template<class T>
 T lerp(const T &minv, const T &maxv, float t) {
-	return minv + t * (maxv - minv);
+    return minv + t * (maxv - minv);
 }
 
 namespace godot {

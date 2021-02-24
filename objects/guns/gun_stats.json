@@ -1,0 +1,10 @@
+{
+    "glock18" : {
+        "damage"         : 18,
+        "rate_of_fire"   : 2,
+        "reload_time"    : 2,
+        "mag_size"       : 18,
+        "accuracy"       : 1,
+        "recoil"         : 0
+    }
+}
