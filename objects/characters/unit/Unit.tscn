@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://objects/characters/entity/Entity.tscn" type="PackedScene" id=1]
-[ext_resource path="res://objects/characters/unit/movement.gdns" type="Script" id=2]
 [ext_resource path="res://objects/models/CharacterModel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/characters/unit/Unit.gd" type="Script" id=4]
 
@@ -10,9 +9,4 @@
 ] instance=ExtResource( 1 )]
 script = ExtResource( 4 )
 
-[node name="movement" type="Node" parent="." index="0"]
-script = ExtResource( 2 )
-
-[node name="CharacterModel" parent="." index="1" instance=ExtResource( 3 )]
-
-[node name="Tween" type="Tween" parent="." index="2"]
+[node name="CharacterModel" parent="." index="0" instance=ExtResource( 3 )]

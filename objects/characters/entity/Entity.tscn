@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://objects/characters/entity/Entity.gd" type="Script" id=1]
+[ext_resource path="res://objects/characters/entity/movement.gdns" type="Script" id=2]
 
 [node name="Entity" type="KinematicBody2D" groups=[
 "Destructible",
 "Entities",
 ]]
 script = ExtResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="movement" type="Node" parent="."]
+script = ExtResource( 2 )
