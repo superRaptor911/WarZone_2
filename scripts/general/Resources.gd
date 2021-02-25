@@ -10,6 +10,7 @@ var guns = {
 	glock18 = preload("res://objects/guns/Glock18.tscn")
 	}
 
+var hud = preload("res://ui/hud/Hud.tscn")
 
 var bullet_stats = {}	# Dictionary for keeping bullet stats
 var gun_stats    = {}	# Dictionary for keeping gun stats 

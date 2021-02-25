@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 30.9337
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 resource_name = "pistol"
 length = 0.001
 tracks/0/type = "value"
@@ -35,7 +35,7 @@ tracks/1/keys = {
 "values": [ Vector2( -0.5, -21 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 resource_name = "rifle"
 length = 0.001
 tracks/0/type = "value"
@@ -63,7 +63,7 @@ tracks/1/keys = {
 "values": [ Vector2( 10, -5.5 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 resource_name = "smg"
 length = 0.001
 tracks/0/type = "value"
@@ -91,8 +91,7 @@ tracks/1/keys = {
 "values": [ Vector2( 3, -8.5 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "stop"
+[sub_resource type="Animation" id=5]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("leg_1:position")
@@ -119,8 +118,7 @@ tracks/1/keys = {
 "values": [ Vector2( -0.30649, 12.3808 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "walk"
+[sub_resource type="Animation" id=6]
 loop = true
 step = 0.05
 tracks/0/type = "value"
@@ -172,11 +170,11 @@ texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "stop"
-anims/pistol = SubResource( 4 )
-anims/rifle = SubResource( 5 )
-anims/smg = SubResource( 6 )
-anims/stop = SubResource( 2 )
-anims/walk = SubResource( 3 )
+anims/pistol = SubResource( 2 )
+anims/rifle = SubResource( 3 )
+anims/smg = SubResource( 4 )
+anims/stop = SubResource( 5 )
+anims/walk = SubResource( 6 )
 
 [node name="fist" type="Node2D" parent="."]
 position = Vector2( -0.5, -21 )
