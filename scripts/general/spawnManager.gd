@@ -22,6 +22,19 @@ func createPlayer(id : int, team_id : int):
 	level_node.add_child(player)
 	findTeam(team_id).addPlayer(player)
 	player.equipGun("glock18")
+	player.teleport(getSpawnPosition(team_id))
+
+
+func getSpawnPosition(team_id : int):
+	var spawn_points = get_tree().get_nodes_in_group("SpawnPoints")
+	var our_spawn_points = []
+	for i in spawn_points:
+		if i.team_id == team_id:
+			our_spawn_points.append(i)
+	if our_spawn_points.size() == 0:
+		print("SpawnManager::Error::No spawn point for %d" % [team_id])
+		return Vector2(0, 0)
+	return our_spawn_points[randi() % our_spawn_points.size()].position
 
 
 func findTeam(team_id):

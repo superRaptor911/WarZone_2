@@ -59,7 +59,7 @@ namespace godot {
 
             void checkForErrors(const State &state);
             void correctErrors(int from, const State &correct_state);
-            void teleportCharacter(const Vector2 pos);
+            void teleport(const Vector2 pos);
 
         public:
             static void _register_methods();

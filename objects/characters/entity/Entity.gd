@@ -46,3 +46,7 @@ func findEntity(entity_name):
 
 func heal(value : float):
 	health += value
+
+
+func teleport(pos : Vector2):
+	get_node("movement").teleport(pos)

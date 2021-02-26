@@ -12,6 +12,7 @@ using namespace godot;
 void Movement::_register_methods() {
     register_method("_process", &Movement::_process);
     register_method("_ready", &Movement::_ready);
+    register_method("teleport", &Movement::teleport);
     register_method("Server_processInput", &Movement::Server_processInput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
     register_method("sync_serverOutput", &Movement::sync_serverOutput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
 }
@@ -204,7 +205,7 @@ void Movement::correctErrors(int from, const State &correct_state) {
 
 
 
-void Movement::teleportCharacter(const Vector2 pos) {
+void Movement::teleport(const Vector2 pos) {
     if (get_tree()->is_network_server()) {
         parent->set_position(pos);
         input_id += 1;
