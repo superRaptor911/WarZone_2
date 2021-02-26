@@ -75,8 +75,6 @@ func _reload():
 	is_reloading = false
 
 
-
-
 # Networking
 
 remotesync func _fire():
