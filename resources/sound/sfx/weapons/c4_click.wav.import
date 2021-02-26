@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/c4_click.wav-ddd91c4db27e23e0b40bf3362715757e.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/c4_click.wav"
+dest_files=[ "res://.import/c4_click.wav-ddd91c4db27e23e0b40bf3362715757e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

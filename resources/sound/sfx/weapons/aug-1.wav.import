@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/aug-1.wav-ec1fda2e2f1eb89e5996cd5e01405396.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/aug-1.wav"
+dest_files=[ "res://.import/aug-1.wav-ec1fda2e2f1eb89e5996cd5e01405396.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/generic_shot_reload.wav-68dc797dbba04859df4ccf33c61194ba.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/generic_shot_reload.wav"
+dest_files=[ "res://.import/generic_shot_reload.wav-68dc797dbba04859df4ccf33c61194ba.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

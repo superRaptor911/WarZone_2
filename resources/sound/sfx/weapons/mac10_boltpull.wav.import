@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mac10_boltpull.wav-4c0e342b7a48bbc8b809e96448910fcb.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/mac10_boltpull.wav"
+dest_files=[ "res://.import/mac10_boltpull.wav-4c0e342b7a48bbc8b809e96448910fcb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

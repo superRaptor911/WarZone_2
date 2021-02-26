@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/boltdown.wav-2be7d277a583bacb744f8c2ce39d28c6.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/boltdown.wav"
+dest_files=[ "res://.import/boltdown.wav-2be7d277a583bacb744f8c2ce39d28c6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

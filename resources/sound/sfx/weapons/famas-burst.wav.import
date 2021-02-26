@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/famas-burst.wav-6524084565fd5dee97159e362f4f0169.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/famas-burst.wav"
+dest_files=[ "res://.import/famas-burst.wav-6524084565fd5dee97159e362f4f0169.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

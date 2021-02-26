@@ -14,23 +14,30 @@ var accuracy : float     = 0         #
 var recoil : float       = 0         #
 var bullet_types : Array = []        #
 
-var is_reloading : bool = false
-var cur_bullet_type : String = "_9mm_fmj"
+var is_reloading : bool = false           # flag for reloading
+var cur_bullet_type : String = "_9mm_fmj" # Bullet type in magazine
+var fire_sounds = []
 
+# Nodes
 onready var timer : Timer        = get_node("Timer")
 onready var reload_timer : Timer = get_node("reload_timer")
 onready var muzzle_sfx : AudioStreamPlayer2D = get_node("muzzle")
 onready var level = get_tree().get_nodes_in_group("Levels")[0]
 onready var resource = get_tree().root.get_node("Resources")
 
+signal gun_fired
+
 func init(usr_name):
 	user_name = usr_name
+
 
 func _ready():
 	_loadStats()
 	timer.wait_time = 1.0 / rate_of_fire
 	reload_timer.wait_time = reload_time
 	reload_timer.connect("timeout", self, "_on_reload_complete")
+	fire_sounds = resource.gun_sounds.get(wpn_name)
+
 
 
 func _loadStats():
@@ -48,6 +55,7 @@ func fireGun():
 	if !is_reloading && timer.is_stopped():
 		timer.start()
 		rpc("_fire")
+		emit_signal("gun_fired")
 
 
 func reload():
@@ -76,4 +84,5 @@ remotesync func _fire():
 	bullet.init(-global_transform.y, damage, user_name, wpn_name)
 	bullet.position = muzzle_sfx.global_position
 	level.add_child(bullet)
+	muzzle_sfx.stream = fire_sounds[randi() % fire_sounds.size()]
 	muzzle_sfx.play()

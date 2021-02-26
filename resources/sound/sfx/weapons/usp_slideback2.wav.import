@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/usp_slideback2.wav-3b4ad97fff119d2c6dc68516e9c1b96b.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/usp_slideback2.wav"
+dest_files=[ "res://.import/usp_slideback2.wav-3b4ad97fff119d2c6dc68516e9c1b96b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

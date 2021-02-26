@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ak47_boltpull.wav-04400f89e983c9159f55ea11e4c8cfc1.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/ak47_boltpull.wav"
+dest_files=[ "res://.import/ak47_boltpull.wav-04400f89e983c9159f55ea11e4c8cfc1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sg_explode.wav-ce24ad825b8e0dfb52d8ad32f1782fa5.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/sg_explode.wav"
+dest_files=[ "res://.import/sg_explode.wav-ce24ad825b8e0dfb52d8ad32f1782fa5.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/elite_leftclipin.wav-abb0db4a943b01d613d53bd71b0e085c.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/elite_leftclipin.wav"
+dest_files=[ "res://.import/elite_leftclipin.wav-abb0db4a943b01d613d53bd71b0e085c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

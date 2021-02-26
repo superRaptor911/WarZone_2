@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ric_metal-2.wav-f44d8f0212808b74657d4cb0b70b2c13.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/ric_metal-2.wav"
+dest_files=[ "res://.import/ric_metal-2.wav-f44d8f0212808b74657d4cb0b70b2c13.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

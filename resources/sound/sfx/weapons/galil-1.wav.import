@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/galil-1.wav-44b6f16375789532a549353ba21e0c30.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/galil-1.wav"
+dest_files=[ "res://.import/galil-1.wav-44b6f16375789532a549353ba21e0c30.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/glock18-2.wav-952678f5927dd326a3929af3352e7027.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/glock18-2.wav"
+dest_files=[ "res://.import/glock18-2.wav-952678f5927dd326a3929af3352e7027.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/xm1014_insertshell.wav-9e368288013f0e6ad423209189090b86.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/xm1014_insertshell.wav"
+dest_files=[ "res://.import/xm1014_insertshell.wav-9e368288013f0e6ad423209189090b86.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

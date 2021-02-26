@@ -12,7 +12,6 @@ format = 1
 
 [node name="shadow" type="TileMap" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )
-z_index = -6
 tile_set = ExtResource( 3 )
 cell_quadrant_size = 4
 format = 1

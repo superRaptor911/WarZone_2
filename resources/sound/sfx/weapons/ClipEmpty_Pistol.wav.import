@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ClipEmpty_Pistol.wav-2f2b7454b7d980c15ef14305655ad4f5.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/ClipEmpty_Pistol.wav"
+dest_files=[ "res://.import/ClipEmpty_Pistol.wav-2f2b7454b7d980c15ef14305655ad4f5.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

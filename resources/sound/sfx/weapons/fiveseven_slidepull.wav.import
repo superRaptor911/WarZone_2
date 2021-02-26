@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fiveseven_slidepull.wav-de16debf42a179ffe6933eba7659ca5a.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/fiveseven_slidepull.wav"
+dest_files=[ "res://.import/fiveseven_slidepull.wav-de16debf42a179ffe6933eba7659ca5a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

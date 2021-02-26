@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/flashbang-1.wav-0f110bc40264966091c17dbfcb66c7d5.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/flashbang-1.wav"
+dest_files=[ "res://.import/flashbang-1.wav-0f110bc40264966091c17dbfcb66c7d5.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

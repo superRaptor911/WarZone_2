@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ak47_clipin.wav-60d1d28d47863723e640576a3535149b.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/ak47_clipin.wav"
+dest_files=[ "res://.import/ak47_clipin.wav-60d1d28d47863723e640576a3535149b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

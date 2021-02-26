@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/glock_slideback.wav-43c3d745c8f6ebd1b22a9368f8cdba86.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/glock_slideback.wav"
+dest_files=[ "res://.import/glock_slideback.wav-43c3d745c8f6ebd1b22a9368f8cdba86.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

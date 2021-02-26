@@ -1,3 +1,4 @@
+# Script to Manage Level loading and Level changes
 extends Node
 
 var settings = {}
@@ -6,8 +7,14 @@ signal level_loaded
 
 func _ready():
 	name = "LevelManager"
+	_connectSignals()
+
+func _connectSignals():
+	var network = get_tree().root.get_node("NetworkManager")
+	network.connect("disconnected", self, "_on_disconnected_from_server")
 
 
+# Load Level
 func loadLevel():
 	var level_name = settings.level.name
 	var game_mode = settings.level.mode
@@ -19,10 +26,12 @@ func loadLevel():
 		emit_signal("level_loaded")
 
 
+# only for clients
 func joinLevel():
 	query_levelSettings()
 
 
+# Read level config
 func _readLevelConfig(level_name):
 	var config_file = "res://resources/levels/" + level_name + "/level_info.json"
 	var config = Utility.loadDictionary(config_file)
@@ -30,9 +39,16 @@ func _readLevelConfig(level_name):
 
 
 # To Do
-
-func changeLevelTo(level_name):
+func changeLevelTo(_level_name):
 	pass
+
+
+# Called when disconnected from server
+func _on_disconnected_from_server():
+	# Cleanup
+	var cleanup_script = load("res://scripts/general/Cleanup.gd").new()
+	get_tree().root.add_child(cleanup_script)
+	cleanup_script.cleanUP()
 
 
 ########################################### Network Code ########################################

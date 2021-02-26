@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/m249_boxin.wav-79cfccb665f0bcbb9201b5717df8d306.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/m249_boxin.wav"
+dest_files=[ "res://.import/m249_boxin.wav-79cfccb665f0bcbb9201b5717df8d306.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

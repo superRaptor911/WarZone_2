@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sbarrel1.wav-7cc9ce96e7450b3419bc012562cff384.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/sbarrel1.wav"
+dest_files=[ "res://.import/sbarrel1.wav-7cc9ce96e7450b3419bc012562cff384.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

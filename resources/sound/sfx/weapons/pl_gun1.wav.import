@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/pl_gun1.wav-ba836c7c2eb4341b66d1434276ed8cd4.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/pl_gun1.wav"
+dest_files=[ "res://.import/pl_gun1.wav-ba836c7c2eb4341b66d1434276ed8cd4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

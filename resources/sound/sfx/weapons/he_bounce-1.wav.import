@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/he_bounce-1.wav-756fa96859c22aaee817808dc1b8054b.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/he_bounce-1.wav"
+dest_files=[ "res://.import/he_bounce-1.wav-756fa96859c22aaee817808dc1b8054b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

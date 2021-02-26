@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/m249_coverup.wav-1121833922f5e3a0342694c2b282bf5b.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/m249_coverup.wav"
+dest_files=[ "res://.import/m249_coverup.wav-1121833922f5e3a0342694c2b282bf5b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

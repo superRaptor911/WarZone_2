@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/357_cock1.wav-94412aef051a94576e26b5cda3e7aea9.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/357_cock1.wav"
+dest_files=[ "res://.import/357_cock1.wav-94412aef051a94576e26b5cda3e7aea9.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

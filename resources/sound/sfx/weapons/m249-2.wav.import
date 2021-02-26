@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/m249-2.wav-bdbea93e4b8a987b4da8cc3ca32efff4.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/m249-2.wav"
+dest_files=[ "res://.import/m249-2.wav-bdbea93e4b8a987b4da8cc3ca32efff4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

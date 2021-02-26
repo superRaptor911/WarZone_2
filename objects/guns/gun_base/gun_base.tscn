@@ -10,6 +10,7 @@ script = ExtResource( 2 )
 
 [node name="muzzle" type="AudioStreamPlayer2D" parent="."]
 position = Vector2( -0.396851, -21.8268 )
+bus = "weapons"
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
@@ -18,3 +19,4 @@ one_shot = true
 one_shot = true
 
 [node name="reload_sfx" type="AudioStreamPlayer2D" parent="."]
+bus = "weapons"

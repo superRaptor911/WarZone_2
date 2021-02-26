@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/m4a1_silencer_off.wav-7c7ad8259bf0fda30fa405d4b5ade0fd.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/m4a1_silencer_off.wav"
+dest_files=[ "res://.import/m4a1_silencer_off.wav-7c7ad8259bf0fda30fa405d4b5ade0fd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

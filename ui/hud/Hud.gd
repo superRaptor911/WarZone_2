@@ -2,6 +2,7 @@ extends CanvasLayer
 
 var pause_menu = preload("res://ui/hud/PauseMenu.tscn")
 
+onready var player = get_parent()
 onready var hp_label : Label          = get_node("hud/hp")
 onready var ammo_label : Label        = get_node("hud/ammo")
 onready var pause_btn : TextureButton = get_node("hud/pause_button")

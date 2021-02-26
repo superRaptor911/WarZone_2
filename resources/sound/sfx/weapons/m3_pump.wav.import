@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/m3_pump.wav-a96d9d9db55573d4ffa2a9a13a70fa95.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/m3_pump.wav"
+dest_files=[ "res://.import/m3_pump.wav-a96d9d9db55573d4ffa2a9a13a70fa95.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

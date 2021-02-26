@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/famas_clipout.wav-8117f8f5f2c6e1c001197c2447c25a75.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/famas_clipout.wav"
+dest_files=[ "res://.import/famas_clipout.wav-8117f8f5f2c6e1c001197c2447c25a75.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

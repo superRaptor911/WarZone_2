@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/knife_hitwall1.wav-49e7cb106ab7fca86784df6e38c1bc1d.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/knife_hitwall1.wav"
+dest_files=[ "res://.import/knife_hitwall1.wav-49e7cb106ab7fca86784df6e38c1bc1d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

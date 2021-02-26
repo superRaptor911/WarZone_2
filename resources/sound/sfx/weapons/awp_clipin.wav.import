@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/awp_clipin.wav-24a87957ec4e6933ff60664d98850d00.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/awp_clipin.wav"
+dest_files=[ "res://.import/awp_clipin.wav-24a87957ec4e6933ff60664d98850d00.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

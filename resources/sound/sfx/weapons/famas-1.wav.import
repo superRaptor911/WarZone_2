@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/famas-1.wav-e12af640022069bea3063087ca33ebdc.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/famas-1.wav"
+dest_files=[ "res://.import/famas-1.wav-e12af640022069bea3063087ca33ebdc.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

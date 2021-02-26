@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sg550_boltpull.wav-5cfc2c3c56247cebe165849c8cdc752c.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/sg550_boltpull.wav"
+dest_files=[ "res://.import/sg550_boltpull.wav-5cfc2c3c56247cebe165849c8cdc752c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

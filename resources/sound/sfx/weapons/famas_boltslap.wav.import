@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/famas_boltslap.wav-e778751d411f963d7bcf72360ba4621e.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/famas_boltslap.wav"
+dest_files=[ "res://.import/famas_boltslap.wav-e778751d411f963d7bcf72360ba4621e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

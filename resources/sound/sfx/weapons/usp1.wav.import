@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/usp1.wav-70185e990f9a66eb5f162c7041053825.sample"
+
+[deps]
+
+source_file="res://resources/sound/sfx/weapons/usp1.wav"
+dest_files=[ "res://.import/usp1.wav-70185e990f9a66eb5f162c7041053825.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
