@@ -14,7 +14,7 @@ void Movement::_register_methods() {
     register_method("_ready", &Movement::_ready);
     register_method("teleport", &Movement::teleport);
     register_method("Server_processInput", &Movement::Server_processInput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
-    register_method("sync_serverOutput", &Movement::sync_serverOutput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
+    register_method("sync_serverOutput", &Movement::sync_serverOutput, GODOT_METHOD_RPC_MODE_REMOTE);
 }
 
 Movement::Movement() {

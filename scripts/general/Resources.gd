@@ -10,15 +10,19 @@ var guns = {
 	glock18 = preload("res://objects/guns/Glock18.tscn")
 	}
 
+var gun_sounds = {
+	glock18 = [preload("res://resources/sound/sfx/weapons/glock18-1.wav"),preload("res://resources/sound/sfx/weapons/glock18-2.wav")],
+	}
+
+var skins = {
+	}
+
 var hud = preload("res://ui/hud/Hud.tscn")
 
 var bullet_stats = {}	# Dictionary for keeping bullet stats
 var gun_stats    = {}	# Dictionary for keeping gun stats 
 
 
-var gun_sounds = {
-	glock18 = [preload("res://resources/sound/sfx/weapons/glock18-1.wav"),preload("res://resources/sound/sfx/weapons/glock18-2.wav")],
-	}
 
 
 func _ready():
