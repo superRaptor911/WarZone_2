@@ -1,6 +1,5 @@
 extends Node
 
-var player_scene = preload("res://objects/characters/player/Player.tscn")
 onready var level_node = get_tree().get_nodes_in_group("Levels")[0] 
 
 func _ready():
@@ -13,16 +12,19 @@ func spawnOurPlayer(team_id : int):
 
 
 func createPlayer(id : int, team_id : int):
+	var resource = get_tree().root.get_node("Resources")
 	if level_node.has_node(String(id)):
 		print("SpawnManager::Error::Player %d already exists" % [id])
 		return
-	var player = player_scene.instance()
+	var player = resource.entities.unit.instance()
 	player.name = String(id)
 	player.set_network_master(id)
 	level_node.add_child(player)
 	findTeam(team_id).addPlayer(player)
 	player.equipGun("glock18")
 	player.teleport(getSpawnPosition(team_id))
+	var skin_id = randi() % resource.skins[team_id].size()
+	player.setSkin(resource.skins[team_id][skin_id])
 
 
 func getSpawnPosition(team_id : int):

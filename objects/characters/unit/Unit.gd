@@ -44,3 +44,9 @@ func switchGun():
 			switchToGun(gun_2)
 		else:
 			switchToGun(gun_1)
+
+
+func setSkin(skin : Texture):
+	get_node("CharacterModel").get_node("skin").texture = skin
+
+
