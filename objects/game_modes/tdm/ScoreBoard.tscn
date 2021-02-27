@@ -1,0 +1,102 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=2]
+[ext_resource path="res://objects/game_modes/tdm/ScoreBoard.gd" type="Script" id=3]
+
+[node name="ScoreBoard" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -525.0
+margin_top = -287.814
+margin_right = 525.0
+margin_bottom = 265.186
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="t" type="Panel" parent="HBoxContainer"]
+margin_right = 500.0
+margin_bottom = 553.0
+rect_min_size = Vector2( 500, 0 )
+
+[node name="heading" type="Label" parent="HBoxContainer/t"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -60.5
+margin_top = 20.0226
+margin_right = 60.5
+margin_bottom = 56.0226
+custom_fonts/font = ExtResource( 1 )
+text = "Terrorist"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/t"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -219.5
+margin_top = -189.287
+margin_right = 219.5
+margin_bottom = 231.713
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ct" type="Panel" parent="HBoxContainer"]
+margin_left = 550.0
+margin_right = 1050.0
+margin_bottom = 553.0
+rect_min_size = Vector2( 500, 0 )
+
+[node name="heading" type="Label" parent="HBoxContainer/ct"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -120.829
+margin_top = 20.0226
+margin_right = 124.171
+margin_bottom = 56.0226
+custom_fonts/font = ExtResource( 1 )
+text = "Counter Terrorist"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ct"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -219.5
+margin_top = -189.287
+margin_right = 219.5
+margin_bottom = 231.713
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -65.6923
+margin_right = 41.0
+margin_bottom = -22.6923
+custom_fonts/font = ExtResource( 2 )
+text = "Back"

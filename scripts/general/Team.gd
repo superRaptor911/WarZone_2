@@ -23,7 +23,7 @@ func addPlayer(player_ref):
 	player_ref.connect("entity_fraged", self,"on_player_fraged")
 	players[player_ref.name] = {
 			name   = player_ref.name,
-			# nick   = player_ref.nick,
+			nick   = player_ref.nick,
 			score  = 0,
 			kills  = 0,
 			deaths = 0,

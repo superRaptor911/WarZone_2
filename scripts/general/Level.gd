@@ -5,6 +5,7 @@ signal scripts_loaded
 func _ready():
 	_loadScripts()
 
+
 func _loadScripts():
 	# Load spawn_manager
 	var spawn_manager = load("res://scripts/general/spawnManager.gd").new()

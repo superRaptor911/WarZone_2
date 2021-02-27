@@ -6,6 +6,7 @@ var speed : float       = 100.0
 var direction : Vector2 = Vector2(0,0)
 var alive : bool        = true
 var team_id : int		= -1
+var nick : String       = "Entity"
 
 signal entity_took_damage(attacker_name)
 signal entity_killed(victim_name, killer_name, weapon_name)
