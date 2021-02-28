@@ -14,8 +14,23 @@ func _ready():
 
 func _connectSignals():
 	pause_btn.connect("pressed", self ,"_on_pause_pressed")
-
+	player.connect("gun_switched", self, "_on_gun_switched")
 
 
 func _on_pause_pressed():
 	add_child(pause_menu.instance())
+
+func _on_gun_switched():
+	if !player.cur_gun.is_connected("gun_fired", self, "_on_gun_gired"):
+		player.cur_gun.connect("gun_fired", self, "_on_gun_gired")
+	fillAmmoInfo(player.cur_gun)
+
+
+func _on_gun_gired():
+	fillAmmoInfo(player.cur_gun)
+
+
+func fillAmmoInfo(wpn):
+	var format = "%d / %d"
+	ammo_label.text = format % [wpn.bullets_in_mag, wpn.bullets]
+

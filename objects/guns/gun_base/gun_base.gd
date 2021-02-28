@@ -8,7 +8,7 @@ var damage : int         = 0         # Damage it will cause
 var rate_of_fire : float = 0         # How much bullets it can fire per seconds
 var reload_time : float  = 0         # Time taken for reload
 var mag_size : int       = 0         # Capacity of a magazine
-var bullets_in_mag : int = 0         # bullets left in magazine
+var bullets_in_mag : int = 4         # bullets left in magazine
 var bullets : int        = 0         # bullets remaining other than magazine
 var accuracy : float     = 0         #
 var recoil : float       = 0         #
@@ -52,10 +52,11 @@ func _loadStats():
 
 
 func fireGun():
-	if !is_reloading && timer.is_stopped():
+	if bullets_in_mag > 0 && !is_reloading && timer.is_stopped():
 		timer.start()
 		rpc("_fire")
 		emit_signal("gun_fired")
+		bullets_in_mag -= 1
 
 
 func reload():

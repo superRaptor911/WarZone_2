@@ -4,6 +4,8 @@ var gun_1 = null
 var gun_2 = null
 var cur_gun = null
 
+signal gun_switched
+
 
 func equipGun(gun_name : String):
 	if !gun_1:
@@ -36,6 +38,7 @@ func createGun(gun_name):
 func switchToGun(gun):
 	cur_gun = gun
 	get_node("CharacterModel").holdWeapon(cur_gun)
+	emit_signal("gun_switched")
 
 
 func switchGun():
