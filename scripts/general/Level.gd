@@ -1,6 +1,6 @@
 extends Node2D
 
-signal scripts_loaded
+signal resources_loaded
 
 func _ready():
 	_loadScripts()
@@ -16,7 +16,7 @@ func _loadScripts():
 	# Load recources
 	var resources = load("res://scripts/general/Resources.gd").new()
 	get_tree().root.add_child(resources)
-	emit_signal("scripts_loaded")
+	emit_signal("resources_loaded")
 	# Sync with server
 	if !get_tree().is_network_server():
 		sync_script.syncAll(spawn_manager)

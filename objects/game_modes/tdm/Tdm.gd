@@ -6,7 +6,7 @@ onready var level = get_tree().get_nodes_in_group("Levels")[0]
 func _ready():
 	createTeams()
 	loadTeamSelector()
-	level.connect("scripts_loaded", self, "loadSkins")
+	level.connect("resources_loaded", self, "_on_resource_file_loaded")
 
 
 func createTeams():
@@ -32,6 +32,11 @@ func loadTeamSelector():
 	level.call_deferred("add_child",team_select)
 
 
+func _on_resource_file_loaded():
+	loadSkins()
+	loadScoreboard()
+
+
 func loadSkins():
 	var tskins = [
 		load("res://resources/sprites/characters/t1.bmp"),
@@ -46,3 +51,9 @@ func loadSkins():
 	var resource = get_tree().root.get_node("Resources")
 	resource.skins.append(tskins) 
 	resource.skins.append(ctskins) 
+
+
+func loadScoreboard():
+	var scoreboard = load("res://objects/game_modes/tdm/ScoreBoard.tscn")
+	var resource = get_tree().root.get_node("Resources")
+	resource.scoreboard = scoreboard
