@@ -28,8 +28,9 @@ config/quit_on_go_back=false
 
 [autoload]
 
-UImanager="*res://scripts/autoload/UImanager.gd"
 Utility="*res://scripts/autoload/Utility.gd"
+GlobalData="*res://scripts/autoload/GlobalData.gd"
+UImanager="*res://scripts/autoload/UImanager.gd"
 
 [debug]
 
