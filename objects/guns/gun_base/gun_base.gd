@@ -53,10 +53,10 @@ func _loadStats():
 
 func fireGun():
 	if bullets_in_mag > 0 && !is_reloading && timer.is_stopped():
+		bullets_in_mag -= 1
 		timer.start()
 		rpc("_fire")
 		emit_signal("gun_fired")
-		bullets_in_mag -= 1
 
 
 func reload():

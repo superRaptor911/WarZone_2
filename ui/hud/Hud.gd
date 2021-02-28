@@ -10,11 +10,13 @@ onready var pause_btn : TextureButton = get_node("hud/pause_button")
 
 func _ready():
 	_connectSignals()
+	_on_hp_changed()
 
 
 func _connectSignals():
 	pause_btn.connect("pressed", self ,"_on_pause_pressed")
 	player.connect("gun_switched", self, "_on_gun_switched")
+	player.connect("entity_took_damage", self, "_on_hp_changed")
 
 
 func _on_pause_pressed():
@@ -33,4 +35,8 @@ func _on_gun_gired():
 func fillAmmoInfo(wpn):
 	var format = "%d / %d"
 	ammo_label.text = format % [wpn.bullets_in_mag, wpn.bullets]
+
+
+func _on_hp_changed(_attacker = null):
+	hp_label.text = String(player.health)
 
