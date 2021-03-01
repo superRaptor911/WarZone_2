@@ -18,6 +18,10 @@ func _connectSignals():
 
 func _on_client_connected(id):
 	network.player_register[id] = {}
+	# Update player count in serverAdvertiser
+	if get_tree().is_network_server():
+		var server_advertiser = network.get_node("ServerAdvertiser")
+		server_advertiser.serverInfo.players = network.player_register.size()
 
 
 func _on_client_disconnected(id):

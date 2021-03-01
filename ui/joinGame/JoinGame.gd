@@ -8,6 +8,8 @@ var network = null
 
 func _ready():
 	connect_button.connect("pressed", self, "_on_connect_pressed")
+	var server_listener = load("res://scripts/networking/ServerListener.gd").new()
+	add_child(server_listener)
 
 
 func _on_connect_pressed():

@@ -12,6 +12,7 @@ func _ready():
 func _connectSignals():
 	var network = get_tree().root.get_node("NetworkManager")
 	network.connect("disconnected", self, "_on_disconnected_from_server")
+	connect("level_loaded", self, "_on_level_loaded")
 
 
 # Load Level
@@ -50,6 +51,12 @@ func _on_disconnected_from_server():
 	get_tree().root.add_child(cleanup_script)
 	cleanup_script.cleanUP()
 
+# Update serverAdvertiser
+func _on_level_loaded():
+	if get_tree().is_network_server():
+		var server_advertiser = get_tree().root.get_node("NetworkManager/ServerAdvertiser")
+		server_advertiser.serverInfo.map = settings.level.name
+		server_advertiser.serverInfo.game_mode = settings.level.mode
 
 ########################################### Network Code ########################################
 func query_levelSettings():
