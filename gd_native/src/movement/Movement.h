@@ -45,7 +45,7 @@ namespace godot {
             bool is_server = false;
             bool is_local  = false;
 
-            const float Max_error_squared = 4;
+            const float Max_error_squared = 16;
 
         private:
 
@@ -60,6 +60,7 @@ namespace godot {
             void checkForErrors(const State &state);
             void correctErrors(int from, const State &correct_state);
             void teleport(const Vector2 pos);
+            void Client_teleport(Vector2 position);
 
         public:
             static void _register_methods();

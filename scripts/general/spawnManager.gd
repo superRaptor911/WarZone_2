@@ -19,6 +19,7 @@ func createPlayer(id : int, team_id : int):
 	var player = resource.entities.unit.instance()
 	player.name = String(id)
 	player.set_network_master(id)
+	player.nick = get_tree().root.get_node("NetworkManager").player_register[id].nick
 	level_node.add_child(player)
 	findTeam(team_id).addPlayer(player)
 	player.equipGun("glock18")

@@ -34,6 +34,7 @@ func createServer():
 		emit_signal("server_creation_failed")
 		return
 	get_tree().network_peer = peer
+	player_register[1] = GlobalData.player_info
 	emit_signal("server_creation_success")
 
 

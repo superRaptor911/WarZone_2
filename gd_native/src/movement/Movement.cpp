@@ -14,7 +14,8 @@ void Movement::_register_methods() {
     register_method("_ready", &Movement::_ready);
     register_method("teleport", &Movement::teleport);
     register_method("Server_processInput", &Movement::Server_processInput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
-    register_method("sync_serverOutput", &Movement::sync_serverOutput, GODOT_METHOD_RPC_MODE_REMOTE);
+    register_method("sync_serverOutput", &Movement::sync_serverOutput, GODOT_METHOD_RPC_MODE_REMOTESYNC);
+    register_method("Client_teleport", &Movement::Client_teleport, GODOT_METHOD_RPC_MODE_REMOTE);
 }
 
 Movement::Movement() {
@@ -65,8 +66,9 @@ void Movement::checkForInput() {
 
 State Movement::getStateFromInput(const ServerIn &input) {
     Vector2 old_position = parent->get_position();
-    float speed = parent->get("speed");
+    parent->set_position(current_state.position);
 
+    float speed = parent->get("speed");
     Vector2 velocity = input.input_vector.normalized() * speed * update_delta;
     Ref<KinematicCollision2D> collision = parent->move_and_collide(velocity);
     // Test collision
@@ -89,8 +91,9 @@ State Movement::getStateFromInput(const ServerIn &input) {
 
 State Movement::getStateFromState(const State &state) {
     Vector2 old_position = parent->get_position();
+    parent->set_position(current_state.position);
+    
     float speed = parent->get("speed");
-
     Vector2 velocity = state.input_vector.normalized() * speed * update_delta;
     Ref<KinematicCollision2D> collision = parent->move_and_collide(velocity);
     // Test collision
@@ -131,6 +134,7 @@ void Movement::Server_processInput(int id, float rotation, Vector2 input_vector)
 
     if (is_local) {
         // If it's server's Character no need to recompute vectors
+        // Sent output to all
         rpc("sync_serverOutput", current_state.input_id, current_state.rotation, current_state.position);
     }
     else {
@@ -139,6 +143,7 @@ void Movement::Server_processInput(int id, float rotation, Vector2 input_vector)
         input.input_id     = id;
         input.rotation     = rotation;
         State state        = getStateFromInput(input);
+        current_state = state;
         rpc("sync_serverOutput", state.input_id, state.rotation, state.position);
     }
 }
@@ -206,13 +211,35 @@ void Movement::correctErrors(int from, const State &correct_state) {
 
 
 void Movement::teleport(const Vector2 pos) {
-    if (get_tree()->is_network_server()) {
-        parent->set_position(pos);
-        input_id += 1;
-        State new_state;
-        new_state.input_id = input_id;
-        new_state.position = pos;
-
-        rpc("sync_serverOutput", new_state.input_id, new_state.rotation, new_state.position);
+    if (!is_server) {
+        Godot::print("Movement::Only server can teleport player");
+        return;
     }
+
+    input_id        += 1;
+    State new_state; 
+    new_state.input_id = input_id; 
+    new_state.position = pos; 
+    new_state.rotation = 0; 
+    current_state = new_state;
+
+    tween->stop_all();
+    parent->set_position(pos);
+    rpc("Client_teleport", pos);
+}
+
+
+void Movement::Client_teleport(Vector2 position) {
+    input_id        += 1;
+    State new_state; 
+    new_state.input_id = input_id; 
+    new_state.position = position; 
+    new_state.rotation = 0; 
+    current_state = new_state;
+    tween->stop_all();
+
+    parent->set_position(position);
+    if (is_local && !is_server) {
+        history.push_back(new_state);
+    } 
 }

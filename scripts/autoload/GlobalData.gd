@@ -57,3 +57,8 @@ func loadPlayerInfo():
 	if data:
 		Utility.dictionaryCpy(player_info, data)
 
+
+
+func savePlayerInfo():
+	Utility.saveDictionary(path + "player_info.json", player_info)
+

@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/images/background.jpg" type="Texture" id=2]
+[ext_resource path="res://ui/profileMenu/ProfileMenu.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0784314, 0.117647, 0.411765, 0.556863 )
+
+[node name="ProfileMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.166
+anchor_top = 0.155
+anchor_right = 0.834
+anchor_bottom = 0.845
+margin_left = 0.019989
+margin_top = -0.0999985
+margin_right = -0.0200195
+margin_bottom = 0.0999756
+
+[node name="name" type="Label" parent="Panel"]
+anchor_left = 0.149
+anchor_top = 0.166
+anchor_right = 0.247
+anchor_bottom = 0.24
+margin_left = -0.0388947
+margin_top = -0.0951157
+margin_right = 0.171097
+margin_bottom = 0.126884
+custom_fonts/font = ExtResource( 1 )
+text = "Name"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/name"]
+margin_left = 156.0
+margin_right = 461.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 1 )
+text = "Warrior Player"
+max_length = 15
+
+[node name="info" type="Label" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.144
+margin_top = -54.8689
+margin_right = 260.856
+margin_bottom = 124.131
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Kills : 100
+deaths = 200"
+align = 1
+valign = 1
+
+[node name="ok" type="Button" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -63.0
+margin_top = -85.0576
+margin_right = 63.0
+margin_bottom = -39.0576
+custom_fonts/font = ExtResource( 1 )
+text = "OK"
+__meta__ = {
+"_edit_use_anchors_": false
+}

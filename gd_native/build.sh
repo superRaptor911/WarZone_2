@@ -29,8 +29,7 @@ plats[5]="Android x86_64"
 
 result=()
 
-build_targets() 
-{
+build_targets() {
     scons $1 -j4
     if [ $? -eq 0 ]; then
         result+="operation $2 completed successfully ( ${plats[i]} )\n"
@@ -41,8 +40,7 @@ build_targets()
     fi
 }
 
-build_plugin()
-{
+build_plugin() {
     #Build only for first 4 platforms
     for (( i = 0; i < 6; i++ )); do
 
