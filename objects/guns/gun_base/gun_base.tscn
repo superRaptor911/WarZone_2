@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://resources/sprites/weapons/glock.bmp" type="Texture" id=1]
 [ext_resource path="res://objects/guns/gun_base/gun_base.gd" type="Script" id=2]
+[ext_resource path="res://resources/sprites/particles/muzzle.png" type="Texture" id=3]
 
 [node name="gun_base" type="Sprite"]
 texture = ExtResource( 1 )
@@ -24,3 +25,9 @@ one_shot = true
 
 [node name="reload_sfx" type="AudioStreamPlayer2D" parent="."]
 bus = "weapons"
+
+[node name="muzzle_flash" type="Sprite" parent="."]
+visible = false
+position = Vector2( -0.834448, -35.7653 )
+rotation = 1.5708
+texture = ExtResource( 3 )

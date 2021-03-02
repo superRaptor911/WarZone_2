@@ -23,11 +23,17 @@ onready var timer : Timer        = get_node("Timer")
 onready var reload_timer : Timer = get_node("reload_timer")
 onready var recoil_reset : Timer = get_node("recoil_reset_timer")
 onready var muzzle_sfx : AudioStreamPlayer2D = get_node("muzzle")
-onready var level = get_tree().get_nodes_in_group("Levels")[0]
-onready var resource = get_tree().root.get_node("Resources")
+onready var muzzle_flash = get_node("muzzle_flash")
+onready var level        = get_tree().get_nodes_in_group("Levels")[0]
+onready var resource     = get_tree().root.get_node("Resources")
 
+
+# Variables
 var _recoil  : float  = 0
 var cast_to : Vector2 = Vector2.ZERO
+var fired : bool = false
+var cur_frame = 0
+const frames = 4
 
 signal gun_fired
 
@@ -64,7 +70,14 @@ func fireGun():
 		var error_angle = simulateGunFire()
 		rpc_id(1, "S_fireGun", error_angle)
 		update()
+		showMuzzleFlash()
 		emit_signal("gun_fired")
+
+
+func showMuzzleFlash():
+	cur_frame = frames
+	muzzle_flash.scale = Vector2(rand_range(0.8, 1.2), rand_range(0.8, 1.2))
+	muzzle_flash.show()
 
 
 func reload():
@@ -101,11 +114,16 @@ func simulateGunFire() -> float:
 
 
 func _draw():
-	var fired = true
-	if fired:
+	if cur_frame != 0:
 		draw_line(muzzle_sfx.position, (cast_to -
 		muzzle_sfx.global_position).rotated(-global_rotation) + muzzle_sfx.position, Color(255,250,0),1.25)
 
+
+func _process(_delta):
+	cur_frame = max(0, cur_frame - 1)
+	if cur_frame == 0:
+		muzzle_flash.hide()
+		update()
 
 # Networking
 
@@ -138,3 +156,4 @@ remotesync func C_fireGun(dest : Vector2):
 		muzzle_sfx.stream = fire_sounds[randi() % fire_sounds.size()]
 		muzzle_sfx.play()
 		update()
+		showMuzzleFlash()
