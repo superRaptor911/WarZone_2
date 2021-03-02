@@ -1,6 +1,7 @@
 extends Node
 
 onready var player = get_parent()
+var active = false
 
 
 func _ready():
@@ -30,4 +31,5 @@ func getInputs():
 
 
 func _process(_delta):
-	getInputs()
+	if active:
+		getInputs()

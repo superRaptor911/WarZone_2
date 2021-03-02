@@ -12,3 +12,6 @@ script = ExtResource( 3 )
 [node name="KeyboardControls" parent="." index="2" instance=ExtResource( 2 )]
 
 [node name="camera" type="Camera2D" parent="." index="3"]
+position = Vector2( 0, -100 )
+limit_smoothed = true
+smoothing_enabled = true

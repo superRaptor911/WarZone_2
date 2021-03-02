@@ -35,9 +35,9 @@ func createServer():
 		return
 	get_tree().network_peer = peer
 	player_register[1] = GlobalData.player_info
-	emit_signal("server_creation_success")
 	var server_advertiser = load("res://scripts/networking/ServerAdvertiser.gd").new()
 	add_child(server_advertiser)
+	emit_signal("server_creation_success")
 
 
 func stopServer():

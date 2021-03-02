@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/hud/Hud.gd" type="Script" id=2]
 [ext_resource path="res://resources/images/pause3.png" type="Texture" id=3]
+[ext_resource path="res://objects/controller/Joystick.tscn" type="PackedScene" id=4]
 
 [node name="Hud" type="CanvasLayer" groups=[
 "Hud",
@@ -17,11 +18,10 @@ __meta__ = {
 }
 
 [node name="hp" type="Label" parent="hud"]
-anchor_top = 0.879
 anchor_right = 0.085
-anchor_bottom = 1.0
-margin_top = 0.119934
+anchor_bottom = 0.121
 margin_right = 0.199997
+margin_bottom = -0.119942
 custom_fonts/font = ExtResource( 1 )
 text = "100"
 align = 1
@@ -31,12 +31,12 @@ __meta__ = {
 }
 
 [node name="ammo" type="Label" parent="hud"]
-anchor_left = 0.877
-anchor_top = 0.879
+anchor_left = 0.853
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 0.439941
-margin_top = 0.119934
+anchor_bottom = 0.121
+margin_left = 32.7472
+margin_right = 1.5874
+margin_bottom = -0.119942
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0.901961, 0.788235, 0.0509804, 1 )
 text = "30 / 200"
@@ -47,14 +47,36 @@ __meta__ = {
 }
 
 [node name="pause_button" type="TextureButton" parent="hud"]
-anchor_right = 0.098
-anchor_bottom = 0.168
-margin_left = 25.2269
-margin_top = 21.0224
-margin_right = -0.213097
-margin_bottom = 0.0624161
+anchor_left = 0.47
+anchor_right = 0.53
+anchor_bottom = 0.104
+margin_left = 0.399963
+margin_right = -0.400024
+margin_bottom = 0.119995
 texture_normal = ExtResource( 3 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="mov_joy" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
+anchor_left = 0.126
+anchor_top = 0.638
+anchor_right = 0.276
+anchor_bottom = 0.884
+margin_left = -7.67807
+margin_top = 0.161957
+margin_right = 0.321899
+margin_bottom = 0.0419312
+
+[node name="aim_joy" parent="." instance=ExtResource( 4 )]
+modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
+anchor_left = 0.718
+anchor_top = 0.638
+anchor_right = 0.874
+anchor_bottom = 0.884
+margin_left = -0.310913
+margin_top = 0.161957
+margin_right = 0.00915527
+margin_bottom = 0.0419312
