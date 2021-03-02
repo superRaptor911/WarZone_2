@@ -59,6 +59,7 @@ void Movement::checkForInput() {
 
             Client_processInput(input);
             rpc_id(1, "Server_processInput", input.input_id, input.rotation, input.input_vector);
+            parent->set("direction", Vector2::ZERO);
         }
     }
 }
