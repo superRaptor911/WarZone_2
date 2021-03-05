@@ -6,6 +6,8 @@ var cur_gun = null
 
 signal gun_switched
 
+func _ready():
+	pass
 
 func equipGun(gun_name : String):
 	if !gun_1:
@@ -53,3 +55,5 @@ func setSkin(skin : Texture):
 	get_node("CharacterModel").get_node("skin").texture = skin
 
 
+# func _on_revived():
+	# get_node("CharacterModel").reviveAnim()

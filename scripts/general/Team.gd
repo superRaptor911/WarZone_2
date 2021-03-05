@@ -10,6 +10,7 @@ var players = {}
 
 func _ready():
 	add_to_group("Teams")
+	_connectSignals()
 
 
 func _connectSignals():

@@ -1,8 +1,12 @@
 extends CollisionShape2D
 
-onready var entity = get_parent()
-onready var fist : Node2D = get_node("fist")
-onready var anim_player : AnimationPlayer = get_node("AnimationPlayer")
+onready var entity                         = get_parent()
+onready var fist : Node2D                  = get_node("fist")
+onready var skin : Sprite                  = get_node("skin")
+onready var anim_player : AnimationPlayer  = get_node("AnimationPlayer")
+onready var walk_sfx : AudioStreamPlayer2D = get_node("walk")
+onready var die_sfx : AudioStreamPlayer2D  = get_node("die")
+
 
 
 func _ready():
@@ -15,16 +19,23 @@ func _ready():
 func _connectSignals():
 	entity.connect("entity_took_damage", self, "_on_damaged")
 	entity.connect("entity_killed", self, "_on_killed")
+	entity.connect("entity_revived", self, "_on_revived")
 
 
 
 func _on_damaged(_attacker):
-	pass
+	if GlobalData.settings.gore:
+		pass
 
 
 func _on_killed(_victim_name, _killer):
-	pass
+	dieAnim()
+	if GlobalData.settings.gore:
+		pass
 
+
+func _on_revived():
+	reviveAnim()
 
 func changePose(pose_name):
 	anim_player.play(pose_name)
@@ -44,3 +55,13 @@ func _process(_delta):
 	elif entity.direction.length_squared() != 0:
 		anim_player.play("walk")
 
+
+func dieAnim():
+	die_sfx.play()
+	skin.hide()
+	self.call_deferred("set", "disabled" , true)
+	
+
+func reviveAnim():
+	skin.show()
+	self.call_deferred("set", "disabled" , false)

@@ -186,6 +186,10 @@ void Movement::checkForErrors(const State &state) {
         i++;
     }
 
+    // Quick Fix
+    if (i == history.size())
+        return;
+
     // Remove old history
     std::vector<State> _history(history.size() - i - 1);     // Beacause i starts from 0
     _history.reserve(60);

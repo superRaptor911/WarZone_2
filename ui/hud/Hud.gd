@@ -45,19 +45,20 @@ func _on_hp_changed(_attacker = null):
 
 
 func _process(_delta):
-	if mov_joy.joystick_vector.length_squared() > 0.4:
-		player.direction = -mov_joy.joystick_vector
-	if aim_joy.joystick_vector.length_squared() > 0.4:
-		var theta = (-aim_joy.joystick_vector).angle() + PI / 2
-		if theta > PI:
-			theta = theta - 2 * PI 
-		player.rotation = theta
+	if player.alive:
+		if mov_joy.joystick_vector.length_squared() > 0.4:
+			player.direction = -mov_joy.joystick_vector
+		if aim_joy.joystick_vector.length_squared() > 0.4:
+			var theta = (-aim_joy.joystick_vector).angle() + PI / 2
+			if theta > PI:
+				theta = theta - 2 * PI 
+			player.rotation = theta
 
 
-func convert(val):
-	pass
+# func convert(val):
+	# pass
 
-func _on_aim_joy_updated(dir : Vector2):
-	player.rotation = dir.angle()
-	print(dir.angle())
+# func _on_aim_joy_updated(dir : Vector2):
+# 	player.rotation = dir.angle()
+# 	print(dir.angle())
 

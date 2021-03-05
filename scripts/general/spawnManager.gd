@@ -4,6 +4,12 @@ onready var level_node = get_tree().get_nodes_in_group("Levels")[0]
 
 func _ready():
 	name = "SpawnManager"
+	_connectSignals()
+
+
+func _connectSignals():
+	var network = get_tree().root.get_node("NetworkManager")
+	network.connect("client_disconnected", self, "_on_player_disconnected")
 
 
 func spawnOurPlayer(team_id : int):
@@ -36,6 +42,7 @@ func getSpawnPosition(team_id : int):
 			our_spawn_points.append(i)
 	if our_spawn_points.size() == 0:
 		print("SpawnManager::Error::No spawn point for %d" % [team_id])
+		print("SpawnManager::Spawning at (0, 0)")
 		return Vector2(0, 0)
 	return our_spawn_points[randi() % our_spawn_points.size()].position
 
@@ -48,8 +55,16 @@ func findTeam(team_id):
 	return null
 
 
-# Networking
+func _on_player_disconnected(id : int):
+	var level = get_tree().get_nodes_in_group("Levels")[0]
+	var player = level.get_node(String(id))
+	if !player:
+		print("SpawnManager::Error::player %d not found" % [id])
+	player.queue_free()
+	print("SpawnManager::Des-spawning player " + String(id))
 
+
+# Networking
 remotesync func S_createPlayer(peer_id : int, team_id : int):
 	rpc("C_createPlayer", peer_id, team_id)
 

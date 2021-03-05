@@ -12,10 +12,9 @@ var bullets_in_mag : int = 4         # bullets left in magazine
 var bullets : int        = 0         # bullets remaining other than magazine
 var accuracy : float     = 0         #
 var recoil_factor : float= 0         #
-var bullet_types : Array = []        #
+var penetration_ratio : float= 0.3   #
 
 var is_reloading : bool = false           # flag for reloading
-var cur_bullet_type : String = "_9mm_fmj" # Bullet type in magazine
 var fire_sounds = []
 
 # Nodes
@@ -59,6 +58,7 @@ func _loadStats():
 	accuracy     = stats.accuracy
 	recoil_factor= stats.recoil
 	type         = stats.type
+	penetration_ratio = stats.penetration_ratio
 
 
 func fireGun():
@@ -125,6 +125,12 @@ func _process(_delta):
 		muzzle_flash.hide()
 		update()
 
+
+# Custom function for is_network_master
+func isNetworkServer():
+	return user_name == String(get_tree().get_network_unique_id())
+
+
 # Networking
 
 # remotesync func _fire():
@@ -144,16 +150,17 @@ remotesync func S_fireGun(error_angle : float):
 	if result:
 		cast_to = result.position
 		if result.collider.is_in_group("Destructible"):
-			pass
-			# result.collider.takeDamage(damage,gun_name,user_id)
+			result.collider.takeDamage(damage, penetration_ratio, user_name, wpn_name)
 	rpc("C_fireGun",cast_to)
 
 
 
 remotesync func C_fireGun(dest : Vector2):
-	if !is_network_master():
+	if !isNetworkServer():
 		cast_to = dest
 		muzzle_sfx.stream = fire_sounds[randi() % fire_sounds.size()]
 		muzzle_sfx.play()
 		update()
 		showMuzzleFlash()
+		print("Executing C-fireGun")
+

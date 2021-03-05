@@ -11,6 +11,7 @@ var nick : String       = "Entity"
 signal entity_took_damage(attacker_name)
 signal entity_killed(victim_name, killer_name, weapon_name)
 signal entity_fraged(killer_name, victim_name, weapon_name)
+signal entity_revived()
 
 func _ready():
 	pass # Replace with function body.
@@ -51,3 +52,9 @@ func heal(value : float):
 
 func teleport(pos : Vector2):
 	get_node("movement").teleport(pos)
+
+
+func reviveEntity():
+	health = 100
+	alive  = true
+	emit_signal("entity_revived")

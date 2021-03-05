@@ -35,7 +35,7 @@ margin_bottom = 40.0
 custom_fonts/font = ExtResource( 2 )
 placeholder_text = "Enter IP"
 
-[node name="Button" type="Button" parent="."]
+[node name="connect" type="Button" parent="."]
 anchor_left = 0.522
 anchor_top = 0.425
 anchor_right = 0.522
@@ -46,3 +46,21 @@ margin_right = 53.34
 margin_bottom = 185.0
 custom_fonts/font = ExtResource( 1 )
 text = "Connect"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -168.879
+margin_top = -225.887
+margin_right = 136.121
+margin_bottom = -189.887
+custom_fonts/font = ExtResource( 1 )
+text = "Searching Game ......"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -179,3 +179,7 @@ anims/walk = SubResource( 6 )
 [node name="fist" type="Node2D" parent="."]
 position = Vector2( -0.5, -21 )
 z_index = 1
+
+[node name="walk" type="AudioStreamPlayer2D" parent="."]
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]

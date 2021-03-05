@@ -6,6 +6,7 @@
         "mag_size"       : 18,
         "accuracy"       : 1,
         "type"           : "pistol",
-        "recoil"         : 0
+        "recoil"         : 0,
+        "penetration_ratio"         : 0
     }
 }
