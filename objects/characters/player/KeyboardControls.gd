@@ -1,7 +1,7 @@
 extends Node
 
 onready var player = get_parent()
-var active = true
+var active = false
 
 
 func _ready():

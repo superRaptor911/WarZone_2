@@ -61,6 +61,9 @@ func _process(_delta):
 			if theta > PI:
 				theta = theta - 2 * PI 
 			player.rotation = theta
+		if aim_joy.joystick_vector.length_squared() > 0.8:
+			if player.cur_gun:
+				player.cur_gun.fireGun()
 
 
 # func convert(val):

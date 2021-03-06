@@ -1,0 +1,169 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=1]
+[ext_resource path="res://tools/WeaponTweaker/slider.gd" type="Script" id=2]
+[ext_resource path="res://tools/WeaponTweaker/WeaponTweaker.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.396078 )
+
+[node name="WeaponTweaker" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 0.366
+anchor_bottom = 0.446
+margin_right = 0.519958
+margin_bottom = -0.119995
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="VBoxContainer" parent="Panel"]
+margin_left = 137.0
+margin_top = 23.0
+margin_right = 371.0
+margin_bottom = 289.0
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="damage" type="HSlider" parent="Panel/container"]
+margin_right = 234.0
+margin_bottom = 16.0
+min_value = 5.0
+max_value = 300.0
+value = 5.0
+exp_edit = true
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Panel/container/damage"]
+margin_left = -128.018
+margin_top = -8.0
+margin_right = -31.0181
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 1 )
+text = "Damage"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="value" type="Label" parent="Panel/container/damage"]
+margin_left = 250.0
+margin_top = -7.0
+margin_right = 320.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 1 )
+text = "100000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="rof" type="HSlider" parent="Panel/container"]
+margin_top = 66.0
+margin_right = 234.0
+margin_bottom = 82.0
+min_value = 1.0
+max_value = 60.0
+value = 1.0
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Panel/container/rof"]
+margin_left = -128.018
+margin_top = -8.0
+margin_right = -31.0181
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 1 )
+text = "rof"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="value" type="Label" parent="Panel/container/rof"]
+margin_left = 250.0
+margin_top = -7.0
+margin_right = 320.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 1 )
+text = "100000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="recoil" type="HSlider" parent="Panel/container"]
+margin_top = 132.0
+margin_right = 234.0
+margin_bottom = 148.0
+max_value = 5.0
+step = 0.01
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Panel/container/recoil"]
+margin_left = -128.018
+margin_top = -8.0
+margin_right = -31.0181
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 1 )
+text = "Recoil"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="value" type="Label" parent="Panel/container/recoil"]
+margin_left = 250.0
+margin_top = -7.0
+margin_right = 320.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 1 )
+text = "100000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="acc" type="HSlider" parent="Panel/container"]
+margin_top = 198.0
+margin_right = 234.0
+margin_bottom = 214.0
+max_value = 10.0
+step = 0.1
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Panel/container/acc"]
+margin_left = -128.0
+margin_top = -11.0
+margin_right = -31.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 1 )
+text = "acc"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="value" type="Label" parent="Panel/container/acc"]
+margin_left = 250.0
+margin_top = -7.0
+margin_right = 320.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 1 )
+text = "100000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Panel"]
+margin_left = 200.024
+margin_top = 273.441
+margin_right = 272.024
+margin_bottom = 303.441
+text = "Apply"
+[connection signal="value_changed" from="Panel/container/damage" to="Panel/container/damage" method="_on_damage_value_changed"]
+[connection signal="value_changed" from="Panel/container/rof" to="Panel/container/rof" method="_on_damage_value_changed"]
+[connection signal="value_changed" from="Panel/container/recoil" to="Panel/container/recoil" method="_on_damage_value_changed"]
+[connection signal="value_changed" from="Panel/container/acc" to="Panel/container/acc" method="_on_damage_value_changed"]

@@ -5,7 +5,7 @@ export var wpn_name : String  = "" # Gun name
 var type : String        = "rifle"   # Gun type, pistol , rifle and smg
 var user_name : String   = ""        # Name of gun user
 var damage : int         = 0         # Damage it will cause
-var rate_of_fire : float = 0         # How much bullets it can fire per seconds
+var rate_of_fire : float = 0 setget set_rof        # How much bullets it can fire per seconds
 var reload_time : float  = 0         # Time taken for reload
 var mag_size : int       = 0         # Capacity of a magazine
 var bullets_in_mag : int = 4         # bullets left in magazine
@@ -36,6 +36,7 @@ const frames = 4
 
 signal gun_fired
 
+
 # Set user for this gun
 func init(usr_name):
 	user_name = usr_name
@@ -47,6 +48,11 @@ func _ready():
 	reload_timer.wait_time = reload_time
 	reload_timer.connect("timeout", self, "_on_reload_complete")
 	fire_sounds = resource.gun_sounds.get(wpn_name)
+
+func set_rof(value):
+	rate_of_fire = value
+	timer.wait_time = 1.0 / rate_of_fire
+	reload_timer.wait_time = reload_time
 
 
 func _loadStats():
