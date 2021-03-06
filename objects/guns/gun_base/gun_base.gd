@@ -1,7 +1,7 @@
 # Base class for guns
 extends Sprite
 
-export var wpn_name : String    = "" # Gun name
+export var wpn_name : String  = "" # Gun name
 var type : String        = "rifle"   # Gun type, pistol , rifle and smg
 var user_name : String   = ""        # Name of gun user
 var damage : int         = 0         # Damage it will cause

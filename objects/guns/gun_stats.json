@@ -1,5 +1,6 @@
 {
     "glock18" : {
+        "name"           : "Glock 18",
         "damage"         : 18,
         "rate_of_fire"   : 3,
         "reload_time"    : 2,
@@ -7,6 +8,8 @@
         "accuracy"       : 1,
         "type"           : "pistol",
         "recoil"         : 0,
-        "penetration_ratio"         : 0
+        "penetration_ratio"         : 0,
+        "cost"    : 400,
+        "potrait" : "res://resources/sprites/weapons/gun_p.png"
     }
 }

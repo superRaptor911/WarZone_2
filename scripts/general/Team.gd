@@ -14,7 +14,7 @@ func _ready():
 
 
 func _connectSignals():
-	var network = get_tree().root.get_node("Network")
+	var network = get_tree().root.get_node("NetworkManager")
 	network.connect("client_disconnected", self, "_on_client_disconnected")
 
 

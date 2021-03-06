@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/hud/Hud.gd" type="Script" id=2]
 [ext_resource path="res://resources/images/pause3.png" type="Texture" id=3]
 [ext_resource path="res://objects/controller/Joystick.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resources/images/buy.png" type="Texture" id=5]
 
 [node name="Hud" type="CanvasLayer" groups=[
 "Hud",
@@ -55,6 +56,23 @@ margin_right = -0.400024
 margin_bottom = 0.119995
 texture_normal = ExtResource( 3 )
 expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="buy_btn" type="TextureButton" parent="hud"]
+anchor_left = 0.66
+anchor_top = 0.494
+anchor_right = 0.722
+anchor_bottom = 0.604
+margin_left = -0.463135
+margin_top = -0.107147
+margin_right = 0.176819
+margin_bottom = -0.307159
+texture_normal = ExtResource( 5 )
+expand = true
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }

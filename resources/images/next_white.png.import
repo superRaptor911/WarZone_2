@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Godot_TouchScreen_Joysticks_Joy.png-8fd1329f5a0b7815fef8544c47564e1d.stex"
+path="res://.import/next_white.png-f875dbb2e82a99c40e988228fd9dd877.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/images/Godot_TouchScreen_Joysticks_Joy.png"
-dest_files=[ "res://.import/Godot_TouchScreen_Joysticks_Joy.png-8fd1329f5a0b7815fef8544c47564e1d.stex" ]
+source_file="res://resources/images/next_white.png"
+dest_files=[ "res://.import/next_white.png-f875dbb2e82a99c40e988228fd9dd877.stex" ]
 
 [params]
 

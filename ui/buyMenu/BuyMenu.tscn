@@ -1,0 +1,174 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/fonts/arial_Extralarge.tres" type="DynamicFont" id=2]
+[ext_resource path="res://ui/buyMenu/BuyMenu.gd" type="Script" id=3]
+[ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=4]
+[ext_resource path="res://resources/images/next_white.png" type="Texture" id=5]
+[ext_resource path="res://ui/buyMenu/potrait.gd" type="Script" id=7]
+
+[node name="BuyMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -108.5
+margin_top = 10.0908
+margin_right = 108.5
+margin_bottom = 65.0908
+custom_fonts/font = ExtResource( 2 )
+text = "Buy Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.029
+anchor_top = 0.21
+anchor_right = 0.378
+anchor_bottom = 0.869
+margin_left = -0.120003
+margin_top = -0.200012
+margin_right = 0.159973
+margin_bottom = 0.320007
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pistol" type="Button" parent="Panel/container"]
+margin_right = 447.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 0, 55 )
+custom_fonts/font = ExtResource( 1 )
+text = "Pistol"
+
+[node name="smg" type="Button" parent="Panel/container"]
+margin_top = 105.0
+margin_right = 447.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 0, 55 )
+custom_fonts/font = ExtResource( 1 )
+text = "S.M.G"
+
+[node name="rifle" type="Button" parent="Panel/container"]
+margin_top = 210.0
+margin_right = 447.0
+margin_bottom = 265.0
+rect_min_size = Vector2( 0, 55 )
+custom_fonts/font = ExtResource( 1 )
+text = "Rifle"
+
+[node name="mg" type="Button" parent="Panel/container"]
+margin_top = 315.0
+margin_right = 447.0
+margin_bottom = 370.0
+rect_min_size = Vector2( 0, 55 )
+custom_fonts/font = ExtResource( 1 )
+text = "Machine Gun"
+
+[node name="potrait" type="TextureRect" parent="Panel"]
+anchor_left = 0.502
+anchor_top = 0.21
+anchor_right = 0.914
+anchor_bottom = 0.597
+margin_left = 19.4399
+margin_top = -0.200012
+margin_right = -40.92
+margin_bottom = 0.160004
+expand = true
+stretch_mode = 6
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gun_name" type="Label" parent="Panel/potrait"]
+anchor_left = 0.332
+anchor_top = 1.129
+anchor_right = 0.558
+anchor_bottom = 1.237
+margin_left = -0.0575104
+margin_top = 0.00897217
+margin_right = -0.159515
+margin_bottom = -0.123016
+custom_fonts/font = ExtResource( 4 )
+text = "Gun name"
+
+[node name="purchase" type="Button" parent="Panel/potrait"]
+anchor_left = 0.281
+anchor_top = 1.495
+anchor_right = 0.617
+anchor_bottom = 1.681
+margin_left = -0.089325
+margin_top = -0.0204468
+margin_right = -0.161346
+margin_bottom = 0.0855713
+custom_fonts/font = ExtResource( 1 )
+text = "Purchase"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="next_gun" type="TextureButton" parent="Panel/potrait"]
+margin_left = 459.0
+margin_top = 84.0
+margin_right = 574.0
+margin_bottom = 184.0
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="prev_gun" type="TextureButton" parent="Panel/potrait"]
+margin_top = 84.0
+margin_right = 115.0
+margin_bottom = 184.0
+rect_scale = Vector2( -1, 1 )
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="cash" type="Label" parent="Panel"]
+anchor_left = 0.029
+anchor_top = 0.051
+anchor_right = 0.134
+anchor_bottom = 0.125
+margin_left = -0.120003
+margin_top = -1.40236
+margin_right = 0.479996
+margin_bottom = 0.317642
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.247059, 0.831373, 0.215686, 1 )
+text = "$1000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="back" type="Button" parent="."]
+anchor_left = 0.902
+anchor_top = 0.014
+anchor_right = 0.958
+anchor_bottom = 0.099
+margin_left = -0.58667
+margin_top = 0.0107517
+margin_right = -0.266724
+margin_bottom = -0.189255
+custom_fonts/font = ExtResource( 2 )
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
