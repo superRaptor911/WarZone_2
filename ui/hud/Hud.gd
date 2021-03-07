@@ -10,6 +10,7 @@ onready var pause_btn : TextureButton = get_node("hud/pause_button")
 onready var buy_btn : TextureButton = get_node("hud/buy_btn")
 onready var mov_joy = get_node("mov_joy")
 onready var aim_joy = get_node("aim_joy")
+onready var zoom_btn = get_node("hud/zoom_btn") 
 
 
 func _ready():
@@ -20,6 +21,7 @@ func _ready():
 func _connectSignals():
 	pause_btn.connect("pressed", self ,"_on_pause_pressed")
 	buy_btn.connect("pressed", self ,"_on_buy_pressed")
+	zoom_btn.connect("pressed", self, "_on_zoom_pressed") 
 	player.connect("gun_switched", self, "_on_gun_switched")
 	player.connect("entity_took_damage", self, "_on_hp_changed")
 	# aim_joy.connect("Joystick_Updated", self, "_on_aim_joy_updated")
@@ -37,6 +39,7 @@ func _on_gun_switched():
 	if !player.cur_gun.is_connected("gun_fired", self, "_on_gun_gired"):
 		player.cur_gun.connect("gun_fired", self, "_on_gun_gired")
 	fillAmmoInfo(player.cur_gun)
+	player.cur_gun.resetZoom()
 
 
 func _on_gun_gired():
@@ -52,6 +55,11 @@ func _on_hp_changed(_attacker = null):
 	hp_label.text = String(player.health)
 
 
+func _on_zoom_pressed():
+	if player.cur_gun:
+		player.cur_gun.zoom()
+
+
 func _process(_delta):
 	if player.alive:
 		if mov_joy.joystick_vector.length_squared() > 0.4:
@@ -65,11 +73,4 @@ func _process(_delta):
 			if player.cur_gun:
 				player.cur_gun.fireGun()
 
-
-# func convert(val):
-	# pass
-
-# func _on_aim_joy_updated(dir : Vector2):
-# 	player.rotation = dir.angle()
-# 	print(dir.angle())
 

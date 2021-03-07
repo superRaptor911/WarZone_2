@@ -33,7 +33,7 @@ func equipGun(gun_name : String):
 func createGun(gun_name):
 	var resource = get_tree().root.get_node("Resources")
 	var gun = resource.guns.get(gun_name).instance()
-	gun.init(name)
+	gun.init(self)
 	return gun
 
 

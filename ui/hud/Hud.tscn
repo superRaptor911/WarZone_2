@@ -118,4 +118,4 @@ margin_right = 0.00915527
 margin_bottom = 0.0419312
 
 [node name="WeaponTweaker" parent="." instance=ExtResource( 6 )]
-visible = false
+margin_right = -123.0

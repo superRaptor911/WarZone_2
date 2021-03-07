@@ -12,6 +12,7 @@ var bullets_in_mag : int = 4         # bullets left in magazine
 var bullets : int        = 0         # bullets remaining other than magazine
 var accuracy : float     = 0         #
 var recoil_factor : float= 0         #
+var zoom_range           = []
 var penetration_ratio : float= 0.3   #
 
 var is_reloading : bool = false           # flag for reloading
@@ -33,14 +34,17 @@ var _recoil  : float  = 0
 var cast_to : Vector2 = Vector2.ZERO
 var fired : bool = false
 var cur_frame = 0
+var cur_zoom_id = 0
+var user_ref = null
 const frames = 4
 
 signal gun_fired
 
 
 # Set user for this gun
-func init(usr_name):
-	user_name = usr_name
+func init(user):
+	user_ref = user
+	user_name = user.name
 
 
 func _ready():
@@ -70,6 +74,7 @@ func _loadStats():
 	accuracy     = stats.accuracy
 	recoil_factor= stats.recoil_factor
 	type         = stats.type
+	zoom_range   = stats.zoom_range
 	penetration_ratio = stats.penetration_ratio
 
 
@@ -148,6 +153,21 @@ func isNetworkServer():
 func _on_recoil_timer_timeout():
 	_recoil = 0
 
+
+func zoom():
+	print("zooming")
+	cur_zoom_id += 1
+	if cur_zoom_id >= zoom_range.size():
+		cur_zoom_id = 0
+	if user_ref.is_network_master():
+		user_ref.get_node("camera").zoom = Vector2(zoom_range[cur_zoom_id], zoom_range[cur_zoom_id])
+	
+
+func resetZoom():
+	cur_zoom_id = 0
+	if user_ref.is_network_master():
+		user_ref.get_node("camera").zoom = Vector2(zoom_range[cur_zoom_id], zoom_range[cur_zoom_id])
+
 # Networking
 
 # remotesync func _fire():
@@ -175,9 +195,7 @@ remotesync func S_fireGun(error_angle : float):
 remotesync func C_fireGun(dest : Vector2):
 	if !isNetworkServer():
 		cast_to = dest
-		# muzzle_sfx.stream = fire_sounds[randi() % fire_sounds.size()]
 		muzzle_sfx.play()
 		update()
 		showMuzzleFlash()
 		print("Executing C-fireGun")
-
