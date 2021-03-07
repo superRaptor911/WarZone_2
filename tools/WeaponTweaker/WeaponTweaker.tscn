@@ -131,7 +131,7 @@ __meta__ = {
 margin_top = 198.0
 margin_right = 234.0
 margin_bottom = 214.0
-max_value = 10.0
+max_value = 1.0
 step = 0.1
 script = ExtResource( 2 )
 
@@ -163,6 +163,14 @@ margin_top = 273.441
 margin_right = 272.024
 margin_bottom = 303.441
 text = "Apply"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 346.497
+margin_top = 16.4814
+margin_right = 543.497
+margin_bottom = 41.4814
 [connection signal="value_changed" from="Panel/container/damage" to="Panel/container/damage" method="_on_damage_value_changed"]
 [connection signal="value_changed" from="Panel/container/rof" to="Panel/container/rof" method="_on_damage_value_changed"]
 [connection signal="value_changed" from="Panel/container/recoil" to="Panel/container/recoil" method="_on_damage_value_changed"]

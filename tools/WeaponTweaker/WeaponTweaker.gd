@@ -6,6 +6,7 @@ onready var damage_slider = get_node("Panel/container/damage")
 onready var recoil_slider = get_node("Panel/container/recoil")
 onready var rof_slider    = get_node("Panel/container/rof")
 onready var acc_slider    = get_node("Panel/container/acc")
+onready var giv_gun_edit = get_node("LineEdit") 
 
 func _ready():
 	_connectSignals()
@@ -14,6 +15,7 @@ func _ready():
 func _connectSignals():
 	apply_btn.connect("pressed", self, "_on_apply_pressed")
 	player.connect("gun_switched", self, "_on_gun_equiped")
+	giv_gun_edit.connect("text_entered", self, "_on_text_entered")
 
 
 func _on_apply_pressed():
@@ -44,4 +46,20 @@ func _applyStats():
 
 
 func _saveData():
-	pass
+	var resource = get_node("/root/Resources")
+	var stat = resource.gun_stats.get(player.cur_gun.wpn_name)
+	var gun = player.cur_gun
+	stat.damage = gun.damage
+	stat.rate_of_fire = gun.rate_of_fire
+	stat.recoil_factor = gun.recoil_factor
+	stat.accuracy = gun.accuracy
+	Utility.saveDictionary("res://objects/guns/gun_stats.json", resource.gun_stats)
+
+
+
+func _on_text_entered(text : String):
+	var resource = get_node("/root/Resources")
+	if resource.guns.has(text):
+		player.equipGun(text)
+	else:
+		print("WeaponTweaker::Error::Gun not found")

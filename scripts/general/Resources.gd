@@ -32,7 +32,6 @@ var hud = preload("res://ui/hud/Hud.tscn")
 var scoreboard = null
 
 # Stats
-var bullet_stats = {}	# Dictionary for keeping bullet stats
 var gun_stats    = {}	# Dictionary for keeping gun stats 
 
 
@@ -43,5 +42,4 @@ func _ready():
 
 # Load stats from json file into above dictionary
 func _loadStats():
-	bullet_stats   = Utility.loadDictionary("res://objects/bullets/bullet_stats.json")
 	gun_stats      = Utility.loadDictionary("res://objects/guns/gun_stats.json")
