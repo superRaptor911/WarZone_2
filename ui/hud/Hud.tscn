@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/hud/Hud.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://objects/controller/Joystick.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/images/buy.png" type="Texture" id=5]
 [ext_resource path="res://tools/WeaponTweaker/WeaponTweaker.tscn" type="PackedScene" id=6]
+[ext_resource path="res://resources/images/scope3.png" type="Texture" id=7]
 
 [node name="Hud" type="CanvasLayer" groups=[
 "Hud",
@@ -78,6 +79,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="zoom_btn" type="TextureButton" parent="hud"]
+anchor_left = 0.925
+anchor_top = 0.124
+anchor_right = 0.987
+anchor_bottom = 0.233
+margin_left = -0.502808
+margin_top = -0.280006
+margin_right = 0.137207
+margin_bottom = 0.23999
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="mov_joy" parent="." instance=ExtResource( 4 )]
 modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
 anchor_left = 0.126
@@ -101,3 +118,4 @@ margin_right = 0.00915527
 margin_bottom = 0.0419312
 
 [node name="WeaponTweaker" parent="." instance=ExtResource( 6 )]
+visible = false

@@ -23,7 +23,10 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
-[node name="reload_sfx" type="AudioStreamPlayer2D" parent="."]
+[node name="clip_out" type="AudioStreamPlayer2D" parent="."]
+bus = "weapons"
+
+[node name="clip_in" type="AudioStreamPlayer2D" parent="."]
 bus = "weapons"
 
 [node name="muzzle_flash" type="Sprite" parent="."]

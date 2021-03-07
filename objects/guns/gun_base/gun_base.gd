@@ -15,14 +15,15 @@ var recoil_factor : float= 0         #
 var penetration_ratio : float= 0.3   #
 
 var is_reloading : bool = false           # flag for reloading
-var fire_sounds = []
 
 # Nodes
-onready var timer : Timer        = get_node("Timer")
-onready var reload_timer : Timer = get_node("reload_timer")
-onready var recoil_reset : Timer = get_node("recoil_reset_timer")
-onready var muzzle_sfx : AudioStreamPlayer2D = get_node("muzzle")
+onready var timer        = get_node("Timer")
+onready var reload_timer = get_node("reload_timer")
+onready var recoil_reset = get_node("recoil_reset_timer")
+onready var muzzle_sfx   = get_node("muzzle")
 onready var muzzle_flash = get_node("muzzle_flash")
+onready var clip_in_sfx = get_node("clip_in") 
+onready var clip_out_sfx = get_node("clip_out") 
 onready var level        = get_tree().get_nodes_in_group("Levels")[0]
 onready var resource     = get_tree().root.get_node("Resources")
 
@@ -44,11 +45,14 @@ func init(usr_name):
 
 func _ready():
 	_loadStats()
+	_connectSignals()
 	timer.wait_time = 1.0 / rate_of_fire
 	reload_timer.wait_time = reload_time
+
+
+func _connectSignals():
+	recoil_reset.connect("timeout", self, "_on_recoil_timer_timeout") 
 	reload_timer.connect("timeout", self, "_on_reload_complete")
-	fire_sounds = resource.gun_sounds.get(wpn_name)
-	muzzle_sfx.stream = fire_sounds[randi() % fire_sounds.size()]
 
 
 func set_rof(value):
@@ -92,9 +96,11 @@ func reload():
 	if !is_reloading && bullets > 0 && bullets_in_mag != mag_size:
 		reload_timer.start()
 		is_reloading = true
+		clip_out_sfx.play()
 
 
 func _on_reload_complete():
+	clip_in_sfx.play()
 	_reload()
 
 
@@ -106,7 +112,7 @@ func _reload():
 
 
 func simulateGunFire() -> float:
-	var spread = 1 - accuracy
+	var spread = (1 - accuracy) / 4
 	var error_angle = rand_range(-spread - _recoil * 0.01,spread + _recoil * 0.01)
 	_recoil += recoil_factor
 	# No need to simulate gunfire for server
@@ -138,6 +144,9 @@ func _process(_delta):
 func isNetworkServer():
 	return user_name == String(get_tree().get_network_unique_id())
 
+
+func _on_recoil_timer_timeout():
+	_recoil = 0
 
 # Networking
 

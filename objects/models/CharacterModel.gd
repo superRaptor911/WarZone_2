@@ -43,7 +43,7 @@ func changePose(pose_name):
 
 func holdWeapon(weapon):
 	for i in fist.get_children():
-		i.remove_child(i)
+		fist.remove_child(i)
 	fist.add_child(weapon)
 	changePose(weapon.type)
 

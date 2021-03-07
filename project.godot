@@ -129,4 +129,5 @@ vram_compression/import_etc=true
 vram_compression/import_etc2=false
 quality/shadows/filter_mode=0
 quality/filters/use_nearest_mipmap_filter=true
+batching/precision/uv_contract=true
 environment/default_environment="res://default_env.tres"
