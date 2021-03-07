@@ -48,6 +48,8 @@ func _ready():
 	reload_timer.wait_time = reload_time
 	reload_timer.connect("timeout", self, "_on_reload_complete")
 	fire_sounds = resource.gun_sounds.get(wpn_name)
+	muzzle_sfx.stream = fire_sounds[randi() % fire_sounds.size()]
+
 
 func set_rof(value):
 	rate_of_fire = value
@@ -62,14 +64,14 @@ func _loadStats():
 	reload_time  = stats.reload_time
 	mag_size     = stats.mag_size
 	accuracy     = stats.accuracy
-	recoil_factor= stats.recoil
+	recoil_factor= stats.recoil_factor
 	type         = stats.type
 	penetration_ratio = stats.penetration_ratio
 
 
 func fireGun():
 	if bullets_in_mag > 0 && !is_reloading && timer.is_stopped():
-		muzzle_sfx.stream = fire_sounds[randi() % fire_sounds.size()]
+		# muzzle_sfx.stream = fire_sounds[randi() % fire_sounds.size()]
 		muzzle_sfx.play()
 		bullets_in_mag -= 1
 		timer.start()
@@ -164,7 +166,7 @@ remotesync func S_fireGun(error_angle : float):
 remotesync func C_fireGun(dest : Vector2):
 	if !isNetworkServer():
 		cast_to = dest
-		muzzle_sfx.stream = fire_sounds[randi() % fire_sounds.size()]
+		# muzzle_sfx.stream = fire_sounds[randi() % fire_sounds.size()]
 		muzzle_sfx.play()
 		update()
 		showMuzzleFlash()

@@ -60,7 +60,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10, -5.5 ) ]
+"values": [ Vector2( 3.87004, -5.24008 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -154,7 +154,6 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 2
-frame = 3
 
 [node name="leg_1" type="Sprite" parent="."]
 position = Vector2( 6.67601, 12.8452 )
@@ -177,7 +176,7 @@ anims/stop = SubResource( 5 )
 anims/walk = SubResource( 6 )
 
 [node name="fist" type="Node2D" parent="."]
-position = Vector2( -0.5, -21 )
+position = Vector2( 3.39758, -5.39757 )
 z_index = 1
 
 [node name="walk" type="AudioStreamPlayer2D" parent="."]
