@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/guns/gun_base/gun_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/sprites/weapons/famas.bmp" type="Texture" id=2]
+[ext_resource path="res://resources/sound/sfx/weapons/famas-1.wav" type="AudioStream" id=3]
+[ext_resource path="res://resources/sound/sfx/weapons/famas_clipout.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/sound/sfx/weapons/famas_clipin.wav" type="AudioStream" id=5]
+
+[node name="Famas" instance=ExtResource( 1 )]
+position = Vector2( 0, -7.34174 )
+texture = ExtResource( 2 )
+
+[node name="muzzle" parent="." index="0"]
+position = Vector2( -0.595276, -38.2961 )
+stream = ExtResource( 3 )
+attenuation = 0.406126
+
+[node name="clip_out" parent="." index="4"]
+stream = ExtResource( 4 )
+
+[node name="clip_in" parent="." index="5"]
+stream = ExtResource( 5 )
+attenuation = 0.784584
+
+[node name="muzzle_flash" parent="." index="6"]
+position = Vector2( -0.834448, -48.0677 )

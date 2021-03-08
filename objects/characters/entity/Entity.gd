@@ -21,7 +21,7 @@ func takeDamage(damage : float, penetration_ratio : float = 1, attacker : String
 	if alive:
 		if armour != 0:
 			damage *= penetration_ratio
-			armour = max(0, armour - damage * 0.1)
+			armour = max(0, armour - damage * (1.1 - penetration_ratio))
 		health = max(0, health - damage)
 		emit_signal('entity_took_damage', attacker)
 		# Handle Death

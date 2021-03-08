@@ -1,1 +1,120 @@
-{"glock18":{"name":"Glock 18","damage":15,"rate_of_fire":3,"reload_time":2,"mag_size":18,"accuracy":1,"type":"pistol","penetration_ratio":0.3,"cost":400,"recoil_factor":0,"zoom_range":[0.75],"potrait":"res://resources/sprites/weapons/gun_p.png"},"ak47":{"name":"Ak-47","damage":25,"rate_of_fire":7,"reload_time":2,"mag_size":30,"accuracy":1,"type":"rifle","penetration_ratio":0.6,"cost":2700,"recoil_factor":0,"zoom_range":[0.75,0.9],"potrait":"res://resources/sprites/weapons/ak47_p.png"},"aug":{"name":"Aug","damage":22,"rate_of_fire":7,"reload_time":2,"mag_size":30,"accuracy":1,"type":"rifle","penetration_ratio":0.7,"cost":2700,"recoil_factor":0,"zoom_range":[0.75,1],"potrait":"res://resources/sprites/weapons/aug_p.png"},"awp":{"name":"AWP","damage":300,"rate_of_fire":1,"reload_time":2,"mag_size":10,"accuracy":0.9,"type":"rifle","penetration_ratio":0.9,"cost":2700,"recoil_factor":1,"zoom_range":[0.75,1,1.25],"potrait":"res://resources/sprites/weapons/awm_p.png"}}
+{
+    "glock18": {
+        "name": "Glock 18",
+        "damage": 15,
+        "rate_of_fire": 3,
+        "reload_time": 2,
+        "mag_size": 18,
+        "accuracy": 1,
+        "type": "pistol",
+        "penetration_ratio": 0.3,
+        "cost": 400,
+        "recoil_factor": 0,
+        "zoom_range": [
+            0.75
+        ],
+        "potrait": "res://resources/sprites/weapons/gun_p.png"
+    },
+    "ak47": {
+        "name": "Ak-47",
+        "damage": 25,
+        "rate_of_fire": 7,
+        "reload_time": 2,
+        "mag_size": 30,
+        "accuracy": 1,
+        "type": "rifle",
+        "penetration_ratio": 0.6,
+        "cost": 2700,
+        "recoil_factor": 0,
+        "zoom_range": [
+            0.75,
+            0.9
+        ],
+        "potrait": "res://resources/sprites/weapons/ak47_p.png"
+    },
+    "aug": {
+        "name": "Aug",
+        "damage": 22,
+        "rate_of_fire": 7,
+        "reload_time": 2,
+        "mag_size": 30,
+        "accuracy": 1,
+        "type": "rifle",
+        "penetration_ratio": 0.7,
+        "cost": 2700,
+        "recoil_factor": 0,
+        "zoom_range": [
+            0.75,
+            1
+        ],
+        "potrait": "res://resources/sprites/weapons/aug_p.png"
+    },
+    "awp": {
+        "name": "AWP",
+        "damage": 300,
+        "rate_of_fire": 1,
+        "reload_time": 2,
+        "mag_size": 10,
+        "accuracy": 0.9,
+        "type": "rifle",
+        "penetration_ratio": 0.9,
+        "cost": 2700,
+        "recoil_factor": 1,
+        "zoom_range": [
+            0.75,
+            1,
+            1.25
+        ],
+        "potrait": "res://resources/sprites/weapons/awm_p.png"
+    },
+    "deagle": {
+        "name": "Deagle",
+        "damage": 30,
+        "rate_of_fire": 2,
+        "reload_time": 2,
+        "mag_size": 7,
+        "accuracy": 0.6,
+        "type": "pistol",
+        "penetration_ratio": 0.6,
+        "cost": 2700,
+        "recoil_factor": 1.6,
+        "zoom_range": [
+            0.75
+        ],
+        "potrait": "res://resources/sprites/weapons/deagle_p.png"
+    },
+    "famas": {
+        "name": "Famas",
+        "damage": 30,
+        "rate_of_fire": 2,
+        "reload_time": 2,
+        "mag_size": 25,
+        "accuracy": 0.6,
+        "type": "rifle",
+        "penetration_ratio": 0.6,
+        "cost": 2700,
+        "recoil_factor": 1.6,
+        "zoom_range": [
+            0.75,
+            0.9
+        ],
+        "potrait": "res://resources/sprites/weapons/famas_p.png"
+    },
+    "g3": {
+        "name": "G3",
+        "damage": 30,
+        "rate_of_fire": 2,
+        "reload_time": 2,
+        "mag_size": 20,
+        "accuracy": 0.6,
+        "type": "rifle",
+        "penetration_ratio": 0.6,
+        "cost": 2700,
+        "recoil_factor": 1.6,
+        "zoom_range": [
+            0.75,
+            1
+        ],
+        "potrait": "res://resources/sprites/weapons/g3_p.png"
+    }
+}

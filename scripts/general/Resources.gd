@@ -11,6 +11,9 @@ var guns = {
 	ak47 = preload("res://objects/guns/Ak47.tscn"),
 	aug = preload("res://objects/guns/Aug.tscn"),
 	awp = preload("res://objects/guns/Awp.tscn"),
+	deagle = preload("res://objects/guns/Deagle.tscn"),
+	famas = preload("res://objects/guns/Famas.tscn"),
+	g3 = preload("res://objects/guns/G3.tscn")
 	}
 
 

@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/guns/gun_base/gun_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/sound/sfx/weapons/g3sg1_clipin.wav" type="AudioStream" id=2]
+[ext_resource path="res://resources/sound/sfx/weapons/g3sg1-1.wav" type="AudioStream" id=3]
+[ext_resource path="res://resources/sound/sfx/weapons/g3sg1_clipout.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/sprites/weapons/g3sg1.png" type="Texture" id=5]
+
+[node name="G3" instance=ExtResource( 1 )]
+position = Vector2( 0, -9.17713 )
+texture = ExtResource( 5 )
+wpn_name = "g3"
+
+[node name="muzzle" parent="." index="0"]
+position = Vector2( -0.209557, -51.9802 )
+stream = ExtResource( 3 )
+
+[node name="clip_out" parent="." index="4"]
+position = Vector2( -0.561867, 5.24407 )
+stream = ExtResource( 4 )
+
+[node name="clip_in" parent="." index="5"]
+position = Vector2( -0.187294, 5.05679 )
+stream = ExtResource( 2 )
+
+[node name="muzzle_flash" parent="." index="6"]
+position = Vector2( -1.02173, -63.1094 )

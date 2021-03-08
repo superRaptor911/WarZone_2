@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/6637380.png-72494b4ffc469e03e9d7d64a85057132.stex"
+path="res://.import/deagle_p.png-2213f842d2ab88591ad5c50be5dd5aba.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/weapons/6637380.png"
-dest_files=[ "res://.import/6637380.png-72494b4ffc469e03e9d7d64a85057132.stex" ]
+source_file="res://resources/sprites/weapons/deagle_p.png"
+dest_files=[ "res://.import/deagle_p.png-2213f842d2ab88591ad5c50be5dd5aba.stex" ]
 
 [params]
 
