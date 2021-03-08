@@ -6,7 +6,8 @@ onready var damage_slider = get_node("Panel/container/damage")
 onready var recoil_slider = get_node("Panel/container/recoil")
 onready var rof_slider    = get_node("Panel/container/rof")
 onready var acc_slider    = get_node("Panel/container/acc")
-onready var giv_gun_edit = get_node("LineEdit") 
+onready var pen_slider    = get_node("Panel/container/pen") 
+onready var giv_gun_edit  = get_node("LineEdit") 
 
 func _ready():
 	_connectSignals()
@@ -33,6 +34,7 @@ func fillData():
 	rof_slider.value = gun.rate_of_fire
 	recoil_slider.value = gun.recoil_factor
 	acc_slider.value = gun.accuracy
+	pen_slider.value = gun.penetration_ratio
 
 
 func _applyStats():
@@ -41,6 +43,7 @@ func _applyStats():
 	gun.rate_of_fire = rof_slider.value
 	gun.recoil_factor = recoil_slider.value
 	gun.accuracy = acc_slider.value
+	gun.penetration_ratio = pen_slider.value
 	gun.bullets = 100
 	gun.bullets_in_mag = 100
 
@@ -53,6 +56,7 @@ func _saveData():
 	stat.rate_of_fire = gun.rate_of_fire
 	stat.recoil_factor = gun.recoil_factor
 	stat.accuracy = gun.accuracy
+	stat.penetration_ratio = gun.penetration_ratio
 	Utility.saveDictionary("res://objects/guns/gun_stats.json", resource.gun_stats)
 
 

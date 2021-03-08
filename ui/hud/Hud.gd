@@ -72,5 +72,3 @@ func _process(_delta):
 		if aim_joy.joystick_vector.length_squared() > 0.8:
 			if player.cur_gun:
 				player.cur_gun.fireGun()
-
-

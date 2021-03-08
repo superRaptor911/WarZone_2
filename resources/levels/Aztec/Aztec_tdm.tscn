@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://resources/maps/Aztec.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/game_modes/tdm/Tdm.gd" type="Script" id=2]
 [ext_resource path="res://scripts/general/Level.gd" type="Script" id=3]
 [ext_resource path="res://objects/map/Spawnpoint.tscn" type="PackedScene" id=4]
+[ext_resource path="res://tools/TestBody/TestBody.tscn" type="PackedScene" id=5]
 
 [node name="Aztec_tdm" type="Node2D" groups=[
 "Levels",
@@ -20,3 +21,6 @@ script = ExtResource( 2 )
 [node name="Spawnpoint" parent="spawn_points" instance=ExtResource( 4 )]
 position = Vector2( 1215.71, 468.162 )
 spawn_radius = 75.0
+
+[node name="TestBody" parent="." instance=ExtResource( 5 )]
+position = Vector2( 658.824, 201.989 )

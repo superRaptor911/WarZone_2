@@ -188,6 +188,8 @@ remotesync func S_fireGun(error_angle : float):
 		cast_to = result.position
 		if result.collider.is_in_group("Destructible"):
 			result.collider.takeDamage(damage, penetration_ratio, user_name, wpn_name)
+		else:
+			print("Error::not destructible")
 	rpc("C_fireGun",cast_to)
 
 

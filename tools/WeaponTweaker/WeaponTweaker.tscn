@@ -19,7 +19,7 @@ __meta__ = {
 anchor_right = 0.366
 anchor_bottom = 0.446
 margin_right = 0.519958
-margin_bottom = -0.119995
+margin_bottom = 40.88
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -157,11 +157,41 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="pen" type="HSlider" parent="Panel/container"]
+margin_top = 264.0
+margin_right = 234.0
+margin_bottom = 280.0
+max_value = 1.0
+step = 0.1
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Panel/container/pen"]
+margin_left = -128.0
+margin_top = -11.0
+margin_right = -31.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 1 )
+text = "pen"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="value" type="Label" parent="Panel/container/pen"]
+margin_left = 250.0
+margin_top = -7.0
+margin_right = 320.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 1 )
+text = "100000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Button" type="Button" parent="Panel"]
-margin_left = 200.024
-margin_top = 273.441
-margin_right = 272.024
-margin_bottom = 303.441
+margin_left = 198.437
+margin_top = 308.364
+margin_right = 270.437
+margin_bottom = 338.364
 text = "Apply"
 
 [node name="LineEdit" type="LineEdit" parent="."]
@@ -175,3 +205,4 @@ margin_bottom = 41.4814
 [connection signal="value_changed" from="Panel/container/rof" to="Panel/container/rof" method="_on_damage_value_changed"]
 [connection signal="value_changed" from="Panel/container/recoil" to="Panel/container/recoil" method="_on_damage_value_changed"]
 [connection signal="value_changed" from="Panel/container/acc" to="Panel/container/acc" method="_on_damage_value_changed"]
+[connection signal="value_changed" from="Panel/container/pen" to="Panel/container/pen" method="_on_damage_value_changed"]
