@@ -24,6 +24,9 @@ func takeDamage(damage : float, penetration_ratio : float = 1, attacker : String
 			armour = max(0, armour - damage * (1.1 - penetration_ratio))
 		health = max(0, health - damage)
 		emit_signal('entity_took_damage', attacker)
+		# Sync with clients if server
+		if get_tree().is_network_server():
+			rpc("C_syncDamage", health, armour, attacker)
 		# Handle Death
 		if health == 0:
 			alive = false
@@ -31,6 +34,8 @@ func takeDamage(damage : float, penetration_ratio : float = 1, attacker : String
 			var attacker_ref = findEntity(attacker)
 			if attacker_ref:
 				emit_signal("entity_fraged", attacker, name, wpn_name)	# frag signal
+			if get_tree().is_network_server():
+				rpc("C_syncDeath", attacker, wpn_name)
 
 
 func findEntity(entity_name):
@@ -58,3 +63,22 @@ func reviveEntity():
 	health = 100
 	alive  = true
 	emit_signal("entity_revived")
+
+
+# ............Networking..........................
+
+remote func C_syncDamage(hp : int, ap : int, attacker : String = ""):
+	health = hp
+	armour = ap
+	emit_signal('entity_took_damage', attacker)
+
+
+remote func C_syncDeath(attacker : String = "", wpn_name : String = ""):
+	health = 0
+	alive = false
+	emit_signal('entity_killed',name, attacker, wpn_name)	# killed signal
+	# emit signal for attacker
+	var attacker_ref = findEntity(attacker)
+	if attacker_ref:
+		emit_signal("entity_fraged", attacker, name, wpn_name)	# frag signal
+

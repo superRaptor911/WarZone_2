@@ -11,6 +11,7 @@ onready var buy_btn : TextureButton = get_node("hud/buy_btn")
 onready var mov_joy = get_node("mov_joy")
 onready var aim_joy = get_node("aim_joy")
 onready var zoom_btn = get_node("hud/zoom_btn") 
+onready var next_gun_btn = get_node("hud/next_gun") 
 
 
 func _ready():
@@ -22,6 +23,7 @@ func _connectSignals():
 	pause_btn.connect("pressed", self ,"_on_pause_pressed")
 	buy_btn.connect("pressed", self ,"_on_buy_pressed")
 	zoom_btn.connect("pressed", self, "_on_zoom_pressed") 
+	next_gun_btn.connect("pressed", self, "_on_next_gun_pressed") 
 	player.connect("gun_switched", self, "_on_gun_switched")
 	player.connect("entity_took_damage", self, "_on_hp_changed")
 	# aim_joy.connect("Joystick_Updated", self, "_on_aim_joy_updated")
@@ -58,6 +60,10 @@ func _on_hp_changed(_attacker = null):
 func _on_zoom_pressed():
 	if player.cur_gun:
 		player.cur_gun.zoom()
+
+
+func _on_next_gun_pressed():
+	player.switchGun()
 
 
 func _process(_delta):

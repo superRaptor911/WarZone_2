@@ -11,6 +11,8 @@ func _ready():
 	pass
 
 func equipGun(gun_name : String):
+	if gun_name == "":
+		return
 	if !gun_1:
 		gun_1 = createGun(gun_name)
 		switchToGun(gun_1)

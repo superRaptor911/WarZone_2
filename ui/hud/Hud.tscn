@@ -1,11 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/hud/Hud.gd" type="Script" id=2]
 [ext_resource path="res://resources/images/pause3.png" type="Texture" id=3]
 [ext_resource path="res://objects/controller/Joystick.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/images/buy.png" type="Texture" id=5]
+[ext_resource path="res://resources/images/bullet.png" type="Texture" id=6]
 [ext_resource path="res://resources/images/scope3.png" type="Texture" id=7]
+[ext_resource path="res://resources/images/sheild_AP.png" type="Texture" id=8]
+[ext_resource path="res://resources/images/plus_HP.png" type="Texture" id=9]
+[ext_resource path="res://resources/images/gun.png" type="Texture" id=10]
 
 [node name="Hud" type="CanvasLayer" groups=[
 "Hud",
@@ -20,10 +24,13 @@ __meta__ = {
 }
 
 [node name="hp" type="Label" parent="hud"]
-anchor_right = 0.085
-anchor_bottom = 0.121
-margin_right = 0.199997
-margin_bottom = -0.119942
+anchor_left = 0.42
+anchor_top = 0.879
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -0.183289
+margin_top = 0.119873
+margin_right = 6.41675
 custom_fonts/font = ExtResource( 1 )
 text = "100"
 align = 1
@@ -32,11 +39,53 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TextureRect" type="TextureRect" parent="hud/hp"]
+anchor_left = -0.454
+anchor_top = 0.157
+anchor_right = 0.141
+anchor_bottom = 0.932
+margin_left = 0.0127373
+margin_top = -0.0173473
+margin_right = -0.842267
+margin_bottom = 2.5576
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ap" type="Label" parent="hud"]
+anchor_left = 0.552
+anchor_top = 0.884
+anchor_right = 0.637
+anchor_bottom = 1.005
+margin_left = -0.000610352
+margin_top = 0.0418701
+margin_right = 0.199402
+margin_bottom = -0.0780029
+custom_fonts/font = ExtResource( 1 )
+text = "100"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="icon" type="TextureRect" parent="hud/ap"]
+margin_left = -46.0
+margin_top = 10.0
+margin_right = 14.0
+margin_bottom = 69.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
 [node name="ammo" type="Label" parent="hud"]
-anchor_left = 0.853
+anchor_left = 0.879
 anchor_right = 1.0
 anchor_bottom = 0.121
-margin_left = 32.7472
+margin_left = -0.532959
 margin_right = 1.5874
 margin_bottom = -0.119942
 custom_fonts/font = ExtResource( 1 )
@@ -44,6 +93,57 @@ custom_colors/font_color = Color( 0.901961, 0.788235, 0.0509804, 1 )
 text = "30 / 200"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="b1" type="TextureRect" parent="hud/ammo"]
+anchor_left = -0.178
+anchor_top = -0.057
+anchor_right = 0.185
+anchor_bottom = 0.839
+margin_left = -0.053957
+margin_top = 77.959
+margin_right = 20.955
+margin_bottom = 57.0069
+rect_rotation = 270.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="b2" type="TextureRect" parent="hud/ammo"]
+anchor_left = -0.178
+anchor_top = -0.057
+anchor_right = 0.185
+anchor_bottom = 0.839
+margin_left = -15.6102
+margin_top = 78.5448
+margin_right = 5.39868
+margin_bottom = 57.5928
+rect_rotation = 270.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="b3" type="TextureRect" parent="hud/ammo"]
+anchor_left = -0.178
+anchor_top = -0.057
+anchor_right = 0.185
+anchor_bottom = 0.839
+margin_left = -35.819
+margin_top = 78.7698
+margin_right = -14.8101
+margin_bottom = 57.8177
+rect_rotation = 270.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -63,15 +163,31 @@ __meta__ = {
 }
 
 [node name="buy_btn" type="TextureButton" parent="hud"]
-anchor_left = 0.66
-anchor_top = 0.494
-anchor_right = 0.722
-anchor_bottom = 0.604
-margin_left = -0.463135
-margin_top = -0.107147
-margin_right = 0.176819
-margin_bottom = -0.307159
+anchor_left = 0.38
+anchor_top = 0.597
+anchor_right = 0.442
+anchor_bottom = 0.701
+margin_left = -0.400024
+margin_top = -0.839996
+margin_right = 0.23999
+margin_bottom = 0.279968
 texture_normal = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="next_gun" type="TextureButton" parent="hud"]
+anchor_left = 0.68
+anchor_top = 0.522
+anchor_right = 0.743
+anchor_bottom = 0.632
+margin_left = 0.142334
+margin_top = 0.190735
+margin_right = -0.497742
+margin_bottom = -0.00930786
+texture_normal = ExtResource( 10 )
 expand = true
 stretch_mode = 5
 __meta__ = {

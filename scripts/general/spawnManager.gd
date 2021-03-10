@@ -16,8 +16,7 @@ func spawnOurPlayer(team_id : int):
 	rpc_id(1, "S_createPlayer", get_tree().get_network_unique_id(), team_id)
 
 
-
-func createPlayer(id : int, team_id : int):
+func createPlayer(id : int, team_id : int, extra_data = null):
 	var resource = get_tree().root.get_node("Resources")
 	if level_node.has_node(String(id)):
 		print("SpawnManager::Error::Player %d already exists" % [id])
@@ -28,10 +27,22 @@ func createPlayer(id : int, team_id : int):
 	player.nick = get_tree().root.get_node("NetworkManager").player_register[id].nick
 	level_node.add_child(player)
 	findTeam(team_id).addPlayer(player)
-	player.equipGun("glock18")
 	player.teleport(getSpawnPosition(team_id))
 	var skin_id = randi() % resource.skins[team_id].size()
 	player.setSkin(resource.skins[team_id][skin_id])
+	if extra_data:
+		player.health = extra_data.hp
+		player.armour = extra_data.ap
+		player.rotation = extra_data.rot
+		player.position = extra_data.pos
+		if extra_data.cur_gun == extra_data.gun1: 
+			player.equipGun(extra_data.gun2)
+			player.equipGun(extra_data.gun1)
+		else:
+			player.equipGun(extra_data.gun1)
+			player.equipGun(extra_data.gun2)
+	else:
+		player.equipGun("glock18")
 
 
 func getSpawnPosition(team_id : int):

@@ -4,9 +4,9 @@ var team_id : int      = 0
 var team_name : String = ""
 
 # a player has { name, id, score, kills, deaths }
-
 var players = {}
 
+signal scoreboard_updated
 
 func _ready():
 	add_to_group("Teams")
@@ -40,7 +40,8 @@ func _on_client_disconnected(id : int):
 func removePlayer(id : String):
 	if players.has(id):
 		players.erase(id)
-		print("Team::Removing Player %d from Team %s" % [id, team_name])
+		print("Team::Removing Player %s from Team %s" % [id, team_name])
+		emit_signal("scoreboard_updated")
 
 
 func on_player_killed(victim_name, _killer_name, _weapon_name):
@@ -51,6 +52,7 @@ func on_player_killed(victim_name, _killer_name, _weapon_name):
 		return
 	# Increment Death count
 	player.deaths += 1
+	emit_signal("scoreboard_updated")
 
 
 func on_player_fraged(killer_name, _victim_name,_weapon_name):
@@ -61,6 +63,7 @@ func on_player_fraged(killer_name, _victim_name,_weapon_name):
 		return
 	# Increment Death count
 	player.kills += 1
+	emit_signal("scoreboard_updated")
 
 
 func findPlayer(player_name):
@@ -72,3 +75,16 @@ func findPlayer(player_name):
 	print("player::Failed to find player " + player_name)
 	return null
 
+
+func syncData():
+	rpc_id(1, "S_syncData", get_tree().get_network_unique_id())
+
+# ........................Networking......................
+
+remote func S_syncData(client_id : int):
+	rpc_id(client_id, players)
+
+
+remote func C_syncData(data : Dictionary):
+	players = data
+	emit_signal("scoreboard_updated")

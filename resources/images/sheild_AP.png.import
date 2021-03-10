@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bullet.png-9d5ac223f0daabad5248cf87d2b76e20.stex"
+path="res://.import/sheild_AP.png-8bc92e4a56c12423b96c2c2b962464fa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/sprites/bullets/bullet.png"
-dest_files=[ "res://.import/bullet.png-9d5ac223f0daabad5248cf87d2b76e20.stex" ]
+source_file="res://resources/images/sheild_AP.png"
+dest_files=[ "res://.import/sheild_AP.png-8bc92e4a56c12423b96c2c2b962464fa.stex" ]
 
 [params]
 

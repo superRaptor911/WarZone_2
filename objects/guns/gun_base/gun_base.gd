@@ -200,4 +200,3 @@ remotesync func C_fireGun(dest : Vector2):
 		muzzle_sfx.play()
 		update()
 		showMuzzleFlash()
-		print("Executing C-fireGun")
