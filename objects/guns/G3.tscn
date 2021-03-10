@@ -7,7 +7,7 @@
 [ext_resource path="res://resources/sprites/weapons/g3sg1.png" type="Texture" id=5]
 
 [node name="G3" instance=ExtResource( 1 )]
-position = Vector2( 0, -9.17713 )
+position = Vector2( 0.187286, -5.99323 )
 texture = ExtResource( 5 )
 wpn_name = "g3"
 

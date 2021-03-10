@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/guns/gun_base/gun_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/sprites/weapons/mac10.bmp" type="Texture" id=2]
+[ext_resource path="res://resources/sound/sfx/weapons/mac10_clipin.wav" type="AudioStream" id=3]
+[ext_resource path="res://resources/sound/sfx/weapons/mac10-1.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/sound/sfx/weapons/mac10_clipout.wav" type="AudioStream" id=5]
+
+[node name="Mac10" instance=ExtResource( 1 )]
+texture = ExtResource( 2 )
+wpn_name = "mac10"
+
+[node name="muzzle" parent="." index="0"]
+position = Vector2( -0.0222782, -24.4488 )
+stream = ExtResource( 4 )
+
+[node name="clip_out" parent="." index="4"]
+stream = ExtResource( 5 )
+
+[node name="clip_in" parent="." index="5"]
+stream = ExtResource( 3 )
+attenuation = 0.307786

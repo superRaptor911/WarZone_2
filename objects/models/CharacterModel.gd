@@ -38,7 +38,10 @@ func _on_revived():
 	reviveAnim()
 
 func changePose(pose_name):
-	anim_player.play(pose_name)
+	if pose_name == "mg":
+		anim_player.play("rifle")
+	else:
+		anim_player.play(pose_name)
 
 
 func holdWeapon(weapon):

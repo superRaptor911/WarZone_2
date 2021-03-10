@@ -26,7 +26,10 @@ remote func S_syncPlayers(peer_id : int):
 				hp      = i.health,
 				ap      = i.armour,
 				pos		= i.position,
-				rot		= i.rotation
+				rot		= i.rotation,
+				gun1    = "",
+				gun2    = "",
+				cur_gun = "",
 			})
 
 	rpc_id(peer_id, "C_syncPlayers", list)

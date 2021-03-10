@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Movement",
 "language": "NativeScript",
 "path": "res://objects/characters/unit/movement.gdns"
+}, {
+"base": "Node",
+"class": "ServerAdvertiser",
+"language": "GDScript",
+"path": "res://scripts/networking/ServerAdvertiser.gd"
 } ]
 _global_script_class_icons={
-"Movement": ""
+"Movement": "",
+"ServerAdvertiser": ""
 }
 
 [application]

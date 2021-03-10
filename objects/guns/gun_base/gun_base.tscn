@@ -24,9 +24,11 @@ wait_time = 0.5
 one_shot = true
 
 [node name="clip_out" type="AudioStreamPlayer2D" parent="."]
+max_distance = 500.0
 bus = "weapons"
 
 [node name="clip_in" type="AudioStreamPlayer2D" parent="."]
+max_distance = 500.0
 bus = "weapons"
 
 [node name="muzzle_flash" type="Sprite" parent="."]

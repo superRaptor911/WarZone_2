@@ -3,6 +3,7 @@ extends "res://objects/characters/entity/Entity.gd"
 var gun_1 = null
 var gun_2 = null
 var cur_gun = null
+var cash = 8000
 
 signal gun_switched
 
@@ -57,3 +58,14 @@ func setSkin(skin : Texture):
 
 # func _on_revived():
 	# get_node("CharacterModel").reviveAnim()
+
+
+#            Networking...........
+
+# Equip gun 
+remotesync func A_equipGun(gun_name : String):
+	equipGun(gun_name)
+
+
+remotesync func A_switchWeapon():
+	switchGun()

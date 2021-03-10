@@ -5,7 +5,7 @@
         "rate_of_fire": 3,
         "reload_time": 2,
         "mag_size": 18,
-        "accuracy": 1,
+        "accuracy": 0.7,
         "type": "pistol",
         "penetration_ratio": 0.3,
         "cost": 400,
@@ -21,11 +21,11 @@
         "rate_of_fire": 7,
         "reload_time": 2,
         "mag_size": 30,
-        "accuracy": 1,
+        "accuracy": 0.9,
         "type": "rifle",
-        "penetration_ratio": 0.6,
+        "penetration_ratio": 0.8,
         "cost": 2700,
-        "recoil_factor": 0,
+        "recoil_factor": 1.6,
         "zoom_range": [
             0.75,
             0.9
@@ -85,15 +85,15 @@
     },
     "famas": {
         "name": "Famas",
-        "damage": 30,
-        "rate_of_fire": 2,
+        "damage": 17,
+        "rate_of_fire": 8,
         "reload_time": 2,
         "mag_size": 25,
-        "accuracy": 0.6,
+        "accuracy": 0.8,
         "type": "rifle",
         "penetration_ratio": 0.6,
         "cost": 2700,
-        "recoil_factor": 1.6,
+        "recoil_factor": 1,
         "zoom_range": [
             0.75,
             0.9
@@ -102,19 +102,184 @@
     },
     "g3": {
         "name": "G3",
-        "damage": 30,
-        "rate_of_fire": 2,
+        "damage": 28,
+        "rate_of_fire": 4,
         "reload_time": 2,
         "mag_size": 20,
-        "accuracy": 0.6,
+        "accuracy": 0.9,
         "type": "rifle",
-        "penetration_ratio": 0.6,
+        "penetration_ratio": 0.9,
         "cost": 2700,
-        "recoil_factor": 1.6,
+        "recoil_factor": 1.8,
         "zoom_range": [
             0.75,
             1
         ],
         "potrait": "res://resources/sprites/weapons/g3_p.png"
+    },
+    "galil": {
+        "name": "Galil",
+        "damage": 19,
+        "rate_of_fire": 8,
+        "reload_time": 2,
+        "mag_size": 35,
+        "accuracy": 0.8,
+        "type": "rifle",
+        "penetration_ratio": 0.6,
+        "cost": 2700,
+        "recoil_factor": 1.3,
+        "zoom_range": [
+            0.75,
+            0.9
+        ],
+        "potrait": "res://resources/sprites/weapons/galil_p.png"
+    },
+    "m4a1": {
+        "name": "M4A1",
+        "damage": 23,
+        "rate_of_fire": 8,
+        "reload_time": 2,
+        "mag_size": 30,
+        "accuracy": 0.8,
+        "type": "rifle",
+        "penetration_ratio": 0.7,
+        "cost": 2700,
+        "recoil_factor": 1.2,
+        "zoom_range": [
+            0.75,
+            0.9
+        ],
+        "potrait": "res://resources/sprites/weapons/m4a1_p.png"
+    },
+    "m249": {
+        "name": "M249",
+        "damage": 23,
+        "rate_of_fire": 9,
+        "reload_time": 2,
+        "mag_size": 100,
+        "accuracy": 0.6,
+        "type": "mg",
+        "penetration_ratio": 0.6,
+        "cost": 2700,
+        "recoil_factor": 1.6,
+        "zoom_range": [
+            0.75,
+            0.9
+        ],
+        "potrait": "res://resources/sprites/weapons/m249_p.png"
+    },
+    "mac10": {
+        "name": "Mac10",
+        "damage": 18,
+        "rate_of_fire": 10,
+        "reload_time": 2,
+        "mag_size": 30,
+        "accuracy": 0.6,
+        "type": "pistol",
+        "penetration_ratio": 0.5,
+        "cost": 2700,
+        "recoil_factor": 1.3,
+        "zoom_range": [
+            0.75
+        ],
+        "potrait": "res://resources/sprites/weapons/mac10_p.png"
+    },
+    "mp5": {
+        "name": "MP5",
+        "damage": 23,
+        "rate_of_fire": 9,
+        "reload_time": 2,
+        "mag_size": 30,
+        "accuracy": 0.7,
+        "type": "smg",
+        "penetration_ratio": 0.4,
+        "cost": 2700,
+        "recoil_factor": 0.8,
+        "zoom_range": [
+            0.8
+        ],
+        "potrait": "res://resources/sprites/weapons/mp5_p.png"
+    },
+    "p90": {
+        "name": "P90",
+        "damage": 20,
+        "rate_of_fire": 12,
+        "reload_time": 2,
+        "mag_size": 50,
+        "accuracy": 0.7,
+        "type": "smg",
+        "penetration_ratio": 0.5,
+        "cost": 2700,
+        "recoil_factor": 0.8,
+        "zoom_range": [
+            0.8
+        ],
+        "potrait": "res://resources/sprites/weapons/p90_p.png"
+    },
+    "scout": {
+        "name": "Scout",
+        "damage": 100,
+        "rate_of_fire": 1,
+        "reload_time": 2,
+        "mag_size": 10,
+        "accuracy": 0.9,
+        "type": "rifle",
+        "penetration_ratio": 0.8,
+        "cost": 2700,
+        "recoil_factor": 1.5,
+        "zoom_range": [
+            0.75,
+            1,
+            1.25
+        ],
+        "potrait": "res://resources/sprites/weapons/scout_p.png"
+    },
+    "tmp": {
+        "name": "Tmp",
+        "damage": 13,
+        "rate_of_fire": 10,
+        "reload_time": 2,
+        "mag_size": 30,
+        "accuracy": 0.6,
+        "type": "pistol",
+        "penetration_ratio": 0.4,
+        "cost": 2700,
+        "recoil_factor": 0.6,
+        "zoom_range": [
+            0.75
+        ],
+        "potrait": "res://resources/sprites/weapons/tmp_p.png"
+    },
+    "ump45": {
+        "name": "UMP-45",
+        "damage": 22,
+        "rate_of_fire": 8,
+        "reload_time": 2,
+        "mag_size": 25,
+        "accuracy": 0.8,
+        "type": "smg",
+        "penetration_ratio": 0.5,
+        "cost": 2700,
+        "recoil_factor": 1.2,
+        "zoom_range": [
+            0.75
+        ],
+        "potrait": "res://resources/sprites/weapons/ump45_p.png"
+    },
+    "usp": {
+        "name": "USP",
+        "damage": 18,
+        "rate_of_fire": 3,
+        "reload_time": 2,
+        "mag_size": 12,
+        "accuracy": 0.6,
+        "type": "pistol",
+        "penetration_ratio": 0.4,
+        "cost": 2700,
+        "recoil_factor": 1,
+        "zoom_range": [
+            0.75
+        ],
+        "potrait": "res://resources/sprites/weapons/deagle_p.png"
     }
 }

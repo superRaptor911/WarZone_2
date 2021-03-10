@@ -72,3 +72,13 @@ func scanDir(path : String , mode = 'a') -> Array:
 	else:
 		print("An error occurred when trying to access the path.")
 	return list
+
+
+# Funtion to get a player/unit by name (not by nick)
+func getPlayer(player_name : String):
+	var teams = get_tree().get_nodes_in_group("Teams")
+	for i in teams:
+		var plr = i.players.get(player_name)
+		if plr:
+			return plr.ref
+	return null

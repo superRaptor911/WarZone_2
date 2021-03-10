@@ -13,7 +13,17 @@ var guns = {
 	awp = preload("res://objects/guns/Awp.tscn"),
 	deagle = preload("res://objects/guns/Deagle.tscn"),
 	famas = preload("res://objects/guns/Famas.tscn"),
-	g3 = preload("res://objects/guns/G3.tscn")
+	g3 = preload("res://objects/guns/G3.tscn"),
+	galil = preload("res://objects/guns/Galil.tscn"),
+	m4a1 = preload("res://objects/guns/M4A1.tscn"),
+	m249 = preload("res://objects/guns/M249.tscn"),
+	mac10 = preload("res://objects/guns/Mac10.tscn"),
+	mp5 = preload("res://objects/guns/Mp5.tscn"),
+	p90 = preload("res://objects/guns/P90.tscn"),
+	scout = preload("res://objects/guns/Scout.tscn"),
+	tmp = preload("res://objects/guns/Tmp.tscn"),
+	ump45 = preload("res://objects/guns/Ump45.tscn"),
+	usp = preload("res://objects/guns/Usp.tscn"),
 	}
 
 

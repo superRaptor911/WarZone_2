@@ -28,13 +28,18 @@ func addPlayer(player_ref):
 			score  = 0,
 			kills  = 0,
 			deaths = 0,
-			ping   = 0
+			ping   = 0,
+			ref    = player_ref
 		}
 
 
 func _on_client_disconnected(id : int):
-	if players.has(String(id)):
-		players.erase((id))
+	removePlayer(String(id))
+
+
+func removePlayer(id : String):
+	if players.has(id):
+		players.erase(id)
 		print("Team::Removing Player %d from Team %s" % [id, team_name])
 
 

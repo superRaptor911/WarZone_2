@@ -7,8 +7,9 @@
 [ext_resource path="res://resources/sound/sfx/weapons/famas_clipin.wav" type="AudioStream" id=5]
 
 [node name="Famas" instance=ExtResource( 1 )]
-position = Vector2( 0, -7.34174 )
+position = Vector2( -0.595276, -3.17481 )
 texture = ExtResource( 2 )
+wpn_name = "famas"
 
 [node name="muzzle" parent="." index="0"]
 position = Vector2( -0.595276, -38.2961 )

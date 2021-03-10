@@ -45,9 +45,11 @@ signal gun_fired
 func init(user):
 	user_ref = user
 	user_name = user.name
+	name = wpn_name
 
 
 func _ready():
+	name = wpn_name
 	_loadStats()
 	_connectSignals()
 	timer.wait_time = 1.0 / rate_of_fire
@@ -188,8 +190,6 @@ remotesync func S_fireGun(error_angle : float):
 		cast_to = result.position
 		if result.collider.is_in_group("Destructible"):
 			result.collider.takeDamage(damage, penetration_ratio, user_name, wpn_name)
-		else:
-			print("Error::not destructible")
 	rpc("C_fireGun",cast_to)
 
 

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/guns/gun_base/gun_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/sound/sfx/weapons/p90_clipin.wav" type="AudioStream" id=2]
+[ext_resource path="res://resources/sound/sfx/weapons/p90-1.wav" type="AudioStream" id=3]
+[ext_resource path="res://resources/sound/sfx/weapons/p90_clipout.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/sprites/weapons/p90.bmp" type="Texture" id=5]
+
+[node name="P90" instance=ExtResource( 1 )]
+position = Vector2( 2.06017, -1.87289 )
+texture = ExtResource( 5 )
+wpn_name = "p90"
+
+[node name="muzzle" parent="." index="0"]
+position = Vector2( -1.89516, -28.0073 )
+stream = ExtResource( 3 )
+
+[node name="clip_out" parent="." index="4"]
+stream = ExtResource( 4 )
+attenuation = 0.420448
+
+[node name="clip_in" parent="." index="5"]
+stream = ExtResource( 2 )
+
+[node name="muzzle_flash" parent="." index="6"]
+position = Vector2( -2.14547, -38.2 )

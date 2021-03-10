@@ -21,10 +21,15 @@ var data = {
 	rifle = []
 	}
 
+var current_type : String = ""
+var current_index : int = 0
+
+
 func _ready():
 	_connectSignals()
 	loadData()
 	_on_pistol_pressed()
+	updateCashLabel()
 
 
 func _connectSignals():
@@ -33,7 +38,6 @@ func _connectSignals():
 	smg_btn.connect("pressed", self, "_on_smg_pressed")
 	rifle_btn.connect("pressed", self, "_on_rifle_pressed")
 	mg_btn.connect("pressed", self, "_on_mg_pressed")
-
 	purchase_btn.connect("pressed", self, "_on_purchase_pressed")
 
 
@@ -54,13 +58,35 @@ func _on_mg_pressed():
 
 
 func _on_purchase_pressed():
-	pass
+	var plr = Utility.getPlayer(String(get_tree().get_network_unique_id()))
+	if !plr:
+		print("BuyMenu::Error::Unable to get local player")
+		return
+	var wpn_cost = data.get(current_type)[current_index].cost
+	var wpn_id = data.get(current_type)[current_index].id
+	if plr.cash >= wpn_cost:
+		plr.cash -= wpn_cost
+		updateCashLabel()
+		plr.rpc("A_equipGun", wpn_id)
+		queue_free()
+	else:
+		print("BuyMenu::Failed::Insufficient cash")
+
+
+func updateCashLabel():
+	var plr = Utility.getPlayer(String(get_tree().get_network_unique_id()))
+	if !plr:
+		print("BuyMenu::Error::Unable to get local player")
+		return
+	cash_label.text = "$" + String(plr.cash)
+
 
 
 func loadData():
 	var resource = get_node("/root/Resources")
 	for i in resource.gun_stats:
-		var gun = resource.gun_stats.get(i)
+		var gun = resource.gun_stats.get(i).duplicate()
+		gun["id"] = i
 		if gun.type == "pistol":
 			data.pistol.append(gun)
 		elif gun.type == "smg":
