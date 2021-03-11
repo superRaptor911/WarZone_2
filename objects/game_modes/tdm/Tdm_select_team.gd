@@ -31,4 +31,13 @@ func _on_counter_terrorist_selected():
 
 # NOTE : To do
 func _on_spectate_selected():
-	pass
+	var resource = get_node("/root/Resources")
+	var spectate = resource.spectate.instance()
+	var level = get_tree().get_nodes_in_group("Levels")[0]
+	level.add_child(spectate)
+	spectate.connect("exiting_spectate_mode", self, "_on_spectate_mode_left") 
+	get_node("Panel").hide()
+
+
+func _on_spectate_mode_left():
+	get_node("Panel").show()

@@ -99,6 +99,21 @@ margin_right = -0.320068
 margin_bottom = 0.159973
 custom_fonts/font = ExtResource( 2 )
 text = "Follow Mode"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="exit" type="Button" parent="Control"]
+anchor_left = 0.769
+anchor_top = 0.05
+anchor_right = 0.964
+anchor_bottom = 0.136
+margin_left = -0.238281
+margin_top = 0.00137329
+margin_right = 0.161743
+margin_bottom = 0.0813675
+custom_fonts/font = ExtResource( 2 )
+text = "Leave Spectate"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true

@@ -27,14 +27,15 @@ var guns = {
 	}
 
 
-# Skins
+# Skins, To be filled by GameMode
 var skins = []
 
+# Spectate Scene
+var spectate = preload("res://objects/spectate/Spectate.tscn")
 # Hud
 var hud = preload("res://ui/hud/Hud.tscn")
-
-var scoreboard = null
-
+# Scoreboard
+var scoreboard = preload("res://objects/game_modes/tdm/ScoreBoard.tscn")
 # Stats
 var gun_stats    = {}	# Dictionary for keeping gun stats 
 

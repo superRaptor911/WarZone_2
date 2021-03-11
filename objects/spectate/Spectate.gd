@@ -1,3 +1,4 @@
+# Spectate Mode
 extends CanvasLayer
 
 onready var controller = get_node("Control/Joystick") 
@@ -5,11 +6,14 @@ onready var mode_btn = get_node("Control/Button")
 onready var hp_label = get_node("Control/hp") 
 onready var ap_label = get_node("Control/ap") 
 onready var camera = get_node("Camera2D") 
+onready var exit_btn = get_node("Control/exit") 
 
 var is_free_look = false
 var players = {}
 var cur_player = null
+var speed = 300
 
+signal exiting_spectate_mode
 
 func _ready():
 	_connectSignals()
@@ -19,13 +23,16 @@ func _ready():
 
 func _connectSignals():
 	mode_btn.connect("pressed", self, "_on_mode_btn_pressed") 
+	exit_btn.connect("pressed", self, "_on_exit_btn_pressed") 
 	var level = get_tree().get_nodes_in_group("Levels")[0]
 	var spawn_manager = level.get_node("SpawnManager")
 	spawn_manager.connect("player_created", self, "_on_player_created")
 
 
 func _on_mode_btn_pressed():
-	pass
+	is_free_look = !is_free_look
+	if !is_free_look:
+		findNewTarget()
 
 
 func _getPlayers():
@@ -52,11 +59,11 @@ func _on_player_created(plr_name : String):
 	players[plr_name] = plr
 
 
-func _process(_delta):
+func _process(delta):
 	if cur_player:
 		camera.position = cur_player.position
 	if is_free_look:
-		pass
+		camera.position += -controller.joystick_vector * speed * delta
 
 
 func findNewTarget():
@@ -66,3 +73,9 @@ func findNewTarget():
 			cur_player = plr
 			return
 	cur_player = null
+	is_free_look = true
+
+
+func _on_exit_btn_pressed():
+	emit_signal("exiting_spectate_mode")
+	queue_free()

@@ -8,6 +8,8 @@ var nodes_to_clean = [
 
 
 func cleanUP():
+	print("Cleanup::Waiting for 1 frame")
+	yield(get_tree(), "idle_frame")
 	print("Cleanup::cleanup in progress")
 	get_tree().network_peer = null
 	print("Cleanup::clearing Level")
