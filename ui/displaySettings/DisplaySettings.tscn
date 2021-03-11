@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resources/images/background.jpg" type="Texture" id=1]
+[ext_resource path="res://resources/fonts/arial_Extralarge.tres" type="DynamicFont" id=2]
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ui/displaySettings/DisplaySettings.gd" type="Script" id=4]
+
+[node name="DisplaySettings" type="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.14
+anchor_top = 0.112
+anchor_right = 0.86
+anchor_bottom = 0.888
+margin_left = -0.199997
+margin_top = -0.139999
+margin_right = 0.199951
+margin_bottom = 0.139954
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -174.335
+margin_top = 8.00903
+margin_right = 171.665
+margin_bottom = 63.009
+custom_fonts/font = ExtResource( 2 )
+text = "Display Settings"
+
+[node name="dynamic_cam" type="CheckButton" parent="Panel"]
+anchor_left = 0.197
+anchor_top = 0.236
+anchor_right = 0.75
+anchor_bottom = 0.34
+margin_left = 0.304581
+margin_top = 0.0759888
+margin_right = 0.438538
+margin_bottom = -0.0599976
+custom_fonts/font = ExtResource( 3 )
+text = "Dynamic Camera"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gore" type="CheckButton" parent="Panel"]
+anchor_left = 0.197
+anchor_top = 0.455
+anchor_right = 0.75
+anchor_bottom = 0.559
+margin_left = 0.304581
+margin_top = -0.13266
+margin_right = 0.438538
+margin_bottom = -0.268677
+custom_fonts/font = ExtResource( 3 )
+text = "Enable Blood"
+
+[node name="ok_btn" type="Button" parent="Panel"]
+anchor_left = 0.461
+anchor_top = 0.816
+anchor_right = 0.573
+anchor_bottom = 0.925
+margin_left = -0.0420227
+margin_top = -0.144012
+margin_right = -0.30603
+margin_bottom = -0.0750122
+custom_fonts/font = ExtResource( 3 )
+text = "OK"

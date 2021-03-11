@@ -23,12 +23,13 @@ func _on_master_volume_changed(value):
 
 
 func _on_music_volume_changed(value):
-	Utility.setVolumeLevel(value, "music")
+	Utility.setVolumeLevel(value, "bg_sound")
 	GlobalData.settings.music_vol = value
 
 
 func _on_sfx_volume_changed(value):
 	Utility.setVolumeLevel(value, "weapons")
+	Utility.setVolumeLevel(value, "messages")
 	GlobalData.settings.sfx_vol = value
 
 

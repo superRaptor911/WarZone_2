@@ -16,7 +16,7 @@ func _on_profile_pressed():
 
 
 func _on_display_pressed():
-	pass # Replace with function body.
+	UImanager.changeMenuTo("display_settings")
 
 
 func _on_sound_pressed():

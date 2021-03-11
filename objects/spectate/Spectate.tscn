@@ -1,0 +1,105 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://resources/images/plus_HP.png" type="Texture" id=1]
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=2]
+[ext_resource path="res://resources/images/sheild_AP.png" type="Texture" id=3]
+[ext_resource path="res://objects/controller/Joystick.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/spectate/Spectate.gd" type="Script" id=5]
+
+[node name="Spectate" type="CanvasLayer"]
+script = ExtResource( 5 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Joystick" parent="Control" instance=ExtResource( 4 )]
+anchor_left = 0.778
+anchor_top = 0.716
+anchor_right = 0.878
+anchor_bottom = 0.893
+margin_left = -0.0495605
+margin_top = -0.271851
+margin_right = -0.0495605
+margin_bottom = 0.288147
+
+[node name="ap" type="Label" parent="Control"]
+anchor_left = 0.235
+anchor_top = 0.892
+anchor_right = 0.286
+anchor_bottom = 0.955
+margin_left = -0.444672
+margin_top = 0.323486
+margin_right = 0.27533
+margin_bottom = -0.0365601
+custom_fonts/font = ExtResource( 2 )
+text = "100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control/ap"]
+anchor_left = -1.524
+anchor_top = -0.439
+anchor_right = -0.205
+anchor_bottom = 1.25
+margin_left = 0.0294037
+margin_top = -0.0159645
+margin_right = -0.0245953
+margin_bottom = -0.0209618
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hp" type="Label" parent="Control"]
+anchor_left = 0.095
+anchor_top = 0.892
+anchor_right = 0.147
+anchor_bottom = 0.955
+margin_left = 0.575653
+margin_top = 0.323486
+margin_right = 0.0156555
+margin_bottom = -0.0365601
+custom_fonts/font = ExtResource( 2 )
+text = "100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control/hp"]
+anchor_left = -1.524
+anchor_top = -0.439
+anchor_right = -0.205
+anchor_bottom = 1.25
+margin_left = 0.0294037
+margin_top = -0.0159645
+margin_right = -0.0245953
+margin_bottom = -0.0209618
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Control"]
+anchor_left = 0.416
+anchor_top = 0.711
+anchor_right = 0.594
+anchor_bottom = 0.797
+margin_left = -0.47998
+margin_top = 0.0799866
+margin_right = -0.320068
+margin_bottom = 0.159973
+custom_fonts/font = ExtResource( 2 )
+text = "Follow Mode"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true

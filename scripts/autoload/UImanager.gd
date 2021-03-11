@@ -7,7 +7,8 @@ var menus = {
 	join_game	= "res://ui/joinGame/JoinGame.tscn",
 	settings    = "res://ui/settings/Settings.tscn",
 	profile     = "res://ui/profileMenu/ProfileMenu.tscn",
-	sound_settings = "res://ui/soundSettings/SoundSettings.tscn"
+	sound_settings = "res://ui/soundSettings/SoundSettings.tscn",
+	display_settings = "res://ui/displaySettings/DisplaySettings.tscn"
 }
 
 

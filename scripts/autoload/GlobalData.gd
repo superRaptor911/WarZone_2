@@ -9,13 +9,14 @@ var game_status = {
 	}
 
 var settings = {
-		dynamic_camera = true,
-		static_shadow  = true,
-		gore           = true,
-
-		master_vol = 0,
-		music_vol  = 0,
-		sfx_vol    = 0
+	# Display
+		dynamic_cam = true,
+		gore        = true,
+	
+	# Sound
+		master_vol = 3,
+		music_vol  = 3,
+		sfx_vol    = 3
 	}
 
 
@@ -29,6 +30,7 @@ func _ready():
 	loadGameStatus()
 	loadSettings()
 	loadPlayerInfo()
+	_applySettings()
 
 
 func loadGameStatus():
@@ -70,3 +72,10 @@ func savePlayerInfo():
 func saveSettings():
 	Utility.saveDictionary(path + "settings.json", settings)
 
+
+func _applySettings():
+	# Apply Sound settings
+	Utility.setVolumeLevel(settings.sfx_vol, "weapons")
+	Utility.setVolumeLevel(settings.sfx_vol, "messages")
+	Utility.setVolumeLevel(settings.music_vol, "bg_sound")
+	Utility.setVolumeLevel(settings.master_vol, "Master")

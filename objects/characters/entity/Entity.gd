@@ -12,9 +12,7 @@ signal entity_took_damage(attacker_name)
 signal entity_killed(victim_name, killer_name, weapon_name)
 signal entity_fraged(killer_name, victim_name, weapon_name)
 signal entity_revived()
-
-func _ready():
-	pass # Replace with function body.
+signal entity_destroyed(nam)
 
 
 func takeDamage(damage : float, penetration_ratio : float = 1, attacker : String = "", wpn_name : String = ""):
@@ -65,6 +63,10 @@ func reviveEntity():
 	emit_signal("entity_revived")
 
 
+func _exit_tree():
+	emit_signal("entity_destroyed", name)
+
+
 # ............Networking..........................
 
 remote func C_syncDamage(hp : int, ap : int, attacker : String = ""):
@@ -81,4 +83,3 @@ remote func C_syncDeath(attacker : String = "", wpn_name : String = ""):
 	var attacker_ref = findEntity(attacker)
 	if attacker_ref:
 		emit_signal("entity_fraged", attacker, name, wpn_name)	# frag signal
-
