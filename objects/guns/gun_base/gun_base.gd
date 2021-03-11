@@ -39,6 +39,7 @@ var user_ref = null
 const frames = 4
 
 signal gun_fired
+signal gun_reloaded
 
 
 # Set user for this gun
@@ -52,6 +53,7 @@ func _ready():
 	name = wpn_name
 	_loadStats()
 	_connectSignals()
+	_fillAmmo()
 	timer.wait_time = 1.0 / rate_of_fire
 	reload_timer.wait_time = reload_time
 
@@ -116,6 +118,7 @@ func _reload():
 	bullets -= decrement
 	bullets_in_mag += decrement
 	is_reloading = false
+	emit_signal("gun_reloaded")
 
 
 func simulateGunFire() -> float:
@@ -169,6 +172,11 @@ func resetZoom():
 	cur_zoom_id = 0
 	if user_ref.is_network_master():
 		user_ref.get_node("camera").zoom = Vector2(zoom_range[cur_zoom_id], zoom_range[cur_zoom_id])
+
+
+func _fillAmmo():
+	bullets_in_mag = mag_size
+	bullets = mag_size * 3
 
 # Networking
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/reloadPressed.png-a8a76083fbc1ccc80dde3a20774b9337.stex"
+path="res://.import/blood_scat2.png-cadbe1f21237500b047ea32bca0be3db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/images/reloadPressed.png"
-dest_files=[ "res://.import/reloadPressed.png-a8a76083fbc1ccc80dde3a20774b9337.stex" ]
+source_file="res://resources/sprites/particles/blood_scat2.png"
+dest_files=[ "res://.import/blood_scat2.png-cadbe1f21237500b047ea32bca0be3db.stex" ]
 
 [params]
 

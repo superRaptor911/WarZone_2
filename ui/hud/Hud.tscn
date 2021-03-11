@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/hud/Hud.gd" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://resources/images/sheild_AP.png" type="Texture" id=8]
 [ext_resource path="res://resources/images/plus_HP.png" type="Texture" id=9]
 [ext_resource path="res://resources/images/gun.png" type="Texture" id=10]
+[ext_resource path="res://resources/images/reload.png" type="Texture" id=11]
+[ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=12]
 
 [node name="Hud" type="CanvasLayer" groups=[
 "Hud",
@@ -194,6 +196,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="reload_gun" type="TextureButton" parent="hud"]
+anchor_left = 0.766
+anchor_top = 0.452
+anchor_right = 0.833
+anchor_bottom = 0.567
+margin_left = 0.195496
+margin_top = -0.196838
+margin_right = 0.435425
+margin_bottom = 0.00314331
+texture_normal = ExtResource( 11 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="zoom_btn" type="TextureButton" parent="hud"]
 anchor_left = 0.925
 anchor_top = 0.124
@@ -209,6 +227,30 @@ stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="reloading_bar" type="ProgressBar" parent="hud"]
+visible = false
+anchor_left = 0.384
+anchor_top = 0.758
+anchor_right = 0.602
+anchor_bottom = 0.803
+margin_left = 0.47998
+margin_top = 0.23999
+margin_right = -0.560059
+margin_bottom = -0.160034
+custom_fonts/font = ExtResource( 12 )
+
+[node name="Label" type="Label" parent="hud/reloading_bar"]
+anchor_left = 0.238
+anchor_top = -1.377
+anchor_right = 0.752
+anchor_bottom = -0.439
+margin_left = 0.00115967
+margin_top = 0.0143204
+margin_right = 0.109146
+margin_bottom = -0.00168228
+custom_fonts/font = ExtResource( 12 )
+text = "Reloading ..."
 
 [node name="mov_joy" parent="." instance=ExtResource( 4 )]
 modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
@@ -231,3 +273,5 @@ margin_left = -0.310913
 margin_top = 0.161957
 margin_right = 0.00915527
 margin_bottom = 0.0419312
+
+[node name="Tween" type="Tween" parent="."]

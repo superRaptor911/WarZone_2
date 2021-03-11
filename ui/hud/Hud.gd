@@ -8,10 +8,13 @@ onready var hp_label : Label          = get_node("hud/hp")
 onready var ammo_label : Label        = get_node("hud/ammo")
 onready var pause_btn : TextureButton = get_node("hud/pause_button")
 onready var buy_btn : TextureButton = get_node("hud/buy_btn")
-onready var mov_joy = get_node("mov_joy")
-onready var aim_joy = get_node("aim_joy")
-onready var zoom_btn = get_node("hud/zoom_btn") 
-onready var next_gun_btn = get_node("hud/next_gun") 
+onready var mov_joy                 = get_node("mov_joy")
+onready var aim_joy                 = get_node("aim_joy")
+onready var zoom_btn                = get_node("hud/zoom_btn")
+onready var next_gun_btn            = get_node("hud/next_gun")
+onready var reload_gun_btn          = get_node("hud/reload_gun")
+onready var reload_progress_bar = get_node("hud/reloading_bar") 
+onready var tween = get_node("Tween") 
 
 
 func _ready():
@@ -24,6 +27,7 @@ func _connectSignals():
 	buy_btn.connect("pressed", self ,"_on_buy_pressed")
 	zoom_btn.connect("pressed", self, "_on_zoom_pressed") 
 	next_gun_btn.connect("pressed", self, "_on_next_gun_pressed") 
+	reload_gun_btn.connect("pressed", self, "_on_reload_pressed") 
 	player.connect("gun_switched", self, "_on_gun_switched")
 	player.connect("entity_took_damage", self, "_on_hp_changed")
 	# aim_joy.connect("Joystick_Updated", self, "_on_aim_joy_updated")
@@ -38,13 +42,15 @@ func _on_pause_pressed():
 
 
 func _on_gun_switched():
-	if !player.cur_gun.is_connected("gun_fired", self, "_on_gun_gired"):
-		player.cur_gun.connect("gun_fired", self, "_on_gun_gired")
+	if !player.cur_gun.is_connected("gun_fired", self, "_on_gun_fired"):
+		player.cur_gun.connect("gun_fired", self, "_on_gun_fired")
+	if !player.cur_gun.is_connected("gun_reloaded", self, "_on_gun_reloaded"):
+		player.cur_gun.connect("gun_reloaded", self, "_on_gun_reloaded")
 	fillAmmoInfo(player.cur_gun)
 	player.cur_gun.resetZoom()
 
 
-func _on_gun_gired():
+func _on_gun_fired():
 	fillAmmoInfo(player.cur_gun)
 
 
@@ -64,6 +70,18 @@ func _on_zoom_pressed():
 
 func _on_next_gun_pressed():
 	player.switchGun()
+
+
+func _on_reload_pressed():
+	player.cur_gun.reload()
+	reload_progress_bar.show()
+	tween.interpolate_property(reload_progress_bar, "value", 0, 100, player.cur_gun.reload_time)
+	tween.start()
+
+
+func _on_gun_reloaded():
+	fillAmmoInfo(player.cur_gun)
+	reload_progress_bar.hide()
 
 
 func _process(_delta):

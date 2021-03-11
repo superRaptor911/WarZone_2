@@ -60,7 +60,7 @@ func _on_player_created(plr_name : String):
 
 
 func _process(delta):
-	if cur_player:
+	if cur_player && !is_free_look:
 		camera.position = cur_player.position
 	if is_free_look:
 		camera.position += -controller.joystick_vector * speed * delta
@@ -79,3 +79,7 @@ func findNewTarget():
 func _on_exit_btn_pressed():
 	emit_signal("exiting_spectate_mode")
 	queue_free()
+
+
+func hideExitButton():
+	exit_btn.hide()

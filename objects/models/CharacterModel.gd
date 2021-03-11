@@ -6,6 +6,7 @@ onready var skin : Sprite                  = get_node("skin")
 onready var anim_player : AnimationPlayer  = get_node("AnimationPlayer")
 onready var walk_sfx : AudioStreamPlayer2D = get_node("walk")
 onready var die_sfx : AudioStreamPlayer2D  = get_node("die")
+onready var blood_spr : Sprite             = get_node("blood") 
 
 
 
@@ -62,9 +63,13 @@ func _process(_delta):
 func dieAnim():
 	die_sfx.play()
 	skin.hide()
+	# Show Blood if gore enabled
+	if GlobalData.settings.gore:
+		blood_spr.show()
 	self.call_deferred("set", "disabled" , true)
 	
 
 func reviveAnim():
 	skin.show()
+	blood_spr.hide()
 	self.call_deferred("set", "disabled" , false)

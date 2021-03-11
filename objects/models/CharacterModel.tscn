@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://objects/models/CharacterModel.gd" type="Script" id=1]
 [ext_resource path="res://resources/sprites/characters/ct1.bmp" type="Texture" id=2]
 [ext_resource path="res://resources/sprites/characters/foot/legs.png" type="Texture" id=3]
+[ext_resource path="res://resources/sprites/particles/blood_scat1.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 30.9337
@@ -182,3 +183,9 @@ z_index = 1
 [node name="walk" type="AudioStreamPlayer2D" parent="."]
 
 [node name="die" type="AudioStreamPlayer2D" parent="."]
+
+[node name="blood" type="Sprite" parent="."]
+visible = false
+position = Vector2( 13.1769, -7.71428 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
