@@ -88,4 +88,11 @@ func _on_disconnected():
 	emit_signal("disconnected")
 
 
+func kickPlayer(id):
+	if get_tree().is_network_server():
+		rpc_id(id, "C_kickFromServer")
 
+# ...............Networking.........................
+
+remote func C_kickFromServer():
+	get_tree().network_peer = null

@@ -1,3 +1,4 @@
+# Script to create/spawn/re-spawn players
 extends Node
 
 onready var level_node = get_tree().get_nodes_in_group("Levels")[0] 
@@ -41,6 +42,7 @@ func createPlayer(id : int, team_id : int, extra_data = null):
 		else:
 			player.equipGun(extra_data.gun1)
 			player.equipGun(extra_data.gun2)
+	# Give default gun
 	else:
 		player.equipGun("glock18")
 

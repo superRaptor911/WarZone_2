@@ -11,7 +11,11 @@ var game_status = {
 var settings = {
 		dynamic_camera = true,
 		static_shadow  = true,
-		gore           = true
+		gore           = true,
+
+		master_vol = 0,
+		music_vol  = 0,
+		sfx_vol    = 0
 	}
 
 
@@ -61,4 +65,8 @@ func loadPlayerInfo():
 
 func savePlayerInfo():
 	Utility.saveDictionary(path + "player_info.json", player_info)
+
+
+func saveSettings():
+	Utility.saveDictionary(path + "settings.json", settings)
 

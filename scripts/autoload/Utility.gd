@@ -82,3 +82,19 @@ func getPlayer(player_name : String):
 		if plr:
 			return plr.ref
 	return null
+
+
+# Function to set volume level (Linearly 0-3)
+func setVolumeLevel(level : int, bus = "Master"):
+	# Clamp level between [0 ,3]
+	if level > 3:
+		level = 3
+	if level < 0:
+		level = 0
+	# Mute if level is 0
+	if level == 0:
+		AudioServer.set_bus_mute(AudioServer.get_bus_index(bus), true)
+	else:
+		var db = (level - 3) * 6
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index(bus), db)
+
