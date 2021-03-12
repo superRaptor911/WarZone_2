@@ -20,10 +20,10 @@ __meta__ = {
 }
 
 [node name="name" type="Label" parent="."]
-anchor_right = 0.212
-anchor_bottom = 0.176
-margin_right = -0.360016
-margin_bottom = -0.0880013
+anchor_right = 0.358
+anchor_bottom = 0.933
+margin_right = 0.475983
+margin_bottom = 0.00999832
 custom_fonts/font = SubResource( 1 )
 text = "Aditya"
 __meta__ = {
@@ -31,12 +31,13 @@ __meta__ = {
 }
 
 [node name="score" type="Label" parent="."]
-anchor_left = 0.259
-anchor_right = 0.424
-anchor_bottom = 0.176
-margin_left = -0.206787
-margin_right = 0.593201
-margin_bottom = -0.0880013
+anchor_left = 0.365
+anchor_right = 0.494
+anchor_bottom = 0.891
+margin_left = 0.382843
+margin_top = -1.25992
+margin_right = 0.520813
+margin_bottom = 0.0100803
 custom_fonts/font = SubResource( 1 )
 text = "100"
 align = 1
@@ -48,9 +49,9 @@ __meta__ = {
 anchor_left = 0.523
 anchor_right = 0.689
 anchor_bottom = 0.176
-margin_left = -0.0863647
-margin_right = -0.566406
-margin_bottom = -0.0880013
+margin_left = 40.5002
+margin_right = 40.0201
+margin_bottom = 22.72
 custom_fonts/font = SubResource( 1 )
 text = "100"
 align = 1
@@ -62,9 +63,9 @@ __meta__ = {
 anchor_left = 0.75
 anchor_right = 0.916
 anchor_bottom = 0.176
-margin_left = 0.303772
-margin_right = -0.17627
-margin_bottom = -0.0880013
+margin_left = 19.3311
+margin_right = 18.8511
+margin_bottom = 22.72
 custom_fonts/font = SubResource( 1 )
 text = "100"
 align = 1

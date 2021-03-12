@@ -1,0 +1,107 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/fonts/arial_Extralarge.tres" type="DynamicFont" id=2]
+[ext_resource path="res://objects/game_modes/tdm/scorepanel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/game_modes/tdm/GameOver.gd" type="Script" id=4]
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.205
+anchor_top = 0.24
+anchor_right = 0.795
+anchor_bottom = 0.76
+margin_left = 0.599976
+margin_top = 0.199997
+margin_right = -0.600037
+margin_bottom = -0.200012
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_left = 0.335
+anchor_right = 0.664
+anchor_bottom = 0.182
+margin_left = 0.0299225
+margin_top = 12.9346
+margin_right = -0.0361023
+margin_bottom = -0.133369
+custom_fonts/font = ExtResource( 2 )
+text = "Game Over"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Panel"]
+anchor_left = 0.423
+anchor_top = 0.245
+anchor_right = 0.579
+anchor_bottom = 0.341
+margin_left = -0.21759
+margin_top = -0.165161
+margin_right = 0.158386
+margin_bottom = -0.0691605
+custom_fonts/font = ExtResource( 1 )
+text = "Winners"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+margin_left = 158.0
+margin_top = 165.0
+margin_right = 616.0
+margin_bottom = 279.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" parent="Panel/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 458.0
+margin_bottom = 30.0
+
+[node name="2" parent="Panel/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 50.0
+margin_right = 458.0
+margin_bottom = 80.0
+
+[node name="3" parent="Panel/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 100.0
+margin_right = 458.0
+margin_bottom = 130.0
+
+[node name="Panel2" type="Panel" parent="."]
+anchor_left = 0.328
+anchor_top = 0.81
+anchor_right = 0.644
+anchor_bottom = 0.921
+margin_left = 0.365173
+margin_top = 0.859375
+margin_right = -0.114868
+margin_bottom = 0.939392
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time_left" type="Label" parent="Panel2"]
+anchor_left = 0.181
+anchor_top = 0.275
+anchor_right = 0.819
+anchor_bottom = 0.725
+margin_left = -0.124001
+margin_right = 0.123962
+custom_fonts/font = ExtResource( 1 )
+text = "New Game in ... 5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

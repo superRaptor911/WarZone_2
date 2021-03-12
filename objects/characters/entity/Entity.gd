@@ -9,8 +9,8 @@ var team_id : int		= -1
 var nick : String       = "Entity"
 
 signal entity_took_damage(attacker_name)
-signal entity_killed(victim_name, killer_name, weapon_name)
-signal entity_fraged(killer_name, victim_name, weapon_name)
+signal entity_killed(self_name, killer_name, weapon_name)
+signal entity_fraged(self_name, victim_name, weapon_name)
 signal entity_revived()
 signal entity_destroyed(nam)
 
@@ -31,7 +31,7 @@ func takeDamage(damage : float, penetration_ratio : float = 1, attacker : String
 			emit_signal('entity_killed',name, attacker, wpn_name)	# killed signal
 			var attacker_ref = findEntity(attacker)
 			if attacker_ref:
-				emit_signal("entity_fraged", attacker, name, wpn_name)	# frag signal
+				attacker_ref.emit_signal("entity_fraged", attacker, name, wpn_name)	# frag signal
 			if get_tree().is_network_server():
 				rpc("C_syncDeath", attacker, wpn_name)
 

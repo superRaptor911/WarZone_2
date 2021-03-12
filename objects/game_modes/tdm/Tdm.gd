@@ -2,11 +2,28 @@ extends Node
 
 onready var level = get_tree().get_nodes_in_group("Levels")[0]
 
+var limiter_script = null
+
+var mode_settings = {
+		time_limit = 5,
+		frag_limit = 50,
+
+		spawn_delay = 5,
+	}
 
 func _ready():
 	createTeams()
 	loadTeamSelector()
+	loadServerScripts()
 	level.connect("resources_loaded", self, "_on_resource_file_loaded")
+
+
+func loadServerScripts():
+	if get_tree().is_network_server():
+		limiter_script = load("res://objects/game_modes/tdm/Limiter.gd").new()
+		add_child(limiter_script)
+
+
 
 
 func createTeams():
@@ -34,7 +51,7 @@ func loadTeamSelector():
 
 func _on_resource_file_loaded():
 	loadSkins()
-	loadScoreboard()
+	# loadScoreboard()
 
 
 func loadSkins():
