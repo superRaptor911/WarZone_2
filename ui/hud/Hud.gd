@@ -31,7 +31,6 @@ func _connectSignals():
 	reload_gun_btn.connect("pressed", self, "_on_reload_pressed") 
 	player.connect("gun_switched", self, "_on_gun_switched")
 	player.connect("entity_took_damage", self, "_on_hp_changed")
-	# aim_joy.connect("Joystick_Updated", self, "_on_aim_joy_updated")
 
 
 func _on_buy_pressed():
@@ -60,7 +59,7 @@ func fillAmmoInfo(wpn):
 	ammo_label.text = format % [wpn.bullets_in_mag, wpn.bullets]
 
 
-func _on_hp_changed(_attacker = null):
+func _on_hp_changed():
 	hp_label.text = String(player.health)
 
 

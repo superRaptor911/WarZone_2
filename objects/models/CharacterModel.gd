@@ -9,12 +9,8 @@ onready var die_sfx : AudioStreamPlayer2D  = get_node("die")
 onready var blood_spr : Sprite             = get_node("blood") 
 
 
-
 func _ready():
-	if entity && !entity.is_in_group('Entities'):
-		entity = null
-	if entity:
-		_connectSignals()
+	_connectSignals()
 
 
 func _connectSignals():
@@ -23,13 +19,12 @@ func _connectSignals():
 	entity.connect("entity_revived", self, "_on_revived")
 
 
-
-func _on_damaged(_attacker):
+func _on_damaged():
 	if GlobalData.settings.gore:
 		pass
 
 
-func _on_killed(_victim_name, _killer):
+func _on_killed():
 	dieAnim()
 	if GlobalData.settings.gore:
 		pass

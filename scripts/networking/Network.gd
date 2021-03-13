@@ -32,12 +32,14 @@ func createServer():
 	if peer.create_server(Port, Max_Players) != OK:
 		print("Network::Failed to create server")
 		emit_signal("server_creation_failed")
+		Signals.emit_signal("server_not_created")
 		return
 	get_tree().network_peer = peer
 	player_register[1] = GlobalData.player_info
 	var server_advertiser = load("res://scripts/networking/ServerAdvertiser.gd").new()
 	add_child(server_advertiser)
 	emit_signal("server_creation_success")
+	Signals.emit_signal("server_created")
 
 
 func stopServer():
@@ -66,26 +68,31 @@ func _connectSignals():
 func _on_peer_disconnected(id):
 	print("Network::Client disconnected id=%d" % [id])
 	emit_signal("client_disconnected", id)
+	Signals.emit_signal("player_disconnected", id)
 
 
 func _on_peer_connected(id):
 	print("Network::Client Connected id=%d" % [id])
 	emit_signal("client_connected", id)
+	Signals.emit_signal("player_connected", id)
 
 
 func _on_connected_to_server():
 	print("Network::Connected to server")
 	emit_signal("connection_success")
+	Signals.emit_signal("connected_to_server")
 
 
 func _on_connection_failed():
 	print("Network::Connection to server failed")
 	emit_signal("connection_failed")
+	Signals.emit_signal("disconnected_from_server")
 
 
 func _on_disconnected():
 	print("Network::Disconnected from server")
 	emit_signal("disconnected")
+	Signals.emit_signal("disconnected_from_server")
 
 
 func kickPlayer(id):

@@ -15,7 +15,7 @@ func _ready():
 	createTeams()
 	loadTeamSelector()
 	loadServerScripts()
-	level.connect("resources_loaded", self, "_on_resource_file_loaded")
+	Signals.connect("resources_loaded", self, "_on_resource_file_loaded")
 
 
 func loadServerScripts():

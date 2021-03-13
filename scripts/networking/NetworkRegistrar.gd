@@ -4,9 +4,6 @@ onready var network = get_parent()
 
 func _ready():
 	name = "NetworkRegistrar"
-	if network && !network.is_in_group("Network"):
-		print("NetworkRegistrar::Error::parent not Network")
-		network = null
 	_connectSignals()	
 
 

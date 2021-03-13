@@ -3,16 +3,13 @@ extends Node
 
 var settings = {}
 
-signal level_loaded
-
 func _ready():
 	name = "LevelManager"
 	_connectSignals()
 
 func _connectSignals():
-	var network = get_tree().root.get_node("NetworkManager")
-	network.connect("disconnected", self, "_on_disconnected_from_server")
-	connect("level_loaded", self, "_on_level_loaded")
+	Signals.connect("disconnected_from_server", self, "_on_disconnected_from_server")
+	Signals.connect("level_loaded", self, "_on_level_loaded")
 
 
 # Load Level
@@ -24,7 +21,7 @@ func loadLevel():
 	if level_scene_path:
 		var level = load(level_scene_path).instance()
 		get_tree().root.add_child(level)
-		emit_signal("level_loaded")
+		Signals.emit_signal("level_loaded")
 
 
 # only for clients
@@ -51,10 +48,11 @@ func _on_disconnected_from_server():
 	get_tree().root.add_child(cleanup_script)
 	cleanup_script.cleanUP()
 
+
 # Update serverAdvertiser
 func _on_level_loaded():
 	if get_tree().is_network_server():
-		var server_advertiser = get_tree().root.get_node("NetworkManager/ServerAdvertiser")
+		var server_advertiser = get_node("/root/NetworkManager/ServerAdvertiser")
 		server_advertiser.serverInfo.map = settings.level.name
 		server_advertiser.serverInfo.game_mode = settings.level.mode
 

@@ -10,18 +10,12 @@ signal scoreboard_updated
 
 func _ready():
 	add_to_group("Teams")
-	_connectSignals()
-
-
-func _connectSignals():
-	var network = get_tree().root.get_node("NetworkManager")
-	network.connect("client_disconnected", self, "_on_client_disconnected")
+	Signals.connect("player_disconnected", self, "_on_player_disconnected")
+	Signals.connect("entity_killed", self, "on_player_killed") 
 
 
 func addPlayer(player_ref):
 	player_ref.team_id = team_id
-	player_ref.connect("entity_killed", self,"on_player_killed")
-	player_ref.connect("entity_fraged", self,"on_player_fraged")
 	players[player_ref.name] = {
 			name   = player_ref.name,
 			nick   = player_ref.nick,
@@ -33,7 +27,7 @@ func addPlayer(player_ref):
 		}
 
 
-func _on_client_disconnected(id : int):
+func _on_player_disconnected(id : int):
 	removePlayer(String(id))
 
 
@@ -44,25 +38,21 @@ func removePlayer(id : String):
 		emit_signal("scoreboard_updated")
 
 
-func on_player_killed(victim_name, _killer_name, _weapon_name):
-	var player = findPlayer(victim_name)
+func on_player_killed(victim_name, killer_name, _weapon_name):
+	var victim = findPlayer(victim_name)
+	var killer = findPlayer(killer_name)
 	# Error check
-	if !player:
-		print("Team::Fatal_Error unable to find player " + victim_name )
-		return
-	# Increment Death count
-	player.deaths += 1
-	emit_signal("scoreboard_updated")
-
-
-func on_player_fraged(killer_name, _victim_name,_weapon_name):
-	var player = findPlayer(killer_name)
+	if victim:
+		# Increment Death count
+		victim.deaths += 1
+	else:
+		print("Team::Fatal_Error unable to find victim " + victim_name)
 	# Error check
-	if !player:
-		print("Team::Fatal_Error unable to find player " + killer_name)
-		return
-	# Increment Death count
-	player.kills += 1
+	if killer:
+		# Increment Death count
+		killer.kills += 1
+	else:
+		print("Team::Fatal_Error unable to find killer " + killer_name)
 	emit_signal("scoreboard_updated")
 
 
@@ -72,7 +62,7 @@ func findPlayer(player_name):
 	var player = players.get(player_name)
 	if player:
 		return player
-	print("player::Failed to find player " + player_name)
+	# print("player::Failed to find player " + player_name)
 	return null
 
 

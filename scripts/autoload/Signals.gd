@@ -1,27 +1,38 @@
 extends Node
 
-# warning-ignore:unused_signal
+# ...........Server.............
+# When server is created
 signal server_created
-# warning-ignore:unused_signal
-signal server_destroyed
-# warning-ignore:unused_signal
+# When failed to create server
+signal server_not_created
+# When connected to server
 signal connected_to_server
-# warning-ignore:unused_signal
-signal disconnect_from_server
+# When disconnected from server
+signal disconnected_from_server
 
-# warning-ignore:unused_signal
+# ...........scripts/res.............
+# When level is loaded
 signal level_loaded
-# warning-ignore:unused_signal
+# When resource file is loaded
 signal resources_loaded
+# When spawnmanger is loaded
+signal spawnmanger_loaded
+# When sync script is loaded
+signal syncscript_loaded
 
-# warning-ignore:unused_signal
+# ...........Player signals.............
+# When player joins the server
 signal player_connected(id)
-# warning-ignore:unused_signal
+# When player leaves the server
 signal player_disconnected(id)
+# When player is created
+signal player_created(name)
 
-# warning-ignore:unused_signal
-signal player_created(plr_name)
-# warning-ignore:unused_signal
-signal player_destroyed(plr_name)
-
-
+# When player is created
+signal entity_created(name)
+# When entity is destroyed
+signal entity_destroyed(name)
+# When entity is killed
+signal entity_killed(victim_name, killer_name, wpn_name)
+# When entity is revived
+signal entity_revived(name)

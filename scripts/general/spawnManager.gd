@@ -2,16 +2,10 @@
 extends Node
 
 onready var level_node = get_tree().get_nodes_in_group("Levels")[0] 
-signal player_created(nam)
 
 func _ready():
 	name = "SpawnManager"
-	_connectSignals()
-
-
-func _connectSignals():
-	var network = get_tree().root.get_node("NetworkManager")
-	network.connect("client_disconnected", self, "_on_player_disconnected")
+	Signals.connect("player_disconnected", self, "_on_player_disconnected")
 
 
 func spawnOurPlayer(team_id : int):
@@ -46,7 +40,7 @@ func createPlayer(id : int, team_id : int, extra_data = null):
 	# Give default gun
 	else:
 		player.equipGun("glock18")
-	emit_signal("player_created", String(id))
+	Signals.emit_signal("player_created", String(id))
 
 
 func getSpawnPosition(team_id : int):
