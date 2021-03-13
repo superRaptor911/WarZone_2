@@ -18,6 +18,7 @@ onready var tween = get_node("Tween")
 
 
 func _ready():
+	name = "Hud"
 	_connectSignals()
 	_on_hp_changed()
 
