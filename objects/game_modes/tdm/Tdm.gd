@@ -2,6 +2,8 @@ extends Node
 
 onready var level = get_tree().get_nodes_in_group("Levels")[0]
 
+# When gamemode restarts
+signal gamemode_restart
 # var limiter_script = null
 
 var mode_settings = {
@@ -28,7 +30,6 @@ func loadServerScripts():
 		add_child(tdm_logic)
 		limiter_script.connect("timelimit_over", self, "_on_game_over") 
 		limiter_script.connect("scorelimit_over", self, "_on_game_over") 
-
 
 
 func createTeams():
@@ -92,10 +93,13 @@ func loadGameOverMenu():
 		game_over.connect("restart_gamemode", self, "restartGameMode")
 
 
+func restartGameMode():
+	emit_signal("gamemode_restart")
+
+
 # ............................Networking .............................................
 
 remotesync func C_onGameOver():
 	loadGameOverMenu()
-
 
 

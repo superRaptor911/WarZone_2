@@ -22,5 +22,28 @@ script = ExtResource( 2 )
 position = Vector2( 1215.71, 468.162 )
 spawn_radius = 75.0
 
+[node name="Spawnpoint2" parent="spawn_points" instance=ExtResource( 4 )]
+position = Vector2( 1552.07, 474.889 )
+spawn_radius = 75.0
+
+[node name="Spawnpoint3" parent="spawn_points" instance=ExtResource( 4 )]
+position = Vector2( 1558.8, 733.885 )
+spawn_radius = 75.0
+
+[node name="Spawnpoint4" parent="spawn_points" instance=ExtResource( 4 )]
+position = Vector2( 250.36, 252.892 )
+team_id = 1
+spawn_radius = 75.0
+
+[node name="Spawnpoint5" parent="spawn_points" instance=ExtResource( 4 )]
+position = Vector2( 248.679, 471.526 )
+team_id = 1
+spawn_radius = 75.0
+
+[node name="Spawnpoint6" parent="spawn_points" instance=ExtResource( 4 )]
+position = Vector2( 518.61, 424.473 )
+team_id = 1
+spawn_radius = 75.0
+
 [node name="TestBody" parent="." instance=ExtResource( 5 )]
 position = Vector2( 658.824, 201.989 )

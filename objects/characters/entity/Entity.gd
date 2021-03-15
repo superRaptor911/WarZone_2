@@ -10,8 +10,10 @@ var nick : String       = "Entity"
 
 signal entity_took_damage
 signal entity_killed
+# warning-ignore:unused_signal
 signal entity_fraged
 signal entity_revived
+# warning-ignore:unused_signal
 signal entity_destroyed
 
 func _ready():
@@ -92,3 +94,4 @@ remote func C_syncDeath(attacker : String = "", wpn_name : String = ""):
 	var attacker_ref = findEntity(attacker)
 	if attacker_ref:
 		attacker_ref.emit_signal("entity_fraged")	# frag signal
+

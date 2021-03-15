@@ -56,6 +56,16 @@ func getSpawnPosition(team_id : int):
 	return our_spawn_points[randi() % our_spawn_points.size()].position
 
 
+func reviveEntity(plr_name : String):
+	if get_tree().is_network_server():
+		rpc("A_reviveEntity", plr_name)
+
+
+func reviveAllEntity():
+	if get_tree().is_network_server():
+		rpc("A_reviveAllEntity")
+
+
 func findTeam(team_id):
 	var teams = get_tree().get_nodes_in_group("Teams")
 	for i in teams:
@@ -82,3 +92,15 @@ remotesync func C_createPlayer(peer_id : int, team_id : int):
 	createPlayer(peer_id, team_id)
 
 
+remotesync func A_reviveEntity(plr_name : String):
+	if !level_node.has_node(plr_name):
+		print("SpawnManager::Error::Unable to revive. Player %s does not exists" % [name])
+		return
+	var ref = level_node.get_node(plr_name)
+	ref.reviveEntity()
+
+
+remotesync func A_reviveAllEntity():
+	var players = get_tree().get_nodes_in_group("Entities")
+	for i in players:
+		i.reviveEntity()

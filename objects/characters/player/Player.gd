@@ -8,6 +8,6 @@ func _ready():
 		var resource = get_tree().root.get_node("Resources")
 		var hud = resource.hud.instance()
 		add_child(hud)
-		# connect("entity_killed", hud, "hide")
-		# connect("entity_revived", hud, "show")
+		connect("entity_killed", hud, "hide")
+		connect("entity_revived", hud, "show")
 
