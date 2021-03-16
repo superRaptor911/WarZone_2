@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/hud/Hud.gd" type="Script" id=2]
@@ -12,6 +12,9 @@
 [ext_resource path="res://resources/images/gun.png" type="Texture" id=10]
 [ext_resource path="res://resources/images/reload.png" type="Texture" id=11]
 [ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=12]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 140, 140 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 125, 120 )
@@ -186,21 +189,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="next_gun" type="TextureButton" parent="hud"]
-anchor_left = 0.68
-anchor_top = 0.522
-anchor_right = 0.743
-anchor_bottom = 0.632
-margin_left = 0.142334
-margin_top = 0.190735
-margin_right = -0.497742
-margin_bottom = -0.00930786
-texture_normal = ExtResource( 10 )
-expand = true
-stretch_mode = 5
+[node name="next_gun" type="Control" parent="hud"]
+anchor_left = 0.662
+anchor_top = 0.499
+anchor_right = 0.73
+anchor_bottom = 0.629
+margin_left = 0.639893
+margin_top = -0.279999
+margin_right = -0.400024
+margin_bottom = 0.119995
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="touch" type="TouchScreenButton" parent="hud/next_gun"]
+scale = Vector2( 0.35, 0.35 )
+normal = ExtResource( 10 )
+shape = SubResource( 3 )
 
 [node name="reload_gun" type="Control" parent="hud"]
 anchor_left = 0.766

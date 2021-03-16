@@ -9,6 +9,7 @@ func _ready():
 	profile_btn.connect("pressed", self, "_on_profile_pressed")
 	display_btn.connect("pressed", self, "_on_display_pressed")
 	sound_btn.connect("pressed", self, "_on_sound_pressed") 
+	UImanager.connect("back_pressed", self, "_on_back_pressed") 
 
 
 func _on_profile_pressed():
@@ -21,3 +22,7 @@ func _on_display_pressed():
 
 func _on_sound_pressed():
 	UImanager.changeMenuTo("sound_settings")
+
+
+func _on_back_pressed():
+	UImanager.changeMenuTo("main_menu")

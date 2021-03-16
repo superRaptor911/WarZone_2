@@ -14,6 +14,7 @@ func _connectSignals():
 	quit_game_btn.connect("pressed", self, "_on_quit_game_pressed")
 	back_btn.connect("pressed", self, "_on_back_button_pressed")
 	scoreboard.connect("pressed", self, "_on_scoreboard_pressed")
+	UImanager.connect("back_pressed", self, "queue_free") 
 	
 
 

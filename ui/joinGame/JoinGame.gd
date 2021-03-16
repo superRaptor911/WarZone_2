@@ -11,6 +11,7 @@ func _ready():
 	var server_listener = load("res://scripts/networking/ServerListener.gd").new()
 	add_child(server_listener)
 	server_listener.connect("new_server", self, "_on_server_found")
+	UImanager.connect("back_pressed", self, "_on_back_pressed") 
 
 
 func _on_connect_pressed():
@@ -38,3 +39,7 @@ func _on_connection_success():
 
 func _on_server_found(serverInfo : Dictionary):
 	ip_address.text = serverInfo.ip
+
+
+func _on_back_pressed():
+	UImanager.changeMenuTo("main_menu")

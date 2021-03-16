@@ -39,6 +39,7 @@ func _connectSignals():
 	rifle_btn.connect("pressed", self, "_on_rifle_pressed")
 	mg_btn.connect("pressed", self, "_on_mg_pressed")
 	purchase_btn.connect("pressed", self, "_on_purchase_pressed")
+	UImanager.connect("back_pressed", self, "_on_back_button_pressed") 
 
 
 func _on_pistol_pressed():

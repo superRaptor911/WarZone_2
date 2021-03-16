@@ -16,6 +16,7 @@ func _ready():
 func _connectSignals():
 	start_game.connect("pressed", self, "_on_start_pressed")
 	level_options.connect("item_selected", self, "_on_level_selected")
+	UImanager.connect("back_pressed", self, "_on_back_pressed") 
 
 
 func _on_start_pressed():
@@ -76,3 +77,6 @@ func _on_level_selected(id):
 	for i in modes:
 		mode_options.add_item(i)
 
+
+func _on_back_pressed():
+	UImanager.changeMenuTo("main_menu")

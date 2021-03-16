@@ -12,6 +12,7 @@ func _ready():
 
 func _connectSignals():
 	ok_btn.connect("pressed", self, "_on_ok_pressed")
+	UImanager.connect("back_pressed", self, "_on_back_pressed") 
 
 
 func _on_ok_pressed():
@@ -28,3 +29,7 @@ func fillData():
 func saveProfile():
 	GlobalData.player_info.nick = profile_name_edit.text
 	GlobalData.savePlayerInfo()
+
+
+func _on_back_pressed():
+	UImanager.changeMenuTo("settings")

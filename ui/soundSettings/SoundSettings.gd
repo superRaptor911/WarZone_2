@@ -15,6 +15,7 @@ func _connectSignals():
 	music_volume.connect("value_changed", self, "_on_music_volume_changed") 
 	sfx_volume.connect("value_changed", self, "_on_sfx_volume_changed") 
 	ok_btn.connect("pressed", self, "_on_ok_pressed") 
+	UImanager.connect("back_pressed", self, "_on_back_pressed") 
 
 
 func _on_master_volume_changed(value):
@@ -42,3 +43,7 @@ func _setValues():
 	master_volume.value = GlobalData.settings.master_vol 
 	sfx_volume.value = GlobalData.settings.sfx_vol 
 	music_volume.value = GlobalData.settings.music_vol 
+
+
+func _on_back_pressed():
+	UImanager.changeMenuTo("settings")

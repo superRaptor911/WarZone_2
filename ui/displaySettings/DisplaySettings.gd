@@ -14,6 +14,7 @@ func _connectSignals():
 	dynamic_cam.connect("toggled", self, "_on_dynamic_cam_pressed") 
 	gore.connect("toggled", self, "_on_gore_pressed") 
 	ok_btn.connect("pressed", self, "_on_ok_pressed") 
+	UImanager.connect("back_pressed", self, "_on_back_pressed") 
 
 
 func _on_dynamic_cam_pressed(value : bool):
@@ -32,3 +33,7 @@ func _on_ok_pressed():
 func _setValues():
 	dynamic_cam.pressed = GlobalData.settings.dynamic_cam 
 	gore.pressed = GlobalData.settings.gore 
+
+
+func _on_back_pressed():
+	UImanager.changeMenuTo("settings")
