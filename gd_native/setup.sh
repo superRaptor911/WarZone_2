@@ -15,23 +15,25 @@ installGodotCpp()
 	clear
 	printBuffer "Downloading godot cpp bindings"
 	rm -rf godot-cpp
-	wget "https://github.com/GodotNativeTools/godot-cpp/archive/master.zip"
+	wget "https://github.com/GodotNativeTools/godot-cpp/archive/3.2.zip"
 	
 	if [[ $? -eq 0 ]]; then
-		unzip master.zip
-		mv godot-cpp-master godot-cpp
-		rm master.zip
+		unzip 3.2.zip
+		mv godot-cpp-3.2 godot-cpp
+		rm 3.2.zip
 	else
 		printBuffer "Error : failed to download godot cpp bindings"
 		return 1
 	fi
 
 	cd godot-cpp
-	wget -O "master.zip" "https://github.com/godotengine/godot_headers/archive/f2122198d51f230d903f9585527248f6cf411494.zip"
+    # https://github.com/godotengine/godot-headers/archive/815f34e1e96c09122449105c55aba501654da029.zip
+    # https://github.com/godotengine/godot-headers/archive/3.2.zip
+	wget -O "master.zip" "https://github.com/godotengine/godot-headers/archive/3.2.zip"
 	if [[ $? -eq 0 ]]; then
 		unzip master.zip
-		rm -rf godot_headers
-		mv godot_headers-f2122198d51f230d903f9585527248f6cf411494 godot_headers
+		rm -rf godot-headers
+		mv godot-headers-3.2 godot-headers
 		rm master.zip
 	else
 		printBuffer "Error : failed to download godot cpp bindings"

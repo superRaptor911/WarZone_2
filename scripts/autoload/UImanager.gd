@@ -11,6 +11,7 @@ var menus = {
 	display_settings = "res://ui/displaySettings/DisplaySettings.tscn"
 }
 
+signal back_pressed
 
 func changeMenuTo(menu_name : String):
 	var scene_path = menus.get(menu_name)
@@ -18,3 +19,14 @@ func changeMenuTo(menu_name : String):
 		get_tree().change_scene(scene_path)
 	else:
 		print("UImanager::Error::unable to find scene " + menu_name)
+
+
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+		_on_Back_pressed()
+	elif what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		_on_Back_pressed()
+
+
+func _on_Back_pressed():
+	emit_signal("back_pressed")

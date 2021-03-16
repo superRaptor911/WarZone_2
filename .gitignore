@@ -16,3 +16,4 @@ output/
 *.zip
 logs/
 .import/
+keystore/

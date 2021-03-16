@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=1]
 [ext_resource path="res://ui/hud/Hud.gd" type="Script" id=2]
@@ -12,6 +12,12 @@
 [ext_resource path="res://resources/images/gun.png" type="Texture" id=10]
 [ext_resource path="res://resources/images/reload.png" type="Texture" id=11]
 [ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=12]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 125, 120 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 128, 110 )
 
 [node name="Hud" type="CanvasLayer" groups=[
 "Hud",
@@ -196,7 +202,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="reload_gun" type="TextureButton" parent="hud"]
+[node name="reload_gun" type="Control" parent="hud"]
 anchor_left = 0.766
 anchor_top = 0.452
 anchor_right = 0.833
@@ -205,28 +211,32 @@ margin_left = 0.195496
 margin_top = -0.196838
 margin_right = 0.435425
 margin_bottom = 0.00314331
-texture_normal = ExtResource( 11 )
-expand = true
-stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="zoom_btn" type="TextureButton" parent="hud"]
-anchor_left = 0.925
-anchor_top = 0.124
-anchor_right = 0.987
-anchor_bottom = 0.233
-margin_left = -0.502808
-margin_top = -0.280006
-margin_right = 0.137207
-margin_bottom = 0.23999
-texture_normal = ExtResource( 7 )
-expand = true
-stretch_mode = 5
+[node name="touch" type="TouchScreenButton" parent="hud/reload_gun"]
+scale = Vector2( 0.3, 0.3 )
+normal = ExtResource( 11 )
+shape = SubResource( 2 )
+
+[node name="zoom_btn" type="Control" parent="hud"]
+anchor_left = 0.866
+anchor_top = 0.126
+anchor_right = 0.962
+anchor_bottom = 0.269
+margin_left = -0.480103
+margin_top = -0.720001
+margin_right = 1.63989
+margin_bottom = 0.319977
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="touch" type="TouchScreenButton" parent="hud/zoom_btn"]
+scale = Vector2( 0.5, 0.5 )
+normal = ExtResource( 7 )
+shape = SubResource( 1 )
 
 [node name="reloading_bar" type="ProgressBar" parent="hud"]
 visible = false
@@ -256,22 +266,39 @@ text = "Reloading ..."
 modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
 anchor_left = 0.126
 anchor_top = 0.638
-anchor_right = 0.276
-anchor_bottom = 0.884
-margin_left = -7.67807
-margin_top = 0.161957
-margin_right = 0.321899
-margin_bottom = 0.0419312
+anchor_right = 0.317
+anchor_bottom = 0.958
+margin_left = -7.28
+margin_top = 0.639984
+margin_right = 0.23999
+margin_bottom = 0.239929
+
+[node name="ring" parent="hud/mov_joy" index="0"]
+margin_left = -69.0
+margin_top = -66.0
+margin_right = 69.0
+margin_bottom = 66.0
 
 [node name="aim_joy" parent="hud" instance=ExtResource( 4 )]
 modulate = Color( 0.705882, 0.705882, 0.705882, 1 )
 anchor_left = 0.718
 anchor_top = 0.638
-anchor_right = 0.874
-anchor_bottom = 0.884
-margin_left = -0.310913
-margin_top = 0.161957
-margin_right = 0.00915527
-margin_bottom = 0.0419312
+anchor_right = 0.915
+anchor_bottom = 0.957
+margin_left = 4.72223
+margin_top = -0.947418
+margin_right = 4.56213
+margin_bottom = -1.62744
+radius = 80.0
+
+[node name="ring" parent="hud/aim_joy" index="0"]
+margin_left = -69.0
+margin_top = -69.0
+margin_right = 69.0
+margin_bottom = 69.0
 
 [node name="Tween" type="Tween" parent="."]
+
+[editable path="hud/mov_joy"]
+
+[editable path="hud/aim_joy"]

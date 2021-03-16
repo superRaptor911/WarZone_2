@@ -7,8 +7,12 @@ reloadable=true
 
 [entry]
 
+Android.armeabi-v7a="res://bin/androidarmv7/libmovement.so"
+Android.arm64-v8a="res://bin/androidarm64v8/libmovement.so"
 X11.64="res://bin/x11/libmovement.so"
 
 [dependencies]
 
+Android.armeabi-v7a=[  ]
+Android.arm64-v8a=[  ]
 X11.64=[  ]

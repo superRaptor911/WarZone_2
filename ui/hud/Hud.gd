@@ -11,9 +11,9 @@ onready var pause_btn           = get_node("hud/pause_button")
 onready var buy_btn             = get_node("hud/buy_btn")
 onready var mov_joy             = get_node("hud/mov_joy")
 onready var aim_joy             = get_node("hud/aim_joy")
-onready var zoom_btn            = get_node("hud/zoom_btn")
+onready var zoom_btn            = get_node("hud/zoom_btn/touch")
 onready var next_gun_btn        = get_node("hud/next_gun")
-onready var reload_gun_btn      = get_node("hud/reload_gun")
+onready var reload_gun_btn      = get_node("hud/reload_gun/touch")
 onready var reload_progress_bar = get_node("hud/reloading_bar")
 onready var tween               = get_node("Tween")
 
@@ -89,9 +89,9 @@ func _on_gun_reloaded():
 
 func _process(_delta):
 	if player.alive:
-		if mov_joy.joystick_vector.length_squared() > 0.4:
+		if mov_joy.joystick_vector.length_squared() > 0.16 :
 			player.direction = -mov_joy.joystick_vector
-		if aim_joy.joystick_vector.length_squared() > 0.4:
+		if aim_joy.joystick_vector.length_squared() > 0.1:
 			var theta = (-aim_joy.joystick_vector).angle() + PI / 2
 			if theta > PI:
 				theta = theta - 2 * PI 
