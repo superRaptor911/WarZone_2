@@ -1,0 +1,5 @@
+{
+    "modes" : {
+        "Tdm" : "res://resources/levels/Ruins/Ruins_tdm.tscn"
+    }
+}

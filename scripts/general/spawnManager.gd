@@ -47,7 +47,7 @@ func getSpawnPosition(team_id : int):
 	var spawn_points = get_tree().get_nodes_in_group("SpawnPoints")
 	var our_spawn_points = []
 	for i in spawn_points:
-		if i.team_id == team_id:
+		if i.team_id == team_id || i.team_id == -1:
 			our_spawn_points.append(i)
 	if our_spawn_points.size() == 0:
 		print("SpawnManager::Error::No spawn point for %d" % [team_id])
