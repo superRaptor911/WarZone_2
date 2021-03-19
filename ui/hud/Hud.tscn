@@ -13,13 +13,13 @@
 [ext_resource path="res://resources/images/reload.png" type="Texture" id=11]
 [ext_resource path="res://resources/fonts/arial_medium.tres" type="DynamicFont" id=12]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 140, 140 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 125, 120 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 128, 110 )
 
 [node name="Hud" type="CanvasLayer" groups=[
@@ -205,7 +205,7 @@ __meta__ = {
 [node name="touch" type="TouchScreenButton" parent="hud/next_gun"]
 scale = Vector2( 0.35, 0.35 )
 normal = ExtResource( 10 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="reload_gun" type="Control" parent="hud"]
 anchor_left = 0.766
@@ -241,7 +241,7 @@ __meta__ = {
 [node name="touch" type="TouchScreenButton" parent="hud/zoom_btn"]
 scale = Vector2( 0.5, 0.5 )
 normal = ExtResource( 7 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="reloading_bar" type="ProgressBar" parent="hud"]
 visible = false

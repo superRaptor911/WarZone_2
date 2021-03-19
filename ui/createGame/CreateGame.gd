@@ -1,9 +1,10 @@
 extends Control
 
-onready var start_game : Button = get_node("horizontal/config/start")
-onready var level_options : OptionButton = get_node("horizontal/config/container/select_level/OptionButton")
-onready var mode_options : OptionButton = get_node("horizontal/config/container/select_gamemode/OptionButton")
+onready var start_game : Button = get_node("config/start")
+onready var level_options = get_node("config/container/select_level/select")
+onready var mode_options : OptionButton = get_node("config/container/select_gamemode/OptionButton")
 
+var level_selector_scene = preload("res://ui/createGame/LevelSelector.tscn")
 var level_reader = preload("res://ui/createGame/LevelReader.gd").new()
 var network = null
 
@@ -15,7 +16,7 @@ func _ready():
 
 func _connectSignals():
 	start_game.connect("pressed", self, "_on_start_pressed")
-	level_options.connect("item_selected", self, "_on_level_selected")
+	level_options.connect("pressed", self, "_on_level_pressed")
 	UImanager.connect("back_pressed", self, "_on_back_pressed") 
 
 
@@ -46,9 +47,9 @@ func _on_server_creation_success():
 	
 
 func getLevelSettings():
-	var node = get_node("horizontal/config/container/select_gamemode/OptionButton")
+	var node = get_node("config/container/select_gamemode/OptionButton")
 	var game_mode = node.get_item_text(node.selected)
-	node = get_node("horizontal/config/container/select_level/OptionButton")
+	node = get_node("config/container/select_level/selected")
 	var level_name = node.get_item_text(node.selected)
 
 	var settings = {
@@ -61,21 +62,24 @@ func getLevelSettings():
 
 
 func _fillLevels():
-	level_options.clear()
 	var levels = level_reader.getLevels()
-	for i in levels:
-		level_options.add_item(i)
 	# Select first level
 	if !levels.empty():
-		_on_level_selected(0)
+		_on_level_selected(levels[0])
 
 
-func _on_level_selected(id):
-	var level = level_options.get_item_text(id)
+func _on_level_selected(level):
+	level_options.text = level
 	var modes = level_reader.getLevelModes(level)
 	mode_options.clear()
 	for i in modes:
 		mode_options.add_item(i)
+
+
+func _on_level_pressed():
+	var level_selector = level_selector_scene.instance()
+	level_selector.connect("level_selected", self, "_on_level_selected") 
+	add_child(level_selector)
 
 
 func _on_back_pressed():

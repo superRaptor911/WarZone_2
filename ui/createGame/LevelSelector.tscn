@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/createGame/LevelSelector.gd" type="Script" id=1]
+[ext_resource path="res://resources/fonts/arial_large.tres" type="DynamicFont" id=3]
+
+[node name="LevelSelector" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -555.0
+margin_top = -308.461
+margin_right = 555.0
+margin_bottom = 255.539
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+margin_right = 1084.0
+margin_bottom = 552.0
+rect_min_size = Vector2( 1084, 552 )
+custom_constants/vseparation = 40
+custom_constants/hseparation = 20
+columns = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="select_btn" type="Button" parent="."]
+anchor_left = 0.45
+anchor_top = 0.869
+anchor_right = 0.556
+anchor_bottom = 0.95
+margin_top = 0.271179
+margin_right = 0.319946
+margin_bottom = -0.0488892
+custom_fonts/font = ExtResource( 3 )
+text = "Select"
+__meta__ = {
+"_edit_use_anchors_": false
+}

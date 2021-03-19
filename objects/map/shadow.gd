@@ -10,6 +10,7 @@ var timer : Timer = null
 
 func _ready():
 	dynamic_update = dynamic_update || Engine.editor_hint
+	map = get_parent()
 	if dynamic_update:
 		timer = Timer.new()
 		timer.wait_time = 5
@@ -42,9 +43,7 @@ class TileYsort:
 	static func compare(a : Vector2,b : Vector2) -> bool:
 		if a.x < b.x:
 			return true
-		if a.y < b.y:
-			return true
-		return false
+		return a.y < b.y
 
 
 func _processWalls(xEndingTiles, yEndingTiles, yStartingTiles, xStartingTiles):
@@ -83,20 +82,20 @@ func _createShadows(xEndingTiles, yEndingTiles, yStartingTiles, xStartingTiles):
 	for i in xEndingTiles:
 		if yStartingTiles.has(i):
 			set_cell(i.x+1,i.y,0,false,false,false,Vector2(0,4))
-			if  map.get_cell(i.x + 1,i.y + 1) == -1:
+			if  !_isWall(Vector2(i.x + 1,i.y + 1)):
 				set_cell(i.x+1,i.y + 1,0,false,false,false,Vector2(0,2))
 		else:
 			set_cell(i.x+1,i.y,0,false,false,false,Vector2(1,3))
-		if yEndingTiles.has(i) and map.get_cell(i.x + 1,i.y + 1) == -1:
+		if yEndingTiles.has(i) and !_isWall(Vector2(i.x + 1,i.y + 1)):
 			set_cell(i.x+1,i.y + 1,0,false,false,false,Vector2(0,2))
 	
 	# Place shadow blocks in y dir
 	for i in yEndingTiles:
-		if get_cell(i.x,i.y + 1) != -1:
+		if _isWall(Vector2(i.x,i.y + 1)):
 			set_cell(i.x,i.y + 1,0,false,false,false,Vector2(1,5))
-		elif xStartingTiles.has(i) and map.get_cell(i.x ,i.y + 1) == -1:
+		elif xStartingTiles.has(i) and !_isWall(Vector2(i.x ,i.y + 1)):
 			set_cell(i.x,i.y + 1,0,false,false,false,Vector2(1,1))
-		elif map.get_cell(i.x,i.y + 1) == -1:
+		elif !_isWall(Vector2(i.x ,i.y + 1)):
 			set_cell(i.x,i.y + 1,0,false,false,false,Vector2(0,0))
 
 
@@ -109,11 +108,17 @@ func main():
 	_clearShadows()
 	_processWalls(xEndingTiles, yEndingTiles, yStartingTiles, xStartingTiles)
 	_createShadows(xEndingTiles, yEndingTiles, yStartingTiles, xStartingTiles)
+	listShadows()
 
+func listShadows():
+	for i in range(2):
+		for j in range(6):
+			set_cell(i, j, 0,false,false,false,Vector2(i,j))
+			print("Placing shadow at %d , %d" % [i,j])
 
 func _on_timeout():
 	var new_walls = _getWalls()
 	if _old_walls != new_walls:
 		_old_walls = new_walls
 		main()
-		print("Updating shadow map")
+		print("Updating shadow map||||")

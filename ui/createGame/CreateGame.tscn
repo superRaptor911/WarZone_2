@@ -20,46 +20,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="."]
+[node name="config" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_min_size = Vector2( 800, 0 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="horizontal" type="HBoxContainer" parent="."]
+[node name="container" type="VBoxContainer" parent="config"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -630.0
-margin_top = -350.0
-margin_right = 630.0
-margin_bottom = 350.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="config" type="Panel" parent="horizontal"]
-margin_right = 800.0
-margin_bottom = 700.0
-rect_min_size = Vector2( 800, 0 )
-custom_styles/panel = SubResource( 1 )
-
-[node name="container" type="VBoxContainer" parent="horizontal/config"]
-anchor_right = 1.0
-margin_left = 118.794
-margin_top = 104.581
-margin_right = -462.206
-margin_bottom = 168.581
+margin_left = -349.0
+margin_top = -195.0
+margin_right = 350.0
+margin_bottom = 189.0
 custom_constants/separation = 50
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="select_level" type="Label" parent="horizontal/config/container"]
-margin_right = 219.0
+[node name="select_level" type="Label" parent="config/container"]
+margin_right = 699.0
 margin_bottom = 30.0
 custom_fonts/font = ExtResource( 1 )
 text = "Select Level"
@@ -67,21 +52,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionButton" type="OptionButton" parent="horizontal/config/container/select_level"]
+[node name="select" type="Button" parent="config/container/select_level"]
 margin_left = 385.693
 margin_right = 551.693
-margin_bottom = 36.0
+margin_bottom = 37.0
 custom_fonts/font = ExtResource( 1 )
-text = "Dust 2"
-items = [ "Dust 2", null, false, 0, null ]
-selected = 0
+custom_constants/hseparation = 10
+text = "Dust"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="select_gamemode" type="Label" parent="horizontal/config/container"]
+[node name="select_gamemode" type="Label" parent="config/container"]
 margin_top = 80.0
-margin_right = 219.0
+margin_right = 699.0
 margin_bottom = 110.0
 custom_fonts/font = ExtResource( 1 )
 text = "Select Game Mode"
@@ -89,7 +73,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionButton" type="OptionButton" parent="horizontal/config/container/select_gamemode"]
+[node name="OptionButton" type="OptionButton" parent="config/container/select_gamemode"]
 margin_left = 385.693
 margin_top = 2.0
 margin_right = 551.693
@@ -102,7 +86,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="start" type="Button" parent="horizontal/config"]
+[node name="start" type="Button" parent="config"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5

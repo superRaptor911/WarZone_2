@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Ruins.png-985305dddd6f6d50b11177a0a8334164.stex"
+path="res://.import/Ruins.png-7298b18df908d664ffe14202b84ef972.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/maps/Ruins.png"
-dest_files=[ "res://.import/Ruins.png-985305dddd6f6d50b11177a0a8334164.stex" ]
+source_file="res://resources/levels/Ruins/Ruins.png"
+dest_files=[ "res://.import/Ruins.png-7298b18df908d664ffe14202b84ef972.stex" ]
 
 [params]
 
